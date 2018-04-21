@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "DTD/xhtml1-transitional.dtd">
+
+<!-- This HTML document was created by converting a Mathematica notebook using Export. -->
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" class="Notebook">
+
+<head >
+<title>
+  MODELISATION.nb
+</title>
+
+<link href="../HTMLFiles/index.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+<p class="Section">
+ Calculs
+</p>
+
+
+
+<p class="CellLabel">
+ In[143]:=
+</p>
+
+
+
+<p class="Input">
+ <img src="../HTMLFiles/index_4.gif"  border="0"  alt="Off[General :: spell, General :: spell1] ;"  width="261" height="18"  align="absmiddle"  />
+</p>
+
+<p class="CellLabel">
+ In[144]:=
+</p>
+
+
+
+<p class="Input">
+ <img src="../HTMLFiles/index_5.gif"  border="0"  alt="Zdos[p_] := Evaluate[LaplaceTransform[zdos[t], t, p]] ; Es[p_] := Zdos[p] * EsZdos[p] ; Zsac[p ... /p) ; Fjbevid[p_] := M * (p^2 * Zdos[p] + g/p) ; Fjbesac[p_] := (M + m) * (p^2 * Zdos[p] + g/p) ; "  width="399" height="158"  align="absmiddle"  />
+</p>
+
+<p class="CellLabel">
+ In[152]:=
+</p>
+
+
+
+<p class="Input">
+ <img src="../HTMLFiles/index_6.gif"  border="0"  alt="es[t_] := Evaluate[Chop[Re[InverseLaplaceTransform[Es[p], p, t]]]] ; zsac[t_] := Evaluate[Chop ... seLaplaceTransform[Fjbesac[p], p, t]]]] ; P[t_] := 1/T * NIntegrate[es[x]^2/Rch, {x, t, t + T}] ; "  width="551" height="158"  align="absmiddle"  />
+</p>
+
+<p class="CellLabel">
+ In[160]:=
+</p>
+
+
+
+<p class="Input">
+ <img src="../HTMLFiles/index_7.gif"  border="0"  alt="&#981;[fct_][&#969;_] := Arg[fct[&#63310; * &#969;]] ; &#981;[EsZdos][&#969;_] := Arg[EsZdos[& ... QUI NE SERVENT QUE POUR BODE !! !! !! ! *) ; Gain[fct_][&#969;_] := Abs[fct[&#63310; * &#969;]] ; "  width="816" height="58"  align="absmiddle"  />
+</p>
+
+
+<hr />
+<p style='font-family: Helvetica; font-size: 8pt'>Created by
+<a href="http://www.wolfram.com"><span style='font-style: italic'>Mathematica</span></a>
+&nbsp;(June 7, 2006) </p>
+
+</body>
+
+</html>

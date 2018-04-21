@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "DTD/xhtml1-transitional.dtd">
+
+<!-- This HTML document was created by converting a Mathematica notebook using Export. -->
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" class="Notebook">
+
+<head >
+<title>
+  MODELISATION.nb
+</title>
+
+<link href="HTMLFiles/index.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+<p class="Title">
+ Modelisation 
+</p>
+
+
+
+<p class="Section">
+ Donnees
+</p>
+
+
+
+<p class="CellLabel">
+ In[117]:=
+</p>
+
+
+
+<p class="Input">
+ <img src="HTMLFiles/index_1.gif"  border="0"  alt="RowBox[{RowBox[{&#934;0, =, 0.01}], ;, RowBox[{(*, RowBox[{Flux,  , propre,  , de,  , la,  , g ... , =, 9.8}], ;}], RowBox[{(*, RowBox[{Champ,  , de,  , pesanteur,  , uniforme,  , 9.8}], *)}], ;}] "  width="628" height="278"  align="absmiddle"  />
+</p>
+
+<p class="CellLabel">
+ In[130]:=
+</p>
+
+
+
+<p class="Input">
+ <img src="HTMLFiles/index_2.gif"  border="0"  alt="H[p_] := p/(Cr&nbsp;&nbsp;Rroue) ; G[p_] := 1/(Cr m p^2 Rroue) (J p + (k + f p) ( Rroue&nbsp;& ... [1/(1 + G[p] * H[p])] ; FextZdos[p_] := FullSimplify[(m * p^2) * G[p] * H[p]/(1 + G[p] * H[p])] ; "  width="473" height="186"  align="absmiddle"  />
+</p>
+
+<p class="CellLabel">
+ In[137]:=
+</p>
+
+
+
+<p class="Input">
+ <img src="HTMLFiles/index_3.gif"  border="0"  alt="RowBox[{RowBox[{marchemodele1[t_], :=, RowBox[{RowBox[{-, 0.0307935}], +, RowBox[{0.0351926, * ... x[{RowBox[{-, 0.035}], +, RowBox[{0.035, *, Cos[(4 * Pi * t)/T]}]}]}], ;}] zdos = marchemodele1 ; "  width="1318" height="318"  align="absmiddle"  />
+</p>
+
+<a href="HTMLLinks/index_1.html"><p class="Section">
+ Calculs
+</p>
+
+
+
+</a><p class="Section">
+ Graphes
+</p>
+
+
+
+<p class="CellLabel">
+ In[172]:=
+</p>
+
+
+
+<p class="Input">
+ <img src="HTMLFiles/index_8.gif"  border="0"  alt="&lt;&lt;Graphics`Graphics`"  width="148" height="18"  align="absmiddle"  />
+</p>
+
+<p class="CellLabel">
+ In[173]:=
+</p>
+
+
+
+<p class="Input">
+ <img src="HTMLFiles/index_9.gif"  border="0"  alt="RowBox[{RowBox[{LogLinearPlot, [, RowBox[{{&#981;[EsZdos][&#969;], &#981;[ZsacZdos][&#969;], & ... owBox[{0, ,, 0.5, ,, 0}], ]}]}], }}]}], ,, PlotPoints&#62754;3000, ,, PlotRange&#62754;All}], ]}] "  width="1215" height="78"  align="absmiddle"  />
+</p>
+
+<p class="Graphics">
+ <img src="HTMLFiles/index_10.gif"  border="0"  alt="[Graphics:HTMLFiles/index_10.gif]"  width="816" height="504"  align="absmiddle"  />
+</p>
+
+<p class="Graphics">
+ <img src="HTMLFiles/index_11.gif"  border="0"  alt="[Graphics:HTMLFiles/index_11.gif]"  width="816" height="504"  align="absmiddle"  />
+</p>
+
+<p class="CellLabel">
+ Out[174]=
+</p>
+
+
+
+<p class="Output">
+ <img src="HTMLFiles/index_12.gif"  border="0"  alt="&#8259;Graphics&#8259;"  width="80" height="17"  align="absmiddle"  />
+</p>
+
+<p class="CellLabel">
+ In[175]:=
+</p>
+
+
+
+<p class="Input">
+ <img src="HTMLFiles/index_13.gif"  border="0"  alt="RowBox[{Plot, [, RowBox[{{marchemodele1[t], marchecapture1[t], marchecapture2[t], marchecompas ... 0.5, ,, 0}], ]}], ,, RGBColor[0, 0, 1], ,, RGBColor[1, 0, 1], ,, RGBColor[0, 1, 1]}], }}]}]}], ]}]"  width="954" height="38"  align="absmiddle"  />
+</p>
+
+<p class="Graphics">
+ <img src="HTMLFiles/index_14.gif"  border="0"  alt="[Graphics:HTMLFiles/index_14.gif]"  width="800" height="494"  align="absmiddle"  />
+</p>
+
+<p class="CellLabel">
+ Out[175]=
+</p>
+
+
+
+<p class="Output">
+ <img src="HTMLFiles/index_15.gif"  border="0"  alt="&#8259;Graphics&#8259;"  width="80" height="17"  align="absmiddle"  />
+</p>
+
+<p class="CellLabel">
+ In[176]:=
+</p>
+
+
+
+<p class="Input">
+ <img src="HTMLFiles/index_16.gif"  border="0"  alt="Plot[es[t], {t, 50, 52}, PlotStyle&#62754;RGBColor[0, 0, 1], PlotPoints&#62754;50, PlotRange&#62754;All]"  width="591" height="18"  align="absmiddle"  />
+</p>
+
+<p class="Graphics">
+ <img src="HTMLFiles/index_17.gif"  border="0"  alt="[Graphics:HTMLFiles/index_17.gif]"  width="800" height="494"  align="absmiddle"  />
+</p>
+
+<p class="CellLabel">
+ Out[176]=
+</p>
+
+
+
+<p class="Output">
+ <img src="HTMLFiles/index_18.gif"  border="0"  alt="&#8259;Graphics&#8259;"  width="80" height="17"  align="absmiddle"  />
+</p>
+
+<p class="CellLabel">
+ In[177]:=
+</p>
+
+
+
+<p class="Input">
+ <img src="HTMLFiles/index_19.gif"  border="0"  alt="P[1000]"  width="53" height="18"  align="absmiddle"  />
+</p>
+
+<p class="CellLabel">
+ Out[177]=
+</p>
+
+
+
+<p class="Output">
+ <img src="HTMLFiles/index_20.gif"  border="0"  alt="25.8229"  width="53" height="17"  align="absmiddle"  />
+</p>
+
+<p class="CellLabel">
+ In[181]:=
+</p>
+
+
+
+<p class="Input">
+ <img src="HTMLFiles/index_21.gif"  border="0"  alt="Plot[P[t], {t, 0, 5}, PlotPoints&#62754;5, PlotRange&#62754;All]"  width="358" height="18"  align="absmiddle"  />
+</p>
+
+<p class="Graphics">
+ <img src="HTMLFiles/index_22.gif"  border="0"  alt="[Graphics:HTMLFiles/index_22.gif]"  width="800" height="494"  align="absmiddle"  />
+</p>
+
+<p class="CellLabel">
+ Out[181]=
+</p>
+
+
+
+<p class="Output">
+ <img src="HTMLFiles/index_23.gif"  border="0"  alt="&#8259;Graphics&#8259;"  width="80" height="17"  align="absmiddle"  />
+</p>
+
+<p class="CellLabel">
+ In[179]:=
+</p>
+
+
+
+<p class="Input">
+ <img src="HTMLFiles/index_24.gif"  border="0"  alt="RowBox[{Plot, [, RowBox[{{zdos[t], zsac[t], zeps[t]}, ,, {t, 50, 52}, ,, PlotPoints&#62754;50, ... ing, [, RowBox[{{, RowBox[{0.01, ,, 0.01}], }}], ]}], ,, RGBColor[0, .5, 0]}], }}]}], }}]}]}], ]}]"  width="911" height="38"  align="absmiddle"  />
+</p>
+
+<p class="Graphics">
+ <img src="HTMLFiles/index_25.gif"  border="0"  alt="[Graphics:HTMLFiles/index_25.gif]"  width="800" height="494"  align="absmiddle"  />
+</p>
+
+<p class="CellLabel">
+ Out[179]=
+</p>
+
+
+
+<p class="Output">
+ <img src="HTMLFiles/index_26.gif"  border="0"  alt="&#8259;Graphics&#8259;"  width="80" height="17"  align="absmiddle"  />
+</p>
+
+<p class="CellLabel">
+ In[180]:=
+</p>
+
+
+
+<p class="Input">
+ <img src="HTMLFiles/index_27.gif"  border="0"  alt="RowBox[{Plot, [, RowBox[{{fjbevid[t], fjbesac[t], fjbesusp[t]}, ,, {t, 50, 52}, ,, PlotPoints& ... , 1], ,, RowBox[{RGBColor, [, RowBox[{0, ,, 0.5, ,, 0}], ]}], ,, RGBColor[1, 0, 0]}], }}]}]}], ]}]"  width="1088" height="18"  align="absmiddle"  />
+</p>
+
+<p class="Graphics">
+ <img src="HTMLFiles/index_28.gif"  border="0"  alt="[Graphics:HTMLFiles/index_28.gif]"  width="800" height="494"  align="absmiddle"  />
+</p>
+
+<p class="CellLabel">
+ Out[180]=
+</p>
+
+
+
+<p class="Output">
+ <img src="HTMLFiles/index_29.gif"  border="0"  alt="&#8259;Graphics&#8259;"  width="80" height="17"  align="absmiddle"  />
+</p>
+
+<a href="HTMLLinks/index_2.html"><p class="Section">
+ Animations
+</p>
+
+
+
+</a>
+<hr />
+<p style='font-family: Helvetica; font-size: 8pt'>Created by
+<a href="http://www.wolfram.com"><span style='font-style: italic'>Mathematica</span></a>
+&nbsp;(June 7, 2006) </p>
+
+</body>
+
+</html>
