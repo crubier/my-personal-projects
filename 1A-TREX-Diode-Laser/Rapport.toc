@@ -1,0 +1,43 @@
+\select@language {french}
+\contentsline {section}{\numberline {I}\ G\'en\'eralit\'es}{2}{section.1}
+\contentsline {subsection}{\numberline {I.1}\ Structure de l'atome}{2}{subsection.1.1}
+\contentsline {subsection}{\numberline {I.2}\ Les changements d'\'etat de l'atome}{2}{subsection.1.2}
+\contentsline {subsubsection}{\numberline {I.2.A}\ L'absorption}{2}{subsubsection.1.2.1}
+\contentsline {subsubsection}{\numberline {I.2.B}\ L'\'emission spontan\'ee }{2}{subsubsection.1.2.2}
+\contentsline {subsubsection}{\numberline {I.2.C}\ L{\textquotesingle }\'emission stimul\'ee}{3}{subsubsection.1.2.3}
+\contentsline {subsection}{\numberline {I.3}\ Le LASER}{3}{subsection.1.3}
+\contentsline {subsubsection}{\numberline {I.3.A}\ Le pompage}{3}{subsubsection.1.3.1}
+\contentsline {subsubsection}{\numberline {I.3.B}\ L'amplification}{4}{subsubsection.1.3.2}
+\contentsline {subsection}{\numberline {I.4}\ Les modes de propagation}{4}{subsection.1.4}
+\contentsline {subsubsection}{\numberline {I.4.A}\ Les modes longitudinaux }{4}{subsubsection.1.4.1}
+\contentsline {subsubsection}{\numberline {I.4.B}\ Les modes transverses}{5}{subsubsection.1.4.2}
+\contentsline {subsection}{\numberline {I.5}\ Le laser \`a semi{}-conducteur}{5}{subsection.1.5}
+\contentsline {subsubsection}{\numberline {I.5.A}\ Les semi{}-conducteurs}{5}{subsubsection.1.5.1}
+\contentsline {subsubsection}{\numberline {I.5.B}\ Utilisation des semi{}-conducteurs dans un laser}{5}{subsubsection.1.5.2}
+\select@language {french}
+\select@language {french}
+\contentsline {section}{\numberline {II}\ Variation de la puissance optique \'emise en fonction de la temp\'erature et de l{\textquotesingle }intensit\'e \'electrique re\c {c}ue}{6}{section.2}
+\contentsline {subsection}{\numberline {II.1}\ Objectifs}{6}{subsection.2.1}
+\contentsline {subsection}{\numberline {II.2}\ Manipulation}{6}{subsection.2.2}
+\contentsline {subsection}{\numberline {II.3}\ R\'esultats}{6}{subsection.2.3}
+\contentsline {subsubsection}{\numberline {II.3.A}\ R\'esultats bruts}{6}{subsubsection.2.3.1}
+\contentsline {subsubsection}{\numberline {II.3.B}\ Mod\'elisation}{6}{subsubsection.2.3.2}
+\contentsline {subsubsection}{\numberline {II.3.C}\ Influence de la temp\'erature}{7}{subsubsection.2.3.3}
+\contentsline {section}{\numberline {III}\ \'Etude des modes de propagation transverses}{7}{section.3}
+\contentsline {subsection}{\numberline {III.1}\ Objectifs}{7}{subsection.3.1}
+\contentsline {subsection}{\numberline {III.2}\ Manipulation}{7}{subsection.3.2}
+\contentsline {subsection}{\numberline {III.3}\ R\'esultats}{8}{subsection.3.3}
+\contentsline {subsubsection}{\numberline {III.3.A}\ Caract\'erisation spatiale}{8}{subsubsection.3.3.1}
+\contentsline {subsubsection}{\numberline {III.3.B}\ Influence de l{\textquotesingle }orientation de la diode laser dans les mesures}{8}{subsubsection.3.3.2}
+\contentsline {subsubsection}{\numberline {III.3.C}\ Influence de la distance entre la diode laser et la photodiode}{8}{subsubsection.3.3.3}
+\contentsline {subsubsection}{\numberline {III.3.D}\ Diff\'erents modes de propagation transverse}{9}{subsubsection.3.3.4}
+\contentsline {section}{\numberline {IV}\ \'Etude des modes de propagation longitudinaux}{9}{section.4}
+\contentsline {subsection}{\numberline {IV.1}\ Objectifs}{9}{subsection.4.1}
+\contentsline {subsection}{\numberline {IV.2}\ Manipulation}{9}{subsection.4.2}
+\contentsline {subsection}{\numberline {IV.3}\ R\'esultats}{10}{subsection.4.3}
+\contentsline {subsubsection}{\numberline {IV.3.A}\ Mod\'elisation}{10}{subsubsection.4.3.1}
+\contentsline {subsubsection}{\numberline {IV.3.B}\ Influence de la temp\'erature}{10}{subsubsection.4.3.2}
+\contentsline {subsubsection}{\numberline {IV.3.C}\ Influence de la puissance optique}{10}{subsubsection.4.3.3}
+\contentsline {section}{\numberline {V}\ Conclusion}{11}{section.5}
+\contentsline {section}{\numberline {VI}\ Annexes}{11}{section.6}
+\contentsline {subsection}{\numberline {VI.1}\ Fiche technique de la diode}{11}{subsection.6.1}
