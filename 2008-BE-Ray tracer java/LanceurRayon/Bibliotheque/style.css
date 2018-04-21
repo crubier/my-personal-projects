@@ -1,0 +1,23 @@
+P { 
+	margin: 0.0cm; 
+	text-align:left;
+	font-family: Helvetica, sans-serif;	
+    margin-bottom: 10px;
+}
+
+H1 { 
+	margin: 0.0cm; 
+	text-align:left;
+	font-family: Helvetica, sans-serif;	
+    margin-bottom: 15px;
+}
+
+body 
+{
+	margin: 0.0cm; 
+/*JAVA GERE MAL L'IMAGE DE FOND, et les styles css en général*/
+	background-image:		url('../Fond.png');
+	background-color : 		#dadcfe;
+	background-repeat: repeat-x;
+	 text-align:justify;
+}

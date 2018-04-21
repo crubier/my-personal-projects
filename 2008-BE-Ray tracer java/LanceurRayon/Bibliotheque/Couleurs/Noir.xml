@@ -1,0 +1,17 @@
+<Couleur Role="" Nom="Noir" Precision="12">
+	<Liste Role="Spectre" Nom="Noir" Type="Double">
+		<Double Role="0" Nom="">0.0</Double>
+		<Double Role="1" Nom="">0.0</Double>
+		<Double Role="2" Nom="">0.0</Double>
+		<Double Role="3" Nom="">0.0</Double>
+		<Double Role="4" Nom="">0.0</Double>
+		<Double Role="5" Nom="">0.0</Double>
+		<Double Role="6" Nom="">0.0</Double>
+		<Double Role="7" Nom="">0.0</Double>
+		<Double Role="8" Nom="">0.0</Double>
+		<Double Role="9" Nom="">0.0</Double>
+		<Double Role="10" Nom="">0.0</Double>
+		<Double Role="11" Nom="">0.0</Double>
+	</Liste>
+	<Double Role="Alpha" Nom="">0.0</Double>
+</Couleur>

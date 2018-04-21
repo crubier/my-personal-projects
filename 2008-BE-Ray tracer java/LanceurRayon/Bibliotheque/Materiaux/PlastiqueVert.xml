@@ -1,0 +1,80 @@
+<Materiau Role="" Nom="PlastiqueVert">
+	<Couleur Role="Attenuation" Nom="" Precision="12">
+		<Liste Role="Spectre" Nom="" Type="Double">
+			<Double Role="0" Nom="">0.0</Double>
+			<Double Role="1" Nom="">0.0</Double>
+			<Double Role="2" Nom="">0.0</Double>
+			<Double Role="3" Nom="">0.0</Double>
+			<Double Role="4" Nom="">0.0</Double>
+			<Double Role="5" Nom="">0.0</Double>
+			<Double Role="6" Nom="">0.6</Double>
+			<Double Role="7" Nom="">0.6</Double>
+			<Double Role="8" Nom="">0.6</Double>
+			<Double Role="9" Nom="">0.6</Double>
+			<Double Role="10" Nom="">0.0</Double>
+			<Double Role="11" Nom="">0.0</Double>
+		</Liste>
+		<Double Role="Alpha" Nom="">0.0</Double>
+	</Couleur>
+	<Couleur Role="Ambiante" Nom="" Reference="Noir"/>
+	<Couleur Role="Speculaire" Nom="" Reference="Blanc"/>
+	<Couleur Role="AntiSpeculaire" Nom="" Reference="Noir"/>
+	<Couleur Role="IndiceSpeculaire" Nom="Blanc005" Precision="12">
+		<Liste Role="Spectre" Nom="" Type="Double">
+			<Double Role="0" Nom="">0.05</Double>
+			<Double Role="1" Nom="">0.05</Double>
+			<Double Role="2" Nom="">0.05</Double>
+			<Double Role="3" Nom="">0.05</Double>
+			<Double Role="4" Nom="">0.05</Double>
+			<Double Role="5" Nom="">0.05</Double>
+			<Double Role="6" Nom="">0.05</Double>
+			<Double Role="7" Nom="">0.05</Double>
+			<Double Role="8" Nom="">0.05</Double>
+			<Double Role="9" Nom="">0.05</Double>
+			<Double Role="10" Nom="">0.05</Double>
+			<Double Role="11" Nom="">0.05</Double>
+		</Liste>
+		<Double Role="Alpha" Nom="">0.0</Double>
+	</Couleur>
+	<Couleur Role="Normale" Nom="" Reference="Blanc"/>
+	<Couleur Role="AntiNormale" Nom="" Reference="Blanc"/>
+	<Couleur Role="IndiceNormale" Nom="" Reference="Blanc"/>
+	<Couleur Role="Diffuse" Nom="" Precision="12">
+		<Liste Role="Spectre" Nom="" Type="Double">
+			<Double Role="0" Nom="">0.0</Double>
+			<Double Role="1" Nom="">0.0</Double>
+			<Double Role="2" Nom="">1.5</Double>
+			<Double Role="3" Nom="">1.5</Double>
+			<Double Role="4" Nom="">1.5</Double>
+			<Double Role="5" Nom="">1.5</Double>
+			<Double Role="6" Nom="">0.0</Double>
+			<Double Role="7" Nom="">0.0</Double>
+			<Double Role="8" Nom="">0.0</Double>
+			<Double Role="9" Nom="">0.0</Double>
+			<Double Role="10" Nom="">0.0</Double>
+			<Double Role="11" Nom="">0.0</Double>
+		</Liste>
+		<Double Role="Alpha" Nom="">0.0</Double>
+	</Couleur>
+	<Couleur Role="AntiDiffuse" Nom="" Reference="Noir"/>
+	<Couleur Role="IndiceDiffuse" Nom="" Reference="Blanc"/>
+	<Couleur Role="Reflexion" Nom="" Precision="12">
+		<Liste Role="Spectre" Nom="" Type="Double">
+			<Double Role="0" Nom="">0.4</Double>
+			<Double Role="1" Nom="">0.4</Double>
+			<Double Role="2" Nom="">0.4</Double>
+			<Double Role="3" Nom="">0.4</Double>
+			<Double Role="4" Nom="">0.4</Double>
+			<Double Role="5" Nom="">0.4</Double>
+			<Double Role="6" Nom="">0.4</Double>
+			<Double Role="7" Nom="">0.4</Double>
+			<Double Role="8" Nom="">0.4</Double>
+			<Double Role="9" Nom="">0.4</Double>
+			<Double Role="10" Nom="">0.4</Double>
+			<Double Role="11" Nom="">0.4</Double>
+		</Liste>
+		<Double Role="Alpha" Nom="">0.0</Double>
+	</Couleur>
+	<Couleur Reference="Noir" Role="Refraction" Nom="" />
+	<Couleur Role="IndiceRefraction" Nom="" Reference="Blanc"/>
+</Materiau>

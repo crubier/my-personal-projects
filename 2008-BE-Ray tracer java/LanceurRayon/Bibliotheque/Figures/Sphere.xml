@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : Sphere.xml
+    Created on : 31 mars 2008, 19:04
+    Author     : Lecrubier
+    Description:
+        Purpose of the document follows.
+-->
+
+<Figure Role="2" Nom="" Type="sphere">
+	<Materiau Role="Materiau" Nom="" Reference=""/>
+	<Vecteur Role="Position" Nom="">
+		<Double Role="X" Nom="">0.0</Double>
+		<Double Role="Y" Nom="">0.0</Double>
+		<Double Role="Z" Nom="">0.0</Double>
+	</Vecteur>
+	<Double Role="Rayon" Nom="">1.0</Double>
+</Figure>

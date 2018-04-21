@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : SceneDefaut.xml
+    Created on : 21 mars 2008, 15:35
+    Author     : Lecrubier
+    Description:
+        Purpose of the document follows.
+-->
+
+
+
+<Lumiere type="ponctuelle" Role="0" Nom="">
+	<Vecteur Role="Position" Nom="">
+		<Double Role="X" Nom="">0.0</Double>
+		<Double Role="Y" Nom="">0.0</Double>
+		<Double Role="Z" Nom="">0.0</Double>
+	</Vecteur>
+	<Couleur Role="Couleur" Nom="Blanc5" Precision="12">
+		<Liste Role="Spectre" Nom="" Type="Double">
+			<Double Role="0" Nom="">5.0</Double>
+			<Double Role="1" Nom="">5.0</Double>
+			<Double Role="2" Nom="">5.0</Double>
+			<Double Role="3" Nom="">5.0</Double>
+			<Double Role="4" Nom="">5.0</Double>
+			<Double Role="5" Nom="">5.0</Double>
+			<Double Role="6" Nom="">5.0</Double>
+			<Double Role="7" Nom="">5.0</Double>
+			<Double Role="8" Nom="">5.0</Double>
+			<Double Role="9" Nom="">5.0</Double>
+			<Double Role="10" Nom="">5.0</Double>
+			<Double Role="11" Nom="">5.0</Double>
+		</Liste>
+		<Double Role="Alpha" Nom="">0.0</Double>
+	</Couleur>
+</Lumiere>
+

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : Tuyau.xml
+    Created on : 31 mars 2008, 14:19
+    Author     : Lecrubier
+    Description:
+        Purpose of the document follows.
+-->
+
+
+<Figure Role="" Nom="Tuyau" Type="intersection">
+	<Materiau Role="Materiau" Nom="" />
+	<Liste Role="Ensemble" Nom="" Type="Figure">
+		<Figure Role="0" Nom="" Type="cylindre">
+			<Materiau Role="Materiau" Nom="" />
+			<Vecteur Role="Position" Nom="">
+				<Double Role="X" Nom="">0.0</Double>
+				<Double Role="Y" Nom="">0.0</Double>
+				<Double Role="Z" Nom="">0.0</Double>
+			</Vecteur>
+			<Vecteur Role="Direction" Nom="">
+				<Double Role="X" Nom="">0.0</Double>
+				<Double Role="Y" Nom="">0.0</Double>
+				<Double Role="Z" Nom="">1.0</Double>
+			</Vecteur>
+			<Double Role="Rayon" Nom="">2.0</Double>
+		</Figure>
+		<Figure Role="1" Nom="" Type="negation">
+			<Materiau Role="Materiau" Nom=""/>
+			<Figure Role="Figure" Nom="" Type="cylindre">
+				<Materiau Role="Materiau" Nom=""/>
+				<Vecteur Role="Position" Nom="">
+					<Double Role="X" Nom="">0.0</Double>
+					<Double Role="Y" Nom="">0.0</Double>
+					<Double Role="Z" Nom="">0.0</Double>
+				</Vecteur>
+				<Vecteur Role="Direction" Nom="">
+					<Double Role="X" Nom="">0.0</Double>
+					<Double Role="Y" Nom="">0.0</Double>
+					<Double Role="Z" Nom="">1.0</Double>
+				</Vecteur>
+				<Double Role="Rayon" Nom="">1.0</Double>
+			</Figure>
+		</Figure>
+		<Figure Role="2" Nom="" Type="plan">
+			<Materiau Role="Materiau" Nom=""/>
+			<Vecteur Role="Position" Nom="">
+				<Double Role="X" Nom="">0.0</Double>
+				<Double Role="Y" Nom="">0.0</Double>
+				<Double Role="Z" Nom="">1.0</Double>
+			</Vecteur>
+			<Vecteur Role="Normale" Nom="">
+				<Double Role="X" Nom="">0.0</Double>
+				<Double Role="Y" Nom="">0.0</Double>
+				<Double Role="Z" Nom="">1.0</Double>
+			</Vecteur>
+		</Figure>
+		<Figure Role="3" Nom="" Type="plan">
+			<Materiau Role="Materiau" Nom=""/>
+			<Vecteur Role="Position" Nom="">
+				<Double Role="X" Nom="">0.0</Double>
+				<Double Role="Y" Nom="">0.0</Double>
+				<Double Role="Z" Nom="">-1.0</Double>
+			</Vecteur>
+			<Vecteur Role="Normale" Nom="">
+				<Double Role="X" Nom="">0.0</Double>
+				<Double Role="Y" Nom="">0.0</Double>
+				<Double Role="Z" Nom="">-1.0</Double>
+			</Vecteur>
+		</Figure>
+	</Liste>
+</Figure>
