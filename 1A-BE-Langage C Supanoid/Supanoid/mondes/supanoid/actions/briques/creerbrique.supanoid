@@ -1,0 +1,10 @@
+creerobjet[prochainobjet[(brique:brique:0)]];
+modifierpropriete[dernierobjet[],dimensions,(60:20)];
+modifierpropriete[dernierobjet[],position,argument[1]];
+modifierpropriete[dernierobjet[],couche,1];
+modifierpropriete[dernierobjet[],masse,1000000];
+modifierpropriete[dernierobjet[],frottement,1];
+modifierpropriete[dernierobjet[],graphique,brique_blanc_60_20];
+modifierpropriete[dernierobjet[],forme,RECTANGLE];
+modifierpropriete[dernierobjet[],couleur,NOIR];
+modifierpropriete[dernierobjet[],solidite,0.25];

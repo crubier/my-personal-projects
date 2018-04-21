@@ -1,0 +1,11 @@
+creerobjet[(aleatoire:aleatoire:0)];
+modifierpropriete[(aleatoire:aleatoire:0),texte,reel_aleatoire[0,10]];
+
+modifierpropriete[(aleatoire:aleatoire:0),position,propriete[argument[1],position]];
+
+si[reel_inclusion[propriete[(aleatoire:aleatoire:0),texte],0,1],actions/bonus/creerbonusbleu[propriete[(aleatoire:aleatoire:0),position]],rien];
+si[reel_inclusion[propriete[(aleatoire:aleatoire:0),texte],1,2],actions/bonus/creerbonusvert[propriete[(aleatoire:aleatoire:0),position]],rien];
+si[reel_inclusion[propriete[(aleatoire:aleatoire:0),texte],2,3],actions/bonus/creerbonusjaune[propriete[(aleatoire:aleatoire:0),position]],rien];
+si[reel_inclusion[propriete[(aleatoire:aleatoire:0),texte],3,4],actions/bonus/creerbonusrouge[propriete[(aleatoire:aleatoire:0),position]],rien];
+
+supprimerobjet[(aleatoire:aleatoire:0)];

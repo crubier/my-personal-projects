@@ -1,0 +1,13 @@
+creerobjet[(trounoir:trounoir:0)];
+modifierpropriete[dernierobjet[],dimensions,(100:100)];
+modifierpropriete[dernierobjet[],position,(0:0)];
+modifierpropriete[dernierobjet[],vitesse,(0:0)];
+modifierpropriete[dernierobjet[],couche,1];
+modifierpropriete[dernierobjet[],frottement,1];
+modifierpropriete[dernierobjet[],masse,0.1];
+modifierpropriete[dernierobjet[],graphique,trounoir_100];
+modifierpropriete[dernierobjet[],forme,CERCLE];
+modifierpropriete[dernierobjet[],couleur,NOIR];
+modifierpropriete[dernierobjet[],agressivite,100];
+modifierpropriete[dernierobjet[],solidite,100000];
+modifierpropriete[dernierobjet[],attraction,1000];

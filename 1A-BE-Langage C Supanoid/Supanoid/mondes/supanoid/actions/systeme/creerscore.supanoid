@@ -1,0 +1,19 @@
+creerobjet[prochainobjet[(score:score:0)]];
+modifierpropriete[dernierobjet[],dimensions,(0:0)];
+modifierpropriete[dernierobjet[],position,(0:-280)];
+modifierpropriete[dernierobjet[],couche,16];
+modifierpropriete[dernierobjet[],forme,RECTANGLE];
+modifierpropriete[dernierobjet[],couleur,NOIR];
+modifierpropriete[dernierobjet[],frottement,1];
+ifierpropriete[dernierobjet[],solidite,10000000];
+modifierpropriete[dernierobjet[],texte,0];
+
+creerobjet[prochainobjet[(texte:nomscore:0)]];
+modifierpropriete[dernierobjet[],dimensions,(0:0)];
+modifierpropriete[dernierobjet[],position,(-60:-280)];
+modifierpropriete[dernierobjet[],couche,16];
+modifierpropriete[dernierobjet[],forme,RECTANGLE];
+modifierpropriete[dernierobjet[],couleur,NOIR];
+modifierpropriete[dernierobjet[],frottement,1];
+ifierpropriete[dernierobjet[],solidite,10000000];
+modifierpropriete[dernierobjet[],texte,score : ];

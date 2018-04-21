@@ -1,0 +1,12 @@
+si[reel_inferiorite[nombreobjetstype[(trounoir:trounoir:0)],1],creerobjet[(trounoir:trounoir:0)],rien];
+modifierpropriete[dernierobjet[],dimensions,(100:100)];
+modifierpropriete[dernierobjet[],position,(0:0)];
+modifierpropriete[dernierobjet[],vitesse,(0:0)];
+modifierpropriete[dernierobjet[],couche,3];
+modifierpropriete[dernierobjet[],frottement,1];
+modifierpropriete[dernierobjet[],masse,10000];
+modifierpropriete[dernierobjet[],forme,CERCLE];
+modifierpropriete[dernierobjet[],couleur,NOIR];
+modifierpropriete[dernierobjet[],agressivite,100];
+modifierpropriete[dernierobjet[],solidite,100000];
+modifierpropriete[dernierobjet[],attraction,1000];

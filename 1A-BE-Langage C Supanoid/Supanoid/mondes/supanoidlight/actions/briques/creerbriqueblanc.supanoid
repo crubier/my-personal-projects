@@ -1,0 +1,3 @@
+actions/briques/creerbrique[argument[1]];
+modifierpropriete[dernierobjet[],couleur,BLANC];
+modifierpropriete[dernierobjet[],solidite,0.25];

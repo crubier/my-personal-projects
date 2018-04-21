@@ -1,0 +1,2658 @@
+Ouverture fichier mondes/supanoidlight/monde.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/creerfenetre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/creerscore.supanoid
+Ouverture fichier mondes/supanoidlight/actions/rebord/creerrebord.supanoid
+Ouverture fichier mondes/supanoidlight/actions/raquette/creerraquette.supanoid
+Ouverture fichier mondes/supanoidlight/actions/murs/creermur.supanoid
+Ouverture fichier mondes/supanoidlight/actions/murs/creermurnoir.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbriquenoir.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbrique.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbriquenoir.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbrique.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbriquenoir.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbrique.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbriquenoir.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbrique.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbriquenoir.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbrique.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbriquenoir.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbrique.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbriquenoir.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbrique.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbriquenoir.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbrique.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbriquenoir.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbrique.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbriquenoir.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbrique.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbriquenoir.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbrique.supanoid
+Ouverture fichier mondes/supanoidlight/actions/murs/creermurblanc.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbriqueblanc.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbrique.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbriqueblanc.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbrique.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbriqueblanc.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbrique.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbriqueblanc.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbrique.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbriqueblanc.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbrique.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbriqueblanc.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbrique.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbriqueblanc.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbrique.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbriqueblanc.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbrique.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbriqueblanc.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbrique.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbriqueblanc.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbrique.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbriqueblanc.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbrique.supanoid
+Ouverture fichier mondes/supanoidlight/actions/murs/creermurgris.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbriquegris.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbrique.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbriquegris.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbrique.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbriquegris.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbrique.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbriquegris.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbrique.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbriquegris.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbrique.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbriquegris.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbrique.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbriquegris.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbrique.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbriquegris.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbrique.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbriquegris.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbrique.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbriquegris.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbrique.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbriquegris.supanoid
+Ouverture fichier mondes/supanoidlight/actions/briques/creerbrique.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballes.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballebleu.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballe.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballevert.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballe.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballejaune.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballe.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballerouge.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballe.supanoid
+Initialisation fenetre : (fenetre:fenetre:1) : OK
+Ouverture fichier mondes/supanoidlight/initialisation.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/chargersons.supanoid
+
+==================================================
+Description détaillée de la liste
+==================================================
+
+--------------------------------------------------
+Objet : (fenetre:fenetre:1) 
+
+Position         : (0:0) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 32 
+Forme            : RECTANGLE 
+Dimensions       : (800:600) 
+Masse            : 1 
+Frottement       : 0.02 
+Rebondissement   : 1 
+Solidite         : 1e+006 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : BLANC 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (score:score:1) 
+
+Position         : (0:-280) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 16 
+Forme            : RECTANGLE 
+Dimensions       : (0:0) 
+Masse            : 1 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1e+006 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : 0 
+Couleur          : NOIR 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (texte:nomscore:1) 
+
+Position         : (-60:-280) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 16 
+Forme            : RECTANGLE 
+Dimensions       : (0:0) 
+Masse            : 1 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1e+006 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : score : 
+Couleur          : NOIR 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (rebord:gauche:0) 
+
+Position         : (-800:0) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (800:1800) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1e+006 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : NOIR 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (rebord:droit:0) 
+
+Position         : (800:0) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (800:1800) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1e+006 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : NOIR 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (rebord:haut:0) 
+
+Position         : (0:600) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (800:600) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1e+006 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : NOIR 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (rebord:bas:0) 
+
+Position         : (0:-610) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 3 
+Forme            : RECTANGLE 
+Dimensions       : (800:580) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1e+006 
+Attraction       : 0 
+Agressivite      : 200 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : ROUGE 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (rebord:pesanteur:0) 
+
+Position         : (0:-1000) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 2 
+Forme            : CERCLE 
+Dimensions       : (20:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1e+006 
+Attraction       : 10000 
+Agressivite      : 200 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : ROUGE 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (raquette:raquette:1) 
+
+Position         : (0:-260) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 3 
+Forme            : RAQUETTE 
+Dimensions       : (100:20) 
+Masse            : 10000 
+Frottement       : 0.03 
+Rebondissement   : 1 
+Solidite         : 1e+006 
+Attraction       : 0 
+Agressivite      : 0.2 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : BLEU 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:1) 
+
+Position         : (-300:240) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : NOIR 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:2) 
+
+Position         : (-240:240) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : NOIR 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:3) 
+
+Position         : (-180:240) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : NOIR 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:4) 
+
+Position         : (-120:240) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : NOIR 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:5) 
+
+Position         : (-60:240) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : NOIR 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:6) 
+
+Position         : (0:240) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : NOIR 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:7) 
+
+Position         : (60:240) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : NOIR 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:8) 
+
+Position         : (120:240) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : NOIR 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:9) 
+
+Position         : (180:240) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : NOIR 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:10) 
+
+Position         : (240:240) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : NOIR 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:11) 
+
+Position         : (300:240) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : NOIR 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:12) 
+
+Position         : (-300:200) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.25 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : BLANC 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:13) 
+
+Position         : (-240:200) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.25 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : BLANC 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:14) 
+
+Position         : (-180:200) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.25 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : BLANC 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:15) 
+
+Position         : (-120:200) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.25 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : BLANC 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:16) 
+
+Position         : (-60:200) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.25 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : BLANC 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:17) 
+
+Position         : (0:200) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.25 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : BLANC 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:18) 
+
+Position         : (60:200) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.25 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : BLANC 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:19) 
+
+Position         : (120:200) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.25 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : BLANC 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:20) 
+
+Position         : (180:200) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.25 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : BLANC 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:21) 
+
+Position         : (240:200) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.25 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : BLANC 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:22) 
+
+Position         : (300:200) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.25 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : BLANC 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:23) 
+
+Position         : (-300:220) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.5 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : GRIS 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:24) 
+
+Position         : (-240:220) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.5 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : GRIS 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:25) 
+
+Position         : (-180:220) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.5 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : GRIS 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:26) 
+
+Position         : (-120:220) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.5 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : GRIS 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:27) 
+
+Position         : (-60:220) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.5 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : GRIS 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:28) 
+
+Position         : (0:220) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.5 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : GRIS 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:29) 
+
+Position         : (60:220) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.5 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : GRIS 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:30) 
+
+Position         : (120:220) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.5 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : GRIS 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:31) 
+
+Position         : (180:220) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.5 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : GRIS 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:32) 
+
+Position         : (240:220) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.5 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : GRIS 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:33) 
+
+Position         : (300:220) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.5 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : GRIS 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (balle:balle:1) 
+
+Position         : (-30:0) 
+Vitesse          : (-0.3:2) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : CERCLE 
+Dimensions       : (20:20) 
+Masse            : 0.1 
+Frottement       : 0 
+Rebondissement   : 1 
+Solidite         : 100 
+Attraction       : 0.01 
+Agressivite      : 0.125 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : BLEU 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (balle:balle:2) 
+
+Position         : (-10:0) 
+Vitesse          : (-0.1:2.4) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : CERCLE 
+Dimensions       : (20:20) 
+Masse            : 0.1 
+Frottement       : 0 
+Rebondissement   : 1 
+Solidite         : 100 
+Attraction       : 0.01 
+Agressivite      : 0.25 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : VERT 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (balle:balle:3) 
+
+Position         : (10:0) 
+Vitesse          : (0.1:2.4) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : CERCLE 
+Dimensions       : (20:20) 
+Masse            : 0.1 
+Frottement       : 0 
+Rebondissement   : 1 
+Solidite         : 100 
+Attraction       : 0.01 
+Agressivite      : 0.5 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : JAUNE 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (balle:balle:4) 
+
+Position         : (30:0) 
+Vitesse          : (0.3:2) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : CERCLE 
+Dimensions       : (20:20) 
+Masse            : 0.1 
+Frottement       : 0 
+Rebondissement   : 1 
+Solidite         : 100 
+Attraction       : 0.01 
+Agressivite      : 1 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : ROUGE 
+Chronometre      : 0 
+
+--------------------------------------------------
+==================================================
+Fin de la description détaillée de la liste
+==================================================
+
+
+==================================================
+Description détaillée de la liste
+==================================================
+
+--------------------------------------------------
+Objet : (fenetre:fenetre:1) 
+
+Position         : (0:0) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 32 
+Forme            : RECTANGLE 
+Dimensions       : (800:600) 
+Masse            : 1 
+Frottement       : 0.02 
+Rebondissement   : 1 
+Solidite         : 1e+006 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : BLANC 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (score:score:1) 
+
+Position         : (0:-280) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 16 
+Forme            : RECTANGLE 
+Dimensions       : (0:0) 
+Masse            : 1 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1e+006 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : 0 
+Couleur          : NOIR 
+Chronometre      : 1 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (texte:nomscore:1) 
+
+Position         : (-60:-280) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 16 
+Forme            : RECTANGLE 
+Dimensions       : (0:0) 
+Masse            : 1 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1e+006 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : score : 
+Couleur          : NOIR 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (rebord:gauche:0) 
+
+Position         : (-800:0) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (800:1800) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1e+006 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : NOIR 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (rebord:droit:0) 
+
+Position         : (800:0) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (800:1800) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1e+006 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : NOIR 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (rebord:haut:0) 
+
+Position         : (0:600) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (800:600) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1e+006 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : NOIR 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (rebord:bas:0) 
+
+Position         : (0:-610) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 3 
+Forme            : RECTANGLE 
+Dimensions       : (800:580) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1e+006 
+Attraction       : 0 
+Agressivite      : 200 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : ROUGE 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (rebord:pesanteur:0) 
+
+Position         : (0:-1000) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 2 
+Forme            : CERCLE 
+Dimensions       : (20:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1e+006 
+Attraction       : 10000 
+Agressivite      : 200 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : ROUGE 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (raquette:raquette:1) 
+
+Position         : (0:-260) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 3 
+Forme            : RAQUETTE 
+Dimensions       : (100:20) 
+Masse            : 10000 
+Frottement       : 0.03 
+Rebondissement   : 1 
+Solidite         : 1e+006 
+Attraction       : 0 
+Agressivite      : 0.2 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : BLEU 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:1) 
+
+Position         : (-300:240) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : NOIR 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:2) 
+
+Position         : (-240:240) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : NOIR 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:3) 
+
+Position         : (-180:240) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : NOIR 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:4) 
+
+Position         : (-120:240) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : NOIR 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:5) 
+
+Position         : (-60:240) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : NOIR 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:6) 
+
+Position         : (0:240) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : NOIR 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:7) 
+
+Position         : (60:240) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : NOIR 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:8) 
+
+Position         : (120:240) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : NOIR 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:9) 
+
+Position         : (180:240) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : NOIR 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:10) 
+
+Position         : (240:240) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : NOIR 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:11) 
+
+Position         : (300:240) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 1 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : NOIR 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:12) 
+
+Position         : (-300:200) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.25 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : BLANC 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:13) 
+
+Position         : (-240:200) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.25 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : BLANC 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:14) 
+
+Position         : (-180:200) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.25 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : BLANC 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:15) 
+
+Position         : (-120:200) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.25 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : BLANC 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:16) 
+
+Position         : (-60:200) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.25 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : BLANC 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:17) 
+
+Position         : (0:200) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.25 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : BLANC 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:18) 
+
+Position         : (60:200) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.25 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : BLANC 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:19) 
+
+Position         : (120:200) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.25 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : BLANC 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:20) 
+
+Position         : (180:200) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.25 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : BLANC 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:21) 
+
+Position         : (240:200) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.25 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : BLANC 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:22) 
+
+Position         : (300:200) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.25 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : BLANC 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:23) 
+
+Position         : (-300:220) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.5 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : GRIS 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:24) 
+
+Position         : (-240:220) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.5 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : GRIS 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:25) 
+
+Position         : (-180:220) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.5 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : GRIS 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:26) 
+
+Position         : (-120:220) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.5 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : GRIS 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:27) 
+
+Position         : (-60:220) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.5 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : GRIS 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:28) 
+
+Position         : (0:220) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.5 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : GRIS 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:29) 
+
+Position         : (60:220) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.5 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : GRIS 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:30) 
+
+Position         : (120:220) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.5 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : GRIS 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:31) 
+
+Position         : (180:220) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.5 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : GRIS 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:32) 
+
+Position         : (240:220) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.5 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : GRIS 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (brique:brique:33) 
+
+Position         : (300:220) 
+Vitesse          : (0:0) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : RECTANGLE 
+Dimensions       : (60:20) 
+Masse            : 1e+006 
+Frottement       : 1 
+Rebondissement   : 1 
+Solidite         : 0.5 
+Attraction       : 0 
+Agressivite      : 0 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : GRIS 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (balle:balle:1) 
+
+Position         : (-30:0) 
+Vitesse          : (-0.3:2) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : CERCLE 
+Dimensions       : (20:20) 
+Masse            : 0.1 
+Frottement       : 0 
+Rebondissement   : 1 
+Solidite         : 100 
+Attraction       : 0.01 
+Agressivite      : 0.125 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : BLEU 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (balle:balle:2) 
+
+Position         : (-10:0) 
+Vitesse          : (-0.1:2.4) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : CERCLE 
+Dimensions       : (20:20) 
+Masse            : 0.1 
+Frottement       : 0 
+Rebondissement   : 1 
+Solidite         : 100 
+Attraction       : 0.01 
+Agressivite      : 0.25 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : VERT 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (balle:balle:3) 
+
+Position         : (10:0) 
+Vitesse          : (0.1:2.4) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : CERCLE 
+Dimensions       : (20:20) 
+Masse            : 0.1 
+Frottement       : 0 
+Rebondissement   : 1 
+Solidite         : 100 
+Attraction       : 0.01 
+Agressivite      : 0.5 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : JAUNE 
+Chronometre      : 0 
+
+--------------------------------------------------
+--------------------------------------------------
+Objet : (balle:balle:4) 
+
+Position         : (30:0) 
+Vitesse          : (0.3:2) 
+Acceleration     : (0:0) 
+Couche           : 1 
+Forme            : CERCLE 
+Dimensions       : (20:20) 
+Masse            : 0.1 
+Frottement       : 0 
+Rebondissement   : 1 
+Solidite         : 100 
+Attraction       : 0.01 
+Agressivite      : 1 
+Graphique        : INCONNU 
+Texte            : INCONNU 
+Couleur          : ROUGE 
+Chronometre      : 0 
+
+--------------------------------------------------
+==================================================
+Fin de la description détaillée de la liste
+==================================================
+
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonusbleu.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonusphysique.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/appliquerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/actions/raquette/raquette+.supanoid
+Ouverture fichier mondes/supanoidlight/actions/raquette/reglerraquette.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonusvert.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonusphysique.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonusrouge.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonusphysique.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/appliquerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/explosionballes.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballerouge.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballe.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballerouge.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballe.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballerouge.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballe.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballerouge.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballe.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballejaune.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballe.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballejaune.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballe.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballejaune.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballe.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballejaune.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballe.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonusvert.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonusphysique.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonusrouge.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonusphysique.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonusbleu.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonusphysique.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonusbleu.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonusphysique.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonusrouge.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonusphysique.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonusvert.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonusphysique.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonusvert.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonusphysique.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/appliquerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/explosionballes.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballerouge.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballe.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballerouge.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballe.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballerouge.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballe.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballerouge.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballe.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballejaune.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballe.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballejaune.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballe.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballejaune.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballe.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballejaune.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballe.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/appliquerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/actions/raquette/raquette+.supanoid
+Ouverture fichier mondes/supanoidlight/actions/raquette/reglerraquette.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/appliquerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/actions/raquette/raquette+.supanoid
+Ouverture fichier mondes/supanoidlight/actions/raquette/reglerraquette.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonusvert.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonusphysique.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/appliquerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/actions/raquette/raquette-.supanoid
+Ouverture fichier mondes/supanoidlight/actions/raquette/reglerraquette.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonusbleu.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonusphysique.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonusbleu.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonusphysique.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonusrouge.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonusphysique.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/appliquerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/actions/raquette/raquette+.supanoid
+Ouverture fichier mondes/supanoidlight/actions/raquette/reglerraquette.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/appliquerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/actions/raquette/raquette+.supanoid
+Ouverture fichier mondes/supanoidlight/actions/raquette/reglerraquette.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/appliquerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/explosionballes.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballerouge.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballe.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballerouge.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballe.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballerouge.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballe.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballerouge.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballe.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballejaune.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballe.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballejaune.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballe.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballejaune.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballe.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballejaune.supanoid
+Ouverture fichier mondes/supanoidlight/actions/balles/creerballe.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/bonus/creerbonus.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/mort.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/ajouterscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/collision.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid
+Ouverture fichier mondes/supanoidlight/evenements/chronometre.supanoid
+Ouverture fichier mondes/supanoidlight/actions/systeme/multiplierscore.supanoid

@@ -1,0 +1,5 @@
+imprimer[GAGNE !];
+imprimer[SCORE :];
+imprimer[propriete[argument[1],texte]];
+pause[];
+initialiser[];

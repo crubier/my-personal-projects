@@ -1,0 +1,4 @@
+actions/briques/creerbrique[argument[1]];
+modifierpropriete[dernierobjet[],graphique,brique_gris_60_20];
+modifierpropriete[dernierobjet[],couleur,GRIS];
+modifierpropriete[dernierobjet[],solidite,0.5];

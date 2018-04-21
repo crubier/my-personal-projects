@@ -1,0 +1,3 @@
+actions/bonus/creerbonusphysique[argument[1]];
+modifierpropriete[dernierobjet[],graphique,bonus_bleu_40];
+modifierpropriete[dernierobjet[],couleur,BLEU];

@@ -1,0 +1,7 @@
+creerobjet[prochainobjet[(fenetre:fenetre:0)]];
+modifierpropriete[dernierobjet[],dimensions,argument[1]];
+modifierpropriete[dernierobjet[],position,(0:0)];
+modifierpropriete[dernierobjet[],couche,32];
+modifierpropriete[dernierobjet[],forme,RECTANGLE];
+modifierpropriete[dernierobjet[],couleur,BLANC];
+modifierpropriete[dernierobjet[],frottement,0.02];

@@ -1,0 +1,8 @@
+actions/balles/creerballerouge[vecteur_somme[argument[1],(-40:0)],vecteur_somme[argument[2],(-4:0)]];
+actions/balles/creerballerouge[vecteur_somme[argument[1],(40:0)],vecteur_somme[argument[2],(4:0)]];
+actions/balles/creerballerouge[vecteur_somme[argument[1],(0:-40)],vecteur_somme[argument[2],(0:-4)]];
+actions/balles/creerballerouge[vecteur_somme[argument[1],(0:40)],vecteur_somme[argument[2],(0:4)]];
+actions/balles/creerballejaune[vecteur_somme[argument[1],(30:30)],vecteur_somme[argument[2],(2:2)]];
+actions/balles/creerballejaune[vecteur_somme[argument[1],(30:-30)],vecteur_somme[argument[2],(2:-2)]];
+actions/balles/creerballejaune[vecteur_somme[argument[1],(-30:30)],vecteur_somme[argument[2],(-2:2)]];
+actions/balles/creerballejaune[vecteur_somme[argument[1],(-30:-30)],vecteur_somme[argument[2],(-2:-2)]];

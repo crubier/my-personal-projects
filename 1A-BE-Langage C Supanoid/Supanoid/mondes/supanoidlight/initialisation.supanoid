@@ -1,0 +1,7 @@
+actions/systeme/chargersons[];
+decrireliste[];
+modifierparametre[mode,0];
+modifierpropriete[premierobjettypenom[(score:score:0)],chronometre,1];
+imprimer[C'EST PARTI!];
+pause[];
+decrireliste[];

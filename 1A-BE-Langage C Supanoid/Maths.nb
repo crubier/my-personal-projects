@@ -1,0 +1,195 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      6367,        145]*)
+(*NotebookOutlinePosition[      7011,        167]*)
+(*  CellTagsIndexPosition[      6967,        163]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+    \(\(Va0 = {Va0x, Va0y};\)\), "\[IndentingNewLine]", 
+    \(\(Vb0 = {Vb0x, Vb0y};\)\), "\[IndentingNewLine]", 
+    \(\(Va1 = {Va1x, Va1y};\)\), "\[IndentingNewLine]", 
+    \(\(Vb1 = {Vb1x, Vb1y};\)\), "\[IndentingNewLine]", 
+    \(\(n = {nx, ny};\)\), "\[IndentingNewLine]", 
+    \(\(nn = Norm[n];\)\)}], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(Va0x\\)\\\" is similar to existing symbol \\\
+\"\\!\\(Va0\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", ButtonStyle->\
+\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(Va0y\\)\\\" is similar to existing symbols \
+\\!\\({Va0, Va0x}\\). \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(Vb0x\\)\\\" is similar to existing symbols \
+\\!\\({Va0x, Vb0}\\). \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(Vb0y\\)\\\" is similar to existing symbols \
+\\!\\({Va0y, Vb0, Vb0x}\\). \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(Va1x\\)\\\" is similar to existing symbol \\\
+\"\\!\\(Va1\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", ButtonStyle->\
+\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(Va1y\\)\\\" is similar to existing symbols \
+\\!\\({Va1, Va1x}\\). \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(Vb1x\\)\\\" is similar to existing symbols \
+\\!\\({Va1x, Vb1}\\). \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(Vb1y\\)\\\" is similar to existing symbols \
+\\!\\({Va1y, Vb1, Vb1x}\\). \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell\\\"]\\)\"\>"}]], "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Simplify[\[IndentingNewLine]Solve[{\[IndentingNewLine]\((Va1 - 
+                  Vb1)\) - \((Va0 - Vb0)\) == \((2/nn)\)*\((\((Va0 - Vb0)\) . 
+                  n)\)*n, \[IndentingNewLine]Ma*Va0 + Mb*Vb0 \[Equal] 
+            Ma*Va1 + Mb*Vb1\[IndentingNewLine]}, {Va1, 
+          Vb1}]\[IndentingNewLine]]\)], "Input"],
+
+Cell[BoxData[
+    \({{Va1x \[Rule] \(Ma\ Va0x\ \@\(Abs[nx]\^2 + Abs[ny]\^2\) + Mb\ \((2\ nx\
+\^2\ \((Va0x - Vb0x)\) + 2\ nx\ ny\ \((Va0y - Vb0y)\) + Va0x\ \@\(Abs[nx]\^2 \
++ Abs[ny]\^2\))\)\)\/\(\((Ma + Mb)\)\ \@\(Abs[nx]\^2 + Abs[ny]\^2\)\), 
+        Vb1x \[Rule] \(-\(\(\(-Ma\)\ Va0x - Mb\ Vb0x - 
+                  Ma\ \((\(-Va0x\) + 
+                        Vb0x - \(2\ nx\ \((nx\ \((Va0x - Vb0x)\) + ny\ \
+\((Va0y - Vb0y)\))\)\)\/\@\(Abs[nx]\^2 + Abs[ny]\^2\))\)\)\/\(Ma + Mb\)\)\), 
+        Va1y \[Rule] \(Ma\ Va0y\ \@\(Abs[nx]\^2 + Abs[ny]\^2\) + Mb\ \((2\ nx\
+\ ny\ \((Va0x - Vb0x)\) + 2\ ny\^2\ \((Va0y - Vb0y)\) + Va0y\ \@\(Abs[nx]\^2 \
++ Abs[ny]\^2\))\)\)\/\(\((Ma + Mb)\)\ \@\(Abs[nx]\^2 + Abs[ny]\^2\)\), 
+        Vb1y \[Rule] \(-\(\(\(-Ma\)\ Va0y - Mb\ Vb0y - 
+                  Ma\ \((\(-Va0y\) + 
+                        Vb0y - \(2\ ny\ \((nx\ \((Va0x - Vb0x)\) + ny\ \
+\((Va0y - Vb0y)\))\)\)\/\@\(Abs[nx]\^2 + Abs[ny]\^2\))\)\)\/\(Ma + 
+                  Mb\)\)\)}}\)], "Output"]
+}, Open  ]]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1440}, {0, 787}},
+WindowSize->{1432, 753},
+WindowMargins->{{0, Automatic}, {Automatic, 0}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 331, 6, 130, "Input"],
+Cell[2110, 61, 355, 5, 22, "Message"],
+Cell[2468, 68, 354, 5, 22, "Message"],
+Cell[2825, 75, 354, 5, 22, "Message"],
+Cell[3182, 82, 360, 5, 22, "Message"],
+Cell[3545, 89, 355, 5, 22, "Message"],
+Cell[3903, 96, 354, 5, 22, "Message"],
+Cell[4260, 103, 354, 5, 22, "Message"],
+Cell[4617, 110, 360, 5, 22, "Message"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5014, 120, 338, 5, 130, "Input"],
+Cell[5355, 127, 996, 15, 142, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

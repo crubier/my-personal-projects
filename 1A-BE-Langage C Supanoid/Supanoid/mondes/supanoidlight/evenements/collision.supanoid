@@ -1,0 +1,2 @@
+si[egalite[identifiant_type[argument[1]],bonus],si[egalite[identifiant_type[argument[2]],raquette],actions/bonus/appliquerbonus[argument[1]],rien],rien];
+si[egalite[identifiant_type[argument[2]],bonus],si[egalite[identifiant_type[argument[1]],raquette],actions/bonus/appliquerbonus[argument[2]],rien],rien];

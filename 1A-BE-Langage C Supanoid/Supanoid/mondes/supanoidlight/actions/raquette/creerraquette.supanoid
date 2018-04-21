@@ -1,0 +1,10 @@
+creerobjet[prochainobjet[(raquette:raquette:0)]];
+modifierpropriete[dernierobjet[],dimensions,(100:20)];
+modifierpropriete[dernierobjet[],position,argument[1]];
+modifierpropriete[dernierobjet[],couche,3];
+modifierpropriete[dernierobjet[],frottement,0.03];
+modifierpropriete[dernierobjet[],masse,10000];
+modifierpropriete[dernierobjet[],forme,RAQUETTE];
+modifierpropriete[dernierobjet[],couleur,BLEU];
+modifierpropriete[dernierobjet[],rebondissement,1];
+modifierpropriete[dernierobjet[],agressivite,0.2];

@@ -1,0 +1,12 @@
+creerobjet[prochainobjet[(bonus:bonus:0)]];
+modifierpropriete[dernierobjet[],dimensions,(40:40)];
+modifierpropriete[dernierobjet[],position,argument[1]];
+modifierpropriete[dernierobjet[],vitesse,(0:0)];
+modifierpropriete[dernierobjet[],couche,2];
+modifierpropriete[dernierobjet[],frottement,0.05];
+modifierpropriete[dernierobjet[],masse,1];
+modifierpropriete[dernierobjet[],forme,CERCLE];
+modifierpropriete[dernierobjet[],couleur,ROUGE];
+modifierpropriete[dernierobjet[],agressivite,0];
+modifierpropriete[dernierobjet[],solidite,0.1];
+modifierpropriete[dernierobjet[],attraction,0.1];

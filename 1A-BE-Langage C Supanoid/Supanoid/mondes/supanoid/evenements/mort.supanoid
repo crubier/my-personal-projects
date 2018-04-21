@@ -1,0 +1,8 @@
+si[egalite[identifiant_type[argument[1]],balle],actions/systeme/ajouterscore[-10],rien];
+si[egalite[identifiant_type[argument[1]],balle],jouer[son,mort],rien];
+si[egalite[identifiant_type[argument[1]],balle],si[reel_inferiorite[nombreobjetstype[(balle:balle:0)],1],si[reel_inferiorite[nombreobjetstype[(bonus:bonus:0)],1],actions/systeme/perdu[premierobjettype[(score:score:0)]],rien],rien],rien];
+
+si[egalite[identifiant_type[argument[1]],brique],actions/bonus/creerbonus[argument[1]],rien];
+si[egalite[identifiant_type[argument[1]],brique],jouer[son,rebond2],rien];
+si[egalite[identifiant_type[argument[1]],brique],actions/systeme/ajouterscore[100],rien];
+si[egalite[identifiant_type[argument[1]],brique],si[reel_inferiorite[nombreobjetstype[(brique:brique:0)],1],actions/systeme/gagne[premierobjettype[(score:score:0)]],rien],rien];

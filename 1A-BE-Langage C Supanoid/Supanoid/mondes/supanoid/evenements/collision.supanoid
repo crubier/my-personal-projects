@@ -1,0 +1,7 @@
+si[  egalite[identifiant_type[argument[1]],balle]     ,  jouer[son,rebond2]  ,  rien];
+si[  egalite[identifiant_type[argument[2]],balle]     ,  jouer[son,rebond2]  ,  rien];
+si[  egalite[identifiant_type[argument[1]],raquette]  ,  jouer[son,rebond1]  ,  rien];
+si[  egalite[identifiant_type[argument[2]],raquette]  ,  jouer[son,rebond1]  ,  rien];
+
+si[egalite[identifiant_type[argument[1]],bonus],si[egalite[identifiant_type[argument[2]],raquette],actions/bonus/appliquerbonus[argument[1]],rien],rien];
+si[egalite[identifiant_type[argument[2]],bonus],si[egalite[identifiant_type[argument[1]],raquette],actions/bonus/appliquerbonus[argument[2]],rien],rien];

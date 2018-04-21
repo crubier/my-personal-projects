@@ -1,0 +1,54 @@
+# Project: Supanoid
+# Makefile created by Dev-C++ 4.9.9.2
+
+CPP  = g++.exe
+CC   = gcc.exe
+WINDRES = windres.exe
+RES  = Projet_private.res
+OBJ  = main.o physique.o geometrie.o manipulations.o actions.o graphic.o interface.o commandes.o $(RES)
+LINKOBJ  = main.o physique.o geometrie.o manipulations.o actions.o graphic.o interface.o commandes.o $(RES)
+LIBS =  -L"C:/Dev-Cpp/lib" -L"C:/Dev-Cpp/lib" -L"lib/win32" -L"lib" lib/win32/libjvm.a  
+INCS =  -I"C:/Dev-Cpp/include"  -I"C:/Dev-Cpp/include"  -I"include"  -I"include/win32" 
+CXXINCS =  -I"C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include"  -I"C:/Dev-Cpp/include/c++/3.4.2/backward"  -I"C:/Dev-Cpp/include/c++/3.4.2/mingw32"  -I"C:/Dev-Cpp/include/c++/3.4.2"  -I"C:/Dev-Cpp/include"  -I"C:/Dev-Cpp/include"  -I"include"  -I"include/win32" 
+BIN  = ../Supanoid/Supanoid.exe
+CXXFLAGS = $(CXXINCS)  
+CFLAGS = $(INCS)  
+RM = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before ../Supanoid/Supanoid.exe all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CC) $(LINKOBJ) -o "..\Supanoid\Supanoid.exe" $(LIBS)
+
+main.o: main.c
+	$(CC) -c main.c -o main.o $(CFLAGS)
+
+physique.o: physique.c
+	$(CC) -c physique.c -o physique.o $(CFLAGS)
+
+geometrie.o: geometrie.c
+	$(CC) -c geometrie.c -o geometrie.o $(CFLAGS)
+
+manipulations.o: manipulations.c
+	$(CC) -c manipulations.c -o manipulations.o $(CFLAGS)
+
+actions.o: actions.c
+	$(CC) -c actions.c -o actions.o $(CFLAGS)
+
+graphic.o: graphic.c
+	$(CC) -c graphic.c -o graphic.o $(CFLAGS)
+
+interface.o: interface.c
+	$(CC) -c interface.c -o interface.o $(CFLAGS)
+
+commandes.o: commandes.c
+	$(CC) -c commandes.c -o commandes.o $(CFLAGS)
+
+Projet_private.res: Projet_private.rc 
+	$(WINDRES) -i Projet_private.rc --input-format=rc -o Projet_private.res -O coff 

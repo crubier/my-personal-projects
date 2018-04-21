@@ -1,0 +1,4 @@
+si[egalite[identifiant_type[argument[1]],score],actions/systeme/multiplierscore[0.9],rien];
+si[egalite[identifiant_type[argument[1]],score],modifierpropriete[premierobjettypenom[(score:score:0)],chronometre,0.1],rien];
+si[egalite[identifiant_type[argument[1]],score],imprimer[CHRONO],rien];
+imprimer[propriete[premierobjettypenom[(score:score:0)],chronometre]]

@@ -1,0 +1,2 @@
+actions/bonus/creerbonusphysique[argument[1]];
+modifierpropriete[dernierobjet[],couleur,ROUGE];

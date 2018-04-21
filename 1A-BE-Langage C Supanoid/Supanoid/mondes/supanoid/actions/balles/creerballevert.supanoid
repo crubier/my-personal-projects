@@ -1,0 +1,4 @@
+actions/balles/creerballe[argument[1],argument[2]];
+modifierpropriete[dernierobjet[],graphique,balle_vert_20];
+modifierpropriete[dernierobjet[],couleur,VERT];
+modifierpropriete[dernierobjet[],agressivite,0.25];

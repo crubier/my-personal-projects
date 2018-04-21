@@ -1,0 +1,4 @@
+si[egalite[propriete[argument[1],couleur],BLEU],actions/raquette/raquette+[],rien];
+si[egalite[propriete[argument[1],couleur],VERT],actions/raquette/raquette-[],rien];
+si[egalite[propriete[argument[1],couleur],JAUNE],actions/balles/creerballes[vecteur_somme[propriete[(raquette:raquette:1),position],(0:40)]],rien];
+si[egalite[propriete[argument[1],couleur],ROUGE],actions/balles/explosionballes[(0:0),(0:0)],rien];

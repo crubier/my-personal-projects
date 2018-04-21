@@ -1,0 +1,6 @@
+actions/systeme/creerfenetre[(800:600)];
+actions/systeme/creerscore[];
+actions/rebord/creerrebord[];
+actions/raquette/creerraquette[(0:-260)];
+actions/murs/creermur[];
+actions/balles/creerballes[(0:0)];
