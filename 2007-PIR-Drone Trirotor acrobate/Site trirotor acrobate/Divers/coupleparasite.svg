@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.44.1"
+   sodipodi:docbase="D:\"
+   sodipodi:docname="coupleparasite.svg">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow2Lstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Lstart"
+       style="overflow:visible">
+      <path
+         id="path5584"
+         style="font-size:12.0;fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(1.1) translate(1,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Lend"
+       style="overflow:visible;">
+      <path
+         id="path5581"
+         style="font-size:12.0;fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round;"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(1.1) rotate(180) translate(1,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lstart"
+       style="overflow:visible">
+      <path
+         id="path5602"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none"
+         transform="scale(0.8) translate(12.5,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lend"
+       style="overflow:visible;">
+      <path
+         id="path5599"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none;"
+         transform="scale(0.8) rotate(180) translate(12.5,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.0707921"
+     inkscape:cx="354.28571"
+     inkscape:cy="658.86733"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:window-width="1440"
+     inkscape:window-height="814"
+     inkscape:window-x="-4"
+     inkscape:window-y="-4" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#1fff03;stroke-width:10.19999981;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path1872"
+       sodipodi:cx="234.28572"
+       sodipodi:cy="445.21933"
+       sodipodi:rx="182.85715"
+       sodipodi:ry="55.714287"
+       d="M 417.14287 445.21933 A 182.85715 55.714287 0 1 1  51.428574,445.21933 A 182.85715 55.714287 0 1 1  417.14287 445.21933 z"
+       transform="translate(71.90939,-51.36385)"
+       inkscape:export-filename="D:\couple parasite"
+       inkscape:export-xdpi="250"
+       inkscape:export-ydpi="250" />
+    <path
+       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#05aaff;stroke-width:9.6;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M 300.71197,390.23551 L 677.06889,580.74868"
+       id="path2768"
+       inkscape:export-filename="D:\couple parasite"
+       inkscape:export-xdpi="250"
+       inkscape:export-ydpi="250" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:#cee6fb;fill-opacity:1;stroke:#05aaff;stroke-width:9.60000038;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path3655"
+       sodipodi:cx="823.68933"
+       sodipodi:cy="437.39685"
+       sodipodi:rx="147.55432"
+       sodipodi:ry="143.35182"
+       d="M 971.24365 437.39685 A 147.55432 143.35182 0 1 1  676.13501,437.39685 A 147.55432 143.35182 0 1 1  971.24365 437.39685 z"
+       transform="translate(-15.8761,211.9926)"
+       inkscape:export-filename="D:\couple parasite"
+       inkscape:export-xdpi="250"
+       inkscape:export-ydpi="250" />
+    <path
+       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#31aeed;stroke-width:3.4000001;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow2Lend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 294.17492,384.63217 L 123.59166,288.50494"
+       id="path4542"
+       inkscape:export-filename="D:\couple parasite"
+       inkscape:export-xdpi="250"
+       inkscape:export-ydpi="250" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5613"
+       transform="matrix(2.593223,0,0,2.508361,-207.4551,-395.2608)"
+       inkscape:export-filename="D:\couple parasite"
+       inkscape:export-xdpi="250"
+       inkscape:export-ydpi="250"><flowRegion
+         id="flowRegion5615"><rect
+           id="rect5617"
+           width="47.628296"
+           height="35.487747"
+           x="129.81046"
+           y="260.42505" /></flowRegion><flowPara
+         id="flowPara5619">Ωdrone</flowPara></flowRoot>    <path
+       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#27f40d;stroke-width:4.19999981;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow2Lend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 304.15428,382.33415 L 303.80829,173.62968"
+       id="path5621"
+       inkscape:export-filename="D:\couple parasite"
+       inkscape:export-xdpi="250"
+       inkscape:export-ydpi="250" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5623"
+       transform="matrix(2.593223,0,0,2.508361,-21.84172,-415.6963)"
+       inkscape:export-filename="D:\couple parasite"
+       inkscape:export-xdpi="250"
+       inkscape:export-ydpi="250"><flowRegion
+         id="flowRegion5625"><rect
+           id="rect5627"
+           width="47.628296"
+           height="35.487747"
+           x="129.81046"
+           y="260.42505" /></flowRegion><flowPara
+         id="flowPara5629">Ωrotor</flowPara></flowRoot>    <path
+       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#f01d1d;stroke-width:3.29999995;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow2Lend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 292.94748,393.54097 L 28.407982,534.27968"
+       id="path5631"
+       inkscape:export-filename="D:\couple parasite"
+       inkscape:export-xdpi="250"
+       inkscape:export-ydpi="250" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5633"
+       transform="matrix(1.402915,0,0,1.50288,-162.5653,148.1871)"
+       inkscape:export-filename="D:\couple parasite"
+       inkscape:export-xdpi="250"
+       inkscape:export-ydpi="250"><flowRegion
+         id="flowRegion5635"><rect
+           id="rect5637"
+           width="285.73645"
+           height="55.220181"
+           x="129.81046"
+           y="260.42505" /></flowRegion><flowPara
+         id="flowPara5639"
+         style="font-size:12px">Couple parasite =</flowPara><flowPara
+         id="flowPara6530"
+         style="font-size:12px">(Ωdrone ^ Ωrotor)*Moment d'inertie rotor</flowPara></flowRoot>  </g>
+</svg>

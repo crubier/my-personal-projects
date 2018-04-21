@@ -1,0 +1,186 @@
+$Id: ddc-cantor.txt,v 1.7 2005/03/29 13:16:09 chope Exp $
+Dossier descriptif de configuration , fait :
+le  :  04/03/2005
+par :  Sylvain Delattre, Guylaine Prat
+selon spécification : RNC-CNES-M-40-516 Ed.2 Rev.0
+
+Sommaire
+--------
+1. Identification de l'article
+2. Identification de la version
+3. Instructions de prise en compte
+4. Moyens
+5. Modifications
+6. Faits techniques ouverts
+8. Types de fichier
+9. Mots clés du cartouche de traçabilite ($log$) 
+10. Informations complémentaires
+11. Liste des fichiers ajoutés, modifiés, supprimés
+
+1. Identification de l'Article de Configuration
+-----------------------------------------------
+Nom de l'article : cantor
+Code Produit : <code>
+Criticité : normale
+Confidentialité : non classifié
+Rappel de la fonction : voir README
+Fournisseur 1ere version : CS-SI
+
+2. Identification de la version
+-------------------------------
+Date Version: 04/03/2005
+Code Version: 7.3
+Libellé Version: sans objet
+Etat Version: recette conforme au RNC (BT/CRE)
+Justification : livraison de FA et DM
+Type de Configuration :  Produit Utilisable 
+Type de livraison : Complète
+Fournisseur version : CS-SI
+
+3. Instructions de prise en compte
+----------------------------------
+3.1 Procédure pour extraire les éléments livrés du support de livraison
+3.2 Procédure pour générer et assembler les éléments transformés (bibliothèques, fichiers exécutables)
+3.3 Procédure pour générer le produit installable sur le support d'installation
+3.4 Procédure pour installer le produit dans l'environnement de l'utilisateur 
+3.5 Description de l'environnement utilisateur après l'installation
+    (structure des répertoires, fichiers, rôle et observation)
+3.6 Procédure pour désinstaller le produit de l'environnement utilisateur
+
+Voir fichier INSTALL
+
+4. Moyens
+---------
+
+4.1. Développement 
+------------------
+
+voir fichier README.dev
+    
+4.2. Configuration des composants
+---------------------------------
+Sans objet.
+
+4.3. Moyens opérationnels
+-------------------------
+nom            version      fournisseur    rôle et observation
+CLUB           10.0         CS-SI          utilitaires (entrée/sortie, traitement des chaînes de caractères)
+
+
+5. Modifications
+----------------
+Voir fichier NEWS et compte-rendu du BT.
+
+5.2 Périmètre de l'évolution:
+----------------------------
+Liste des DM et FA prises en compte:
+     BIBMS-FA-261-198-CN
+     BIBMS-FA-2811-199-CN
+
+5.1 Identification des modifications:
+--------------------------------------
+Voir fichier NEWS et fichiers ChangeLog de chaque répertoire.
+ 
+6. Faits techniques ouverts
+---------------------------
+Voir fichier TODO.
+
+7. Documentation
+----------------
+
+- fonctionnelle : 
+marmottes-mathematique ESPACE/MS/CHOPE/MARMOTTES/DM/001 4.0 01/02/2002
+
+- d'utilisation:
+cantor ESPACE/MS/CHOPE/CANTOR/MU/001 5.11 04/03/2005
+
+- de définition : 
+Sans objet.
+
+8. Type des fichiers
+--------------------
+
+Suffixe	 binaire/texte		marqué	   cartouche de traçabilité  ($log$)
+*.cpp	      text                   oui               oui   
+*.h           text                   oui               oui
+*.am          text                   non               non
+*.in          text                   non               non
+*.ac          text                   non               non
+*.m4          text                   non               non
+*.sh          text                   non               non
+*.ref         text                   non               non
+*.don         text                   non               non
+*.xml         text                   non               non
+
+Fichiers non suffixés  : 
+nom	  binaire/texte		marqué	   cartouche de traçabilité  ($log$)
+AUTHORS     text                    non            non
+LICENCE     text                    non            non
+LICENSE     text                    non            non
+COPYING     text                    non            non
+README      text                    non            non
+README.dev  text                    non            non
+NEWS        text                    non            non
+INSTALL     text                    non            non
+ChangeLog   text                    non            non
+configure   text                    non            non
+
+9. Mots clés du cartouche de traçabilité des changements ($log$) :
+----------------------------------------------------------------
+TRACE_HISTORIQUE="$Historique"
+TRACE_VERSION="Revision"
+TRACE_FA_ID="FA-ID"
+TRACE_DM_ID="DM-ID"
+TRACE_FIN_HISTORIQUE="$Version"
+TRACE_SEP_DATE='/'
+SEPARATEUR_CHAMPS = ' '
+
+10. Informations complémentaires
+--------------------------------
+Sans objet.
+
+11. Liste des fichiers ajoutés, modifiés, supprimés
+---------------------------------------------------
+
+#################
+fichiers ajoutés
+#################
+cantor/tst/prgm_Field4.cpp
+cantor/tst/test_Field4.in
+cantor/tst/test_Field4.ref
+
+
+##################
+fichiers modifiés
+##################
+cantor/COPYING
+cantor/ChangeLog
+cantor/INSTALL
+cantor/NEWS
+cantor/acinclude.m4
+cantor/config.guess
+cantor/config.sub
+cantor/configure.ac
+cantor/ddc-cantor.txt
+cantor/depcomp
+cantor/install-sh
+cantor/ltmain.sh
+cantor/missing
+cantor/mkinstalldirs
+cantor/doc/ChangeLog
+cantor/doc/cantor.tex
+cantor/doc/macros-bibliotheques.tex
+cantor/doc/maintenance.tex
+cantor/doc/pages-liminaires.tex
+cantor/doc/references.tex
+cantor/src/CantorErreurs.cpp
+cantor/src/ChangeLog
+cantor/src/Field.cpp
+cantor/tst/ChangeLog
+cantor/tst/Makefile.am
+
+
+###################
+fichiers supprimés
+###################
+sans objet

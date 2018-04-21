@@ -1,0 +1,1205 @@
+% -*- mode: latex; tex-main-file: "marmottes-mathematique.tex" -*-
+% $Id: modelisation.tex,v 1.19 2002/01/17 14:00:50 marmottes Exp $
+\section{Modélisation des capteurs}\label{sec:modelisation-capteurs}
+La modélisation des capteurs a été présentée de façon succinte avec
+les principes de fonctionnement internes. Nous allons maintenant
+décrire la partie visible par l'utilisateur et qui devra être définie
+dans les fichiers de ressources : ce sont donc réellement les données
+d'entrée de la bibliothèque \bibliotheque{marmottes}.
+
+Les nombreux capteurs utilisés sur les satellites ont souvent des
+caractéristiques communes, ils peuvent être hiérarchisés selon la
+notion classique en analyse orientée objet de
+généralisation\footnote{qui se retrouve au niveau de la conception
+dans un arbre d'héritage}. La figure~\ref{fig:hierarchie} présente
+cette hiérarchie.
+
+L'abstraction la plus générale correspond à la racine de l'arbre, les
+spécialisations les plus précises correspondant aux feuilles. Les
+sections suivantes décrivent les données de modélisation propre à
+chaque niveau. Le modèle complet d'un capteur Terre regroupe donc les
+données propres aux capteurs Terre, les données propres aux capteurs
+dièdres, les données propres aux capteurs optiques, les données
+propres aux capteurs géométriques (il n'y en a pas) et les données
+générales à tous les types de capteurs.
+
+Une remarque importante est que l'on considère dans la modélisation
+qu'un capteur produit une seule mesure. Pour modéliser un capteur réel
+produisant deux mesures (par exemple un capteur Terre mesurant le
+roulis et le tangage), on définira deux capteurs au sens de cette
+modélisation, un pour chacune des mesures.
+
+\begin{figure}[htbp]\caption{\label{fig:hierarchie}Hiérarchie des capteurs}
+\begin{center}\begin{minipage}{162.96mm}
+\setlength{\unitlength}{14mm}\begin{picture}(11.64,7.7)
+\newsavebox{\classeBase}
+\savebox{\classeBase}{\put(0.67,-0.3){\line(1,0){0.3}}
+\put(0.82,0){\line(-1,-2){0.15}}\put(0.82,0){\line(1,-2){0.15}}
+\put(0.82,-0.3){\line(0,-1){0.2}}}
+\newsavebox{\classeDer}
+\savebox{\classeDer}{\put(0.82,0.7){\line(0,1){0.3}}}
+\newcommand{\db}[4][D]{\put(#2,#3){\dashbox{0.16}(1.64,0.7){#4}}
+\ifthenelse{\equal{#1}{B}\or\equal{#1}{I}}
+{\put(#2,#3){\usebox{\classeBase}}}{\relax}
+\ifthenelse{\equal{#1}{D}\or\equal{#1}{I}}
+{\put(#2,#3){\usebox{\classeDer}}}{\relax}}
+\newcommand{\fb}[4][D]{\put(#2,#3){\framebox(1.64,0.7){#4}}
+\ifthenelse{\equal{#1}{B}\or\equal{#1}{I}}
+{\put(#2,#3){\usebox{\classeBase}}}{\relax}
+\ifthenelse{\equal{#1}{D}\or\equal{#1}{I}}
+{\put(#2,#3){\usebox{\classeDer}}}{\relax}}
+\db[B]{6}{7}{senseur}
+\db[I]{4}{5.5}{géométrique}
+\fb[I]{9}{5.5}{cinématique}
+\fb{9}{4}{\shortstack{gyromètre\\intégrateur}}
+\fb{1}{4}{\shortstack{ascension\\droite}}
+\fb{3}{4}{déclinaison}
+\db[I]{5}{4}{optique}
+\fb{7}{4}{Cardan}
+\fb[I]{1}{2.5}{vecteur}
+\fb[I]{3.5}{2.5}{dièdre}
+\db[I]{7}{2.5}{fonction}
+\fb{0.5}{1}{\shortstack{plan\\vecteur}}
+\fb{1.5}{0}{cartésien}
+\fb{3.5}{1}{limbe}
+\fb{6}{1}{$\left(\frac{\sin \theta}{\theta}\right)^2$}
+\fb{7}{0}{$\frac{\sin \theta_{x}}{\theta_{x}}\frac{\sin \theta_{y}}{\theta_{y}}$}
+\fb{8}{1}{$e^{-\frac{\theta^2}{2}}$}
+\fb{9}{0}{échantillonné}
+\put(1.32,2){\line(1,0){1}}
+\put(6.82,2){\line(1,0){3}}
+\put(1.82,3.5){\line(1,0){6}}
+\put(1.82,5){\line(1,0){6}}
+\put(4.82,6.5){\line(1,0){5}}
+\put(2.32,0.7){\line(0,1){1.3}}
+\put(7.82,0.7){\line(0,1){1.3}}\put(9.82,0.7){\line(0,1){1.3}}
+\end{picture}\end{minipage}\end{center}
+\end{figure}
+
+\subsection{caractéristiques générales}
+\label{sec:caracteristiques-generales}
+
+Les capteurs sont des équipements de mesure implantés sur les
+plateformes des satellites. L'implantation se traduit au niveau du
+modèle par l'orientation du repère interne au capteur par rapport au
+repère satellite. Tous les axes seront ultérieurement décrits dans le
+repère capteur et c'est cette orientation qui permettra de les
+projeter en repère satellite. La manière la plus naturelle de définir
+cette orientation est de donner les coordonnées en repère satellite
+des axes $\vec{\imath}_\mathrm{capteur}$,
+$\vec{\jmath}_\mathrm{capteur}$ et $\vec{k}_\mathrm{capteur}$, il y a
+bien d'autres manières de définir cette orientation, décrites dans la
+documentation utilisateur de la bibliothèque \bibliotheque{marmottes}.
+
+Les mesures fournies par les capteurs sont des scalaires,
+principalement des angles ou des vitesses angulaires, mais parfois
+aussi des nombres sans dimension (capteurs cartésiens) ou des gains en
+dB. Ces scalaires ont une précision limitée, caractéristique du
+capteur. La précision est utilisée lors de l'évaluation de la
+convergence des algorithmes de résolution. L'erreur de convergence
+introduite par cette résolution dans un système sol se doit
+d'être négligeable devant l'erreur intrinsèque du pilotage bord, le
+seuil de convergence doit donc être inférieur ou égal à la précision
+du capteur. Une convergence trop fine quant à elle augmente la durée
+des calculs. Le compromis utilisé par \bibliotheque{marmottes} est de
+considérer un seuil de convergence égal au dixième de la précision du
+capteur.
+
+\subsection{caractéristiques des capteurs géométriques}
+\label{sec:caracteristiques-geometriques}
+Nous avons vu que les consignes des capteurs géométriques étaient
+modélisées par des cônes. Il s'agit cependant là d'un calcul interne
+réalisé à chaque détermination d'orientation par la bibliothèque elle-même,
+et qui n'apparaît pas dans le fichier de description des capteurs.
+
+Ces capteurs n'ont pas de caractéristique propre visible pour
+l'utilisateur.
+
+\subsection{caractéristiques des capteurs d'ascension droite}
+\label{sec:caracteristiques-ascension}
+Les capteurs \emph{ascension} sont des pseudo-capteurs observant un
+vecteur défini en repère satellite (par exemple la direction de
+poussée d'un moteur), et mesurant son ascension droite par rapport au
+repère de Veis. Leur seule caractéristique spécifique est le vecteur
+observé (exprimé en repère capteur).
+
+Comme nous l'avons vu à la section~\ref{sec:capteurs-geometriques},
+page~\pageref{sec:capteurs-geometriques}, on peut inverser la
+consigne. En effet la consigne brute consiste à obliger le vecteur
+$\vec{\mathit{observe}}$ à rester confiné dans un plan d'ascension
+droite donnée, plan obtenu en faisant tourner le plan
+$(\vec{X_\mathrm{in}},\vec{Z_\mathrm{in}})$ d'un angle $\alpha$ autour
+de $\vec{Z_\mathrm{in}}$. Ceci revient à dire que le vecteur
+$\vec{\mathit{observe}}$ doit être orthogonal à un certain vecteur
+$\vec{\mathit{cible}}$ défini comme étant orthogonal au plan
+d'ascension droite souhaité. Cette consigne est strictement
+équivalente à imposer au vecteur inertiel $\vec{\mathit{cible}}$ à
+rester confiné dans le plan orthogonal à $\vec{\mathit{observe}}$,
+plan défini en repère satellite.
+
+\begin{figure}[htbp]\caption{\label{fig:capteur-ascension}pseudo-capteur
+d'ascension droite}
+\begin{center}\begin{minipage}{70.00mm}
+\setlength{\unitlength}{0.0250mm}\begin{picture}(2800,2799)
+
+  % courbe 1
+  \qbezier[0](0,1400)(-2,1332)(61,1260)
+  \qbezier[0](61,1260)(107,1208)(183,1163)
+  \qbezier[0](183,1163)(249,1124)(334,1090)
+  \qbezier[0](334,1090)(406,1061)(489,1036)
+  \qbezier[0](489,1033)(1397,807)(2307,1032)
+  \qbezier[0](2307,1035)(2390,1059)(2463,1088)
+  \qbezier[0](2463,1088)(2548,1122)(2615,1162)
+  \qbezier[0](2615,1162)(2702,1213)(2750,1273)
+  \qbezier[0](2750,1273)(2801,1338)(2800,1400)
+
+  % courbe 2
+  \qbezier[0](2205,1007)(2184,246)(1789,57)
+  \qbezier[0](1787,58)(1754,45)(1726,38)
+
+  % courbe 3
+  \qbezier[0](1074,2761)(1127,2776)(1200,2772)
+  \qbezier[0](1200,2772)(1262,2768)(1324,2747)
+  \qbezier[0](1324,2747)(1388,2725)(1450,2688)
+  \qbezier[0](1450,2688)(1501,2658)(1550,2619)
+  \qbezier[0](1551,2619)(1601,2579)(1648,2530)
+  \qbezier[0](1651,2531)(2171,1949)(2206,1009)
+
+  % courbe 4
+  \qbezier[0](2614,1160)(2598,500)(2115,195)
+
+  % courbe 5
+  \qbezier[0](686,2605)(764,2653)(884,2693)
+  \qbezier[0](884,2692)(988,2725)(1098,2734)
+  \qbezier[0](1098,2734)(1191,2741)(1286,2732)
+  \qbezier[0](1286,2732)(1381,2723)(1476,2698)
+  \qbezier[0](1476,2698)(1553,2678)(1627,2648)
+  \qbezier[0](1627,2648)(1702,2617)(1775,2577)
+  \qbezier[0](1777,2579)(2479,2156)(2605,1329)
+  \qbezier[0](2603,1327)(2613,1244)(2613,1161)
+
+  % courbe 6
+  \qbezier[0](848,2686)(750,2648)(660,2545)
+  \qbezier[0](661,2545)(599,2470)(557,2371)
+  \qbezier[0](557,2371)(520,2285)(500,2185)
+  \qbezier[0](500,2185)(483,2100)(477,2008)
+  \qbezier[0](477,2008)(472,1933)(475,1855)
+  \qbezier[0](472,1853)(543,939)(1178,331)
+  \qbezier[0](1182,331)(1252,270)(1325,222)
+  \qbezier[0](1325,222)(1412,165)(1500,129)
+  \qbezier[0](1500,129)(1615,82)(1725,75)
+  \qbezier[0](1725,75)(1848,69)(1952,113)
+
+  % courbe 7
+  \qbezier[0](1675,2502)(1762,2523)(1815,2554)
+
+  % courbe 8
+  \qbezier[0](712,1235)(819,1183)(980,1151)
+
+  % courbe 9
+  \qbezier[0](1400,1400)(1050,1193)(700,985)
+
+  % courbe 10
+  %\qbezier[0](1400,1400)(1925,1625)(2450,1850)
+  \qbezier[0](1400,1400)(1708,1532)(2016,1664)
+  \qbezier[0](2153,1723)(2301,1786)(2450,1850)
+
+  % courbe 11
+  \qbezier[0](1400,1400)(1802,1204)(2203,1008)
+
+  % courbe 12
+  %\qbezier[0](1400,1400)(827,1263)(253,1125)
+  \qbezier[0](1400,1400)(1029,1311)(659,1222)
+  \qbezier[0](516,1188)(384,1156)(253,1125)
+
+  % courbe 13
+  \qbezier[0](1400,1400)(1400,2058)(1400,2716)
+
+  % courbe 14
+  \qbezier[0](2762,1726)(2653,2167)(2310,2464)
+  \qbezier[0](2310,2464)(1925,2787)(1423,2800)
+  \qbezier[0](1422,2802)(638,2788)(205,2134)
+  \qbezier[0](207,2132)(161,2057)(124,1977)
+  \qbezier[0](124,1977)(-97,1471)(75,947)
+  \qbezier[0](75,947)(200,586)(490,336)
+  \qbezier[0](490,335)(875,13)(1377,0)
+  \qbezier[0](1378,-2)(2162,12)(2595,666)
+  \qbezier[0](2594,667)(2888,1163)(2762,1726)
+
+  \put(1850,2350){\mbox{$\alpha$}}
+  \put(700,1100){\mbox{$\alpha$}}
+  \put(1000,1050){\mbox{$\vec{\mathit{cible}}$}}
+  \put(2200,1600){\mbox{$\vec{\mathit{observe}}$}}
+  \put(2250,800){\mbox{$\vec{X_\mathrm{in}}$}}
+  \put(150,1250){\mbox{$\vec{-Y_\mathrm{in}}$}}
+  \put(1150,2500){\mbox{$\vec{Z_\mathrm{in}}$}}
+\end{picture}\end{minipage}\end{center}\end{figure}
+
+Cible pour la mesure $\alpha$
+\begin{displaymath}
+\vec{\mathit{cible}} \left\{\begin{array}{c}
+                            \sin\alpha\\-\cos\alpha\\0
+                            \end{array}\right.
+\end{displaymath}
+
+Cône de consigne pour la mesure $\alpha$
+\begin{eqnarray*}
+\vec{\mathit{axe}} & = & \vec{\mathit{observe}}\\
+\mathit{angle}     & = & \frac{\pi}{2}
+\end{eqnarray*}
+
+Mesure produite
+\begin{eqnarray*}
+\vec{o} & = & Q_{\mathit{att}}^{-1} (\vec{\mathit{observe}}) \\
+\alpha & = & \mathrm{atan2} (o_y, o_x)
+\end{eqnarray*}
+
+\subsection{caractéristiques des capteurs de déclinaison}
+\label{sec:caracteristiques-declinaison}
+Les capteurs \emph{déclinaison} sont des pseudo-capteurs observant un
+vecteur défini en repère satellite (par exemple la direction de
+poussée d'un moteur), et mesurant sa déclinaison par
+rapport au repère de Veis. Leur seule caractéristique
+spécifique est le vecteur observé (exprimé en repère capteur).
+
+Comme nous l'avons vu à la section~\ref{sec:capteurs-geometriques},
+page~\pageref{sec:capteurs-geometriques}, on peut inverser la
+consigne. En effet la consigne brute consiste à obliger le vecteur
+$\vec{\mathit{observe}}$ à rester confiné dans un cône de déclinaison
+donnée, cône d'axe $\vec{Z_\mathrm{in}}$. Ceci revient à dire que le
+vecteur $\vec{\mathit{observe}}$ doit être séparé de
+$\vec{Z_\mathrm{in}}$ d'un angle connu. Cette consigne est strictement
+équivalente à imposer au vecteur inertiel $\vec{\mathit{cible}} =
+\vec{Z_\mathrm{in}}$ à rester confiné dans un cône d'axe
+$\vec{\mathit{observe}}$, cône défini en repère satellite.
+
+Il faut prendre garde avec les capteurs de déclinaison à ne pas
+utiliser des consignes valant $\pm\pi/2$. En effet le cône de consigne
+dégénère dans ce cas en un point situé sur l'axe des pôles, il ne
+s'agit donc plus d'une variété à une dimension et les algorithmes de
+résolution ne fonctionnent plus.
+
+\begin{figure}[htbp]\caption{\label{fig:capteur-declinaison}pseudo-capteur
+de déclinaison}
+\begin{center}\begin{minipage}{70.00mm}
+\setlength{\unitlength}{0.0250mm}\begin{picture}(2800,2799)
+
+  % courbe 1
+  \qbezier[0](0,1400)(-2,1332)(61,1260)
+  \qbezier[0](61,1260)(107,1208)(183,1163)
+  \qbezier[0](183,1163)(249,1124)(334,1090)
+  \qbezier[0](334,1090)(406,1061)(489,1036)
+  \qbezier[0](489,1033)(1397,807)(2307,1032)
+  \qbezier[0](2307,1035)(2390,1059)(2463,1088)
+  \qbezier[0](2463,1088)(2548,1122)(2615,1162)
+  \qbezier[0](2615,1162)(2702,1213)(2750,1273)
+  \qbezier[0](2750,1273)(2801,1338)(2800,1400)
+
+  % courbe 2
+  \qbezier[0](215,2145)(174,2085)(194,2013)
+  \qbezier[0](195,2013)(212,1960)(265,1912)
+  \qbezier[0](265,1912)(313,1868)(385,1831)
+  \qbezier[0](385,1831)(449,1798)(528,1770)
+  \qbezier[0](528,1766)(1296,1537)(2156,1730)
+  \qbezier[0](2157,1734)(2230,1754)(2295,1778)
+  \qbezier[0](2295,1778)(2359,1802)(2412,1830)
+  \qbezier[0](2412,1830)(2485,1867)(2534,1911)
+  \qbezier[0](2534,1911)(2594,1965)(2609,2025)
+  \qbezier[0](2609,2025)(2622,2090)(2585,2145)
+
+  % courbe 3
+  \qbezier[0](1752,2755)(1589,2799)(1445,2739)
+  \qbezier[0](1445,2739)(1353,2699)(1285,2616)
+  \qbezier[0](1285,2616)(1231,2552)(1195,2466)
+  \qbezier[0](1195,2466)(1163,2392)(1146,2305)
+  \qbezier[0](1146,2305)(1131,2231)(1126,2152)
+  \qbezier[0](1126,2152)(1122,2087)(1124,2020)
+  \qbezier[0](1122,2018)(1172,1297)(1661,767)
+  \qbezier[0](1664,768)(1711,720)(1761,679)
+  \qbezier[0](1761,679)(1822,628)(1885,589)
+  \qbezier[0](1885,589)(1960,543)(2036,515)
+  \qbezier[0](2036,515)(2136,478)(2230,477)
+  \qbezier[0](2230,477)(2347,476)(2445,532)
+  \qbezier[0](2445,531)(2560,600)(2624,721)
+
+  % courbe 4
+  \qbezier[0](253,1125)(254,1478)(407,1820)
+
+  % courbe 5
+  \qbezier[0](1403,2717)(2084,2558)(2451,1854)
+
+  % courbe 6
+  \qbezier[0](1400,1400)(1925,1625)(2450,1850)
+
+  % courbe 7
+  \qbezier[0](1400,1400)(1400,2058)(1400,2716)
+
+  % courbe 8
+  \qbezier[0](2762,1726)(2653,2167)(2310,2464)
+  \qbezier[0](2310,2464)(1925,2787)(1423,2800)
+  \qbezier[0](1422,2802)(638,2788)(205,2134)
+  \qbezier[0](207,2132)(161,2057)(124,1977)
+  \qbezier[0](124,1977)(-97,1471)(75,947)
+  \qbezier[0](75,947)(200,586)(490,336)
+  \qbezier[0](490,335)(875,13)(1377,0)
+  \qbezier[0](1378,-2)(2162,12)(2595,666)
+  \qbezier[0](2594,667)(2888,1163)(2762,1726)
+
+  \put(1700,2200){\mbox{$\frac{\pi}{2} - \delta$}}
+  \put(400,1400){\mbox{$\delta$}}
+  \put(2200,1600){\mbox{$\vec{\mathit{observe}}$}}
+  \put(600,2300){\mbox{$\vec{Z_\mathrm{in}} = \vec{\mathit{cible}}$}}
+\end{picture}\end{minipage}\end{center}\end{figure}
+Cible pour la mesure $\delta$
+\begin{displaymath}
+\vec{\mathit{cible}} \left\{\begin{array}{c}0\\0\\1\end{array}\right.
+\end{displaymath}
+
+Cône de consigne pour la mesure $\delta$
+\begin{eqnarray*}
+\vec{\mathit{axe}} & = & \vec{\mathit{observe}}\\
+\mathit{angle}     & = & \frac{\pi}{2} - \delta
+\end{eqnarray*}
+
+Mesure produite
+\begin{eqnarray*}
+\vec{o} & = & Q_{\mathit{att}}^{-1} (\vec{\mathit{observe}}) \\
+\delta  & = & \arcsin (o_z)
+\end{eqnarray*}
+
+\subsection{caractéristiques des capteurs optiques}
+Les capteurs \emph{optiques} sont des capteurs géométriques qui
+observent une cible, leurs caractéristiques spécifiques sont la cible
+et le champ de vue du capteur.
+
+La liste des cibles connues de \bibliotheque{marmottes} à la date de
+rédaction de cette note est : \texttt{Soleil}, \texttt{pseudo-Soleil}
+(le \texttt{pseudo-Soleil} est visible même à travers la Terre et la
+Lune, alors que le \texttt{Soleil} est affecté par les éclipses),
+\texttt{Terre-Soleil} (la direction \texttt{Terre-Soleil} ne prend pas
+en compte la parallaxe due à la position du satellite, alors que la
+direction \texttt{Soleil} en tient compte), \texttt{Lune},
+\texttt{Terre}, \texttt{nadir} (les points de la surface terrestre au
+nadir du satellite le voient exactement à leur verticale locale, en
+prenant l'ellipticité de la Terre en compte), \texttt{vitesse},
+\texttt{moment} (\emph{orbital}), \texttt{devant} (direction dans le
+plan de l'orbite perpendiculaire à la direction du centre Terre),
+\texttt{position} (qui indique que l'utilisateur donnera lui-même dans
+le code la position de la cible et qu'il faudra lui appliquer une
+correction de parallaxe), \texttt{direction} (qui indique que
+l'utilisateur donnera lui-même dans le code la direction de la cible
+et qu'il faudra la prendre telle qu'elle), \texttt{station} (la
+station elle-même est décrite dans un bloc séparé), \texttt{Polaris},
+et \texttt{Canopus}\footnote{les deux derniers astres ont été rajoutés
+uniquement pour le plaisir ...}.
+
+Deux cibles particulières de la liste précédente méritent une
+explication, les cibles \texttt{position} et \texttt{direction}. Ces
+cibles permettent de prendre en compte les capteurs susceptibles
+d'observer de nombreuses cibles différentes selon les conditions ou
+les besoins de l'utilisateur. La cible \texttt{position} est ainsi
+bien adaptée à la modélisation des pseudo-capteurs mesurant des gains
+d'antennes par rapport à un émetteur quelconque, éventuellement mobile
+(cf~\ref{sec:caracteristiques-echantillonnes},
+\ref{sec:caracteristiques-sincard2} et
+\ref{sec:caracteristiques-gaussien}). L'exemple type est le calcul du
+bilan de liaison d'un signal émis par un satellite \textsc{gps} dont
+on recalcule la position à chaque instant. La cible \texttt{direction}
+est quant à elle plutôt destinée à modéliser des capteurs stellaires
+qui peuvent suivre des centaines voire des milliers d'étoiles
+différentes selon la richesse du catalogue embarqué. Pour modéliser de
+tels capteurs, une seule entrée dans le fichier de description est
+nécessaire, la cible pouvant être mise à jour à volonté pendant le
+déroulement du programme. Lorsqu'un tel capteur n'est utilisé qu'en
+temps que capteur de mesure et pas en consigne, on peut même tester de
+nombreuses cibles entre chaque détermination d'orientation, par exemple pour
+tester finement les étoiles visibles après un premier tri grossier.
+
+Un champ de vue est une zone de la sphère unité qui peut être simple,
+c'est alors un cône défini par son axe (en repère capteur,
+rappelons-le) et son demi-angle au sommet, ou composée à partir d'une
+ou de plusieurs autres zones. Dans la terminologie
+\bibliotheque{marmottes}, ces zones (simples et composées) sont
+dénommées des \emph{champs}\footnote{du nom de la classe \langage{c++}
+qui les implante}. Les opérations de composition disponibles sont
+décrites dans la table~\ref{tab:champ}.
+
+\begin{table}[htbp]
+\caption{\label{tab:champ}opérations sur les zones géométriques de
+la sphère unité}
+\begin{center}\begin{tabular}[b]{|c|c|c|}
+\hline
+nom & \multicolumn{2}{c|}{arguments} \\
+\hline\hline
+intersection &   champ  & champ \\
+  réunion    &   champ  & champ \\
+différence   &   champ  & champ \\
+   marge     & scalaire & champ \\
+déplacement  & rotation & champ \\
+  balayage   & rotation & champ \\
+\hline
+\end{tabular}\end{center}\end{table}
+
+L'opération \emph{marge} permet d'ajouter (ou de retirer selon le
+signe) une marge angulaire sur un champ. L'opération \emph{balayage}
+permet de calculer le champ résultant de l'étalement de champ sur la
+sphère à l'aide d'une rotation (un peu à la manière d'un
+pinceau). Cette dernière opération est particulièrement utile pour
+définir les champs de vue résultant de balayages optiques de
+détecteurs.
+
+\begin{figure}[htbp]\caption{\label{fig:capteur-solaire}champ de vue d'un
+capteur solaire}
+\begin{center}\begin{minipage}{70.00mm}
+\setlength{\unitlength}{0.0250mm}\begin{picture}(2800,2800)
+
+  % courbe 1
+  \qbezier[0](1400,1400)(998,1252)(597,1103)
+
+  % courbe 2
+  \qbezier[0](597,1103)(677,1167)(758,1230)
+
+  % courbe 3
+  \qbezier[0](758,1230)(758,1196)(758,1163)
+
+  % courbe 4
+  \qbezier[0](758,1163)(786,1157)(815,1152)
+
+  % courbe 5
+  \qbezier[0](815,1152)(706,1128)(597,1103)
+
+  % courbe 6
+  \qbezier[0](597,1103)(998,1252)(1400,1400)
+
+  % courbe 7
+  \qbezier[0](1400,1400)(1973,1296)(2547,1192)
+
+  % courbe 8
+  \qbezier[0](2547,1192)(2412,1206)(2277,1219)
+
+  % courbe 9
+  \qbezier[0](2277,1219)(2297,1226)(2317,1234)
+
+  % courbe 10
+  \qbezier[0](2317,1234)(2317,1268)(2317,1301)
+
+  % courbe 11
+  \qbezier[0](2317,1301)(2432,1247)(2547,1192)
+
+  % courbe 12
+  \qbezier[0](2547,1192)(1973,1296)(1400,1400)
+
+  % courbe 13
+  \qbezier[0](1400,1400)(1400,2076)(1400,2752)
+
+  % courbe 14
+  \qbezier[0](1400,2752)(1429,2612)(1457,2471)
+
+  % courbe 15
+  \qbezier[0](1457,2471)(1429,2477)(1400,2482)
+
+  % courbe 16
+  \qbezier[0](1400,2482)(1380,2474)(1360,2467)
+
+  % courbe 17
+  \qbezier[0](1360,2467)(1380,2610)(1400,2752)
+
+  % courbe 18
+  \qbezier[0](2548,1192)(2825,1524)(2738,1813)
+
+  % courbe 19
+  \qbezier[0](62,987)(83,915)(137,842)
+  \qbezier[0](137,842)(193,769)(277,711)
+  \qbezier[0](277,711)(350,661)(440,625)
+  \qbezier[0](440,625)(516,594)(602,574)
+  \qbezier[0](602,574)(671,558)(746,548)
+  \qbezier[0](746,548)(821,538)(900,535)
+  \qbezier[0](901,533)(1776,533)(2419,1060)
+  \qbezier[0](2419,1063)(2489,1126)(2547,1192)
+
+  % courbe 20
+  \qbezier[0](2547,1192)(2765,1101)(2758,1059)
+
+  % courbe 21
+  \qbezier[0](42,1741)(44,1756)(84,1763)
+  \qbezier[0](84,1763)(124,1769)(190,1766)
+  \qbezier[0](190,1766)(250,1764)(327,1755)
+  \qbezier[0](328,1758)(1499,1580)(2547,1196)
+
+  % courbe 22
+  \qbezier[0](251,1191)(277,409)(845,114)
+  \qbezier[0](847,115)(895,93)(915,87)
+
+  % courbe 23
+  \qbezier[0](1885,2713)(1790,2749)(1685,2762)
+  \qbezier[0](1685,2762)(1598,2772)(1508,2766)
+  \qbezier[0](1508,2766)(1418,2760)(1328,2737)
+  \qbezier[0](1328,2737)(1256,2718)(1185,2689)
+  \qbezier[0](1185,2689)(1114,2661)(1046,2622)
+  \qbezier[0](1046,2622)(977,2583)(912,2535)
+  \qbezier[0](909,2536)(282,2035)(251,1194)
+
+  % courbe 24
+  \qbezier[0](1036,1049)(1054,148)(1265,14)
+  \qbezier[0](1267,14)(1288,4)(1303,3)
+
+  % courbe 25
+  \qbezier[0](1497,2797)(1468,2799)(1434,2779)
+  \qbezier[0](1434,2779)(1405,2761)(1377,2728)
+  \qbezier[0](1377,2728)(1354,2700)(1332,2663)
+  \qbezier[0](1330,2663)(1062,2155)(1035,1051)
+
+  % courbe 26
+  \qbezier[0](1008,2600)(1108,2563)(1276,2551)
+
+  % courbe 27
+  \qbezier[0](2228,1308)(2177,1093)(2228,917)
+
+  % courbe 28
+  \qbezier[0](2778,1150)(2855,1597)(2662,2008)
+  \qbezier[0](2662,2009)(2327,2658)(1607,2786)
+  \qbezier[0](1606,2786)(984,2866)(497,2471)
+  \qbezier[0](497,2471)(25,2058)(-1,1431)
+  \qbezier[0](0,1431)(-6,1118)(120,832)
+  \qbezier[0](119,830)(447,148)(1192,13)
+  \qbezier[0](1194,14)(1816,-66)(2303,329)
+  \qbezier[0](2303,329)(2683,657)(2778,1150)
+
+  \put (1900,1100){\mbox{50°}}
+  \put (950,2400){\mbox{40°}}
+  \put (500,950){\mbox{$\vec{\imath}$}}
+  \put (2500,1350){\mbox{$\vec{\jmath}$}}
+  \put (1500,2500){\mbox{$\vec{k}$}}
+
+\end{picture}\end{minipage}\end{center}
+\end{figure}
+
+À titre d'exemple, voici comment on pourrait décrire le champ de vue
+du capteur solaire de la figure~\ref{fig:capteur-solaire} :
+\newlength{\largspecires}
+\settowidth{\largspecires}{
+\hspace{10mm}intersection du cône ($(\sin(25\mbox{°}),\cos(25\mbox{°}),0)$, 90°)
+}
+\begin{center}\begin{minipage}{\largspecires}\begin{flushleft}
+dièdre d'axe $\vec{k}$ :\\
+\hspace{10mm}intersection du cône ($(\sin(20\mbox{°}),\cos(20\mbox{°}),0)$, 90°)\\
+\hspace{10mm}avec le cône ($(\sin(20\mbox{°}),-\cos(20\mbox{°}),0)$, 90°)\\
+dièdre d'axe $\vec{\jmath}$ :\\
+\hspace{10mm}intersection du cône ($(\sin(25\mbox{°}),0,\cos(25\mbox{°}))$, 90°)\\
+\hspace{10mm}avec le cône ($(\sin(25\mbox{°}),0,-\cos(25\mbox{°}))$, 90°)\\
+champ de vue :\\
+\hspace{10mm}intersections des dièdres d'axes $\vec{\jmath}$ et $\vec{k}$
+\end{flushleft}\end{minipage}\end{center}
+Cette description peut être facilement transcrite dans le fichier des
+capteurs, la syntaxe de ce fichier est décrite dans le manuel
+d'utilisation de \bibliotheque{marmottes}.
+
+Dans tous les cas de champs de vue, la visibilité d'un astre considéré
+comme ponctuel est testée par l'inclusion du point dans le champ
+complet. Les capteurs \emph{Terre}\footnote{il s'agit là des
+capteurs explicitement déclarés de type \emph{Terre}, un capteur de
+type \emph{dièdre} ayant pour cible la Terre la considère
+ponctuelle, comme tous les autres astres} cependant ne se contentent
+pas d'observer un point de leur astre cible mais utilisent son
+limbe, leur champ de vue et leur logique de détermination de la
+visibilité sont donc plus complexes (voir
+section~\ref{sec:caracteristiques-terre}).
+
+\subsection{caractéristiques des capteurs vecteurs}
+\label{sec:caracteristiques-vecteurs}
+Les capteurs \emph{vecteurs} sont des capteurs optiques qui mesurent
+des angles entre l'astre observé et un vecteur de référence.
+
+Le capteur est entièrement défini par l'axe de référence.
+
+Un exemple classique concerne les satellites stabilisés par rotation,
+qui disposent de capteurs mesurant l'angle d'aspect solaire par
+rapport à l'axe de rotation. L'axe de référence est donc l'axe de
+rotation du satellite, qui dans la pratique dépend de l'implantation
+du capteur. Pour des raisons d'homogénéité la bibliothèque attend ce
+vecteur en repère capteur, l'utilisateur doit réaliser lui-même la
+projection entre les repères (ou dire à la bibliothèque que le repère
+capteur est similaire au repère satellite).
+
+\begin{figure}[htbp]\caption{\label{fig:capteur-vecteur}champ de vue d'un
+capteur vecteur}
+\begin{center}\begin{minipage}{70.00mm}
+\setlength{\unitlength}{0.0250mm}\begin{picture}(2800,2800)
+
+  % courbe 1
+  \qbezier[0](2417,2363)(2116,2670)(1849,2574)
+  \qbezier[0](1848,2572)(1780,2542)(1729,2481)
+  \qbezier[0](1729,2481)(1684,2426)(1655,2351)
+  \qbezier[0](1655,2351)(1633,2294)(1622,2228)
+  \qbezier[0](1622,2228)(1612,2172)(1610,2112)
+  \qbezier[0](1607,2110)(1619,1490)(2061,1058)
+  \qbezier[0](2064,1058)(2109,1019)(2156,988)
+  \qbezier[0](2156,988)(2212,951)(2268,928)
+  \qbezier[0](2268,928)(2333,901)(2396,895)
+  \qbezier[0](2396,895)(2485,886)(2561,919)
+  \qbezier[0](2562,918)(2812,1042)(2799,1474)
+
+  % courbe 2
+  \qbezier[0](2450,1851)(2226,2306)(1815,2555)
+
+  % courbe 3
+  % \qbezier[0](1400,1400)(1925,1625)(2450,1850)
+  \qbezier[0](1400,1400)(1525,1454)(1651,1508)
+  \qbezier[0](1788,1566)(2119,1708)(2450,1850)
+
+  % courbe 4
+  % \qbezier[0](1400,1400)(1607,1977)(1815,2554)
+  \qbezier[0](1400,1400)(1481,1626)(1562,1852)
+  \qbezier[0](1671,2152)(1743,2353)(1815,2554)
+
+  % courbe 5
+  \qbezier[0](2762,1726)(2653,2167)(2310,2464)
+  \qbezier[0](2310,2465)(1925,2787)(1423,2800)
+  \qbezier[0](1422,2802)(638,2788)(205,2134)
+  \qbezier[0](207,2132)(161,2057)(124,1977)
+  \qbezier[0](124,1977)(-97,1471)(74,947)
+  \qbezier[0](75,947)(200,586)(490,336)
+  \qbezier[0](490,335)(875,13)(1377,0)
+  \qbezier[0](1378,-2)(2162,12)(2595,666)
+  \qbezier[0](2594,667)(2888,1163)(2762,1726)
+
+  \put(1900,1500){\mbox{$\vec{\mathit{reference}}$}}
+  \put(1200,2000){\mbox{$\vec{\mathit{cible}}$}}
+  \put(2300,2200){\mbox{$\alpha$}}
+
+\end{picture}\end{minipage}\end{center}
+\end{figure}
+
+Le cône de consigne pour la mesure $\alpha$ s'exprime simplement
+\begin{eqnarray*}
+\vec{\mathit{axe}} & = & \vec{\mathit{reference}}\\
+\mathit{angle}     & = & \alpha
+\end{eqnarray*}
+
+La mesure produite pour un astre cible dans la direction $\vec{c}$ vaut
+\begin{eqnarray*}
+\vec{v} & = & Q_{\mathit{att}} (\vec{c}) \\
+\alpha  & = & \mathrm{angle} (\vec{v}, \vec{\mathit{reference}})
+\end{eqnarray*}
+
+\subsection{caractéristiques des capteurs plan-vecteurs (élévation)}
+\label{sec:caracteristiques-elevation}
+Les capteurs \emph{plan-vecteur}\footnote{ce nom extrêmement laid a
+été choisi après bien des réflexions à la suite d'un conflit
+qu'introduisait le terme plus adapté \emph{élévation}, si un lecteur
+désire proposer un meilleur vocable, l'auteur serait heureux de le
+savoir} mesurent l'élévation par rapport à un plan. Ils sont
+directement issus des capteurs \emph{vecteur}, à l'aide des règles
+suivantes :
+\begin{eqnarray*}
+\mathit{consigne}_{\mathit{\acute{e}l\acute{e}vation}} (\alpha) & = &
+   \mathit{consigne}_{\mathit{vecteur}} (\frac{\pi}{2} - \alpha)\\
+\mathit{mesure}_{\mathit{\acute{e}l\acute{e}vation}} & = &
+   \frac{\pi}{2} - \mathit{mesure}_{\mathit{vecteur}}
+\end{eqnarray*}
+
+\subsection{caractéristiques des capteurs cartésiens}
+\label{sec:caracteristiques-cartesiens}
+Les capteurs \emph{cartésiens} mesurent la projection d'une direction
+sur un axe. Ils sont directement issus des capteurs \emph{vecteur}, à
+l'aide des règles suivantes :
+\begin{eqnarray*}
+\mathit{consigne}_{\mathit{cart\acute{e}sien}} (x) & = &
+   \mathit{consigne}_{\mathit{vecteur}}(arccos (x))\\
+\mathit{mesure}_{\mathit{cart\acute{e}sien}} & = &
+   cos (\mathit{mesure}_{\mathit{vecteur}})
+\end{eqnarray*}
+
+\subsection{caractéristiques des capteurs dièdres}
+\label{sec:caracteristiques-diedres}
+Les capteurs \emph{dièdres} sont des capteurs optiques qui mesurent
+des angles entre un demi-plan de référence (passant par l'axe
+sensible) et un demi-plan défini par l'astre observé et l'axe
+sensible. Le capteur est entièrement défini par l'axe sensible et un
+vecteur quelconque du demi-plan de référence non aligné avec l'axe
+sensible. La mesure produite est un angle compris entre $-\pi$ et
+$\pi$, l'angle étant orienté du plan de référence vers le plan de
+l'astre conformément au sens de l'axe sensible (voir la
+figure~\ref{fig:capteur-diedre}, où l'angle mesuré, $\alpha$, est
+positif).
+\begin{figure}[htbp]\caption{\label{fig:capteur-diedre}mesure d'un
+capteur dièdre}
+\begin{center}\begin{minipage}{70.00mm}
+\setlength{\unitlength}{0.0250mm}\begin{picture}(2800,2799)
+
+  % courbe 1
+  \qbezier[0](0,1400)(6,1338)(56,1299)
+  \qbezier[0](56,1299)(100,1260)(173,1225)
+  \qbezier[0](173,1225)(238,1195)(321,1169)
+  \qbezier[0](321,1169)(393,1147)(474,1128)
+  \qbezier[0](475,1126)(1400,947)(2325,1126)
+  \qbezier[0](2326,1128)(2407,1147)(2479,1169)
+  \qbezier[0](2479,1169)(2562,1195)(2627,1225)
+  \qbezier[0](2627,1225)(2710,1264)(2756,1310)
+  \qbezier[0](2756,1310)(2796,1346)(2800,1400)
+
+  % courbe 2
+  \qbezier[0](2392,1143)(2823,1428)(2771,1683)
+
+  % courbe 3
+  \qbezier[0](29,1117)(41,1056)(85,1000)
+  \qbezier[0](85,1000)(124,951)(185,911)
+  \qbezier[0](185,911)(247,870)(327,839)
+  \qbezier[0](327,839)(396,813)(475,795)
+  \qbezier[0](475,795)(556,776)(646,765)
+  \qbezier[0](648,762)(1590,690)(2390,1140)
+
+  % courbe 4
+  \qbezier[0](1992,1072)(1992,1011)(2003,955)
+
+  % courbe 5
+  \qbezier[0](316,845)(293,906)(267,901)
+  \qbezier[0](266,901)(263,899)(261,896)
+  \qbezier[0](261,896)(259,893)(258,889)
+  \qbezier[0](257,887)(261,829)(300,812)
+  \qbezier[0](302,811)(306,811)(309,813)
+  \qbezier[0](309,812)(320,819)(315,844)
+
+  % courbe 6
+  \qbezier[0](379,852)(332,798)(428,726)
+
+  % courbe 7
+  \qbezier[0](211,813)(259,837)(166,986)
+
+  % courbe 8
+  \qbezier[0](353,734)(293,794)(291,741)
+
+  % courbe 9
+  \qbezier[0](217,1012)(244,938)(289,935)
+  \qbezier[0](290,935)(331,948)(318,1023)
+
+  % courbe 10
+  \qbezier[0](1400,1400)(1400,724)(1400,48)
+
+  % courbe 11
+  \qbezier[0](1400,1400)(1895,1272)(2390,1144)
+
+  % courbe 12
+  \qbezier[0](1400,1400)(1219,1225)(1038,1050)
+
+  % courbe 13
+  \qbezier[0](1400,1400)(905,1272)(410,1144)
+
+  % courbe 14
+  \qbezier[0](2755,1751)(2705,1944)(2604,2115)
+  \qbezier[0](2604,2115)(2394,2463)(2033,2649)
+  \qbezier[0](2033,2649)(1815,2759)(1573,2789)
+  \qbezier[0](1573,2789)(1507,2797)(1441,2799)
+  \qbezier[0](1440,2802)(656,2798)(215,2150)
+  \qbezier[0](216,2148)(-23,1762)(3,1309)
+  \qbezier[0](3,1309)(21,1043)(134,801)
+  \qbezier[0](134,801)(342,371)(767,151)
+  \qbezier[0](767,151)(985,41)(1227,11)
+  \qbezier[0](1227,11)(1293,3)(1359,1)
+  \qbezier[0](1360,-2)(2144,2)(2585,650)
+  \qbezier[0](2584,652)(2774,956)(2798,1315)
+  \qbezier[0](2797,1315)(2811,1536)(2755,1751)
+
+  \put(1900,1280){\mbox{$\vec{\mathit{sensible}}$}}
+  \put(750,890){\mbox{$\vec{\mathit{reference}}$}}
+  \put(1450,400){\mbox{$\vec{\mathit{normale0}}$}}
+  \put(500,1300){\mbox{$\vec{\mathit{dans0}}$}}
+  \put(1880,970){\mbox{$\alpha$}}
+\end{picture}\end{minipage}\end{center}
+\end{figure}
+
+Remarque : à l'intérieur de la bibliothèque, les caractéristiques
+\texttt{axe sensible} et \texttt{référence de zéro} sont converties
+dès la lecture en deux autres vecteurs \texttt{dans0} et
+\texttt{normale0}, plus pratiques pour les calculs. On utilise pour
+cela les relations :
+\begin{eqnarray*}
+\vec{\mathit{normale0}} & = &
+    \frac{\vec{\mathit{sensible}} \wedge \vec{\mathit{reference0}}}
+         {\|\vec{\mathit{sensible}} \wedge \vec{\mathit{reference0}}\|^2}\\
+\vec{\mathit{dans0}}    & = &
+    \vec{\mathit{normale0}} \wedge \vec{\mathit{sensible}}
+\end{eqnarray*}
+Ces deux vecteurs permettent d'exprimer facilement le cône de consigne
+et de calculer une mesure :
+
+Cône de consigne pour la mesure $\alpha$
+\begin{eqnarray*}
+\vec{\mathit{axe}} & = & \cos(\alpha) \vec{\mathit{normale0}}
+                       - \sin(\alpha) \vec{\mathit{dans0}}\\
+\mathit{angle}     & = & \frac{\pi}{2}
+\end{eqnarray*}
+
+Mesure produite pour un astre cible dans la direction $\vec{c}$
+\begin{eqnarray*}
+\vec{v} & = & Q_{\mathit{att}} (\vec{c}) \\
+\alpha  & = & \mathrm{atan2} (\vec{v}\cdot\vec{\mathit{normale0}},
+                              \vec{v}\cdot\vec{\mathit{dans0}})
+\end{eqnarray*}
+
+\subsection{caractéristiques des capteurs Terre}
+\label{sec:caracteristiques-terre}
+Les capteurs \emph{Terre} sont des capteurs dièdres mesurant la
+position de la Terre à l'aide du limbe. Ils ont la particularité
+de pouvoir être inhibés par la Lune ou le Soleil, l'inhibition par la
+Lune ne se produisant qu'en deçà d'un seuil angulaire\footnote{l'angle
+considéré est l'angle Soleil-satellite-Lune} paramétrable entre 0° et
+180° (0° pour la pleine Lune ---c'est-à-dire que la Lune n'est jamais
+gênante--- et 180° pour la nouvelle Lune ---c'est-à-dire que la Lune
+est toujours gênante---). Les capteurs Terre ont donc les
+caractéristiques des capteurs dièdres (sauf la cible qui est
+obligatoirement la Terre), mais également un champ d'inhibition pour
+la Lune, un seuil de phase pour la Lune, et un champ d'inhibition pour
+le Soleil.
+
+Les capteurs \emph{Terre} n'observent pas directement le centre Terre
+mais plutôt les portions de son limbe qui apparaissent dans des
+parcelles différentes du champ de vue. Cette modélisation du limbe
+est faite en tenant compte de la position du satellite en connaissant
+la géométrie de la Terre. Dans l'implémentation actuelle réalisée au
+\textsc{cnes}, on utilise un modèle interne avec une Terre sphérique
+et un rayon infrarouge donné (qui est supérieur au rayon du géoïde à
+cause de l'effet de l'atmosphère), l'utilisateur ne paramètre rien de
+particulier. Il est envisagé de rendre ce modèle de corps central
+paramétrable afin de pouvoir utiliser de tels capteurs\footnote{il
+faudrait alors changer leur nom ...} dans le cadre de missions autour
+d'autres corps.
+
+De plus, pour produire des mesures globales (roulis et tangage par
+exemple), ces capteurs doivent combiner les informations issues de
+chaque parcelle. Ce principe est illustré par le champ de vue de la
+figure~\ref{fig:ires} : pour produire une mesure de roulis le capteur
+combine soit les informations provenant des parcelles 1 et 2 soit les
+informations provenant des parcelles 3 et 4, pour produire une mesure
+de tangage le capteur combine soit les informations provenant des
+parcelles 1 et 3 soit les informations provenant des parcelles 2 et
+4. Dans le cas présenté sur la figure, le capteur roulis voit la Terre
+alors que le capteur tangage ne la voit pas.
+
+Cette logique de mesure a un impact sur la visibilité de la Terre
+considérée comme non ponctuelle, les champs de vue des capteurs
+\emph{Terre} sont donc d'un type plus riche que les champs de vue
+classiques définis par des champs, on les dénomme des
+\emph{parcelles}\footnote{du nom des classes \langage{c++}
+\texttt{Parcelle}, \texttt{ParcelleElementaire},
+\texttt{ReunionEtParcelles}, et \texttt{ReunionOuParcelles} qui les
+implantent}. Une parcelle peut être un simple champ ou une combinaison
+de parcelles à l'aide des opérations décrites dans la
+table~\ref{tab:parcelles}.
+\begin{table}[htbp]
+\caption{\label{tab:parcelles}opérations sur les zones logiques de la
+sphère unité}
+\begin{center}\begin{tabular}[b]{|c|c|c|}
+\hline
+nom & \multicolumn{2}{c|}{arguments} \\
+\hline
+  et  & parcelle & parcelle \\
+  ou  & parcelle & parcelle \\
+marge & scalaire & parcelle \\
+\hline
+\end{tabular}\end{center}\end{table}
+
+\begin{figure}[htb]\caption{\label{fig:ires}champ de vue d'un
+capteur Terre à quatre scans}
+\begin{center}\begin{minipage}{75.00mm}
+\setlength{\unitlength}{0.15mm}\begin{picture}(500,700)
+  \linethickness{1\unitlength}
+
+  % courbe 1
+  \qbezier[0](469,028)(496,101)(500,179)
+  \qbezier[0](500,179)(503,264)(478,346)
+  \qbezier[0](478,346)(421,528)(258,628)
+
+  % courbe 17
+  \qbezier[0](0,200)(64,230)(128,261)
+
+  % courbe 18
+  \qbezier[0](128,261)(128,262)(127,264)
+
+  % courbe 19
+  \qbezier[0](127,264)(137,267)(147,269)
+
+  % courbe 20
+  \qbezier[0](147,269)(138,263)(130,257)
+
+  % courbe 21
+  \qbezier[0](130,257)(129,259)(128,261)
+  \put(134,250){\mbox{$\vec{\imath}$}}
+
+  % courbe 22
+  \qbezier[0](0,200)(0,308)(0,415)
+
+  % courbe 23
+  \qbezier[0](0,415)(-2,415)(-4,415)
+
+  % courbe 24
+  \qbezier[0](-4,415)(-2,425)(0,435)
+
+  % courbe 25
+  \qbezier[0](0,435)(2,425)(4,415)
+
+  % courbe 26
+  \qbezier[0](4,415)(2,415)(0,415)
+  \put(12,415){\mbox{$\vec{\jmath}$}}
+
+  % courbe 27
+  \qbezier[0](0,200)(92,177)(183,155)
+
+  % courbe 28
+  \qbezier[0](183,155)(184,157)(184,159)
+
+  % courbe 29
+  \qbezier[0](184,159)(193,154)(203,150)
+
+  % courbe 30
+  \qbezier[0](203,150)(192,150)(182,151)
+
+  % courbe 31
+  \qbezier[0](182,151)(183,153)(183,155)
+  \put(186,166){\mbox{$\vec{k}$}}
+  \linethickness{1\unitlength}
+
+  % courbe 32
+  \qbezier[0](348,34)(337,26)(346,21) % \qbezier[9] ...
+  \qbezier[0](346,21)(346,20)(347,21) % \qbezier[1] ...
+  \qbezier[0](347,21)(348,21)(349,21) % \qbezier[1] ...
+  \qbezier[0](349,21)(350,21)(351,22) % \qbezier[1] ...
+  \qbezier[0](351,22)(352,22)(353,23) % \qbezier[1] ...
+  \qbezier[0](353,23)(354,23)(356,23) % \qbezier[1] ...
+  \qbezier[0](356,23)(357,24)(358,24) % \qbezier[1] ...
+  \qbezier[0](358,24)(360,25)(361,26) % \qbezier[2] ...
+  \qbezier[0](361,26)(363,26)(365,27) % \qbezier[2] ...
+  \qbezier[0](365,27)(367,27)(368,28) % \qbezier[2] ...
+  \qbezier[0](368,28)(370,29)(372,30) % \qbezier[2] ...
+  \qbezier[0](372,30)(374,30)(376,31) % \qbezier[2] ...
+  \qbezier[0](376,31)(379,32)(381,33) % \qbezier[3] ...
+  \qbezier[0](381,33)(384,34)(386,35) % \qbezier[3] ...
+  \qbezier[0](386,35)(389,37)(392,38) % \qbezier[3] ...
+  \qbezier[0](392,38)(397,46)(398,47) % \qbezier[6] ...
+  \qbezier[0](398,48)(396,49)(395,51) % \qbezier[2] ...
+  \qbezier[0](395,51)(394,54)(392,52) % \qbezier[2] ...
+  \qbezier[0](392,52)(370,42)(348,35) % \qbezier[24] ...
+
+  % courbe 33
+  \qbezier[0](347,136)(337,127)(347,122) % \qbezier[9] ...
+  \qbezier[0](347,122)(348,121)(348,122) % \qbezier[1] ...
+  \qbezier[0](348,122)(349,122)(350,122) % \qbezier[1] ...
+  \qbezier[0](350,122)(351,123)(352,123) % \qbezier[1] ...
+  \qbezier[0](352,123)(353,123)(354,124) % \qbezier[1] ...
+  \qbezier[0](354,124)(356,124)(357,125) % \qbezier[1] ...
+  \qbezier[0](357,125)(358,125)(360,126) % \qbezier[1] ...
+  \qbezier[0](360,126)(361,126)(363,127) % \qbezier[2] ...
+  \qbezier[0](363,127)(364,127)(366,128) % \qbezier[2] ...
+  \qbezier[0](366,128)(368,129)(370,129) % \qbezier[2] ...
+  \qbezier[0](370,129)(372,130)(373,131) % \qbezier[2] ...
+  \qbezier[0](373,131)(376,132)(378,132) % \qbezier[2] ...
+  \qbezier[0](378,132)(380,133)(383,134) % \qbezier[3] ...
+  \qbezier[0](383,134)(385,135)(388,136) % \qbezier[3] ...
+  \qbezier[0](388,136)(390,138)(393,139) % \qbezier[3] ...
+  \qbezier[0](394,139)(397,147)(398,149) % \qbezier[6] ...
+  \qbezier[0](398,149)(393,155)(392,155) % \qbezier[4] ...
+  \qbezier[0](392,154)(370,145)(347,137) % \qbezier[24] ...
+
+  % courbe 34
+  \qbezier[0](415,63)(405,41)(426,55) % \qbezier[15] ...
+  \qbezier[0](426,55)(427,55)(428,56) % \qbezier[1] ...
+  \qbezier[0](428,56)(430,57)(431,58) % \qbezier[2] ...
+  \qbezier[0](431,58)(432,59)(434,59) % \qbezier[2] ...
+  \qbezier[0](434,59)(435,61)(437,62) % \qbezier[2] ...
+  \qbezier[0](437,62)(439,63)(440,64) % \qbezier[2] ...
+  \qbezier[0](440,64)(442,65)(444,66) % \qbezier[2] ...
+  \qbezier[0](444,66)(446,68)(448,69) % \qbezier[2] ...
+  \qbezier[0](448,69)(451,76)(452,79) % \qbezier[6] ...
+  \qbezier[0](452,79)(452,81)(451,83) % \qbezier[2] ...
+  \qbezier[0](450,82)(450,85)(448,83) % \qbezier[2] ...
+  \qbezier[0](448,83)(433,72)(416,63) % \qbezier[19] ...
+
+  % courbe 35
+  \qbezier[0](414,165)(406,142)(427,156) % \qbezier[15] ...
+  \qbezier[0](427,156)(428,157)(430,157) % \qbezier[1] ...
+  \qbezier[0](430,157)(431,158)(433,159) % \qbezier[2] ...
+  \qbezier[0](433,159)(434,160)(435,161) % \qbezier[2] ...
+  \qbezier[0](435,161)(437,162)(438,163) % \qbezier[2] ...
+  \qbezier[0](438,163)(440,164)(442,165) % \qbezier[2] ...
+  \qbezier[0](442,165)(444,166)(446,167) % \qbezier[2] ...
+  \qbezier[0](446,167)(448,169)(450,170) % \qbezier[2] ...
+  \qbezier[0](450,171)(452,177)(452,180) % \qbezier[6] ...
+  \qbezier[0](452,181)(448,186)(448,186) % \qbezier[3] ...
+  \qbezier[0](448,186)(432,174)(415,165) % \qbezier[20] ...
+
+  \put(360,50){\mbox{1}}
+  \put(360,160){\mbox{2}}
+  \put(420,80){\mbox{3}}
+  \put(430,190){\mbox{4}}
+
+\end{picture}\end{minipage}\end{center}
+\end{figure}
+
+\subsection{caractéristiques des capteurs fonctions}
+\label{sec:caracteristiques-fonction}
+Les capteurs de \emph{fonction} sont des pseudo-capteurs qui ne sont
+\emph{a priori} pas destinés à être utilisés en consigne mais
+uniquement en mesure. Ils permettent de modéliser une fonction
+quelconque sur la sphère unité.
+
+Ces capteurs doivent uniquement être considérés comme l'abstraction
+commune qui généralise les capteurs de gain d'antenne échantillonnés,
+en $(\sin\theta/\theta)^2$ et en $e^{\frac{-\theta^2}{2}}$.
+
+\subsection{caractéristiques des capteurs de gain échantillonnés}
+\label{sec:caracteristiques-echantillonnes}
+Les capteurs de gain échantillonnés modélisent des gains d'antennes
+pour une forme de lobe échantillonnée selon l'angle de dépointage par
+rapport à l'axe. Ils permettent de calculer la part liée uniquement à
+l'orientation dans un bilan de liaison. La forme du gain modélisée par ce
+senseur est une simple interpolation linéaire selon la valeur $\theta$
+du dépointage entre l'axe d'antenne et la cible par rapport aux points
+spécifiés par l'utilisateur dans le fichier de description. En dehors
+de l'intervalle spécifié (c'est-à-dire entre $0$ et le plus petit
+dépointage échantillonné et entre le plus grand dépointage
+échantillonné et $\pi$), le gain est considéré constant. La valeur
+retournée a la même dimension que ce que l'utilisateur a mis dans son
+fichier, il s'agit généralement directement de valeurs en dB.
+
+La fonction n'étant pas inversible dans le cas général, on ne
+\emph{peut pas utiliser ces capteurs en consigne}, ils sont destinés à
+être utilisés en \emph{mesure uniquement}.
+
+Ces capteurs sont caractérisés par l'axe d'antenne, qui correspond à
+la valeur maximale du gain et par le gain maximal.
+
+\subsection{caractéristiques des capteurs de gain en $\left(\sin(\theta/\theta_0)/(\theta/\theta_0)\right)^2$}
+\label{sec:caracteristiques-sincard2}
+Les capteurs de gain en
+$\left(\sin(\theta/\theta_0)/(\theta/\theta_0)\right)^2$ modélisent
+des gains d'antennes pour la forme de lobe spécifiée. Ils permettent
+de calculer la part liée uniquement à l'orientation dans un bilan de
+liaison. La forme du gain modélisée par ce capteur est :
+\begin{displaymath}
+g = 10\times\frac{\log{K \left( \frac{\sin(\theta/\theta_0)}{\theta/\theta_0} \right) ^2}}
+                 {\log{10}}
+\end{displaymath}
+où $\theta$ est le dépointage entre l'axe d'antenne et la cible. La
+valeur retournée est donc directement une valeur en dB.
+
+La fonction n'étant pas inversible (à moins de se restreindre au lobe
+primaire), on ne \emph{peut pas utiliser ces capteurs en consigne},
+ils sont destinés à être utilisés en \emph{mesure uniquement}.
+
+Ces capteurs sont caractérisés par l'axe d'antenne, qui correspond à
+la valeur maximale du gain et par le gain maximal.
+
+\subsection{caractéristiques des capteurs de gain en fonction gaussienne}
+\label{sec:caracteristiques-gaussien}
+Les capteurs de gain en $e^{\frac{-(\theta/\theta_0)^2}{2}}$
+modélisent des gains d'antennes pour la forme de lobe spécifiée. Ils
+permettent de calculer la part liée uniquement à l'orientation dans un
+bilan de liaison. La forme du gain modélisée par ce capteur est :
+\begin{displaymath}
+g = 10\times\frac{\log{K e^\frac{-(\theta/\theta_0)^2}{2}}}{\log{10}}
+\end{displaymath}
+où $\theta$ est le dépointage entre l'axe d'antenne et la cible. La
+valeur retournée est donc directement une valeur en dB.
+
+La fonction est inversible, mais dans un souci d'homogénéité avec les
+autres capteurs de gain nous ont poussés à \emph{interdire
+l'utilisation de ces capteurs en consigne}, ils sont destinés à être
+utilisés en \emph{mesure uniquement}.
+
+Ces capteurs sont caractérisés par l'axe d'antenne, qui correspond à
+la valeur maximale du gain et par le gain maximal.
+
+\subsection{caractéristiques des capteurs de Cardan}
+\label{sec:caracteristiques-cardan}
+Les capteurs de \emph{Cardan} mesurent les rotations successives qui
+permettent de passer d'un repère de base au repère satellite
+$(\vec{X}_\mathrm{sat}, \vec{Y}_\mathrm{sat},
+\vec{Z}_\mathrm{sat})$. Plusieurs repères de base sont disponibles, le
+repère géocentrique $(\vec{X}_\mathrm{in} = \vec{s},
+\vec{Y}_\mathrm{in} = -\vec{w}, \vec{Z}_\mathrm{in} =
+-\vec{q})$\footnote{c'est-à-dire que lorsque les angles sont nuls,
+l'axe $\vec{Z}_\mathrm{sat}$ est pointé Terre, et l'axe
+$\vec{X}_\mathrm{sat}$ est dans le plan de l'orbite dans le sens de la
+vitesse}, le repère orbital $(\vec{t}, \vec{n}, \vec{w})$, le repère
+orbital $(\vec{q}, \vec{s}, \vec{w})$, le repère inertiel de référence
+(dans lequel sont déjà exprimées les positions et vitesses), le repère
+topocentrique $(\vec{X}_\mathrm{in} = -\vec{q}, \vec{Y}_\mathrm{in} =
+\vec{Est})$, et un repère utilisateur qui peut être modifié
+dynamiquement entre chaque calcul.
+
+Ces capteurs sont très utiles pour simplifier la modélisation. Ce ne
+sont pas systématiquement des pseudo-capteurs, certaines plateformes
+étant capable de calculer les angles à partir d'information provenant
+d'autres capteurs élémentaires et d'un modèle d'orbite et de les
+fournir dans la télémesure. Il arrive d'ailleurs que dans ce cas les
+mesures élémentaires utilisées ne soient pas retransmises au sol,
+seules les angles calculés sont disponibles.
+
+De nombreuses définitions peuvent être données pour les angles, selon
+l'ordre dans lequel ils sont appliqués. Si cet ordre n'a qu'une
+importance minime lorsque les angles sont petits (les petites
+rotations sont \emph{presque} commutatives), il n'en est pas de même
+lorsque les rotations sont importantes. \bibliotheque{marmottes}
+supporte tous les ordres possibles.
+
+Les seules définitions couramment acceptées par tous\footnote{il y a
+tout de même au moins une exception : les \textsc{cvi} Ariane 4} sont
+les dénominations des rotations :
+
+\begin{table}[htbp]
+\caption{\label{tab:cardan}rotations de \textsc{Cardan}}
+\begin{center}\begin{tabular}[b]{|c|c|c|}
+\hline
+nom & angle & axe \\
+\hline
+roulis  & $\varphi$ & $+\vec{X}$ \\
+tangage & $\theta$  & $+\vec{Y}$ \\
+lacet   & $\psi$    & $+\vec{Z}$ \\
+\hline
+\end{tabular}\end{center}\end{table}
+Les seules caractéristiques spécifiques des capteurs de
+\textsc{Cardan} sont le repère de base, l'angle concerné et le jeu
+(c'est-à-dire l'ordre) auquel il appartient. La première
+caractéristique est définie dans le champ \emph{reference} du capteur,
+les deux dernières caractéristiques étant réunies dans le champ
+\emph{genre} où l'angle est écrit en toutes lettres et le jeu est
+décrit par les initiales des angles dans leur ordre d'application
+(\texttt{RTL-roulis}, \texttt{RTL-tangage}, \texttt{RTL-lacet},
+\texttt{TLR-tangage}\footnote{en anglais on trouvera bien-sûr :
+\texttt{RPY-roll}, \texttt{RPY-pitch}, \texttt{RPY-yaw},
+\texttt{PYR-pitch}, ...}, ...). Tous ces mots-clefs peuvent être
+modifiés par l'utilisateur.
+
+La modélisation des consignes et le calcul des mesures pour tous les
+types d'angles est donnée dans l'annexe~\ref{sec:cardan}
+(page~\pageref{sec:cardan}). Ces formules sont applicables quel que
+soit le repère de base, il suffit en effet de calculer les coordonnées
+des axes canoniques du repère de base en repère inertiel (c'est-à-dire
+les coordonnées des vecteurs $\vec{X}_\mathrm{in}$,
+$\vec{Y}_\mathrm{in}$ et $\vec{Z}_\mathrm{in}$).
+
+\subsection{caractéristiques des capteurs cinématiques}
+\label{sec:caracteristiques-cinematiques}
+Les capteurs \emph{cinématiques} mesurent des vitesses de rotation
+instantanées autour d'un axe sensible. Cet axe est leur seule
+caractéristique spécifique.
+
+\subsection{caractéristiques des gyromètres intégrateurs}
+\label{sec:caracteristiques-gyrometres-integrateurs}
+Les \emph{gyromètres intégrateurs} mesurent l'intégrale des vitesses
+de rotation instantanées autour d'un axe sensible. Les spécificités de
+leur modélisation se limitent à la valeur de la mesure à une date
+donnée et à cette date.
+
+L'intégration réalisée à bord par ces capteurs n'est pas complètement
+prédéfinie. Le centre de contrôle peut à tout moment réinitialiser la
+valeur intégrée par télécommande (\emph{gyro resets}). Ces
+réinitialisations par le centre de contrôle sont utilisées dans les
+procédures nominales au cours de la mise à poste par exemple. Dans ces
+conditions, la simulation faite au sol doit pouvoir reproduire ce
+comportement. Les valeurs initiales utilisés sont simplement un angle
+nul à la date de la première utilisation du capteur dans la
+simulation, et ces valeurs sont mises à jour soit par intégration
+classique à chacun des pas ultérieurs (intégration réalisée
+directement par le modèle de capteur lorsqu'on lui transmet l'état en
+fin de résolution), soit à l'occasion des réinitialisations simulées.

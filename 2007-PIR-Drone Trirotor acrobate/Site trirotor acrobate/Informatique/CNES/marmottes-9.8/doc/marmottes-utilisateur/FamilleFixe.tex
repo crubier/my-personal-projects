@@ -1,0 +1,96 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: FamilleFixe.tex,v 1.4 2002/02/27 13:36:02 marmottes Exp $
+\subsection{classe FamilleFixe}\label{sec:FamilleFixe}
+
+\subsubsection*{description}\label{sec:FamilleFixe-desc}
+
+Cette classe implante les cas particuliers du modèle analytique à un
+degré de liberté respectant deux consignes géométriques pour lesquels
+les vecteurs $\vec{v}_1$ ou $\vec{v}_2$ sont fixés.
+
+\subsubsection*{interface publique}\label{sec:FamilleFixe-int}
+\begin{verbatim}
+#include "marmottes/FamilleFixe.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{FamilleFixe : méthodes publiques}
+{\label{tab:FamilleFixe-met-pub}}
+{méthode virtuelle pure de la classe FamilleAbstraite, }
+
+\signature{\fonc{FamilleFixe}()} 
+          {}& 
+
+initialise une instance par défaut inutilisable sans réaffectation\\
+
+\hline
+
+\signature{\fonc{FamilleFixe}}
+          {(const Intervalle \argument{plages}, \\
+           const VecVD1 \argument{u1}, const VecVD1 \argument{u2},\\
+           const VecVD1 \argument{v1}, const VecVD1 \argument{ref},\\
+           const VecVD1 \argument{axe})} & 
+
+construit une FamilleFixe à partir d'un intervalle plages, des
+vecteurs $\vec{u}_1$ et $\vec{u}_2$ exprimés dans le repère inertiel,
+du vecteur $\vec{v}_1$ exprimé dans le repère canonique (défini dans
+la ModeleGeom) et des référence et axe qui définissent le paramètre
+libre sur le secteur de consigne considéré\\
+
+\hline
+
+\signature{\fonc{FamilleFixe}(const FamilleFixe\& \argument{f})} 
+           {}& 
+
+constructeur par copie\\
+
+\signature{FamilleFixe\&  \fonc{operator =}(const FamilleFixe\&
+\argument{f})} 
+          {}&
+
+affectation\\
+
+\signature{FamilleAbstraite *  \fonc{copie}() const} 
+          {}& 
+
+opérateur de copie\\
+
+\signature{\fonc{\~{}FamilleFixe}()} 
+          {}&
+
+destructeur\\
+
+\hline
+
+\signature{RotVD1  \fonc{inertielCanonique}}{(const ValeurDerivee1\&
+\argument{t}) const} & 
+
+méthode virtuelle pure de la classe FamilleAbstraite, redéfinie ici et
+qui retourne le quaternion de passage du repère inertiel au repère canonique de travail défini dans ModeleGeom\\
+
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+Les exemples vus pour les classes FamilleAlignementMoins,
+FamilleAlignementPlus, directement extraits du code de la bibliothèque
+montrent comment, dans la classe ModeleGeom, on a créé un vecteur (au
+sens de la \bibliotheque{stl}~\ref{ref:stl}) de FamilleFixe.
+
+\subsubsection*{conseils d'utilisation
+spécifiques}\label{sec:FamilleFixe-conseils}
+Par rapport aux anciennes versions de \bibliotheque{marmottes}, cette
+famille est limitée par les champs de vue et par les domaines de
+validité du paramètre de consigne. Ceci apporte un gain dans le temps
+de calcul.
+
+\subsubsection*{implantation}\label{sec:FamilleFixe-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:FamilleFixe-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe FamilleFixe}
+{\label{tab:FamilleFixe-att-priv}}
+{coordonnées en repère inertiel du vecteur fixe}
+
+axe\_ & VecVD1 & coordonnées en repère canonique de l'axe du cône de
+consigne\\
+
+r\_ & RotVD1  & rotation constante qui permet d'amener le vecteur fixe
+à sa place dans le repère canonique\\
+
+\end{tableAttributsFixe}

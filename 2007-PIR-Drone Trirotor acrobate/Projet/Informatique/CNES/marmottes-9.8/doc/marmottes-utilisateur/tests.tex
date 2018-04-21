@@ -1,0 +1,48 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: tests.tex,v 1.5 2001/04/05 10:05:43 luc Exp $
+La bibliothèque \bibliotheque{marmottes} dispose d'un certain nombre
+de tests de non régression automatiques que l'on peut exécuter par la
+commande \texttt{make tests} disponible dans la distribution
+standard. Cette commande lance les tests existants et compare
+automatiquement le résultat avec le résultat de
+référence archivé à l'aide de l'utilitaire \outil{difference}
+disponible avec la bibliothèque \bibliotheque{club}. Les statistiques
+des différences sont affichées, elles
+devraient normalement se limiter à des erreurs de l'ordre de grandeur
+des seuils de convergence (typiquement $10^{-4}$) ou de l'ordre de
+grandeur de la précision numérique de la machine (typiquement
+$10^{-15}$) selon les cas.
+
+Les classes disposant de tests spécifiques sont~:
+\begin{itemize}
+\item Champ
+\item Etat
+\item Marmottes
+\item Parcelle
+\end{itemize}
+
+Certains senseurs spécifiques sont également testés~:
+\begin{itemize}
+\item modification de la cible des senseurs optiques ;
+\item modification du repère de référence des senseurs de Cardan ;
+\item initialisation des gyromètres intégrateurs ;
+\item mesure des senseurs de gain d'antenne échantillonné.
+\end{itemize}
+
+Enfin, depuis la mise en place du système de trace d'exécution par les
+fonctions du type \fonc{MarmottesActiveTrace} décrites à la
+section~\ref{sec:description-routines}, de nombreux cas représentatifs
+de l'utilisation réelle de la bibliothèque ont été ajoutés à la suite
+de tests automatiques. Ces cas regroupent aussi bien des cas de
+référence qui fonctionnaient bien que les cas qui permettaient de
+reproduire des erreurs de la bibliothèque. D'une façon générale,
+lorsqu'une erreur est détectée par un utilisateur, un nouveau cas test
+est ajouté à la fois pour valider la correction et pour éviter des
+régressions futures.
+
+Dans la pratique, toutes les classes algorithmiques sont testées par
+le test de la classe de haut niveau Marmottes, mais tous les senseurs
+ne sont pas utilisés pour ces tests.
+
+Cette panoplie de tests est à l'évidence trop succincte et devrait
+être améliorée.

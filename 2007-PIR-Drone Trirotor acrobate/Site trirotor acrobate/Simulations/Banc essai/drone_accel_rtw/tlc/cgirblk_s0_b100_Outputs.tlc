@@ -1,0 +1,16 @@
+%implements cgirblk_s0_b100_Outputs "C"
+
+%function Outputs(block, system) Output
+
+%if !LibBlockOutputSignalIsExpr(0)
+%<LibBlockAssignOutputSignal(0, "", "", 0, "%<LibBlockInputSignal(0, "", "", 0)> * 0.02")>\
+%endif
+
+%if !LibBlockOutputSignalIsExpr(1)
+%<LibBlockAssignOutputSignal(1, "", "", 0, "%<LibBlockInputSignal(1, "", "", 0)> * 0.02")>\
+%endif
+
+%if !LibBlockOutputSignalIsExpr(2)
+%<LibBlockAssignOutputSignal(2, "", "", 0, "%<LibBlockInputSignal(2, "", "", 0)> * 0.02")>\
+%endif
+%endfunction

@@ -1,0 +1,5 @@
+tr {capt_son/vitesse0} [0,w[ recule -> arret
+tr {capt_ultrason/vitesse-} [0,w[ arret -> recule
+pl arret (1)
+net petri_test_recule
+

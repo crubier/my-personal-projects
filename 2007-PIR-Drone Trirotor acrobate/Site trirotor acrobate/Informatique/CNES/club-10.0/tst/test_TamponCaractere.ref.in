@@ -1,0 +1,259 @@
+ contenu du tampon : 
+Ceci est un fichier
+Ceci est un fichier
+Ceci est un fichier
+Ceci est un fichier
+Ceci est un fichier
+Ceci est un fichier
+Ceci est un fichier
+Ceci est un fichier
+Ceci est un fichier
+Ceci est un fichier
+Ceci est un fichier
+Ceci est un fichier
+Ceci est un fichier
+Ceci est un fichier
+Ceci est un fichier
+Ceci est un fichier
+Ceci est un fichier
+Ceci est un fichier
+Ceci est un fichier
+
+
+
+	------------------------
+
+	TEST FONCTIONNEMENT NOMINAL
+
+	------------------------
+
+		PARCOURS
+
+	1- Parcours Incremental
+	   ~~~~~~~~~~~~~~~~~~~~
+C,e,c,i, ,e,s,t, ,u,n, ,f,i,c,h,i,e,r,
+,C,e,c,i, ,e,s,t, ,u,n, ,f,i,c,h,i,e,r,
+,C,e,c,i, ,e,s,t, ,u,n, ,f,i,c,h,i,e,r,
+,C,e,c,i, ,e,s,t, ,u,n, ,f,i,c,h,i,e,r,
+,C,e,c,i, ,e,s,t, ,u,n, ,f,i,c,h,i,e,r,
+,C,e,c,i, ,e,s,t, ,u,n, ,f,i,c,h,i,e,r,
+,C,e,c,i, ,e,s,t, ,u,n, ,f,i,c,h,i,e,r,
+,C,e,c,i, ,e,s,t, ,u,n, ,f,i,c,h,i,e,r,
+,C,e,c,i, ,e,s,t, ,u,n, ,f,i,c,h,i,e,r,
+,C,e,c,i, ,e,s,t, ,u,n, ,f,i,c,h,i,e,r,
+,C,e,c,i, ,e,s,t, ,u,n, ,f,i,c,h,i,e,r,
+,C,e,c,i, ,e,s,t, ,u,n, ,f,i,c,h,i,e,r,
+,C,e,c,i, ,e,s,t, ,u,n, ,f,i,c,h,i,e,r,
+,C,e,c,i, ,e,s,t, ,u,n, ,f,i,c,h,i,e,r,
+,C,e,c,i, ,e,s,t, ,u,n, ,f,i,c,h,i,e,r,
+,C,e,c,i, ,e,s,t, ,u,n, ,f,i,c,h,i,e,r,
+,C,e,c,i, ,e,s,t, ,u,n, ,f,i,c,h,i,e,r,
+,C,e,c,i, ,e,s,t, ,u,n, ,f,i,c,h,i,e,r,
+,C,e,c,i, ,e,s,t, ,u,n, ,f,i,c,h,i,e,r,
+,
+	------------------------
+
+	2- Parcours Decremental
+	   ~~~~~~~~~~~~~~~~~~~~
+
+reihcif nu tse iceC
+reihcif nu tse iceC
+reihcif nu tse iceC
+reihcif nu tse iceC
+reihcif nu tse iceC
+reihcif nu tse iceC
+reihcif nu tse iceC
+reihcif nu tse iceC
+reihcif nu tse iceC
+reihcif nu tse iceC
+reihcif nu tse iceC
+reihcif nu tse iceC
+reihcif nu tse iceC
+reihcif nu tse iceC
+reihcif nu tse iceC
+reihcif nu tse iceC
+reihcif nu tse iceC
+reihcif nu tse iceC
+reihcif nu tse iceC
+	------------------------
+
+	3- Acces direct
+	   ~~~~~~~~~~~~
+ valeur de l'element 10 : u
+
+	------------------------
+
+		INSERTIONS
+
+	1- Insertion en debut
+	   ~~~~~~~~~~~~~~~~~~
+
+insertions du numero de l'element au debut de chacun d'eux.( par pas de 50).
+
+	2- Insertion en fin
+	   ~~~~~~~~~~~~~~~~
+
+insertion de "HAPPY" a la fin de l'element 12 : 
+
+~~~~~~~ contenu du tampon apres insertions ~~~~~~
+Ceci est un HAPPYfichier
+Ceci est un fichier
+Ceci est 50un fichier
+Ceci est un fichier
+Ceci est un fichier100
+Ceci est un fichier
+Ceci est un fichier
+Ceci est 150un fichier
+Ceci est un fichier
+Ceci est un fichier200
+Ceci est un fichier
+Ceci est un fichier
+Ceci est 250un fichier
+Ceci est un fichier
+Ceci est un fichier300
+Ceci est un fichier
+Ceci est un fichier
+Ceci est 350un fichier
+Ceci est un fichier
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	------------------------
+
+		REMPLACEMENTS
+
+
+	1- Remplacements simples
+	   ~~~~~~~~~~~~~~~~~~~~~
+
+Remplacer l'element 42 ipar "EURYDICE".
+E
+
+	2- Remplacements multi-elements
+	   ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Remplacer les elements 30 a 34  par "UNE CHAINE".
+
+~~~~~~~ contenu du tampon apres remplacements ~~~~~~
+Ceci est un HAPPYfichier
+CeciUNECHAINEun fichEURYDICEer
+Ceci est 50un fichier
+Ceci est un fichier
+Ceci est un fichier100
+Ceci est un fichier
+Ceci est un fichier
+Ceci est 150un fichier
+Ceci est un fichier
+Ceci est un fichier200
+Ceci est un fichier
+Ceci est un fichier
+Ceci est 250un fichier
+Ceci est un fichier
+Ceci est un fichier300
+Ceci est un fichier
+Ceci est un fichier
+Ceci est 350un fichier
+Ceci est un fichier
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	------------------------
+
+		SUPRESSIONS
+
+
+	1- Suppressions element simple
+	   ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Supprime l'element 25.
+
+	2- Suppressions multi-elements
+	   ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Supprime les elements 15 a 20
+
+~~~~~~~ contenu du tampon apres suppressions ~~~~~~
+Ceci est un HAhierCeciUNECHAINEun fichEURYDICEer
+Ceci est 50un fichier
+Ceci est un fichier
+Ceci est un fichier100
+Ceci est un fichier
+Ceci est un fichier
+Ceci est 150un fichier
+Ceci est un fichier
+Ceci est un fichier200
+Ceci est un fichier
+Ceci est un fichier
+Ceci est 250un fichier
+Ceci est un fichier
+Ceci est un fichier300
+Ceci est un fichier
+Ceci est un fichier
+Ceci est 350un fichier
+Ceci est un fichier
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	------------------------
+
+	TEST FONCTIONNEMENT DEGRADE
+
+	------------------------
+
+		PARCOURS
+
+	1- Parcours Incremental
+	   ~~~~~~~~~~~~~~~~~~~~
+
+valeur dernier element       :
+
+apres operateur ++          :
+deuxieme appel a operateur++:
+
+	------------------------
+
+	2- Parcours Decremental
+	   ~~~~~~~~~~~~~~~~~~~~
+
+valeur premier element       :C
+apres operateur --          :C
+deuxieme appel a operateur--:C
+
+	------------------------
+
+	3- Acces direct
+	   ~~~~~~~~~~~~
+
+acces element 1  :C
+character number 0 out of range [1 ; 409], buffer "@srcdir@/test_TamponCaractere.don"
+acces element 0  :
+C
+character number -1 out of range [1 ; 409], buffer "@srcdir@/test_TamponCaractere.don"
+
+acces element 4 elements au-dela de la fin du tampon:
+character number 413 out of range [1 ; 409], buffer "@srcdir@/test_TamponCaractere.don"
+
+------------------------
+		ITERATEURS INVALIDES
+
+
+supressions de l'element n -3 (iterateur 1).
+tentative d'acces a l'element 6 (iterateur 2)
+iterateur inconsistant pour le tampon "@srcdir@/test_TamponCaractere.don"
+
+fin du test.
+Ceci est un HAhierCeciUNECHAINEun fichEURYDICEer
+Ceci est 50un fichier
+Ceci est un fichier
+Ceci est un fichier100
+Ceci est un fichier
+Ceci est un fichier
+Ceci est 150un fichier
+Ceci est un fichier
+Ceci est un fichier200
+Ceci est un fichier
+Ceci est un fichier
+Ceci est 250un fichier
+Ceci est un fichier
+Ceci est un fichier300
+Ceci est un fichier
+Ceci est un fichier
+Ceci est 350un fichier
+Ceci est un fichier

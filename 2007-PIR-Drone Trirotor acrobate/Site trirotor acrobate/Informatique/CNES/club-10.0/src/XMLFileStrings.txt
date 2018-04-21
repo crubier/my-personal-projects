@@ -1,0 +1,9 @@
+#
+# process this file with create-xml-strings to produce a header file
+# defining the specified constants as static XMLCh arrays
+#
+# $Id: XMLFileStrings.txt,v 1.1 2005/02/04 10:19:17 chope Exp $
+
+UTF8_ENCODING           "UTF-8"
+LS_FEATURE              "LS"
+CORE_FEATURE            "Core"

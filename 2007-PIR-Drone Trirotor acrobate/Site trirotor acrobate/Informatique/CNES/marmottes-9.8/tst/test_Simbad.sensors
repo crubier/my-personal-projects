@@ -1,0 +1,39 @@
+#senseur des cardan reel
+# $Id: test_Simbad.sensors,v 1.1 2000/10/03 14:12:10 luc Exp $
+LACET_REEL
+{ type {cardan}
+  precision {0.000001}
+  repere { i {1 0 0} j {0 1 0} k { 0 0 1}}
+  genre {LTR-lacet}
+  reference {inertiel}
+}
+ROULIS_REEL
+{ => {LACET_REEL}
+     genre {LTR-roulis}
+}
+
+TANGAGE_REEL
+{ => {LACET_REEL}
+     genre {LTR-tangage}
+}
+
+VLACET_REEL
+{ type { cinematique}
+  precision {0.000001}
+  repere { i {1 0 0} j {0 1 0} k { 0 0 1}}
+  axe_sensible {0 0 1}
+}
+
+
+VROULIS_REEL
+{ => {VLACET_REEL}
+ axe_sensible { 1 0 0 }
+}
+
+
+VTANGAGE_REEL
+{ => {VLACET_REEL}
+ axe_sensible { 0 1 0 }
+}
+
+

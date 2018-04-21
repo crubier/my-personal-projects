@@ -1,0 +1,39 @@
+Correcteur.Attitude.Angle.Kp=1;
+Correcteur.Attitude.Angle.Ki=0;
+Correcteur.Attitude.Angle.Kd=0;
+Correcteur.Attitude.Angle.Kdd=0;
+Correcteur.Attitude.Vecteur.Kp=1;
+Correcteur.Attitude.Vecteur.Ki=0;
+Correcteur.Attitude.Vecteur.Kd=0;
+Correcteur.Attitude.Vecteur.Kdd=0;
+Correcteur.Attitude.Quaternion.Kp=0.00001;
+Correcteur.Attitude.Quaternion.Ki=0;
+Correcteur.Attitude.Quaternion.Kd=1;
+Correcteur.Attitude.Quaternion.Kdd=0;
+Correcteur.Position.Kp=20;
+Correcteur.Position.Ki=0.2;
+Correcteur.Position.Kd=0.2;
+Correcteur.Position.Kdd=0.2;
+Correcteur.Orientation.Kp=0.5;
+Correcteur.Orientation.Ki=0.001;
+Correcteur.Orientation.Kd=0.1;
+Correcteur.Orientation.DZ=0.005;
+Correcteur.Rotor.ExposantFacteurAngulaire=2;
+
+Mecanique.Longeur=0.32;
+Mecanique.Bras.Masse=0.2;
+Mecanique.Bras.Inertie=[0.0007 0 0;0 0.001 0;0 0 0.001];
+Mecanique.Bras.CFrot=0.01;
+Mecanique.Bras.Csat=0.2;
+Mecanique.Corps.Masse=0.4;
+Mecanique.Corps.Inertie=[0.001 0 0; 0 0.001 0;0 0 0.001];
+Mecanique.Rotor.T=0.1;
+Mecanique.Rotor.Fsat=20;
+
+Environnement.Gravite=[0 0 -9.81];
+
+Aerodynamique.Perturbation.C=0;
+Aerodynamique.Perturbation.F=0;
+Aerodynamique.Perturbation.T=1;
+Aerodynamique.Resistance.C=0.01;
+Aerodynamique.Resistance.F=0.5;

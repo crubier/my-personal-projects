@@ -1,0 +1,19 @@
+# Marmottes trace
+# date : 2001-06-07T11:44:09
+# $Id: test_Capteurs.alpha.log,v 1.1 2001/06/07 13:52:23 luc Exp $
+
+Marmottes::reinitialise 0x806de68 1.91653510069444455e+04 -3.32208818242638881e+04 1.65171890057066703e+04 6.15546511577235196e+03 -2.02066597357581967e+00 -1.13687906429092722e+00 -6.76498621431427360e-01 7.52252046660520812e-01 4.48150155457331556e-01 2.01067368854740275e-01 -4.39147138941447635e-01 0.00000000000000000e+00 0.00000000000000000e+00 0.00000000000000000e+00 ./test_Capteurs.alpha.sensors SUN_ELEV_ASPIL AMF_Ascension AMF_Declinaison
+Marmottes::convertirConsignes 0x806de68 ./test_Capteurs.alpha.sensors SUN_ELEV_ASPIL
+Marmottes::convertirMesures 0x806de68 ./test_Capteurs.alpha.sensors SUN_ELEV_ASPIL
+Marmottes::convertirConsignes 0x806de68 ./test_Capteurs.alpha.sensors AMF_Ascension
+Marmottes::convertirMesures 0x806de68 ./test_Capteurs.alpha.sensors AMF_Ascension
+Marmottes::convertirConsignes 0x806de68 ./test_Capteurs.alpha.sensors AMF_Declinaison
+Marmottes::convertirMesures 0x806de68 ./test_Capteurs.alpha.sensors AMF_Declinaison
+Marmottes::attitude 0x806de68 1.91653517013888886e+04 -3.33416739821259252e+04 1.64487541379836221e+04 6.11479242948684259e+03 -2.00574275090723919e+00 -1.14427000528386080e+00 -6.79249865489812032e-01 -2.30000000000000000e+01 2.63850000000000023e+02 3.11299999999999990e+01
+  ->  7.52104560076538364e-01 4.48498014929723188e-01 2.00894766241218992e-01 -4.39123620650336055e-01 1.32947776960195941e-05 2.10384299734702229e-06 3.34061504170212347e-06
+Marmottes::mesure 0x806de68 ./test_Capteurs.alpha.sensors AMF_Ascension
+  ->  2.63850000000000023e+02
+Marmottes::mesure 0x806de68 ./test_Capteurs.alpha.sensors AMF_Declinaison
+  ->  3.11300032506117148e+01
+Marmottes::mesure 0x806de68 ./test_Capteurs.alpha.sensors SUN_ELEV_ASPIL
+  ->  -2.29999999999999858e+01

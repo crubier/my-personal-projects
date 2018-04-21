@@ -1,0 +1,495 @@
+% -*- mode: latex; tex-main-file: "cantor.tex" -*-
+% $Id: cantor.tex,v 1.42 2005/03/04 07:45:10 chope Exp $
+\documentclass[a4paper,11pt]{article}
+\usepackage{notechope}
+
+\input{macros-bibliotheques}
+\input{pages-liminaires}
+\input{references}
+
+\nochangebars
+
+\begin{document}
+\section{présentation}\label{sec:presentation}
+La bibliothèque \textsc{cantor} (Composants et Algorithmes Numériques
+Traduits sous forme d'Objets Réutilisables) regroupe des classes et
+des fonctions mathématiques de base. Ces fonctions sont principalement
+orientées autour de la géométrie sur la sphère unité, mais on trouve
+aussi des notions plus générales comme les polynômes, les fonctions,
+et des algorithmes de filtrage ou de recherche de racines.
+
+\begin{changebar}
+Ce document décrit la version 7.3 de la bibliothèque.
+\end{changebar}
+
+\section{description du contexte}\label{sec:contexte}
+La bibliothèque \bibliotheque{cantor} s'appuie sur la bibliothèque
+\bibliotheque{club}~\ref{ref:club}, sur les bibliothèques optionnelles
+dont \bibliotheque{club} dépend et sur les bibliothèques standards
+\langage{c++} et \langage{c}. La liste ordonnée des bibliothèques à
+spécifier à l'éditeur de liens varie selon le compilateur utilisé pour
+générer la bibliothèque et selon la disponibilité des bibliothèques
+optionnelles.
+
+La bibliothèque \bibliotheque{club} ayant subi des évolutions
+importantes (notamment sur les traitements des erreurs), le
+tableau~\ref{tab:compatibilite} résume les compatibilités entre
+\bibliotheque{club} et \bibliotheque{cantor}.
+\begin{table}[htbp]\caption{compatibilité entre les versions de
+\bibliotheque{club} et de \bibliotheque{cantor}}
+\label{tab:compatibilite}\begin{center}\begin{tabular}{|c|c|}
+\hline
+\multicolumn{2}{|c|}{versions de}\\
+\makebox[3cm]{\bibliotheque{cantor}} & \makebox[3cm]{\bibliotheque{club}} \\
+\hline
+\hline
+< 5.1 & < 6.0 \\
+5.1 & 6.0 \\
+5.2 & 6.1 - 6.2 - 6.3\\
+$\ge$ 5.3 & $\ge$ 7.0\\
+\hline
+\end{tabular}\end{center}\end{table}
+
+Les versions de \bibliotheque{cantor} ultérieures à la version 5.1
+utilisent le mécanisme des exceptions, qui n'est mis en place
+correctement que si l'édition de liens est réalisée par le compilateur
+\langage{c++} qui a servi à compiler la bibliothèque. Cette condition
+impérative a un impact à l'exécution, pas lors de l'édition de liens
+elle-même, ce qui la rend insidieuse. En effet, en cas d'absence du
+mécanisme de récupération, aucune exception lancée ne peut pas être
+interceptée, le programme s'arrête alors sur une erreur fatale dès la
+première exception. Le résultat typique est une violation mémoire avec
+génération d'un fichier \texttt{core}). Il faut noter également que le
+mélange des compilateurs (\textsc{sun} et \textsc{gnu} par exemple) ne
+fonctionne pas.
+
+La bibliothèque
+\bibliotheque{marmottes}~\ref{ref:marmottes-math} s'appuie sur
+\bibliotheque{cantor}.
+
+\section{conventions}\label{sec:conventions}
+\input{conventions}
+
+\section{catalogue}\label{sec:catalogue}
+\input{catalogue}
+
+\section{environnement}\label{sec:environnement}
+Seule la bibliothèque \bibliotheque{club} et les bibliothèques
+standards du langage \langage{c++} sont utilisées. Il faut rappeler
+que \bibliotheque{club} utilise deux variables d'environnement pour
+gérer la traduction des messages d'erreur, variables dont le nom est
+configurable à la compilation de la bibliothèque (cf~\ref{ref:club}).
+
+Le système de traduction de \bibliotheque{club} n'est utilisé dans
+\bibliotheque{cantor} que pour les messages d'erreur. Le domaine de
+traduction associé est \texttt{cantor}. Lors de l'installation de la
+bibliothèque, les fichiers de traduction anglais et français sont
+installés.
+
+\section{installation}\label{sec:installation}
+\input{installation}
+
+\section{messages d'avertissements et d'erreurs}\label{sec:messages-erreurs}
+\input{messages-erreurs}
+
+\section{tests}
+La bibliothèque \bibliotheque{cantor} dispose d'un certain nombre de
+tests de non régression automatiques que l'on peut exécuter par la
+commande \texttt{make tests} disponible dans la distribution
+standard. Cette commande lance les tests existants et compare
+automatiquement (par un \texttt{diff}) le résultat avec le résultat de
+référence archivé. Seules les différences sont affichées, elles
+devraient normalement se limiter aux lignes contenant les chaînes du
+système de contrôle de versions \textsc{rcs}.
+
+Les classes disposant de tests spécifiques sont :
+\begin{itemize}
+\item Arc (et ArcIterateur)
+\item Cone
+\item Creneau
+\item Field
+\item FonctionApprochee
+\item Intervalle
+\item Polynome
+\item Resolution1Iterateur
+\item Resolution2Iterateur
+\item Rotation (plus des tests spécifiques pour les angles de
+\textsc{Cardan} et d'\textsc{Euler})
+\item StatistiqueEchantillon
+\item ValeurDerivee1
+\item ValeurDerivee2
+\item Vecteur3
+\end{itemize}
+
+La classe MoindreCarreLineaire est testée par le biais des tests de la
+classe FonctionApprochee laquelle n'est qu'une surcouche utilisée dans
+un cas particulier d'ajustement. Les classes AnnotatedArc, Braid et
+Node sont testées par l'intermédiaire de la classe Field. De même les
+fonctions de résolution et les classes Variation1 et Variation2 sont
+testées par l'intermédiaire des classes Resolution1Iterateur et
+Resolution2Iterateur.
+
+\section{maintenance}\label{sec:maintenance}
+\input{maintenance}
+
+\section{changements depuis les versions précédentes}
+
+\begin{changebar}
+\subsection{évolutions entre la version 7.2 et la version 7.3}
+Correction d'une erreur dans l'utilisation des champs de vue.  Lors de
+la réduction de l'arc test pour les calculs de présence d'un point
+dans un champ, l'arc pouvait changer de direction et passer par les
+points qui avaient été interdits au préalable (BIBMS-FA-2811-199-CN).
+\end{changebar}
+
+\subsection{évolutions entre la version 7.1 et la version 7.2}
+Correction d'une erreur de calcul de l'étendue d'un arc vu d'un point
+quelconque de la sphère, qui conduisait à prendre de mauvaises
+directions de test lors des constructions de champs de vue (FA 22).
+
+Un test de configuration a été corrigé. Ce test estimait que g++ 3.x
+ne respectait pas la spécification de complexité de
+\texttt{list\char58\char58splice} alors qu'il la respecte tout à fait
+(FA 25).
+
+Une erreur d'initialisation introduite lors des interventions
+qualité du projet ATV a été corrigée.
+
+Les scripts de configuration ont été mis à niveau par rapport aux
+versions courantes des outils de développement GNU (\outil{autoconf}
+version 2.57, \outil{automake} version 1.7.5 et \outil{libtool}
+version 1.5). Cette modification n'a pas d'impact pour les
+utilisateurs (DM 24).
+
+\subsection{évolutions entre la version 7.0 et la version 7.1}
+Pour répondre aux exigences qualité du projet ATV, les constructeurs,
+destructeurs et opérateurs d'assignation ont été explicitement définis
+dans chaque classe de la bibliothèque. Si ces méthodes ne devaient pas
+être disponibles, elles ont été créées en limitant leur accès
+(protected ou private). L'ordre des sections public, protected et
+private a par ailleurs été uniformisé afin de faciliter les activités
+de maintenance. Ces modifications n'ont aucun impact sur le code appelant des
+bibliothèques.
+
+Enfin les extensions des fichiers sources qui étaient de la forme .cc
+ont été modifiés en .cpp afin de faciliter un portage ultérieur de la
+bibliothèque sous Windows.
+
+\subsection{évolutions entre la version 6.3 et la version 7.0}
+Une erreur du compilateur C++ de SUN (qui ne respecte pas le standard
+du langage) est désormais automatiquement détecté et contourné (FA 0017).
+
+Le traitement des champs sur la sphère unité a été largement amélioré
+de façon à corriger des erreurs de tests d'appartenance dans des cas
+limites (FA 0015). Les arcs frontière sont désormais orientés
+(l'intérieur est à gauche de la frontière, l'extérieur à droite) et
+les tests d'appartenance sont basés sur le sens de la première
+traversée d'une trajectoire quelconque partant du point test et
+franchissant la frontière. Cette nouvelle méthode réduit la complexité
+des classes, permet de détecter de façon naturelle des cas considérés
+comme litigieux par la méthode précédente et devrait être plus robuste
+dans les cas limites.
+
+Les droits de copies ont été mis à jour vis à vis des différents
+outils GNU utilisés dans le cadre de ce projet.
+
+Le test prgm\_FonctionApprochee, utilisant un générateur de nombre 
+pseudo-aléatoire, pouvait ne pas passer sous certaines plateformes 
+du fait de sa sensibilité numérique (FA 0010). Le générateur a été 
+modifié afin de supprimer l'étape la plus sensible et ainsi supprimer 
+une partie des erreurs numériques potentielles.
+
+\subsection{évolutions entre la version 6.2 et la version 6.3}
+Des erreurs d'intersections d'arcs dans des cas limites ont été
+corrigées. Lorsque des intersections d'arcs faisaient intervenir des
+points très proches des extrémités de l'arc, le fait de déclarer le
+point d'intersection dans ou hors de l'arc dépendait de la taille de
+l'arc, ce qui introduisait des incohérences lors du traitement de
+trois arcs de rayons très différents dans des calculs deux à
+deux. Ceci pouvait en particulier se produire avec l'introduction de
+petits arcs de contournement de sommets dans les tests de champs de
+vue (FA 0002).
+
+Une erreur d'échelle dans la classe Secteurs a été corrigée. Cette
+erreur conduisait les vecteurs debut et fin calculés par la méthode
+vecteurs à ne pas être normés lorsque le demi angle d'ouverture du
+cône n'était pas $\pi/2$.
+
+Ajout d'une protection contre les singularites dans le calcul des
+angles de rotation de Cardan et d'Euler.
+Les angles de Cardan ou d'Euler ne peuvent pas être extrait de
+façon fiable dans tous les cas de figures. Il faut gérer ces cas
+et une erreur est maintenant générée si un tel cas se produit.
+
+Le calcul des cônes de rejet (dispositif permettant d'accélérer les
+tests de présence d'un point dans un champ) conduisait à sélectionner
+un cône au sein d'un ensemble et à ne tester sa validité qu'après coup
+et à désactiver cette accélération dans ce cas. Désormais, seuls des
+cônes valides peuvent être construits, l'accélération est donc active
+dès lors que l'on peut trouver au moins un tel cône.
+
+Le contexte dans lequel l'erreur révélée par la FA 0002 se produisait
+résultait entre autres d'algorithmes de calculs de rapprochements et
+d'évitements de sommets trop grossiers. Ces algorithmes ont été
+améliorés. Désormais, moins d'évitement sont nécessaires lors d'un
+test de présence d'un point dans un champ. De plus, ces évitements ne
+nécessitent plus de passer par des arcs microscopiques qui poussent
+les algorithmes à leurs limites.
+
+La correction des cas limites dans les intersections d'arcs et la
+refonte des champs de vue permet désormais de modéliser des arcs
+complets comme ayant réellement un angle de balayage de $2\pi$ et des
+extrémités confondues et pas comme des arcs de balayage
+$2\pi-\varepsilon$ et ayant des extrémités proches. On construit donc
+les arcs complets de façon plus exacte, ce qui évite d'introduire
+artificiellement des arcs frontières dégénérés mais non nuls dans la
+construction des champs de vue.
+
+Correction de l'oubli de protection des caractères spéciaux dans le
+fichier acinclude.m4, à l'occassion du passage aux derniéres versions
+des outils GNU, causant la non récupération de la variables de
+positionnement de la langue via la configuration de Club.
+
+La suppression du fichier CantorConfig.h, de la liste des fichiers
+constituant le paquetage, a été effectuée dans un soucis de clarté.
+En effet, ce fichier est crée à partir du fichier CantorConfig.h.in
+et n'a nul besoin d'être livré.
+
+\subsection{évolutions entre la version 6.1 et la version 6.2}
+Les tests d'appartenance d'un point ou d'un secteur à un champ sur la
+sphère (classe Field) utilisent désormais un premier test grossier
+basé sur un cône unique englobant complètement le champ pour accélérer
+les traitements. Les calculs fins ne sont déclenchés que si ce premier
+test grossier ne permet pas de trancher. Cette modification est une
+optimisation, elle ne change pas les fonctionnalités de la
+bibliothèque.
+
+Une erreur mémoire détectée par \outil{purify} a été corrigée. Un
+itérateur était incrémenté en fin d'une boucle alors qu'il avait été
+effacé lors de la dernière itération
+
+Les versions des outils de la suite de développement \textsc{gnu}
+(\outil{libtool}, \outil{autoconf} et \outil{automake}) ont été prises
+en compte. Ces versions facilitent le développement en réduisant les
+dépendances par rapport aux autres produits \textsc{gnu} et en
+simplifiant les macros de test.
+
+\subsection{évolutions entre la version 6.0 et la version 6.1}
+
+Il est désormais possible de créer des arcs en spécifiant un angle de
+balayage négatif. Dans ce cas, l'arc débute bien au niveau du vecteur
+de début spécifié, mais l'axe spécifié est inversé, l'angle
+d'ouverture est remplacé par son complémentaire et l'angle de balayage
+est inversé. L'arc construit correspond donc aux points de la sphère
+spécifiés et parcourus dans le même sens, mais les éléments internes
+sont rendus plus conformes à une repésentation canonique.
+
+Il est désormais possible de spécifier des valeurs négatives pour
+l'angle d'étalement lors de la construction de champs sur la sphère
+unité par balayage.
+
+La construction de champs sur la sphère unité par balayage a été
+corrigée de façon à gérer correctement le cas où l'axe de la rotation
+est aligné avec l'axe de l'un des arcs de la frontière du champ qui
+sert de base au balayage.
+
+\subsection{évolutions entre la version 5.6 et la version 6.0}
+
+Les classes AnnotatedArc, Braid, Field, Node et Secteurs ont été
+transférées depuis la bibliothèque \bibliotheque{marmottes}.
+
+L'opération de traînage d'un arc sur la sphère pour construire des
+champs de vue a été complètement revue. L'ancienne méthode n'étais pas
+considérée comme suffisamment robuste dans les cas dégénérés (rotation
+nulle, tour complet, axe de la rotation passant par la frontière,
+...). De plus cette méthode engendrait en cours de traitement des
+arcs exactement superposés les uns aux autres, qu'il était parfois
+difficile d'identifier avec les heuristiques existantes. La nouvelle
+méthode préserve plus d'information sur l'opération en cours et
+devrait se comporter correctement dans les cas dégénérés.
+
+Les rotations en dimension 3 peuvent désormais être construite à
+partir de trois angles correspondant à des rotations élémentaires
+autour d'axes canoniques. Toutes les ordres possibles pour les angles
+de Cardan et d'Euler sont supportées. Il est également possible
+d'extraire ces angles à partir d'une rotation déjà construite.
+
+Deux erreurs dans la classe Field ont été corrigées. La première se
+produisait lors du filtrage de secteurs par un champ, qui pouvait
+conduire à des résultats complètement faux, la seconde se produisait
+lors de l'étalement d'un champ (qui est également utilisé lors de
+l'application d'une marge) et pouvait également conduire à des
+résultats complètement faux.
+
+Une erreur dans la classe Arc a été corrigée. Lors de l'inversion d'un
+arc de longueur nulle, on obtenait un arc faisant un tour complet au
+lieu d'un autre arc de longueur nulle.
+
+La bibliothèque cantor était la seule de la trilogie
+\bibliotheque{club}/\bibliotheque{cantor}/\bibliotheque{marmottes} à
+ne pas encore utiliser le mécanisme des exceptions pour la gestion de
+ses erreurs. C'est désormais chose faite. Cette évolution conduit à
+des changements de signatures de plusieurs méthodes et fonctions
+globales (toutes les fonctions qui prenaient un pointeur sur un objet
+de type CantorErreurs en dernier argument optionnel n'ont plus cet
+argument et lancent désormais une exception. Parmis ces fonctions,
+celles qui retournaient un entier pour indiquer un status d'erreur
+sont désormais de type void.
+
+Le passage aux exceptions a conduit à éliminer la valeur entière de
+retour et le pointeur d'erreur optionnel de la méthode
+MoindreCarreLineaire\char58\char58\fonc{erreurQuadratique}, il ne
+restait alors plus que le pointeur sur la valeur réelle à mettre à
+jour, ce qui correspondait à une signature un peu étrange. Pour cette
+méthode, il a donc été décidé de lui faire retourner la valeur réelle
+de l'erreur directement, sans passer par un argument.
+
+Le passage aux exceptions a conduit à éliminer la valeur entière de
+retour et le pointeur d'erreur optionnel de la méthode
+FonctionApprochee\char58\char58\fonc{erreurQuadratique}, il ne
+restait alors plus que le pointeur sur la valeur réelle à mettre à
+jour, ce qui correspondait à une signature un peu étrange. Pour cette
+méthode, il a donc été décidé de lui faire retourner la valeur réelle
+de l'erreur directement, sans passer par un argument.
+
+Un certain nombre de méthodes de la bibliothèque sont des
+prédicats. Ces méthodes retournaient jusqu'à présent un entier, ce qui
+était supporté par tous les compilateurs. Depuis quelques versions, la
+bibliothèque sous-jacente club nécessite l'utilisation d'un
+compilateur respectant le standard ANSI, lequel spécifie le type bool,
+qui représente de façon plus explicite ces résultats. L'opportunité
+des changements de signatures liés aux exceptions a donc été saisie
+pour changer également les signatures des prédicats. Ce changement ne
+devrait pas trop affecter les utilisateurs grâce aux conversions
+implicites du langage.
+
+Les signatures des fonctions de l'interface C de la bibliothèque (qui
+est limitée aux rotations) pouvait poser des problèmes de violation
+mémoire si l'appelant n'allouait pas une chaîne de caractères de
+taille suffisante pour contenir les messages d'erreurs. Désormais, et
+en conformité avec l'interface C de la bibliothèque associée
+marmottes, l'interface C prend en dernier argument après le pointeur
+sur le message d'erreur un entier indiquant la taille disponible pour
+écrire ce message. Si le message est plus long que la chaîne fournie
+par l'appelant, le message est tronqué.
+
+\subsection{évolutions entre la version 5.5 et la version 5.6}
+
+Cette version n'apporte que des modifications de configuration et de
+compilation conditionnelle permettant de compiler la bibliothèque avec
+les compilateurs SUN.
+
+\subsection{évolutions entre la version 5.4 et la version 5.5}
+
+Les seules modifications introduites dans la version 5.5 de la
+bibliothèque sont l'ajout du script destiné à
+faciliter la compilation d'applicatifs dépendant de
+\bibliotheque{cantor} (cf~\ref{sec:CantorConfig},
+page~\pageref{sec:CantorConfig})~: \texttt{cantor-config} . La version
+anglaise du  fichier de licence a également été ajoutée dans la
+distribution.
+
+\subsection{évolutions entre la version 5.3 et la version 5.4}
+
+Les modifications apportées dans la version 5.4 sont uniquement des
+modifications de configuration. Les fonctionnalités du code n'ont pas
+évolué.
+
+La première modification de configuration concerne le test de la
+bibliothèque \bibliotheque{club}. Les nouvelles macros couvrent plus
+de cas et les dépendances entre bibliothèques sont mieux gérées (par
+exemple les dépendances entre \bibliotheque{club} et
+\bibliotheque{xerces} ou \bibliotheque{madona}).
+
+La seconde modification de configuration provient d'un problème
+rencontré sous solaris lors des tests de \bibliotheque{marmottes}. Les
+exceptions générées dans \bibliotheque{club} ne sont pas récupérées
+par \bibliotheque{club} lorsque toutes les bibliothèques sont
+partagées. Le problème ne se pose pas avec des bibliothèques
+statiques. Dans l'attente d'une meilleure compréhension du phénomène,
+la configuration par défaut sous solaris consiste donc à ne construire
+que des bibliothèques statiques. L'utilisateur aventureux peut
+toujours construire des bibliothèques partagées en utilisant l'option
+\texttt{-{}-enable-shared} du script de configuration.
+
+\subsection{évolutions entre la version 5.2.2 et la version 5.3}
+La seule évolution de la version 5.3 est l'utilisation de la classe
+string de la \bibliotheque{stl} au lieu de ChaineSimple de
+\bibliotheque{club}. Cette évolution ne concerne que la classe
+CantorErreurs dont la méthode formate change de signature. Cette
+méthode étant déclarée protégée aucun impact sur l'interface publique
+de \bibliotheque{cantor} n'est à mentionner.
+
+\subsection{évolutions entre la version 5.2.1 et la version 5.2.2}
+La seule évolution de la version 5.2.2 est la correction du traitement
+des cas dégénérés de partage d'arcs autour d'un point situé à
+proximité d'une des extrémités. Dans ces cas là, un des sous-arcs
+résultants est de taille nulle. Cet arc est désormais le premier si le
+point est proche du début et le second si ce n'est pas le cas. Dans
+les versions précédentes de la bibliothèque, le premier arc était
+systématiquement complet et seul le second arc pouvait être
+dégénéré. Le changement de comportement est lié à des modifications
+dans la bibliothèque Marmottes.
+
+\subsection{évolutions entre la version 5.2 et la version 5.2.1}
+Aucune évolution de code n'a eu lieu à l'occasion du passage en
+version 5.2.1. La distribution a simplement été mise en conformité
+avec les exigences d'une diffusion publique.
+
+\section{évolutions possibles}
+Il serait souhaitable d'augmenter la couverture de tests de la
+bibliothèque \bibliotheque{cantor}.
+
+Il serait utile de disposer dans la bibliothèque d'un support pour des
+notions liées au pavage de la sphère unité. On pense en particulier à
+l'extension de la triangulation de \textsc{Delaunay} à la sphère unité
+et à sa notion duale le pavage de \textsc{Voronoi} ainsi qu'aux
+interpolations sur un échantillon de points.
+
+\section{description des classes}\label{sec:description-classes}
+\input{AnnotatedArc}
+\input{Arc}
+\input{ArcIterateur}
+\input{Braid}
+\input{CantorErreurs}
+\input{Cone}
+\input{Creneau}
+\input{Field}
+\input{FonctionApprochee}
+\input{Intervalle}
+\input{MoindreCarreLineaire}
+\input{Node}
+\input{Polynome}
+\input{Resolution1Iterateur}
+\input{Resolution2Iterateur}
+\input{Rotation}
+\input{Secteurs}
+\input{StatistiqueEchantillon}
+\input{ValeurDerivee1}
+\input{ValeurDerivee2}
+\input{Variation1}
+\input{Variation2}
+\input{Vecteur3}
+\input{Conversions}
+\input{Combinaisons}
+
+\section{description des utilitaires}\label{sec:description-utils}
+Cette section décrit les utilitaires fournis par la bibliothèque
+\bibliotheque{cantor}. Cette description concerne l'utilisation des
+utilitaires et les principes généraux auxquels ils répondent. 
+
+\input{Cantor-Config}
+
+\section{description des routines}\label{sec:description-routines}
+Les fonctions externes disponibles dans la bibliothèque sont la
+fonction de récupération de la version de la bibliothèque, les
+fonctions matricielles utilisées également par la classe
+MoindreCarreLineaire, les fonctions de recherche de racines, et les
+interfaces \langage{c} et \langage{fortran} d'utilisation des
+rotations en dimension 3.
+
+\input{fonctions-C++}
+\input{fonctions-C}
+\input{fonctions-fortran}
+
+\end{document}

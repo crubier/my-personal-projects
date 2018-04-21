@@ -1,0 +1,146 @@
+
+Try to instanciate
+OK : Test 1-
+
+Try to read a file
+OK : Test 1 must be ClubErreurs::file_error - XML error : "DOM Error at file "", line 0, column 0
+   Message: An exception occurred! Type:RuntimeException, Message:The primary document entity could not be opened. Id=@abs_builddir@/unknowMadonaFile
+"
+OK : Test 2
+
+Try to test the existence of data
+OK : Test 1 - must be true :1
+OK : Test 2 - must be true :1
+OK : Test 3 - must be true :1
+OK : Test 4 - must be false :0
+
+Try to get the type of a of data
+OK : Test 1 - must be  0 : 0
+OK : Test 2 - must be  1 : 1
+OK : Test 3 - must be  2 : 2
+OK : Test 4 - must be ClubErreurs::undefined_data  no data named "unknown_data"
+
+Try to move down
+OK : Test 1
+OK : Test 2 - must be ClubErreurs::undefined_table_or_structure no structure or table named "Structure1.unknownStructure"
+OK : Test 3 - must be ClubErreurs::current_data_not_a_table : current data "Structure1" is not a table
+OK : Test 4
+OK : Test 5 -  must be ClubErreurs::undefined_index : no index number 0 in table "Structure1.Table1"
+OK : Test 6 -  must be ClubErreurs::undefined_index : no index number 4 in table "Structure1.Table1"
+OK : Test 7
+
+Try to get the name of the current data
+OK : Test 1 - must be Structure1.table[1] : Structure1.Table1[1]
+
+Try to move up
+OK : Test 1
+OK : Test 2
+OK : Test 3
+OK : Test 4 -  must be ClubErreurs::move_up_forbidden : moving up from the root of document is impossible
+
+Try to move to
+OK : Test 1 
+OK : Test 2 
+OK : Test 3 - must be ClubErreurs::undefined_index : no index number 4 in table "Structure1.Table1"
+OK : Test 4 
+
+Try to get data
+OK : Test 1 - must be 10 : 10
+OK : Test 2 - must be 5.5 : 5.5
+OK : Test 3 - must be Hello : Hello
+OK : Test 4 - must be ClubErreurs::current_data_not_a_table : current data "" is not a table
+OK : Test 5 - must be ClubErreurs::undefined_parameter : no parameter named "unknownData"
+
+Try to delete data
+OK : Test 1 - must be ClubErreurs::undefined_index : no index number 0 in table "Structure1.Table1"
+OK : Test 2 - must be ClubErreurs::undefined_data : current data "Structure1.Table1" is not a table
+OK : Test 3
+OK : Test 4
+OK : Test 5
+OK : Test 6
+OK : Test 7
+OK : Test 8
+
+Try to create data
+OK : Test 1
+OK : Test 2 - must be ClubErreurs::data_already_defined : data "Structure1" is already defined
+OK : Test 3
+OK : Test 4
+OK : Test 5 
+OK : Test 6
+OK : Test 7
+OK : Test 8
+OK : Test 9
+OK : Test 10
+
+Try to test the existence of data
+OK : Test 1 - must be true :1
+OK : Test 2 - must be true :1
+OK : Test 3 - must be true :1
+OK : Test 4 - must be false :0
+
+Try to get the type of a of data
+OK : Test 1 - must be  0 : 0
+OK : Test 2 - must be  1 : 1
+OK : Test 3 - must be  2 : 2
+OK : Test 4 - must be ClubErreurs::undefined_data  no data named "unknown_data"
+
+Try to move down
+OK : Test 1
+OK : Test 2 - must be ClubErreurs::undefined_table_or_structure no structure or table named "Structure1.unknownStructure"
+OK : Test 3 - must be ClubErreurs::current_data_not_a_table : current data "Structure1" is not a table
+OK : Test 4
+OK : Test 5 -  must be ClubErreurs::undefined_index : no index number 0 in table "Structure1.Table1"
+OK : Test 6 -  must be ClubErreurs::undefined_index : no index number 4 in table "Structure1.Table1"
+OK : Test 7
+
+Try to get the name of the current data
+OK : Test 1 - must be Structure1.table[1] : Structure1.Table1[1]
+
+Try to move up
+OK : Test 1
+OK : Test 2
+OK : Test 3
+OK : Test 4 -  must be ClubErreurs::move_up_forbidden : moving up from the root of document is impossible
+
+Try to move to
+OK : Test 1 
+OK : Test 2 
+OK : Test 3 - must be ClubErreurs::undefined_index : no index number 4 in table "Structure1.Table1"
+OK : Test 4 
+
+Try to get data
+OK : Test 1 - must be 10 : 10
+OK : Test 2 - must be 5.5 : 5.5
+OK : Test 3 - must be Hello : Hello
+OK : Test 4 - must be ClubErreurs::current_data_not_a_table : current data "" is not a table
+OK : Test 5 - must be ClubErreurs::undefined_parameter : no parameter named "unknownData"
+
+Try to create a table of tables
+OK : Test 1 
+OK : Test 2 - must be Table3 : Table3
+OK : Test 3 - must be Table3[1] : Table3[1]
+OK : Test 4 - must be Table3[1][1] : Table3[1][1]
+OK : Test 4.5 - must be Table3[1][1] Table3[1][1]
+OK : Test 5 
+OK : Test 6 
+OK : Test 7 - must be Table3[1][2] : Table3[1][2]
+OK : Test 8 
+OK : Test 9 
+
+Try to reference data
+OK : Test 1
+OK : Test 2 
+OK : Test 3  
+OK : Test 4  
+OK : Test 5  - must be 1 : 1
+OK : Test 6  
+OK : Test 7  - must be 2 : 2
+OK : Test 8
+
+Try to write a file
+OK : Test 1 must be ClubErreurs::file_error - unable to open file "read-only-dir/file.xml": Permission denied
+OK : Test 2
+
+Try to destruct
+OK : Test 1

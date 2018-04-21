@@ -1,0 +1,687 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+% $Id: conventions.tex,v 1.15 2005/03/03 16:30:41 chope Exp $
+Un certain nombre de principes ont été respectés lors de la conception
+et du développement de cette bibliothèque. Ces principes sont placés
+en exergue ici et ne seront pas répétés lors de la description des
+classes et des méthodes.
+
+\subsection{conventions de nommage}
+{\setlength{\leftmargini}{10mm}\begin{itemize}
+
+\item chaque mot constitutif d'un nom de classe est capitalisé
+(exemple : \texttt{TamponTexte}) ;
+
+\item le premier mot constitutif des méthodes et des attributs est en
+minuscules, mais les mots suivants sont capitalisés (exemple :
+\texttt{TamponTexte}\char58\char58\texttt{ajouteSeparateurs ()}) ;
+
+\item les noms des attributs se terminent par le caractère '\verb=_='
+(exemple : \texttt{TamponTexte}\char58\char58\texttt{sortie\_});
+
+\item les noms des fichiers déclarant ou implantant les classes sont
+les noms des classes, auxquels on ajoute le suffixe \texttt{.cc} ou
+\texttt{.h} (exemple : \texttt{TamponTexte.cc}) ;
+
+\item les noms des fichiers sources n'implantant pas de classes
+suivent la même convention de nommage, par homogénéité (exemple :
+\texttt{TraducteurCC.cc}).
+
+\end{itemize}}
+
+\subsection{gestion des erreurs}\label{sec:gestion-erreurs}
+
+La gestion des erreurs dans la bibliothèque \bibliotheque{club} 
+était, pour toutes les versions inférieures à 6.0, basée sur le mécanisme de retour d'erreur dans une
+instance de classe spécialisée.
+Les versions 6.0 et supérieures de \bibliotheque{club} utilisent le
+mécanisme des exceptions.
+Afin d'assurer temporairement la compatibilité de
+\bibliotheque{club} avec les versions antérieures, deux hiérarchies
+d'objets cohabitaient dans la version 6.0~:
+\begin{itemize}
+\item la première utilisait le mécanisme de retour d'erreur -- le nom des classes de cette
+hiérarchie était suffixé par \texttt{\_OBSOLETE},
+\item la deuxième utilisait le mécanisme des exceptions.
+\end{itemize}
+
+Désormais seule la deuxième hiérarchie subsiste dans la version
+7.0. Un compilateur intégrant le principe des exceptions est donc
+requis pour l'installation.
+
+\subsubsection*{déclenchement d'une exception}
+
+Les constructeurs et méthodes des classes susceptibles de rencontrer un
+cas d'erreur peuvent lever une exception. Les exceptions utilisées dans
+\bibliotheque{club} sont des instances de la classe ClubErreurs.
+
+Dans la description des classes qui est faite dans ce document, le
+lecteur trouvera pour chaque méthode décrite, la liste des codes
+d'erreur pouvant être contenus dans l'instance d'exception.
+Ainsi, pour une méthode susceptible de lever une exception avec un
+code \texttt{iterateur\_invalide} ou \texttt{tampon\_vide}, on pourra
+discriminer l'exception reçue dans le bloc catch comme dans l'exemple
+suivant :
+
+\begin{verbatim}
+...
+catch (ClubErreurs ce)
+{
+  if (ce.code()== ClubErreurs::iterateur_invalide)
+    // traitement d'erreur sur iterateur invalide
+  else 
+    if (ce.code()== ClubErreurs::tamponvide)
+      // traitement d'erreur sur tampon vide
+    else
+      throw;
+}
+\end{verbatim}
+ 
+Dans le cas d'un développement rapide de code \emph{jetable} on peut
+dans un premier temps ne pas tenir compte des exceptions. La levée de
+l'exception provoquera alors une fin anormale du programme
+(\texttt{abort}) avec production d'un fichier core. On peut aussi
+mettre tout le code dans un unique bloc \texttt{try} suivi d'un bloc
+\texttt{catch} similaire à celui-ci:
+
+\begin{verbatim}
+catch(ClubErreurs ce)
+{
+  return 1;
+}
+\end{verbatim}
+
+Ce qui provoquera l'affichage du message d'erreur lors de la
+destruction de l'instance de ClubErreurs avant l'arrêt du programme.
+
+Dans le cadre d'un développement ayant des objectifs de qualité
+élevés, il est nécessaire de faire une utilisation plus fine des blocs
+\texttt{try} et \texttt{catch}. 
+
+Il est intéressant de remarquer que dans tous les cas (même pour un
+développement rapide) la génération du message est faite à très bas
+niveau, là où l'on dispose de l'information la plus complète, et que
+le formatage de la chaîne de caractères peut être réalisé dans la
+langue de l'utilisateur si l'environnement comporte les fichiers de
+traduction des formats internes (si l'environnement n'est pas en
+place, un message est tout de même affiché, mais bien sûr sans
+traduction).
+
+Un exemple de traitement d'erreur est donné par les lignes
+suivantes. En cas de levée d'exception, le \texttt{return 1} dans le
+bloc \texttt{catch} provoquera la destruction de l'instance d'erreur
+et l'affichage du message d'erreur avant la terminaison du
+programme.
+
+%\newlength{\largeurCode}
+%\settowidth{\largeurCode}{\ttfamily
+%xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+%}
+%\begin{center}\begin{minipage}{\largeurCode}\begin{verbatim}
+\begin{verbatim}
+int main (int argc, char **argv)
+{ 
+  try 
+  {
+    // lecture du fichier
+    TamponTexte texte (argv [1]); //peut lever une exception
+
+    texte.elimineCommentaires (); //peut lever une exception
+    texte.elimineBlancs ();       //peut lever une exception
+
+    // affichage des champs un par un (les numéros commencent à 1)
+    for (int i = 1; i <= texte.nombreChamps (); i++)
+      cout << i << " : \" " << texte.champ (i) << "\""<<endl;
+
+    // fin normale du programme
+    return 0;
+  }
+  catch(ClubErreurs ce)
+  {
+    // on rattrape l'exception et on quitte proprement.
+    return 1;
+  }
+}
+\end{verbatim}
+%\end{verbatim}\end{minipage}\end{center}
+
+\subsubsection*{retour d'erreur par une instance de classe spécialisée}
+
+Traditionnellement, les fonctions \langage{c} générant une erreur
+retournent un entier non nul représentant le code d'erreur ou
+retournent 0 en cas de succès. Cette convention est respectée dans les
+versions de \bibliotheque{club} inférieures strictement à la version 6.0.
+Cependant il s'avère que dans une bibliothèque un entier n'est pas
+suffisant pour que l'appelant génère un message d'erreur pertinent ;
+de plus en \langage{c++} les constructeurs ne retournent aucune valeur
+qui puisse être testée. La convention adoptée était donc que le code de
+l'erreur (destiné à être testé par l'appelant) et le message d'erreur
+(destiné à être lu par l'opérateur) étaient également retournés dans une
+instance de classe spécialisée (dérivée de BaseErreurs) fournie par
+l'appelant.
+
+\begin{itemize}
+\item Si la fonction ne retourne pas de valeur testable simplement (par
+exemple un constructeur), l'instance d'erreur peut elle-même être
+testée ;
+\item L'appelant peut s'abstenir de fournir l'instance pour le retour des
+erreurs\footnote{l'instance est généralement fournie sous la forme
+d'un pointeur optionnel en dernier argument}, auquel cas l'erreur est
+générée dans un objet local qui est soit retourné à l'appelant par le
+mécanisme des exceptions soit construit puis détruit localement ;
+\item Lorsqu'une instance d'erreur contenant un compte rendu d'échec est
+détruite, son destructeur a pour effet de bord de réaliser l'affichage
+du message à l'aide d'une fonction qui peut être personnalisée par
+l'utilisateur.
+\end{itemize}
+
+\subsubsection*{transition vers la gestion des erreurs par les exceptions}
+
+Dans la grande majorité des cas, le code existant qui utilise la
+gestion d'erreurs par pointeur sur ClubErreurs devra être adapté
+pour utiliser la nouvelle version de \bibliotheque{club}.
+
+Cette adaptation implique des changements importants sur la
+structure du programme utilisateur de la bibliothèque.
+Le code fonctionnel et le code de gestion d'erreurs sont maintenant
+séparés dans des blocs différents.
+Les variables déclarées dans un bloc \texttt{try} ne sont visibles
+qu'à l'intérieur de celui-ci.
+
+L'exemple suivant illustre cette transformation :
+
+Code original s'appuyant sur une version de \bibliotheque{club}
+inférieure à 6.0~:
+\begin{verbatim}
+#include "club/TamponTexte.h"
+#include "club/ClubErreurs.h"
+
+int main (int argc, char **argv)
+{ 
+  ClubErreurs ce;
+
+  // lecture du fichier
+  TamponTexte texte (argv [1], &ce);
+  if (ce.existe ())
+    return 1; // traitement d'erreur juste apres la creation
+
+  if (texte.elimineCommentaires (&ce) || (texte.elimineBlancs (&ce)))
+    return 2;
+
+  // affichage des champs un par un (les numéros commencent à 1)
+  for (int i = 1; i <= texte.nombreChamps (); i++)
+    cout << i << " : \" " << texte.champ (i) << "\""<<endl;
+
+  // fin normale du programme
+  return 0;
+}
+\end{verbatim}
+
+Code modifié pouvant utilisé les versions 6.0 et supérieures~:
+
+\begin{verbatim}
+#include "club/TamponTexte.h"
+#include "club/ClubErreurs.h"
+
+int main (int argc, char **argv)
+{ 
+  try
+  {
+    // lecture du fichier
+    TamponTexte texte (argv [1]);
+
+    try
+    { // try imbrique car on utilise l'objet texte
+      // et on differencie la cause de l'erreur
+      texte.elimineCommentaires ();
+      texte.elimineBlancs ();
+    }
+    catch(ClubErreurs ce)
+    {
+      // on peut utiliser l'objet texte dans ce bloc catch
+      cout << texte.nom() << endl ;
+      return 2;
+    }
+
+    // affichage des champs un par un (les numéros commencent à 1)
+    for (int i = 1; i <= texte.nombreChamps (); i++)
+      cout << i << " : \" " << texte.champ (i) << "\""<<endl;
+
+    // fin normale du programme
+    return 0;
+  }
+  catch(ClubErreurs ce)
+  {
+    // le traitement d'erreur de creation se retrouve en fin de code.
+    return 1;
+  }
+}
+\end{verbatim}
+
+
+\textbf{Note Importante :} Si un constructeur lève une exception, l'objet
+n'est pas créé, contrairement à ce qui se passait avec les pointeurs 
+sur ClubErreurs.
+
+\subsection{utilisation de la \bibliotheque{stl}}\label{subsec:util-stl}
+
+Comme celle du \langage{c}, la norme \langage{c++} comprend la
+définition d'une bibliothèque standard dont la majorité des fonctions
+et des patrons de classes provient de la Standard Template Library
+(\bibliotheque{stl}).
+
+Cette bibliothèque fournit un ensemble de composants
+génériques structurés en \langage{c++}. Ces composants ont été créés
+dans le but de pouvoir être utilisés à la fois sur les structures
+fournies par la bibliothèque et sur les structures du langage \langage{c++}.  
+
+La bibliothèque \bibliotheque{club} implémente des classes et
+fonctions dont certaines s'apparentent à celles présentées par la
+\bibliotheque{stl}. Comme il est fortement conseillé de suivre les
+standards de codage, la version 7.0 s'appuie désormais sur cette
+bibliothèque. L'implémentation et l'interface publique de nombreuses
+classes s'en trouvent ainsi modifiées. Il en résulte que la version
+6 et la version 7 de \bibliotheque{club} contiennent assurément des
+incompatibilités qu'il faut surmonter.
+
+Notamment, les classes dérivées de BaseErreurs (classes permettant de
+gérer ses propres exceptions) doivent impérativement changer la
+signature de la méthode protégée \texttt{formate} pour pouvoir
+utiliser la nouvelle version de club. La section~\ref{sec:BaseErreurs}
+page~\pageref{sec:BaseErreurs-conseils} présente en détail la marche à
+suivre. Il est recommandé à cette occasion de faire le passage à
+\texttt{string} de la totalité des classes utilisatrices de
+\bibliotheque{club}.
+
+Cette section présente les méthodes de
+substitution des classes de \bibliotheque{club} par celles
+équivalentes de la \bibliotheque{stl} en s'inspirant des concepts
+décrits dans le document~\ref{ref:etude-stl}.
+
+\subsubsection*{ChaineSimple et string}
+
+Les classes ChaineSimple de \bibliotheque{club} et string de la
+\bibliotheque{stl} fournissent des fonctionnalités communes pour la
+manipulation des chaînes de caractères.
+
+La version 7.0 de \bibliotheque{club} s'appuyant désormais sur les
+strings, il est fortement conseillé aux utilisateurs de ChaineSimple de
+privilégier désormais la classe string. Pour cela, deux stratégies
+peuvent être utilisées~:
+
+\begin{itemize}
+\item substitution totale des ChaineSimples par des strings ou
+\item évolution progressive des ChaineSimples vers les strings.
+\end{itemize}
+
+La première alternative permet d'utiliser « proprement » l'interface
+publique de \bibliotheque{club} 7.0 mais elle nécessite de faire évoluer
+de fa\c{c}on importante les codes utilisateur. En effet, l'utilisation
+de string et ChaineSimple bien que similaire diffère en
+certains points. La table~\ref{tab:chainesimple-string} fournit les
+équivalents \bibliotheque{stl} des méthodes de la classe ChaineSimple.
+
+\begin{tableSubstitution}{Méthodes publiques de ChaineSimple et string}
+{\label{tab:chainesimple-string}}
+{ChaineSimple} {string}
+\signature{\fonc{ChaineSimple}}
+        {(int \argument{taille}~=~-1)} 
+& 
+\signature{\fonc{string} ()} {}
+\\
+{} &\signature{void \fonc{resize}
+               (size\_type n, charT c~=~charT())}{}
+\\
+
+\hline
+
+\signature{\fonc{ChaineSimple} (const char *\argument{chaine})}{}
+&
+\signature{\fonc{string} (const charT *\argument{chaine})}{}
+\\
+
+\signature{\fonc{ChaineSimple} (const char *\argument{chaine}, int \argument{longueur})}{}
+& 
+\signature{\fonc{string} (const charT *\argument{chaine}, size\_type \argument{longueur})}{}
+\\
+
+\signature{\fonc{ChaineSimple} (char \argument{caractere}, int \argument{repetition})}{}
+&
+\signature{\fonc{string} (size\_type \argument{repetition}, charT
+        \argument{caractere})}{}
+\\
+
+\signature{\fonc{ChaineSimple} (const ChaineSimple\& \argument{c})}{}
+&
+\signature{\fonc{string} (const string\& \argument{s}, }{size\_type \argument{pos}=0,
+        size\_type \argument{n}=npos)} 
+\\
+
+\hline
+
+\signature{ChaineSimple\& \fonc{operator =} (const ChaineSimple\& \argument{c})}{} 
+&
+\signature{string\& \fonc{operator =} (const string\& \argument{c})}{}
+\\
+
+\signature{ChaineSimple\& \fonc{operator =} (const char *\argument{chaine})}{}
+&
+\signature{string\& \fonc{operator =} (const charT *\argument{chaine})}{}
+\\
+
+\hline
+\signature{\fonc{\~{}ChaineSimple} ()}{} 
+& 
+\signature{\fonc{\~{}string} ()}{} 
+\\
+
+\hline
+
+\signature{\fonc{operator const char *} ()}{} & {} \\
+
+\hline
+
+\signature{void \fonc{reinitialise} (const ChaineSimple\&
+\argument{c})} 
+{}
+&
+\signature{string\& \fonc{replace}}
+        {(size\_type pos, size\_type n, 
+          const string\& s)}
+\\
+
+\hline
+
+\signature{void \fonc{reinitialise} (const char *\argument{chaine})}{}
+&
+\signature{string\& \fonc{replace}}
+        {(size\_type pos, size\_type n,
+        const charT* \argument{s})}
+\\
+
+\signature{void \fonc{reinitialise} (const char *\argument{chaine}, 
+           int \argument{longueur})}{}
+&{}
+\\
+
+\signature{void \fonc{reinitialise} (char \argument{caractere}, 
+                                     int \argument{repetition})}{}
+&{}
+\\
+
+\hline
+
+\signature{void \fonc{formate} (const char *\argument{format} ...)}
+          {}&
+\\
+
+\signature{void \fonc{vFormate}
+          (const char *\argument{format}, va\_list {ap})}{}
+&
+
+\\
+
+\hline
+
+\signature{void \fonc{modifieCaractere} (int \argument{i}, char \argument{c})}
+          {}&
+\signature{string\& \fonc{operator[]}(size\_type n)}
+        {}
+\footnote{ch[i]~=~'c'} \\ 
+\hline
+\signature{void \fonc{elimineBlancsInitiaux} ()}
+          {}&
+\signature{size\_type \fonc{find\_first\_not\_of}}
+        {(charT c, size\_type pos~=~0) const}\\
+{} 
+&
+\signature{string\& \fonc{erase}}
+        {(size\_type pos~=~0, size\_type n~=~npos)}
+\\
+
+\hline
+
+\signature{void \fonc{elimineBlancsFinaux} ()}
+          {}&
+\signature{size\_type \fonc{find\_last\_not\_of}}
+        {(charT c, size\_type pos~=~0) const}
+\\
+{}
+&
+\signature{string\& \fonc{erase}}
+        {(size\_type pos~=~0, size\_type n~=~npos)}
+\\
+
+\hline
+
+\signature{ChaineSimple\& \fonc{operator +=}
+           (const ChaineSimple\& \argument{c})}{}
+&
+\signature{string\& \fonc{operator+=} (const string\& s)}
+        {}
+\\
+\signature{ChaineSimple\& \fonc{operator +=}
+           (const char *\argument{chaine})}{}
+&
+\signature{string\& \fonc{operator+=} (const charT* s)}
+        {}
+\\
+\signature{ChaineSimple\& \fonc{operator +=} (char \argument{c})}
+          {}&
+\signature{string\& \fonc{operator+=} (charT c)}
+        {}
+\\
+
+\hline
+
+\signature{inline int \fonc{taille} ()}
+          {}&
+\signature{size\_type \fonc{capacity} () const}
+        {}
+\\
+\signature{inline int \fonc{longueur} ()}
+          {}&
+\signature{size\_type \fonc{length} () const}
+        {}
+\\
+\signature{inline const char *\fonc{premier} ()}
+          {}&
+\signature{const charT* \fonc{c\_str} () const}
+        {}
+\\
+\hline
+\signature{inline const char *\fonc{dernier} ()}
+          {}&
+{}
+\\
+
+\hline
+
+\signature{ChaineSimple \fonc{operator ()}}
+          {(const char *\argument{debut}, const char *\argument{fin})
+          const}&
+\signature{string \fonc{substr}}
+        {(size\_type pos~=~0,
+        size\_type n~=~npos) const} 
+\\
+\signature{int \fonc{operator ==}
+           (const char *\argument{chaîne})}{}
+&
+\signature{bool \fonc{operator==}
+           (const string\& s1, const charT* s2)}{}
+\\
+\signature{int \fonc{operator ==}
+           (const ChaineSimple\& \argument{chaine})}{}
+&
+\signature{bool \fonc{operator==}
+           (const string\& s1, const string\& s2)}{}
+\\
+\hline
+\signature{int \fonc{operator !=} (const char *\argument{chaine})}
+          {}&
+\signature{bool \fonc{operator!=}
+           (const string\& s1,const charT* s2)}{}
+        
+\\
+\signature{int \fonc{operator !=}
+           (const ChaineSimple\& \argument{chaine})}{}
+&
+\signature{bool \fonc{operator!=}
+           (const string\& s1,const string\& s2)}{}
+\\
+
+\hline
+
+\signature{ChaineSimple \fonc{operator +}}
+          {(const ChaineSimple\& \argument{c1},
+            const ChaineSimple\& \argument{c2})}&
+\signature{string \fonc{operator+}}
+        {(const string\& s1, const string\& s2)}
+\\
+\signature{ChaineSimple \fonc{operator +}}
+          {(const ChaineSimple\& \argument{c1},
+            const char *\argument{c2})}&
+\signature{string \fonc{operator+}}
+        {(const string\& s1, const charT* s2)}
+\\
+\signature{ChaineSimple \fonc{operator +}}
+          {(const ChaineSimple\& \argument{c1}, char \argument{c2})}&
+\signature{string \fonc{operator+}}{(const string\& s1, charT c)}
+\\
+\signature{ChaineSimple \fonc{operator +}}
+          {(const char *\argument{c1}, const ChaineSimple\&
+          \argument{c2})}&
+\signature{string \fonc{operator+}}
+        {(const charT* s1, const string\& s2)}
+\\
+\signature{ChaineSimple \fonc{operator +}}
+          {(char \argument{c1}, const ChaineSimple\& \argument{c2})}&
+\signature{string \fonc{operator+}}{(charT c, const string\& s2)}
+\\
+
+\end{tableSubstitution}
+
+L'évolution progressive des ChaineSimples vers les strings est rendue
+possible par l'ajout dans la classe ChaineSimple~:
+
+\begin{itemize}
+\item d'un constructeur de ChaineSimple à partir d'un string,
+\item d'un opérateur de conversion implicite de ChaineSimple en string.
+\end{itemize}
+
+Néanmoins, cette évolution progressive pose des
+difficultés supplémentaires qui proviennent principalement
+des conversions implicites entre ces deux classes. Ainsi, le code
+suivant générera une erreur de compilation~:
+
+\begin{verbatim}
+ChaineSimple ch ("Hello World");
+AnalyseurLexical al (ch);
+\end{verbatim}
+
+La classe ChaineSimple fournissant deux opérateurs de conversion
+implicite (conversion en \texttt{const char*} ou en \texttt{string}),
+le compilateur déclare que l'expression \texttt{AnalyseurLexical al
+(ch);} est ambigüe. En effet, pour réaliser cette opération, les deux
+voies suivantes sont possibles~:
+
+\begin{itemize}
+\item convertir \texttt{ch} en \texttt{string} et appliquer le constructeur
+\texttt{AnalyseurLexical (const string\&)}
+\item convertir \texttt{ch} en \texttt{const char*} et appliquer le constructeur 
+\texttt{AnalyseurLexical (const char*)}
+\end{itemize}
+
+Le premier moyen d'éviter cette ambigüité est de remplacer
+explicitement la ChaineSimple en \texttt{const char*} par la méthode
+publique \fonc{premier}.
+
+\begin{verbatim}
+ChaineSimple ch ("Hello World");
+AnalyseurLexical al (ch.premier ());
+\end{verbatim}
+
+Le second moyen, recommandé, est d'abandonner ChaineSimple au profit
+de string.
+
+Dans d'autres cas, cette difficulté ne se posera pas~:
+
+\begin{verbatim}
+ChaineSimple ch ("Hello World");
+ChaineSimple premLexeme;
+ChaineSimple secondLexeme;
+
+AnalyseurLexical al (ch.premier ());
+al.suivant ();
+premLexeme = al.lexeme ();
+al.suivant ();
+secondLexeme = al.lexeme ();
+\end{verbatim}
+
+Dans l'exemple ci-dessus, bien que la méthode \texttt{lexeme} retourne
+un string, l'affectation d'une ChaineSimple à partir d'un string
+pourra être réalisée en convertissant le string en ChaineSimple (grâce
+au constructeur de ChaineSimple à partir d'un string) puis en
+appliquant l'opérateur \verb|=| entre deux ChaineSimples.
+
+\subsubsection*{Adressage et map}
+
+La classe patron Adressage<T> implémente une notion limitée de
+table d'adressage dispersé, avec une clef de type chaîne de
+caractères, elle est substituable par la classe de la
+\bibliotheque{stl} map<TypeClé, TypeDonnée, FonctionComparaison>. Une
+classe réalisant la comparaison par simple applel à l'opérateur
+< est utilisée si aucune fonction de comparaison n'est fournie.
+
+Le type de la clef le plus approprié est string afin d'offrir les
+mêmes services de manipulation de chaînes de caractères que dans
+ChaineSimple. Cette classe disposant d'un opérateur <, il suffit
+souvent de spécifier map<string, TypeDonnees>.
+
+La remarque importante suivante concerne la fonctionnalité (fournie par
+Adressage) d'accès direct par index numérique qui n'est pas assurée
+par map. En revanche, il est possible de parcourir l'ensemble
+des valeurs contenues dans la table de hachage à l'aide d'un itérateur
+\bibliotheque{stl}. Ce parcours par itérateur n'est cependant pas
+équivalent au parcours par index numérique dans Adressage, car l'ordre
+utilisé par map s'appuie sur la relation d'ordre sur les clefs
+et non sur l'ordre de remplissage de la table (comme c'est le cas dans
+Adressage).
+
+La substitution de Adressage nécessite donc de revoir
+les mécanismes d'accès aux éléments lorsque l'accès est réalisé à
+l'aide d'un index. L'exemple suivant illustre cette transformation :
+
+Code original :
+\begin{verbatim}
+#include "club/Adressage.cc"
+template class Adressage<OptionBase *>;
+
+Adressage<OptionBase *> table;
+
+for (int i = 0; i < table.nbElements (); ++i)
+{
+  const ChaineSimple& clef   = src.clef   (i);
+  const OptionBase   *valeur = src.valeur (i);
+
+  cout << *valeur.code () << endl;
+}
+\end{verbatim}
+
+Code modifié :
+\begin{verbatim}
+#include <map>
+#include <string>
+
+...
+
+map<string, OptionBase *> table;
+map<string, OptionBase *>::const_iterator i;
+
+for (i = table.begin (); i != table.end (); ++i)
+{
+  const string&     clef   = (*i).first;
+  const OptionBase *valeur = (*i).second;
+
+  cout << *valeur.code () << endl;
+}
+\end{verbatim}

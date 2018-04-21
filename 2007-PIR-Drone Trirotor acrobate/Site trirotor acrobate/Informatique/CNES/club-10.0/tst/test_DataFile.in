@@ -1,0 +1,28 @@
+#! /bin/sh
+
+# identificateur RCS : "$Id: test_DataFile.in,v 1.5 2005/02/04 10:25:37 chope Exp $"
+
+# mise en place d'un environnement anglais pour vérifier les messages
+@cl_cv_var_lang@=en                        ; export @cl_cv_var_lang@
+@cl_cv_var_tradpath@=@srcdir@/..           ; export @cl_cv_var_tradpath@
+@cl_cv_var_xmlpath@=@srcdir@/../resources  ; export @cl_cv_var_xmlpath@
+
+if [ -z "$MADONA_DATA_PATH" ] ; then
+  echo "this test can only be run in a properly set madona environment" 2>&1
+  echo "the MADONA_DATA_PATH is not set" 2>&1
+  exit 1
+fi
+MADONA_LANG=en ; export MADONA_LANG
+
+# exécution du programme de test
+echo "Lancement de prgm_DataFile"
+./prgm_DataFile @srcdir@ > ./test_DataFile.res
+
+# comparaison des fichiers
+echo "difference test_DataFile.res test_DataFile.ref"
+./../utils/difference -rsynth -p 0.00001 -res ./test_DataFile.res -ref test_DataFile.ref
+r=$?
+
+# nettoyage
+rm -f ./test_DataFile.res
+exit $r

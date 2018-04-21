@@ -1,0 +1,123 @@
+% -*- mode: latex; tex-main-file: "cantor.tex" -*-
+% $Id: CantorErreurs.tex,v 1.5 2003/03/20 10:54:58 cantor Exp $
+\subsection{classe CantorErreurs}\label{sec:CantorErreurs}
+
+\subsubsection*{description}\label{sec:CantorErreurs-desc}
+
+Cette classe permet de formater et traduire dans la langue de
+l'utilisateur des messages d'erreur liés à la bibliothèque
+\bibliotheque{cantor}. Elle utilise les mécanismes qui lui sont
+fournis par sa classe de base.
+
+\subsubsection*{interface publique}\label{sec:CantorErreurs-int}
+\begin{verbatim}
+#include "cantor/CantorErreurs.h"
+\end{verbatim}
+
+Les opérations publiques sont essentiellements celles de la classe de
+base \texttt{BaseErreurs}, qui appartient à la bibliothèque
+\bibliotheque{club} (voir~\ref{ref:club}). Les méthodes qui ne peuvent
+être héritées (les constructeurs et les méthodes de classe) ont été
+redéfinies avec des sémantiques équivalentes. Dans ces méthodes
+redéfinies, les codes d'erreurs (déclarés comme type énuméré public
+interne) attendent les arguments suivants dans la liste des arguments
+variables :
+
+\begin{description}
+\item[norme\_nulle] : néant ;
+
+\item[axe\_rotation\_nul] : néant ;
+
+\item[ordre\_inconnu] : \texttt{int} (pour le code de l'ordre), liste
+  de \texttt{char *} terminée par un pointeur nul pour les noms des
+  ordres connus ;
+
+\item[matrice\_non\_orthogonalisable] : néant ;
+
+\item[matrice\_singuliere] : néant ;
+
+\item[repere\_indirect] : néant ;
+
+\item[alignement\_axe\_extremite] : néant ;
+
+\item[cones\_coaxiaux] : néant ;
+
+\item[cones\_disjoints] : néant ;
+
+\item[creneau\_vide] : néant ;
+
+\item[indice\_hors\_bornes] : \texttt{char *} (pour le nom de
+l'indice), \texttt{int} (pour la valeur courante de l'indice),
+\texttt{int} (pour la valeur minimale autorisée), \texttt{int} (pour
+la valeur maximale autorisée) ;
+
+\item[polynome\_invalide] : néant ;
+
+\item[aucune\_fonction\_base] : néant ;
+
+\item[erreur\_fonction\_base] : \texttt{int} (pour le code d'erreur de
+la fonction utilisateur) ;
+
+\item[ajuste\_dimension\_nulle] : néant ;
+
+\item[non\_ajustable] : néant ;
+
+\item[non\_ajustee] : néant ;
+
+\item[echec\_heuristique] : néant ;
+
+\item[frontiere\_ouverte] : néant ;
+
+\item[desequilibre\_connexions] : néant ;
+
+\item[erreur\_interne] : \texttt{int} (pour le numéro de ligne,
+  utiliser la macro \texttt{\_\_LINE\_\_}), \texttt{char *} (pour le
+  nom du fichier source, utiliser la macro \texttt{\_\_FILE\_\_}) ;
+
+\item[singularite\_angle] : néant.
+\end{description}
+
+
+\subsubsection*{exemples d'utilisation}
+
+\begin{verbatim}
+#include "cantor/CantorErreurs.h"
+#include "cantor/MoindreCarreLineaire.h"
+
+static double x [] = { 1.0,  2.0,  3.0,  4.0, 5.0,   6.0,   7.0,  8.0  };
+static double y [] = { 0.97, 3.01, 2.93, 6.9, 8.99, 11.03, 13.0, 14.98 };
+
+CantorErreur ce;
+
+// ajustement d'une droite sur l'échantillon
+// on a phi (k, 1) = 1 et phi (k, 2) = x (i)
+double fki [2];
+fki [0] = 1;
+MoindreCarreLineaire initial (2);
+for (int i = 0; i < sizeof (x) / sizeof (double); i++)
+{ fki [1] = x [i];
+  initial.ajouteResidu (y [i], fki);
+}
+
+if (initial.ajuste (&ce))
+  return ce.code ();
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation spécifiques}
+\label{sec:CantorErreurs-conseils}
+Cette classe est principalement utilisée pour tester la bonne
+exécution des fonctions de la bibliothèque \bibliotheque{cantor}
+elle-même. Son utilisation se résume donc à tester correctement la
+présence ou l'absence d'erreurs (méthode \texttt{existe ()}), et à
+décider du comportement à adopter en présence d'une erreur.
+
+Si la même instance d'erreur est utilisée pour tester le retour de
+plusieurs fonctions, il faut prendre garde de la tester au bon moment
+; il est en effet possible qu'une erreur soit générée par le premier
+appel, qu'elle soit ignorée par l'appelant, qu'une seconde fonction de
+\bibliotheque{cantor} se termine ensuite normalement et que l'appelant
+ne détecte la première erreur qu'à cet instant.
+
+\subsubsection*{implantation}\label{sec:CantorErreurs-impl}
+La classe dérive publiquement de \texttt{BaseErreurs}, elle ne possède
+aucun attribut propre.

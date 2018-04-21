@@ -1,0 +1,169 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: SenseurCinematique.tex,v 1.13 2004/06/21 14:43:08 marmottes Exp $
+\subsection{classe SenseurCinematique}\label{sec:SenseurCinematique}
+
+\subsubsection*{description}\label{sec:SenseurCinematique-desc}
+
+Cette classe implante les senseurs cinématiques (gyromètres), c'est à
+dire les senseurs qui mesurent la projection d'une vitesse angulaire
+sur un axe sensible. Ces senseurs constituent une famille complètement
+disjointe des senseurs géométriques.
+\subsubsection*{interface publique}\label{sec:SenseurCinematique-int}
+\begin{verbatim}
+#include "marmottes/SenseurCinematique.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{SenseurCinematique : méthodes publiques}
+{\label{tab:SenseurCinematique-met-pub}}
+{construit une instance à partir des données technologiques}
+
+\signature{\fonc{SenseurCinematique}}
+          {(const string\& \argument{nom},\\
+            const RotDBL\& \argument{repere},\\
+            const VecDBL\& \argument{axeCalage},\\
+            double \argument{precision},\\
+            const VecDBL\& \argument{axeSensible})
+           \throw{CantorErreurs}
+          }&
+
+construit une instance à partir des données technologiques\\
+            
+\hline
+
+\signature{\fonc{SenseurCinematique}}
+          {(const SenseurCinematique\& \argument{s})}&
+
+constructeur par copie\\
+            
+\signature{SenseurCinematique\& \fonc{operator =}}
+          {(const SenseurCinematique\& \argument{s})}&
+
+affectation\\
+            
+\hline
+
+\signature{\fonc{\~{}SenseurCinematique} ()}
+          {}&
+
+destructeur, ne fait rien dans cette classe\\
+            
+\hline
+
+\signature{void \fonc{respecterMesures} ()}
+          {}&
+
+force le senseur à respecter les unités de mesures dans ses sorties\\
+            
+\signature{void \fonc{convertirMesures} ()}
+          {}&
+
+force le senseur à convertir les unités de mesures dans ses sorties\\
+            
+\hline
+
+\signature{Senseur* \fonc{copie} () const}
+          {}&
+
+opérateur de copie virtuel\\
+            
+\hline
+
+\signature{void \fonc{nouveauRepere}}
+          {(const RotDBL\& \argument{nouveau})}&
+
+remplace le repère du senseur par le \argument{nouveau}\\
+            
+\signature{const VecDBL\& \fonc{sensible} () const}
+          {}&
+
+retourne l'axe sensible du senseur\\
+            
+\signature{double \fonc{omega} () const}
+          {}&
+
+retourne la consigne courante\\
+            
+\signature{double \fonc{derive} () const}
+          {}&
+
+retourne la dérive courante\\
+            
+\hline
+
+\signature{int \fonc{methode} () const}
+          {}&
+
+retourne la méthode à utiliser pour constituer le modèle analytique à
+un degré de liberté avec le senseur courant (integrationSpin)\\
+            
+\signature{void \fonc{modeliseConsigne}}
+          {(const Etat\& \argument{etat},\\
+            double \argument{valeur})\\
+          \throw{CantorErreurs, MarmottesErreurs}}&
+
+modélise la consigne \argument{valeur} dans l'\argument{etat} fourni\\
+            
+\hline
+
+\signature{double \fonc{mesure} (const Etat\& \argument{etat})}
+          {\throw{MarmottesErreurs}}&
+
+retourne la mesure que produirait le senseur dans l'\argument{etat}
+fourni\\
+            
+\signature{int \fonc{controlable}}
+          {(const Etat\& \argument{etat})\\
+          \throw{MarmottesErreurs}}&
+
+indique si le senseur serait capable de contrôler le satellite dans
+l'\argument{etat} fourni (toujours vrai pour un senseur cinématique)\\
+            
+\signature{ValeurDerivee1 \fonc{foncEcart}}
+          {(const Etat\& \argument{etatPrecedent},\\
+            const Etat\& \argument{etatResolution},\\
+            const RotVD1\& \argument{attitude},\\
+            const VecVD1\& \argument{spin})
+          }&
+retourne l'écart entre la consigne et la mesure que produirait le
+senseur dans l'\argument{attitude} et le \argument{spin} fournis,
+connaissant l'\argument{etatPrecedent} du satellite
+\\
+
+\hline
+
+\signature{void \fonc{initialiseDerive}}
+          {(double \argument{derive})\\
+           \throw{MarmottesErreurs}}&
+
+initialise la dérive d'un senseur cinématique\\
+            
+\end{tableFonctionsFixe}
+\subsubsection*{implantation}\label{sec:SenseurCinematique-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:SenseurCinematique-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe SenseurCinematique}
+{\label{tab:SenseurCinematique-att-priv}}
+{axe sensible du senseur en repère satellite}
+
+sensible\_ & VecDBL & axe sensible du senseur en repère satellite\\
+
+sensibleVD1\_ & VecVD1 & conversion de sensible\_ en VecVD1\\
+
+omega\_ & double  & consigne courante\\
+
+derive\_ & double  & dérive courante\\
+
+\end{tableAttributsFixe}
+
+Les méthodes protégées sont décrites dans la table~\ref{tab:SenseurCinematique-met-prot}.
+\begin{tableFonctionsFixe}{SenseurCinematique : méthodes protégées}
+{\label{tab:SenseurCinematique-met-prot}}
+{constructeur par défaut. Il est défini explicitement uniquement pour }
+
+\signature{\fonc{SenseurCinematique} ()}
+          {}&
+
+constructeur par défaut. Il est défini explicitement uniquement pour
+prévenir celui créé automatiquement par le compilateur et ne doit pas être
+utilisé.
+\\
+\end{tableFonctionsFixe}

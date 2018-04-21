@@ -1,0 +1,152 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: pages-liminaires.tex,v 1.42 2005/03/04 14:12:45 chope Exp $
+\TitreNote{Manuel d'utilisation}
+\ProjetNote{MARMOTTES}
+\NumEd{5}
+\DateEd{01/02/2002}
+\NumRev{7}
+\DateRev{04/03/2005}
+\RefNote{ESPACE/MS/CHOPE/MARMOTTES/MU/001}
+\RedigePar{\begin{tabular}[t]{@{}l@{}}
+                L. Maisonobe, O. Queyrut,\\
+                G. Prat, F. Auguie, S. Vresk
+           \end{tabular}}{CS SI/ESPACE/FDS}
+\ValidePar{G. Prat}{CS SI/Espace/FDS}
+\PourAppli{C. Fernandez-Martin}{CS SI/Espace/FDS}
+
+\Hierarchie{
+\textsc{Communications et Systèmes}\vspace{3mm}\\
+\textsc{Systèmes d'Informations} \vspace{2ex} \\
+\textsc{Direction Espace}
+}
+
+\DiffusionInterne[2 exemplaires]{CS SI}{ESPACE/FDS}{}
+
+\DiffusionExterne[3 exemplaires]{CNES}{DCT/SB/MS}{}
+
+\ResumeNote{Ce manuel décrit l'interface utilisateur de la
+bibliothèque \bibliotheque{marmottes}, tant au niveau de la
+programmation (fonctions de bibliothèque) qu'au niveau des données
+(fichiers de ressources des données senseurs). Les fonctions de
+\bibliotheque{cantor}\glossary{[CANTOR] : Composants et Algorithmes
+Numériques Traduits sous forme d'Objets Réutilisables} permettant de
+traiter les rotations en dimension 3 sont également décrites.}
+
+\MotsClefsNote{attitude, multimission, bibliothèque}
+
+\GestionConf{oui}
+\RespGestionConf{\textsc{Luc Maisonobe - CSSI}}
+
+%% \Modifications{1}{0}{28/02/95}{L. Maisonobe}
+%% \Modifications{2}{0}{04/10/96}{L. Maisonobe}
+%% \Modifications{2}{1}{28/01/97}{L. Maisonobe}
+%% \Modifications{2}{2}{13/02/97}{L. Maisonobe}
+%% \Modifications{3}{0}{30/04/98}{L. Maisonobe}
+%% \Modifications{4}{0}{20/09/99}{Géraldine Filaire, L. Maisonobe, ajout
+%% des routines de réinitialisation, refonte complète des classes de
+%% résolution géométrique, passage aux exceptions, description des outils
+%% de développement}
+%% \Modifications{4}{1}{12/12/99}{L. Maisonobe, ajout des gyromètres
+%% intégrateurs (class SenseurGyroInteg)}
+%% \Modifications{4}{2}{06/01/00}{L. Maisonobe, ajout d'un paragraphe sur
+%% l'édition de liens, description de corrections d'erreurs}
+%% \Modifications{4}{3}{30/03/00}{L. Maisonobe, description des routines
+%% de gestion de l'extrapolation d'attitude, description de corrections
+%% d'erreurs, description des repères de référence des senseurs de
+%% Cardan, mise au standard UML des diagrammes de classes}
+%% \Modifications{4}{4}{17/04/00}{L. Maisonobe, préparation pour
+%% diffusion publique}
+%% \Modifications{4}{5}{05/09/00}{L. Maisonobe, reformatage des pages
+%% liminaires, correction des codes de retour des routines, ajout des
+%% routines de gestion des traces d'exécution, documentation des
+%% pseudo-senseurs de gains d'antenne}
+%% \Modifications{4}{6}{05/12/00}{L. Maisonobe, description des
+%% modifications de configuration entre les versions 8.0 et 8.1, ajout de
+%% la description de \texttt{marmottes-config}}
+%% \Modifications{4}{7}{20/12/00}{L. Maisonobe, description des
+%% corrections entre les versions 8.1 et 8.2}
+%% \Modifications{4}{8}{25/01/01}{L. Maisonobe, description des
+%% corrections entre les versions 8.2 et 8.3, amélioration de la
+%% documentation de la classe SenseurCardan}
+%% \Modifications{4}{9}{07/02/01}{L. Maisonobe, description des
+%% corrections entre les versions 8.3 et 8.4, élimination de la classe PointerRegister}
+%% \Modifications{4}{10}{05/04/01}{L. Maisonobe, description des
+%% évolutions entre les versions 8.4 et 8.5}
+%% \Modifications{4}{11}{22/06/01}{L. Maisonobe, modification de la
+%% syntaxe du balayage, ajout des cibles *-sans-eclipse}
+%% \Modifications{4}{12}{17/07/01}{L. Maisonobe, ajout de la cible
+%% vitesse-sol-apparente, corrections nombreuses}
+\Modifications{}{}{}{Pour l'historique des modifications antérieures: }
+\Modifications{}{}{}{se reporter à l'édition~05~/~révision~05 de ce document}
+\Modifications{5}{0}{01/02/02}{L. Maisonobe, création du document CS}
+\Modifications{5}{1}{08/04/02}{S. Vresk, description des
+évolutions entre les versions 9.1 et 9.2}
+\Modifications{5}{2}{06/09/02}{G. Prat, description des
+évolutions entre les versions 9.2 et 9.3}
+\Modifications{5}{3}{05/03/03}{S. Vresk, description des
+évolutions entre les versions 9.3 et 9.4}
+\Modifications{5}{4}{28/07/03}{L. Maisonobe, description des
+évolutions entre les versions 9.4 et 9.5}
+\Modifications{5}{5}{28/07/03}{L. Maisonobe, description des
+évolutions entre les versions 9.5 et 9.6}
+\Modifications{5}{6}{21/06/04}{G. Prat, description des
+évolutions entre les versions 9.6 et 9.7}
+\Modifications{5}{7}{04/03/05}{L. Maisonobe, description des
+évolutions entre les versions 9.7 et 9.8}
+
+\CausesEvolution{description des évolutions entre les versions 9.7 et 9.8}
+
+
+\Glossaire{Marmottes}{Modélisation d'Attitude par Récupération des
+Mesures d'Orientation pour tout Type d'Engin Spatial}
+\Glossaire{senseur}{équipement bord permettant à un satellite de
+mesurer son mouvement autour de son centre de gravité}
+\Glossaire{IRES}{Infra-Red Earth Sensor}
+\Glossaire{TM}{télémesure}
+
+\DocRef{MARMOTTES -- documentation mathématique\label{ref:marmottes-math}}
+{\textsc{ESPACE/MS/CHOPE/MARMOTTES/DM/001}, édition 4.0, 01/02/2002}
+
+\DocRef{Manuel d'utilisation de la bibliothèque
+CANTOR\label{ref:cantor}} {\textsc{ESPACE/MS/CHOPE/CANTOR/MU/001}, édition
+5.11, 04/03/2005}
+
+\DocRef{Manuel d'utilisation de la bibliothèque CLUB\label{ref:club}}
+{\textsc{ESPACE/MS/CHOPE/CLUB/MU/001}, édition 6.9, 04/03/2005}
+
+\DocRef{MERCATOR -- accès aux fichiers\label{ref:fichiers}}
+{\textsc{ct/ti/ms/sg/95-024}, édition 1.0, 14/02/1995}
+
+\DocRef{Traduction de messages et mots-clefs\label{ref:traduction}}
+{\textsc{ct/ti/ms/sg/95-015}, édition 1.0, 06/01/1995}
+
+\DocRef{Iterative Optimal Orthogonalization of the Strap down
+Matrix\label{ref:orthogonalisation}} {\textsc{Itzhack Y. Bar-Itzhack},
+\textsc{ieee} Transactions on Aerospace and Electronic Systems -- Vol
+AES-11, January 1975}
+
+\DocRef{GNU Coding Standards\label{ref:gnu-coding-standards}}
+{\textsc{R.~Stallman}, 09/09/1996}
+
+\DocRef{GNU Autoconf, Automake, and Libtool\label{ref:libtool}}
+{\textsc{G. V. Vaughan}, \textsc{B. Elliston}, \textsc{T. Tromey},
+  \textsc{I. L. Taylor}, October 2000}
+
+\DocRef{Autoconf\label{ref:autoconf}}
+{\textsc{D.~MacKenzie}, édition 2.13, 12/1998}
+
+\DocRef{Automake\label{ref:automake}}
+{\textsc{D.~MacKenzie}, \textsc{T.~Tromey}, édition 1.3, 04/1998}
+
+\DocRef{Version Management with CVS\label{ref:cvs}}
+{documentation de CVS 1.10}
+
+\DocRef{CVS Client/server\label{ref:cvs-client-server}}
+{documentation de CVS 1.10}
+
+\DocRef{GNU g++\label{ref:g++}}
+{\textsc{R.~Stallman}}
+
+\DocRef{Standard Template Library Programmer's Guide\label{ref:stl}}
+{\textsc{Silicon Graphics Computer Systems},
+http://www.sgi.com/Technology/STL, 1996}

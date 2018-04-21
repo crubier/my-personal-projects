@@ -1,0 +1,189 @@
+$Id: ddc-marmottes.txt,v 1.8 2005/03/11 11:13:09 chope Exp $
+Dossier descriptif de configuration , fait :
+le  :  04/03/2005
+par :  Sylvain Delattre, Guylaine Prat
+selon spécification : RNC-CNES-M-40-516 Ed.2 Rev.0
+
+Sommaire
+--------
+1. Identification de l'article
+2. Identification de la version
+3. Instructions de prise en compte
+4. Moyens
+5. Modifications
+6. Faits techniques ouverts
+8. Types de fichier
+9. Mots clés du cartouche de traçabilite ($log$) 
+10. Informations complémentaires
+11. Liste des fichiers ajoutés, modifiés, supprimés
+
+1. Identification de l'Article de Configuration
+-----------------------------------------------
+Nom de l'article : marmottes
+Code Produit : <code>
+Criticité : normale
+Confidentialité : non classifié
+Rappel de la fonction : voir README
+Fournisseur 1ère version : CS-SI
+
+2. Identification de la version
+-------------------------------
+Date Version: 04/03/2005
+Code Version: 9.8
+Libellé Version: sans objet
+État Version: recette conforme au RNC (BT/CRE)
+Justification : livraison de FA et DM
+Type de Configuration :  Produit Utilisable 
+Type de livraison : Complète
+Fournisseur version : CS-SI
+
+3. Instructions de prise en compte
+----------------------------------
+3.1 Procédure pour extraire les éléments livrés du support de livraison
+3.2 Procédure pour générer et assembler les éléments transformés (bibliothèques, fichiers exécutables)
+3.3 Procédure pour générer le produit installable sur le support d'installation
+3.4 Procédure pour installer le produit dans l'environnement de l'utilisateur 
+3.5 Description de l'environnement utilisateur après l'installation
+    (structure des répertoires, fichiers, rôle et observation)
+3.6 Procédure pour désinstaller le produit de l'environnement utilisateur
+
+Voir fichier INSTALL.
+
+4. Moyens
+---------
+
+4.1. Développement 
+------------------
+Voir fichier README.dev.
+    
+4.2. Configuration des composants
+---------------------------------
+Voir fichier INSTALL.
+
+4.3. Moyens opérationnels
+-------------------------
+nom            version      fournisseur    rôle et observation
+CLUB           10.0         CS-SI          utilitaires (entrée/sortie, traitement des chaînes de caractères)
+
+CANTOR         7.3          CS-SI          fonctions mathématiques de base - géométrie dans la sphère unité
+
+5. Modifications
+----------------
+Voir fichier NEWS et compte-rendu du BT.
+
+5.1 Périmètre de l'évolution:
+----------------------------
+Liste des DM et FA prises en compte:
+     BIBMS-FA-261-198-CN
+     BIBMS-FA-261-230-CN
+
+5.2 Identification des modifications:
+------------------------------------
+Voir fichier NEWS et fichiers ChangeLog de chaque répertoire.
+ 
+6. Faits techniques ouverts
+---------------------------
+Voir fichier TODO.
+
+7. Documentation
+----------------
+
+- fonctionnelle : 
+marmottes-mathematique ESPACE/MS/CHOPE/MARMOTTES/DM/001 4.0 01/02/2002
+
+- d'utilisation:
+marmottes-utilisateur ESPACE/MS/CHOPE/MARMOTTES/MU/001 5.7 04/03/2005
+
+- de définition : 
+Sans objet.
+
+8. Type des fichiers
+--------------------
+
+Suffixe	 binaire/texte		marqué	   cartouche de traçabilité  ($log$)
+*.cpp	      text                   oui               oui   
+*.h           text                   oui               oui
+*.am          text                   non               non
+*.in          text                   non               non
+*.ac          text                   non               non
+*.m4          text                   non               non
+*.sh          text                   non               non
+*.ref         text                   non               non
+*.don         text                   non               non
+*.xml         text                   non               non
+*.tex         text                   non               non
+
+Fichiers non suffixés  : 
+nom      binaire/texte		marqué	   cartouche de traçabilité  ($log$)
+AUTHORS     text                    non            non
+LICENCE     text                    non            non
+LICENSE     text                    non            non
+COPYING     text                    non            non
+README      text                    non            non
+README.dev  text                    non            non
+NEWS        text                    non            non
+INSTALL     text                    non            non
+ChangeLog   text                    non            non
+configure   text                    non            non
+
+9. Mots clés du cartouche de traçabilité des changements ($log$) :
+-----------------------------------------------------------------
+TRACE_HISTORIQUE="$Historique"
+TRACE_VERSION="Revision"
+TRACE_FA_ID="FA-ID"
+TRACE_DM_ID="DM-ID"
+TRACE_FIN_HISTORIQUE="$Version"
+TRACE_SEP_DATE='/'
+SEPARATEUR_CHAMPS = ' '
+
+10. Informations complémentaires
+--------------------------------
+Sans objet.
+
+11. Liste des fichiers ajoutés, modifiés, supprimés
+---------------------------------------------------
+
+#################
+fichiers ajoutés
+#################
+marmottes/tst/test_BugsIds.0230.log
+marmottes/tst/test_BugsIds.0230.sensors
+
+
+##################
+fichiers modifiés
+##################
+marmottes/COPYING
+marmottes/ChangeLog
+marmottes/INSTALL
+marmottes/NEWS
+marmottes/acinclude.m4
+marmottes/config.guess
+marmottes/config.sub
+marmottes/configure.ac
+marmottes/ddc-marmottes.txt
+marmottes/depcomp
+marmottes/install-sh
+marmottes/ltmain.sh
+marmottes/missing
+marmottes/mkinstalldirs
+marmottes/doc/marmottes-utilisateur/ChangeLog
+marmottes/doc/marmottes-utilisateur/evolutions.tex
+marmottes/doc/marmottes-utilisateur/lexique.tex
+marmottes/doc/marmottes-utilisateur/macros-bibliotheques.tex
+marmottes/doc/marmottes-utilisateur/maintenance.tex
+marmottes/doc/marmottes-utilisateur/marmottes-utilisateur.tex
+marmottes/doc/marmottes-utilisateur/pages-liminaires.tex
+marmottes/doc/marmottes-utilisateur/routines.tex
+marmottes/doc/marmottes-utilisateur/tables-senseurs.tex
+marmottes/src/ChangeLog
+marmottes/src/MarmottesErreurs.cpp
+marmottes/src/SenseurCardan.cpp
+marmottes/tst/ChangeLog
+marmottes/tst/Makefile.am
+
+
+###################
+fichiers supprimés
+###################
+sans

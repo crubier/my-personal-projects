@@ -1,0 +1,10 @@
+%implements cgirblk_s0_b22_BlockInstanceSetup "C"
+
+%function BlockInstanceSetup(block, system) Output
+%% Systems removed in IR:
+%% TLC Block Registration buffer:
+%<LibAddToCommonIncludes("<math.h>")>
+%<LibAddToCommonIncludes("<math.h>")>
+%<LibAddToCommonIncludes("<math.h>")>
+%% END  Block Registration buffer
+%endfunction

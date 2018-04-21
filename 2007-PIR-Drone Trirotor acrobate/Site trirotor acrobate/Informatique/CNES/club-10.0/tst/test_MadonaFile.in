@@ -1,0 +1,32 @@
+#! /bin/sh
+
+# identificateur RCS : "$Id: test_MadonaFile.in,v 3.5 2000/11/21 10:20:01 club Exp $"
+
+# mise en place d'un environnement anglais pour vérifier les messages
+@cl_cv_var_lang@=en              ; export @cl_cv_var_lang@
+@cl_cv_var_tradpath@=@srcdir@/.. ; export @cl_cv_var_tradpath@
+
+if [ -z "$MADONA_DATA_PATH" ] ; then
+  echo "this test can only be run in a properly set madona environment" 2>&1
+  echo "the MADONA_DATA_PATH is not set" 2>&1
+  exit 1
+fi
+MADONA_LANG=en ; export MADONA_LANG
+
+# exécution du programme de test
+./prgm_MadonaFile @srcdir@ ./test_MadonaFile.res1 > ./test_MadonaFile.res2 2>&1
+
+# comparaison des fichiers
+echo "difference ./test_MadonaFile.res1 @srcdir@/test_MadonaFile.ref1"
+./../utils/difference -rsynth -p 0.00001 -res ./test_MadonaFile.res1 -ref @srcdir@/test_MadonaFile.ref1
+r=$?
+if [ $r = 0 ];
+then
+echo "difference ./test_MadonaFile.res2 @srcdir@/test_MadonaFile.ref2"
+./../utils/difference -rsynth -p 0.00001 -res ./test_MadonaFile.res2 -ref @srcdir@/test_MadonaFile.ref2
+r=$?;
+fi
+
+rm -f ./test_MadonaFile.res1
+rm -f ./test_MadonaFile.res2
+exit $r

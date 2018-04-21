@@ -1,0 +1,36 @@
+%implements cgirblk_s0_b84_Outputs "C"
+
+%function Outputs(block, system) Output
+
+%if !LibBlockOutputSignalIsExpr(0)
+%<LibBlockAssignOutputSignal(0, "", "", 0, "%<LibBlockInputSignal(1, "", "", 0)> - %<LibBlockInputSignal(0, "", "", 0)> * 0.05")>\
+%endif
+
+%if !LibBlockOutputSignalIsExpr(1)
+%<LibBlockAssignOutputSignal(1, "", "", 0, "%<LibBlockInputSignal(2, "", "", 0)> * %<SLibCGIRBlockParameter(1, "", "", 0)>")>\
+%endif
+%if !LibBlockOutputSignalIsExpr(1)
+%<LibBlockAssignOutputSignal(1, "", "", 1, "%<LibBlockInputSignal(2, "", "", 0)> * %<SLibCGIRBlockParameter(1, "", "", 1)>")>\
+%endif
+%if !LibBlockOutputSignalIsExpr(1)
+%<LibBlockAssignOutputSignal(1, "", "", 2, "%<LibBlockInputSignal(2, "", "", 0)> * %<SLibCGIRBlockParameter(1, "", "", 2)>")>\
+%endif
+
+%if !LibBlockOutputSignalIsExpr(2)
+%<LibBlockAssignOutputSignal(2, "", "", 0, "%<LibBlockInputSignal(4, "", "", 0)> - %<LibBlockInputSignal(3, "", "", 0)> * 0.05")>\
+%endif
+
+%if !LibBlockOutputSignalIsExpr(3)
+%<LibBlockAssignOutputSignal(3, "", "", 0, "%<LibBlockInputSignal(5, "", "", 0)> * %<SLibCGIRBlockParameter(3, "", "", 0)>")>\
+%endif
+%if !LibBlockOutputSignalIsExpr(3)
+%<LibBlockAssignOutputSignal(3, "", "", 1, "%<LibBlockInputSignal(5, "", "", 0)> * %<SLibCGIRBlockParameter(3, "", "", 1)>")>\
+%endif
+%if !LibBlockOutputSignalIsExpr(3)
+%<LibBlockAssignOutputSignal(3, "", "", 2, "%<LibBlockInputSignal(5, "", "", 0)> * %<SLibCGIRBlockParameter(3, "", "", 2)>")>\
+%endif
+
+%if !LibBlockOutputSignalIsExpr(4)
+%<LibBlockAssignOutputSignal(4, "", "", 0, "%<LibBlockInputSignal(7, "", "", 0)> - %<LibBlockInputSignal(6, "", "", 0)> * 0.05")>\
+%endif
+%endfunction

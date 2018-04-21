@@ -1,0 +1,473 @@
+# Marmottes trace
+# date : 2000-10-10T09:10:07
+# $Id: test_Prems.gyr.log,v 1.2 2000/10/10 10:18:20 luc Exp $
+
+Marmottes::reinitialise 0x8137c20 1.82619989999999998e+04 4.19991565352657635e+04 -2.66167599652886508e+02 2.78292927903234417e-04 1.95238972439346348e-02 3.08060224962470075e+00 1.29363526583771615e-10 1.00000000000000000e+00 0.00000000000000000e+00 0.00000000000000000e+00 0.00000000000000000e+00 0.00000000000000000e+00 0.00000000000000000e+00 0.00000000000000000e+00 ./test_Prems.gyr.sensors IRES_R_NH IRES_P_NH YAW
+Marmottes::senseurs 0x8137c20 ./test_Prems.gyr.sensors IRES_R_NH IRES_P_NH YAW
+Marmottes::convertirConsignes 0x8137c20 ./test_Prems.gyr.sensors IRES_R_NH
+Marmottes::convertirMesures 0x8137c20 ./test_Prems.gyr.sensors IRES_R_NH
+Marmottes::convertirConsignes 0x8137c20 ./test_Prems.gyr.sensors IRES_P_NH
+Marmottes::convertirMesures 0x8137c20 ./test_Prems.gyr.sensors IRES_P_NH
+Marmottes::convertirConsignes 0x8137c20 ./test_Prems.gyr.sensors YAW
+Marmottes::convertirMesures 0x8137c20 ./test_Prems.gyr.sensors YAW
+Marmottes::convertirMesures 0x8137c20 ./test_Prems.gyr.sensors ALPHA_X
+Marmottes::convertirMesures 0x8137c20 ./test_Prems.gyr.sensors DELTA_X
+Marmottes::convertirMesures 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Y
+Marmottes::convertirMesures 0x8137c20 ./test_Prems.gyr.sensors DELTA_Y
+Marmottes::convertirMesures 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Z
+Marmottes::convertirMesures 0x8137c20 ./test_Prems.gyr.sensors DELTA_Z
+Marmottes::convertirMesures 0x8137c20 ./test_Prems.gyr.sensors AZ_SUN
+Marmottes::convertirMesures 0x8137c20 ./test_Prems.gyr.sensors EL_SUN
+Marmottes::attitude 0x8137c20 1.82620000000000000e+04 4.19999999704551956e+04 -1.02861432439870116e-11 2.78298516216991148e-04 7.54545093024204777e-16 3.08066411487529868e+00 -1.24412577480732434e-22 0.00000000000000000e+00 0.00000000000000000e+00 0.00000000000000000e+00
+  ->  5.00292255729800850e-01 -5.00362026299955187e-01 -4.99707573343438405e-01 4.99637711383961625e-01 -1.40037145252437621e-02 -1.39853982424494126e-02 1.39834430042713228e-02
+Marmottes::attitude 0x8137c20 1.82620001157407423e+04 4.19999886718280541e+04 3.08066390172062761e+01 2.78298441356143267e-04 -2.25972528189379886e-03 3.08066328613065021e+00 -1.49727294598034876e-11 0.00000000000000000e+00 0.00000000000000000e+00 0.00000000000000000e+00
+  ->  5.00108982087368314e-01 -5.00178727033687376e-01 -4.99891045371636367e-01 4.99821157831228324e-01 1.34060319565559580e-11 -7.33491454239911189e-05 -1.02414341230601973e-08
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors ALPHA_X
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors ALPHA_X
+  ->  8.99670259399985213e+01
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors DELTA_X
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors DELTA_X
+  ->  1.04721641354587296e-05
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Y
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Y
+  ->  4.20239714690588614e-02
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors DELTA_Y
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors DELTA_Y
+  ->  -8.99919996438960510e+01
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Z
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Z
+  ->  1.79967025938536324e+02
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors DELTA_Z
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors DELTA_Z
+  ->  -8.00034949666114138e-03
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors AZ_SUN
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors AZ_SUN
+  ->  -1.00101183733451620e+02
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors EL_SUN
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors EL_SUN
+  ->  -2.30752266640579649e+01
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors GYRO+X
+  ->  1
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors GYRO+Y
+  ->  1
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors GYRO+Z
+  ->  1
+Marmottes::convertirConsignes 0x8137c20 ./test_Prems.gyr.sensors GYRO+X
+Marmottes::convertirMesures 0x8137c20 ./test_Prems.gyr.sensors GYRO+X
+Marmottes::convertirConsignes 0x8137c20 ./test_Prems.gyr.sensors GYRO+Y
+Marmottes::convertirMesures 0x8137c20 ./test_Prems.gyr.sensors GYRO+Y
+Marmottes::convertirConsignes 0x8137c20 ./test_Prems.gyr.sensors GYRO+Z
+Marmottes::convertirMesures 0x8137c20 ./test_Prems.gyr.sensors GYRO+Z
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors GYRO+X
+  ->  7.68109051128165741e-10
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors GYRO+Y
+  ->  -4.20259646368600654e-03
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors GYRO+Z
+  ->  -5.86790951411681449e-07
+Marmottes::senseurs 0x8137c20 ./test_Prems.gyr.sensors GYRO+X GYRO+Y GYRO+Z
+Marmottes::attitude 0x8137c20 1.82620001273148155e+04 4.19999862991167174e+04 3.38873019902995694e+01 2.78298425635367620e-04 -2.48569774197186528e-03 3.08066311209430044e+00 -1.64700019544933956e-11 0.00000000000000000e+00 1.00000000000000000e+00 0.00000000000000000e+00
+  ->  5.04452256074156113e-01 -5.04521388488748945e-01 -4.95507792621775967e-01 4.95437299110770224e-01 0.00000000000000000e+00 1.74532925199432955e-02 4.47947709306688521e-16
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors ALPHA_X
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors ALPHA_X
+  ->  8.89670260303040834e+01
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors DELTA_X
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors DELTA_X
+  ->  1.50095908499011635e-04
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Y
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Y
+  ->  4.20239712868012566e-02
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors DELTA_Y
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors DELTA_Y
+  ->  -8.99919996439871710e+01
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Z
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Z
+  ->  1.78967026009349553e+02
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors DELTA_Z
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors DELTA_Z
+  ->  -7.99894824042208206e-03
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors AZ_SUN
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors AZ_SUN
+  ->  -1.01101196217354101e+02
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors EL_SUN
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors EL_SUN
+  ->  -2.30752253302015760e+01
+Marmottes::attitude 0x8137c20 1.82620002430555578e+04 4.19999501435175480e+04 6.46939218635088196e+01 2.78298186080705001e-04 -4.74542161977502350e-03 3.08066046011199157e+00 -3.14427221114996534e-11 0.00000000000000000e+00 1.00000000000000000e+00 0.00000000000000000e+00
+  ->  5.45719013183735280e-01 -5.45781738614219192e-01 -4.49656324159884269e-01 4.49580073610955699e-01 0.00000000000000000e+00 1.74532925199432955e-02 4.47947709306688521e-16
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors ALPHA_X
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors ALPHA_X
+  ->  7.89670259877534448e+01
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors DELTA_X
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors DELTA_X
+  ->  1.53681841384059712e-03
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Y
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Y
+  ->  4.20239695557883541e-02
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors DELTA_Y
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors DELTA_Y
+  ->  -8.99919996440782626e+01
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Z
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Z
+  ->  1.68967025777160018e+02
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors DELTA_Z
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors DELTA_Z
+  ->  -7.85136235743933916e-03
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors AZ_SUN
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors AZ_SUN
+  ->  -1.11101322004498840e+02
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors EL_SUN
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors EL_SUN
+  ->  -2.30752119912553297e+01
+Marmottes::attitude 0x8137c20 1.82620003587962965e+04 4.19998913906930757e+04 9.55005059611722231e+01 2.78297796804538578e-04 -7.00514287366104781e-03 3.08065615064251208e+00 -4.64154248839344708e-11 0.00000000000000000e+00 1.00000000000000000e+00 0.00000000000000000e+00
+  ->  5.82832517876564427e-01 -5.82888358944748997e-01 -4.00382701065956137e-01 4.00301273791992540e-01 0.00000000000000000e+00 1.74532925199432955e-02 4.47947709306688521e-16
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors ALPHA_X
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors ALPHA_X
+  ->  6.89670262468238633e+01
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors DELTA_X
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors DELTA_X
+  ->  2.87684542795805815e-03
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Y
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Y
+  ->  4.20239677338972509e-02
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors DELTA_Y
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors DELTA_Y
+  ->  -8.99919996439871710e+01
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Z
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Z
+  ->  1.58967025871992178e+02
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors DELTA_Z
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors DELTA_Z
+  ->  -7.46521681022352303e-03
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors AZ_SUN
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors AZ_SUN
+  ->  -1.21101447486668988e+02
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors EL_SUN
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors EL_SUN
+  ->  -2.30751986516183507e+01
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors GYRO+X
+  ->  1
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors GYRO+Y
+  ->  1
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors GYRO+Z
+  ->  1
+Marmottes::convertirConsignes 0x8137c20 ./test_Prems.gyr.sensors GYRO+X
+Marmottes::convertirMesures 0x8137c20 ./test_Prems.gyr.sensors GYRO+X
+Marmottes::convertirConsignes 0x8137c20 ./test_Prems.gyr.sensors GYRO+Y
+Marmottes::convertirMesures 0x8137c20 ./test_Prems.gyr.sensors GYRO+Y
+Marmottes::convertirConsignes 0x8137c20 ./test_Prems.gyr.sensors GYRO+Z
+Marmottes::convertirMesures 0x8137c20 ./test_Prems.gyr.sensors GYRO+Z
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors GYRO+X
+  ->  0.00000000000000000e+00
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors GYRO+Y
+  ->  1.00000000000000000e+00
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors GYRO+Z
+  ->  2.54434685809012865e-14
+Marmottes::senseurs 0x8137c20 ./test_Prems.gyr.sensors GYRO+X GYRO+Y GYRO+Z
+Marmottes::attitude 0x8137c20 1.82620003703703696e+04 4.19998842725647701e+04 9.85811616248037126e+01 2.78297749642249367e-04 -7.23111479763649881e-03 3.08065562853388197e+00 -4.79126938267244899e-11 0.00000000000000000e+00 0.00000000000000000e+00 0.00000000000000000e+00
+  ->  5.82832517876564316e-01 -5.82888358944749108e-01 -4.00382701065956026e-01 4.00301273791992651e-01 0.00000000000000000e+00 -9.86076131526264757e-32 4.44089209850062616e-16
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors ALPHA_X
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors ALPHA_X
+  ->  6.89670262468238633e+01
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors DELTA_X
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors DELTA_X
+  ->  2.87684542793261366e-03
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Y
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Y
+  ->  4.20239675516897587e-02
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors DELTA_Y
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors DELTA_Y
+  ->  -8.99919996439871710e+01
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Z
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Z
+  ->  1.58967025871992178e+02
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors DELTA_Z
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors DELTA_Z
+  ->  -7.46521681022352303e-03
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors AZ_SUN
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors AZ_SUN
+  ->  -1.21101460053096659e+02
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors EL_SUN
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors EL_SUN
+  ->  -2.30751973176166842e+01
+Marmottes::attitude 0x8137c20 1.82620004861111120e+04 4.19998006628257717e+04 1.29387689258738902e+02 2.78297195672649303e-04 -9.49083191027451367e-03 3.08064949583095737e+00 -6.28853691617254913e-11 0.00000000000000000e+00 0.00000000000000000e+00 0.00000000000000000e+00
+  ->  5.82832517876564316e-01 -5.82888358944749108e-01 -4.00382701065956026e-01 4.00301273791992651e-01 0.00000000000000000e+00 -9.86076131526264757e-32 4.44089209850062616e-16
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors ALPHA_X
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors ALPHA_X
+  ->  6.89670262468238633e+01
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors DELTA_X
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors DELTA_X
+  ->  2.87684542793261366e-03
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Y
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Y
+  ->  4.20239675516897587e-02
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors DELTA_Y
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors DELTA_Y
+  ->  -8.99919996439871710e+01
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Z
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Z
+  ->  1.58967025871992178e+02
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors DELTA_Z
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors DELTA_Z
+  ->  -7.46521681022352303e-03
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors AZ_SUN
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors AZ_SUN
+  ->  -1.21101585722511984e+02
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors EL_SUN
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors EL_SUN
+  ->  -2.30751839772214851e+01
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors GYRO+X
+  ->  1
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors GYRO+Y
+  ->  1
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors GYRO+Z
+  ->  1
+Marmottes::convertirConsignes 0x8137c20 ./test_Prems.gyr.sensors GYRO+X
+Marmottes::convertirMesures 0x8137c20 ./test_Prems.gyr.sensors GYRO+X
+Marmottes::convertirConsignes 0x8137c20 ./test_Prems.gyr.sensors GYRO+Y
+Marmottes::convertirMesures 0x8137c20 ./test_Prems.gyr.sensors GYRO+Y
+Marmottes::convertirConsignes 0x8137c20 ./test_Prems.gyr.sensors GYRO+Z
+Marmottes::convertirMesures 0x8137c20 ./test_Prems.gyr.sensors GYRO+Z
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors GYRO+X
+  ->  0.00000000000000000e+00
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors GYRO+Y
+  ->  0.00000000000000000e+00
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors GYRO+Z
+  ->  2.54444374517081341e-14
+Marmottes::senseurs 0x8137c20 ./test_Prems.gyr.sensors GYRO+X GYRO+Y GYRO+Z
+Marmottes::attitude 0x8137c20 1.82620004976851851e+04 4.19997910590088504e+04 1.32468338176331798e+02 2.78297132041035544e-04 -9.71680333947086070e-03 3.08064879139919068e+00 -6.43826348264008237e-11 0.00000000000000000e+00 -1.00000000000000000e+00 0.00000000000000000e+00
+  ->  5.79316371831434584e-01 -5.79372921351302694e-01 -4.05453563969129793e-01 4.05372627094691795e-01 0.00000000000000000e+00 -1.74532925199432955e-02 4.40196890422224933e-16
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors ALPHA_X
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors ALPHA_X
+  ->  6.99670261589241989e+01
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors DELTA_X
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors DELTA_X
+  ->  2.74612128327216855e-03
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Y
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Y
+  ->  4.20239674606277883e-02
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors DELTA_Y
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors DELTA_Y
+  ->  -8.99919996440782626e+01
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Z
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Z
+  ->  1.59967025798773022e+02
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors DELTA_Z
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors DELTA_Z
+  ->  -7.51428769374682792e-03
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors AZ_SUN
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors AZ_SUN
+  ->  -1.20101598370526176e+02
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors EL_SUN
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors EL_SUN
+  ->  -2.30751826431443448e+01
+Marmottes::attitude 0x8137c20 1.82620006134259274e+04 4.19996825924112200e+04 1.63274788322887787e+02 2.78296413378372257e-04 -1.19765147689015576e-02 3.08064083546691991e+00 -7.93552725078294770e-11 0.00000000000000000e+00 -1.00000000000000000e+00 0.00000000000000000e+00
+  ->  5.41774291074078485e-01 -5.41837679519450610e-01 -4.54401440070763663e-01 4.54325739801053119e-01 0.00000000000000000e+00 -1.74532925199432955e-02 4.40196890422224933e-16
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors ALPHA_X
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors ALPHA_X
+  ->  7.99670262124239173e+01
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors DELTA_X
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors DELTA_X
+  ->  1.39955914969010936e-03
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Y
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Y
+  ->  4.20239657298487820e-02
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors DELTA_Y
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors DELTA_Y
+  ->  -8.99919996441693826e+01
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Z
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Z
+  ->  1.69967026020013463e+02
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors DELTA_Z
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors DELTA_Z
+  ->  -7.87698774239061622e-03
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors AZ_SUN
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors AZ_SUN
+  ->  -1.10101723912859839e+02
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors EL_SUN
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors EL_SUN
+  ->  -2.30751693019950039e+01
+Marmottes::attitude 0x8137c20 1.82620007291666661e+04 4.19995515287345115e+04 1.94081149654371984e+02 2.78295544995173629e-04 -1.42362196843026281e-02 3.08063122205820195e+00 -9.43278670310944579e-11 0.00000000000000000e+00 -1.00000000000000000e+00 0.00000000000000000e+00
+  ->  5.00108982087364651e-01 -5.00178727033691373e-01 -4.99891045371630982e-01 4.99821157831233875e-01 0.00000000000000000e+00 -1.74532925199432955e-02 4.40196890422224933e-16
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors ALPHA_X
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors ALPHA_X
+  ->  8.99670259399984928e+01
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors DELTA_X
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors DELTA_X
+  ->  1.04721630731534651e-05
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Y
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Y
+  ->  4.20239639988692903e-02
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors DELTA_Y
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors DELTA_Y
+  ->  -8.99919996441238226e+01
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Z
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Z
+  ->  1.79967025938536324e+02
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors DELTA_Z
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors DELTA_Z
+  ->  -8.00034949644486473e-03
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors AZ_SUN
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors AZ_SUN
+  ->  -1.00101849778868910e+02
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors EL_SUN
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors EL_SUN
+  ->  -2.30751559601626326e+01
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors GYRO+X
+  ->  1
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors GYRO+Y
+  ->  1
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors GYRO+Z
+  ->  1
+Marmottes::convertirConsignes 0x8137c20 ./test_Prems.gyr.sensors GYRO+X
+Marmottes::convertirMesures 0x8137c20 ./test_Prems.gyr.sensors GYRO+X
+Marmottes::convertirConsignes 0x8137c20 ./test_Prems.gyr.sensors GYRO+Y
+Marmottes::convertirMesures 0x8137c20 ./test_Prems.gyr.sensors GYRO+Y
+Marmottes::convertirConsignes 0x8137c20 ./test_Prems.gyr.sensors GYRO+Z
+Marmottes::convertirMesures 0x8137c20 ./test_Prems.gyr.sensors GYRO+Z
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors GYRO+X
+  ->  0.00000000000000000e+00
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors GYRO+Y
+  ->  -1.00000000000000000e+00
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors GYRO+Z
+  ->  2.54434685809012928e-14
+Marmottes::senseurs 0x8137c20 ./test_Prems.gyr.sensors GYRO+X GYRO+Y GYRO+Z
+Marmottes::attitude 0x8137c20 1.82620007407407393e+04 4.19995371795308529e+04 1.97161780124138176e+02 2.78295449922246613e-04 -1.44621897604680066e-02 3.08063016955637181e+00 -9.58251237313842208e-11 0.00000000000000000e+00 0.00000000000000000e+00 0.00000000000000000e+00
+  ->  5.00108982087364540e-01 -5.00178727033691484e-01 -4.99891045371630871e-01 4.99821157831233986e-01 0.00000000000000000e+00 -9.86076131526264757e-32 4.44089209850062616e-16
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors ALPHA_X
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors ALPHA_X
+  ->  8.99670259399984928e+01
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors DELTA_X
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors DELTA_X
+  ->  1.04721630477090273e-05
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Y
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Y
+  ->  4.20239638166451032e-02
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors DELTA_Y
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors DELTA_Y
+  ->  -8.99919996441238226e+01
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Z
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Z
+  ->  1.79967025938536324e+02
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors DELTA_Z
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors DELTA_Z
+  ->  -8.00034949644486473e-03
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors AZ_SUN
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors AZ_SUN
+  ->  -1.00101862348288392e+02
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors EL_SUN
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors EL_SUN
+  ->  -2.30751546259419911e+01
+Marmottes::attitude 0x8137c20 1.82620008564814816e+04 4.19993812591405876e+04 2.27968026648760883e+02 2.78294416846945906e-04 -1.67218862555226361e-02 3.08061873292894628e+00 -1.10797662466431730e-10 0.00000000000000000e+00 0.00000000000000000e+00 0.00000000000000000e+00
+  ->  5.00108982087364540e-01 -5.00178727033691484e-01 -4.99891045371630871e-01 4.99821157831233986e-01 0.00000000000000000e+00 -9.86076131526264757e-32 4.44089209850062616e-16
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors ALPHA_X
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors ALPHA_X
+  ->  8.99670259399984928e+01
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors DELTA_X
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors DELTA_X
+  ->  1.04721630477090273e-05
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Y
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Y
+  ->  4.20239638166451032e-02
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors DELTA_Y
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors DELTA_Y
+  ->  -8.99919996441238226e+01
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Z
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors ALPHA_Z
+  ->  1.79967025938536324e+02
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors DELTA_Z
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors DELTA_Z
+  ->  -8.00034949644486473e-03
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors AZ_SUN
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors AZ_SUN
+  ->  -1.00101988047642621e+02
+Marmottes::controlable 0x8137c20 ./test_Prems.gyr.sensors EL_SUN
+  ->  1
+Marmottes::mesure 0x8137c20 ./test_Prems.gyr.sensors EL_SUN
+  ->  -2.30751412833602387e+01
+Marmottes::desinitialise 0x8137c20

@@ -1,0 +1,203 @@
+% -*- mode: latex; tex-main-file: "cantor.tex" -*-
+% $Id: Resolution1Iterateur.tex,v 1.7 2003/07/09 08:55:11 cantor Exp $
+\subsection{classe Resolution1Iterateur}\label{sec:Resolution1Iterateur}
+
+\subsubsection*{description}\label{sec:Resolution1Iterateur-desc}
+
+La classe Resolution1Iterateur permet d'itérer sur tous les zéros
+d'une fonction, qu'elle calcule à l'aide des fonctions globales de
+\texttt{cantor/Resolution1.h}.
+
+\subsubsection*{interface publique}\label{sec:Resolution1Iterateur-int}
+\begin{verbatim}
+#include "cantor/Resolution1Iterateur.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{Resolution1Iterateur : méthodes publiques}
+{\label{tab:Resolution1Iterateur-met-pub}}
+{construit une instance d'itérateur sur les zéros de \argument{f}}
+
+\signature{\fonc{Resolution1Iterateur}}
+          {(TypeFoncVD1 \argument{f}, void* \argument{arg},\\
+            double \argument{a}, double \argument{b}, double \argument{pas},\\
+            double \argument{convergenceX}, double \argument{convergenceY})
+          }&
+
+construit une instance d'itérateur sur les zéros de \argument{f} dans
+l'intervalle $[a ; b]$ (voir
+section~\ref{sec:Resolution1Iterateur-conseils} pour plus les détails)
+\\
+
+\signature{\fonc{Resolution1Iterateur}}
+          {(TypeFoncVD1 \argument{f}, void* \argument{arg},\\
+            double \argument{a}, double \argument{b}, int \argument{n},\\
+            double \argument{convergenceX}, double \argument{convergenceY})
+          }&
+
+construit une instance d'itérateur sur les zéros de \argument{f} dans
+l'intervalle $[a ; b]$ (voir
+section~\ref{sec:Resolution1Iterateur-conseils} pour plus les détails)
+\\
+
+\hline
+
+\signature{double \fonc{convergenceX} () const}
+          {}&
+
+retourne le seuil de convergence en abscisse\\
+
+\signature{double \fonc{convergenceY} () const}
+          {}&
+
+retourne le seuil de convergence en ordonnée\\
+
+\hline
+
+\signature{void \fonc{reinitialise} ()}
+          {}&
+
+reinitialise l'itérateur au début de la recherche\\
+
+\hline
+
+\signature{ValeurDerivee1 \fonc{evalueFonction} (double \argument{x}) const}
+          {}&
+
+retourne la valeur en \argument{x} de la fonction à annuler (valeur de
+retour de \argument{f} (\argument{x}, \argument{arg}), où \argument{f}
+et \argument{arg} sont les arguments stockés dans l'instance à la
+construction\\
+
+\signature{double \fonc{zeroSuivant} ()}
+          {}&
+
+retourne une copie du zéro suivant, ou une valeur largement supérieure
+à la borne supérieure de l'intervalle de recherche si aucun zéro n'est
+trouvé (la valeur est de l'ordre de la borne sup plus un million de
+fois la taille de l'intervalle, de façon à permettre de faire des
+tests de fin de recherche qui ne prennent pas un zéro égal à la borne
+sup pour un indicateur de fin; l'utilisateur peut utiliser pour ses
+tests une valeur au delà de l'intervalle).\\
+
+\signature{\fonc{~Resolution1Iterateur} ()} {} &
+destructeur.
+\\
+
+\end{tableFonctionsFixe}
+
+\subsubsection*{interfaces protégées}
+
+\begin{tableFonctionsFixe}{Resolution1Iterateur : méthodes protégées}
+{\label{tab:Resolution1Iterateur-met-prot}}
+{construit une instance d'itérateur sur les zéros de \argument{f}}
+
+\signature{\fonc{Resolution1Iterateur} ()} {} &
+constructeur par défaut.
+\\
+
+\signature{\fonc{Resolution1Iterateur}} {(const Resolution1Iterateur
+  \& \argument{other})} &
+constructeur par copie.
+\\
+
+\signature{Resolution1Iterateur \& \fonc{operator =}} {(const Resolution1Iterateur
+  \& \argument{other})} &
+affectation.
+\\
+
+\end{tableFonctionsFixe}
+
+\subsubsection*{exemple d'utilisation}
+
+\begin{verbatim}
+#include "cantor/Resolution1Iterateur.h"
+...
+
+ValeurDerivee1 SinusCroissant (double t, void* d)
+{ // fonction s'annulant 9 fois entre -11 et 11
+  // avec deux séries de zéros très proches (+/-10.907, +/-10.904)
+
+  // incrementation du compteur d'appels
+  *((int *) d) += 1;
+  ValeurDerivee1 x (t, 1.0);
+  return sin (x) + x * 0.091325;
+}
+...
+int compteur = 0;
+Resolution1Iterateur iter (SinusCroissant, (void *) &compteur,
+                           -12.0, 12.0, 10, 1.0e-4, 1.0e-4);
+double z;
+while ((z = iter.zeroSuivant ()) < 13.0)
+  cout << z << :  << iter.evalueFonction (z).f0 () << endl;
+cout << compteur <<  " appels à la fonction f\n";
+...
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation spécifiques}
+\label{sec:Resolution1Iterateur-conseils}
+
+La méthode utilisée pour parcourir les zéros d'une fonction sur un
+intervalle donné est la suivante : on commence par chercher des
+intervalles monotones encadrant des zéros, soit à l'aide du
+\argument{pas} soit en découpant l'intervalle en \argument{n} tronçons
+(\argument{pas} et \argument{n} étant des paramètres de construction
+de l'instance). Une fois un intervalle encadrant une racine trouvé,
+cet intervalle est réduit jusqu'à trouver le zéro.
+
+La phase de séparation peut conduire à rechercher finement certains
+extremums locaux s'ils sont proches d'un zéro, la méthode permet donc
+de trouver des zéros dans des cas limites où la fonction ne change de
+signe que très brièvement, c'est à dire quand deux zéros successifs
+sont très proches. Elle est limitée par le fait que deux extremums
+très proches peuvent ne pas être vus, selon la valeur de
+\argument{pas} (ou de \argument{n}) utilisée.
+
+Le critère d'arrêt porte sur les bornes d'un intervalle encadrant la
+racine, à la fois en abscisse (longueur de l'intervalle) et en
+ordonnée (valeur maximale atteinte aux bornes). Dès que les bornes
+vérifient l'un des seuils \argument{convergenceX} ou
+\argument{convergenceY} la réduction de l'intervalle est stoppée et le
+\emph{meilleur} point est retourné. Si l'un des critères est négatif,
+il ne sera jamais respecté et c'est donc l'autre qui sera déterminant.
+
+Une description détaillée des algorithmes se trouve
+dans~\ref{ref:marmottes-math}.
+
+\subsubsection*{implantation}\label{sec:Resolution1Iterateur-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:Resolution1Iterateur-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe Resolution1Iterateur}
+{\label{tab:Resolution1Iterateur-att-priv}}
+{borne supérieure de l'intervalle de recherche des zéros}
+
+convergenceX\_ & double & seuil de convergence en x (s'il est négatif,
+on ne convergera jamais en x)\\
+
+convergenceY\_ & double & seuil de convergence en y (s'il est négatif,
+on ne convergera jamais en y)\\
+
+tMin\_ & double & borne inférieure de l'intervalle de recherche des
+zéros\\
+
+tMax\_ & double & borne supérieure de l'intervalle de recherche des
+zéros\\
+
+pas\_ & double & pas de dichotomie pour la recherche des extremums\\
+
+min\_ & Variation1 & minimum courant (ce n'est en fait pas forcément
+un minimum, mais c'est un point suffisamment bas pour être utilisable
+dans la recherche des zéros)\\
+
+max\_ & Variation1 & maximum courant (ce n'est en fait pas forcément
+un maximum, mais c'est un point suffisamment haut pour être utilisable
+dans la recherche des zéros)\\
+
+precedente\_ & Variation1 & variation de la fonction au point
+précédent\\
+
+f\_ & TypeFoncVD1 & pointeur sur la fonction à annuler\\
+
+arg\_ & void* & second argument d'appel de la fonction pointée par f\_
+(le premier argument est le t variant dans l'intervalle [tMin\_;
+tMax\_])\\
+
+\end{tableAttributsFixe}

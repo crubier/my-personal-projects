@@ -1,0 +1,46 @@
+#! /bin/sh
+
+# $Id: cantor-config.in,v 1.2 2001/02/16 12:19:18 cantor Exp $
+
+requested=nothing
+status=0
+output=""
+
+while [ $# -gt 0 ] ; do
+
+  case "$1" in
+
+    --cppflags)
+      output="$output @CPPFLAGS@"
+      requested=cppflags ;;
+
+    --ldflags)
+      output="$output @LDFLAGS@"
+      requested=ldflags ;;
+
+    --libs)
+      output="$output -lcantor @LIBS@"
+      requested=libs ;;
+
+    --version)
+      output="$output @VERSION@"
+      requested=version ;;
+
+    *)
+      echo "unknown flag \"$1\"" 1>& 2
+      status=1;;
+
+  esac
+
+  shift
+
+done
+
+if [ $requested = nothing ] ; then
+  echo "cantor-config [--cppflags | --ldflags | --libs | --version]" 1>&2
+  status=1
+else
+  echo "$output"
+fi
+
+exit $status

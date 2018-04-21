@@ -1,0 +1,479 @@
+2005-03-04  projet CHOPE G. Prat/L. Maisonobe  <Guylaine.Prat@c-s.fr>
+
+	* CantorErreurs.cpp (operator): correction d'un partage de données
+	erroné (BIBMS-FA-2811-199-CN)
+
+2004-10-05  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* Field.cpp (computeTargetPoint): correction de la réduction de
+	l'arc test : il pouvait changer de direction lors de la mise à
+	jour, et passer par les points qui avaient été interdits au
+	préalable (BIBMS-FA-2811-199-CN)
+
+2003-07-30  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* Field.cpp: FA-ID 22 prise en compte de cas symétriques oubliés
+	et amélioration de la robustesse
+
+2003-07-28  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* Field.cpp (combine): FA-ID 22 correction d'une réinitialisation
+	manquante de point cible lors d'une modification d'un champ de vue
+	existant
+
+2003-07-15  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* CantorErreurs.cpp: FA-ID 27 correction d'une initialisation faite
+	avec le mauvais type
+
+2003-07-08  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* Field.cpp (ArcSpan, RestrictSpan): FA-ID 22 correction d'une
+	erreur de calcul de l'étendue d'un arc vu d'un point quelconque de
+	la sphère, qui conduisait à prendre de mauvaises directions de
+	test lors des constructions de champs de vue
+
+2003-06-24  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* CantorVersion.cpp: remplacement de VERSION par PACKAGE_VERSION pour
+	compatibilité avec autoconf 2.57 (DM-ID 24)
+
+2003-02-04  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* *.cpp: modifications des extensions suite à la modification
+	des extensions des noms des fichiers (DM-ID 17).
+	
+
+2002-12-10   projet CHOPE O. Queyrut/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* CantorErreurs.cc, MoindreCarreLineaire.cc: correction de défaut
+	d'initialisation de chaine et/ou de pointeurs.
+
+2002-09-06  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* Braid.cc (GenerateTrail, Braid): report de l'annotation des arcs
+	engendrés par balayage après la phase d'entrelacement des brins,
+	en utilisant l'heuristique des chemins équivalents
+	(equivalentPathsHeuristic): correction d'un problème de
+	détermination du sens de parcours d'un arc lorsqu'il est fermé
+	(noeud amont identique au noeud aval)
+
+	* Field.cc: utilisation de l'heuristique des chemins équivalents
+	pour annoter les arcs d'un champ construit par balayage
+
+2002-09-04  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* Braid.cc (SplitArc): élimination du marquage des arcs nuls, qui
+	pevent ne pas être du bon côté des intersections et ainsi
+	entrainer un marquage erroné par propagation à travers des noeuds
+	simples
+
+	* Node.cc (absorbDownstream): ajout d'une propagation des
+	annotations en cas d'élimination d'un arc nul et combinaison de
+	deux noeuds en un seul. Il peut arriver que cette élimination lève
+	une ambiguité.
+
+2002-09-02  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* Secteurs.cc (diedre): renommage de la méthode vecteurs en
+	diedre, à la suite du changement de signification des vecteurs
+	debut et fin retournés. Désormais, ils sont orthogonaux à l'axe,
+	ils ne sont plus sur le cône lui-même. On peut donc se servir de
+	ces vecteurs pour reconstruire un arc même dans le cas où le cône
+	est dégénéré (c'est à dire d'ouverture nulle ou égale à pi/2).
+
+	* Field.cc: refonte de la méthode de calcul des frontières, on
+	utilise désormais des arcs orientés et on abandonne le maintien
+	d'un point intérieur et d'un point extérieur. Les arcs orientés
+	permettent de détecter plus facilement des cas litigieux lors de
+	la construction et permettent de faire les tests d'appartenance à
+	partir de la première traversée de la frontière, ce qui devrait
+	être plus stable que le calcul précédent.
+
+	* Creneau.cc (operator -): ajout de l'opérateur -=, ajout d'un
+	constructeur à partir de deux intervalles
+
+	* CantorErreurs.cc: ajout de l'erreur alignement_axe_extremite
+
+	* Braid.cc (identifyArcs): ajout d'une spécification throw
+	oubliée, suppression de la méthode isCovered, appel de la méthode
+	Arc::balaye à la place de l'ancienne méthode braid::isCovered
+
+	* Arc.cc (Arc): transfert du constructeur à deux arguments (début,
+	fin) depuis le .h et protection contre les cas d'alignement,
+	détection de l'erreur d'alignement des vecteurs debut et axe à la
+	construction, correction des spécifications throw dans les
+	signatures, retypage des prédicats en bool plutôt qu'en int,
+	transfert de l'opérateur - depuis le .h et correction d'une erreur
+	lors de l'inversion d'arcs dégénérés, ajout de la méthode balaye
+
+2002-09-02  projet CHOPE O. Queyrut/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* AnnotatedArc.cc: ajout d'une méthode connect entre deux
+	arcs.
+
+	* Arc.cc: correction mineure d'une faute de frappe.
+
+	* Braid.cc: réorganisation compléte pour gérer des arcs
+	annotés.
+
+	* CantorErreurs.cc: ajout de l'erreur desequilibre_connexions.
+
+	* Field.cc: réorganisation compléte pour gérer des arcs
+	annotés.
+
+	* Node.cc: modifications de la classe pour gérer un nombre
+	arbitraire (pair) d'arcs.
+
+2002-01-31  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* Field.cc (recursRejectionCone): nouvelle correction du calcul du
+	cône de rejet, la correction précédente ne marchait pas avec des
+	champs dont l'extérieur était consitué d'une bande équatoriale et
+	l'intérieur des deux calotes polaires disjointes complémentaires.
+	(avoidVertex): élargissement du rayon du giratoire pour éviter de
+	se mettre dans des situations limites et de traiter des arcs
+	minuscules artificiels
+	(computeOverlapRadius): amélioration du calcul du rayon de
+	sécurité, il pouvait être extrèmement grand dans certains cas ce
+	qui conduisait à faire des évitements qui dans la pratique ne se
+	justifiaient pas
+	Changement -#include "cstdio"- en -#include <cstdio>- suite à un
+	problème de compilation sur Sun avec CC
+
+	* Arc.cc (partage, intersection): correction des tests
+	d'intersections de cônes dans les cas limites comportant des
+	points près des extrémités de l'arc, amélioration des
+	constructeurs d'arcs complets pour avoir réellement un angle de 2
+	PI et des extrémités qui se touchent plutôt qu'un arc de 2 PI -
+	epsilon
+
+	* Instanciation.cc: ajout des exceptions manquantes détectées par
+	le compilateur Sun CC
+
+2002-01-18  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+	
+	* CantorErreurs.cc: ajout de l'erreur singularite_angle
+
+2001-11-19  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* Braid.cc, Field.cc, Node.cc: correction de spécifications throw
+
+	* Node.cc: correction d'une faute de frappe (absorbDonwstream ->
+	absorbDownstream)
+
+	* Secteurs.cc (vecteurs): correction d'une erreur d'échelle
+	conduisant les vecteurs début et fin à ne pas être normés
+	pour des cônes de demi ouverture différente de PI/2
+
+2001-09-18  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Arc.cc: ajout de la méthode Arc::proche
+
+	* Cone.cc: ajout d'un constructeur à partir de trois points,
+	ajout de l'opérateur « - » unaire pour la complémentation
+
+	* Field.cc: ajout des attributs rejectionCone_ et
+	activeRejectionCone_ et des méthodes selectClosest,
+	recursRejectionCone et computeRejectionCone pour accélérer les
+	tests d'appartenance
+
+2001-09-12  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Braid.cc (HandleExtremum): correction d'une erreur de lecture de
+	mémoire désallouée (un itérateur était incrémenté dans une boucle
+	for, alors qu'il était invalidé lors de la dernière itération)
+
+2001-09-06  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Field.cc (select): mise au propre d'une syntaxe pour apaiser un
+	outil de vérification de code probablement trop restrictif
+
+2001-08-23  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Field.cc (FindInOutPoints): correction de la non-initialisation
+	des variables pointées par ptrSide1, ptrSide2 et ptrDegenerated
+	dans certains cas de frontières dégénérées
+
+	* Braid.cc (Braid): ajout d'un test pour identifier les cas
+	dégénérés d'alignement entre l'axe d'une rotation et l'axe de
+	l'arc étalé, autorisation des valeurs négatives pour les angles
+	d'étalement
+
+	* Arc.cc (Arc): autorisation de la construction d'arcs avec des
+	balayages négatifs
+
+2001-06-22  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Braid.cc: ajout des méthodes isCovered, coveringHeuristic et
+	closeParallelsHeuristic, refonte du constructeur par traînage d'un
+	arc
+
+	* Field.cc: refonte de la construction d'un champ par traînage
+	d'un arc, on utilise désormais un constructeur spécialisé de la
+	classe Brais
+
+	* Node.cc: ajout d'un ensemble des arcs déjà sélectionnés dans la
+	signature de la méthode select
+
+2001-06-12  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Braid.cc: utilisation d'un axe et d'un angle au lieu d'une
+	rotation pour l'étalement
+
+	* Field.cc: utilisation d'un axe et d'un angle au lieu d'une
+	rotation pour l'étalement
+
+2001-06-08  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Secteurs.cc: ajout d'un recalage entre -PI et PI des angles dans
+	le constructeur par vecteur et créneau
+
+	* Field.cc (selectInside): amélioration de la correction du bug de filtrage
+
+2001-06-07  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Field.cc (selectInside): correction d'un bug de filtrage de secteurs
+
+2001-06-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: ajout de AnnotatedArc.cc, Braid.cc, Field.cc,
+	Node.cc et Secteurs.cc
+
+	* Arc.cc: remontée d'exception générées par les classes
+	sous-jacentes
+
+	* CantorErreurs.cc: ajout des erreurs ordre_inconnu,
+	matrice_singuliere, echec_heuristique, frontiere_ouverte et
+	erreur_interne
+
+	* Cone.cc: utilisation du mécanisme des exceptions pour la gestion
+	des erreurs
+
+	* Creneau.cc: utilisation du mécanisme des exceptions pour la
+	gestion des erreurs
+
+	* FonctionApprochee.cc: utilisation du mécanisme des exceptions
+	pour la gestion des erreurs
+
+	* Instanciations.cc: utilisation du mécanisme des exceptions pour
+	la gestion des erreurs
+
+	* InterfaceF.cc: ajout des fonctions rottroisangles_ et
+	troisanglesrot_
+
+	* InterfaceC.cc: ajout des fonctions RotTroisAngles et
+	TroisAnglesRot, ajout de lgMaxMessage dans la signature des
+	fonctions
+
+	* MoindreCarreLineaire.cc: utilisation du mécanisme des exceptions
+	pour la gestion des erreurs
+
+	* Resolution2Iterateur.cc: suppression d'un argument inutilisé
+
+	* Resolution1Iterateur.cc: suppression d'un argument inutilisé
+
+	* Secteurs.cc: transfert du fichier (en provenance de la
+	bibliothèque marmottes)
+
+	* Node.cc: transfert du fichier (en provenance de la bibliothèque
+	marmottes)
+
+	* Field.cc: transfert du fichier (en provenance de la bibliothèque
+	marmottes)
+
+	* Braid.cc: transfert du fichier (en provenance de la bibliothèque
+	marmottes)
+
+	* AnnotatedArc.cc: transfert du fichier (en provenance de la
+	bibliothèque marmottes)
+
+2000-11-21  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* .cvsignore: ajout des fichiers *.lo et libcantor.la
+
+	* Makefile.am: modification de la numérotation de la bibliothèque
+	partagée par libtool
+
+2000-11-07  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* Arc.cc: correction d'erreurs diverses dans les calculs
+	d'intersections d'arcs pour les cas dégénérés
+
+2000-10-26  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* Makefile.am (libcantor_la_LDFLAGS): ajout d'un LDFLAGS pour donner
+	un numéro de version à la bibliothèque cantor générée par libtool
+
+2000-10-24  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* InterfaceF.cc, InterfaceC.cc, Instanciations.cc: 
+	* CantorVersion.cc, CantorErreurs.cc: remplacement de l'include
+	CantorConfig.h par CantorConfigNoInstall.h.
+	Modification des includes du standard C : utilisation de cNomInclude
+	au lieu de NomInclude.h
+
+2000-10-18  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* Makefile.am: modification du Makefile pour générer cantor sous 
+	forme partagée.
+
+	* Arc.cc: correction sur le traitement des cas extrêmes dans les 
+	calculs d'intersection d'arcs.
+
+2000-09-11  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* CantorErreurs.cc (formate): retourne un string STL au lieu d'une
+	ChaineSimple conformément à l'évolution réalisée sur la classe
+	BaseErreurs de CLUB. Modification de l'implémentation de la méthode
+	en conséquence.
+
+2000-07-31  Luc Maisonobe  <Luc.Maisonobe@free.fr>
+
+	* Arc.cc (partage): séparation des cas dégénérés de séparation
+	autour du début et autour de la fin de l'arc. L'arc nul produit
+	est bien proche du point de coupure (auparavant l'arc dégénéré
+	était systématiquement le second, même si le point de partage
+	était au début).
+
+2000-03-30  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* *.cc: ajout du copyright CNES
+
+1999-08-12  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* CantorErreurs.cc: utilisation de l'initialiseur stockeCode à la
+	place de l'affectation d'une valeur à code_. Cette modification
+	résulte du changement d'implantation de la classe BaseErreurs (
+	le code d'erreur fait désormais parti du TamponPartage)
+
+1999-06-28  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* Instanciations.cc: modifications de la signature de l'opérateur *
+	entre un patron T  et un vecteur3<T>. vecteur3<T> est passé par
+	référence constante plutôt que par valeur.
+
+	* Resolution2.cc (ExtremumNewSec): limitation du nombre de boucles
+	(NewtonSecante): limitation du nombre de boucles
+
+	* Resolution1.cc (ExtremumNewSec): limitation du nombre de boucles
+	(NewtonSecante): limitation du nombre de boucles
+
+1999-04-26  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Creneau.cc (decale): nouvelle méthode
+
+1999-04-25  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Resolution1.cc (ExtremumNewSec): utilisation de la méthode de
+	Brent (avec approximation quadratique inverse)
+	(NewtonSecante): simplification des imbrications de tests,
+	utilisation d'une méthode de Newton en deux points avec
+	approximation cubique inverse
+
+	* Resolution1Iterateur.cc (TousPositifs): élimination
+	d'évaluations inutiles de la fonction à maximiser
+	(TousNegatifs): élimination d'évaluations inutiles de la fonction
+	à minimiser
+	(zeroSuivant): élimination de l'argument des fonctions de test de
+	convergence TousPositifs et TousNegatifs
+
+	* Resolution2.cc (ExtremumNewSec): utilisation d'une méthode de
+	Newton en deux points avec approximation cubique inverse
+	(NewtonSecante): simplification des imbrications de tests
+
+	* Resolution2Iterateur.cc (TousPositifs): élimination
+	d'évaluations inutiles de la fonction à maximiser
+	(TousNegatifs): élimination d'évaluations inutiles de la fonction
+	à minimiser
+	(zeroSuivant): élimination de l'argument des fonctions de test de
+	convergence TousPositifs et TousNegatifs
+
+1999-04-24  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Cone.cc: ajout du sinus du demi-angle
+
+	* SectionDoree.cc (SectionDoree): remplacement de abs par fabs
+
+	* Resolution1.cc: remplacement de tous les abs par fabs
+
+	* Resolution1Iterateur.cc: remplacement de tous les abs par fabs
+
+	* Resolution2.cc: remplacement de tous les abs par fabs
+
+	* Resolution2Iterateur.cc: remplacement de tous les abs par fabs
+
+1999-02-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Instanciations.cc: correction d'inhomogénéités entre des
+	instanciations de signatures et les déclarations des fonctions
+	templates (problèmes de const réels, détectés par egcs)
+
+1998-10-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* InterfaceC.cc: inclusion de CantorConfig.h
+
+	* Resolution2Iterateur.cc: remplacement de DBL_EPSILON par
+	cantorEpsilon pour éviter les problèmes de non-portabilité
+
+	* Resolution2.cc: remplacement de DBL_EPSILON par cantorEpsilon
+	pour éviter les problèmes de non-portabilité
+
+	* Resolution1Iterateur.cc: remplacement de DBL_EPSILON par
+	cantorEpsilon pour éviter les problèmes de non-portabilité
+
+	* Resolution1.cc: remplacement de DBL_EPSILON par cantorEpsilon
+	pour éviter les problèmes de non-portabilité
+
+	* Creneau.cc: remplacement de DBL_EPSILON par cantorEpsilon et de
+	DBL_MAX par cantorEnorme pour éviter les problèmes de
+	non-portabilité
+
+	* CantorErreurs.cc: [STDC_HEADERS]: inclusion de stlib.h pour
+	avoir le prototype de exit
+
+	* Makefile.am: utilisation de libcantor_a_LIBADD pour gérer les
+	fichiers objets créés lors de l'instanciation des templates
+	(compilateur Sun)
+
+1998-08-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Instanciations.cc [HAVE_INSTANTIATIONS]: mise en conformité
+	de la condition avec les standards de configure
+
+1998-07-29  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* stamp-h.in: élimination du fichier (il est généré automatiquement)
+
+	* Intervalle.cc: élimination de float.h
+
+	* Resolution1.cc: élimination de float.h
+
+	* Resolution2.cc: élimination de float.h
+
+	* SectionDoree.cc: élimination de float.h
+
+	* Resolution2Iterateur.cc: élimination de float.h
+
+	* Variation1.cc: élimination de float.h
+
+	* Variation2.cc: élimination de float.h
+
+	* InterfaceF.cc: inclusion de CantorConfig.h
+
+	* CantorVersion.cc (cantorVersion): utilisation de la macro
+	VERSION mise en place par configure
+
+1998-07-27  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* CantorErreurs.cc: inclusion de CantorConfig.h,
+	(erreur) [HAVE_EXCEPTIONS]: mise en conformité de la condition
+	avec les standards de configure
+
+	* stamp-h.in: nouveau fichier (pour automake)
+
+1998-07-20  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* CantorErreurs.cc (formate): ajout de l'erreur	repere_indirect
+
+	* ChangeLog: nouveau fichier

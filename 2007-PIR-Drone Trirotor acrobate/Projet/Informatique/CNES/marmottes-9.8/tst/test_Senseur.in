@@ -1,0 +1,155 @@
+#! /bin/sh
+
+# identificateur RCS : "$Id: test_Senseur.in,v 1.9 2003/07/28 14:58:31 marmottes Exp $"
+
+# mise en place d un environnement anglais pour vérifier les messages
+@ma_cv_var_lang@=en              ; export @ma_cv_var_lang@
+@ma_cv_var_tradpath@=@srcdir@/.. ; export @ma_cv_var_tradpath@
+
+# exécution du programme de test (en langue anglaise pour vérifier les messages)
+
+#
+# Les tests suivants visent à valider les méthodes des différents
+# senseurs utilisés ainsi que les résultats qu'ils donnent en sortie
+# du simulateur.
+# 
+# test des senseurs de types cardans en mesure et cardan en contrôle
+# ------------------------------------------------------------------
+echo "prgm_Senseur -f test_Senseur.sensors"       >  test_Senseur.res
+echo "   -dc 22/10/93 -o 42164 0 0 0 0 116"      >> test_Senseur.res
+echo "   -s1 YPR-YAW   -m1  2.5"                 >> test_Senseur.res
+echo "   -s2 YPR-PITCH -m2  2.7"                 >> test_Senseur.res
+echo "   -s3 YPR-ROLL  -m3 -0.2"                 >> test_Senseur.res
+echo "   -p 20 -i 4"                             >> test_Senseur.res
+echo "   -s YPR-YAW"                             >> test_Senseur.res
+echo " "                                         >> test_Senseur.res
+./prgm_Senseur -f @srcdir@/test_Senseur.sensors       \
+               -dc 22/10/93 -o 42164 0 0 0 0 116      \
+               -s1 YPR-YAW   -m1  2.5                 \
+               -s2 YPR-PITCH -m2  2.7                 \
+               -s3 YPR-ROLL  -m3 -0.2                 \
+               -p 20 -i 4                             \
+               -s YPR-YAW                             \
+               >> test_Senseur.res 2>> test_SenseurErr.res
+
+# test des senseurs de types diédre, limbe et diédre en mesure et
+# cardan en contrôle
+# ---------------------------------------------------------------
+echo " "                                         >> test_Senseur.res
+echo "prgm_Senseur -f test_Senseur.sensors"      >> test_Senseur.res
+echo "   -dc 22/10/93 -o 42164 0 0 0 0 116"      >> test_Senseur.res
+echo "   -s1 DSS_1_PITCH   -m1  2.5"             >> test_Senseur.res
+echo "   -s2 GEOIRS_1_ROLL -m2  2.7"             >> test_Senseur.res
+echo "   -s3 DSS_1_YAW     -m3 -0.2"             >> test_Senseur.res
+echo "   -p 20 -i 4"                             >> test_Senseur.res
+echo "   -s YPR-YAW"                             >> test_Senseur.res
+echo " "                                         >> test_Senseur.res
+./prgm_Senseur -f @srcdir@/test_Senseur.sensors       \
+               -dc 22/10/93 -o 42164 0 0 0 0 116      \
+               -s1 DSS_1_PITCH   -m1  2.5             \
+               -s2 GEOIRS_1_ROLL -m2  2.7             \
+               -s3 DSS_1_YAW     -m3 -0.2             \
+               -p 20 -i 4                             \
+               -s YPR-YAW                             \
+               >> test_Senseur.res 2>> test_SenseurErr.res
+
+# test des senseurs de types ascension droite, déclinaison et déclinaison
+# en mesure et cardan en contrôle
+# -----------------------------------------------------------------------
+echo " "                                         >> test_Senseur.res
+echo "prgm_Senseur -f test_Senseur.sensors"      >> test_Senseur.res
+echo "   -dc 22/10/93 -o 42164 0 0 0 0 116"      >> test_Senseur.res
+echo "   -s1 ALPHA_X -m1  2.5"                   >> test_Senseur.res
+echo "   -s2 DELTA_Y -m2  2.7"                   >> test_Senseur.res
+echo "   -s3 DELTA_Z -m3 -0.2"                   >> test_Senseur.res
+echo "   -p 20 -i 4"                             >> test_Senseur.res
+echo "   -s YPR-YAW"                             >> test_Senseur.res
+echo " "                                         >> test_Senseur.res
+
+./prgm_Senseur -f @srcdir@/test_Senseur.sensors       \
+               -dc 22/10/93 -o 42164 0 0 0 0 116      \
+               -s1 ALPHA_X -m1  2.5                   \
+               -s2 DELTA_Y -m2  2.7                   \
+               -s3 DELTA_Z -m3 -0.2                   \
+               -p 20 -i 4                             \
+               -s YPR-YAW                             \
+               >> test_Senseur.res 2>> test_SenseurErr.res
+
+# test des senseurs de types diédre, diédre et vecteur plan en mesure
+# et cardan en contrôle
+# -------------------------------------------------------------------
+echo " "                                         >> test_Senseur.res
+echo "prgm_Senseur -f test_Senseur.sensors"      >> test_Senseur.res
+echo "   -dc 22/10/93 -o 42164 0 0 0 0 116"      >> test_Senseur.res
+echo "   -s1 YAW_MOMENTUM -m1  2.5"              >> test_Senseur.res
+echo "   -s2 AZ_SUN       -m2  2.7"              >> test_Senseur.res
+echo "   -s3 EL_SUN       -m3 -0.2"              >> test_Senseur.res
+echo "   -p 20 -i 4"                             >> test_Senseur.res
+echo "   -s YPR-YAW"                             >> test_Senseur.res
+echo " "                                         >> test_Senseur.res
+
+./prgm_Senseur -f @srcdir@/test_Senseur.sensors             \
+               -dc 22/10/93 -o 42164 0 0 0 0 116     \
+               -s1 YAW_MOMENTUM -m1  2.5             \
+               -s2 AZ_SUN       -m2  2.7             \
+               -s3 EL_SUN       -m3 -0.2             \
+               -p 20 -i 4                            \
+               -s YPR-YAW                            \
+               >> test_Senseur.res 2>> test_SenseurErr.res
+
+# test des senseurs de types delta, delta et cinématique en mesure et
+# gyro intégrateur en contrôle
+# -------------------------------------------------------------------
+echo " "                                         >> test_Senseur.res
+echo "prgm_Senseur -f test_Senseur.sensors"      >> test_Senseur.res
+echo "   -dc 22/10/93 -o 42164 0 0 0 0 116"      >> test_Senseur.res
+echo "   -s1 DELTA_X -m1  2.5"                   >> test_Senseur.res
+echo "   -s2 DELTA_Y -m2  2.7"                   >> test_Senseur.res
+echo "   -s3 GYRO+Z  -m3 -0.2"                   >> test_Senseur.res
+echo "   -p 20 -i 4"                             >> test_Senseur.res
+echo "   -s INTEG+Y"                             >> test_Senseur.res
+echo " "                                         >> test_Senseur.res
+
+./prgm_Senseur -f @srcdir@/test_Senseur.sensors      \
+               -dc 22/10/93 -o 42164 0 0 0 0 116     \
+               -s1 DELTA_X  -m1  2.5                  \
+               -s2 DELTA_Y -m2  2.7                  \
+               -s3 GYRO+Z  -m3 -2.2                  \
+               -p 20 -i 4                            \
+               -s INTEG+Y                            \
+               >> test_Senseur.res 2>> test_SenseurErr.res
+
+# test des senseurs de types cardan, cardan et vecteur en mesure et
+# cardan en contrôle
+# -----------------------------------------------------------------
+echo " "                                         >> test_Senseur.res
+echo "prgm_Senseur -f test_Senseur.sensors"      >> test_Senseur.res
+echo "   -dc 22/10/93 -o 42164 0 0 0 0 116"      >> test_Senseur.res
+echo "   -s1 YPR-YAW   -m1  2.5"                 >> test_Senseur.res
+echo "   -s2 YPR-PITCH -m2  2.7"                 >> test_Senseur.res
+echo "   -s3 GNA-RHCP  -m3  90."                 >> test_Senseur.res
+echo "   -p 20 -i 4"                             >> test_Senseur.res
+echo "   -s YPR-YAW"                             >> test_Senseur.res
+echo " "                                         >> test_Senseur.res
+
+./prgm_Senseur -f @srcdir@/test_Senseur.sensors      \
+               -dc 22/10/93 -o 42164 0 0 0 0 116     \
+               -s1 YPR-YAW   -m1  2.5                \
+               -s2 YPR-PITCH -m2  2.7                \
+               -s3 GNA-RHCP  -m3  90.                \
+               -p 20 -i 4                            \
+               -s YPR-YAW                            \
+               >> test_Senseur.res 2>> test_SenseurErr.res
+
+# comparaison des fichiers
+echo "difference -p 1.0e-4 -ee 1 10 -res test_Senseur.res -ref @srcdir@/test_Senseur.ref"
+difference -p 1.0e-4 -ee 1 10 -res test_Senseur.res -ref @srcdir@/test_Senseur.ref
+r=$?
+
+echo "difference -p 1.0e-4 -ee 1 10 -res test_SenseurErr.res -ref @srcdir@/test_SenseurErr.ref"
+difference -p 1.0e-4 -ee 1 10 -res test_SenseurErr.res -ref @srcdir@/test_SenseurErr.ref
+r=$?
+
+#nettoyage
+rm -f test_Senseur.res test_SenseurErr.res
+exit $r

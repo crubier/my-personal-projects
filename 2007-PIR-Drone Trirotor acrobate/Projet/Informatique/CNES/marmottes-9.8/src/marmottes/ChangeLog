@@ -1,0 +1,941 @@
+2003-10-15  projet CHOPE O. Queyrut/L. Maisonobe/F. Auguie/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* Marmottes.h (class Marmottes), InterfaceC.h (MarmottesLireParametres)
+	  InterfaceF.h (marmotteslireparametres_): Ajout de la methode 
+	lireParametres permettant de renvoyer la date, position, vitesse, attitude 
+	et spin courants (DM 0027)
+
+2003-10-08  projet CHOPE O. Queyrut/L. Maisonobe/F. Auguie/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* SenseurOptique.h (class SenseurOptique): Ajout en fin de 
+	la liste de l'enumere codeCible, des valeurs correspondant aux 
+	cibles sans eclipse pour polaris et canope. (DM 0026)
+
+2003-08-03  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+	
+	* ResolveurAttitude.h: utilisation d'une méthode statique et d'une
+ 	méthode privée pour résoudre l'attitude sans violer
+ 	l'encapsulation objet, élimination des méthodes publiques sB,
+ 	modele, date, position, famille, seuil et tranches qui violaient
+ 	cette encapsulation (DM 0029)
+ 	
+	* SenseurOptique.h, Senseur.h, SenseurGyroInteg.h,
+ 	SenseurGeometrique.h, SenseurFonction.h, SenseurDiedre.h,
+ 	SenseurCinematique.h, SenseurAlpha.h: (DM 0025) prise en compte de
+ 	la position et vitesse courante (dans l'état de résolution),
+ 	élimination du qualificateur const de la méthode fonctEcart
+  	
+	* SenseurOptique.h: ajout d'une méthode reinitVitesseSolApparente
+	 (DM 0025)
+  	
+	* MarmottesErreurs.h: élimination de l'erreur pas_de_point_sol 
+	 (DM 0025)
+
+
+2003-07-02  marmottes  <marmottes@sagitta>
+
+	* ChangeLog:
+	FA-ID 0023 Annonce de la modification du type des fonctions fortran 
+	dans enregistreCorps
+	
+	* InterfaceF.h, BodyEphem.h:
+	FA-ID 0023 Ajout des interfaces des fonctions par defaut pour 
+	marmottesenregistrecorps
+
+2003-06-24  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+        * MarmottesConfig.h.in: remplacement de VERSION par PACKAGE_VERSION
+        pour compatibilité avec autoconf 2.57 (DM 24)
+
+2003-03-27  marmottes  <marmottes@sagitta>
+
+	* InterfaceF.h: Suppression des '&' en trop dans enregistreCorps
+
+	* InterfaceF.h, ChangeLog:
+	Annulation de la correction de la FA-ID 0023 car la correction ne permettait
+	pas de couvrir tous les cas.
+
+2003-03-26  marmottes  <marmottes@sagitta>
+
+	* ChangeLog:
+	FA-ID 0023 Annonce de la modification du type des fonctions fortran dans enregistreCorps
+
+	* InterfaceF.h:
+	FA-ID 0023 Modification du type des fonctions fortran dans enregistreCorps
+
+2003-02-27  marmottes  <marmottes@sagitta>
+
+	* ChangeLog:
+	DM-ID 19 Annonce des modifications pour la prise en compte des rayons des astres inhibants
+
+	* BodyEphem.h, BodyEphemC.h, BodyEphemF.h, Etat.h, InterfaceC.h,
+	InterfaceF.h, Marmottes.h, MarmottesErreurs.h, SenseurCartesien.h,
+	SenseurDiedre.h, SenseurElevation.h, SenseurFonction.h,
+	SenseurFonctionEchant1D.h, SenseurFonctionGauss.h,
+	SenseurFonctionSinCard2.h, SenseurFonctionSinCardXY.h,
+	SenseurLimbe.h, SenseurOptique.h, SenseurVecteur.h:
+	DM-ID 19 Modifications pour la prise en compte des rayons des astres inhibants
+
+2003-02-11  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* MarmottesErreurs.h: ajout de l'erreur champ_inhibition_cible_central
+
+	* SenseurFonction.h, SenseurCartesien.h,
+	SenseurFonctionSinCard2.h, SenseurDiedre.h,
+	SenseurFonctionSinCardXY.h, SenseurElevation.h, SenseurLimbe.h,
+	SenseurFonctionEchant1D.h, SenseurOptique.h,
+	SenseurFonctionGauss.h, SenseurVecteur.h: ajout d'un champ
+	d'inhibition par le corps central
+
+	* InterfaceC.h, InterfaceF.h, Marmottes.h: ajout de la
+	personnalisation des rayons lune et soleil
+
+	* Etat.h: ajout du rayon soleil
+
+	* BodyEphem.h, BodyEphemC.h, BodyEphemF.h: ajout des rayons lune
+	et soleil
+
+2003-01-22  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* InterfaceF.h: changement des noms des paramétres de l'interface
+	Fortran de récupération de la version de marmottes.
+
+2002-12-11  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* MarmottesErreurs.h, SpinAtt.h: ajout d'un destructeur par défaut pour prévenir
+	celui construit automatiquement par le compilateur.
+	
+	* ParcelleElementaire.h, ReunionEtParcelles.h, ReunionOuParcelles.h,
+	SenseurGeometrique.h, SpinAtt.h, Senseur.h, SenseurAlpha.h, 
+	SenseurCardan.h, SenseurCartesien.h, SenseurCinematique.h, 
+	SenseurDelta.h, SenseurDiedre.h, SenseurElevation.h, SenseurFonction.h,
+	SenseurFonctionEchant1D.h, SenseurFonctionGauss.h, SenseurFonctionSinCard2.h,
+	SenseurFonctionSinCardXY.h, SenseurGyroInteg.h, SenseurLimbe.h, 
+	SenseurOptique.h, SenseurVecteur.h: ajout de constructeur par défaut. Ces
+	constructeurs ne sont là que pour des raisons de qualité et d'homogénéisation
+	du code, ils sont donc protégés et ne peuvent être appelés.
+
+	
+2002-12-02  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* BodyEphem.h, Etat.h, MarmottesErreurs.h, Modele.h, ModeleCine.h,
+	ResolveurAttitude.h, SenseurAlpha.h, SenseurCardan.h, SenseurCinematique.h,
+	SenseurDelta.h, SenseurDiedre.h, SenseurFonction.h, SenseurFonctionGauss.h,
+	SenseurFonctionSinCard2.h, SenseurFonctionSinCardXY.h, SenseurGeometrique.h,
+	SenseurVecteur.h, SpinAtt.h, StationCible.h, Marmottes.h: ré-agencement des
+	déclarations dans l'ordre public/protected/private
+
+2002-11-28  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* InterfaceF.h: déclaration de la fonction marmottesversion_,
+	interface Fortran de la méthode marmottesVersion
+	(DM 0009).
+
+2002-09-13  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* Etat.h: extension du copyright à 2002 suite à la DM 0007
+
+2002-09-09  projet CHOPE O. Queyrut/L.Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* BodyEphem.h, BodyEphemC.h, BodyEphemF.h: nouveaux fichiers
+	(DM 0007)
+
+	* Etat.h: évolution des attributs et ajout de méthodes dus à la
+	possibilité de configuration des modèles d'éphémérides pour les
+	corps (DM 0007)
+
+	* Marmottes.h: ajout de la méthode enregistreCorps (DM 0007)
+
+	* InterfaceC.h: déclaration de la fonction MarmottesEnregistreCorps,
+	interface C de la méthode Marmottes::EnregistreCorps (DM 0007)
+
+	* InterfaceF.h: déclaration de la fonction marmottesenregistrecorps_,
+	interface Fortran de la méthode Marmottes::EnregistreCorps (DM 0007)
+
+	* Makefile.am: ajout de BodyEphem.h, BodyEphemC.h et BodyEphemF.h
+
+2002-04-16  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* Parcelle.h, ParcelleElementaire.h, ReunionEtParcelles.h,
+	ReunionOuParcelles.h: ajout de directives throw oubliées
+
+2002-04-04  projet CHOPE O. Queyrut/S. Vresk  <Olivier.Queyrut@c-s.fr>
+
+	* Marmottes.h (class Marmottes): ajout des méthodes accesSenseur et
+	etat (DM 0004)
+
+2002-02-27  projet CHOPE O. Queyrut/S. Vresk  <Olivier.Queyrut@c-s.fr>
+
+	* SenseurCinematique.h, Senseur.h, Marmottes.h,
+	* InterfaceF.h, InterfaceC.h
+	* MarmottesErreurs.h: suppression de la description de la révision
+	insérée manuellement et mise à jour du copyright CNES
+
+2002-02-19  projet CHOPE O.Queyrut/S. Vresk  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* InterfaceF.h: déclaration de la fonction marmottesinitialisederive_,
+	interface Fortran de la méthode Marmottes::initialiseDerive (DM 0002)
+
+	* InterfaceC.h: déclaration de la fonction MarmottesInitialiseDerive,
+	interface C de la méthode Marmottes::initialiseDerive (DM 0002)
+
+	* MarmottesErreurs.h (class MarmottesErreurs): déclaration de
+	l'erreur pas_senseur_cinematique (DM 0002)
+
+	* Marmottes.h: déclaration de la méthode Marmottes::initialiseDerive
+	pour la prise en compte de la dérive (offset) d'un senseur
+	cinématique (DM 0002)
+
+	* Senseur.h: introduction de la méthode Senseur::initialiseDerive
+	pour la prise en compte de la dérive (offset) d'un senseur
+	cinématique (DM 0002)
+
+	* SenseurCinematique.h (class SenseurCinematique): introduction
+	de la prise en compte de la dérive (offset) d'un senseur cinématique
+	(DM 0002)
+
+2002-02-01  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* MarmottesErreurs.h (class MarmottesErreurs): ajout des erreurs
+	champ_inhibition_cible_soleil et champ_inhibition_cible_lune
+
+	* Makefile.am: suppression de MarmottesConfig.h de la liste du
+	paquetage
+
+2002-01-16  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* FamilleFixe.h (class FamilleFixe): remplacement de l'attribut
+	v1_ par axe_, passage explicite de v1 et de axe dans le
+	constructeur (FA 0007)
+
+	* ModeleCine.cc (prendConsignesEnCompte): génération de l'erreur
+	consignes_gyro_elevees (FA 0001)
+
+	* Marmottes.h, Parcelle.h, ParcelleElementaire.h,
+	ReunionEtParcelles.h, ReunionOuParcelles.h, ResolveurAttitude.h,
+	Senseur.h, SenseurAlpha.h, SenseurCardan.h, SenseurCartesien.h,
+	SenseurCinematique.h, SenseurDelta.h, SenseurDiedre.h,
+	SenseurElevation.h, SenseurFonction.h, SenseurGyroInteg.h,
+	SenseurLimbe.h, SenseurOptique.h, SenseurVecteur.h : correction de
+	spécifications throw (FA 0003)
+
+2001-07-17  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* SenseurFonctionSinCardXY.h: nouveau fichier
+
+	* SenseurFonctionGauss.h, SenseurFonctionSinCard2.h,
+	SenseurFonctionEchant1D.h, SenseurFonction.h, SenseurElevation.h,
+	SenseurCartesien.h: ajout du vecteur observé pour la cible
+	vitesse-sol-apparente, lancement d'une exception par le
+	constructeur
+
+	* SenseurDiedre.h: ajout du vecteur observé pour la cible
+	vitesse-sol-apparente
+
+	* MarmottesErreurs.h: ajout de l'erreur pas_de_point_sol
+
+	* Marmottes.h: lancement de CantorErreurs par toutes les fonctions
+	pouvant lire un nouveau senseur
+
+	* Makefile.am: ajout de SenseurFonctionSinCardXY.h
+
+	* Lecture.h: lancement d'un CantorErreurs par LireParcelle
+
+	* Etat.h: ajout d'une méthode vitesseRotation
+
+	* SenseurLimbe.h: élimination des arguments code et station
+	inutilisés, élimination de la méthode filtreSecteurs (implantée
+	entièrement dans la classe de base)
+
+	* SenseurOptique.h: ajout du vecteur observé pour la cible
+	vitesse-sol-apparente, changement des attributs privés en
+	attributs protégés, ajout des attributs secteursFiltrables_ et
+	observe_, la méthode filtreSecteurs n'est plus virtuelle
+
+	* SenseurVecteur.h: ajout du vecteur observé pour la cible
+	vitesse-sol-apparente, lancement d'une exception par le
+	constructeur
+
+2001-06-22  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Parcelle.h, ParcelleElementaire.h, ReunionEtParcelles.h,
+	ReunionOuParcelles.h: utilisation du type bool pour les prédicats,
+	utilisation d'un axe et d'un angle pour spécifier l'intégration le
+	long d'une rotation
+
+2001-06-06  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Etat.h: remontée des exceptions Cantor
+
+	* Lecture.h: remontée des exceptions Cantor
+
+	* Makefile.am: élimination des fichiers AnnotatedArc.h, Braid.h,
+	Field.h, Node.h et Secteurs.h
+
+	* MarmottesErreurs.h: élimination des erreurs echec_heuristique,
+	ouverture_fichier, trace_inactif et frontiere_ouverte
+
+	* Parcelle.h: prise en compte du déplacement de la classe Field
+	vers Cantor
+
+	* ResolveurAttitude.h: simplification des signatures à la suite de
+	l'élimination d'un paramètre inutilisé dans Cantor
+
+	* SenseurCinematique.h: récupération des exceptions Cantor
+
+	* SenseurGeometrique.h: prise en compte du déplacement de la
+	classe Secteurs vers Cantor
+
+2001-05-23  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* SenseurOptique.h: ajout de codeLuneSansEclipse
+
+2001-04-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* InterfaceC.h: déclaration d'un type énuméré spécifique pour le
+	retour des astres perturbateurs dans la fonction
+	MarmottesCriteresControlabilite
+
+	* marmdefs.f: nouveau fichier
+
+	* Makefile.am: ajout de marmdefs.f
+
+2001-04-04  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Parcelle.h, ParcelleElementaire.h, ReunionOuParcelles.h,
+	ReunionEtParcelles.h: ajout de la méthode ecartFrontiere
+
+	* Field.h: ajout de la méthode offsetFromBoundary
+
+	* Marmottes.h: ajout de la méthode criteresControlabilite
+
+	* Etat.h: ajout des distances lune et soleil, report du corps du
+	constructeur par copie dans Etat.cc
+
+	* InterfaceF.h: ajout de la fonction MarmottesCriteresControlabilite
+
+	* InterfaceC.h: ajout de la fonction MarmottesCriteresControlabilite
+
+	* Makefile.am: renommage de SenseurHorizon en SenseurLimbe
+
+	* Senseur.h: ajout de la méthode criteresControlabilite
+
+	* SenseurLimbe.h: renommage de SenseurHorizon en SenseurLimbe,
+	élimination de la spécialisation de la méthode controlable, ajout
+	d'une spécialisation de la méthode ecartFrontiere
+
+	* SenseurOptique.h: élimination des méthodes visible et inhibe,
+	ajout des méthodes ecartFrontiere et criteresControlabilite
+
+2001-03-26  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Etat.h: ajout des caractéristiques du corps central
+
+	* SenseurHorizon.h: nouveau fichier
+
+	* SenseurTerre.h: élimination du fichier au profit de
+	SenseurHorizon.h
+
+	* SenseurOptique.h: prise en charge du traitement des inhibitions
+	implanté auparavant dans l'ancienne classe SenseurTerre,
+	changement du nom de certains codes de cibles, en prévision
+	d'évolutions vers l'interplanétaire, élimination du type énuméré
+	typeOpt et de la fonction associée typeOptique
+
+	* SenseurCartesien.h: mise à jour résultant de la modélisation
+	des inhibitions dans la classe SenseurOptique
+
+	* SenseurDiedre.h: mise à jour résultant de la modélisation
+	des inhibitions dans la classe SenseurOptique
+
+	* SenseurElevation.h: mise à jour résultant de la modélisation
+	des inhibitions dans la classe SenseurOptique
+
+	* SenseurFonction.h: mise à jour résultant de la modélisation
+	des inhibitions dans la classe SenseurOptique
+
+	* SenseurFonctionEchant1D.h: mise à jour résultant de la modélisation
+	des inhibitions dans la classe SenseurOptique
+
+	* SenseurFonctionGauss.h: mise à jour résultant de la modélisation
+	des inhibitions dans la classe SenseurOptique
+
+	* SenseurFonctionSinCard2.h: mise à jour résultant de la modélisation
+	des inhibitions dans la classe SenseurOptique
+
+	* SenseurVecteur.h: mise à jour résultant de la modélisation
+	des inhibitions dans la classe SenseurOptique
+
+	* Makefile.am: remplacement de SenseurTerre.h par SenseurHorizon.h
+
+2001-02-27  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* InterfaceF.h: ajout des fonctions MarmottesImposeAttitude et
+	MarmottesImposeSpin
+
+	* InterfaceC.h: ajout des fonctions MarmottesImposeAttitude et
+	MarmottesImposeSpin
+
+	* Marmottes.h: ajout des méthodes Marmottes::imposeAttitude et
+	Marmottes::imposeSpin
+
+2001-02-16  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* CallTrace.h: suppression du qualificateur const de la signature
+	de isActive
+
+	* AnnotatedArc.h: corrected a declaration error
+
+	* Field.h: replaced the unused separation_ attribute by
+	overlapRadius_ which represents the radius of the largest disk
+	covering the concurrent arcs at boundary vertices
+
+2001-02-07  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: élimination de PointerRegister.h
+
+	* Marmottes.h: remplacement de la classe non standard hash_map par
+	map modification des exceptions lancées par le constructeur par
+	copie et par l'opérateur d'affectation
+
+	* PointerRegister.h: élimination du fichier
+
+	* Node.h: remplacement de PointerRegister par la classe set de la STL
+
+	* CallTrace.h: remplacement de la classe non standard hash_map par map
+
+2001-01-25  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* SenseurCardan.h: changement du type de refUtilInitialisee_ en
+	bool
+
+2000-11-16  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: ajout du fichier SenseurFonctionEchant1D.h
+
+	* MarmottesErreurs.h: ajout des erreurs points_echantillon,
+	echantillon_vide et echantillon_rejete
+
+	* SenseurFonctionGauss.h: correction de fautes de frappe
+
+2000-11-13  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Champ.h: élimination de la classe (remplacée par Field)
+
+	* Field.h, Braid.h, AnnotatedArc.h, Node.h, PointerRegister.h:
+	nouveaux fichiers
+
+	* Parcelle.h: remplacement de la classe Champ par la classe Field,
+	modification de la signature de la méthode pointSuivant
+
+	* ParcelleElementaire.h, ReunionOuParcelles.h,
+	ReunionEtParcelles.h: remplacement de la classe Champ par
+	la classe Field
+
+	* MarmottesErreurs.h: remplacement de l'erreur point_triple par
+	echec_heuristique, ajout de l'erreur frontiere_ouverte
+
+	* Makefile.am: ajout des fichiers Field.h, Braid.h,
+	AnnotatedArc.h, Node.h, PointerRegister.h et MarmottesConfig.h,
+	élimination du fichier Champ.h
+
+2000-10-06  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Marmottes.h: élimination de la séparation entre états résolu et
+	extrapolé, elle engendrait des spins faux en calculant des
+	différences finies sur des états trop anciens lors des changements
+	de lois de contrôle
+
+2000-10-02  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* CallTrace.h: remplacement des méthodes xxxArg par logXxx, ajout
+	des méthodes putToSleep et wakeUp
+
+	* Marmottes.h: remplacement d'attributs entiers en booléens, ajout
+	d'un destructeur
+
+	* Senseur.h, SenseurGyroInteg.h: remplacement d'attributs entiers
+	en booléens
+
+2000-09-13  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* SenseurFonctionSinCard2.h, SenseurFonctionGauss.h,
+	SenseurFonction.h, SenseurVecteur.h, SenseurTerre.h,
+	SenseurOptique.h, SenseurGyroInteg.h, SenseurGeometrique.h,
+	SenseurElevation.h, SenseurDiedre.h, SenseurDelta.h,
+	SenseurCinematique.h, SenseurCartesien.h, SenseurAlpha.h,
+	Senseur.h, MarmottesErreurs.h, Lecture.h, Etat.h: remplacement de
+	tous les ChaineSimple par des string
+
+	* Marmottes.h: remplacement de tous les ChaineSimple par des
+	string et de Adressage par hash_map
+
+2000-09-08  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* CallTrace.h: ajout des méthodes startResult et endResult
+
+	* Marmottes.h: ajout d'exceptions dans les signatures des
+	méthodes interditExtrapolation et autoriseExtrapolation, à la
+	suite de la mise en place du mécanisme de trace d'exécution
+
+2000-09-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* CallTrace.h: nouveau fichier
+
+	* InterfaceC.h: ajout des fonctions MarmottesActiveTrace et
+	MarmottesDesactiveTrace
+
+	* InterfaceF.h: ajout des fonctions marmottesactivetrace_ et
+	marmottesdesactivetrace_
+
+	* Makefile.am: ajout de CallTrace.h
+
+	* Marmottes.h: génération d'exceptions par le mécanisme de trace
+	d'exécution dans la méthode desinitialise et dans l'opérateur
+	d'affectation, report du corps de la méthode desinitialise dans
+	Marmottes.cc
+
+	* MarmottesErreurs.h: ajout des erreurs ouverture_fichier,
+	allocation_memoire, trace_inactif, objet_inconnu
+
+2000-06-07  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: ajout des fichiers SenseurFonction.h,
+	SenseurFonctionGauss.h et SenseurFonctionSinCard2.h
+
+	* MarmottesErreurs.h: ajout de l'erreur senseur_mesure_pure
+
+	* SenseurFonction.h, SenseurFonctionSinCard2.h,
+	SenseurFonctionGauss.h: nouveau fichiers
+
+2000-03-30  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* *.h: ajout du copyright CNES
+
+1999-10-31  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* TableInstances.h: correction de la macro de protection contre
+	les inclusions multiples
+
+	* StationCible.h: correction de la macro de protection contre les
+	inclusions multiples
+
+	* SpinAtt.h: correction de la macro de protection contre les
+	inclusions multiples
+
+	* SenseurVecteur.h: correction de la macro de protection contre
+	les inclusions multiples
+
+	* SenseurTerre.h: correction de la macro de protection contre les
+	inclusions multiples
+
+	* SenseurOptique.h: correction de la macro de protection contre
+	les inclusions multiples
+
+	* SenseurGyroInteg.h: correction de la macro de protection contre
+	les inclusions multiples
+
+	* SenseurGeometrique.h: correction de la macro de protection
+	contre les inclusions multiples
+
+	* SenseurElevation.h: correction de la macro de protection contre
+	les inclusions multiples
+
+	* SenseurDiedre.h: correction de la macro de protection contre les
+	inclusions multiples
+
+	* SenseurDelta.h: correction de la macro de protection contre les
+	inclusions multiples
+
+	* SenseurCinematique.h: correction de la macro de protection
+	contre les inclusions multiples
+
+	* SenseurCartesien.h: correction de la macro de protection contre
+	les inclusions multiples
+
+	* SenseurCardan.h: correction de la macro de protection contre les
+	inclusions multiples
+
+	* SenseurAlpha.h: correction de la macro de protection contre les
+	inclusions multiples
+
+	* Senseur.h: correction de la macro de protection contre les
+	inclusions multiples
+
+	* ReunionOuParcelles.h: correction de la macro de protection
+	contre les inclusions multiples
+
+	* ReunionEtParcelles.h: correction de la macro de protection
+	contre les inclusions multiples
+
+	* ResolveurAttitude.h: correction de la macro de protection contre
+	les inclusions multiples
+
+	* ParcelleElementaire.h: correction de la macro de protection
+	contre les inclusions multiples
+
+	* Parcelle.h: correction de la macro de protection contre les
+	inclusions multiples
+
+	* ModeleGeom.h: correction de la macro de protection contre les
+	inclusions multiples
+
+	* ModeleCine.h: correction de la macro de protection contre les
+	inclusions multiples
+
+	* Modele.h: correction de la macro de protection contre les
+	inclusions multiples
+
+	* MarmottesVersion.h: correction de la macro de protection contre
+	les inclusions multiples
+
+	* MarmottesErreurs.h: correction de la macro de protection contre
+	les inclusions multiples
+
+	* Marmottes.h: correction de la macro de protection contre les
+	inclusions multiples
+
+	* Lecture.h: correction de la macro de protection contre les
+	inclusions multiples
+
+	* InterfaceF.h: correction de la macro de protection contre les
+	inclusions multiples
+
+	* InterfaceC.h: correction de la macro de protection contre les
+	inclusions multiples
+
+	* FamilleProlongementZero.h: correction de la macro de protection
+	inclusions multiples
+
+	* FamilleProlongementPi.h: correction de la macro de protection
+	inclusions multiples
+
+	* FamilleGenerale.h: correction de la macro de protection contre
+	les inclusions multiples
+
+	* FamilleFixe.h: correction de la macro de protection contre les
+	inclusions multiples
+
+	* FamilleAlignementPlus.h: correction de la macro de protection
+	contre les inclusions multiples
+
+	* FamilleAlignementMoins.h: correction de la macro de protection
+	contre les inclusions multiples
+
+	* FamilleAbstraite.h: correction de la macro de protection contre
+	les inclusions multiples
+
+	* Famille.h: correction de la macro de protection contre les
+	inclusions multiples
+
+	* Etat.h: correction de la macro de protection contre les
+	inclusions multiples
+
+1999-10-15  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Famille.h: ajout d'un booléen dans le constructeur par pointeur
+	de façon à déterminer si l'instance peut prendre la responsabilité
+	de la désallocation mémoire ou si elle doit se faire sa propre
+	copie
+
+1999-09-14  Geraldine FILAIRE  <Geraldine.Filaire@cnes.fr>
+
+	* FamilleAbstraite.h: ajout de la variable globale
+	marmottesPrecision
+
+1999-08-16  Geraldine FILAIRE  <Geraldine.Filaire@cnes.fr>
+
+	* SenseurVecteur.h (class SenseurVecteur): mise à jour des
+	signatures des méthodes (throw ...)
+
+	* SenseurTerre.h (class SenseurTerre): les méthodes "controlable
+	et inhibe" deviennent throw (MarmottesErreurs)
+
+	* SenseurOptique.h: mise à jour des signatures des méthodes (throw
+	...)
+
+	* SenseurGyroInteg.h: mise à jour des signatures des méthodes
+	(throw ...)
+
+	* SenseurElevation.h (class SenseurElevation): mise à jour des
+	signatures des méthodes (throw ...)
+
+	* SenseurDiedre.h: mise à jour des signatures des méthodes
+	(throw ...)
+
+	* SenseurDelta.h: mise à jour des signatures des méthodes (throw
+	...)
+
+	* SenseurCinematique.h: mise à jour des signatures des méthodes
+	(throw ...)
+
+	* SenseurCartesien.h (class SenseurCartesien): mise à jour des
+	signatures des méthodes (throw ...)
+
+	* SenseurCardan.h (class SenseurCardan): la méthode
+	"initialiseCible" devient throw (MarmottesErreurs)
+
+	* SenseurAlpha.h: mise à jour des signatures des méthodes (throw
+	...)
+
+	* Senseur.h: mise à jour des signatures des méthodes (throw ...)
+
+	* ResolveurAttitude.h (class ResolveurAttitude): la méthode
+	trouveTout "est" throw (CantorErreurs, MarmottesErreurs)
+
+	* MarmottesErreurs.h (class MarmottesErreurs): création de
+	l'erreur "rotation_bloc" 
+	création de l'erreur "rotation_cardan"
+
+	* Marmottes.h: mise à jour des signatures des méthodes (throw ...)
+
+	* Lecture.h: la méthode "Senseurs" "est" throw (ClubErreurs,
+	MarmottesErreurs)
+
+1999-08-06  Geraldine FILAIRE  <Geraldine.Filaire@cnes.fr>
+
+	* ModeleCine.h (class ModeleCine): utilisation des exceptions =>
+	changement de signature de la méthode (miseAJourOmegaMax)
+
+	* Lecture.h: utilisation des exceptions => changement de signature
+	de l'ensemble des méthodes
+
+	* ResolveurAttitude.h (class ResolveurAttitude): utilisation des
+	exceptions => changement de signature des méthodes
+	(modeliseConsignes, modeliseConsignes, miseAJourConvergence,
+	miseAJourDichotomie, deuxConsignes, trouveTout,
+	elimineExcedentaires)
+
+	* Etat.h (class Etat): utilisation des exceptions => changement de
+	signature des méthodes (normesLitigieuses, unitesPositionVitesse)
+
+	* SenseurTerre.h (class SenseurTerre): utilisation des exceptions
+	=> changement de signature des méthodes (controlable, inhibe)
+
+	* SenseurVecteur.h (class SenseurVecteur): utilisation des
+	exceptions => changement de signature des méthodes
+	(modeliseConsigne, mesure)
+
+	* SenseurElevation.h (class SenseurElevation): utilisation des
+	exceptions => changement de signature des méthodes
+	(modeliseConsigne, mesure)
+
+	* SenseurDiedre.h (class SenseurDiedre): utilisation des exceptions
+	=> changement de signature des méthodes (modeliseConsigne, mesure)
+
+	* SenseurDelta.h (class SenseurDelta): utilisation des exceptions
+	=> changement de signature des méthodes (modeliseConsigne, mesure)
+
+	* SenseurCartesien.h (class SenseurCartesien): utilisation des
+	exceptions => changement de signature des méthodes
+	(modeliseConsigne, mesure)
+
+	* SenseurGeometrique.h (class SenseurGeometrique): utilisation des
+	exceptions => changement de signature de la méthode
+	(verifieConsigne)
+
+	* SenseurAlpha.h (class SenseurAlpha): utilisation des exceptions
+	=> changement de signature des méthodes (modeliseConsigne, mesure)
+
+	* SenseurCardan.h (class SenseurCardan): utilisation des
+	exceptions => changement de signature des méthodes
+	(metAJourReference, modeliseConsigne, mesure, modifieReference)
+
+	* SenseurOptique.h (class SenseurOptique): utilisation des
+	exceptions => changement de signature des méthodes (modifieCible,
+	initialiseCible)
+
+	* Senseur.h (class Senseur): utilisation des exceptions =>
+	changement de signature des méthodes (prendEtatEnCompte, mesure,
+	modifieCible, calage, initialiseGyro, modifieReference,
+	modeliseConsigne)
+
+	* SenseurCinematique.h (class SenseurCinematique): utilisation des
+	exceptions => changement de signature des méthodes (mesure,
+	modeliseConsigne)
+
+	* SenseurGyroInteg.h (class SenseurGyroInteg): utilisation des
+	exceptions => changement de signature des méthodes (mesure,
+	prendEtatEnCompte, initialiseGyro, modeliseConsigne)
+
+	* Marmottes.h: gestion des erreurs par le mécanisme des exceptions
+
+1999-07-26  Geraldine FILAIRE  <filaire@cnes.fr>
+
+	* SenseurGeometrique.h (class SenseurGeometrique): ajout de la
+	méthode creneauConsigne
+
+1999-07-12  Geraldine FILAIRE  <filaire@cnes.fr>
+
+	* Modele.h (class Modele): utilisation des exceptions =>
+	changement de signature de la méthode prendConsignesEnCompte
+
+	* ModeleCine.h (class ModeleCine): utilisation des exceptions =>
+	changement de signature de la méthode prendConsignesEnCompte
+
+	* ModeleGeom.h (class ModeleGeom): remodélisation complète de la
+	classe et de l'ensemble de ses méthodes, création d'une table de
+	Famille, utilisation de la STL
+
+	* FamilleProlongementZero.h (class FamilleProlongementZero):
+	création de la classe pour correction de bug
+
+	* FamilleProlongementPi.h (class FamilleProlongementPi): 
+	création de la classe pour correction de bug 
+
+	* FamilleGenerale.h (class FamilleGenerale): 
+	création de la classe pour correction de bug 
+
+	* FamilleFixe.h (class FamilleFixe): création de la classe pour
+	correction de bug
+
+	* FamilleAlignementPlus.h (class FamilleAlignementPlus): création
+	de la classe pour correction de bug
+
+	* FamilleAlignementMoins.h (class FamilleAlignementMoins): 
+	création de la classe pour correction de bug 
+
+	* FamilleAbstraite.h (class FamilleAbstraite): création de la
+	classe pour correction de bug
+
+	* Famille.h (class Famille): création de la classe pour correction
+	de bug
+
+1999-07-06  Geraldine FILAIRE  <filaire@cnes.fr>
+
+	* Makefile.am: suppression de Continuite.h, de
+	ModeleGeomDomaine.h, de ModeleGeomV1Fixe.h.  Ajout de Famille.h,
+	FamilleAbstraite.h, FamilleAlignementMoins.h,
+	FamilleAlignementPlus.h, FamilleFixe.h, FamilleGenerale.h,
+	FamilleProlongementPi.h, FamilleProlongementZero.h
+
+1999-05-18  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Champ.h: utilisation du type bool et de la STL
+
+1999-04-27  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* SenseurGeometrique.h (nouvelleReferenceSecteurs): nouvelle méthode
+
+	* Secteurs.h (diedreContient): nouvelle méthode
+
+1999-04-26  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Secteurs.h (modifieReference): nouvelle méthode
+
+1999-04-23  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* MarmottesErreurs.h (class MarmottesErreurs): ajout de
+	erreur_non_reconnue
+
+	* TableInstances.h (InstanceNonInitialisee): utilisation des
+	exceptions et changement de signature
+	(CopieMessageC): élimination de la fonction
+
+1999-04-20  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* SenseurTerre.h (filtreSecteurs): ajout d'une spécialisation de
+	la fonction
+	(modeliseConsigne): élimination de la spécialisation
+
+	* SenseurDiedre.h (modeliseConsigneSansFiltre): élimination de la
+	fonction
+
+	* SenseurOptique.h (filtreSecteurs): transfert de la fonction du
+	.h au .cc
+
+1998-11-06  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* SenseurOptique.h (class SenseurOptique): ajout de la cible nadir
+
+1998-10-09  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* InterfaceC.h: remplacement des commentaires C++ par des
+	commentaires C pour permettre l'inclusion du fichier par un
+	compilateur C ANSI
+
+1998-10-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* SenseurTerre.h: report de la constante rayonInfrarougeTerre dans
+	le .cc pour contourner un bug du compilateur Sun
+
+	* MarmottesErreurs.h: élimination d'un const inutile
+
+	* InterfaceF.h: correction d'une signature de fonction
+
+1998-09-17  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* MarmottesErreurs.h: démarrage des erreurs à 1 pour éviter
+	d'avoir une erreur à code nul
+
+1998-09-12  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* SenseurGeometrique.h (verifieConsigne): nouvelle fonction
+
+	* MarmottesErreurs.h: ajout de l'erreur consigne_degeneree
+
+	* SenseurAlpha.h: élimination de caractères de contrôle parasites
+	devant des accents dans l'en-tête
+
+1998-08-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* SenseurCardan.h: ajout d'attributs séparés pour le repère défini
+	par l'utilisateur
+
+1998-08-03  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* ModeleGeom.h: doublement de la taille des ModeleGeomDomaine, en
+	raison de la séparation des modèles plus et moins en instances
+	indépendantes
+
+	* ModeleGeomDomaine.h: séparation des modèles plus et moins en
+	deux instances
+
+1998-07-31  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* MarmottesErreurs.h: ajout d'un en-tête d'interface
+	pour la fonction InitDomaineMarmottes
+
+1998-07-30  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* .cvsignore: nouveau fichier
+
+	* Makefile.am: nouveau fichier
+
+1998-07-20  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* MarmottesErreurs.h (class MarmottesErreurs): ajout de l'erreur
+	consignes_incompatibles
+
+1998-07-10  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* SenseurGyroInteg.h: nouveau fichier
+
+1998-07-09  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* SenseurOptique.h (modifieCible) : nouvelle fonction,
+	ajout des cibles "position" et "direction",
+	(utilisateur_, utilisateurInitialise_) : nouveaux attributs
+
+	* SenseurCardan.h (metAJourReference, modifieReference): nouvelles
+	fonctions, renommage de variation_ en genre_,
+	(reference_, xIn_, yIn_, zIn_) : nouveaux attributs
+
+	* Senseur.h (modifieCible, initialiseGyro, modifieReference,
+	prendEtatEnCompte) : nouvelles fonctions
+
+	* MarmottesErreurs.h: remplacement de l'erreur cardan_inconnu par
+	genre_cardan_inconnu,
+	ajout des erreurs : reference_cardan_inconnue, cible_utilisateur,
+	modifie_cible, senseur_sans_cible, pas_gyro_integrateur,
+	reference_utilisateur, modifie_reference, senseur_sans_reference
+	et cas_impossible
+
+	* Marmottes.h (modifieCible, initialiseGyro, modifieReference,
+	valideNouvelEtat) : nouvelles fonctions
+
+	* InterfaceF.h (marmottesmodifiecible_, marmottesinitialisegyro_,
+	marmottesmodifiereference_) : nouvelles fonctions
+
+	* InterfaceC.h (MarmottesModifieCible, MarmottesInitialiseGyro,
+	MarmottesModifieReference) : nouvelles fonctions

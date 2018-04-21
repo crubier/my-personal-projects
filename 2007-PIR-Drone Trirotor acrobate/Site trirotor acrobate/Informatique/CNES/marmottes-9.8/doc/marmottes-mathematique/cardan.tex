@@ -1,0 +1,360 @@
+% -*- mode: latex; tex-main-file: "marmottes-mathematique.tex" -*-
+% $Id: cardan.tex,v 1.9 2001/01/29 15:49:43 luc Exp $
+\cleardoublepage\section{rotations de Cardan}\label{sec:cardan}
+Les rotations de \textsc{Cardan} sont des moyens pratiques de
+représenter l'orientation des satellites, surtout quand elle est peu
+éloignée d'une orientation de référence définie par un repère simple.
+
+Elles peuvent également être utilisées pour définir des orientations sur
+un domaine de validité très large lorsque les consignes ne sont pas
+entrées directement par l'utilisateur mais calculées\footnote{par
+exemple par un filtre qui lisse des informations disparates sur une
+plage de temps} ; en effet les singularités des rotations de
+\textsc{Cardan} existent mais sont limitées à de petites zones, alors
+que les champs de vue, les éclipses, les alignements, ou les
+inhibitions obligent souvent à faire des prouesses si l'on veut
+utiliser un seul jeu de capteurs sur une plage de temps étendue.
+
+Il s'avère que dans tous les cas de capteurs mesurant des angles de
+\textsc{Cardan}, on peut trouver un vecteur particulier exprimable en
+repère de référence et un cône exprimé en repère satellite tels que le
+vecteur soit sur le cône dans l'orientation désirée. Selon les capteurs,
+soit le vecteur dépend de l'angle mesuré et le cône est constant, soit
+le vecteur est constant et le cône dépend de l'angle mesuré. On peut
+donc systématiquement se ramener au modèle classique des capteurs
+géométriques.
+
+Les sections suivantes donnent les équations nécessaires à cette
+modélisation dans tous les cas possibles d'angles de
+\textsc{Cardan}. La démarche générale est la suivante :
+
+Pour trouver les angles à partir de l'orientation, on commence par
+exprimer une matrice $M$ telle que $u_\mathrm{cap} = M u_\mathrm{in}$,
+où $u_\mathrm{cap}$ donne les coordonnées d'un vecteur quelconque
+$\vec{u}$ en repère capteur connaissant ses coordonnées
+$u_\mathrm{in}$ en repère de référence. Cette matrice est calculable
+dès lors que l'on connaît l'orientation. On remarque toujours que la
+matrice est inchangée par une transformation particulière\footnote{la
+transformation dépend de l'ordre des rotations, mais il en existe une
+pour chaque ordre}, ce qui permet d'imposer qu'un des angles soit
+systématiquement pris entre $-\pi/2$ et $+\pi/2$, et donc permet de
+trouver l'angle ne connaissant que son sinus. Les autres angles se
+déduisent de la matrice et du premier angle. Dans la pratique, comme
+seuls quelques éléments matriciels sont utiles, on ne calcule
+\emph{jamais} cette matrice~: on se contente de calculer l'image ou
+l'image réciproque d'un vecteur canonique pour obtenir la ligne ou la
+colonne utile.
+
+Pour la modélisation des cônes de consignes connaissant les angles, on
+remarque dans la matrice précédente certains éléments plus simples que
+les autres, et on construit des vecteurs bien choisis en repère
+inertiel à partir de ces coordonnées simples, vecteurs qui ne
+dépendent que d'un angle à chaque fois et présentent de bonnes
+propriétés (à savoir que leur image est sur un cône en repère capteur,
+que l'on projette simplement en repère satellite).
+
+\subsection{ordre : lacet, puis roulis, puis tangage}
+La matrice $M$ permettant de convertir un vecteur exprimé en repère
+de référence en lui-même mais exprimé en repère capteur vaut~:
+\begin{displaymath}
+M (\psi, \varphi, \theta) = \left[
+\begin{array}{ccc}
+ \cthe\cpsi-\sthe\sphi\spsi & \cthe\spsi+\sthe\sphi\cpsi & -\sthe\cphi \\
+-\cphi\spsi                 & \cphi\cpsi                 &  \sphi      \\
+ \sthe\cpsi+\cthe\sphi\spsi & \sthe\spsi-\cthe\sphi\cpsi &  \cthe\cphi
+\end{array}
+                        \right]
+\end{displaymath}
+
+$M$ est inchangée par la transformation :
+\begin{eqnarray*}
+\psi    & \rightarrow & \pi + \psi    \\
+\varphi & \rightarrow & \pi - \varphi \\
+\theta  & \rightarrow & \pi + \theta
+\end{eqnarray*}
+il est donc licite d'imposer $\varphi \in [-\pi/2 ; +\pi/2]$. On peut
+donc déduire les angles de la matrice~:
+\begin{eqnarray*}
+\psi    & = & \mathrm{atan2} (-M_{2,1}, M_{2,2}) \\
+\varphi & = & \arcsin (M_{2,3}) \\
+\theta  & = & \mathrm{atan2} (-M_{1,3}, M_{3,3})
+\end{eqnarray*}
+Pour modéliser analytiquement les consignes connaissant les angles, on
+utilise la forme simple des éléments de la deuxième ligne et de la
+dernière colonne de $M$ pour construire des vecteurs particuliers.
+
+Si on connaît $\psi$, on trouve la consigne :
+\begin{displaymath}
+\vec{u}_\mathrm{in} = \cpsi\vec{X}_\mathrm{in} + \spsi\vec{Y}_\mathrm{in}
+\mbox{ doit être sur le cône }
+(\vec{Y}_\mathrm{cap}, \frac{\pi}{2})
+\end{displaymath}
+
+Si on connaît $\varphi$, on trouve la consigne :
+\begin{displaymath}
+\vec{Z}_\mathrm{in}
+\mbox{ doit être sur le cône }
+(\vec{Y}_\mathrm{cap}, \frac{\pi}{2}-\varphi)
+\end{displaymath}
+
+Si on connaît $\theta$, on trouve la consigne :
+\begin{displaymath}
+\vec{Z}_\mathrm{in}
+\mbox{ doit être sur le cône }
+(\cthe\vec{X}_\mathrm{cap} + \sthe\vec{Z}_\mathrm{cap}, \frac{\pi}{2})
+\end{displaymath}
+
+\subsection{ordre : lacet, puis tangage, puis roulis}
+La matrice $M$ permettant de convertir un vecteur exprimé en repère
+de référence en lui-même mais exprimé en repère capteur vaut~:
+\begin{displaymath}
+M (\psi, \theta, \varphi) = \left[
+\begin{array}{ccc}
+\cthe\cpsi                  &  \cthe\spsi                 & -\sthe      \\
+-\cphi\spsi+\sphi\sthe\cpsi &  \cphi\cpsi+\sphi\sthe\spsi &  \sphi\cthe \\
+ \sphi\spsi+\cphi\sthe\cpsi & -\sphi\cpsi+\cphi\sthe\spsi &  \cphi\cthe
+\end{array}
+                        \right]
+\end{displaymath}
+
+$M$ est inchangée par la transformation :
+\begin{eqnarray*}
+\psi    & \rightarrow & \pi + \psi   \\
+\theta  & \rightarrow & \pi - \theta \\
+\varphi & \rightarrow & \pi + \varphi
+\end{eqnarray*}
+il est donc licite d'imposer $\theta \in [-\pi/2 ; +\pi/2]$. On peut
+donc déduire les angles de la matrice~:
+\begin{eqnarray*}
+\psi    & = & \mathrm{atan2} (M_{1,2}, M_{1,1}) \\
+\theta  & = & -\arcsin (M_{1,3}) \\
+\varphi & = & \mathrm{atan2} (M_{2,3}, M_{3,3})
+\end{eqnarray*}
+Pour modéliser analytiquement les consignes connaissant les angles, on
+utilise la forme simple des éléments de la première ligne et de la
+dernière colonne de $M$ pour construire des vecteurs particuliers.
+
+Si on connaît $\psi$, on trouve la consigne :
+\begin{displaymath}
+\vec{u}_\mathrm{in} = -\spsi\vec{X}_\mathrm{in} + \cpsi\vec{Y}_\mathrm{in}
+\mbox{ doit être sur le cône }
+(\vec{X}_\mathrm{cap}, \frac{\pi}{2})
+\end{displaymath}
+
+Si on connaît $\theta$, on trouve la consigne :
+\begin{displaymath}
+\vec{Z}_\mathrm{in}
+\mbox{ doit être sur le cône }
+(-\vec{X}_\mathrm{cap}, \frac{\pi}{2}-\theta)
+\end{displaymath}
+
+Si on connaît $\varphi$, on trouve la consigne :
+\begin{displaymath}
+\vec{Z}_\mathrm{in}
+\mbox{ doit être sur le cône }
+(\cphi\vec{Y}_\mathrm{cap} - \sphi\vec{Z}_\mathrm{cap}, \frac{\pi}{2})
+\end{displaymath}
+
+\subsection{ordre : roulis, puis lacet, puis tangage}
+La matrice $M$ permettant de convertir un vecteur exprimé en repère
+de référence en lui-même mais exprimé en repère capteur vaut~:
+\begin{displaymath}
+M (\varphi, \psi, \theta) = \left[
+\begin{array}{ccc}
+ \cthe\cpsi & \cthe\spsi\cphi+\sthe\sphi & \cthe\spsi\sphi-\sthe\cphi \\
+-\spsi      & \cpsi\cphi                 & \cpsi\sphi                 \\
+ \sthe\cpsi & \sthe\spsi\cphi-\cthe\sphi & \sthe\spsi\sphi+\cthe\cphi
+\end{array}
+                        \right]
+\end{displaymath}
+
+$M$ est inchangée par la transformation :
+\begin{eqnarray*}
+\varphi & \rightarrow & \pi + \varphi \\
+\psi    & \rightarrow & \pi - \psi    \\
+\theta  & \rightarrow & \pi + \theta
+\end{eqnarray*}
+il est donc licite d'imposer $\psi \in [-\pi/2 ; +\pi/2]$. On peut
+donc déduire les angles de la matrice~:
+\begin{eqnarray*}
+\varphi & = & \mathrm{atan2} (M_{2,3}, M_{2,2}) \\
+\psi    & = & -\arcsin (M_{2,1}) \\
+\theta  & = & \mathrm{atan2} (M_{3,1}, M_{1,1})
+\end{eqnarray*}
+Pour modéliser analytiquement les consignes connaissant les angles, on
+utilise la forme simple des éléments de la deuxième ligne et de la
+première colonne de $M$ pour construire des vecteurs particuliers.
+
+Si on connaît $\varphi$, on trouve la consigne :
+\begin{displaymath}
+\vec{u}_\mathrm{in} = -\sphi\vec{Y}_\mathrm{in} + \cphi\vec{Z}_\mathrm{in}
+\mbox{ doit être sur le cône }
+(\vec{Y}_\mathrm{cap}, \frac{\pi}{2})
+\end{displaymath}
+
+Si on connaît $\psi$, on trouve la consigne :
+\begin{displaymath}
+\vec{X}_\mathrm{in}
+\mbox{ doit être sur le cône }
+(-\vec{Y}_\mathrm{cap}, \frac{\pi}{2}-\psi)
+\end{displaymath}
+
+Si on connaît $\theta$, on trouve la consigne :
+\begin{displaymath}
+\vec{X}_\mathrm{in}
+\mbox{ doit être sur le cône }
+(\cthe\vec{Z}_\mathrm{cap} - \sthe\vec{X}_\mathrm{cap}, \frac{\pi}{2})
+\end{displaymath}
+
+\subsection{ordre : roulis, puis tangage, puis lacet}
+La matrice $M$ permettant de convertir un vecteur exprimé en repère
+de référence en lui-même mais exprimé en repère capteur vaut~:
+\begin{displaymath}
+M (\varphi, \theta, \psi) = \left[
+\begin{array}{ccc}
+ \cpsi\cthe &  \cpsi\sthe\sphi+\spsi\cphi & -\cpsi\sthe\cphi+\spsi\sphi \\
+-\spsi\cthe & -\spsi\sthe\sphi+\cpsi\cphi &  \spsi\sthe\cphi+\cpsi\sphi \\
+ \sthe      & -\cthe\sphi                 &  \cthe\cphi
+\end{array}
+                        \right]
+\end{displaymath}
+
+$M$ est inchangée par la transformation :
+\begin{eqnarray*}
+\varphi & \rightarrow & \pi + \varphi \\
+\theta  & \rightarrow & \pi - \theta  \\
+\psi    & \rightarrow & \pi + \psi
+\end{eqnarray*}
+il est donc licite d'imposer $\theta \in [-\pi/2 ; +\pi/2]$. On peut
+donc déduire les angles de la matrice~:
+\begin{eqnarray*}
+\varphi & = & \mathrm{atan2} (-M_{3,2}, M_{3,3}) \\
+\theta  & = & \arcsin (M_{3,1}) \\
+\psi    & = & \mathrm{atan2} (-M_{2,1}, M_{1,1})
+\end{eqnarray*}
+Pour modéliser analytiquement les consignes connaissant les angles, on
+utilise la forme simple des éléments de la dernière ligne et de la
+première colonne de $M$ pour construire des vecteurs particuliers.
+
+Si on connaît $\varphi$, on trouve la consigne :
+\begin{displaymath}
+\vec{u}_\mathrm{in} = \cphi\vec{Y}_\mathrm{in} + \sphi\vec{Z}_\mathrm{in}
+\mbox{ doit être sur le cône }
+(\vec{Z}_\mathrm{cap}, \frac{\pi}{2})
+\end{displaymath}
+
+Si on connaît $\theta$, on trouve la consigne :
+\begin{displaymath}
+\vec{X}_\mathrm{in}
+\mbox{ doit être sur le cône }
+(\vec{Z}_\mathrm{cap}, \frac{\pi}{2}-\theta)
+\end{displaymath}
+
+Si on connaît $\psi$, on trouve la consigne :
+\begin{displaymath}
+\vec{X}_\mathrm{in}
+\mbox{ doit être sur le cône }
+(\cpsi\vec{Y}_\mathrm{cap} + \spsi\vec{X}_\mathrm{cap}, \frac{\pi}{2})
+\end{displaymath}
+
+\subsection{ordre : tangage, puis lacet, puis roulis}
+La matrice $M$ permettant de convertir un vecteur exprimé en repère
+de référence en lui-même mais exprimé en repère capteur vaut~:
+\begin{displaymath}
+M (\theta, \psi, \varphi) = \left[
+\begin{array}{ccc}
+ \cpsi\cthe                 &  \spsi      & -\cpsi\sthe \\
+-\cphi\spsi\cthe+\sphi\sthe &  \cphi\cpsi &  \cphi\spsi\sthe+\sphi\cthe \\
+ \sphi\spsi\cthe+\cphi\sthe & -\sphi\cpsi & -\sphi\spsi\sthe+\cphi\cthe
+\end{array}
+                        \right]
+\end{displaymath}
+
+$M$ est inchangée par la transformation :
+\begin{eqnarray*}
+\theta  & \rightarrow & \pi + \theta \\
+\psi    & \rightarrow & \pi - \psi   \\
+\varphi & \rightarrow & \pi + \varphi
+\end{eqnarray*}
+il est donc licite d'imposer $\psi \in [-\pi/2 ; +\pi/2]$. On peut
+donc déduire les angles de la matrice~:
+\begin{eqnarray*}
+\theta  & = & \mathrm{atan2} (-M_{1,3}, M_{1,1}) \\
+\psi    & = & \arcsin (M_{1,2}) \\
+\varphi & = & \mathrm{atan2} (-M_{3,2}, M_{2,2})
+\end{eqnarray*}
+Pour modéliser analytiquement les consignes connaissant les angles, on
+utilise la forme simple des éléments de la première ligne et de la
+deuxième colonne de $M$ pour construire des vecteurs particuliers.
+
+Si on connaît $\theta$, on trouve la consigne :
+\begin{displaymath}
+\vec{u}_\mathrm{in} = \sthe\vec{X}_\mathrm{in} + \cthe\vec{Z}_\mathrm{in}
+\mbox{ doit être sur le cône }
+(\vec{X}_\mathrm{cap}, \frac{\pi}{2})
+\end{displaymath}
+
+Si on connaît $\psi$, on trouve la consigne :
+\begin{displaymath}
+-\vec{Y}_\mathrm{in}
+\mbox{ doit être sur le cône }
+(-\vec{X}_\mathrm{cap}, \frac{\pi}{2}-\psi)
+\end{displaymath}
+
+Si on connaît $\varphi$, on trouve la consigne :
+\begin{displaymath}
+-\vec{Y}_\mathrm{in}
+\mbox{ doit être sur le cône }
+(\cphi\vec{Z}_\mathrm{cap} + \sphi\vec{Y}_\mathrm{cap}, \frac{\pi}{2})
+\end{displaymath}
+
+\subsection{ordre : tangage, puis roulis, puis lacet}
+La matrice $M$ permettant de convertir un vecteur exprimé en repère
+de référence en lui-même mais exprimé en repère capteur vaut~:
+\begin{displaymath}
+M (\theta, \varphi, \psi) = \left[
+\begin{array}{ccc}
+ \cpsi\cthe+\spsi\sphi\sthe &  \spsi\cphi &  -\cpsi\sthe+\spsi\sphi\cthe \\
+-\spsi\cthe+\cpsi\sphi\sthe &  \cpsi\cphi &   \spsi\sthe+\cpsi\sphi\cthe \\
+ \cphi\sthe                 & -\sphi      &   \cphi\cthe
+\end{array}
+                        \right]
+\end{displaymath}
+
+$M$ est inchangée par la transformation :
+\begin{eqnarray*}
+\theta  & \rightarrow & \pi + \theta  \\
+\varphi & \rightarrow & \pi - \varphi \\
+\psi    & \rightarrow & \pi + \psi
+\end{eqnarray*}
+il est donc licite d'imposer $\varphi \in [-\pi/2 ; +\pi/2]$. On peut
+donc déduire les angles de la matrice~:
+\begin{eqnarray*}
+\theta  & = & \mathrm{atan2} (M_{3,1}, M_{3,3}) \\
+\varphi & = & -\arcsin (M_{3,2}) \\
+\psi    & = & \mathrm{atan2} (M_{1,2}, M_{2,2})
+\end{eqnarray*}
+Pour modéliser analytiquement les consignes connaissant les angles, on
+utilise la forme simple des éléments de la dernière ligne et de la
+deuxième colonne de $M$ pour construire des vecteurs particuliers.
+
+Si on connaît $\theta$, on trouve la consigne :
+\begin{displaymath}
+\vec{u}_\mathrm{in} = \cthe\vec{X}_\mathrm{in} - \sthe\vec{Z}_\mathrm{in}
+\mbox{ doit être sur le cône }
+(\vec{Z}_\mathrm{cap}, \frac{\pi}{2})
+\end{displaymath}
+
+Si on connaît $\varphi$, on trouve la consigne :
+\begin{displaymath}
+-\vec{Y}_\mathrm{in}
+\mbox{ doit être sur le cône }
+(\vec{Z}_\mathrm{cap}, \frac{\pi}{2}-\varphi)
+\end{displaymath}
+
+Si on connaît $\psi$, on trouve la consigne :
+\begin{displaymath}
+-\vec{Y}_\mathrm{in}
+\mbox{ doit être sur le cône }
+(\cpsi\vec{X}_\mathrm{cap} - \spsi\vec{Y}_\mathrm{cap}, \frac{\pi}{2})
+\end{displaymath}

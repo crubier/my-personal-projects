@@ -1,0 +1,401 @@
+# Marmottes trace
+# date : 2000-10-10T08:24:46
+# $Id: test_Forcage.spin.log,v 1.1 2001/02/27 12:28:09 luc Exp $
+
+Marmottes::reinitialise 0x8136fc8 1.71073611111111095e+04 -1.72162403326348576e+04 3.83064507617432173e+04 -1.78524248462071691e-04 -2.81005467283140709e+00 -1.26303254084380812e+00 -1.56594244987998100e-08 1.00000000000000000e+00 0.00000000000000000e+00 0.00000000000000000e+00 0.00000000000000000e+00 0.00000000000000000e+00 0.00000000000000000e+00 0.00000000000000000e+00 ./test_Forcage.attitude.sensors GYRO+X GYRO+Y GYRO+Z
+Marmottes::senseurs 0x8136fc8 ./test_Forcage.attitude.sensors GYRO+X GYRO+Y GYRO+Z
+Marmottes::convertirMesures 0x8136fc8 ./test_Forcage.attitude.sensors GYRO+X
+Marmottes::convertirMesures 0x8136fc8 ./test_Forcage.attitude.sensors GYRO+Y
+Marmottes::convertirMesures 0x8136fc8 ./test_Forcage.attitude.sensors GYRO+Z
+Marmottes::convertirMesures 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_X
+Marmottes::convertirMesures 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_X
+Marmottes::convertirMesures 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Y
+Marmottes::convertirMesures 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Y
+Marmottes::convertirMesures 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Z
+Marmottes::convertirMesures 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Z
+Marmottes::convertirMesures 0x8136fc8 ./test_Forcage.attitude.sensors AZ_SUN
+Marmottes::convertirMesures 0x8136fc8 ./test_Forcage.attitude.sensors EL_SUN
+Marmottes::imposeSpin 0x8136fc8 1.82620000000000000e+04 4.19999999704551956e+04 -1.02861432439870116e-11 2.78298516216991148e-04 7.54545093024204777e-16 3.08066411487529868e+00 -1.24412577480732434e-22 0.00000000000000000e+00 -1.74532925199432955e-02 4.44072299864456752e-16
+Marmottes::imposeSpin 0x8136fc8 1.82620001157407423e+04 4.19999886718280541e+04 3.08066390172062761e+01 2.78298441356143267e-04 -2.25972528189379886e-03 3.08066328613065021e+00 -1.49727294598034876e-11 0.00000000000000000e+00 -1.74532925199432955e-02 4.44072299864456752e-16
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_X
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_X
+  ->  1.79999999999998266e+02
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_X
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_X
+  ->  4.99999997313714886e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Y
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Y
+  ->  9.00000000000011227e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Y
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Y
+  ->  -2.39486131202887834e-12
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Z
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Z
+  ->  -1.79999999999996845e+02
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Z
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Z
+  ->  -4.00000002686285114e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors AZ_SUN
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors AZ_SUN
+  ->  -7.23189063368214136e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors EL_SUN
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors EL_SUN
+  ->  6.49344172557577508e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors GYRO+X
+  ->  1
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors AZ_SUN
+  ->  1
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors GYRO+Z
+  ->  1
+Marmottes::convertirConsignes 0x8136fc8 ./test_Forcage.attitude.sensors GYRO+X
+Marmottes::convertirMesures 0x8136fc8 ./test_Forcage.attitude.sensors GYRO+X
+Marmottes::convertirConsignes 0x8136fc8 ./test_Forcage.attitude.sensors AZ_SUN
+Marmottes::convertirMesures 0x8136fc8 ./test_Forcage.attitude.sensors AZ_SUN
+Marmottes::convertirConsignes 0x8136fc8 ./test_Forcage.attitude.sensors GYRO+Z
+Marmottes::convertirMesures 0x8136fc8 ./test_Forcage.attitude.sensors GYRO+Z
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors GYRO+X
+  ->  0.00000000000000000e+00
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors AZ_SUN
+  ->  -7.23189063368214136e+01
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors GYRO+Z
+  ->  2.54434685809012928e-14
+Marmottes::senseurs 0x8136fc8 ./test_Forcage.attitude.sensors GYRO+X AZ_SUN GYRO+Z
+Marmottes::imposeSpin 0x8136fc8 1.82620001273148155e+04 4.19999862991167174e+04 3.38873019902995694e+01 2.78298425635367620e-04 -2.48569774197186528e-03 3.08066311209430044e+00 -1.64700019544933956e-11 0.00000000000000000e+00 -1.41018299359776833e-01 3.33054224898342638e-16
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_X
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_X
+  ->  1.79999999999998948e+02
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_X
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_X
+  ->  4.19202469948439784e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Y
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Y
+  ->  9.00000000000011084e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Y
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Y
+  ->  -2.40856759301505339e-12
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Z
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Z
+  ->  -1.79999999999996191e+02
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Z
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Z
+  ->  -4.80797530051560216e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors AZ_SUN
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors AZ_SUN
+  ->  -6.42391797526160104e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors EL_SUN
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors EL_SUN
+  ->  6.49344137008771582e+01
+Marmottes::imposeSpin 0x8136fc8 1.82620001388888886e+04 4.19999837004329383e+04 3.69679647810627188e+01 2.78298408417375560e-04 -2.71167018867717350e-03 3.08066292148306564e+00 -1.79672743605923504e-11 0.00000000000000000e+00 -1.41018299359776833e-01 3.33054224898342638e-16
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_X
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_X
+  ->  1.79999999999999460e+02
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_X
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_X
+  ->  3.38404942583164754e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Y
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Y
+  ->  9.00000000000010942e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Y
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Y
+  ->  -2.42027488609824445e-12
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Z
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Z
+  ->  -1.79999999999995339e+02
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Z
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Z
+  ->  -5.61595057416835246e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors AZ_SUN
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors AZ_SUN
+  ->  -5.61594531685912131e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors EL_SUN
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors EL_SUN
+  ->  6.49344101459623460e+01
+Marmottes::imposeSpin 0x8136fc8 1.82620001504629618e+04 4.19999808757767460e+04 4.00486273729539519e+01 2.78298389702167465e-04 -2.93764262079648873e-03 3.08066271429694716e+00 -1.94645466700440524e-11 0.00000000000000000e+00 -1.41018299359776833e-01 3.33054224898342638e-16
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_X
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_X
+  ->  1.79999999999999886e+02
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_X
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_X
+  ->  2.57607415217889724e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Y
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Y
+  ->  9.00000000000010942e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Y
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Y
+  ->  -2.42975076376118130e-12
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Z
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Z
+  ->  -1.79999999999993889e+02
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Z
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Z
+  ->  -6.42392584782110418e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors AZ_SUN
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors AZ_SUN
+  ->  -4.80797265847544750e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors EL_SUN
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors EL_SUN
+  ->  6.49344065910122481e+01
+Marmottes::imposeSpin 0x8136fc8 1.82620001620370349e+04 4.19999778251481330e+04 4.31292897493673806e+01 2.78298369489743337e-04 -3.16361503711187634e-03 3.08066249053594543e+00 -2.09618188747882500e-11 0.00000000000000000e+00 -1.41018299359776833e-01 3.33054224898342638e-16
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_X
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_X
+  ->  -1.79999999999999716e+02
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_X
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_X
+  ->  1.76809887852614729e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Y
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Y
+  ->  9.00000000000010658e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Y
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Y
+  ->  -2.43680709927777069e-12
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Z
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Z
+  ->  -1.79999999999991275e+02
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Z
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Z
+  ->  -7.23190112147385236e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors AZ_SUN
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors AZ_SUN
+  ->  -4.00000000011093846e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors EL_SUN
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors EL_SUN
+  ->  6.49344030360261968e+01
+Marmottes::imposeSpin 0x8136fc8 1.82620002777777772e+04 4.19999348903787686e+04 7.39359009207342552e+01 2.78298085018612333e-04 -5.42333827669014192e-03 3.08065934130729291e+00 -3.59345348032835382e-11 0.00000000000000000e+00 -4.56473439491844601e-07 0.00000000000000000e+00
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_X
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_X
+  ->  -1.79999999999999716e+02
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_X
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_X
+  ->  1.76807272452424584e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Y
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Y
+  ->  9.00000000000010658e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Y
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Y
+  ->  -2.43680709927777109e-12
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Z
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Z
+  ->  -1.79999999999991275e+02
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Z
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Z
+  ->  -7.23192727547575629e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors AZ_SUN
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors AZ_SUN
+  ->  -3.99999999999999787e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors EL_SUN
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors EL_SUN
+  ->  6.49343674842617133e+01
+Marmottes::imposeSpin 0x8136fc8 1.82620003935185196e+04 4.19998693583901113e+04 1.04742472312490449e+02 2.78297650826017369e-04 -7.68305859868652092e-03 3.08065453459191252e+00 -5.09072314016011759e-11 0.00000000000000000e+00 -4.56473439491844601e-07 0.00000000000000000e+00
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_X
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_X
+  ->  -1.79999999999999716e+02
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_X
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_X
+  ->  1.76804657052234369e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Y
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Y
+  ->  9.00000000000010658e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Y
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Y
+  ->  -2.43680709927777150e-12
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Z
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Z
+  ->  -1.79999999999991275e+02
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Z
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Z
+  ->  -7.23195342947765596e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors AZ_SUN
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors AZ_SUN
+  ->  -4.00000000173285883e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors EL_SUN
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors EL_SUN
+  ->  6.49343319290163237e+01
+Marmottes::imposeSpin 0x8136fc8 1.82620005092592619e+04 4.19997812292174203e+04 1.35548987349572826e+02 2.78297066912191820e-04 -9.94277478742535553e-03 3.08064807039238708e+00 -6.58799006153999159e-11 0.00000000000000000e+00 -4.56473439491844601e-07 0.00000000000000000e+00
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_X
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_X
+  ->  -1.79999999999999716e+02
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_X
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_X
+  ->  1.76802041652044153e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Y
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Y
+  ->  9.00000000000010658e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Y
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Y
+  ->  -2.43680709927777109e-12
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Z
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Z
+  ->  -1.79999999999991275e+02
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Z
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Z
+  ->  -7.23197958347955847e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors AZ_SUN
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors AZ_SUN
+  ->  -4.00000000530800364e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors EL_SUN
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors EL_SUN
+  ->  6.49342963702894878e+01
+Marmottes::imposeSpin 0x8136fc8 1.82620006250000042e+04 4.19996705029081131e+04 1.66355429457281105e+02 2.78296333277449942e-04 -1.22024856272576112e-02 3.08063994871219515e+00 -8.08525343904877977e-11 0.00000000000000000e+00 -4.56473439491844601e-07 0.00000000000000000e+00
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_X
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_X
+  ->  -1.79999999999999716e+02
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_X
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_X
+  ->  1.76799426251853973e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Y
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Y
+  ->  9.00000000000010658e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Y
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Y
+  ->  -2.43680709927777150e-12
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Z
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Z
+  ->  -1.79999999999991275e+02
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Z
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Z
+  ->  -7.23200573748145956e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors AZ_SUN
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors AZ_SUN
+  ->  -4.00000001072615063e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors EL_SUN
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors EL_SUN
+  ->  6.49342608080772550e+01
+Marmottes::imposeSpin 0x8136fc8 1.82620007407407466e+04 4.19995371795217579e+04 1.97161782060767393e+02 2.78295449922186439e-04 -1.44621899025234261e-02 3.08063016955570479e+00 -9.58251246726282060e-11 0.00000000000000000e+00 -4.56473439491844601e-07 0.00000000000000000e+00
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_X
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_X
+  ->  -1.79999999999999716e+02
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_X
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_X
+  ->  1.76796810851663757e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Y
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Y
+  ->  9.00000000000010658e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Y
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Y
+  ->  -2.43680709927777150e-12
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Z
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Z
+  ->  -1.79999999999991275e+02
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Z
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Z
+  ->  -7.23203189148336349e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors AZ_SUN
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors AZ_SUN
+  ->  -4.00000001798802600e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors EL_SUN
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors EL_SUN
+  ->  6.49342252423756321e+01
+Marmottes::imposeSpin 0x8136fc8 1.82620008564814889e+04 4.19993812591300739e+04 2.27968028585345223e+02 2.78294416846876192e-04 -1.67218863975747631e-02 3.08061873292817534e+00 -1.10797663407653873e-10 0.00000000000000000e+00 -4.56473439491844601e-07 0.00000000000000000e+00
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_X
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_X
+  ->  -1.79999999999999716e+02
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_X
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_X
+  ->  1.76794195451473577e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Y
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Y
+  ->  9.00000000000010658e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Y
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Y
+  ->  -2.43680709927777150e-12
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Z
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors ALPHA_Z
+  ->  -1.79999999999991275e+02
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Z
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors DELTA_Z
+  ->  -7.23205804548526459e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors AZ_SUN
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors AZ_SUN
+  ->  -4.00000002709211131e+01
+Marmottes::controlable 0x8136fc8 ./test_Forcage.attitude.sensors EL_SUN
+  ->  1
+Marmottes::mesure 0x8136fc8 ./test_Forcage.attitude.sensors EL_SUN
+  ->  6.49341896731841359e+01
+Marmottes::desinitialise 0x8136fc8

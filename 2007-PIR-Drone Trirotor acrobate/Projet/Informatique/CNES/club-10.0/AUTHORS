@@ -1,0 +1,23 @@
+Authors of CLUB library
+
+Sylvain Vresk and Guylaine Prat are involved in the development and maintenance
+of CLUB since the version 9.1
+
+Frédéric Deshaies and Olivier Queyrut introduced in version 8.0 a new 
+object hierarchy to handle data files in XML, Madona or FichierStructuré 
+format. 
+
+Olivier Queyrut achieved the 7.0 version.
+
+Olivier Queyrut wrote the program difference.cc which was included in the
+version 6.2.
+
+Gregory Lajon introduced an exception based errors management in every
+classes in the version 6.0.
+
+Martine Julien achieved the 5.0 version.
+
+Martine Julien and Pierre-Alban Cros introduced a new object hierarchy
+to handle ASCII files, with exception mecanism.
+
+Luc Maisonobe wrote the first versions of the library up to 4.5.

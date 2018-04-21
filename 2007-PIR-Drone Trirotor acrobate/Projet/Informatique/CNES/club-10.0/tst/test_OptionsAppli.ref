@@ -1,0 +1,90 @@
+avant initialisation:
+   analyseur nom_de_l_analyseur non initialise
+usage : nom_de_l_analyseur  f.ff -c n -ce n n n -ceci f.ff -cela xxxx xxxx xxxx
+                           -e xxxx [-l]
+apres initialisation:
+   analyseur nom_de_l_analyseur initialise
+
+option -c:
+1 occurrence passee
+occurrence 1: valeur: 3
+
+option -ce:
+1 occurrence passee
+occurrence 1: valeur: -5 0 5
+
+option -ceci:
+2 occurrences passees
+occurrence 1: valeur: -9.98765
+occurrence 2: valeur: 4.653
+
+argument sans nom:
+3 occurrences passees
+occurrence 1: valeur: -4.5
+occurrence 2: valeur: 0.12
+occurrence 3: valeur: 4.5
+
+option -e:
+1 occurrence passee
+occurrence 1: valeur: OUI
+
+option -cela:
+1 occurrence passee
+occurrence 1: valeur: x y -c
+
+option -l:
+non passee
+
+
+test des detections d'erreurs
+probleme a l'analyse:
+unauthorized argument for -e option : "YES", authorized arguments :
+"oui"
+"OUI"
+"o"
+"O"
+"non"
+"NON"
+"n"
+"N"
+probleme a l'analyse:
+-ce option out of range [-5 ; +infinity[ : -6
+probleme a l'analyse:
+too long argument for -cela option : "000000000000000000000" (10 characters max)
+
+
+test de l'analyse en plusieurs passes
+analyse correcte
+
+option -c:
+1 occurrence passee
+occurrence 1: valeur: 3
+
+option -ce:
+1 occurrence passee
+occurrence 1: valeur: -5 0 5
+
+option -ceci:
+2 occurrences passees
+occurrence 1: valeur: -9.98765
+occurrence 2: valeur: 4.653
+
+argument sans nom:
+3 occurrences passees
+occurrence 1: valeur: -4.5
+occurrence 2: valeur: 0.12
+occurrence 3: valeur: 4.5
+
+option -e:
+1 occurrence passee
+occurrence 1: valeur: OUI
+
+option -cela:
+1 occurrence passee
+occurrence 1: valeur: x y -c
+
+option -l:
+non passee
+il reste 3 arguments non reconnus apres la passe 1
+ ./prgm_OptionsAppli -a -bdr
+execution de la passe 2 correcte

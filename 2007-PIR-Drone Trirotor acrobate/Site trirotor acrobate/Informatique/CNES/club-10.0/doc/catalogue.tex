@@ -1,0 +1,155 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+% $Id: catalogue.tex,v 1.8 2001/06/05 15:08:15 club Exp $
+\subsection{classes disponibles}\label{sec:classes-dispo}
+
+\begin{description}
+\item[AnalyseurLexical] reconnaît les lexèmes successifs d'un texte
+(noms, chaînes, séparateurs, entiers, réels, opérateurs, parenthèses)~;
+
+\item[BaseErreurs] est une classe virtuelle permettant la création de
+classes de gestions d'erreurs spécialisées pour d'autres bibliothèques
+ou applications\footnote{la classe \texttt{ClubErreurs} gérant les
+erreurs de la bibliothèque elle-même dérive de \texttt{BaseErreurs}}~;
+
+\item[CallTrace] permet d'enregistrer dans un fichier tous les appels
+à des fonctions qui ont été instrumentées dans ce but, ce qui permet
+aux développeurs de reproduire des cas engendrant des erreurs chez les
+utilisateurs et qui permet également de faire des tests de
+non-régression sans pour autant disposer du code appelant réel ;
+
+\item[ChaineSimple] réalise les opérations de base sur les chaînes
+de caractères (allocation, extension, copie, comparaison, formatage)~;
+
+\item[ClubAllocHandler] permet de gérer les erreurs de dépassement de
+capacité mémoire (opérateur \texttt{new}) à l'aide de la classe
+\texttt{ClubErreurs}~;
+
+\item[ClubErreurs] gère les erreurs de la bibliothèque, et offre une
+interface de formatage des erreurs système~;
+
+\item[DataFile] gère un tampon partagé sur une instance de
+UniqDataFile. Chaque service de DataFile appelle le service équivalent
+de la classe UniqDataFile~;
+
+\item[FichierStructure] gère de facon structurée (éventuellement
+récursive) des blocs d'informations imbriqués contenus dans un ou
+plusieurs fichiers de ressources~;
+
+\item[FormatC] permet d'analyser, de comparer et d'utiliser des
+formats d'écriture du \langage{c} (du genre
+\verb=%-12.6=)~;
+
+\item[FormatFortran] permet d'analyser, de comparer et d'utiliser des
+formats d'écriture du \langage{fortran} (du genre
+\verb='(3(X, F14.3), /, ''mode : '', I2)'=)~;
+
+\item[IterateurCaractere] permet de se déplacer caractère par
+caractère dans un TamponAscii~;
+
+\item[IterateurChamp] permet de se déplacer champ par champ
+dans un TamponAscii~;
+
+\item[IterateurLigne] permet de se déplacer ligne par ligne 
+dans un TamponAscii~;
+
+\item[IterateurChampLigne] permet de se déplacer par lignes et par
+champs dans un TamponAscii~;
+
+\item[MadonaFile] est une classe de gestion des fichiers au format
+Madona. Elle dérive de UniqDataFile et s'appuie sur les services de la
+bibliothèque Madona~;
+
+\item[OptionBase et ses classes dérivées] permettent de définir, une
+par une, les options passées à une application selon les types
+d'arguments qu'elles attendent et leur domaine de validité :
+\begin{itemize}
+\item pas d'argument ;
+\item chaîne de caractères (ou tableau) pouvant être limités en taille
+ou par une liste de valeurs ;
+\item entier (ou tableau) pouvant être limité à un domaine ;
+\item réel (ou tableau) pouvant être limité à un domaine ;
+\end{itemize}
+les nombres d'occurrences minima et maxima et les valeurs par défaut
+peuvent être spécifiés option par option ;
+
+\item[OptionsAppli] regroupe les définitions d'options pour une même
+application dans un analyseur d'arguments~;
+
+\item[StructureFile] est une classe de gestion des fichiers au format
+FichierStructure. Elle dérive de UniqDataFile~;
+
+\item[TamponAscii] classe de service pour manipuler du texte, utilisée
+par TamponTexte~;
+
+\item[TamponPartage] offre des services de partage de zones
+de mémoire allouées entre instances de classes en évitant les copies ;
+
+\item[TamponTexte] offre des services de gestion en mémoire d'un texte
+permettant de manipuler simultanément les structures de lignes, de
+champs (globalement ou à l'intérieur des lignes) ou l'absence de
+structure, d'ignorer les commentaires et les lignes vides à volonté,
+et de prendre en compte des caractères spéciaux (par exemple pour
+mettre un passage à la ligne (\verb=\n=) à l'intérieur d'un champ)~;
+
+\item[Traducteur] offre un service de traduction dans la langue de
+l'utilisateur de chaînes de caractères, de formats \langage{fortran}
+et de formats \langage{c} avec vérification de cohérence entre le
+format de base et le format traduit (les messages d'erreurs de la
+bibliothèque utilisent ce mécanisme)~;
+
+\item[UniqDataFile] est une classe abstraite fournissant une
+abstraction commune pour la gestion de fichiers sous divers formats
+structurés (Madona, XML, FichierStructure)~;
+
+\item[XMLFile] est une classe de gestion des fichiers au format
+XML. Elle dérive de UniqDataFile et s'appuie sur les services de la
+bibliothèque Xerces.
+
+\end{description}
+
+\subsection{utilitaires disponibles}\label{sec:utils-dispo}
+
+\begin{description}
+
+\item[difference] cet utilitaire permet de comparer deux fichiers
+tout en acceptant des différences numériques dès lors qu'elles sont
+inférieures à un seuil paramétrable dans la ligne de commande.
+ 
+\end{description}
+
+
+\subsection{routines d'interfaçage}\label{sec:routines-interfacage}
+Seul le système de traduction dispose d'interfaces avec les langages
+\langage{c} et \langage{fortran}.
+
+\subsubsection{interface \langage{c}}\label{sec:interface-c}
+\begin{description}
+\item[AjouterDomaine] permet d'ajouter un domaine de traduction
+spécifié par son nom~;
+\item[TraduitVersExterne] traduit une chaîne de caractères de la
+langue interne vers la langue de l'utilisateur~;
+\item[TraduitVersInterne] traduit une chaîne de caractères de la
+langue de l'utilisateur vers la langue interne~;
+\item[TraduitFormatCVersExterne] traduit un format du langage
+\langage{c} vers la langue de l'utilisateur, en vérifiant la cohérence
+entre format initial et format traduit, afin d'éviter les violations
+mémoires à l'utilisation du format.
+\end{description}
+
+\subsubsection{interface \langage{fortran}}\label{sec:interface-fortran}
+\begin{description}
+\item[domtrad] permet d'ajouter un domaine de traduction
+spécifié par son nom~;
+\item[tradext] traduit une chaîne de caractères de la
+langue interne vers la langue de l'utilisateur~;
+\item[tradint] traduit une chaîne de caractères de la
+langue de l'utilisateur vers la langue interne~;
+\item[tradform] traduit un format du langage
+\langage{fortran} vers la langue de l'utilisateur, en vérifiant la cohérence
+entre format initial et format traduit, afin d'éviter les violations
+mémoires à l'utilisation du format~;
+\item[tradecrCH] traduit un format et l'utilise pour écrire dans une
+chaîne de caractères (c'est une fonction à arguments variables) ;
+\item[tradecrFD] traduit un format et l'utilise pour écrire dans un
+fichier (c'est une fonction à arguments variables).
+\end{description}

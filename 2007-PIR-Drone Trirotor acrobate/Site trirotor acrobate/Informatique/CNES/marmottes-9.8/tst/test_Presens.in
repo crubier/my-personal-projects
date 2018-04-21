@@ -1,0 +1,83 @@
+#! /bin/sh
+
+# $Id: test_Presens.in,v 1.4 2001/06/06 09:27:39 luc Exp $
+
+# cleaning stuff
+clean()
+{ for locale1 in "$sed" "$res" "$patched" "$tmp1" "$tmp2" ; do
+    if [ ! -z "$locale1" -a -f "$locale1" ] ; then
+       rm "$locale1"
+    fi
+  done
+}
+
+trap clean 0
+trap 'exit 1' 1 2 3
+
+# temporary files
+sed=test_Presens.sed.$$
+res=test_Presens.res.$$
+patched=test_Presens.patched.$$
+tmp1=test_Presens.tmp1.$$
+tmp2=test_Presens.tmp2.$$
+
+global_r=0
+
+# use either the tests specified by the user or a predefined list
+if [ $# -eq 0 ] ; then
+  key_list="ephem aef ires inhib"
+else
+  key_list="$*"
+fi
+
+for key in $key_list ; do
+
+  if [ ! -f @srcdir@/test_Presens.$key.log ] ; then
+    echo "file @srcdir@/test_Presens.$key.log missing, skipping test" 1>&2
+  else
+    # get the first sensor file
+    f="  *\([^ ][^ ]*\)"
+    sed -n "s,Marmottes::reinitialise .*$f$f$f$f"' *$,\1,p' \
+        < @srcdir@/test_Presens.$key.log > $tmp1
+    sensor_file=`head -1 $tmp1 | sed -e 's,.*/,,' -e 's,\(.*\),@srcdir@/\1,'`
+
+    # set the language according to the first sensor file
+    if [ `sed -n '/^[^#]* accuracy /p' $sensor_file | wc -l` -gt 0 ] ; then
+      @ma_cv_var_lang@=en ; export @ma_cv_var_lang@
+    else
+      @ma_cv_var_lang@=fr ; export @ma_cv_var_lang@
+    fi
+    @ma_cv_var_tradpath@=@srcdir@/.. ; export @ma_cv_var_tradpath@
+
+    # run the test program
+    ../utils/marmottesReplay -d @srcdir@ @srcdir@/test_Presens.$key.log -o $res
+
+    # patch the pointer values before comparison
+    sed -n "s,Marmottes::reinitialise *\(0x[^ ]*\) .*$f$f$f$f"' *$,\1 \2,p' \
+        < @srcdir@/test_Presens.$key.log | tr ' ' '\012' > $tmp1
+    sed -n "s,Marmottes::reinitialise *\(0x[^ ]*\) .*$f$f$f$f"' *$,\1 \2,p' \
+        < $res | tr ' ' '\012' > $tmp2
+    if [ `wc -l < $tmp1` -ne `wc -l < $tmp2` ] ; then
+      echo "result file and reference files do not use the same number of instances" 1>&2
+      exit 1
+    fi
+    paste -d ' ' $tmp1 $tmp2 \
+     | sed 's, *\([^ ]*\) *\([^ ]*\),s;\2;\1;,' \
+     | sort \
+     | uniq \
+     > $sed
+    sed -f $sed < $res > $patched
+
+    # compare files
+    echo "difference -p 1.0e-4 -ee 1 10 -shift 50 -res $patched -rfres 2 -ref @srcdir@/test_Presens.$key.log -rfref 3"
+    difference -p 1.0e-4 -ee 1 10 -shift 50 -res $patched -rfres 2 -ref @srcdir@/test_Presens.$key.log -rfref 3
+    r=$?
+
+    if [ $r -ne 0 ] ; then
+      global_r=$r
+    fi
+  fi
+
+done
+
+exit $global_r

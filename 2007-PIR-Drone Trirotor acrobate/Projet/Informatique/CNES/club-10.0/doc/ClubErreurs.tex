@@ -1,0 +1,334 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+% $Id: ClubErreurs.tex,v 1.13 2005/03/03 16:42:45 chope Exp $
+\subsection{classe ClubErreurs}\label{sec:ClubErreurs}
+
+\subsubsection*{description}\label{sec:ClubErreurs-desc}
+
+Cette classe permet de formater et traduire dans la langue de
+l'utilisateur des messages d'erreur liés à la bibliothèque
+\bibliotheque{club} ou les messages simples d'un utilisateur. Elle
+utilise les mécanismes qui lui sont fournis par sa classe de base.
+
+Certains codes gérés par cette classe peuvent être réutilisées par des
+fonctions externes à la bibliothèque \bibliotheque{club}. Un code en
+particulier est pratique à utiliser en mise au point: il s'agit du
+code \texttt{ClubErreurs\char58\char58trace}. En effet, il suffit
+d'ecrire la ligne :
+
+\centerline{\texttt{\{ ClubErreurs (ClubErreurs\char58\char58trace,
+\_\_LINE\_\_, \_\_FILE\_\_); \}}}
+
+(sans oublier les accolades) n'importe où dans un fichier source pour
+qu'un message signale sur la sortie standard chaque exécution de la
+ligne correspondante (et donc des lignes voisines), en effet cette
+ligne crée une variable temporaire qui formate le message et est
+détruite dès que l'accolade de fin est rencontrée, ce qui provoque
+l'affichage. Afin de faciliter cette utilisation en mise au point, la
+macro-définition \texttt{CLUB\_TRACE} à été écrite dans
+\texttt{club/ClubErreurs.h}, elle prend pour valeur la ligne décrite
+précédemment lorsque \texttt{CLUB\_CPP\_DEBUG} est définie, et prend
+une valeur vide dans le cas contraire. Il suffit donc de mettre
+\texttt{CLUB\_TRACE} dans son code pour avoir une trace
+conditionnelle.
+
+\subsubsection*{interface publique}\label{sec:ClubErreurs-int}
+\begin{verbatim}
+#include "club/ClubErreurs.h"
+\end{verbatim}
+
+Les opérations publiques sont essentiellements celles de la classe de
+base \texttt{BaseErreurs} (voir
+table~\ref{tab:BaseErreurs-met-pub}). Les méthodes qui ne peuvent être
+héritées (les constructeurs et les méthodes de classe) ont été
+redéfinies avec des sémantiques équivalentes. Dans ces méthodes
+redéfinies, les codes d'erreurs (déclarés comme type
+énuméré publique interne) attendent les arguments suivants dans la
+liste des arguments variables :
+
+\begin{description}
+
+\item[allocation\_memoire]: néant ;
+
+\item[message\_simple]: \texttt{char *} (pour le message à formater) ;
+
+\item[etat\_fichier]: \texttt{char *} (pour le nom du fichier) ;
+
+\item[ouverture\_fichier]: \texttt{char *} (pour le nom du fichier) ;
+
+\item[lecture\_types\_incompatibles]: \texttt{char *} (pour le nom de
+l'option), \texttt{char *} (pour le type de l'option), \texttt{char *}
+(pour le type désiré) ;
+
+\item[taille\_tableau\_arguments] : \texttt{char *} (pour le nom de
+l'option), \texttt{int} (pour la taille du tableau) ;
+
+\item[nombre\_arguments\_incompatibles]: \texttt{char *} (pour le nom
+de l'option), \texttt{int} (pour le nombre d'arguments trouvés),
+\texttt{int} (pour le nombre d'arguments attendus) ;
+
+\item[nombre\_arguments\_negatif]: \texttt{char *} (pour le nom de
+l'option), \texttt{int} (pour le nombre d'arguments) ;
+
+\item[nb\_arguments\_option\_vide]: néant ;
+
+\item[nom\_option\_non\_lettre]: \texttt{char *} (pour le nom de
+l'option) ;
+
+\item[nombre\_arguments\_nul]: \texttt{char *} (pour le nom de
+l'option) ;
+
+\item[valeur\_par\_defaut\_manquante]: \texttt{char *} (pour le nom de
+l'option)
+
+\item[option\_chaine\_trop\_longue]: \texttt{char *} (pour le nom de
+l'option), \texttt{char *} (pour l'argument trouvé), \texttt{int}
+(pour la longueur maximale autorisée) ;
+
+\item[option\_chaine\_hors\_domaine]: \texttt{char *} (pour le nom de
+l'option), \texttt{char *} (pour l'argument trouvé),
+\texttt{string []} (pour la liste des valeurs autorisées) ;
+
+\item[option\_entiere\_hors\_limites]: \texttt{char *} (pour le nom de
+l'option), \texttt{int} (pour la valeur minimale autorisée),
+\texttt{int} (pour la valeur maximale autorisée), \texttt{int} (pour
+la valeur trouvée) ;
+
+\item[option\_reelle\_hors\_limites]: \texttt{char *} (pour le nom de
+l'option), \texttt{double} (pour la valeur minimale autorisée),
+\texttt{double} (pour la valeur maximale autorisée), \texttt{double}
+(pour la valeur trouvée) ;
+
+\item[code\_option\_non\_reconnu]: \texttt{char *} (pour le code de
+l'option) ;
+
+\item[plus\_d\_argument]: \texttt{char *} (pour le nom de l'option) ;
+
+\item[option\_deja\_definie]: \texttt{char *} (pour le nom de
+l'option) ;
+
+\item[options\_appli\_deja\_initialise]: \texttt{char *} (pour le nom
+de l'analyseur) ;
+
+\item[options\_appli\_non\_initialise]: \texttt{char *} (pour le nom
+de l'analyseur) ;
+
+\item[arguments\_non\_reconnus]: \texttt{char *} (pour le nom de
+l'analyseur) ;
+
+\item[occurrence\_inexistante]: \texttt{int} (pour le numéro
+d'occurrence), \texttt{char *} (pour le nom de l'option), \texttt{int}
+(pour le nombre d'occurrences passées) ;
+
+\item[occurrence\_hors\_limites]: \texttt{char *} (pour le nom de
+l'option), \texttt{int} (pour le nombre minimal d'occurrences),
+\texttt{int} (pour le nombre maximal d'occurrences), \texttt{int} (pour
+le nombre d'occurrences passées) ;
+
+\item[tampon\_vide]: \texttt{char *} (pour le nom du tampon) ;
+
+\item[manque\_guillemet]: \texttt{char *} (pour le nom du fichier) ;
+
+\item[ligne\_hors\_domaine]: \texttt{int} (pour le numéro de ligne),
+\texttt{int} (pour le numéro minimal), \texttt{int} (pour le numéro
+maximal), \texttt{char *} (pour le nom du fichier) ;
+
+\item[champ\_ligne\_hors\_domaine]: \texttt{int} (pour le numéro de
+champ), \texttt{int} (pour le numéro minimal), \texttt{int} (pour le
+numéro maximal), \texttt{int} (pour le numéro de ligne), \texttt{char
+*} (pour le nom du fichier) ;
+
+\item[champ\_hors\_domaine]: \texttt{int} (pour le numéro de champ),
+\texttt{int} (pour le numéro minimal), \texttt{int} (pour le numéro
+maximal), \texttt{char *} (pour le nom du fichier) ;
+
+\item[accolades\_non\_equilibrees]: \texttt{char *} (pour le nom du
+fichier) ;
+
+\item[bloc\_introuvable]: \texttt{char *} (pour le nom du bloc),
+\texttt{char *} (pour le nom du bloc englobant, qui peut être une
+chaine vide), \texttt{char *} (pour le nom du fichier) ;
+
+\item[bloc\_champ\_inexistant]: \texttt{int} (pour le numéro de
+champ), \texttt{char *} (pour le nom du bloc), \texttt{char *} (pour
+le nom du fichier) ;
+
+\item[bloc\_nom\_terminal]: \texttt{char *} (pour le nom du bloc),
+\texttt{char *} (pour le nom du fichier) ;
+
+\item[manque\_accolade]: \texttt{char *} (pour le nom du bloc),
+\texttt{char *} (pour le nom du fichier) ;
+
+\item[manque\_chevron]: \texttt{char *} (pour le nom du bloc),
+\texttt{char *} (pour le nom du fichier) ;
+
+\item[nom\_inclusion]: \texttt{char *} (pour le nom du fichier) ;
+
+\item[msg\_errno] : \texttt{char *} (pour le préfixe au message
+système) ;
+
+\item[format\_fortran] : \texttt{char *} (pour le format) ;
+
+\item[trace]: \texttt{int} (pour le numéro de ligne), \texttt{char *}
+(pour le nom de fichier).
+
+\item[iterateur\_invalide]: \texttt{char *} (pour le nom du fichier).
+
+\item[caractere\_hors\_domaine]: \texttt{int} (pour le caractère),
+\texttt{int} (pour le code minimal), \texttt{int} (pour le code
+maximal), \texttt{char *} (pour le nom du fichier).
+
+\begin{changebar}
+\item[variable\_environnement]: \texttt{char *} (pour le nom de la
+variable d'environnement).
+\end{changebar}
+
+\item[calltrace\_not\_activated]: néant
+
+\item[internal\_error]: \texttt{int} (pour le numéro de ligne),
+\texttt{char *} (pour le nom du fichier).
+
+\item[not\_implemented]: \texttt{char *} (pour le nom et la signature
+de la fonction non implémentée).
+
+\item[name\_error]: \texttt{char *} (pour la désignation incorrecte).
+
+\item[string\_to\_int\_conversion\_error]:  \texttt{char *} (pour la
+chaîne de caractères non convertible en entier).
+
+\item[string\_to\_double\_conversion\_error]:  \texttt{char *} (pour la
+chaîne de caractères non convertible en réel).
+
+\item[file\_error]: \texttt{char *} (pour le nom de fichier),
+\texttt{char *} (pour le message d'erreur associé au fichier).
+
+\item[malformed\_data]: \texttt{char *} (pour le nom de l'élément ou de
+la désignation mal formé).
+
+\item[missing\_tag]: \texttt{char *} (pour le nom de la balise
+manquante).
+
+\begin{changebar}
+\item[missing\_attribute]: \texttt{char *} et \texttt{char *} (pour le
+nom de l'attribut et le nom de l'élément).
+\end{changebar}
+
+\item[xpointer\_syntax\_error]: \texttt{char *} (pour chaîne xpointer
+invalide).
+    
+\begin{changebar}
+\item[redefined\_unit]: \texttt{char *} (pour le symbole de l'unité).
+
+\item[incompatible\_units]: \texttt{char *} et \texttt{char *} (pour
+les symboles des unités).
+
+\item[entity\_syntax\_error]: \texttt{char *} (pour la chaîne
+contenant l'appel à l'entité ou au caractère).
+
+\item[unknown\_parameter\_entity]: \texttt{char *} et \texttt{char *} (pour
+l'entité et pour la chaîne la contenant).
+
+\item[unit\_syntax\_error]: \texttt{char *} (pour la chaîne
+définissant l'unité composée).
+\end{changebar}
+
+\item[undefined\_data]: \texttt{char *} (pour le nom absolu de la
+donnée indéfinie).
+
+\item[undefined\_table\_or\_structure]: \texttt{char *} (pour le nom absolu du
+tableau ou de la structure indéfinie).
+  
+\item[undefined\_parameter]: \texttt{char *} (pour le nom absolu du
+paramètre indéfini).
+
+\item[undefined\_index]: \texttt{int} (pour l'index indéfini),
+\texttt{char *} (pour le nom absolu du tableau).
+
+\item[undefined\_unit]: \texttt{char *} (pour le nom de l'unité
+indéfinie).
+
+\item[undefined\_node\_type]: \texttt{char *} (pour le nom du noeud indéfini).
+
+\item[current\_data\_not\_a\_table]: \texttt{char *} (pour le nom
+absolu de la donnée courante).
+
+\item[current\_data\_is\_a\_table]: \texttt{char *} (pour le nom
+absolu de la donnée courante).
+
+\item[move\_up\_forbidden] : néant.
+
+\item[madona\_error]: \texttt{char *} (pour le message d'erreur
+madona).
+
+\item[xml\_error]: \texttt{char *} (pour le message d'erreur XML).
+
+\item[invalid\_element\_type]: \texttt{char *} (pour le nom de la
+table), \texttt{char *} (pour le type de la table), \texttt{char *}
+(pour le type d'élément que l'on souhaite ajouter).
+
+\item[no\_madona\_lib]: néant.
+
+\item[no\_xerces\_lib] : néant.
+
+\item[index\_creation\_forbidden]: \texttt{int} (pour l'index).
+
+\item[data\_already\_defined]: \texttt{char *} (pour le nom absolu de
+la donnée).
+
+\item[unknown\_file\_type]: néant.
+
+\end{description}
+
+
+
+\subsubsection*{exemples d'utilisation}
+
+\paragraph{utilisation sans exception}
+
+\begin{verbatim}
+#include <fstream.h>
+#include "club/ClubErreurs.h"
+...
+int lire (const char* nom, ClubErreurs& err)
+{ ifstream fichier (nom);
+  if (! fichier.good ())
+  { err.miseAJour (ClubErreurs::ouverture_fichier, nom);
+    return 1;
+  }
+  ...
+  return 0;
+}
+\end{verbatim}
+
+\paragraph{utilisation avec exceptions}
+
+\begin{verbatim}
+#include <fstream.h>
+#include "club/ClubErreurs.h"
+...
+void lire (const char* nom)
+{ ifstream fichier (nom);
+  if (! fichier.good ())
+    ClubErreurs::lance (ClubErreurs::ouverture_fichier, nom);
+  ...
+  return ;
+}
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation
+spécifiques}\label{sec:ClubErreurs-conseils}
+Cette classe est principalement utilisée pour tester la bonne
+exécution des fonctions de la bibliothèque \bibliotheque{club}
+elle-même. Son utilisation se résume donc à tester correctement la
+présence ou l'absence d'erreurs (méthode \texttt{existe ()}), et à
+décider du comportement à adopter en présence d'une erreur.
+
+Si la même instance d'erreur est utilisée pour tester le retour de
+plusieurs fonctions, il faut prendre garde de la tester au bon moment
+; il est en effet possible qu'une erreur soit générée par le premier
+appel, qu'elle soit ignorée par l'appelant, qu'une seconde fonction de
+\bibliotheque{club} se termine ensuite normalement et que l'appelant
+ne détecte la première erreur qu'à cet instant.
+
+\subsubsection*{implantation}\label{sec:ClubErreurs-impl}
+La classe dérive publiquement de \texttt{BaseErreurs}, elle ne possède
+aucun attribut propre.

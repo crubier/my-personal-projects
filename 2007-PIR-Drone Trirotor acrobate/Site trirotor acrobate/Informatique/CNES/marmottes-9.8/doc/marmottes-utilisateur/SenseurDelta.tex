@@ -1,0 +1,125 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: SenseurDelta.tex,v 1.7 2003/07/09 09:24:58 marmottes Exp $
+\subsection{classe SenseurDelta}\label{sec:SenseurDelta}
+
+\subsubsection*{description}\label{sec:SenseurDelta-desc}
+
+Cette classe implante les pseudo-senseurs de déclinaison, elle est
+pratique par exemple pour optimiser une direction de poussée
+inertielle (le vecteur interne de référence est alors la direction de
+poussée).
+\subsubsection*{interface publique}\label{sec:SenseurDelta-int}
+\begin{verbatim}
+#include "marmottes/SenseurDelta.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{SenseurDelta : méthodes publiques}
+{\label{tab:SenseurDelta-met-pub}}
+{construit une instance à partir des données technologiques}
+
+\signature{\fonc{SenseurDelta}}
+          {(const string\& \argument{nom},\\
+            const RotDBL\& \argument{repere},\\
+            const VecDBL\& \argument{axeCalage},\\
+            double \argument{precision},\\
+            const VecDBL\& \argument{observe})
+          }&
+
+construit une instance à partir des données technologiques\\
+
+\hline
+
+\signature{\fonc{SenseurDelta} (const SenseurDelta\& \argument{s})}
+          {}&
+
+constructeur par copie\\
+
+\signature{SenseurDelta\& \fonc{operator =}}
+          {(const SenseurDelta\& \argument{s})}&
+
+affectation\\
+
+\hline
+
+\signature{\fonc{\~{}SenseurDelta} ()}
+          {}&
+
+destructeur, ne fait rien dans cette classe\\
+
+\hline
+
+\signature{void \fonc{respecterMesures} ()}
+          {}&
+
+force le senseur à respecter les unités de mesures dans ses sorties\\
+
+\signature{void \fonc{convertirMesures} ()}
+          {}&
+
+force le senseur à convertir les unités de mesures dans ses sorties\\
+
+\hline
+
+\signature{int \fonc{controlable} (const Etat\& \argument{etat})}
+          {\throw{MarmottesErreurs}}&
+
+indique si le senseur serait capable de contrôler le satellite dans
+l'\argument{etat} fourni (toujours vrai pour un senseur de
+déclinaison)\\
+
+\hline
+
+\signature{Senseur* \fonc{copie} () const}
+          {}&
+
+opérateur de copie virtuel\\
+
+\signature{typeGeom \fonc{typeGeometrique} () const}
+          {}&
+
+retourne le type de senseur géométrique (pseudoSenseur)\\
+
+\hline
+
+\signature{void \fonc{nouveauRepere}}
+          {(const RotDBL\& \argument{nouveau})}&
+
+remplace le repère du senseur par le \argument{nouveau}\\
+
+\signature{void \fonc{modeliseConsigne}}
+          {(const Etat\& \argument{etat},\\
+            double \argument{valeur})\\
+          \throw{CantorErreurs, MarmottesErreurs}}&
+
+modélise la consigne \argument{valeur} dans l'\argument{etat} fourni\\
+
+\signature{double \fonc{mesure} (const Etat\& \argument{etat})}
+          {\throw{MarmottesErreurs}}&
+
+retourne la mesure que produirait le senseur dans l'\argument{etat}
+fourni\\
+
+\end{tableFonctionsFixe}
+\subsubsection*{implantation}\label{sec:SenseurDelta-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:SenseurDelta-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe SenseurDelta}
+{\label{tab:SenseurDelta-att-priv}}
+{vecteur interne observé (en repère satellite)}
+
+observe\_ & VecDBL  & vecteur interne observé (en repère satellite)\\
+
+\end{tableAttributsFixe}
+
+Les méthodes protégées sont décrites dans la table~\ref{tab:SenseurDelta-met-prot}.
+\begin{tableFonctionsFixe}{SenseurDelta : méthodes protégées}
+{\label{tab:SenseurDelta-met-prot}}
+{constructeur par défaut. Il est défini explicitement uniquement pour }
+
+\signature{\fonc{SenseurDelta} ()}
+          {}&
+
+constructeur par défaut. Il est défini explicitement uniquement pour
+prévenir celui créé automatiquement par le compilateur et ne doit pas être
+utilisé.
+\\
+\end{tableFonctionsFixe}

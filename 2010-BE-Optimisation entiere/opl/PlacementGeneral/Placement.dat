@@ -1,0 +1,28 @@
+/*********************************************
+ * OPL 6.3 Data
+ * Author: lecrubier
+ * Creation Date: 30 juin 2010 at 14:24:45
+ *********************************************/
+
+
+//Nombre de modeles de paniers
+NBPANIERS = 2;
+//Nom de modeles de paniers
+NomPanier = ["p1","p2"];
+//Puissance maximum delivree par chaque modele de panier
+PuissanceMaximum = [150,200];
+//Nombre de connexions disponibles par panier
+NombreConnexions = [8,16];
+//Prix de chaque panier
+Prix = [150,200];
+
+
+//Nombre de modèles de cartes
+NBCARTES = 4;
+//Noms des modeles de cartes
+NomCarte = ["c1","c2","c3","c4"];
+//Puissance consomme par les cartes
+PuissanceConsommee = [20,40,50,75];
+//Nombre de cartes de chaque type a placer
+NombreDemande = [10,4,2,1];
+

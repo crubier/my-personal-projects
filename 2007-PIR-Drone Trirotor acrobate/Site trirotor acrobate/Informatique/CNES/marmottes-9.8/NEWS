@@ -1,0 +1,533 @@
+Ce fichier regroupe les changements visibles par l'utilisateur et les
+changements algorithmiques qui peuvent l'intéresser ; pour les
+modifications de plus bas niveau (implémentation informatique et
+développement) et en particulier pour chercher à quels moments
+certains bugs ont été introduits, il faut plutôt consulter le fichier
+ChangeLog.
+
+* version 9.8 :
+
+  - Correction d'une erreur de recalage d'angle
+    Cette erreur affectait les senseurs de Cardan et conduisait à des
+    échecs de résolution pour des consignes proches de +/- 180 degrés
+    (FA 0230).
+
+* version 9.7 :
+
+  - Correction d'une erreur d'interpolation
+    Cette erreur affectait les senseurs visant une station sol
+    ayant un masque d'antenne non constant (FA 0034, FA 0032).
+
+  - Correction d'une erreur de changement de repère pour certains senseurs
+    La transformation des vecteurs du repère senseur dans le repère satellite n'était pas
+    effectuée (FA 0035).
+
+  - Mise à jour de la documentation utilisateur
+    Précision sur le repère d'expression de la cible (DM 0033).
+
+* version 9.6 :
+
+  - Corrections qualite
+    Utilisation d' une methode statique et une methode privee pour resoudre l'attitude.
+    Elimination des methodes publiques (sB, modele, date, position, famille, 
+    seuil et tranches) dans la classe ResolveurAttitude (DM 0029)
+
+  - Ajout d'un nouveau service en interface (c++, c et fortran)
+    Ajout d'une methode de lecture des parametres courants (date, position,
+    vitesse, attitude, spin) (DM 0027)
+
+  - Extension de la notion de cible sans eclipse a polaris et canope
+    Ajout de la notion de cible sans eclispe pour polaris et canope (DM 0026)
+
+  - Erreur interne dans cantor
+    Cette anomalie est corrigee dans SenseursOptique.cpp
+    Il s'agissait d'une erreur qui apparaissait lors de la recherche de
+    la plus proche intersection entre une direction de tir et le champ de
+    vue d inhibition du corps central. Cette erreur etait liee a la 
+    non normalisation du vecteur dirCentral (FA 0029)
+
+  - mise a jour de la documentation marmottes utilisateur 
+    La possibilite de definir une zone d'inhibition pour une astre type 
+    corps central n'etait pas precise dans la documentation (FA 0030)
+
+  - correction des cibles position-sans-eclipse et direction-sans-eclipse
+    Ces cibles étaient inutilisables en raison d'une vérification trop
+    sévère générant un message d'erreur (FA 0031)
+
+  - ajout de la journalisation des appels au constructeur par copie
+    Les appels au constructeur par copie de la classe Marmottes sont
+    désormais journalisés et reproduits par l'utilisateur marmottesReplay,
+    ce qui permet de générer des journaux d'appels pour les applicatifs
+    appelant marmottes depuis le langage C++ (DM 0028)
+
+  - Extension du domaine de validité de la cible vitesse-sol-apparente
+    Cette extension est faite par un prolongement par continuité au
+    delà du limbe du corps central, en considérant que les points
+    visés ont une vitesse nulle. Ceci élimine complètement un cas
+    d'erreur et permet d'utiliser cette cible dès l'initialisation du
+    simulateur (DM 0025).
+
+* version 9.5
+
+  - prise en compte de nouvelles versions des outils de développement
+    Cette modification est sans impact sur les utilisateurs.
+
+  - correction de la FA-ID 0023
+    Externalisation depuis l'interface fortran des fonctions de calcul 
+    par defaut du temps sideral et de la position des astres (Terre, Lune et
+    Soleil) afin de permettre a l'utilisateur de les passer a MarmottesEnregistreCorps()
+    Creation d'un test de validation (DM 23)
+
+* version 9.4 :
+
+  - ajout de la prise en compte des rayons angulaires des astres inhibants
+    Les rayons angulaires des astres inhibants, tels le soleil ou la
+    lune, sont maintenant pris en compte dans le calcul des inhibitions.
+
+  - ajout de la prise en compte des inhibitions par le corps central
+    Le corps central est maintenant pris en compte au titre des
+    inhibitions.
+
+  - ajout de la possibilité de personnaliser les rayons lune et soleil
+    Les rayons, de la lune et du soleil, peuvent être modifiés par
+    l'utilisateur, au travers de l'interface d'appel des fonctions.
+
+  - prise en compte de la DM 0009
+    Une fonction Fortran d'accès à la version de la bibliothèque
+    a été crée.
+
+  - homogénéisation des classes
+    Des méthodes ont été ajoutés dans différentes classes afin que
+    toutes aient des constructeurs par défaut, par copie,
+    par affectation et des destructeurs.
+    Les accès (public/protected/private) à ces méthodes sont tels
+    qu'ils respectent les accès antérieurs. De fait, ces accès sont
+    restreints et ne modifient aucument le comportement des classes.
+
+  - Modification des extensions des fichiers sources
+    Les fichiers sources précédemment suffixés .cc sont désormais suffixés
+    en .cpp dans le but de faciliter un portage ultérieur de la bibliothèque
+    sous Windows.
+
+* version 9.3 :
+
+  - prise en compte de la DM 0007 
+    Par défaut, Marmottes dispose de modèles internes pour le calcul
+    du temps sidéral, des éphémérides du Soleil, de la Lune et de la
+    Terre, ainsi que des caractéristiques du corps central.  Si ces
+    modèles ne conviennent pas à l'utilisateur (par exemple: dans un
+    cadre interplanétaire), alors ces modèles peuvent être
+    personnalisés en fournissant des valeurs numériques et des
+    fonctions de calculs appropriées
+ 
+  - prise en compte de la DM 0008
+    La documentation (au format Postscript) présente désormais des
+    barres de modification aux endroits modifiés par rapport à la
+    version précédente.
+
+  - corrections de scripts de configuration (FA 0014)
+    Quelques erreurs rares de configuration dans des cas inhabituels
+    ont été corrigées. Il s'agit de corrections mineures n'affectant
+    pas les utilisateurs habituels.
+
+  - ajout et correction de tests (FA 0015)
+    Un test reproduisant les conditions de la FA 15 a été ajouté et
+    le test du programme Parcelle a été mis à jour. La correction de
+    cette anomalie est faite dans la bibliothéque cantor.
+
+* version 9.2 :
+
+  - prise en compte de la DM 0004
+    Ajout de tests concernant les différents types de senseur (cardan,
+    limbe, dièdre, vecteur, plan vecteur, cinématique, gyro intégrateur,
+    ascension droite et déclinaison)
+
+  - prise en compte de la DM 0002
+    Ajout de la prise en compte de la dérive (offset) d'un senseur
+    cinématique.
+
+* version 9.1 :
+
+  - prise en compte de versions récentes des outils de développement GNU
+    Les outils de développement de la suite GNU ont été mis à jour
+    (autoconf 2.52, automake 1.5 et libtool 1.4.1). Ceci ne devrait
+    avoir aucun impact sur les utilisateurs (qui se contentent de
+    compiler la bibliothèque à partir des fichiers générés par ces
+    outils et inclus dans la distribution). Seuls les développeurs de
+    la bibliothèque qui sont amenés à y apporter des modification sont
+    concernés.
+
+  - correction d'une erreur sur les modèles géométriques à un vecteur fixe
+    Cette erreur grave empêchait de trouver les solutions ayant un
+    vecteur fixe opposé à l'axe du cône de consigne.
+
+  - correction d'une erreur de consignes dégénérées non détectée
+    l'utilisation d'une consigne à -90 degrés pour un capteur
+    plan-vecteur ou d'une consigne à 180 degrés pour un capteur vecteur
+    n'étaient pas détectées alors qu'elles sont dégénérées
+
+  - détection de cas d'erreur supplémentaires
+    l'utilisation de consignes cinématiques (gyromètres et gyromètres
+    intégrateurs) conduisant à un modèle de vitesse supérieur au omega
+    max génère désormais une erreur. Ce cas peut se rencontrer
+    notamment lorsque l'on spécifie un pas de temps trop court pour
+    qu'un gyromètre intégrateur atteigne une valeur angulaire donnée.
+    Les capteurs optiques ayant une cible liée au soleil ne peuvent
+    pas être inhibés par le soleil. Il en est de même pour la
+    lune. Les champs d'inhibitions étaient simplement ignorés jusque
+    là. Désormais, une erreur est générée lorsqu'un champ d'inhibition
+    porte explicitement sur la cible du capteur (FA 0008).
+
+* version 9.0 :
+
+  - modification de la syntaxe du balayage des les fichiers senseurs
+    l'opération de balayage permet de créer un champ en « étalant » un
+    autre champ selon une rotation. Les versions précédentes
+    acceptaient toutes les définitions de rotation pour cette
+    opération, mais ceci conduisait à des résultats faux lorsque
+    l'angle de la rotation dépassait 180 degrés,car les rotations
+    (u, alpha) et (-u, 2PI - alpha) sont indiscernables lorsqu'on se
+    contente de les voir comme opérateurs vectoriels. Désormais, il
+    est INDISPENSABLE de donner un axe et un angle pour cette
+    opération. Les anciens fichiers senseurs qui utilisaient des
+    rotations quelconques doivent être corrigés pour pouvoir être lus
+    par cette version de la bibliothèque (cette incompatibilité est la
+    raison du saut de numérotation de 8.x à 9.y).
+
+  - ajout d'une cible vitesse-sol-apparente
+    Cette cible représente la vitesse vue du satellite du point au sol
+    situé dans la direction d'observation du capteur. Elle est
+    typiquement utilisée pour contrôler le lacet d'un satellite
+    d'observation de façon à compenser la vitesse de rotation du corps
+    central et obliger les points observés à se déplacer dans une
+    direction privilégiée au cours d'une prise de vue
+    (perpendiculairement à la barrette CCD).
+
+  - ajout d'une cible lune-sans-eclipse
+
+  - ajout d'un capteur de gain d'antenne bidimensionnel en produit de sinus cardinaux
+    La forme en sin(x)/x utilisée dans les modélisations simples de
+    gains d'antenne provient de la transformée de Fourier d'une
+    ouverture rectangulaire. Il n'y a donc généralement pas de
+    symétrie axiale pour ces formes, et il faut spécifier séparément
+    la taille à 3 dB selon X de la taille selon y. L'ancien capteur en
+    sinus cardinal carré, qui spécifiait un seul angle et présentait
+    une symétrie est conservé pour des raisons de compatibilité, mais
+    un nouveau capteur a été créé pour avoir des modélisations plus
+    réalistes.
+
+  - correction d'une erreur dans la formule du temps sidéral
+    cette erreur dans les constantes du temps sidéral a un impact numérique
+    minime sur la position des cibles de type station
+
+  - correction d'un problème potentiel dans la lecture des capteurs de limbe
+    La description des capteurs de limbe dans les fichiers ne
+    nécessite pas de spécifier que la cible du capteur est le corps
+    central. Le calcul du limbe impose en effet cette cible, de part
+    la conception de l'algorithme. Avant la correction, l'utilisateur
+    pouvait spécifier par erreur une cible qui n'était pas le corps
+    central et qui était lue et utilisée dans certaines parties du
+    code, indépendantes du calcul du limbe. Cela pouvait conduire à
+    des résultats incohérents. La lecture des capteurs de limbe a été
+    protégée, elle ne lit que les bloc explicitement utiles pour la
+    modélisation du capteur.
+
+  - l'utilitaire marmottesReplay est désormais installé avec la bibliothèque
+
+  - les prédicats des classes internes retournent désormais des booléens
+    Pour les utilisateurs des classes publiques de haut niveau, cette
+    modification n'a d'impact que sur la méthode Parcelle::pointSuivant.
+
+  - réorganisation de classes entre club, cantor et marmottes
+    les classes AnnotatedArc, Braid, Field, Node et Secteurs ont été
+    transférées vers la bibliothèque cantor. La classe CallTrace a été
+    transférée vers la bibliothèque club. Cette modification n'a pas
+    d'impact sur les utilisateurs classiques de la bibliothèque qui
+    s'appuient sur les interfaces fortran et C et n'a que peu d'impacts
+    pour ceux qui appellent directement les classes C++. Seuls ceux qui
+    utilisent les classes de bas niveau directement devront peut-être
+    remplacer des inclusions du type "marmottes/Xxxx.h" en "cantor/Xxxx.h".
+
+  - remontée des exceptions de cantor
+    la bibliothèque cantor génère maintenant des exceptions, qui sont
+    remontées au niveau de certaines classes intermédiaires. Cette
+    modification n'a pas d'impact pour les utilisateurs des classes
+    publiques de haut niveau
+
+* version 8.5 :
+
+  - prise en compte des inhibitions dans tous les capteurs optiques
+    Les inhibition des capteurs par la lune ou le soleil étaient
+    jusqu'à présent pris en compte uniquement pour les capteurs
+    d'horizon terre. Désormais, tous les capteurs optiques peuvent
+    avoir des champs d'inhibitions et leur contrôlabilité dépend à la
+    fois de la présence de leur cible dans leur champ de vue mais
+    également de l'absence d'inhibition. Une conséquence de cette
+    modification est que la classe SenseurOptique ne déclare plus le
+    type énuméré typeOpt ni la fonction virtuelle typeOptique qui sont
+    devenue inutiles (toutes les classes descendant de SenseurOptique
+    appartenant désormais à l'ancienne catégorie avecInhibitions).
+
+  - remplacement de la classe SenseurTerre par la classe SenseurLimbe
+    Ce remplacement a été fait à l'occasion de la simplification
+    résultant de la factorisation des calculs d'inhibitions. La
+    nouvelle classe est une version considérablement simplifiée de
+    l'ancienne, elle a été renommée à la fois pour des raisons de
+    compréhension (la différence entre un senseur d'angle dièdre
+    visant la terre et un senseur terre n'était pas immédiate) et
+    également en prévision d'évolutions futures permettant d'utiliser
+    Marmottes dans le cadre de projets interplanétaires.
+
+  - correction d'une double erreur dans les capteurs Terre
+    Lors des calculs de contrôlabilité par des capteurs Terre,
+    l'équation comportait une arctangente au lieu d'un arcsinus, ce
+    qui conduisait à des résultats d'autant plus faux que le satellite
+    était bas, et la position était considérée comme exprimée en
+    kilomètres, même si l'utilisateur avait opté pour des mètres.
+
+  - correction d'erreurs détectées par purify
+    les erreurs étaient des fuites de mémoire, et des boucles non
+    protégées qui conduisaient à lire des zones mémoires qui avaient
+    été libérées en cours de boucle
+
+  - amélioration du support des compilateurs SUN
+    la bibliothèque est désormais compilable par les compilateurs SUN,
+    ceci a été testé sur la version 6.1 et devrait probablement
+    fonctionner à partir de la version 5.0. Ces compilateurs comportent
+    cependant un grand nombre d'erreurs, leur utilisation n'est pas
+    conseillée.
+
+  - ajout de fonctions pour imposer l'attitude ou le spin
+    De nouvelles fonctions ont été ajoutées à la bibliothèque. Elles
+    permettent de bénéficier de toutes les fonctions de post-traitement
+    telles que les calculs de mesures ou les vérifications de
+    controlabilité, y compris lorsque l'attitude est calculée par des
+    moyens externes (par exemple par intégration de la dynamique). Les
+    fonctions ajoutées permettent d'imposer à \bibliotheque{marmottes}
+    l'attitude (auquel cas le spin est déduit par différences finies
+    depuis l'état précédent) ou le spin (auquel cas l'attitude est déduite
+    par intégration depuis l'état précédent).
+
+  - correction d'une erreur dans les champs de vue
+    Cette erreur se manifestait de façon ponctuelle lorsque l'arc le
+    plus court reliant le point à tester et un point intérieur de
+    référence passait trop près d'un sommet de la frontière du
+    champ. Ce cas était pris en compte mais le contournement n'était
+    pas efficace dans tous les cas.
+
+* version 8.4 :
+
+  - correction d'une erreur dans les copies classes Marmottes
+    cette erreur pouvait se rencontrer pour des appels directs en C++,
+    elle pouvait conduire à des violations de mémoires car des
+    pointeurs appartenant à une instance était réutilisée par l'autre
+
+  - élimination de l'utilisation des classes hash_map et hash_set
+    ces classes étaient des extensions de la STL faites par SGI et
+    n'étaient pas disponibles sur tous les compilateurs
+
+* version 8.3 :
+
+  - correction d'une erreur dans les pseudo-capteurs de Cardan
+    cette erreur engendrait des résultats complètement faux en cas
+    d'utilisation de pseudo-capteurs de Cardan non alignés avec le
+    repère satellite
+
+  - modification de la valeur par défaut de la vitesse de rotation maximale
+    l'ancienne valeur n'était pas réaliste et pouvait empêcher de
+    trouver certaines solutions en cas de contrôle par deux capteurs
+    cinématiques
+
+* version 8.2 :
+
+  - correction d'une initialisation oubliée
+    cet oubli induisait des violations mémoire en cas de lancement d'exception
+
+* version 8.1 :
+
+  - ajout d'un script marmottes-config pour faciliter l'utilisation
+    les options de compilation -I, -L et -l pour les utilisateurs
+    de la bibliothèque varient suivant la façon dont marmottes a été
+    configurée lors de l'installation. Le script marmottes-config qui est
+    installé en même temps que marmottes permet de retrouver les valeurs
+    nécessaires pour ces options. On peut ainsi mettre dans un Makefile
+    des règles du style :
+
+    client.o : client.cc
+        $(CXX) `marmottes-config --cflags` $(CPPFLAGS) $(CFLAGS) -c client.cc
+
+    et
+
+    client : client.o
+        $(CXX) -o $@ client.o \
+                  `marmottes-config --ldflags` $(LDFLAGS) \
+                  `marmottes-config --libs`    $(LIBS)
+
+
+* version 8.0 :
+
+  - correction d'une erreur d'estimation de spin lors des changements de loi
+    Cette erreur était liée à l'utilisation abusive d'états résolus
+    antérieurs au changement de loi d'attitude, bien que des états
+    extrapolés valides à la date du changement d'attitude soient disponibles
+
+  - correction d'une mauvaise désinitialisation des senseurs de mesure
+    Lors de la destruction d'un simulateur, le dictionnaire n'était
+    pas vidé, une éventuelle réutilisation ultérieure pouvait conduire
+    à reprendre le senseur dans l'état dans lequel il était resté
+
+  - ajout de tests issus des programmes utilisateurs simbad, prems et presens
+
+  - ajout de senseurs de fonction échantillonnée sur la sphère unité
+    Ces senseurs permettent de modéliser des gains d'antenne pour les
+    calculs de bilans de liaison
+
+  - documentation des senseurs de bilans de liaison
+
+  - mise à jour profonde de la documentation mathématique
+
+  - simplification de l'utilisation des senseurs de bilans de liaison
+    La spécification du gain maximal (le long de l'axe du senseur) se
+    fait désormais en dB, ce qui est plus cohérent avec l'unité utilisée
+    dans la fonction de mesure
+
+  - ajout d'un mécanisme de trace d'exécution
+    Ce mécanisme permet aux utilisateurs de fournir des fiches
+    d'anomalies plus complètes permettant aux développeurs de reproduire
+    les problèmes même s'ils ne disposent pas du programme appelant, ou de
+    créer plus facilement des cas tests de non-régression
+
+  - refonte complète de la construction des champs de vue
+    La classe Champ comportait une erreur grave mais à occurrence
+    extrèmement faible. Elle avait été rencontrée deux ou trois fois en
+    sept ans, identifiée, mais aucun cas simple permettant de la
+    reproduire n'avait pu être élaboré. Cette erreur conduisait à des
+    erreurs flagrantes dans la modélisation des champs de vue,
+    généralement avec des portions manquantes très importantes. La
+    construction des champs a été entièrement revue pour éviter les pertes
+    d'informations qui était à l'origine de l'erreur.
+
+    Cette modification profonde n'a aucun impact visible pour
+    l'utilisateur. Ni les formats de fichiers ni l'interface de
+    programmation publique n'ont été changés
+
+  - abandon de la classe ChaineSimple de club au profit de string
+    Cette modification profonde ne devrait pas être visible à la
+    majorité des utilisateurs qui utilisent l'interface fortran. Seuls
+    ceux qui utilisent l'interface C++ devraient voir la modification des
+    signatures de méthodes.
+
+  - ajout de la possibilité de générer la bibliothèque en version partagée
+
+* version 7.5 :
+
+  - ajout de SenseurFonctionXxxx pour gérer les bilans de liaison
+    cette hiérarchie de senseurs permet de calculer des bilans de
+    liaison en faisant évaluer comme une mesure de senseur le gain
+    de l'antenne en direction d'une cible quelconque. Cette hiérarchie
+    permet de modéliser des formes de lobes différentes. Les deux formes
+    déjà implantées sont le sinus cardinal carré et la gaussienne.
+    Ces senseurs ne sont pas encore validés. La documentation n'a pas
+    encore été mise à jour.
+
+  - correction d'erreurs introduites à la version 7.3
+
+  - support du compilateur Sun WorkShop 5.0
+
+* version 7.4 :
+
+  - première version en diffusion publique
+
+  - correction d'une erreur dans un message d'erreur
+
+* version 7.3 :
+
+  - correction d'une erreur dans l'extrapolation d'attitude,
+    la contrôlabilité n'était pas testée, on pouvait donc calculer des
+    attitudes correctes, puis les extrapoler au-delà de leur limite de
+    validité. Un cas typique concerne le pointage terre où les consignes
+    sont constamment nulles mais où le soleil ou la lune peuvent inhiber
+    les senseurs.
+
+  - ajout du répertoire exemples dans la distribution
+
+  - correction d'un problème dans le modèle cinématique empêchant de
+    trouver des solutions à spin faible mais non nul
+
+  - correction de messages d'erreur
+     
+* version 7.2 :
+
+  - correction de la non-reconnaissance des genres LRT-lacet,
+    LRT-roulis et LRT-tangage pour les senseurs de Cardan
+     
+* version 7.1 :
+
+  - génération de la documentation en PDF au lieu de PostScript
+
+  - correction d'un problème d'échec de résolution lors de
+    l'utilisation de consignes à 180 degrés sur des senseurs dièdres
+
+  -  correction de fuites de mémoire dans le nouveau modèle sans singularité
+     
+* version 7.0 :
+
+  -  modification du modèle mathématique de résolution
+     correction d'un bug : le modèle est désormais sans singularités
+     et entièrement analytique
+     
+  -  réduction du calcul de solutions par les champs de vue
+     ceci apporte un gain de temps puisque une partie des solutions
+     qui étaient calculées et éliminées a posteriori dans l'ancien modèle,
+     sont désormais écartées a priori
+
+  -  ajout de la cible nadir
+
+  -  élimination des recollements de solutions dans les modèles analytiques :
+     ceci supprime un bug, un des recollements précédents étant erroné
+
+  - réduction des intervalles de recherche de solutions :
+    on est passé de [-1 ; +1] à [0 ; 1] (en relation avec la
+    correction du bug de recollement)
+
+  - ajout des gyros intégrateurs
+
+  - l'appelant peut choisir dynamiquement une cible optique :
+    cela suppose que le fichier senseurs utilise soit la cible "direction",
+    soit la cible "position"
+
+  - introduction de nouveaux repères de référence des senseurs de Cardan :
+    le fichier senseur doit désormais spécifier une référence parmi la
+    liste : "geocentrique", "orbital-TNW", "orbital-QSW", "inertiel",
+    "topocentrique" ou "utilisateur" (ce dernier indique que
+    l'appelant donnera la cible dynamiquement)
+
+  - détection des consignes géométriques dégénérées :
+    ce cas d'erreur d'utilisation n'était pas détecté jusque là, il
+    correspond typiquement à l'utilisation de consignes non
+    indépendantes entre elles
+
+  - détection de certains cas de consignes incompatibles :
+    ce cas d'erreur d'utilisation n'était pas détecté jusque là
+
+  - gestion des erreurs par les exceptions
+    compatibilité avec Club 6.1
+
+  - correction d'un bug de code d'erreur dans la classe MarmottesErreurs
+
+  - utilisation de configure pour l'installation :
+    il faut désormais faire quelque chose du genre :
+
+       ./configure
+       make
+       make install
+
+    le fichier INSTALL et la documentation papier donnent des
+    informations complémentaires
+
+  - descente des sources dans un sous-répertoire src
+
+Local variables:
+mode: outline
+outline-regexp: " *[*-]+"
+end:

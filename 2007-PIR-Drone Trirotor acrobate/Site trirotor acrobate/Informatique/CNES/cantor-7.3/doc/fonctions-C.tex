@@ -1,0 +1,98 @@
+% -*- mode: latex; tex-main-file: "cantor.tex" -*-
+% $Id: fonctions-C.tex,v 1.2 2001/06/05 16:13:14 cantor Exp $
+\subsection{fonctions \langage{c}}\label{sec:fonctions-c}
+\begin{tableFonctionsFixe}{fonctions C}
+{\label{tab:fonctions-c}}
+{construit la rotation \argument{q} résultant de la composition}
+
+\signature{int \fonc{RotAxeAngle}}{(double \argument{q} [4], double
+\argument{axe} [3], double \argument{angle},\\char*
+\argument{message}, int \argument{lgMaxMessage})} & construit la
+rotation \argument{q} à partir de l'\argument{axe} et de
+l'\argument{angle}, retourne un code non nul en cas de problème, et
+initialise le \argument{message} d'erreur\\
+
+\signature{int \fonc{RotU1U2V1V2}}{(double \argument{q} [4], double
+\argument{u1} [3], double \argument{u2} [3],\\double \argument{v1}
+[3], double \argument{v2} [3],\\char* \argument{message}, int
+\argument{lgMaxMessage})} & construit la rotation \argument{q} à
+partir des deux vecteurs \argument{u1} et \argument{u2} et de leurs
+images \argument{v1} et \argument{v2}, retourne un code non nul en cas
+de problème, et initialise le \argument{message} d'erreur\\
+
+\signature{int \fonc{RotU1V1}}{(double \argument{q} [4], double
+\argument{u1} [3], double \argument{v1} [3],\\char*
+\argument{message}, int \argument{lgMaxMessage})} & construit la
+rotation \argument{q} à partir du vecteur \argument{u1} et de son
+image \argument{v1} (une solution est choisie arbitrairement dans
+l'infinité possible), retourne un code non nul en cas de problème, et
+initialise le \argument{message} d'erreur\\
+
+\signature{int \fonc{RotMatrice}}{(double \argument{q} [4], double
+\argument{m} [3][3], double \argument{seuil},\\char*
+\argument{message}, int \argument{lgMaxMessage})} & construit la
+rotation \argument{q} à partir de la matrice \argument{m} en
+corrigeant éventuellement sa non-orthogonalité d'au plus
+\argument{seuil} (au sens de la norme de \textsc{Frobenius}), retourne
+un code non nul en cas de problème, et initialise le
+\argument{message} d'erreur\\
+
+\signature{int \fonc{RotTroisAngles}}{(double \argument{q} [4],
+CantorAxesRotation \argument{ordre},\\double \argument{alpha1}, double
+\argument{alpha2}, double \argument{alpha3},\\char *\argument{message}, int
+\argument{lgMaxMessage})} & construit la rotation \argument{q} à
+partir de trois rotations élémentaires dans l'\argument{ordre}
+spécifié, retourne un code non nul en cas de problème, et initialise
+le \argument{message} d'erreur\\
+
+\signature{void \fonc{RotInverse}}{(double \argument{q} [4], double
+\argument{qInitiale} [4])} & construit la rotation \argument{q}
+inverse de \argument{qInitiale}, en se contentant d'inverser un
+élément du quaternion (cette opération est donc très peu coûteuse en
+temps de calcul)\\
+
+\signature{void \fonc{RotComposee}}{(double \argument{q} [4], double
+\argument{q1} [4], double \argument{q2} [4])} & construit la rotation
+\argument{q} résultant de la composition \argument{q2} $\circ$
+\argument{q1}\\
+
+\hline
+
+\signature{void \fonc{AxeRot}(double \argument{q} [4], double
+\argument{axe} [3])}{} & extrait l'axe de la rotation
+\argument{q} et le met dans le tableau \argument{axe}\\
+
+\signature{void \fonc{AngleRot}(double \argument{q} [4], double*
+\argument{pAngle})}{} & extrait l'angle de la rotation
+\argument{q} et le met dans la variable pointée par \argument{pAngle}\\
+
+\signature{void \fonc{AxeAngleRot}}{(double \argument{q} [4], double
+\argument{axe} [3], double* \argument{pAngle})} & extrait l'axe et
+l'angle de la rotation \argument{q} et les met dans le tableau
+\argument{axe} et dans la variable pointée par \argument{pAngle}\\
+
+\signature{void \fonc{MatriceRot}(double \argument{q} [4], double
+\argument{m} [3][3])}{} & extrait la matrice de la rotation
+\argument{q} et la met dans le tableau \argument{m}\\
+
+\signature{int \fonc{TroisAnglesRot}}{(double \argument{q} [4],
+CantorAxesRotation \argument{ordre},\\double *\argument{pAlpha1}, double
+*\argument{pAlpha2}, double *\argument{pAlpha3},\\char
+*\argument{message}, int \argument{lgMaxMessage})} & extrait de la
+rotation \argument{q} les angles des rotations élémentaires dans
+l'\argument{ordre} spécifié, retourne un code non nul en cas de
+problème, et initialise le \argument{message} d'erreur\\
+
+\hline
+
+\signature{void \fonc{AppliqueRot}}{(double \argument{q} [4], double
+\argument{u} [3], double \argument{uPrime} [3])} & applique la
+rotation \argument{q} au vecteur \argument{u} et met l'image dans le
+tableau \argument{uPrime}\\
+
+\signature{void \fonc{AppliqueRotInverse}}{(double \argument{q} [4],
+double \argument{uPrime} [3], double \argument{u} [3])} & applique
+l'inverse de la rotation \argument{q} au \argument{uPrime} et met
+l'image réciproque dans le tableau \argument{u}\\
+
+\end{tableFonctionsFixe}

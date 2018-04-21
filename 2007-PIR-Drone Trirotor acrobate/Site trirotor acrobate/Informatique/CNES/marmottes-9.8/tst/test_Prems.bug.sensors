@@ -1,0 +1,82 @@
+# $Id: test_Prems.bug.sensors,v 1.1 2000/10/09 11:03:47 luc Exp $
+
+GYRO+X
+{ 
+  type           { kinematic }
+  accuracy       { 0.000001 }
+  frame          { i { 1 0 0 } j { 0 1 0 } k { 0 0 1 } }
+  sensitive_axis { 1 0 0 }
+}
+
+GYRO+Y { => {GYRO+X} sensitive_axis { 0 1 0 } }
+
+GYRO+Z { => {GYRO+X} sensitive_axis { 0 0 1 } }
+
+ALPHA_X 
+{
+  type            { right_ascension }  
+  accuracy        { 0.00001 }
+  frame           { i {1 0 0} j {0 1 0} k {0 0 1} }
+  observed        { 1 0 0 } 
+}
+
+DELTA_X 
+{
+  type            { declination }
+  accuracy        { 0.00001 }
+  frame           { i {1 0 0} j {0 1 0} k {0 0 1} }
+  observed        { 1 0 0 } 
+}
+
+ALPHA_Y 
+{
+  type            { right_ascension }  
+  accuracy        { 0.00001 }
+  frame           { i {1 0 0} j {0 1 0} k {0 0 1} }
+  observed        { 0 1 0 } 
+}
+
+DELTA_Y 
+{
+  type            { declination }      
+  accuracy        { 0.00001 }
+  frame           { i {1 0 0} j {0 1 0} k {0 0 1}}
+  observed        { 0 1 0 } 
+}
+
+ALPHA_Z 
+{
+  type            { right_ascension }  
+  accuracy        { 0.00001 }
+  frame           { i {1 0 0} j {0 1 0} k {0 0 1}}
+  observed        { 0 0 1 } 
+}
+
+DELTA_Z 
+{
+  type            { declination }      
+  accuracy        { 0.00001 }
+  frame           { i {1 0 0} j {0 1 0} k {0 0 1}}
+  observed        { 0 0 1 } 
+}
+
+AZ_SUN
+{
+  type             { dihedral }
+  accuracy         { 0.00001 }
+  frame            { i {1 0 0} j {0 1 0} k {0 0 1}}
+  target           { pseudo-sun }
+  sensitive_axis   { 0 1 0 }
+  zero_reference   { 0 0 1 }
+  field_of_view    { cone { axis { 1 0 0 } angle { 180 } } }
+}
+
+EL_SUN
+{
+  type             { plane_vector }
+  accuracy         { 0.00001 }
+  frame            { i {1 0 0} j {0 1 0} k {0 0 1}}
+  target           { pseudo-sun }
+  normal_reference { 0 -1 0 }
+  field_of_view    { cone { axis { 1 0 0 } angle { 180 } } }
+}

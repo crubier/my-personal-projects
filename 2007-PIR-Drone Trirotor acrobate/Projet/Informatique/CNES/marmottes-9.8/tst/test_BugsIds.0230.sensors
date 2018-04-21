@@ -1,0 +1,20 @@
+AMF-Ascension
+{ 
+  accuracy { 0.001 }
+  frame    { v_base  {  -0.012033081    0.00419049734    0.999918819 }
+             v_image {  0.              0.               1.          }
+           }
+  type     { right_ascension }
+  observed { 0 0 1 }
+}
+
+AMF-Declinaison {  => { AMF-Ascension } type { declination } }
+
+YAW-ORM
+{
+  accuracy  { 0.001 }
+  type      { cardan }
+  frame     { i { 1  0 0 } j { 0  0 1 } k { 0 -1 0 } }
+  kind      { YRP-pitch }
+  reference { inertial }
+}

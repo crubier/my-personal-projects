@@ -1,0 +1,1115 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+% $Id: UniqDataFile.tex,v 1.5 2005/03/11 16:27:57 chope Exp $
+\subsection{classe UniqDataFile}\label{sec:UniqDataFile}
+
+\subsubsection*{description}\label{sec:UniqDataFile-desc}
+
+La classe UniqDataFile est une classe abstraite offrant des services 
+génériques d'accès à des données situées dans différents types de
+fichiers. Les différents formats de fichiers supportés sont~:
+
+\begin{description}
+\item[FichierStructure] format des fichiers structurés spécifiques à la bibliothèque
+\bibliotheque{club}. Seuls les services de lecture sont implémentés. Les services
+d'écriture lèvent l'exception ClubErreurs\char58\char58not\_implemented,
+\item[Madona] l'ensemble des services de lecture/écriture sont
+implémentés,
+\item[XML] l'ensemble des services de lecture/écriture sont implémentés. 
+\end{description} 
+
+Cette classe regroupe tous les attributs et toutes les opérations communes à
+ces formats. Elle contient principalement des méthodes virtuelles qui
+sont implémentées dans les classes filles (cf. figure~\ref{fig:hierarchie-DataFile}).
+
+\begin{changebar}
+
+\begin{figure}[htbp]\caption{\label{fig:hierarchie-DataFile}Hiérarchie d'héritage des classes de gestion des fichiers structurés}
+\begin{center}
+\includegraphics{hierarchie}
+\end{center}
+\end{figure}
+
+\end{changebar}
+
+Les services non abstraits rendus par la classe UniqDataFile sont des
+services de gestion des désignations de données. Ces services
+permettent d'identifier de la même manière les données contenues dans
+les différents types de fichiers. La norme employée pour désigner les
+données est celle utilisée par le format Madona.
+
+
+Exemples~: 
+
+\begin{itemize}
+\item \texttt{my\_table[1].my\_data} désigne la donnée «my\_data»
+appartenant à l'élément d'index 1 d'un tableau nommé «my\_table»,
+\item \texttt{my\_structure.my\_data} désigne la donnée
+«my\_data» appartenant à la structure «my\_structure».
+\end{itemize}
+
+Les catégories de services disponibles sont~:
+
+\begin{itemize}
+\item chargement et écriture de fichiers,
+\item création de données,
+\item mise à jour des paramètres,
+\item lecture de données,
+\item destruction de données,
+\item gestion des unités physiques,
+\item déplacement dans la structure de données.
+\end{itemize}
+
+Toutes les classes filles de UniqDataFile gèrent une structure mémoire
+hiérarchisée et utilisent un pointeur désignant la donnée courante. La
+plupart des méthodes définies utilisent ce pointeur.
+
+\begin{changebar}
+\end{changebar}
+
+\subsubsection*{interface publique}\label{sec:UniqDataFile-int}
+\begin{verbatim}
+#include "club/UniqDataFile.h"
+\end{verbatim}
+
+\begin{tableAttributsFixe}{attributs publics de la classe UniqDataFile}
+{\label{tab:UniqDataFile-att-pub}}
+{ParameterType, StructureType, TableType, ReferenceType,
+UndeterminedType }
+
+DataType & enum  & 
+énumérateur précisant le type de donnée~:
+
+ParameterType, StructureType, TableType, ReferenceType, UndeterminedType \\
+
+TableElementType & enum  & 
+énumérateur précisant le type des éléments d'une table~: 
+
+IntTable, RealTable, StringTable, StructureTable, TableTable
+
+\end{tableAttributsFixe}
+
+\begin{tableFonctionsFixe}{UniqDataFile : méthodes publiques}
+{\label{tab:UniqDataFile-met-pub}}
+{déplace le pointeur de la donnée courante sur une donnée fille }
+
+\signature{\fonc{UniqDataFile} ()}{}
+&
+constructeur~: initialise la donnée courante 
+
+\textbf{Exceptions MadonaFile~:} 
+
+madona\_error
+
+\textbf{Exceptions XMLFile~:} 
+
+xml\_error
+
+\\
+
+\signature{\fonc{\~{}UniqDataFile} ()}{} 
+& 
+détruit l'instance 
+
+\textbf{Exceptions MadonaFile~:} 
+
+madona\_error
+\\
+
+\hline
+
+\signature{const string \fonc{getCurrentData} ()}{} 
+& 
+renvoie la désignation courante \\
+
+\signature{void \fonc{moveDown} (const string\& \argument{childDataName})}{}
+& 
+déplace le pointeur de la donnée courante sur une donnée fille 
+
+\textbf{Exceptions MadonaFile~:} 
+
+current\_data\_not\_a\_table, undefined\_index,
+undefined\_ta\-ble\_or\_structure,
+string\_to\_int\_conversion\_error,
+madona\-\_error
+
+\textbf{Exceptions XMLFile~:} 
+
+current\_data\_not\_a\_table, undefined\_index,
+undefined\_ta\-ble\_or\_structure,
+string\_to\_int\_conversion\_error, xml\_er\-ror,
+xpointer\_syntax\_error
+
+\textbf{Exceptions StructureFile~:} 
+
+string\_to\_int\_conversion\_error,
+undefined\_table\_or\_struc\-ture
+\\
+
+\signature{void \fonc{moveDown} (int \argument{index})}{} 
+&
+déplace le pointeur de la donnée courante sur une donnée fille, 
+à condition que la donnée courante soit une table 
+
+\textbf{Exceptions MadonaFile~:} 
+
+current\_data\_not\_a\_table, undefined\_index,
+undefined\_ta\-ble\_or\_structure, madona\_error
+
+\textbf{Exceptions XMLFile~:}
+
+current\_data\_not\_a\_table, undefined\_index,
+undefined\_ta\-ble\_or\_structure, xpointer\_syntax\_error,
+xml\_error
+
+\textbf{Exceptions StructureFile~:} undefined\_table\_or\_structure
+\\
+
+\signature{void \fonc{moveUp} ()}{} 
+& 
+remonte d'un niveau dans la structure de données 
+
+\textbf{Exceptions MadonaFile~:} 
+
+move\_up\_forbidden, madona\_error
+
+\textbf{Exceptions XMLFile~:} 
+
+move\_up\_forbidden, xml\_error
+
+\textbf{Exceptions StructureFile~:}
+
+string\_to\_int\_conversion\_error,
+undefined\_table\_or\_struc\-ture,
+move\_up\_forbidden
+\\
+
+\signature{void \fonc{moveTo} 
+          (const string\& \argument{absoluteDataName})}{}
+& 
+déplace le pointeur de la donnée courante sur une autre donnée 
+désignée de manière absolue 
+
+\textbf{Exceptions MadonaFile~:} 
+
+string\_to\_int\_conversion\_error,
+undefined\_table\_or\_struc\-ture,
+undefined\_index, madona\_error,
+current\_data\_not\_\-a\_table
+
+\textbf{Exceptions XMLFile~:} 
+
+current\_data\_not\_a\_table,
+undefined\_index,
+undefined\_ta\-ble\_or\_structure,
+string\_to\_int\_conversion\_error,
+xml\_er\-ror,
+xpointer\_syntax\_error
+
+\textbf{Exceptions StructureFile~:} 
+
+string\_to\_int\_conversion\_error,
+undefined\_table\_or\_struc\-tu\-re
+\\
+
+\hline
+
+\signature{void \fonc{readFile} 
+          (const string\& \argument{fileName})}{} 
+& 
+charge un fichier de données en mémoire et positionne le pointeur de
+donnée à la racine de la structure mémoire 
+
+\textbf{Exceptions MadonaFile~:} file\_error
+
+\textbf{Exceptions XMLFile~:} file\_error, missing\_tag
+
+\textbf{Exceptions StructureFile~:} 
+
+accolades\_non\_equilibrees,
+nom\_inclusion
+etat\_fichier,
+iterateur\_invalide,
+caractere\_hors\_domaine,
+manque\_guillemet,
+manque\_chevron,
+\\
+
+\signature{void \fonc{writeFile} 
+          (const string\& \argument{fileName})}{} 
+&
+écrit la structure de données en mémoire dans \argument{fileName} 
+
+\textbf{Exceptions MadonaFile~:} file\_error
+
+\textbf{Exceptions XMLFile~:} ouverure\_fichier
+
+\textbf{Exceptions StructureFile~:} not\_implemented
+\\
+
+\hline
+
+\signature{DataType \fonc{getDataType}}
+          {(const string\& \argument{childDataName})} 
+& 
+retourne le type d'une donnée fille 
+
+\textbf{Exceptions MadonaFile~:} 
+
+current\_data\_not\_a\_table,
+undefined\_index,
+undefined\_da\-ta,
+madona\_error,
+string\_to\_int\_conversion\_error
+
+\textbf{Exceptions XMLFile~:} 
+
+current\_data\_not\_a\_table,
+undefined\_index,
+undefined\_da\-ta,
+string\_to\_int\_conversion\_error
+
+\textbf{Exceptions StructureFile~:} 
+
+string\_to\_int\_conversion\_error,
+undefined\_parameter,
+un\-de\-fi\-ned\_data,
+undefined\_index,
+undefined\_table\_or\_structure
+\\
+
+\signature{DataType \fonc{getDataType} (int \argument{index})}{} 
+& 
+retourne le type d'une donnée fille.
+La donnée courante doit être une table 
+
+\textbf{Exceptions MadonaFile~:} 
+
+current\_data\_not\_a\_table, madona\_error,
+undefined\_index
+
+\textbf{Exceptions XMLFile~:} 
+
+current\_data\_not\_a\_table, undefined\_index
+
+\textbf{Exceptions StructureFile~:}  
+
+undefined\_table\_or\_structure, undefined\_parameter, 
+undefined\_index
+\\
+
+\signature{int \fonc{size} ()}{} 
+& 
+renvoie la taille de la donnée courante qui doit être une table 
+
+\textbf{Exceptions MadonaFile~:} 
+
+current\_data\_not\_a\_table, madona\_error 
+
+\textbf{Exceptions XMLFile~:} current\_data\_not\_a\_table
+
+\textbf{Exceptions StructureFile~:} current\_data\_not\_a\_table
+\\
+
+\signature{bool \fonc{dataExists} (const string\& \argument{childDataName})}{}
+& 
+vérifie l'existence d'une donnée fille 
+
+\textbf{Exceptions MadonaFile~:} 
+
+madona\_error, string\_to\_int\_conversion\_error,
+current\_da\-ta\_not\_a\_table
+
+\textbf{Exceptions XMLFile~:} 
+
+current\_data\_not\_a\_table,
+string\_to\_int\_conversion\_error
+
+\textbf{Exceptions StructureFile~:} 
+
+current\_data\_not\_a\_table,
+string\_to\_int\_conver\-sion\_error
+\\
+
+\signature{bool \fonc{dataExists} (int \argument{index})}{} 
+& 
+vérifie l'existence d'une donnée fille.
+La donnée courante doit être une table 
+
+\textbf{Exceptions MadonaFile~:} current\_data\_not\_a\_table
+
+\textbf{Exceptions XMLFile~:} current\_data\_not\_a\_table
+
+\textbf{Exceptions StructureFile~:} current\_data\_not\_a\_table
+\\
+
+\hline
+
+\signature{string \fonc{getComment} 
+          (const string\& \argument{childDataName})}{}
+& 
+retourne le commentaire associée à une donnée fille 
+
+\textbf{Exceptions MadonaFile~:} 
+
+current\_data\_not\_a\_table, madona\_error, undefined\_data, 
+string\_to\_int\_conversion\_error, not\_implemented
+
+\textbf{Exceptions XMLFile~:} 
+
+undefined\_data, undefined\_index, 
+current\_data\_not\_a\_ta\-ble,
+string\_to\_int\_conversion\_error
+
+\textbf{Exceptions StructureFile~:} not\_implemented
+\\
+
+\signature{string \fonc{getComment} (int \argument{index})}{} 
+& 
+retourne le commentaire associée à une donnée fille.
+La donnée courante doit être une table 
+
+\textbf{Exceptions MadonaFile~:} not\_implemented
+
+\textbf{Exceptions XMLFile~:} 
+
+current\_data\_not\_a\_table, undefined\_index
+
+\textbf{Exceptions StructureFile~:} not\_implemented
+\\
+
+\signature{void \fonc{setComment}}
+          {(const string\& \argument{childDataName},\\
+            const string\& \argument{comment})} 
+& 
+met à jour le commentaire d'une donnée fille 
+
+\textbf{Exceptions MadonaFile~:} 
+
+current\_data\_not\_a\_table, madona\_error, undefined\_data, 
+string\_to\_int\_conversion\_error 
+
+\textbf{Exceptions XMLFile~:} 
+
+undefined\_data, undefined\_index, 
+current\_data\_not\_a\_ta\-ble,
+string\_to\_int\_conversion\_error
+ 
+\textbf{Exceptions StructureFile~:} not\_implemented
+\\
+
+\signature{void \fonc{setComment}}
+          {(int \argument{index},
+            const string\& \argument{comment})} 
+& 
+met à jour le commentaire d'une donnée fille.
+La donnée courante doit être une table 
+
+\textbf{Exceptions MadonaFile~:} not\_implemented
+
+\textbf{Exceptions XMLFile~:} 
+
+current\_data\_not\_a\_table, undefined\_index
+
+\textbf{Exceptions StructureFile~:} not\_implemented
+\\
+
+\hline
+
+\signature{void \fonc{createStringData}}
+          {(const string\& \argument{childDataName},\\
+            const string\& \argument{value})} 
+&
+crée un paramètre de type chaîne de caractères 
+
+\textbf{Exceptions MadonaFile~:} 
+
+current\_data\_is\_a\_table, data\_already\_defined,
+madona\_\-error, index\_creation\_forbidden,
+
+\textbf{Exceptions XMLFile~:} 
+
+current\_data\_is\_a\_table, data\_already\_defined,
+xml\_error, index\_creation\_forbidden
+
+\textbf{Exceptions StructureFile~:} not\_implemented
+\\
+
+\signature{void \fonc{createIntData}}
+          {(const string\& \argument{childDataName},
+            int \argument{value})} 
+& 
+crée un paramètre de type entier 
+
+\textbf{Exceptions MadonaFile~:} 
+
+current\_data\_is\_a\_table, data\_already\_defined,
+madona\_\-error, index\_creation\_forbidden,
+
+\textbf{Exceptions XMLFile~:} 
+
+current\_data\_is\_a\_table, data\_already\_defined,
+xml\_error, index\_creation\_forbidden
+
+\textbf{Exceptions StructureFile~:} not\_implemented
+\\
+
+\signature{void \fonc{createRealData}}
+          {(const string\& \argument{childDataName}, \\
+            double \argument{value}, 
+            const string\& \argument{unit})} 
+& 
+crée un paramètre de type réel 
+
+\textbf{Exceptions MadonaFile~:} 
+
+current\_data\_is\_a\_table, data\_already\_defined,
+madona\_\-error, index\_creation\_forbidden,
+
+\textbf{Exceptions XMLFile~:} 
+
+current\_data\_is\_a\_table, data\_already\_defined,
+xml\_error, index\_creation\_forbidden
+
+\textbf{Exceptions StructureFile~:} not\_implemented
+\\
+
+\signature{void \fonc{createTable}}
+          {(const string\& \argument{tableName},\\
+            UniqDataFile\char58\char58TableElementType \argument{tableType},\\
+            const string\& \argument{defaultUnit}="")} 
+& 
+crée une table vide 
+
+\textbf{Exceptions MadonaFile~:} 
+
+current\_data\_is\_a\_table, data\_already\_defined,
+madona\_\-error, index\_creation\_forbidden,
+
+\textbf{Exceptions XMLFile~:} 
+
+current\_data\_is\_a\_table, data\_already\_defined,
+xml\_error, index\_creation\_forbidden
+
+\textbf{Exceptions StructureFile~:} not\_implemented
+\\
+
+\signature{void \fonc{createStructure}}
+          {(const string\& \argument{structureName})} 
+& 
+crée une structure vide 
+
+\textbf{Exceptions MadonaFile~:} 
+
+current\_data\_is\_a\_table, data\_already\_defined,
+madona\_\-error, index\_creation\_forbidden,
+
+\textbf{Exceptions XMLFile~:} 
+
+current\_data\_is\_a\_table, data\_already\_defined,
+xml\_error, index\_creation\_forbidden
+
+\textbf{Exceptions StructureFile~:} not\_implemented
+\\
+
+\signature{void \fonc{createReference}}
+          {(const string\& \argument{childDataName},\\
+            const string\& \argument{referencedFileName},\\
+            const string\& \argument{referencedDataName})} 
+& 
+crée une référence à une autre donnée 
+
+\textbf{Exceptions MadonaFile~:} 
+
+current\_data\_is\_a\_table, data\_already\_defined,
+madona\_\-error, index\_creation\_forbidden
+
+\textbf{Exceptions XMLFile~:} 
+
+current\_data\_is\_a\_table, data\_already\_defined, 
+xml\_error, index\_creation\_forbidden
+
+\textbf{Exceptions StructureFile~:} not\_implemented
+\\
+
+\hline
+
+\signature{void \fonc{createStringData} (const string\& \argument{value})}{}
+& 
+crée dans une table un paramètre de type chaîne de caractères 
+
+\textbf{Exceptions MadonaFile~:} 
+
+current\_data\_not\_a\_table, madona\_error
+
+\textbf{Exceptions XMLFile~:} 
+
+current\_data\_not\_a\_table, invalid\_element\_type,
+xml\_er\-ror
+
+\textbf{Exceptions StructureFile~:} not\_implemented
+\\
+
+\signature{void \fonc{createIntData} (int \argument{value})}{} 
+& 
+crée dans une table un paramètre de type entier 
+
+\textbf{Exceptions MadonaFile~:} 
+
+current\_data\_not\_a\_table, madona\_error
+
+\textbf{Exceptions XMLFile~:} 
+
+current\_data\_not\_a\_table, invalid\_element\_type,
+xml\_er\-ror
+
+\textbf{Exceptions StructureFile~:} not\_implemented
+\\
+
+\signature{void \fonc{createRealData}}
+          {(double \argument{value},
+            const string\& \argument{unit})} 
+& 
+crée dans une table un paramètre de type réel 
+
+\textbf{Exceptions MadonaFile~:} 
+
+current\_data\_not\_a\_table, madona\_error
+
+\textbf{Exceptions XMLFile~:} 
+
+current\_data\_not\_a\_table, invalid\_element\_type,
+xml\_er\-ror
+
+\textbf{Exceptions StructureFile~:} not\_implemented
+\\
+
+\signature{void \fonc{createTable}}
+          {(UniqDataFile\char58\char58TableElementType \argument{tableType},\\
+            const string\& \argument{defaultUnit}="")} 
+& 
+crée dans une table une table vide 
+
+\textbf{Exceptions MadonaFile~:} 
+
+current\_data\_not\_a\_table, madona\_error
+
+\textbf{Exceptions XMLFile~:} 
+
+current\_data\_not\_a\_table, invalid\_element\_type,
+xml\_er\-ror
+
+\textbf{Exceptions StructureFile~:} not\_implemented
+\\
+
+\signature{void \fonc{createStructure} ()}{} 
+& 
+crée dans une table une structure vide 
+
+\textbf{Exceptions MadonaFile~:} 
+
+current\_data\_not\_a\_table, madona\_error
+
+\textbf{Exceptions XMLFile~:} 
+
+current\_data\_not\_a\_table, invalid\_element\_type,
+xml\_er\-ror
+
+\textbf{Exceptions StructureFile~:} not\_implemented
+\\
+
+\signature{void \fonc{createReference}}
+          {(const string\& \argument{referencedFileName},\\
+            const string\& \argument{referencedDataName})} 
+&
+crée dans une table une référence à une autre donnée
+
+\textbf{Exceptions MadonaFile~:} 
+
+current\_data\_not\_a\_table, madona\_error
+
+\textbf{Exceptions XMLFile~:} 
+
+current\_data\_not\_a\_table, xml\_error
+
+\textbf{Exceptions StructureFile~:} not\_implemented
+\\
+
+\hline
+
+\signature{string \fonc{getStringData}}
+          {(const string\& \argument{childDataName})} 
+& 
+retourne une donnée fille de type chaîne de caractères 
+
+\textbf{Exceptions MadonaFile~:} 
+
+current\_data\_not\_a\_table, madona\_error
+undefined\_index, undefined\_parameter,
+string\_to\_int\_conversion\_error
+
+\textbf{Exceptions XMLFile~:} 
+
+current\_data\_not\_a\_table, undefined\_index,
+undefined\_pa\-rameter, undefined\_table\_or\_structure,
+xpointer\_syntax\_er\-ror, file\_er\-ror,
+string\_to\_int\_conversion\_error
+
+\textbf{Exceptions StructureFile~:} 
+
+bloc\_champ\_inexistant, bloc\_non\_terminal, 
+undefined\_pa\-rameter, string\_to\_int\_conversion\_error
+\\
+
+\signature{int \fonc{getIntData} (const string\& \argument{childDataName})}{} 
+& 
+retourne une donnée fille de type entier 
+
+\textbf{Exceptions MadonaFile~:} 
+
+current\_data\_not\_a\_table, madona\_error,
+undefined\_index, undefined\_parameter,
+string\_to\_int\_conversion\_error
+
+\textbf{Exceptions XMLFile~:} 
+
+current\_data\_not\_a\_table, undefined\_index,
+undefined\_pa\-rameter, undefined\_table\_or\_structure,
+xpointer\_syntax\_er\-ror, file\_error,
+string\_to\_int\_conversion\_error
+
+\textbf{Exceptions StructureFile~:} 
+
+bloc\_champ\_inexistant, bloc\_non\_terminal, 
+undefined\_pa\-rameter, string\_to\_int\_conversion\_error
+\\
+
+\signature{double \fonc{getRealData}}
+          {(const string\& \argument{childDataName},
+            const string\& \argument{unit})} 
+& 
+retourne une donnée fille de type réel 
+
+\textbf{Exceptions MadonaFile~:} 
+
+current\_data\_not\_a\_table, madona\_error
+undefined\_index, undefined\_parameter,
+string\_to\_int\_conversion\_error
+
+\textbf{Exceptions XMLFile~:} 
+
+current\_data\_not\_a\_table, undefined\_index,
+undefined\_pa\-rameter, undefined\_unit,
+undefined\_table\_or\_structure, malformed\_data,
+file\_error, string\_to\_double\_conversion\_error,
+string\_to\_int\_conversion\_error, xpointer\_syntax\_error
+
+\textbf{Exceptions StructureFile~:} 
+
+bloc\_champ\_inexistant, bloc\_non\_terminal, 
+undefined\_pa\-rameter, string\_to\_int\_conversion\_error
+\\
+
+\signature{string \fonc{getStringData} (int \argument{index})}{} 
+& 
+retourne une donnée fille de type chaîne de caractères. 
+La donnée courante doit être une table 
+
+\textbf{Exceptions MadonaFile~:} 
+
+current\_data\_not\_a\_table, madona\_error, undefined\_index
+
+\textbf{Exceptions XMLFile~:} 
+
+current\_data\_not\_a\_table, undefined\_index,
+undefined\_pa\-rameter, undefined\_table\_or\_structure,
+xpointer\_syntax\_er\-ror, file\_error
+
+\textbf{Exceptions StructureFile~:} 
+
+bloc\_champ\_inexistant, bloc\_non\_terminal
+\\
+
+\signature{int  \fonc{getIntData} (int \argument{index})}{} 
+& 
+retourne une donnée fille de type entier. 
+La donnée courante doit être une table 
+
+\textbf{Exceptions MadonaFile~:} 
+
+current\_data\_not\_a\_table, madona\_error, undefined\_index
+
+\textbf{Exceptions XMLFile~:} 
+
+current\_data\_not\_a\_table, undefined\_index,
+undefined\_pa\-rameter, undefined\_table\_or\_structure,
+xpointer\_syntax\_er\-ror, file\_error, 
+string\_to\_int\_conversion\_error
+
+\textbf{Exceptions StructureFile~:} 
+
+string\_to\_int\_conversion\_error,
+bloc\_non\_terminal, bloc\_\-champ\_inexistant
+\\
+
+\signature{double \fonc{getRealData} 
+           (int \argument{index},
+            const string\& \argument{unit})}{}
+& 
+retourne une donnée fille de type réel. 
+La donnée courante doit être une table 
+
+\textbf{Exceptions MadonaFile~:} 
+
+current\_data\_not\_a\_table, madona\_error, undefined\_index
+
+\textbf{Exceptions XMLFile~:} 
+
+current\_data\_not\_a\_table, undefined\_index, 
+undefined\_pa\-rameter, undefined\_unit,
+undefined\_table\_or\_structure, malformed\_data, 
+file\_error, string\_to\_double\_conversion\_error,
+xpointer\_syntax\_error 
+
+\textbf{Exceptions StructureFile~:}
+
+string\_to\_double\_conversion\_error,
+bloc\_champ\_inexistant,
+bloc\_\-non\_terminal
+\\
+
+\hline
+\begin{changebar}
+\end{changebar}
+
+\signature{void \fonc{setStringData}}
+          {(const string\& \argument{childDataName},\\
+            const string\& \argument{value})} 
+& 
+met à jour un paramètre de type chaîne de caractères  
+
+\textbf{Exceptions MadonaFile~:} 
+
+current\_data\_not\_a\_table,
+undefined\_index, undefined\_pa\-rameter, 
+string\_to\_int\_conversion\_error, madona\_error
+
+\textbf{Exceptions XMLFile~:} 
+
+current\_data\_not\_a\_table,
+undefined\_index, undefined\_pa\-rameter,
+string\_to\_int\_conversion\_error
+
+\textbf{Exceptions StructureFile~:} not\_implemented
+\\
+
+\signature{void \fonc{setIntData}}
+          {(const string\& \argument{childDataName}, 
+            int \argument{value})} 
+& 
+met à jour un paramètre de type entier  
+
+\textbf{Exceptions MadonaFile~:} 
+
+current\_data\_not\_a\_table, undefined\_index, 
+undefined\_pa\-rameter, string\_to\_int\_conversion\_error,
+madona\_error
+
+\textbf{Exceptions XMLFile~:} 
+
+current\_data\_not\_a\_table, undefined\_index, 
+undefined\_pa\-rameter, 
+string\_to\_int\_conversion\_error
+
+
+\textbf{Exceptions StructureFile~:} not\_implemented
+\\
+
+\signature{void \fonc{setRealData}}
+          {(const string\& \argument{childDataName},
+            double \argument{value},\\
+            const string\& \argument{unit})} 
+& 
+met à jour un paramètre de type réel  
+
+\textbf{Exceptions MadonaFile~:} 
+
+current\_data\_not\_a\_table,
+undefined\_index, undefined\_pa\-rameter, 
+string\_to\_int\_conversion\_error, 
+madona\_error
+
+\textbf{Exceptions XMLFile~:} 
+
+current\_data\_not\_a\_table, 
+undefined\_index, undefined\_pa\-rameter, 
+string\_to\_int\_conversion\_error
+
+\textbf{Exceptions StructureFile~:} not\_implemented
+\\
+
+\signature{void \fonc{setStringData}
+           (int \argument{index}, 
+            const string\& \argument{value})}{}
+& 
+met à jour un paramètre de type chaîne de caractères. 
+La donnée courante doit être une table  
+
+\textbf{Exceptions MadonaFile~:} 
+
+current\_data\_not\_a\_table, madona\_error, undefined\_index
+
+\textbf{Exceptions XMLFile~:} 
+
+current\_data\_not\_a\_table, undefined\_index
+
+\textbf{Exceptions StructureFile~:} not\_implemented
+\\
+
+\signature{void \fonc{setIntData}
+           (int \argument{index}, 
+            int \argument{value})}{} 
+& 
+met à jour un paramètre de type entier. 
+La donnée courante doit être une table  
+
+\textbf{Exceptions MadonaFile~:} 
+
+current\_data\_not\_a\_table, madona\_error, undefined\_index
+
+\textbf{Exceptions XMLFile~:} 
+
+current\_data\_not\_a\_table, undefined\_index
+
+
+\textbf{Exceptions StructureFile~:} not\_implemented
+\\
+
+\signature{void \fonc{setRealData}}
+          {(int \argument{index}, 
+            double \argument{value},
+            const string\& \argument{unit})} 
+& 
+met à jour un paramètre de type réel. 
+La donnée courante doit être une table  
+
+\textbf{Exceptions MadonaFile~:} 
+
+current\_data\_not\_a\_table, madona\_error, undefined\_index
+
+\textbf{Exceptions XMLFile~:} 
+
+current\_data\_not\_a\_table, undefined\_index
+
+\textbf{Exceptions StructureFile~:} not\_implemented
+\\
+
+\hline
+
+\signature{void \fonc{deleteData} 
+           (const string\& \argument{dataName})}{} 
+& supprime une donnée  
+
+\textbf{Exceptions MadonaFile~:} 
+
+current\_data\_not\_a\_table,
+undefined\_index, undefined\_da\-ta, 
+string\_to\_int\_conversion\_error,
+madona\_error,
+current\_\-da\-ta\_is\_a\_table
+
+\textbf{Exceptions XMLFile~:} 
+
+current\_data\_not\_a\_table,
+undefined\_index, undefined\_da\-ta, 
+string\_to\_int\_conversion\_error
+
+\textbf{Exceptions StructureFile~:} not\_implemented
+\\
+
+\signature{void \fonc{deleteData} (int \argument{index})}{} 
+& 
+supprime une donnée. La donnée courante doit être une table  
+
+\textbf{Exceptions MadonaFile~:} 
+
+current\_data\_not\_a\_table, madona\_error , undefined\_index
+
+\textbf{Exceptions XMLFile~:} 
+
+current\_data\_not\_a\_table, undefined\_index
+
+
+\textbf{Exceptions StructureFile~:} not\_implemented
+\\
+
+\hline
+
+\begin{changebar}
+\end{changebar}
+
+\signature{void \fonc{writeMemoryStructure} ()}{} 
+& 
+affiche sur la sortie standard la structure de donnée en mémoire 
+
+\textbf{Exceptions MadonaFile~:} madona\_error
+
+\textbf{Exceptions XMLFile~:} undefined\_node\_type
+
+\textbf{Exceptions StructureFile~:} not\_implemented
+\\
+
+\end{tableFonctionsFixe}
+
+\subsubsection*{exemple d'utilisation}\label{sec:UniqDataFile-exemple-Utilisation}
+
+\begin{changebar}
+\begin{verbatim}
+#include "club/UniqDataFile.h"
+#include "club/XMLFile.h"
+
+int main (int argc, char **argv)
+{
+  try
+  {
+        
+    UniqDataFile * file = 0;
+    
+    // Par défaut on lit un fichier structuré. 
+    if (argc==2)
+    {
+      if (argv[1] == "xml")
+        file = new XMLFile (false);
+      else if (argv[1] == "madona") 
+        file = new MadonaFile ();
+      else
+        file = new StructureFile ();     
+    }
+    else
+      file = new StructureFile ();     
+   
+    file->readFile ("dataIn");
+    
+    // Déplacement relatifs dans la structure de données
+    file->moveDown ("table");
+    file->moveDown (1);
+    intValue = file->getIntData ("param");
+
+    // Déplacement absolu
+    file->moveTo ("table[2]");
+    intValue = file->getIntData ("param");
+    
+    // Création d'une donnée 
+    file->createStringData ("stringParam", "value");
+    
+    // Ecriture de la structure dans un fichier.
+    file->writeFile ("dataOut");    
+  }
+  catch (ClubErreurs ce)
+  {
+    cout << ce.why () << endl;
+    ce.correction ();  
+  } 
+}
+\end{verbatim}
+\end{changebar}
+
+\subsubsection*{conseils d'utilisation spécifiques}\label{sec:UniqDataFile-conseils}
+
+La classe UniqDataFile étant abstraite, elle ne peut être utilisée
+directement. Seules ses classes dérivées peuvent être instanciées.
+
+Il est important de souligner que cette classe ne fournit pas de
+constructeur par recopie et d'opérateur d'affectation. Si ces services
+sont nécessaires, il faut alors utiliser la classe DataFile qui gère
+un tampon partagée sur une instance de \texttt{UniqDataFile}.  
+
+\subsubsection*{implantation}\label{sec:UniqDataFile-impl}
+Les attributs protégés sont décrits sommairement dans la
+table~\ref{tab:UniqDataFile-att-prot}, il n'y a pas d'attribut privé.
+\begin{tableAttributsFixe}{attributs protégés de la classe UniqDataFile}
+{\label{tab:UniqDataFile-att-prot}}
+{La désignation de la donnée couramment pointée }
+
+currentData\_ & string  & la désignation de la donnée couramment pointée \\
+
+\end{tableAttributsFixe}
+Les méthodes protégées sont décrites dans la table~\ref{tab:UniqDataFile-met-prot}.
+\begin{tableFonctionsFixe}{UniqDataFile : méthodes protégées}
+{\label{tab:UniqDataFile-met-prot}}
+{lève l'exception undefined\_index si
+\argument{childDataName} ne représente pas }
+
+\signature{void \fonc{setCurrentData}}
+          {(const string\& \argument{currentData})}
+& 
+met à jour la désignation courante \\
+
+\hline
+
+\signature{string \fonc{getAbsoluteDataName}}
+          {(const string\& \argument{childDataName})} 
+&
+retourne la désignation absolue d'une donnée \\
+
+\signature{string \fonc{getAbsoluteDataName} 
+           (int \argument{index})}{}
+& 
+retourne la désignation absolue d'un élément de tableau.
+La donnée courante doit être une table \\
+
+\hline
+
+\signature{void \fonc{testCurrentDataIsATable} ()}{} 
+& 
+lève l'exception current\_data\_is\_a\_table si la donnée
+courante est une table \\
+
+\signature{void \fonc{testCurrentDataNotATable} ()}{} 
+& 
+lève l'exception current\_data\_not\_a\_table si la donnée
+courante n'est pas une table \\
+
+\signature{void \fonc{testUndefinedStructureOrTable}}
+          {(const string\& \argument{childDataName})} 
+& 
+lève l'exception undefined\_table\_or\_structure
+si \argument{childDataName} ne représente pas une donnée de type structure ou table \\
+
+\signature{void \fonc{testUndefinedParameter}}
+          {(const string\& \argument{childDataName})} 
+& 
+lève l'exception undefined\_parameter si
+\argument{childDataName} ne représente pas un paramètre \\
+
+\signature{void \fonc{testUndefinedIndex} (int \argument{index})}{} 
+& 
+lève l'exception undefined\_index si
+\argument{childDataName} ne représente pas un index valide \\
+
+\signature{void \fonc{testUndefinedData}}
+          {(const string\& \argument{childDataName})} 
+& 
+lève l'exception undefined\_data si
+\argument{childDataName} ne représente aucune donnée \\
+
+\hline
+
+\signature{void \fonc{testMoveUpForbidden} ()}{} 
+& 
+lève l'exception move\_up\_forbidden s'il n'est pas permis de remonter
+d'un niveau dans la structure de données \\
+
+\hline
+
+\signature{void \fonc{testDataAlreadyDefined}}
+          {(const string\& \argument{childDataName})} 
+& 
+lève l'exception data\_already\_defined si
+\argument{childDataName} représente une donnée déjà définie \\
+
+\signature{bool  \fonc{canMoveUp} ()}{} 
+& 
+retourne \texttt{true} s'il est possible de remonter d'un niveau dans
+la structure de données, \texttt{false} autrement \\
+
+\end{tableFonctionsFixe}

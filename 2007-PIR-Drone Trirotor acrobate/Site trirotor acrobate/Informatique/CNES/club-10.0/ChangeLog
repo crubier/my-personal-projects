@@ -1,0 +1,693 @@
+2005-03-08  projet CHOPE G. Prat/L. Maisonobe  <Guylaine.Prat@c-s.fr>
+
+	* ddc-club.txt: mise à jour pour la version 10.0 (FA-ID 198)
+
+2005-02-18  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* configure.ac: ajout du test pour XMLUnits (DM-ID 242),
+	désactivation par défaut des bibliothèques statiques sur toutes
+	les plate-formes (madona n'étant jamais disponible en statique)
+
+ 	* COPYING: mise à jour des copyrights des produits GNU
+
+ 	* INSTALL, config.guess, config.sub, depcomp, install-sh, missing,
+	mkinstalldirs: mise à jour des fichiers à partir de la
+	distribution automake 1.9.5
+ 
+	* ltmain.sh: mise à jour du fichier à partir de la
+ 	distribution libtool 1.5.14
+
+2005-02-04  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* README: ajout d'une description de l'environnement XML
+	(DM-ID 242)
+
+2005-02-03  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* configure.ac: renommage des fichiers de test XMLFile en XMLData
+	(DM-ID 242)
+
+2005-02-02  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* acinclude.m4, configure.ac: élimination de la macro
+	AC_CXX_TEMPLATE_OBJS
+
+2005-01-12  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* configure.ac: ajout d'une variable d'environnement pour les
+	fichiers XML et les DTD (DM-ID 242)
+
+2005-01-12  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* Makefile.am: réorganisation des resources xml vers le répertoire
+	resources (DM-ID 242)
+
+2005-01-12  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* NEWS: annonce de l'élimination des classes proxy (DM-ID 241)
+
+2004-06-23  projet CHOPE G. Prat/L. Maisonobe  <Guylaine.Prat@c-s.fr>
+
+	* configure.ac: ajout nouveau fichier de reference (FA-ID 36)
+
+	* acinclude.m4: utilisation de [] dans la définition des macros
+	conformément aux nouvelles conventions d'automake 1.8.x (FA-ID 36)
+
+2004-06-10  projet CHOPE G. Prat/L. Maisonobe  <Guylaine.Prat@c-s.fr>
+
+	* NEWS: annonce de l'amélioration de la documentation de difference (DM-ID 34) 
+	et de corrections mineures de formats (FA-ID 33)
+
+	* ddc-club.txt:  mise à jour du DDC pour la version 9.5
+
+	* configure.ac: passage de la bibliothèque en version 9.5
+
+2003-12-10  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* ddc-club.txt: mise à jour du DDC pour la version 9.4 
+	
+2003-12-05  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+ 	* NEWS: annonce de la dépendance à Xerces 2.x (DM-ID 32)
+ 
+ 	* configure.ac, acinclude.m4: DM-ID 32 mise en conformité avec Xerces 2.x (actuellement 2.4)
+	positionnement des variables de precompilation HAVE_MADONA ET HAVE_XERCES_C
+ 
+2003-11-28  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* NEWS, en/club, fr/club: DM-ID 31 suppression de la contrainte de fourniture du type 
+	de fichier lors de l'instanciation de la classe DataFile
+
+2003-11-24  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* NEWS: DM-ID 30 amelioration de la documentation
+
+2003-10-22  projet CHOPE O. Queyrut/L. Maisonobe/F. Auguie/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* NEWS: DM-ID 29 annonce de la correction dans TamponTexte
+
+2003-08-19  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* ddc-club.txt: mise à jour du fichier DDC pour la nouvelle version de la
+	bibliothèque
+
+2003-07-28  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* configure.ac: passage de la bibliothèque en version 9.3
+
+2003-07-15  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* NEWS: FA-ID 28 annonce du contournement d'un problème induit par
+	madona
+
+2003-07-02  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* NEWS: FA-ID 26 annonce de la correction d'une erreur dans
+	MadonaFile.cpp
+	
+
+2003-06-24  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+ 
+	* ddc-club.txt: DM-ID 24 ajout d'une ligne pour le suffixe .ac
+
+	* configure.ac: DM-ID 24 renommage de configure.in en configure.ac
+ 
+	* configure.in: DM-ID 24 mise en conformité avec autoconf 2.57 et
+	automake 1.7.5 (utilisation des arguments de AC_INIT, ajout de
+ 	AC_CONFIG_SRCDIR, changement des arguments de AM_INIT_AUTOMAKE,
+ 	remplacement de AM_CONFIG_HEADER par AC_CONFIG_HEADERS,
+	remplacement de AM_PROG_LIBTOOL par AC_PROG_LIBTOOL)
+ 
+	* acconfig.h: DM-ID 24 élimination du fichier rendu obsolète avec
+	autoconf 2.57
+ 
+	* Makefile.am: DM-ID 24 suppression de la référence à acconfig.h
+ 
+	* COPYING: DM-ID 24 mise à jour des copyrights des scripts de
+	configuration extraits des distributions automake et libtool
+ 
+ 	* INSTALL, config.guess, config.sub, depcomp, install-sh, missing,
+	mkinstalldirs: DM-ID 24 mise à jour des fichiers à partir de la
+	distribution automake 1.7.5
+ 
+	* ltmain.sh: DM-ID 24 mise à jour des fichiers à partir de la
+ 	distribution libtool 1.5
+	
+2003-03-27  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* NEWS: correction de faute d'orthographe dans la description de
+	la version 9.4
+
+2003-03-20  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* Makefile.am (EXTRA_DIST): ajout du document descriptif de configuration dans la
+	distribution Club
+
+	* ddc-club.txt: nouveau fichier contenant le DDC de club
+
+2003-01-24  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* configure.in: mise à jour des noms des extensions de fichiers, numéro
+	de version et contrôle de la présence des includes.
+
+2003-01-20  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* NEWS: annonce de la prise en compte des normes qualitées du
+	projet ATV.
+
+2002-07-01  projet CHOPE O. Queyrut/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* configure.in: passage en version 9.2alpha.
+
+2002-06-27  projet CHOPE O. Queyrut/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* NEWS: annonce des corrections des FA 14 et 9, prise en compte des
+	DM 5 et 6.
+
+	* README.dev: élimination du libtoolize devenu inutile depuis
+	automake 1.5
+
+	* configure.in: correction d'un problème de PATH lorsqu'aucun
+	préfixe n'est spécifié par l'utilisateur (FA14), correction des
+	tests de variables pour les bibliothèques optionnelles, correction
+	d'un problème de vérification des deux variables de
+	personnalisation de l'internationalisation (FA9),
+	mise en conformité avec Xerces 1.7 (DM5)
+
+	* acinclude.m4:  correction d'un problème de PATH lorsqu'aucun
+	préfixe n'est spécifié par l'utilisateur (FA14), correction
+	d'une faute de frappe dans un nom de variable
+
+2001-09-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* COPYING: ajout du copyright de depcomp
+
+	* acinclude.m4: correction d'un problème de \n dans des variables
+	utilisées par sed
+
+2001-09-04  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* NEWS: annonce de l'utilisation de nouvelles versions des outils
+	de développement GNU
+
+	* acinclude.m4: simplification à l'aide des macros de la version
+	2.52 d'autoconf
+
+	* configure.in: élimination d'une macro obsolète
+
+	* ltmain.sh: importation du script distribué avec libtool 1.4.1
+
+	* depcomp: nouveau fichier, importé depuis la distribution
+	automake 1.5
+
+	* install-sh, missing, mkinstalldirs, config.sub, config.guess:
+	importation des scripts distribués avec automake 1.5
+
+2001-07-17  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: finalisation de la version 9.1
+
+2001-06-22  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* NEWS: annonce des corrections liés à la compatibilité avec gcc 3.0
+
+2001-06-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: ajout d'un test pour le fichier ctime
+
+	* NEWS: annonce du transfert de CallTrace
+
+2001-05-03  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* NEWS: annonce de la correction d'un bug mémoire dans
+	l'utilitaire difference
+
+2001-04-04  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: passage en version 9.0
+
+	* NEWS: changement de version majeure, on passera en fait
+	directement de la version 8.2 à la 9.0, la suppression de la
+	classe Adressage entrainant une incompatibilité ascendante,
+	annonce de la reconnaissance des réels du fortran dans l'analyseur
+	lexical et dans l'utilitaire difference
+
+2001-02-16  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: version intermédiaire avant la version 8.3 (8.3beta)
+
+	* NEWS: annonce de l'amélioration du support des compilateurs SUN
+
+	* acinclude.m4: amélioration du support des compilateurs SUN
+	lorsque libtool est utilisé pour produire des bibliothèques
+	STATIQUES
+
+2000-12-12  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: ajout explicite des options -I et -L correspondant
+	à l'installation pour éviter des erreurs dans le script
+	club-config en cas d'utilisation de --with-xerces=no et de
+	--with-madona=no
+
+2000-12-11  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* NEWS: ajout a posteriori d'une mise en garde sur la stabilité
+	des interfaces XML et Madona (dans l'entrée correspondant à la
+	version 8.0)
+
+	* LICENSE, LICENCE: mise à jour du numéro de dépot à l'APP
+
+2000-12-04  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* acinclude.m4: prise en compte des scripts du type xxx-config
+	dans les tests de bibliothèques
+
+	* configure.in: ajout de club-config, remplacement de new.h par
+	new, passage en version 8.2
+
+	* LICENSE: nouveau fichier (version anglaise de LICENCE)
+
+	* Makefile.am: ajout de LICENSE
+
+	* NEWS: annonce de l'ajout de club-config
+
+2000-11-24  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* acinclude.m4: correction d'une variable en cas d'utilisation de
+	--with-xxx=no
+
+2000-11-21  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* NEWS: description des modifications entre la version 8.0 et la
+	version 8.1
+
+	* acinclude.m4: élimination des macros d'extraction de numéros de
+	version, ajout d'une macro de test de bibliothèque supportant les
+	dépendances
+
+	* configure.in: simplification de la numérotation des bibliothèques,
+	changement de la valeur par défaut sous solaris : on ne construit
+	les bibliothèques partagées que sur demande car elles semblent
+	poser des problèmes au programme appelants lorsqu'elles génèrent
+	des exceptions,
+	déplacement du test de -lsocket lors du test de xerces,
+	passage en version 8.1
+
+2000-11-07  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* acinclude.m4: ajout de la macro CNES_CHECK_OPTIONAL_LIBRARY
+
+	* configure.in: utilisation de CNES_CHECK_OPTIONAL_LIBRARY pour
+	configurer l'utilisation des bibliothèques xerces et madona
+
+	* NEWS: ajout des options --with-xerces et --with-madona dans la
+	configuration
+
+2000-10-26  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* configure.in: affectation d'une valeur à STRIPPED_VERSION, 
+	STRIPPED_RELEASE et STRIPPED_PATCH 
+
+	* acinclude.m4: ajout des macros permettant de définir les numéros de
+	version, de release et de patch utiles pour libtool
+
+2000-10-24  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* configure.in: ajout de ClubConfig.h dans AC_OUTPUT et modification 
+	du nom du fichier d'entête : désormais ClubConfigNoInstall.h
+	définition de la variable cl_cv_namespaces utile pour la génération de
+	ClubConfig.h
+
+2000-10-18  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* AUTHORS: ajout des auteurs de la version 8.0
+
+	* NEWS: description de la version 8.0
+
+	* README: modification du type de la documentation (PDF au lieu de
+	PostScript) dans un commentaire.
+	ajout d'un commentaire sur la compilation ou non de :
+	- XMLFile si Xerces est installée ou non et 
+	- MadonaFile si Madona est installée ou non
+
+	* configure.in: passage en version 8.0.
+	ajout d'un test sur la présence des entêtes dom/DOM.hpp de Xerces et
+	acces.h de Madona. Création de deux variables conditionnelles 
+	HAVE_XERCES et HAVE_MADONA indiquant si les bibliothèques Xerces et 
+	Madona sont installées sur la plate-forme.
+	ajout de la génération des scripts shell de tests pour XMLFile, 
+	MadonaFile et StructureFile.
+
+2000-10-11  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* fr/club: ajout de la traduction des messages d'erreur des classes 
+	XMLFile, MadonaFile, StructureFile, DataFile et UniqDataFile.
+
+	* en/club: ajout de la traduction des messages d'erreur des classes 
+	XMLFile, MadonaFile, StructureFile, DataFile et UniqDataFile.
+
+2000-09-20  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* README.dev: modification de l'ordre d'appel des commandes permettant
+	d'initialiser l'espace de développement : appel à aclocal avant 
+	libtoolize. Modification des noms des paquetages LaTeX nécessaires au
+	développement.
+
+2000-09-19  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* README.dev: ajout de libtool comme outil nécessaire au développement
+	Ajout de la commande libtoolize pour initialiser l'espace de 
+	développement.
+
+	* INSTALL: présentation de l'option --disable-shared de configure :
+	cette option permet de supprimer la compilation de club sous forme
+	de bibliothèque partagée.
+
+	* configure.in: remplacement de l'appel AC_PROG_RANLIB par 
+	AM_PROG_LIBTOOL permettant de faire les vérifications de configuration
+	de l'outil libtool (permet de générer les bibliothèques sous forme
+	partagée).
+
+2000-09-07  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* AUTHORS: ajout de l'auteur de la version 7.0
+
+2000-09-06  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* NEWS: ajout de la suppression des classes _OBSOLETE
+
+	* configure.in: suppression des classes _OBSOLETE
+
+2000-09-04  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* configure.in: passage en version 7.0
+
+	* NEWS: description de la version 7.0
+
+2000-08-24  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* configure.in: ajout de la génération du script shell du 
+	test de FormatC.
+
+2000-08-09  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* configure.in: utilisation des macros m4 de l'archive publique
+	autoconf (au lieu des macros internes au CNES) : AC_CXX_EXCEPTIONS, 
+	AC_CXX_EXPLICIT_INSTANTIATIONS, AC_CXX_TEMPLATE_OBJS
+	Ajout d'un test sur la présence de la stl (appel à la macro 
+	AC_CXX_HAVE_STL).
+
+	* acinclude.m4: remplacement des macros m4 de configuration
+	internes au CNES par celles de l'archive publique autoconf (si
+	un équivalent existe). 
+	Dans les macros CNES_CHECK_INCLUDE_DIR et CNES_CHECK_LIBRARY_DIR, 
+	suppression de la recherche de la bibliothèque sans aucun 
+	drapeau (on privilégie les arguments).
+	Ajout des macros AC_CXX_HAVE_STL et AC_CXX_NAMESPACES (de 
+	l'archive publique autoconf).
+
+2000-08-04  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* en/club: ajout de la traduction du message de difference
+	sur le décalage 
+
+2000-08-03  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* fr/club: remplacement de min par minimale et de max par
+	maximale dans les messages de l'utilitaire difference.
+
+2000-07-28  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* en/club: modification des messages de l'utilitaire difference
+
+	* fr/club: modification des messages de l'utilitaire difference
+
+	* NEWS: mention de l'existence d'une documentation sur difference,
+	et mention des nouvelles valeurs du code de retour de cet
+	utilitaire
+
+2000-07-26  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* configure.in: suppression de la génération de utils/club/Makefile
+
+2000-07-03  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* configure.in: passage en version 6.3
+
+	* NEWS: description des évolutions sur difference
+
+2000-04-03  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: passage en version 6.2.3
+
+	* NEWS: première diffusion publique, correction de IterateurChamp
+
+2000-03-30  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: ajout du fichier LICENCE dans la distribution
+
+	* COPYING: modification des droits pour la diffusion publique
+
+	* LICENCE: nouveau fichier
+
+	* configure.in: passage en version 6.2.2, obligation d'avoir
+	vprintf pour ne plus dépendre de code non maîtrisé par le CNES
+
+	* NEWS: élimination du code non maîtrisé par le CNES
+
+	* AUTHORS: élimination du code non maîtrisé par le CNES
+
+	* configure.in: passage en version 6.2.1
+
+	* NEWS: annonce d'une correction dans TamponPartage
+
+1999-10-12  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* configure.in: ajout de la création de utils/club/Makefile
+
+1999-10-05  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* configure.in: passage en version 6.2
+
+1999-10-04  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* configure.in: ajout de la création de utils/Makefile
+
+	* création du répertoire utils regroupant des utilitaires en lien
+	étroit avec la bibliothèque CLUB 
+
+1999-08-12  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* configure.in: passage en version 6.1
+
+1999-08-11  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* NEWS: ajout de l'évolution de la classe BaseErreurs concernant
+	le partage du message et du code d'erreur.
+
+1999-04-16  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* README: indications sur les personnalisations d'installation
+	courantes
+
+1999-04-15  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* README.dev: élimination de l'impossibilité de compiler avec SUN
+	  CC 4.0
+
+	* README: élimination de l'impossibilité de compiler avec SUN CC
+	  4.0
+
+1999-04-11  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* README: élimination du bug d'incompatibilité entre egcs 1.1.2 et
+	bibliothèque C libc 2.0.7
+
+	* NEWS: ajout de l'évolution de la libération de la mémoire par la
+	classe TamponPartage dans la version 5.0
+
+1999-04-09  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* README.dev: élimination de l'avertissement sur l'option -O2 pour 
+	les versions de gcc jusqu'à 2.8
+
+	* README:  élimination de l'avertissement sur l'option -O2 pour 
+	les versions de gcc jusqu'à 2.8
+
+1999-04-09  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: élimination de l'option -O2 pour les versions de
+	gcc jusqu'à 2.8
+
+	* README.dev: ajout de l'impossibilité de compiler avec SUN
+	  CC 4.0
+
+	* README: ajout de l'impossibilité de compiler avec SUN CC 4.0
+
+1999-04-08  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* README: ajout du bug d'incompatibilité entre egcs 1.1.2 et
+	bibliothèque C libc 2.0.7
+
+1999-03-24  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* README.dev: ajout des problèmes dus à l'option -Ox du compilateur gcc
+
+	* README: ajout des particularités d'installation de la version 5.0
+
+	* Makefile.am: suppression du nettoyage des fichiers générés par les 
+	compilateurs (fichiers sous .deps pour les dépendances de
+	GNU gcc et fichiers sous Templates.DB du compilateur SUN CC)
+
+1999-03-18  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* configure.in: correction d'une erreur de nommage d'une macro
+
+	* acinclude.m4: extension pour la detection et la gestion des templates 
+	par le compilateur SUN Workshop 5.0
+
+	* Makefile.am: ajout du nettoyage des fichiers générés par les 
+	compilateurs (fichiers sous .deps pour les dépendances de
+	GNU gcc et fichiers sous Templates.DB du compilateur SUN CC)
+
+
+1999-03-09  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* NEWS: ajout des caractéristiques de la version 5.0
+
+	* AUTHORS: ajout de l'équipe CS/SI/SCS
+
+	* configure.in: ajout du test support des exceptions par le
+	compilateur et du test de TamponCaractere
+
+1999-03-08  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* club.en: ajout du message de l'erreur iterateur_invalide
+
+	* club.fr: ajout du message de l'erreur iterateur_invalide
+
+1998-10-19  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* README.dev: description des outils nécessaires aux développeurs
+
+	* acinclude.m4: ajout des macros CNES_CHECK_INCLUDE_DIR et
+	CNES_CHECK_LIBRARY_DIR pour gérer les options -I et -L des
+	bibliothèques sous-jacentes ; ces macros sont actuellement
+	inutilisées par club, mais elles sont introduites par homogénéité
+	avec cantor et marmottes, et en prévision de l'introduction des
+	bibliothèques STL et madona
+
+	* configure.in: ajout de l'option -Wall en cas de compilation par
+	g++, génération des fichiers tst/test_FichierStructure.ref et
+	tst/test_TamponTexte.ref
+
+1998-10-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: transfert des tests du compilateur C++ sous forme
+	de macros m4 dans le fichier acinclude.m4
+
+	* acinclude.m4: nouveau fichier
+
+1998-09-14  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: génération des Makefiles des répertoires en et fr
+
+	* Makefile.am: transfert des fichiers de traduction dans des
+	sous-répertoires
+
+1998-09-13  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* club.fr: ajout du message de l'erreur etat_fichier
+
+	* club.en: ajout du message de l'erreur etat_fichier
+
+	* configure.in: test de la disponibilité de sys/stat.h et time.h
+
+	* NEWS: mention de la correction de la fonction de hachage de la
+	classe Adressage, mention de l'ajout d'une date et d'une signature
+	dans la classe FichierStructure
+
+1998-08-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: ajout d'un test pour le support des instanciations
+	explicites
+
+	* acconfig.h: ajout de la macro-définition HAVE_INSTANTIATIONS
+
+1998-07-29  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* README.dev: explication de la numérotation des versions
+
+1998-07-27  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: gestion des fichiers de traduction
+
+1998-07-26  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* README.dev: nouveau fichier
+
+1998-07-25  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* AUTHORS: nouveau fichier
+
+	* COPYING: nouveau fichier
+
+	* INSTALL: nouveau fichier (extrait de la distribution automake)
+
+	* Makefile.am: nouveau fichier
+
+	* NEWS: nouveau fichier
+
+	* README: nouveau fichier
+
+	* acconfig.h: nouveau fichier
+
+	* aclocal.m4: nouveau fichier (généré par aclocal)
+
+	* configure.in: nouveau fichier
+
+	* install-sh: nouveau fichier (extrait de la distribution automake)
+
+	* missing: nouveau fichier (extrait de la distribution automake)
+
+	* mkinstalldirs: nouveau fichier (extrait de la distribution automake)
+
+	* Make.spec.AM:  élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+	* Make.spec.DEV:  élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+	* Make.spec.ODS:  élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+	* Make.spec.SG:  élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+	* Makefile:  élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+	* MakefileAM:  élimination du fichier obsolète
+
+	* MakefileODS:  élimination du fichier obsolète
+
+	* MakefileSG:  élimination du fichier obsolète
+
+1998-07-24  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile: réorganisation des sources dans un sous-répertoire src,
+	élimination des commandes rcs (passage sous cvs)
+
+	* Make.spec.SG: ajout de l'option -Isrc suite à la réorganisation
+	des sources
+
+	* Make.spec.ODS: ajout de l'option -Isrc suite à la réorganisation
+	des sources
+
+	* Make.spec.DEV: ajout de l'option -Isrc suite à la réorganisation
+	des sources
+
+	* Make.spec.AM: ajout de l'option -Isrc suite à la réorganisation
+	des sources
+
+	* ChangeLog: nouveau fichier

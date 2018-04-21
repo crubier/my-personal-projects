@@ -1,0 +1,357 @@
+% -*- mode: latex; tex-main-file: "marmottes-mathematique.tex" -*-
+% $Id: description.tex,v 1.8 2001/07/17 15:53:50 luc Exp $
+\section{Description d'orientation}\label{sec:description}
+Les principes de description d'orientation adoptés résultent d'une
+inversion du problème de l'orientation.
+
+\subsection{description classique}
+Très souvent, on modélise l'orientation du satellite par des objets
+mathématiques d'assez bas niveau tels que des quaternions, des angles
+d'\textsc{Euler} ou plus souvent de
+\textsc{Cardan}(cf. \ref{ref:cours-techno}) ou des matrices de
+rotations. On utilise ensuite ces objets pour convertir des directions
+d'un repère satellite à un repère inertiel ou réciproquement.
+
+Cette modélisation classique engendre de nombreuses difficultés. La
+première est qu'elle n'est pas canonique. Prenons un exemple : le
+quaternion résultant de la simulation d'un simple pointage Terre
+parcourt une boucle fermée dans un espace en quatre dimensions au
+cours de l'évolution du satellite sur son orbite. Cette courbe ne peut
+pas être traitée manuellement et les éventuels biais n'y apparaîssent
+pas naturellement. Pourtant, la spécification d'un pointage Terre se
+résume à quelques mots et éventuellement une ou deux valeurs
+numériques de biais. La description par quaternion introduit une
+explosion de la complexité.
+
+Dans ce cas particulier, les angles de \textsc{Cardan} sont bien mieux
+adaptés, mais leur utilité s'évanouit pour tous les autres modes
+de contrôle même les plus simples comme le mode \emph{barbecue}. Leur
+utilisation est inextricable pour des modes comme le \emph{coning} ou
+les man\oe{}uvres d'apogée par pilotage hybride géométrique/cinématique
+pour lesquels aucun choix de repère de base ne permet de simplifier
+les évolutions des angles de base.
+
+La seconde difficulté est l'opacité des données manipulées. En
+reprenant notre exemple, rien ne permet de distinguer la courbe d'un
+pointage sans biais d'une courbe avec biais ou d'un asservissement en
+lacet\footnote{\emph{yaw steering}} sur le Soleil et encore moins de
+retrouver ce biais. Il faut réaliser des calculs pour extraire cette
+information.
+
+Une troisième difficulté est que la description est fortement
+dépendante de la plateforme. En effet, la plupart du temps les
+caractéristiques du Système de Contrôle d'Attitude et d'Orbite et les
+besoins de pointage sont utilisés pour calculer comment passer d'une
+orientation théorique de référence à l'orientation cherchée. On déduit de la
+séquence de rotations le quaternion, les angles ou la matrice
+d'orientation. Les algorithmes réalisant ces opérations dépendent
+d'hypothèses liées au mode de pointage utilisé et de la façon dont ils
+sont implémentés dans la plateforme.
+
+À elle seule, cette dépendance limite fortement les possibilités de ce
+mode de description. Les algorithmes liés à la plateforme ne peuvent
+pas être réutilisés sur une autre. Chacun des modes devant être simulé
+engendre un développement spécifique, même pour un seul
+satellite. Seuls les cas dégradés ayant été identifiés à l'avance
+peuvent être pris en compte.
+
+L'obligation de redévelopper des modèles spécifiques conduit souvent à
+se contenter d'une modélisation assez théorique et très simple, dans
+laquelle de nombreux paramètres sont omis. On voit rarement les
+éclipses prises en compte dans les simulations de pointage solaire ou
+les inhibitions des capteurs Terre modélisées selon les données
+constructeur. Les mésalignements de capteurs, d'antennes et
+d'actuateurs sont également régulièrement oubliés. Les logiciels sont
+souvent prévus pour fonctionner avec un seul mode dont le modèle est
+enfoui dans le code. Dès que l'on change une caractéristique qui n'a
+pas été prévue, il faut tout refaire et tout revalider, même pour des
+modes très proches. Un exemple classique ayant déjà été rencontré
+consiste à modifier l'ordre dans lequel les rotations doivent être
+appliquées ; on a même vu un satellite unique utiliser simultanément
+deux conventions différentes, son simulateur en utilisant bien sûr une
+troisième. Un autre exemple consiste simplement à permuter les axes
+satellites, ce qui est classique lorsque l'on passe d'un constructeur
+à l'autre. Le plus courant reste cependant le simple changement d'un
+mode.
+
+\subsection{inversion du problème}
+Les difficultés énoncées plus haut sont essentiellement des problèmes
+liés au couplage fort entre la modélisation mathématique et la
+description de l'orientation. Il est possible de changer de point de vue
+et de séparer ces deux aspects.
+
+Considérons une boucle d'asservissement dans un Système de Contrôle
+d'Attitude et d'Orbite. Elle comprend des capteurs (capteur Terre,
+solaire ou stellaire, gyromètres) et des actuateurs (magnétocoupleurs,
+tuyères, roues). Les mesures réalisées par les capteurs peuvent être
+considérées comme résultant des modifications d'orientation engendrées
+par les actuateurs et les couples naturels. C'est cette vision qui est
+sous-jacente à la description classique. Inverser le problème revient
+à se placer du côté de la logique de l'asservissement : l'orientation est
+cette fois considérée comme le résultat de la convergence de la
+boucle, c'est donc elle qui découle des mesures réalisées par les
+capteurs, ou plus exactement des consignes imposées aux capteurs à
+travers l'asservissement. C'est cette vision inversée qui est
+sous-jacente à nos modèles.
+
+L'orientation étant un système à trois degrés de liberté, trois valeurs
+numériques sont nécessaires à chaque instant, correspondant aux
+mesures souhaitées sur trois capteurs. L'utilisateur final n'a aucun
+besoin de savoir comment ces consignes sont utilisées pour calculer
+l'orientation, il ne voit que les consignes elles-mêmes et les capteurs.
+Quelques exemples classiques vont permettre d'éclairer notre propos.
+
+En préalable aux exemples de modélisation, il est important de
+mentionner certaines habitudes de langage concernant les dénominations
+de capteurs. Les capteurs mesurant des angles autour d'axes proches de
+l'axe $\vec{X}$ du satellite sont généralement qualifiés de capteurs
+de roulis, les capteurs mesurant des angles autour d'axes proches de
+l'axe $\vec{Y}$ sont de même qualifiés de capteurs de tangage, et les
+capteurs mesurant des angles autour d'axes proches de l'axe $\vec{Z}$
+sont qualifiés de capteurs de lacet. Ceci ne signifie pas que ces
+capteurs mesurent des angles de \textsc{Cardan} à partir d'un repère
+de référence inertiel, ils peuvent très bien mesurer par exemple un
+angle dièdre entre le plan $(X,Z)$ et le plan $(X,\mathrm{Soleil})$,
+on parlera dans ce cas d'un capteur de roulis Soleil. Dans la
+pratique, il n'existe pas une définition unique et reconnue des angles
+de roulis, tangage et lacet, pas même dans le cadre des capteurs de
+\textsc{Cardan} (voir l'annexe~\ref{sec:cardan},
+page~\pageref{sec:cardan}). Ces habitudes de langage ne font
+qu'accentuer cette multiplicité. Ces conventions sont très classiques,
+elles se retrouvent en particulier dans les documents des
+constructeurs et dans les noms des paramètres de télémesure générés
+par ces capteurs.
+
+Un autre terme utilisé dans cette note est \emph{pseudo-capteur}. Ce
+terme désigne les capteurs modélisés dans les méthodes décrites plus
+loin mais qui ne correspondent pas à des capteurs physiques existants.
+Ces pseudo-capteurs sont souvent utilisés pour faciliter la
+modélisation. Des exemples typiques sont les pseudo-capteurs
+d'ascension droite et de déclinaison ainsi que les pseudo-capteurs de
+\textsc{Cardan}, très peu de satellites disposant de tels moyens de
+mesure\footnote{quand les valeurs des angles de \textsc{Cardan} sont
+disponibles dans la télémesure, il s'agit d'une valeur élaborée à bord
+sur la base de plusieurs mesures élémentaires et d'un modèle
+d'orbite}.
+
+Les exemples suivants utilisent ces notions de pseudo-capteurs et de
+capteurs de roulis, tangage ou lacet ; ils correspondent à des modes
+classiques rencontrés dans plusieurs missions.
+
+\begin{description}
+\item[pointage Terre avec biais: ] ce mode très courant en maintien à
+poste se décrit ainsi :
+\begin{itemize}
+\item mesure du capteur roulis Terre : $0\mbox{°}$
+\item mesure du capteur tangage Terre : $+10\mbox{°}$
+\item mesure du pseudo-capteur angle de \textsc{Cardan} en lacet : $0\mbox{°}$
+\end{itemize}
+
+\item[asservissement en lacet sur le Soleil :] ce mode est
+traditionnel sur les satellites en orbite basse ; on le désigne souvent
+par sa dénomination anglo-saxone, \emph{yaw steering}. Sa modélisation
+est l'une des plus simples qui soient :
+\begin{itemize}
+\item mesure du capteur roulis Terre : $0\mbox{°}$
+\item mesure du capteur tangage Terre : $0\mbox{°}$
+\item mesure du capteur lacet Soleil : $0\mbox{°}$
+\end{itemize}
+
+On peut facilement introduire des biais dans l'asservissement en
+lacet : il suffit de changer une constante par une autre.
+
+\item[mouvement de \emph{coning} :] ce mode est essentiellement
+rencontré dans les phases de recherche Terre permettant de passer d'un
+pointage solaire à un pointage Terre ; il fait intervenir un pilotage
+hybride avec des capteurs optiques et un gyromètre :
+\begin{itemize}
+\item mesure du capteur tangage Soleil : $15\mbox{°}$
+\item mesure du capteur lacet Soleil : $0\mbox{°}$
+\item mesure du capteur vitesse roulis : $0,\!25\mbox{°}/s$
+\end{itemize}
+
+\item[petits mouvements autour d'une orientation de référence :] le cas
+d'utilisation typique de ce mode consiste à observer à l'aide des
+paramètres de télémesure l'orientation réelle du satellite autour d'un
+pointage théorique désiré (par exemple un pointage Terre). On peut
+utiliser directement les angles de \textsc{Cardan} pour cela :
+
+\begin{itemize}
+\item mesure du pseudo-capteur roulis  : $0,\!1\mbox{°}$
+\item mesure du pseudo-capteur tangage : $-0,\!07\mbox{°}$
+\item mesure du pseudo-capteur lacet   : $0,\!2\mbox{°}$
+\end{itemize}
+En fait, cette utilisation des angles de \textsc{Cardan} n'est pas
+limitée aux petits angles. Elle perd cependant son côté didactique
+lorsque les angles grandissent (il faut alors bien se rappeler l'ordre
+des rotations, sachant qu'aucune convention n'est
+universelle). L'utilisateur imprudent risque par ailleurs de tomber
+sur les singularités inhérentes à ces angles s'il n'y prend pas garde.
+\end{description}
+
+Cette description très simple est facile à appréhender. Penser en
+termes de mesures sur les capteurs est une abstraction de plus haut
+niveau qu'en terme d'objet mathématique interne. Cette description est
+à l'usage beaucoup plus parlante que les descriptions classiques. Elle
+compense également les difficultés évoquées plus haut. Elle est
+canonique et les données manipulées sont relativement parlantes, même
+s'il faut parfois quelques temps pour acquérir des automatismes.
+
+Cette description très simple est la seule chose qui soit nécessaire
+aux algorithmes présentés plus loin pour calculer l'orientation. Une
+bibliothèque a été conçue de sorte que ces algorithmes soient
+disponibles en boîte noire, l'utilisateur n'a donc effectivement que
+les noms des capteurs et les valeurs de consignes à traiter dans son
+code. En remontant ces noms et ces valeurs jusqu'au niveau des données
+d'entrées, il peut concevoir des logiciels multi-mission. La
+description des capteurs eux-mêmes, purement statique, est faite dans
+des fichiers de configuration lus directement par la bibliothèque.
+
+La description de l'orientation par les consignes de capteurs et la
+bibliothèque implémentant les algorithmes de résolution à partir de
+cette description permettent donc de lever la dernière difficulté
+énoncée plus haut et d'obtenir l'indépendance par rapport à la
+plateforme et aux lois d'orientation.
+
+On pourrait craindre que cette description ne soit bien adapté qu'aux
+quelques exemples cités ci-dessus. En sept ans d'utilisation dans
+divers projets, aucune limitation résultant de ce choix n'a cependant
+été rencontrée. De temps à autre, un projet a eu besoin d'un capteur
+pour lequel aucun modèle mathématique n'était disponible dans la
+bibliothèque où sont implémentés ces algorithmes. Le modèle du capteur a
+alors simplement été ajouté et rien d'autre n'a
+changé\footnote{l'implémentation a été concue selon les techniques
+objets avec une séparation nette entre la modélisation des capteurs et
+les autres composants}.
+
+Un autre facteur jouant en faveur de l'adaptabilité de la méthode est
+qu'outre les capteurs réels du satellite, on peut modéliser des
+pseudo-capteurs dans le seul but de les utiliser ensuite pour décrire
+des lois particulières. Ce facteur n'avait pas été prévu lors de
+l'élaboration des modèles, il s'est imposé de lui même au cours des
+divers projets. L'expérience passée a également montré que les lois
+d'orientation que l'on souhaite modéliser utilisaient souvent des
+consignes constantes dans le temps, les constantes étant d'ailleurs
+généralement nulles. Il faut cependant noter que ceci n'est pas vrai
+pour les missions d'observation de la Terre.
+
+\subsection{conséquences pour l'utilisateur}
+Pour l'utilisateur, la description de l'orientation fait intervenir deux
+types d'informations différents : la description générale des capteurs
+et les descriptions d'orientation par association de trois couples
+capteur/consigne.
+
+Vu du côté de la simulation d'orientation, un capteur est une structure
+de données statique dont les composantes dépendent du type de
+capteur. À titre indicatif, on peut citer pour un capteur optique
+l'orientation par rapport au satellite, la cible (Terre, Soleil, ...),
+le champ de vue et les axes sensible, neutre et de
+visée. L'utilisateur devra définir chacun des capteurs qu'il désire
+faire intervenir dans ses simulations ; il ne s'agit là que d'écrire
+des fichiers de données, bien plus faciles à valider que du code.
+
+Les capteurs sont souvent similaires (les capteurs solaires sont par
+exemple systématiquement des capteurs d'angle dièdre avec un champ de
+vue symétrique en double dièdre). Passer d'un satellite à l'autre se
+limite généralement à changer les noms des capteurs et les valeurs
+numériques des angles d'ouverture des dièdres et à prendre en compte
+les données d'alignement lorsqu'elles sont mises à jour par le
+constructeur. Cela arrive par exemple lorsque ce dernier réalise les
+mesures d'alignement au cours de l'intégration du satellite ou lorsque
+des capteurs solaires ont des calages différents pour des lancements
+en été ou en hiver.
+
+Les couples capteur/consigne dépendent quant à eux de la phase
+simulée. C'est essentiellement à ce niveau que les spécificités de la
+mission apparaissent. Les algorithmes sous-jacents ne font aucune
+hypothèse sur les paramètres de description qu'on leur soumet ni sur
+leur succession. Si un satellite a besoin d'une simulation vraiment
+très spécifique, rien n'empêche de créer un logiciel pour cela qui
+calculera une séquence de consignes propre et délèguera la résolution
+aux méthodes génériques. Ceci simplifie beaucoup le programme par
+rapport à une simulation spécifique de bout en bout. Ce cas ne se
+rencontre guère que dans le cadre des missions d'observation de la
+Terre.
+
+En présence de cas dégradés, le fait que toutes les descriptions
+soient au niveau des données permet à l'utilisateur d'intervenir
+rapidement et avec des risques limités. On peut par exemple faire
+fonctionner un logiciel conçu \emph{a priori} pour utiliser un capteur
+en en utilisant un autre en cas de panne du premier et de basculement
+sur le redondant. On peut également faire une simulation en saisissant
+manuellement dans un logiciel les paramètres lus sur les stations de
+décommutation de la télémesure pour essayer de comprendre comment se
+comporte le satellite. On peut enfin toujours intervenir sur l'ensemble des
+paramètres de description des capteurs qui sont \emph{tous}
+accessibles dans des fichiers\footnote{tout au moins dans
+l'implémentation de la méthode réalisée au \textsc{cnes}}.
+
+\subsection{conséquences pour l'implémentation}
+Le partage net entre les parties description et résolution ouvre la
+voie à une implémentation très modulaire. La réduction de la taille
+des composants qui résulte de cette modularité et le potentiel de
+réutilisation permettent d'implanter des modèles très fins et de les
+améliorer progressivement. L'historique de la modélisation des
+capteurs Terre montre clairement les gains de cette approche.
+
+À l'origine, le modèle des capteurs Terre se contentait de réaliser
+une mesure d'angle dièdre et de vérifier la visibilité du limbe
+Terre dans le champ de vue, en tenant compte d'une logique booléenne
+entre les différentes zones de balayage. Après une première tentative
+maintenant abandonnée de modéliser un capteur spécifique à un
+constructeur particulier, le modèle a pris en compte la notion de
+champ d'inhibition pour la Lune et le Soleil. Très vite, le champ
+d'inhibition général a été remplacé par des champs dédiés à chaque
+astre. Le calcul des inhibitions a ensuite pris en compte les éclipses
+entre les différents corps, ce qui a permis de jouer à cache-cache
+avec la Lune pendant certaines opérations critiques lors d'une mise à
+poste. Une notion de seuil d'inhibition a été ajoutée pour la Lune,
+qui n'est réellement gênante qu'aux alentours de la pleine Lune, ce
+seuil a pendant longtemps été exprimé en terme de luminance, mais des
+difficultés d'homogénéisation avec les modèles constructeurs ont
+conduit à exprimer ce seuil en fonction de l'angle de phase de la
+Lune.
+
+Cet exemple montre que l'on peut introduire des notions très fines
+dans les modèles, notions dont bénéficieront tous les utilisateurs
+ultérieurs.
+
+Une seconde conséquence sur l'implémentation est qu'il faut prendre
+garde à ne pas utiliser les spécificités de tel ou tel capteur dans le
+c\oe{}ur algorithmique, mais prévoir des pré ou post traitements gérés
+au niveau des capteurs (par exemple les calculs d'inhibition par les
+capteurs Terre).
+
+\subsection{limitations du modèle}
+Les exemples de consignes donnés ci-dessus montrent le principe
+général de la simulation : on donne les valeurs que doivent mesurer
+les capteurs lorsque le satellite est dans l'orientation désirée. Le
+Système de Contrôle d'Attitude et d'Orbite étant justement asservi par des
+capteurs, ceci correspond à une simulation d'un pilotage parfait,
+c'est-à-dire en supposant que les actuateurs (tuyères, roues) qui ne
+sont pas modélisés contrôlent exactement la dynamique du satellite
+(inerties, couples).
+
+Les algorithmes génériques ne modélisent que la cinématique du
+pilotage (chaque détermination d'orientation fournit à la fois l'orientation et
+la rotation moyenne depuis l'état précédent). Il est cependant
+possible d'inclure la dynamique, par des calculs faits soit avant
+l'appel à la résolution (transformation des couples en consignes de
+vitesse sur les capteurs cinématiques à l'aide des données d'inertie),
+soit après l'appel (transformation de l'évolution d'orientation en
+couples pour déduire l'activité tuyères et roues).
+
+Un point important à souligner est que les consignes sont considérées
+comme étant exprimées conformément aux conventions du capteur, et non
+conformément aux conventions du Système de Contrôle d'Attitude et
+d'Orbite, en particulier en ce qui concerne le signe des mesures. Ce
+choix permet d'alimenter directement la bibliothèque avec le flux de
+télémesure pendant les opérations, sans faire intervenir de
+filtre. Les consignes effectivement chargées dans le Système de
+Contrôle d'Attitude et d'Orbite par télécommandes peuvent donc
+différer des consignes chargées dans la bibliothèque. Ainsi certaines
+plateformes adoptent la convention selon laquelle pour avoir +15° sur
+le capteur Terre, on charge -15° comme biais de consigne satellite par
+télécommande. Dans ce cas, la bibliothèque utilisera une valeur de
+consigne de +15° cohérente avec la mesure, pas la valeur -15°
+compatible avec la télécommande.

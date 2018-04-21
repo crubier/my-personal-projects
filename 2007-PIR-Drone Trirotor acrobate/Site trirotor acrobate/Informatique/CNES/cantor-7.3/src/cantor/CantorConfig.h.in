@@ -1,0 +1,7 @@
+/* CantorConfig.h is generated automatically by configure */
+
+/* Version number of package */
+#define CANTOR_VERSION @PACKAGE_VERSION@
+
+/* define if the compiler implements namespaces */
+#define CANTOR_HAVE_NAMESPACES @ca_cv_namespaces@

@@ -1,0 +1,76 @@
+# fichier de traduction du domaine cantor
+# identificateur RCS : "$Id: cantor,v 1.5 2002/09/03 14:38:32 cantor Exp $"
+
+# messages d'erreur
+"norme d'un vecteur nulle"
+   "null vector"
+
+"axe d'une rotation nul"
+   "null rotation axis"
+
+"ordre de rotations elementaires inconnu : %d\nordres connus :"
+   "unknown elementary rotations ordre: %d\nknown orders:"
+
+"matrice non orthogonalisable"
+   "non orthogonalisable matrix"
+
+"matrice singuliere"
+   "singular matrix"
+
+"impossible de creer une rotation donnant un repere indirect"
+  "can not create a rotation leading to an indirect frame"
+
+"extremite d'un arc alignee avec l'axe"
+  "endpoint of an arc aligned with the axis"
+
+"cones coaxiaux"
+   "coaxials cones"
+
+"cones disjoints"
+   "separated cones"
+
+"ensemble vide d'intervalles"
+   "empty set of intervals"
+
+"indice \"%s\" = %d, hors bornes [%d; %d]"
+   "index \"%s\" = %d, out of range [%d; %d]"
+
+"operation sur un polynome invalide"
+   "operation upon invalid polynom"
+
+"pas de base de fonctions d'approximation"
+  "no base functions for approximation"
+
+"erreur %d dans les fonctions de base de l'approximation"
+  "error %d in base functions for approximation"
+
+"dimension de l'espace d'approximation nulle"
+  "null dimension of approximation space"
+
+"ajustement des moindres carres impossible (matrice singuliere)"
+  "impossible adjustment of least squares (singular matrix)"
+
+"ajustement du filtre des moindres carres non effectue"
+  "least squares filter adjustment not yet available"
+
+"cas non implante\nveuillez contacter la maintenance de CANTOR"
+  "unimplemented case\nplease contact CANTOR support"
+
+"frontiere de champ ouverte"
+  "open field boundary"
+
+"connexions entrantes et sortantes d'un noeud non equilibrees"
+  "mismatched number of arcs coming in and going out of a node"
+
+"erreur interne de CANTOR, veuillez contacter la maintenance (ligne %d, fichier %s)"
+  "CANTOR internal error, contact the support (line %d, file %s)"
+
+"calcul des angles de rotation de Cardan ou d'Euler impossible dans cette configuration (%s)"
+  "computation of Cardan or Euler rotation angles impossible in this configuration (%s)"
+
+# mots clefs
+"indice intervalle"
+  "interval index"
+
+"degre polynome"
+   "polynom degree"

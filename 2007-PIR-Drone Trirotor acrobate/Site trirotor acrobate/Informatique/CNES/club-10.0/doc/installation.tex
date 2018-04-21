@@ -1,0 +1,177 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+% $Id: installation.tex,v 1.14 2005/03/03 16:30:03 chope Exp $
+La bibliothèque \bibliotheque{club} est livrée sous forme d'une
+archive compressée dont le nom est de la forme
+\texttt{club-\textsl{vv}.\textsl{rr}.tar.gz}, où \textsl{vv} est le
+numéro de version et \textsl{rr} est le numéro de révision.
+
+L'installation de la bibliothèque est similaire à l'installation des
+produits \textsc{gnu}. En premier lieu, il importe de
+décompresser\footnote{l'utilitaire de décompression \texttt{gunzip}
+est disponible librement sur tous les sites \texttt{ftp} miroirs du
+site \textsc{gnu}} l'archive et d'en extraire les fichiers, par une
+commande du type~:
+
+\centerline{\texttt{gunzip -c club-\textsl{vv}.\textsl{rr}.tar.gz |
+tar xvf -}}
+
+Cette commande crée un répertoire
+\texttt{club-\textsl{vv}.\textsl{rr}} à l'endroit d'où elle a été
+lancée. Il faut ensuite se placer dans ce répertoire, et configurer
+les makefiles par une commande du type~:
+
+\centerline{\texttt{./configure}}
+
+On peut modifier les choix du script de configuration par plusieurs
+moyens. Le cas de loin le plus courant est de vouloir installer la
+bibliothèque à un endroit spécifique (l'espace par défaut est
+\texttt{/usr/local}), on doit pour cela utiliser l'option
+\texttt{-{}-prefix} comme dans l'exemple suivant~:
+
+\centerline{\texttt{./configure -{}-prefix=/racine/espace/installation}}
+
+Par défaut, le script de configuration recherche les bibliothèques
+\bibliotheque{xerces} et \bibliotheque{madona} dans l'environnement
+par défaut de l'utilisateur et ne compile les fonctions optionnelles
+de \bibliotheque{club} qui en dépendent que s'il trouve ces
+bibliothèques. Les options \texttt{-{}-with-xerces-c[=PATH]} et
+\texttt{-{}-with-madona[=PATH]} permettent d'aider le script à trouver
+les bibliothèques lorsqu'elles sont installées dans des répertoires
+non standards. Lorque l'on spécifie un chemin du style
+\texttt{/racine/specifique}, les fichiers d'en-tête sont recherchés
+sous \texttt{/racine/specifique/include} et
+\texttt{/racine/specifique/include/xerces} (ou \texttt{madona} selon
+le cas) et les bibliothèques sous \texttt{/racine/specifique/lib}. On
+peut également empêcher l'utilisation de ces bibliothèques en
+spécifiant \texttt{-{}-with-xerces-c=no} et \texttt{-{}-with-madona=no}
+\begin{changebar}
+(ou de façon équivalente en spécifiant \texttt{-{}-without-xerces} et
+\texttt{-{}-without-madona}).
+\end{changebar}
+
+On peut choisir les noms des variables d'environnement à utiliser pour
+le système de traduction en les spécifiant dans deux autres variables
+d'environnement avant de lancer le script de
+configuration. \texttt{CL\_VAR\_LANG} permet de nommer la variable
+décrivant la langue (avec une valeur par défaut de \texttt{CLUB\_LANG}
+si la variable n'existe pas) et \texttt{CL\_VAR\_TRADPATH} permet de
+nommer la variable décrivant la liste des chemins de traduction (avec
+une valeur par défaut de \texttt{CLUB\_TRADPATH} si la variable
+n'existe pas).
+
+\begin{changebar}
+On peut choisir le nom de la variable d'environnement à utiliser pour
+le support de fichiers \texttt{XML} en spécifiant une autre variable
+d'environnement avant de lancer le script de
+configuration. \texttt{CL\_VAR\_XMLPATH} permet de
+nommer la variable décrivant la liste des chemins d'accès aux
+\texttt{DTD} et au fichier des unités par défaut (avec
+une valeur par défaut de \texttt{CLUB\_XMLPATH} si la variable
+n'existe pas). Cette variable n'a pas besoin d'être configurée si
+le support XML n'est pas activé, que ce soit parce que l'utilisateur a
+spécifié l'une des options de configuration
+\texttt{-{}-with-xerces-c=no} ou \texttt{-{}-without-xerces} ou parce
+que la bibliothèque \bibliotheque{xerces} n'a pas été trouvée.
+\end{changebar}
+
+Il arrive beaucoup plus rarement que l'on désire modifier les options
+de compilation, il faut là encore passer par des variables
+d'environnement (\texttt{CXXCPP}, \texttt{CPPFLAGS}, \texttt{CXX},
+\texttt{CXXFLAGS}, \texttt{LDFLAGS} ou \texttt{LIBS}) avant de lancer
+le script.
+
+Si l'on désire partager les options ou les variables d'environnement
+entre plusieurs scripts \texttt{configure} (par exemple ceux des
+bibliothèques \bibliotheque{club}, \bibliotheque{interface},
+\bibliotheque{cantor} et \bibliotheque{marmottes}), il est possible
+d'initialiser les variables\footnote{l'option \texttt{-{}-prefix}
+s'initialise à l'aide d'une variable shell \texttt{prefix}} dans un ou
+plusieurs scripts Bourne-shell. La variable \texttt{CONFIG\_SITE} si
+elle existe donne une suite de noms de tels scripts séparés par des
+blancs, ceux qui existent sont chargés dans l'ordre. Si la variable
+n'existe pas on utilise la liste par défaut des fichiers
+\texttt{\$(prefix)/share/config.site} puis
+\texttt{\$(prefix)/etc/config.site} ; cette liste par défaut permet de
+gérer plusieurs configurations en spécifiant manuellement l'option
+\texttt{-{}-prefix} sans le risque de confusion inhérent aux variables
+d'environnement peu visibles.
+
+La compilation est ensuite réalisée par la commandes \texttt{make} et
+l'installation par la commande \texttt{make install}. La première
+commande compile localement tous les éléments de la bibliothèque et
+les programmes de tests, seule la seconde commande installe des
+fichiers hors de l'arborescence de compilation. Les fichiers installés
+sont l'archive \texttt{libclub.a}, la bibliothèque partagée
+\texttt{libclub.so}, les fichiers de configuration de \outil{libtool}
+et les liens symboliques des bibliothèques, le répertoire de fichiers
+d'inclusion \texttt{club}, l'utilitaire difference, la documentation,
+\begin{changebar}
+les DTD et le fichier d'unités par défaut pour XML,
+\end{changebar}
+et les fichiers de traduction \texttt{en/club} et \texttt{fr/club}
+dans les sous-répertoires de la racine spécifiée par l'option
+\texttt{-{}-prefix} de \texttt{configure}, valant \texttt{/usr/local}
+par défaut.
+
+Si l'utilisateur le désire, il peut faire un \texttt{make check} après
+le \texttt{make} pour lancer localement les tests internes de la
+distribution.
+
+Il est possible de désinstaller complètement la bibliothèque par la
+commande \texttt{make uninstall}.
+
+Pour régénérer l'arborescence telle qu'issue de la distribution (en
+particulier pour éliminer les fichiers de cache de
+\texttt{configure}), il faut faire un \texttt{make distclean}.
+
+La bibliothèque \bibliotheque{club} contient deux classes de gestion
+des formats de fichier XML et Madona nommées respectivement XMLFile et
+MadonaFile. Ces classes s'appuient respectivement sur les
+bibliothèques \bibliotheque{xerces}\footnote{une distribution de
+\bibliotheque{xerces} est disponible sur le site~\ref{ref:xerces}} et
+\bibliotheque{madona}\footnote{l'installation de \bibliotheque{madona}
+est expliquée dans le document~\ref{ref:madona-util}} qui
+doivent donc impérativement être installées pour pouvoir utiliser
+leurs services. L'absence de ces bibliothèques n'empêche pas la
+génération et l'installation de \bibliotheque{club}. En revanche, si
+\bibliotheque{xerces} (respectivement \bibliotheque{madona}) n'est pas
+installée, XMLFile (respectivement MadonaFile) n'est ni compilée ni installée.  
+
+Une fois l'installation de \bibliotheque{club} réalisée, le répertoire
+\texttt{club-\textsl{vv}.\textsl{rr}} ne sert plus (sauf si l'on a
+compilé avec une option de déboguage) et peut être supprimé.
+
+La démarche de compilation normale est de désarchiver, de configurer,
+de compiler, d'installer, puis de supprimer le répertoire des sources,
+pour ne conserver que l'archive compressée. Le répertoire des sources
+n'est pas un espace de stockage permanent, les directives du
+\texttt{Makefile} ne supportent en particulier pas les compilations
+simultanées sur un espace unique, et le \texttt{Makefile} lui-même
+dépend de la configuration (il n'est d'ailleurs pas livré pour cette
+raison). Si un utilisateur désire installer la bibliothèque sur
+plusieurs machines ayant chacune un espace privé pour les
+bibliothèques (typiquement \texttt{/usr/local}) mais se partageant le
+répertoire d'archivage par un montage de disque distant, il ne faut
+pas décompresser l'archive dans l'espace commun. On préfèrera dans ce
+cas une série de commandes du type :
+
+\begin{changebar}
+\newlength{\largeurCompilation}
+\settowidth{\largeurCompilation}{\ttfamily
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+}
+\begin{center}\begin{minipage}{\largeurCompilation}\begin{verbatim}
+cd /tmp
+gunzip -c /chemin/vers/l/espace/partage/club-vv.rr.tar.gz | tar xvf -
+cd club-vv.rr
+env CL_VAR_LANG=MRC_USER_LANG         \
+    CL_VAR_TRADPATH=MRC_USER_TRADPATH \
+    CL_VAR_XMLPATH=MRC_USER_XMLPATH   \
+    ./configure --prefix=/chemin/vers/l/espace/prive \
+    --with-xerces-c=/opt --without-madona
+make
+make install
+cd ..
+rm -fr club-vv.rr
+\end{verbatim}\end{minipage}\end{center}
+\end{changebar}

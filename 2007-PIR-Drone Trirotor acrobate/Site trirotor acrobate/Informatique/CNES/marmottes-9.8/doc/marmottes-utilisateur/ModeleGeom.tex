@@ -1,0 +1,132 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: ModeleGeom.tex,v 1.6 2002/01/17 13:29:57 marmottes Exp $
+\subsection{classe ModeleGeom}\label{sec:ModeleGeom}
+
+\subsubsection*{description}\label{sec:ModeleGeom-desc}
+
+Cette classe dérivée de la classe Modele implante le modèle analytique
+d'attitude à un degré de liberté respectant deux consignes
+géométriques.
+
+Les consignes géométriques étant des cônes (ou des secteurs sur des
+cônes), le degré de liberté est une position angulaire sur le premier
+des cônes, et le modèle est un modèle d'attitude. Le spin se déduit de
+l'attitude par différences finies par rapport à l'état précédent.
+\subsubsection*{interface publique}\label{sec:ModeleGeom-int}
+\begin{verbatim}
+#include "marmottes/ModeleGeom.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{ModeleGeom : méthodes publiques}
+{\label{tab:ModeleGeom-met-pub}}
+{construit une instance par défaut inutilisable}
+
+\signature{\fonc{ModeleGeom} ()}
+          {}&
+
+construit une instance par défaut inutilisable sans réaffectation\\
+
+\hline
+
+\signature{\fonc{ModeleGeom} (const ModeleGeom\& \argument{m})}
+          {}&
+
+constructeur par copie\\
+
+\signature{ModeleGeom\& \fonc{operator =} (const ModeleGeom\& \argument{m})}
+          {}&
+
+affectation\\
+
+\hline
+
+\signature{\fonc{\~{}ModeleGeom} ()}
+          {}&
+
+destructeur virtuel, ne fait rien dans cette classe\\
+
+\hline
+
+\signature{void \fonc{prendConsignesEnCompte}()}
+          {\throw{MarmottesErreurs}}&
+
+méthode d'initialisation du modèle à partir des consignes courantes
+des senseurs concernés\\
+
+\hline
+
+\signature{int \fonc{familles} () const}
+          {}&
+
+retourne le nombre de familles d'attitude disjointes\\
+
+\signature{void \fonc{attitude}}
+          {(const Etat\& \argument{etatPrecedent}, double \argument{date},\\
+            const ValeurDerivee1\& \argument{t}, int \argument{famille},\\
+            RotVD1* \argument{ptrAtt}, VecVD1* \argument{ptrSpin}) const
+          }&
+
+retourne l'attitude modélisée et le spin dérivé à la \argument{date}
+courante dans les variables pointées pa \argument{ptrAtt} et
+\argument{ptrSpin} pour une valeur test du degré de liberté
+\argument{t} (compris entre $-1$ et $+1$) de la \argument{famille} en
+cours d'analyse, la dérivation du spin se faisant à partir de
+l'\argument{etatPrecedent}\\
+
+
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+Il n'y a \emph{aucune} utilisation directe de la classe ModeleGeom
+dans toute la bibliothèque \bibliotheque{marmottes} ! Si l'on excepte
+les manipulations de pointeurs pour rendre courant soit le modèle
+géométrique soit le modèle cinématique, les accès à la classe se font
+tous par l'intermédiaire de la classe de base Modele.
+
+\subsubsection*{conseils d'utilisation spécifiques}
+\label{sec:ModeleGeom-conseils}
+L'arborescence d'héritage des classes de modèles est un moyen de
+masquer aux algorithmes de résolution numérique le type de modèle
+sous-jacent. La seule chose qui soit utile à ce niveau est la
+possibilité d'initialiser le modèle en début de résolution, et la
+possibilité d'appliquer le modèle à une valeur test pour obtenir une
+attitude correspondante.
+
+Ce principe simplifie énormément les résolutions et doit être
+conservé~; il est donc fortement déconseillé de faire évoluer la
+classe ModeleGeom indépendamment des classes Modele et ModeleCine.
+
+\subsubsection*{implantation}\label{sec:ModeleGeom-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:ModeleGeom-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe ModeleGeom}
+{\label{tab:ModeleGeom-att-priv}}
+{nombre total de familles d'attitude pour les}
+
+nombreFamilles\_ & int & nombre total de familles d'attitude pour les
+consignes courantes\\
+
+\hline
+
+table\_ & vector<Famille>  & élément de type \emph{vector}
+(\bibliotheque{stl}) qui contient l'ensemble des solutions possibles,
+celles-ci étant de type Famille\\
+
+\hline
+
+canSat\_ & RotVD1 & rotation permettant de convertir un vecteur
+exprimé dans le repère canonique de résolution en vecteur exprimé dans
+le repère satellite\\
+
+\end{tableAttributsFixe}
+Les méthodes privées sont décrites dans la table~\ref{tab:ModeleGeom-met-priv}.
+\begin{tableFonctionsFixe}{ModeleGeom : méthodes privées}
+{\label{tab:ModeleGeom-met-priv}}
+{construit les modèles généraux de résolution}
+
+\signature{Creneau  \fonc{intersection}}
+          {(double \argument{cosMin},
+           double \argument{cosMax},\\ 
+           const Creneau\& \argument{creneauConsigne}) const} &
+
+retourne le créneau d'intersection entre le domaine de validité de
+$\theta$ et le créneau de consigne du premier senseur\\
+\end{tableFonctionsFixe}

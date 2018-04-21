@@ -1,0 +1,1143 @@
+% -*- mode: latex; tex-main-file: "marmottes-mathematique.tex" -*-
+% $Id: demonstrations.tex,v 1.13 2002/01/17 13:58:05 marmottes Exp $
+
+\section{Démarche de la résolution}\label{sec:demarche}
+Si l'on ne respecte que deux des trois consignes d'orientation, on
+fixe deux degrés de liberté et le troisième reste libre. Dans la
+section~\ref{sec:deux-consignes}, on démontre que si les deux
+consignes respectées sont de même type (soit géométrique, soit
+cinématique), alors on sait exprimer l'orientation sous forme d'une
+fonction à une variable $Q(\theta)$ et la rotation instantanée sous
+forme d'une fonction $\vec{\Omega}(\theta)$ ($\theta$ étant le degré
+de liberté restant), et on connaît le domaine de validité de la
+variable scalaire $\theta$. Les fonctions $Q$ et $\vec{\Omega}$ sont
+calculables de façon analytique et ont de bonnes propriétés de
+continuité et de dérivabilité à l'intérieur du domaine de validité de
+$\theta$. On démontre également dans la
+section~\ref{sec:deux-consignes} qu'étant donnée une orientation $Q$,
+une rotation instantanée $\vec{\Omega}$ et une consigne, on sait
+calculer de façon analytique une fonction scalaire $f(Q,
+\vec{\Omega})$ qui a également de bonnes propriétés de continuité et
+de dérivabilité, et qui s'annule lorsque l'orientation et la rotation
+instantanée respectent la consigne. La démarche de la résolution est
+alors la suivante :
+
+\begin{itemize}
+\item modéliser les mesures capteurs en consignes ;
+\item organiser les consignes en un groupe de deux consignes
+identiques et une consigne unique quelconque;
+\item construire les fonctions $Q(\theta)$ et $\vec{\Omega}(\theta)$
+qui respectent les deux consignes identiques et calculer le domaine de
+validité de $\theta$ ;
+\item chercher tous les $\theta_i$ annulant la fonction
+$f(Q(\theta),\vec{\Omega}(\theta))$ dans le domaine de validité de
+$\theta$, la fonction $f$ étant celle qui est associée à la troisième
+consigne ;
+\item rejeter toutes les couples orientation et rotation instantanée
+$(Q(\theta_i),\vec{\Omega}(\theta_i))$ qui ne respectent pas les
+champs de vue des capteurs géométriques.
+\end{itemize}
+
+Après ces étapes, il ne devrait rester que l'orientation donnant les
+mesures capteurs fournies en entrée. S'il ne reste aucune orientation,
+alors l'orientation demandée n'est pas pilotable (en tout cas, pas à
+cet instant). S'il reste plusieurs orientations, il est vraisemblable
+que le mode d'orientation décrit soit réellement ambigü et présente
+des effets stroboscopiques. C'est en particulier le cas lorsqu'on
+utilise deux capteurs cinématiques et un capteur géométrique,
+puisqu'outre la solution naturelle il existe des solutions parasites
+respectant toutes les contraintes mais pour lesquelles le satellite
+fait un nombre entier de tours sur lui même entre deux pas autour d'un
+axe auquel les capteurs cinématiques sont insensibles. Dans ce cas la
+sélection \emph{a posteriori} de la meilleure solution selon un
+critère de modification minimale de la rotation instantanée depuis
+l'état précédant lève correctement l'ambiguïté.
+
+La résolution décrite précédemment peut être coûteuse en temps de
+calcul. Dans la pratique, l'évolution d'orientation des satellites est
+régulière sur de longues périodes de temps. On améliore donc les
+performances en tentant une simple extrapolation de l'orientation
+précédente (à l'aide de la rotation instantanée associée) avant
+d'entamer la résolution complète. Si cette extrapolation respecte les
+trois consignes au seuil de convergence désiré (par défaut un dixième
+de la précision du capteur concerné), il est inutile de lancer la
+résolution complète, on se contente de retourner l'orientation
+extrapolée. L'expérience montre que l'on gagne un facteur de l'ordre
+de 10 à 30 sur le temps de calcul.
+
+\section{Orientations respectant deux consignes identiques}\label{sec:deux-consignes}
+La détermination d'orientation se fait en rajoutant les consignes les
+unes après les autres, pour restreindre petit à petit l'ensemble des
+solutions possibles.
+
+Il s'avère qu'il faut séparer le cas des deux premières consignes du
+cas de la troisième. On choisit donc de traiter les deux premières en
+vérifiant qu'elles sont de même type (c'est toujours possible, au prix
+d'un éventuel réarrangement). Deux possibilités se présentent alors :
+les deux consignes sont soit toutes deux géométriques, soit toutes
+deux cinématiques.
+
+\subsection{cas de deux consignes géométriques}\label{sec:geom-geom}
+Lorsqu'au moins deux capteurs sur les trois sont de type géométrique,
+respecter les deux consignes correspondantes revient à imposer à deux
+vecteurs $\vec{v}_1$ et $\vec{v}_2$ connus en repère inertiel de
+rester sur deux cônes ($\vec{a}_1$,~$\mu_1$) et ($\vec{a}_2$,~$\mu_2$)
+dont les axes $\vec{a}_1$ et $\vec{a}_2$ sont connus en repère
+satellite. On suppose que $\mu_1$ et $\mu_2$ appartiennent tous deux à
+l'intervalle $]0 ; \pi[$ (si l'un des angles valait 0 ou $\pi$, la
+consigne correspondante fixerait deux degrés de liberté en une seule
+consigne ; de toutes façons, les champs de vue des capteurs limitent
+généralement ces angles à des valeurs de l'ordre de 60° à 120°).
+
+On supposera ici, à chaque fois que cela sera nécessaire, que les
+vecteurs sont non alignés, qu'ils ne sont pas rigoureusement sur les
+cônes qui vont intervenir (sauf bien sûr s'ils sont définis par ces
+cônes), bref qu'il n'y a aucune coïncidence particulière. Tous les cas
+particuliers seront analysés au paragraphe suivant.
+
+La résolution est faite dans un repère canonique\footnote{les
+premières versions de \textsc{marmottes} (avant la version 7.0)
+utilisaient un repère basé sur $(\vec{v}_1, \vec{a}_2)$ au lieu de
+$(\vec{a}_1, \vec{a}_2)$ comme décrit ici. Les équations résultantes
+étaient plus simples, mais il était impossible de calculer
+analytiquement les prolongements par continuité que nous verrons plus
+loin (la singularité se partageant entre le repère et les coordonnées
+dans le repère).} tel que l'axe $\vec{a}_1$ du premier cône de
+consigne (celui sur lequel $\vec{v}_1$ se déplace) soit dans le plan
+$(\vec{\imath}, \vec{k})$ et dont l'axe $\vec{k}$ soit l'axe
+$\vec{a}_2$ du second cône de consigne (voir
+figure~\ref{fig:canonique}). Ce repère est fixe quel que soit le choix
+du vecteur $\vec{v}_1$ sur $(\vec{a}_1, \mu_1)$, il existe si
+$\vec{a}_1$ et $\vec{a}_2$ ne sont pas colinéaires. Si $\vec{a}_1$ et
+$\vec{a}_2$ sont colinéaires, on prend n'importe quel repère vérifiant
+$\vec{k}=\vec{a}_2$. À la fin des calculs, l'orientation sera donc
+décrite par un quaternion transformant le repère inertiel en repère
+canonique, une simple composition par l'inverse du quaternion
+canonique permettra de déterminer le vrai quaternion d'orientation, qui
+permet de passer du repère inertiel au repère satellite.
+
+\begin{displaymath}
+\vec{\imath} = \frac{\vec{a}_1-(\vec{a}_1\cdot\vec{a}_2)\vec{a}_2}
+                    {\sqrt{1-(\vec{a}_1\cdot\vec{a}_2)^2}}
+\qquad
+\vec{\jmath} = \frac{-\vec{a}_1\wedge\vec{a}_2}
+                    {\sqrt{1-(\vec{a}_1\cdot\vec{a}_2)^2}}
+\qquad
+\vec{k} = \vec{a}_2
+\end{displaymath}
+
+\begin{figure}[htbp]\caption{\label{fig:canonique}repère de résolution canonique}
+\begin{center}\begin{minipage}{75.00mm}
+\setlength{\unitlength}{0.0250mm}\begin{picture}(3000,2999)
+
+ % courbe 0
+  \qbezier[20](1499,2064)(1308,1962)(1201,1637)
+
+   % courbe 1
+  \qbezier[0](2729,1205)(3001,1343)(3000,1500)
+
+  % courbe 2
+  \qbezier[0](0,1500)(-1,1442)(42,1379)
+  \qbezier[0](42,1379)(82,1323)(154,1273)
+  \qbezier[0](154,1273)(218,1229)(302,1191)
+  \qbezier[0](302,1191)(374,1159)(458,1131)
+  \qbezier[0](458,1128)(1353,872)(2364,1077)
+  \qbezier[0](2365,1081)(2460,1104)(2546,1132)
+  \qbezier[0](2546,1132)(2646,1165)(2729,1206)
+
+  % courbe 3
+  \qbezier[0](1500,2910)(1432,2876)(1365,2827)
+  \qbezier[0](1365,2827)(1305,2781)(1247,2724)
+  \qbezier[0](1247,2724)(1195,2672)(1146,2612)
+  \qbezier[0](1143,2612)(664,1981)(637,1081)
+
+  % courbe 4
+  \qbezier[0](1500,1500)(1274,1798)(1049,2096)
+
+  % courbe 5
+  \qbezier[0](1500,1500)(1127,1476)(754,1452)
+
+  % courbe 6
+  \qbezier[0](892,2200)(851,2209)(809,2207)
+  \qbezier[0](809,2207)(772,2205)(735,2194)
+  \qbezier[0](735,2194)(709,2186)(683,2174)
+  \qbezier[0](680,2174)(417,2018)(447,1709)
+  \qbezier[0](450,1706)(455,1678)(464,1652)
+  \qbezier[0](464,1652)(475,1620)(492,1592)
+  \qbezier[0](492,1592)(511,1560)(537,1534)
+  \qbezier[0](537,1534)(570,1500)(611,1480)
+  \qbezier[0](611,1480)(657,1457)(710,1452)
+  \qbezier[0](710,1452)(751,1449)(794,1457)
+  \qbezier[0](794,1457)(826,1463)(857,1476)
+  \qbezier[0](857,1476)(882,1486)(907,1501)
+  \qbezier[0](911,1501)(1169,1689)(1103,1994)
+  \qbezier[0](1100,1996)(1091,2023)(1079,2047)
+  \qbezier[0](1079,2047)(1062,2081)(1038,2109)
+  \qbezier[0](1038,2109)(1011,2141)(976,2164)
+  \qbezier[0](976,2164)(937,2189)(892,2200)
+
+  % courbe 7
+  \qbezier[0](1500,1500)(1127,1670)(755,1841)
+
+  % courbe 8
+  \qbezier[0](1500,1500)(1812,2120)(2125,2741)
+
+  % courbe 9
+  \qbezier[0](1500,1500)(1188,2120)(875,2741)
+
+  % courbe 10
+  \qbezier[0](2019,2653)(2129,2707)(2134,2775)
+  \qbezier[0](2134,2775)(2132,2879)(1896,2947)
+
+  % courbe 11
+  \qbezier[0](1103,2947)(877,2883)(866,2781)
+  \qbezier[0](866,2781)(865,2753)(884,2727)
+  \qbezier[0](884,2727)(901,2703)(931,2682)
+  \qbezier[0](931,2682)(958,2663)(994,2647)
+  \qbezier[0](995,2644)(1429,2489)(1941,2619)
+  \qbezier[0](1942,2622)(1984,2636)(2019,2653)
+
+  % courbe 13
+  \qbezier[0](1500,2910)(1169,2899)(868,2759)
+
+  % courbe 14
+  \qbezier[0](755,1841)(625,1698)(526,1548)
+
+  % courbe 15
+  % courbe 12
+  \qbezier[0](1500,1500)(1070,1290)(640,1080)
+
+  % courbe 13
+  \qbezier[0](640,1080)(726,1157)(812,1234)
+
+  % courbe 14
+  \qbezier[0](812,1234)(812,1199)(812,1164)
+
+  % courbe 15
+  \qbezier[0](812,1164)(842,1156)(873,1149)
+
+  % courbe 16
+  \qbezier[0](873,1149)(756,1114)(640,1080)
+
+  % courbe 17
+  \qbezier[0](640,1080)(1070,1290)(1500,1500)
+
+  % courbe 18
+  \qbezier[0](1500,1500)(2114,1353)(2729,1206)
+
+  % courbe 19
+  \qbezier[0](2729,1206)(2584,1225)(2440,1244)
+
+  % courbe 20
+  \qbezier[0](2440,1244)(2462,1254)(2483,1265)
+
+  % courbe 21
+  \qbezier[0](2483,1265)(2483,1300)(2483,1335)
+
+  % courbe 22
+  \qbezier[0](2483,1335)(2606,1270)(2729,1206)
+
+  % courbe 23
+  \qbezier[0](2729,1206)(2114,1353)(1500,1500)
+
+  % courbe 24
+  \qbezier[0](1500,1500)(1500,2205)(1500,2910)
+
+  % courbe 25
+  \qbezier[0](1500,2910)(1531,2761)(1561,2613)
+
+  % courbe 26
+  \qbezier[0](1561,2613)(1531,2620)(1500,2628)
+
+  % courbe 27
+  \qbezier[0](1500,2628)(1478,2617)(1457,2607)
+
+  % courbe 28
+  \qbezier[0](1457,2607)(1478,2758)(1500,2910)
+
+  % courbe 29
+  \qbezier[0](2960,1150)(3094,1753)(2779,2285)
+  \qbezier[0](2780,2287)(2317,2988)(1477,3002)
+  \qbezier[0](1476,3000)(938,2986)(525,2641)
+  \qbezier[0](525,2640)(345,2486)(220,2283)
+  \qbezier[0](218,2283)(-171,1604)(131,882)
+  \qbezier[0](133,882)(172,796)(221,715)
+  \qbezier[0](220,713)(683,12)(1523,-2)
+  \qbezier[0](1524,0)(2062,14)(2475,359)
+  \qbezier[0](2475,360)(2842,679)(2959,1151)
+
+\put(1300,2050){\mbox{$\gamma$}}
+\put(900,1850){\mbox{$\vec{a}_1$}}
+\put(1600,2750){\mbox{$\vec{k}=\vec{a}_2$}}
+\put(550,900){\mbox{$\vec{\imath}$}}
+\put(2800,1100){\mbox{$\vec{\jmath}$}}
+\put(500,1800){\mbox{$\mu_1$}}
+\put(1050,2750){\mbox{$\mu_2$}}
+\end{picture}\end{minipage}\end{center}
+\end{figure}
+
+Dans ce repère les vecteurs $\vec{a}_1$ et $\vec{a}_2$ s'expriment
+simplement ($\mu_1$ et $\mu_2$ sont strictement compris entre $0$ et
+$\pi$, $\gamma$ pouvant quant à lui atteindre les valeurs $0$ et
+$\pi$)~:
+\begin{displaymath}
+\vec{a}_1\left\{\begin{array}{l}
+                \sg = \sqrt{1-(\vec{a}_1\cdot\vec{a}_2)^2}\\
+                0\\
+                \cg = \vec{a}_1\cdot\vec{a}_2
+                \end{array}\right.
+\qquad
+\vec{a}_2\left\{\begin{array}{l}
+                0\\
+                0\\
+                1
+                \end{array}\right.
+\end{displaymath}
+
+\subsubsection{résolution générale}
+Le vecteur $\vec{v}_2$ est à la distance $\alpha_{1,2}$ de
+$\vec{v}_1$. Cet angle est connu car on sait calculer en repère
+inertiel $\ca=\vec{v}_1\cdot\vec{v}_2$. D'autre part, quand
+$\vec{v}_2$ respecte la seconde consigne, il est à la distance $\mu_2$
+de $\vec{a}_2$.
+
+Le vecteur $\vec{v}_2$ recherché est donc à l'intersection des cônes
+$(\vec{v}_1, \alpha_{1,2})$ et $(\vec{a}_2, \mu_2)$, il peut être défini
+par un seul paramètre inconnu $\varphi$ représentant l'angle de
+phase du vecteur autour du cône $(\vec{a}_2, \mu_2)$~:
+\begin{displaymath}
+\vec{v}_2\left\{\begin{array}{l}
+                \smd\cj\\
+                \smd\sj\\
+                \cmd
+                \end{array}\right.
+\end{displaymath}
+
+\begin{figure}[htbp]\caption{\label{fig:cible}positions des vecteurs cibles}
+\begin{center}\begin{minipage}{75.00mm}
+\setlength{\unitlength}{0.0250mm}\begin{picture}(3000,2999)
+
+  % courbe 1
+  \qbezier[0](2729,1205)(3001,1343)(3000,1500)
+
+  % courbe 2
+  \qbezier[0](0,1500)(-1,1442)(42,1379)
+  \qbezier[0](42,1379)(82,1323)(154,1273)
+  \qbezier[0](154,1273)(218,1229)(302,1191)
+  \qbezier[0](302,1191)(374,1159)(458,1131)
+  \qbezier[0](458,1128)(1353,872)(2364,1077)
+  \qbezier[0](2365,1081)(2460,1104)(2546,1132)
+  \qbezier[0](2546,1132)(2646,1165)(2729,1206)
+
+  % courbe 3
+  \qbezier[0](1500,2910)(1432,2876)(1365,2827)
+  \qbezier[0](1365,2827)(1305,2781)(1247,2724)
+  \qbezier[0](1247,2724)(1195,2672)(1146,2612)
+  \qbezier[0](1143,2612)(664,1981)(637,1081)
+
+  % courbe 4
+  \qbezier[0](1101,1755)(1168,2058)(943,2183)
+  \qbezier[0](940,2183)(902,2200)(861,2205)
+  \qbezier[0](861,2205)(825,2210)(788,2205)
+  \qbezier[0](788,2205)(756,2201)(725,2190)
+  \qbezier[0](725,2190)(698,2182)(673,2169)
+  \qbezier[0](670,2169)(404,1998)(452,1687)
+  \qbezier[0](455,1684)(461,1657)(472,1631)
+  \qbezier[0](472,1631)(487,1596)(509,1566)
+  \qbezier[0](509,1566)(554,1505)(620,1475)
+  \qbezier[0](620,1475)(644,1465)(669,1459)
+  \qbezier[0](669,1459)(694,1453)(720,1452)
+  \qbezier[0](722,1450)(988,1458)(1099,1750)
+
+  % courbe 5
+  \qbezier[0](755,1841)(584,1819)(443,1787)
+
+  % courbe 6
+  %\qbezier[0](822,2037)(806,2041)(789,2041)
+  %\qbezier[0](789,2041)(774,2041)(758,2038)
+  %\qbezier[0](756,2039)(600,1996)(580,1817)
+  \qbezier[20](822,2037)(610,2050)(580,1817)
+
+  % courbe 7
+  \qbezier[0](1500,1500)(972,1644)(443,1787)
+
+  % courbe 8
+  \qbezier[0](2019,2653)(2129,2707)(2134,2775)
+  \qbezier[0](2134,2775)(2132,2879)(1896,2947)
+
+  % courbe 9
+  \qbezier[0](1103,2947)(877,2883)(866,2781)
+  \qbezier[0](866,2781)(865,2753)(884,2727)
+  \qbezier[0](884,2727)(901,2703)(931,2682)
+  \qbezier[0](931,2682)(958,2663)(994,2647)
+  \qbezier[0](995,2644)(1429,2489)(1941,2619)
+  \qbezier[0](1942,2622)(1984,2636)(2019,2653)
+
+  % courbe 10
+  \qbezier[0](1500,2910)(1700,2818)(1882,2605)
+
+  % courbe 11
+  \qbezier[20](1234,2710)(1510,2652)(1779,2713)
+
+  % courbe 12
+  \qbezier[0](1500,1500)(1691,2052)(1882,2604)
+
+  % courbe 13
+  \qbezier[0](1500,1500)(1070,1290)(640,1080)
+
+  % courbe 14
+  \qbezier[0](640,1080)(726,1157)(812,1234)
+
+  % courbe 15
+  \qbezier[0](812,1234)(812,1199)(812,1164)
+
+  % courbe 16
+  \qbezier[0](812,1164)(842,1156)(873,1149)
+
+  % courbe 17
+  \qbezier[0](873,1149)(756,1114)(640,1080)
+
+  % courbe 18
+  \qbezier[0](640,1080)(1070,1290)(1500,1500)
+
+  % courbe 19
+  \qbezier[0](1500,1500)(2114,1353)(2729,1206)
+
+  % courbe 20
+  \qbezier[0](2729,1206)(2584,1225)(2440,1244)
+
+  % courbe 21
+  \qbezier[0](2440,1244)(2462,1254)(2483,1265)
+
+  % courbe 22
+  \qbezier[0](2483,1265)(2483,1300)(2483,1335)
+
+  % courbe 23
+  \qbezier[0](2483,1335)(2606,1270)(2729,1206)
+
+  % courbe 24
+  \qbezier[0](2729,1206)(2114,1353)(1500,1500)
+
+  % courbe 25
+  \qbezier[0](1500,1500)(1500,2205)(1500,2910)
+
+  % courbe 26
+  \qbezier[0](1500,2910)(1531,2761)(1561,2613)
+
+  % courbe 27
+  \qbezier[0](1561,2613)(1531,2620)(1500,2628)
+
+  % courbe 28
+  \qbezier[0](1500,2628)(1478,2617)(1457,2607)
+
+  % courbe 29
+  \qbezier[0](1457,2607)(1478,2758)(1500,2910)
+
+  % courbe 30
+  \qbezier[0](2960,1150)(3094,1753)(2779,2285)
+  \qbezier[0](2780,2287)(2317,2988)(1477,3002)
+  \qbezier[0](1476,3000)(938,2986)(525,2641)
+  \qbezier[0](525,2640)(345,2486)(220,2283)
+  \qbezier[0](218,2283)(-171,1604)(131,882)
+  \qbezier[0](133,882)(172,796)(221,715)
+  \qbezier[0](220,713)(683,12)(1523,-2)
+  \qbezier[0](1524,0)(2062,14)(2475,359)
+  \qbezier[0](2475,360)(2842,679)(2959,1151)
+
+\put(550,1600){\mbox{$\vec{v}_1$}}
+\put(600,2000){\mbox{$\theta$}}
+\put(1900,2400){\mbox{$\vec{v}_2$}}
+\put(1600,2610){\mbox{$\varphi$}}
+\end{picture}\end{minipage}\end{center}
+\end{figure}
+
+Le but de la résolution va être de trouver $\varphi$ en exprimant que
+$\vec{v}_2$ est également sur le cône $(\vec{v}_1, \alpha_{1,2})$.
+
+Le vecteur $\vec{v}_1$ a une expression plus complexe, que l'on trouve
+en définissant au préalable un vecteur $\vec{u}$ sur le cône
+$(\vec{a}_2, \mu_1)$ et en considérant que $\vec{v}_1$ est l'image de
+$\vec{u}$ par la rotation qui transforme $\vec{a}_2$ en $\vec{a}_1$,
+c'est-à-dire la rotation d'axe $\vec{\jmath}$ et d'angle $\gamma$. Le
+vecteur $\vec{u}$ est caractérisé par son angle de phase $\theta$
+autour du cône ($\theta$ sera à terme le paramètre libre du modèle)~:
+\begin{displaymath}
+\vec{u}\left\{\begin{array}{l}-\smu\ct\\-\smu\st\\\cmu\end{array}\right.
+\Rightarrow
+\vec{v}_1\left\{\begin{array}{l}
+v_{1,x}=\sg\cmu-\cg\smu\ct\\
+v_{1,y}=-\smu\st\\
+v_{1,z}=\cg\cmu+\sg\smu\ct
+\end{array}\right.\end{displaymath}
+
+Par construction le vecteur $\vec{v}_2$ est déjà sur le cône
+$(\vec{a}_2, \mu_2)$ ; on trouve l'inconnue $\varphi$ en résolvant
+l'équation (\ref{eq:intersection}) qui indique que $\vec{v}_2$ est
+également sur le cône $(\vec{v}_1, \alpha_{1,2})$, avec $\alpha_{1,2}$
+strictement compris entre $0$ et $\pi$~:
+\begin{eqnarray}\label{eq:intersection}
+\ca&=&\vec{v}_1\cdot\vec{v}_2\nonumber\\
+&=&(v_{1,x}\cj+v_{1,y}\sj)\smd+v_{1,z}\cmd
+\end{eqnarray}
+
+Si $v_{1,x}$ et $v_{1,y}$ ne sont pas simultanément nuls, on
+peut trouver $\lambda$ tel que~:
+\begin{equation}\label{eq:lambda-general}
+\left.\begin{array}{r}
+v_{1,x}=\cos\lambda\sqrt{1-v_{1,z}^2}\\
+v_{1,y}=\sin\lambda\sqrt{1-v_{1,z}^2}
+\end{array}\right\}\Rightarrow
+\lambda=\mathrm{atan2} (v_{1,y}, v_{1,x})
+\end{equation}
+
+L'équation (\ref{eq:intersection}) devient alors~:
+\begin{equation}\label{eq:sol-generale}
+\cos(\varphi-\lambda)=\frac{\ca-v_{1,z}\cmd}{\smd\sqrt{1-v_{1,z}^2}}
+\Rightarrow\left\{\begin{array}{l}
+\varphi_+=\lambda+\arccos\left(\frac{\ca-v_{1,z}\cmd}
+                                    {\smd\sqrt{1-v_{1,z}^2}}\right)
+\\
+\varphi_-=\lambda-\arccos\left(\frac{\ca-v_{1,z}\cmd}
+                                    {\smd\sqrt{1-v_{1,z}^2}}\right)
+\end{array}\right.\end{equation}
+
+Cette équation a des solutions si la fraction définissant
+$\cos(\varphi-\lambda)$ est comprise entre $-1$ et $+1$, c'est-à-dire
+si~:
+\begin{eqnarray}
+&&
+\cos^2\alpha_{1,2}+v_{1,z}^2\cos^2\mu_2-2v_{1,z}\ca\cmd
+\le
+\sin^2\mu_2 - \sin^2\mu_2v_{1,z}^2\label{eq:condition-base}\\
+&\Leftrightarrow&
+v_{1,z}^2 - 2 v_{1,z}\ca\cmd+\cos^2\alpha_{1,2}-\sin^2\mu_2
+\le
+0\nonumber\\
+&\Leftrightarrow&
+(v_{1,z} - \ca\cmd + \sa\smd)(v_{1,z} - \ca\cmd - \sa\smd) \le 0\nonumber\\
+&\Leftrightarrow&
+\ca\cmd-\sa\smd  \le v_{1,z} \le  \ca\cmd+\sa\smd\nonumber\\
+&\Leftrightarrow&
+\cos(\alpha_{1,2}+\mu_2) \le v_{1,z} \le \cos(\alpha_{1,2}-\mu_2)\label{eq:condition-v1z}\\
+&\Leftrightarrow&
+\frac{\cos(\alpha_{1,2}+\mu_2)-\cg\cmu}{\sg\smu}
+\le \ct \le
+\frac{\cos(\alpha_{1,2}-\mu_2)-\cg\cmu}{\sg\smu}\label{eq:condition-cos}\\
+&\Leftrightarrow&
+c_{\min}
+\le \ct \le
+c_{\max}\nonumber
+\end{eqnarray}
+
+Dans le cas où $\vec{a}_1$ et $\vec{a}_2$ sont alignés, la
+condition~(\ref{eq:condition-base}) ne dépend alors plus de $\theta$,
+on est obligé d'arrêter le calcul au niveau de
+l'expression~(\ref{eq:condition-v1z}). Dans ce cas, on calcule
+directement la valeur constante de $v_{1,z}$ et on en déduit
+immédiatement soit que la condition~(\ref{eq:condition-v1z}) est
+toujours remplie c'est-à-dire que tous les $\theta$ de $-\pi$ à $\pi$ sont
+valides, soit qu'aucun $\theta$ n'est valide.
+
+Selon les valeurs des données initiales $\vec{v}_1 \cdot \vec{v}_2 =
+\ca$, $\vec{a}_1 \cdot \vec{a}_2 = \cg$, $\mu_1$ et $\mu_2$ ;
+$c_{\min}$ et $c_{\max}$ peuvent prendre à peu près n'importe quelles
+valeurs. On a regroupé dans la table~\ref{tab:validite} les
+conséquences que cela avait sur le domaine de validité de $\theta$.
+\begin{table}[htbp]
+\caption{\label{tab:validite}domaines de validité}
+\begin{center}\begin{tabular}[b]{|c|c|}
+\hline
+$c_{\min}, c_{\max}$ & domaine de validité de $\theta$\\
+\hline\hline
+\raisebox{-2ex}{\rule{0pt}{5ex}}
+$c_{\min} < c_{\max} \le - 1$ & $\emptyset$ \\
+\hline
+%\raisebox{-2ex}{\rule{0pt}{5ex}}
+%$c_{\min} \le - 1 \le c_{\max} \le + 1$ &
+%$[\arccos (c_{\max}) ; 2\pi - \arccos (c_{\max})]$ \\
+%\hline
+\rule{0pt}{3ex}
+ & $[- \pi ; - \arccos (c_{\max})]$ \\
+$c_{\min} \le - 1 \le c_{\max} \le + 1$ & $\bigcup$ \\
+\raisebox{-2ex}{\rule{0pt}{2ex}}
+ & $[\arccos (c_{\max}) ; \pi]$ \\
+\hline
+\raisebox{-2ex}{\rule{0pt}{5ex}}
+$c_{\min} \le - 1 \le + 1 \le c_{\max}$ & $[-\pi; \pi]$ \\
+\hline
+\rule{0pt}{3ex}
+ & $[- \arccos (c_{\min}) ; - \arccos (c_{\max})]$ \\
+$-1 \le c_{\min} < c_{\max} \le +1$ & $\bigcup$ \\
+\raisebox{-2ex}{\rule{0pt}{2ex}}
+ & $[\arccos (c_{\max}) ; \arccos (c_{\min})]$ \\
+\hline
+\raisebox{-2ex}{\rule{0pt}{5ex}}
+$-1 \le c_{\min} \le +1 \le c_{\max}$ &
+$[- \arccos (c_{\min}) ; \arccos (c_{\min})]$ \\
+\hline
+\raisebox{-2ex}{\rule{0pt}{5ex}}
+$+ 1 \le c_{\min} < c_{\max}$ & $\emptyset$ \\
+\hline
+\end{tabular}\end{center}\end{table}
+
+On dispose donc d'un domaine de validité de $\theta$ éventuellement
+constitué de deux intervalles disjoints, et d'un jeu de formules
+$\theta \rightarrow \vec{v}_1 \rightarrow \cos(\varphi-\lambda)
+\rightarrow \varphi \rightarrow \vec{v}_2$, c'est-à-dire
+$\vec{v}_2=g(\theta)$.
+
+Ces équations ne sont valides que si $v_{1,x}$ et $v_{1,y}$ ne
+s'annulent pas simultanément. En étudiant plus précisément sous
+quelles conditions cette annulation peut intervenir, nous allons voir
+qu'il est possible de réaliser un prolongement par continuité
+analytique qui permettra d'éviter les problèmes numériques à proximité
+des points litigieux.
+
+\subsubsection{traitement des singularités}
+Le terme $v_{1,y}$ ne s'annule que si $\theta=0$ ou $\theta=\pi$ ;
+seules ces deux valeurs peuvent donc conduire à des
+singularités. Cependant cette condition n'est pas suffisante :
+$v_{1,y}$ s'annule à chaque fois que $\theta=0$ ou $\theta=\pi$, mais
+$v_{1,x}$ peut très bien être non nul et les équations de la
+résolution générale précédente s'appliquer sans problème.
+
+Ainsi la valeur $\theta=0$ qui annule déjà $v_{1,y}$ n'annulera
+également $v_{1,x}$ que si $\sgmm=0$, c'est-à-dire si $\gamma=\mu_1$
+(on rappelle que $\mu_1$ est strictement compris entre $0$ et $\pi$,
+et que $\gamma$ est compris largement entre $0$ et $\pi$, on ne peut
+donc pas avoir $\gamma=\pi+\mu_1$).
+
+De même la valeur $\theta=\pi$ qui annule déjà $v_{1,y}$ n'annulera
+également $v_{1,x}$ que si $\sgpm=0$, c'est-à-dire si
+$\gamma=\pi-\mu_1$.
+
+La valeur $0$ n'appartient au domaine de validité de $\theta$ et ne
+correspond à une singularité que si~:
+\begin{displaymath}\begin{array}{rcl}
+(\mbox{\ref{eq:condition-cos}})& \Rightarrow &
+\cos(\alpha_{1,2}+\mu_2) \le \cgmm \le \cos(\alpha_{1,2}-\mu_2)\\
+& \Rightarrow &
+\cos(\alpha_{1,2}+\mu_2) \le 1 \le \cos(\alpha_{1,2}-\mu_2)
+\end{array}\end{displaymath}
+
+Seule la deuxième inégalité apporte de l'information, puisqu'elle se
+transforme de façon triviale en égalité~:
+$\cos(\alpha_{1,2}-\mu_2)=1$, d'où $\alpha_{1,2} = \mu_2$.
+
+Observons ce qui se passe aux alentours de cette valeur critique de
+$\theta$. On peut faire apparaître $\std$ explicitement dans les
+coordonnées de $\vec{v}_1$~:
+\begin{displaymath}\left\{\begin{array}{l}
+v_{1,x}=\smu\cmu(1-\ct)=2\smu\cmu\stdtd\\
+v_{1,y}=-\smu\st=-2\ctd\smu\std\\
+v_{1,z}=\cos^2\mu_1+\sin^2\mu_1\ct=1-\sin^2\mu_1(1-\ct)=1-2\sin^2\mu_1\stdtd
+\end{array}\right.\end{displaymath}
+
+L'équation (\ref{eq:intersection}) peut être réécrite pour les
+$\theta$ non nuls, puis simplifiée par $2\smu\std$, ce qui réalise un
+prolongement par continuité en $\theta=0$~:
+\begin{displaymath}\begin{array}{rl}
+&\cmd=2\smu\std\smd\left(\cmu\std\cj-\ctd\sj\right)
+      +\left(1-2\sin^2\mu_1\stdtd\right)\cmd\\
+\Leftrightarrow&2\smu\std\left((\cmu\std\cj-\ctd\sj)\smd-\smu\cmd\std\right)=0\\
+\Leftrightarrow&(\cmu\std\cj-\ctd\sj)\smd=\smu\cmd\std\\
+\Leftrightarrow&\cmu\std\cj-\ctd\sj=\frac{\smu\cmd}{\smd}\std
+\end{array}\end{displaymath}
+
+Si $\mu_1\ne\pi/2$, les deux termes $\cmu\std$ et $-\ctd$ ne
+s'annulent pas simultanément ; on peut trouver
+$\lambda_0$ tel que~:
+\begin{equation}\label{eq:lambda-zero}
+\left.\begin{array}{r}
+\cmu\std=\cos\lambda_0\sqrt{\cos^2\mu_1\stdtd+\ctdtd}\\
+-\ctd=\sin\lambda_0\sqrt{\cos^2\mu_1\stdtd+\ctdtd}
+\end{array}\right\}\Rightarrow
+\lambda_0=\mathrm{atan2}\left(-\ctd, \cmu\std\right)
+\end{equation}
+
+L'équation devient alors~:
+\begin{equation}\label{eq:sol-zero}
+\cos(\varphi-\lambda_0)=\frac{\smu\cmd\std}
+                             {\smd\sqrt{\cos^2\mu_1\stdtd+\ctdtd}}
+\Rightarrow\left\{\begin{array}{l}
+\varphi_+=\lambda_0+\arccos\left(\frac{\smu\std\cmd}
+                                      {\smd\sqrt{1-\sin^2\mu_1\stdtd}}\right)
+\\
+\varphi_-=\lambda_0-\arccos\left(\frac{\smu\std\cmd}
+                                      {\smd\sqrt{1-\sin^2\mu_1\stdtd}}\right)
+\end{array}\right.\end{equation}
+
+Si $\mu_1=\pi/2$ on ne peut pas calculer $\lambda_0$, un traitement
+spécifique est nécessaire. On sait que dans ce cas $\gamma=\pi/2$ et
+$\alpha_{1,2} = \mu_2$. Les coordonnées de $\vec{v}_1$ se simplifient
+alors considérablement~:
+\begin{displaymath}\left\{\begin{array}{l}
+v_{1,x}=0\\
+v_{1,y}=-\st\\
+v_{1,z}=\ct
+\end{array}\right.\end{displaymath}
+
+L'équation (\ref{eq:intersection}) peut être réécrite pour les
+$\theta$ différents de $0$ puis simplifiée par $2\std$, ce qui réalise
+un prolongement par continuité en $\theta=0$~:
+\begin{displaymath}\begin{array}{rcl}
+&&
+\st\sin\varphi\smd+(1-\ct)\cmd=0\\
+& \Leftrightarrow &
+2\std(\ctd\sin\varphi\smd+\std\cmd)=0\\
+& \Leftrightarrow &
+\ctd\sin\varphi\smd+\std\cmd=0
+\end{array}\end{displaymath}
+
+Le domaine de validité de $\theta$ défini par
+l'équation~(\ref{eq:condition-cos}) devient : $\cos2\mu_2\le\ct\le1$,
+on en déduit que si $\mu_2$ est différent de $\pi/2$ alors $\theta$
+sera toujours différent de $\pi$, dans ce cas on peut écrire :
+\begin{equation}\label{eq:sol-zero-pi-sur-2}
+\sin\varphi=-\frac{\tan\frac{\theta}{2}}{\tmd}
+\Rightarrow\left\{\begin{array}{l}
+\varphi_+=\pi+\arcsin{\frac{\tan\frac{\theta}{2}}{\tmd}}
+\\
+\varphi_-=-\arcsin{\frac{\tan\frac{\theta}{2}}{\tmd}}
+\end{array}\right.\end{equation}
+
+Le cas $\mu_1=\mu_2=\pi/2$ est traité dans la section suivante.
+
+La valeur $\pi$ n'appartient au domaine de validité de $\theta$ et ne
+correspond à une singularité que si~:
+\begin{displaymath}\begin{array}{rcl}
+(\mbox{\ref{eq:condition-cos}})& \Rightarrow &
+\cos(\alpha_{1,2}+\mu_2) \le \cgpm \le \cos(\alpha_{1,2}-\mu_2)\\
+& \Rightarrow &
+\cos(\alpha_{1,2}+\mu_2) \le -1 \le \cos(\alpha_{1,2}-\mu_2)
+\end{array}\end{displaymath}
+
+Seule la première inégalité apporte de l'information, puisqu'elle se
+transforme de façon triviale en égalité~:
+$\cos(\alpha_{1,2}+\mu_2)=-1$, d'où $\alpha_{1,2} = \pi-\mu_2$.
+
+Observons ce qui se passe aux alentours de cette valeur critique de
+$\theta$. On peut faire apparaître $\ctd$ explicitement dans les
+coordonnées de $\vec{v}_1$~:
+\begin{displaymath}\left\{\begin{array}{l}
+v_{1,x}=\smu\cmu(1+\ct)=2\smu\cmu\ctdtd\\\
+v_{1,y}=-\smu\st=-2\smu\std\ctd\\
+v_{1,z}=-\cos^2\mu_1+\sin^2\mu_1\ct=\sin^2\mu_1(1+\ct)-1=2\sin^2\mu_1\ctdtd-1
+\end{array}\right.\end{displaymath}
+
+L'équation (\ref{eq:intersection}) peut être réécrite pour les
+$\theta$ différents de $\pi$, puis simplifiée par $2\smu\ctd$, ce qui
+réalise un prolongement par continuité en $\theta=\pi$~:
+\begin{displaymath}\begin{array}{rl}
+&-\cmd=2\smu\ctd\smd\left(\cmu\ctd\cj-\std\sj\right)
+       +\left(2\sin^2\mu_1\ctdtd-1\right)\cmd\\
+\Leftrightarrow&2\smu\ctd\left((\cmu\ctd\cj-\std\sj)\smd+\smu\cmd\ctd\right)=0\\
+\Leftrightarrow&(\cmu\ctd\cj-\std\sj)\smd=-\smu\cmd\ctd\\
+\Leftrightarrow&\cmu\ctd\cj-\std\sj=-\frac{\smu\cmd}{\smd}\ctd
+\end{array}\end{displaymath}
+
+Si $\mu_1\ne\pi/2$, les deux termes $\cmu\ctd$ et $-\std$ ne
+s'annulent pas simultanément ; on peut trouver $\lambda_\pi$ tel que~:
+\begin{equation}\label{eq:lambda-pi}
+\left.\begin{array}{r}
+\cmu\ctd=\cos\lambda_\pi\sqrt{\stdtd+\cos^2\mu_1\ctdtd}\\
+-\std=\sin\lambda_\pi\sqrt{\stdtd+\cos^2\mu_1\ctdtd}
+\end{array}\right\}\Rightarrow
+\lambda_\pi=\mathrm{atan2}\left(-\std, \cmu\ctd\right)
+\end{equation}
+
+L'équation devient alors~:
+\begin{equation}\label{eq:sol-pi}
+\cos(\varphi-\lambda_\pi)=\frac{-\smu\cmd\ctd}
+                               {\smd\sqrt{\stdtd+\cos^2\mu_1\ctdtd}}
+\Rightarrow\left\{\begin{array}{l}
+\varphi_+=\lambda_\pi+\arccos\left(\frac{-\smu\ctd\cmd}{\smd\sqrt{1-\sin^2\mu_1\ctdtd}}\right)
+\\
+\varphi_-=\lambda_\pi-\arccos\left(\frac{-\smu\ctd\cmd}{\smd\sqrt{1-\sin^2\mu_1\ctdtd}}\right)
+\end{array}\right.\end{equation}
+
+Si $\mu_1=\pi/2$ on ne peut pas calculer $\lambda_\pi$, un traitement
+spécifique est nécessaire. On sait que dans ce cas $\gamma=\pi/2$ et
+$\alpha_{1,2} = \pi-\mu_2$. Les coordonnées de $\vec{v}_1$ se
+simplifient alors considérablement~:
+\begin{displaymath}\left\{\begin{array}{l}
+v_{1,x}=0\\
+v_{1,y}=-\st\\
+v_{1,z}=\ct
+\end{array}\right.\end{displaymath}
+
+L'équation (\ref{eq:intersection}) peut être réécrite pour les
+$\theta$ différents de $\pi$ puis simplifiée par $2\spmtd$, ce qui
+réalise un prolongement par continuité en $\theta=\pi$~:
+\begin{displaymath}\begin{array}{rcl}
+&&
+\st\sin\varphi\smd-(1+\ct)\cmd=0\\
+& \Leftrightarrow &
+2\spmtd(\cpmtd\sin\varphi\smd-\spmtd\cmd)=0\\
+& \Leftrightarrow &
+\cpmtd\sin\varphi\smd-\spmtd\cmd=0
+\end{array}\end{displaymath}
+
+Le domaine de validité de $\theta$ défini par
+l'équation~(\ref{eq:condition-cos}) devient :
+$-1\le\ct\le\cos(\pi-2\mu_2)$, on en déduit que si $\mu_2$ est
+différent de $\pi/2$ alors $\theta$ sera toujours différent de $0$,
+dans ce cas on peut écrire :
+\begin{equation}\label{eq:sol-pi-pi-sur-2}
+\sin\varphi=\frac{\tan\frac{\pi-\theta}{2}}{\tmd}
+\Rightarrow\left\{\begin{array}{l}
+\varphi_+=\pi-\arcsin{\frac{\tan\frac{\pi-\theta}{2}}{\tmd}}
+\\
+\varphi_-=\arcsin{\frac{\tan\frac{\pi-\theta}{2}}{\tmd}}
+\end{array}\right.\end{equation}
+
+Le cas $\mu_1=\mu_2=\pi/2$ est traité dans la section suivante.
+
+\subsubsection{familles à un vecteur fixe}
+Les prolongements par continuité de la section précédente ne sont pas
+capables de trouver \emph{toutes} les solutions, ils se contentent
+d'améliorer la robustesse des calculs et de trouver les valeurs de
+$\varphi$ qui sont la suite logique des valeurs hors alignement. En
+effet, ils ont été réalisés en considérant que dans des équations du
+type $f(\varphi,\theta)\smu\std=0$ ou $f(\varphi,\theta)\smu\ctd=0$,
+c'était le terme $f(\varphi,\theta)$ qui s'annulait, d'où une
+définition implicite d'une fonction $\varphi=g(\theta)$. Toutes les
+valeurs de $\varphi$ entre $0$ et $2\pi$ annulent cependant les
+équations dans le cas particulier où c'est $\std$ ou $\ctd$ qui
+s'annule. Ces solutions représentent des familles indépendantes :
+elles ont le même $\vec{v}_1(\theta)$ mais pas forcément\footnote{les
+valeurs de $\varphi$ égales au valeurs prolongées conduisent bien
+entendu à trouver certains couples $(\vec{v}_1,\vec{v}_2)$ dans
+plusieurs familles, cette duplication des solutions n'a dans la
+pratique aucune conséquence} le même $\vec{v}_2(\varphi)$ que les
+familles prolongées. Ces familles peuvent être décrites en trouvant
+toutes les orientations définies par $\vec{v}_1$ fixe et $\vec{v}_2$
+prenant toutes les positions possibles autour de $\vec{v}_1$.
+
+Un autre cas peut être modélisé de façon similaire, il s'agit du cas
+particulier des prolongements par continuité en $0$ ou $\pi$ lorsque
+ces points correspondent à des singularités et qu'en plus on a
+$\mu_1=\mu_2=\pi/2$. Lorsque ce cas provient d'un prolongement en $0$,
+on a $\gamma=\mu_1$ et $\alpha_{1,2}=\mu_2$, lorsqu'il provient d'un
+prolongement en $\pi$, on a $\gamma=\pi-\mu_1$ et
+$\alpha_{1,2}=\pi-\mu_2$ ; ces deux cas se ramènent donc tous les deux
+à $\gamma=\alpha_{1,2}=\pi/2$.  Dans ces conditions l'équation
+(\ref{eq:intersection}) se simplifie de façon drastique et se résoud
+immédiatement pour les valeurs de $\st$ non nulles, la solution se
+prolongeant de façon triviale pour les valeurs nulles~:
+\begin{displaymath}
+\st\sin\varphi=0
+\Rightarrow\left\{\begin{array}{l}
+\varphi_+=\pi
+\\
+\varphi_-=0
+\end{array}\right.\end{displaymath}
+ce qui revient à dire que l'orientation est modélisée par deux familles
+définies par $\vec{v}_2$ fixe et $\vec{v}_1$ prenant toutes les
+positions possibles autour de $\vec{v}_2$. Il faut cependant prendre
+garde que ces familles sont bien des familles générales prolongées et
+qu'il faut ajouter les familles d'alignement correspondant à $\st=0$
+et $\varphi$ quelconque, c'est-à-dire les familles à $\vec{v}_1$ fixe
+mentionnées au début de cette section.
+
+Un dernier cas se modélisant encore par des familles ayant un vecteur
+fixe correspond à l'alignement de $\vec{v}_1$ et $\vec{v}_2$
+(c'est-à-dire au cas où $\alpha_{1,2}$ vaut $0$ ou $\pi$). Dans ce
+cas, la donnée du couple $(\vec{v}_1, \vec{v}_2)$ ne suffit pas à
+déterminer l'orientation, il faut un traitement spécifique. Il est
+très improbable que deux astres différents soient rigoureusement
+alignés lorsqu'ils sont vus du satellite. Par contre, il est tout à
+fait concevable d'avoir deux consignes géométriques sur le même astre
+(par exemple, lacet Soleil~=~0°, tangage Soleil~=~0°) : l'alignement
+d'un vecteur avec lui-même est inévitable. Ce cas particulier est donc
+là encore très courant.
+
+On peut tout d'abord remarquer que si $\vec{v}_2 = -\vec{v}_1$ (cas
+improbable de deux astres différents), on peut transformer la consigne
+« $\vec{v}_2$ est sur le cône ($\vec{a}_2$,~$\mu_2$) » en consigne
+« $-\vec{v}_2$ sur le cône ($-\vec{a}_2$,~$\mu_2$) ». On se
+ramène ainsi au cas $\vec{v}_1$ = $\vec{v}_2$.
+
+Le vecteur $\vec{v}_1$ se trouve alors à l'intersection des cônes
+($\vec{a}_1$,~$\mu_1$) et ($\vec{a}_2$,~$\mu_2$). Si les cônes sont
+égaux, il y a une infinité de solutions : les consignes ne sont pas
+indépendantes ce qui revient à dire que le problème est mal posé. La
+bibliothèque de résolution doit dans ce cas générer un message
+d'erreur. Si les cônes n'ont pas d'intersection, les consignes sont
+incompatibles, l'orientation n'est pas pilotable. Dans le cas général, il
+y aura deux intersections, que l'on sait calculer (voir
+l'annexe~\ref{sec:intersection}). On a donc là encore deux familles
+qui peuvent être décrites en trouvant toutes les orientations définies
+par $\vec{v}_1$ fixe.
+
+Dans tous les cas précédents, les familles sont définies par un
+vecteur ($\vec{v}_1$ ou $\vec{v}_2$) et par toutes les possibilités de
+rotation autour de ce vecteur. Les premiers exemples définissaient ces
+possibilités par la donnée de l'autre vecteur, mais c'est dans la
+pratique inutile\footnote{ce n'est de toute façon pas possible pour le
+dernier exemple, comme nous venons de le remarquer}, il suffit
+de s'assurer que l'on explore bien toutes les possibilités. On adopte
+donc la modélisation suivante : tous les membres de la famille i sont
+définis par la composition de la rotation constante transformant
+$\vec{v}_1$ en repère inertiel en $\vec{v}_{1i}$ en repère satellite
+(respectivement $\vec{v}_2$ et $\vec{v}_{2i}$) et de la rotation
+d'angle $\theta'$ autour du vecteur $\vec{v}_{1i}$ (en repère
+satellite). Le degré de liberté de ces modèles est l'angle
+$\theta'$. Les formules permettant de calculer les quaternions de ces
+rotations sont explicitées dans les
+annexes~\ref{sec:rotation-vecteurs} et~\ref{sec:rotation-axe-angle}.
+
+\subsubsection{réduction du domaine de validité}
+Les modèles décrits jusqu'ici ont tous un unique degré de liberté qui
+est un angle, éventuellement restreint à un domaine de validité. Cette
+restriction correspond exclusivement aux conditions mathématiques
+permettant de résoudre les équations. Il est cependant possible que
+l'on sache dès la mise en place des cônes de consigne que les cibles
+ne sont pas autorisées à sortir de secteurs particuliers de ces cônes
+de consignes. Un premier exemple est donné par les capteurs d'angles
+dièdres, dont les consignes définissent plutôt des demi-plans que des
+plans ; un autre exemple concerne les capteurs optiques dont les
+champs de vue limitent les portions utilisables des cônes de consigne.
+
+Dans certains cas, ces contraintes technologiques peuvent être
+superposées aux contraintes mathématiques déjà vues. Cela permet alors
+d'éviter de perdre du temps à chercher des solutions théoriques dans
+certaines zones, alors que ces solutions seront rejetées dans la phase
+de filtrage par les contraintes technologiques postérieure à la
+résolution.
+
+Les intervalles de $\theta$ autorisés sont directement liés aux
+contraintes du premier capteur puisqu'ils décrivent la position de
+$\vec{v}_1$. On peut donc les filtrer par ces secteurs de contrainte ;
+certains intervalles (et donc certaines familles) disparaîtront
+complètement au travers de ce filtrage, d'autres seront découpés en
+plusieurs sous-intervalles (ce qui signifie qu'ils génèreront
+plusieurs familles), d'autres enfin ne seront pas affectés. Dans la
+pratique cela signifie que la table~\ref{tab:validite} ne doit pas
+être appliquée à l'intervalle $[c_{\min} ; c_{\max}]$ défini par
+l'équation~(\ref{eq:condition-cos}), mais à une série d'intervalles
+$[c_{\min,1} ; c_{\max,1}]\bigcup\ldots\bigcup[c_{\min,n} ;
+c_{\max,n}]$ résultant du filtrage de l'intervalle d'origine par les
+secteurs de consigne du premier capteur.
+
+Le deuxième capteur a également des secteurs de contrainte qui portent
+sur la cible $\vec{v}_2$, il est cependant plus délicat de reporter
+ces contraintes sur les modèles, car $\varphi$ est un résultat du
+modèle et non une entrée comme $\theta$. On peut cependant les
+utiliser dans quelques cas simples, comme par exemple lorsque
+$\vec{v}_1$ est fixe et que le modèle peut être paramétré par
+$\varphi$ ou lorsque c'est $\vec{v}_2$ qui est fixe.
+
+\subsubsection{synthèse}
+On dispose d'une série de six modèles différents. Le premier
+correspond aux équations~(\ref{eq:lambda-general}) et
+(\ref{eq:sol-generale}), il s'agit d'un modèle général qui est
+applicable lorsqu'aucune singularité ne peut être rencontrée au cours
+de la résolution. Les quatre suivants correspondent aux
+équations~(\ref{eq:lambda-zero}) et (\ref{eq:sol-zero}), à
+l'équation~(\ref{eq:sol-zero-pi-sur-2}), aux
+équations~(\ref{eq:lambda-pi}) et (\ref{eq:sol-pi}), et à
+l'équation~(\ref{eq:sol-pi-pi-sur-2}). Ils sont applicables lorsqu'une
+seule singularité doit être rencontrée, et sont valides même au niveau
+de la singularité grâce à un prolongement par continuité
+analytique. Le sixième modèle est applicable soit lorsqu'il faut
+introduire des familles supplémentaires en plus des prolongements,
+soit pour faire le prolongement lui-même lorsque certains angles sont
+droits, soit lorsque les cibles sont alignées. Ces modèles sont
+disjoints les uns des autres, il n'est donc pas utile de gérer des
+basculements de modèles selon la valeur de $\theta$\footnote{ces
+basculements poseraient d'ailleurs des problèmes numériques pour des
+solutions aux alentours de l'angle de basculement}. Une même
+résolution d'orientation doit cependant gérer plusieurs de ces modèles
+simultanément, on ne sait pas \emph{a priori} laquelle des familles
+fournira la solution finale respectant la troisième consigne.
+
+Toutes ces familles correspondent à des couples de vecteurs dépendant
+du paramètre libre $\theta$. Les formules de
+l'annexe~\ref{sec:triedres}, page~\pageref{sec:triedres} permettent de
+trouver l'orientation à partir de ces couples, pour une valeur de
+$\theta$ donnée. Cette orientation et l'orientation précédente
+permettent de calculer par différences finies la rotation moyenne
+depuis le pas précédent. On fait l'hypothèse que la rotation est
+constantes, la rotation moyenne est donc égale à la rotation
+instantanée. On dispose ainsi de l'état complet (orientation et
+rotation instantanée) pour chercher la valeur du paramètre $\theta$
+qui permettra de respecter la troisième consigne.
+
+L'algorithme suivant explicite une façon d'organiser les choix pour
+construire tous les modèles nécessaires à une détermination d'orientation.
+L'utilisation de ces modèles pour faire la résolution n'est pas
+décrite ici. On appelle \emph{secteur i} la série des intervalles
+autorisés pour le cône \emph{i}.
+
+\begin{algorithme}
+\si $\mu_1=\gamma=\pi/2$
+  \si $\mu_2=\alpha_{1,2}=\pi/2$
+    \si $\vec{a}_2 \in$ secteur 1
+      créer la famille $\vec{v}_1=\vec{a}_2$ fixe, restreinte par $\vec{v}_2 \in$ secteur 2
+    \finsi
+    \si $-\vec{a}_2 \in$ secteur 1
+      créer la famille $\vec{v}_1=-\vec{a}_2$ fixe, restreinte par $\vec{v}_2 \in$ secteur 2
+    \finsi
+    \si $\vec{a}_1 \in$ secteur 2
+      créer la famille $\vec{v}_2=\vec{a}_1$ fixe, restreinte par $\vec{v}_1 \in$ secteur 1
+    \finsi
+    \si $-\vec{a}_1 \in$ secteur 2
+      créer la famille $\vec{v}_2=-\vec{a}_1$ fixe, restreinte par $\vec{v}_1 \in$ secteur 1
+    \finsi
+  \sinon
+    $c_{\min} \leftarrow\cos(\alpha_{1,2}+\mu_2),\quad c_{\max}\leftarrow\cos(\alpha_{1,2}-\mu_2)$
+    filtrer le domaine de $\theta$ par le secteur 1
+    \pour chaque intervalle du domaine de $\theta$
+      \si $\theta$ passe par $0$
+        créer la famille $\vec{v}_1=\vec{a}_2$ fixe, restreinte par $\vec{v}_2 \in$ secteur 2
+        créer les familles de prolongement en $0$ par l'équation (\ref{eq:sol-zero-pi-sur-2})
+      \sinon
+        \si $\theta$ passe par $\pi$
+          créer la famille $\vec{v}_1=-\vec{a}_2$ fixe, restreinte par $\vec{v}_2 \in$ secteur 2
+          créer les familles de prolongement en $\pi$ par l'équation (\ref{eq:sol-pi-pi-sur-2})
+        \sinon
+          créer les familles générales par les équations (\ref{eq:lambda-general}) et (\ref{eq:sol-generale})
+        \finsi
+      \finsi
+    \finpour
+  \finsi
+\sinon
+  $c_{\min} \leftarrow\frac{\cos(\alpha_{1,2}+\mu_2)-\cg\cmu}{\sg\smu},\quad c_{\max}\leftarrow \frac{\cos(\alpha_{1,2}-\mu_2)-\cg\cmu}{\sg\smu}$
+  filtrer le domaine de $\theta$ par le secteur 1
+  \pour chaque intervalle du secteur 1
+    \si $\theta$ passe par $0$ et que $\mu_1=\gamma$
+      créer la famille $\vec{v}_1=\vec{a}_2$ fixe, restreinte par $\vec{v}_2 \in$ secteur 2
+      créer les familles de prolongement en $0$ par les équation (\ref{eq:lambda-zero}) et (\ref{eq:sol-zero})
+    \sinon
+      \si $\theta$ passe par $\pi$ et que $\mu_1=\pi-\gamma$
+        créer la famille $\vec{v}_1=-\vec{a}_2$ fixe, restreinte par $\vec{v}_2 \in$ secteur 2
+        créer les familles de prolongement en $\pi$ par les équations (\ref{eq:lambda-pi}) et (\ref{eq:sol-pi})
+      \sinon
+        créer les familles générales par les équations (\ref{eq:lambda-general}) et (\ref{eq:sol-generale})
+      \finsi
+    \finsi
+  \finpour
+\finsi
+\end{algorithme}
+
+\subsection{cas de deux consignes cinématiques}\label{sec:cine-cine}
+Lorsqu'au moins deux capteurs sur les trois sont de type cinématique,
+respecter les deux consignes correspondantes revient à imposer au
+vecteur de rotation instantanée d'avoir pour projection sur les
+vecteurs $\vec{a}_1$ et $\vec{a}_2$ les valeurs $\omega_1$ et
+$\omega_2$. Les deux consignes sont indépendantes si $\vec{a}_1$ et
+$\vec{a}_2$ ne sont pas alignés. Dans ce cas, on peut exprimer le
+vecteur rotation instantanée $\vec{\Omega}$ dans le repère non
+orthonormé ($\vec{a}_1$,~$\vec{a}_2$,~$\vec{a}_1 \wedge \vec{a}_2$).
+\begin{equation}\label{eq:omega-a1-a2}
+\vec{\Omega} = \frac{\omega_1 - \omega_2 (\vec{a}_1 \cdot \vec{a}_2)}
+                    {1 - (\vec{a}_1 \cdot \vec{a}_2)^2}
+               \vec{a}_1
+             + \frac{\omega_2 - \omega_1 (\vec{a}_1 \cdot \vec{a}_2)}
+                    {1 - (\vec{a}_1 \cdot \vec{a}_2)^2}
+               \vec{a}_2
+             + \theta (\vec{a}_1 \wedge \vec{a}_2)
+\end{equation}
+
+Dans cette formule, le seul degré de liberté est $\theta$, et il peut
+varier de moins l'infini à plus l'infini. On peut réécrire la
+formule~\ref{eq:omega-a1-a2} sous la forme :
+\begin{equation}\label{eq:omega-uv}
+\vec{\Omega} = \vec{u} + \theta\vec{v}
+\end{equation}
+où $\vec{u}$ et $\vec{v}$ sont des vecteurs constants orthogonaux. On
+a alors $\|\vec{\Omega}\|^2 = \|\vec{u}\|^2 + \theta^2\|\vec{v}\|^2$,
+qui représente le carré de la vitesse de rotation instantanée.  Les
+satellites ne tournent généralement pas très vite sur eux-mêmes, dans
+la pratique on peut limiter le domaine de variation de $\theta$ à
+l'intervalle $[-\theta_{\max} ; \theta_{\max}]$ avec :
+\begin{equation}\label{eq:theta-max}
+\theta_{\max} = \sqrt{\frac{\omega_{\max}^2 - \|\vec{u}\|^2}{\|\vec{v}\|^2}}
+\end{equation}
+où $\omega_{\max}$ est une vitesse maximale de rotation. Si
+l'utilisateur le désire, il peut initialiser cette valeur selon son
+satellite, sachant que s'il ne le fait pas, la bibliothèque utilisera
+par défaut $\omega_{\max} = 0,\!4$~radians par seconde (soit environ
+23 degrés par seconde). Cette valeur par défaut est un
+compromis entre la nécessité de couvrir les cas plausibles de
+satellites très rapides et le risque de générer toute une série
+d'orientations, solutions de la troisième consigne, selon la vitesse
+choisie, pour finalement rejeter toutes celles qui correspondent à des
+rotations plus rapides que quelques dixièmes de degré par seconde.
+
+Pour chaque $\theta$ valide, on calcule l'orientation
+correspondante en supposant le vecteur de rotation constant entre le
+pas précédent et le pas courant, à l'aide de la relation :
+\begin{equation}\label{eq:Q(t,h)}
+Q(\theta,h) = Q(t) E(\theta,h)
+\end{equation}
+où le quaternion $E(\theta,h)$ d'évolution de l'orientation
+entre $t$ et $t+h$ est donné par :
+\begin{equation}\label{eq:E(theta,h)}
+E(\theta,h)=\left[\begin{array}{c}
+\cos(\frac{\omega}{2}h)\\
+\frac{1}{\omega}\sin(\frac{\omega}{2}h)\vec{\Omega}(\theta)
+\end{array}\right]
+\end{equation}
+avec $\omega = \|\vec{\Omega}(\theta)\|$.
+
+Dans les relations~\ref{eq:Q(t,h)} et~\ref{eq:E(theta,h)}, le seul
+paramètre libre est $\theta$, les paramètres $t$ et $h$ sont figés par
+le pas d'intégration de l'orientation imposé par le programme appelant.
+
+\section{fonction d'erreur sur une consigne}\label{sec:fonction-erreur}
+Connaissant une orientation donnée par son quaternion $Q$ et une
+rotation instantanée $\vec{\Omega}$, on cherche à identifier une
+fonction de cette orientation et de cette rotation s'annulant
+lorsqu'elles respectent une consigne fixe. Pour cela, on utilise une
+fonction d'erreur indiquant l'écart entre une valeur obtenue et la
+valeur désirée.
+
+Une méthode permettant d'annuler cette fonction d'erreur est donnée
+dans l'annexe~\ref{sec:zeros}, page~\pageref{sec:zeros}. Bien d'autres
+méthodes peuvent être utilisées, cela n'a pas d'importance pour
+l'algorithme.
+
+\subsection{cas d'une consigne géométrique}\label{sec:consigne-geom}
+Une consigne géométrique est modélisée par un cône
+($\vec{a}_3$,~$\mu_3$) sur lequel un vecteur $\vec{v}_3$ doit rester
+confiné, $\vec{v}_3$ étant la projection en repère satellite d'un
+vecteur $\vec{u}_3$ connu en repère inertiel. La fonction d'erreur
+est donnée par :
+\begin{equation}\label{eq:erreur}
+f(Q) = \arccos (Q(\vec{u}_3) \cdot \vec{a}_3) - \mu_3
+\end{equation}
+
+Cette fonction est continue, indéfiniment dérivable, bornée entre
+$\mu_3$ et $\pi - \mu_3$, et s'annule lorsque $\vec{v}_3 =
+Q(\vec{u}_3)$ est sur le cône ($\vec{a}_3$,~$\mu_3$).  Les formules
+permettant de calculer $\vec{v}_3 = Q(\vec{u}_3)$ sont décrites dans
+l'annexe~\ref{sec:quaternions}.
+
+\subsection{cas d'une consigne cinématique}\label{sec:consigne-cine}
+Une consigne cinématique est modélisée par un axe sensible
+$\vec{a}_3$ et une vitesse $\omega_3$ telles que : $\vec{\Omega}
+\cdot \vec{a}_3 = \omega_3$ où $\vec{\Omega}$ est le vecteur
+vitesse de rotation instantanée du satellite.
+
+Si on note $Q(t)$ le quaternion d'orientation au pas précédent et
+$Q(t+h)$ le quaternion d'orientation courant (dans la pratique, $Q(t+h)$
+est calculé en fonction d'un paramètre $\theta$ et non en fonction de
+$t+h$ --- voir section~\ref{sec:deux-consignes}), alors le quaternion
+$E(h)$ représentant l'évolution d'orientation au cours du pas est donné
+par :
+\begin{equation}\label{eq:E(h)}
+E(h) = Q^{-1}(t)\left(Q(t+h)\right)
+\end{equation}
+d'où l'on déduit :
+\begin{equation}\label{eq:omega(h)}
+\vec{\Omega}(h)=\frac{2\arccos(e_0)}{h}\frac{\vec{e}}{\|\vec{e}\|}
+\end{equation}
+où $e_0$ et $\vec{e}$ sont respectivement les composantes scalaire et
+vectorielle de $E(h)$.
+
+La fonction d'erreur est alors :
+\begin{equation}
+f(Q(t+h)) = 2 \arccos (e_0) (\vec{e} \cdot \vec{a}_3) - h\sqrt{(1-e_0^2)}\omega_3
+\end{equation}

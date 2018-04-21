@@ -1,0 +1,27 @@
+#
+# process this file with create-xml-strings to produce a header file
+# defining the specified constants as static XMLCh arrays
+#
+# $Id: XMLUnitsStrings.txt,v 1.2 2005/02/21 13:19:56 chope Exp $
+
+CLUB_UNIT_TAG                      "club-units"
+REFERENCE_UNIT_TAG                 "reference-unit"
+DESCRIPTION_ATTRIBUTE              "description"
+NAME_ATTRIBUTE                     "name"
+SYMBOL_ATTRIBUTE                   "symbol"
+DIM_LENGTH_ATTRIBUTE               "dim-length"
+DIM_MASS_ATTRIBUTE                 "dim-mass"
+DIM_TIME_ATTRIBUTE                 "dim-time"
+DIM_ELECTRIC_CURRENT_ATTRIBUTE     "dim-electric-current"
+DIM_TEMPERATURE_ATTRIBUTE          "dim-temperature"
+DIM_AMOUNT_OF_SUBSTANCE_ATTRIBUTE  "dim-amount-of-substance"
+DIM_LUMINOUS_INTENSITY_ATTRIBUTE   "dim-luminous-intensity"
+DIM_PLANAR_ANGLE_ATTRIBUTE         "dim-planar-angle"
+DIM_SOLID_ANGLE_ATTRIBUTE          "dim-solid-angle"
+ALTERNATE_UNIT_TAG                 "alternate-unit"
+OFFSET_ATTRIBUTE                   "offset"
+FACTOR_ATTRIBUTE                   "factor"
+DEG_ENTITY                         "deg"
+MICRO_ENTITY                       "micro"
+OHM_ENTITY                         "ohm"
+SPECIAL_CHARS_LIST                 "*/^"

@@ -1,0 +1,5 @@
+tr {capt_son/vitesse0} [0,w[ avance -> arret
+tr {capt_ultrason_inf10/vitesse+} [0,w[ arret -> avance
+pl arret (1)
+net petri_test_avance
+

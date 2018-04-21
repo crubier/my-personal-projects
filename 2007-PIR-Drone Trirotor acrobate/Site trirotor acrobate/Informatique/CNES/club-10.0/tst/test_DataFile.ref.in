@@ -1,0 +1,88 @@
+
+ -------------- 
+| CAS NOMINAUX |
+ -------------- 
+
+
+INSTANCIATIONS POUR LA CREATION DE FICHIERS
+-------------------------------------------
+
+Creation d'une instance pour un fichier Madona en donnant le type du fichier : OK
+
+ Type de fichier pour cette instance : MadonaType
+
+ Type courant de fichier utilise : XMLType
+
+ Mise a MadonaType du type courant de fichier utilise : 
+
+ Verification du type courant de fichier utilise : MadonaType
+
+Creation d'une instance pour un fichier Madona a partir du constructeur par defaut (currentFileType_) : OK
+
+ Type de fichier pour cette instance : MadonaType
+
+Creation d'une instance pour un fichier XML en donnant le type du fichier : OK
+
+ Type de fichier pour cette instance : XMLType
+
+ Type courant de fichier utilise : MadonaType
+
+ Mise a XMLType du type courant de fichier utilise : 
+
+ Consultation du type courant de fichiers utilise : XMLType
+
+Creation d'une instance pour un fichier XML a partir du constructeur par defaut (currentFileType_) : OK
+
+ Type de fichier pour cette instance : XMLType
+
+Creation d'une instance pour un fichier structure en donnant le type du fichier : OK
+
+ Type de fichier pour cette instance : StructureType
+
+ Type courant de fichier utilise : XMLType
+
+ Mise a StructureType du type courant de fichier utilise : 
+
+ Consultation du type courant de fichiers utilise : StructureType
+
+Creation d'une instance pour un fichier structure a partir du constructeur par defaut (currentFileType_) : OK
+
+ Type de fichier pour cette instance : StructureType
+
+
+INSTANCIATIONS POUR LA LECTURE DE FICHIERS
+------------------------------------------
+
+Lecture du fichier @srcdir@/test_StructureFile.don : OK
+
+ Type de fichier pour cette instance : StructureType
+
+Lecture du fichier @srcdir@/test_MadonaFile.don1 : OK
+
+ Type de fichier pour cette instance : MadonaType
+
+Lecture du fichier XML @srcdir@/test_XMLData.don1 : OK
+
+ Type de fichier pour cette instance : XMLType
+
+ -------------- 
+| CAS DEGRADES |
+ -------------- 
+
+Le type de fichier demande n'existe pas : OK : message d'erreur club :
+type of file is not valid
+
+Le fichier NoFile.txt n'existe pas : OK : message d'erreur club :
+unable to open file "NoFile.txt": No such file or directory
+
+Le format du fichier Makefile n'est pas valide : OK : message d'erreur club :
+type of file is not valid
+
+Le fichier @srcdir@/test_DataFile_BadXmlF ne respecte pas la DTD : OK : message d'erreur club :
+type of file is not valid
+
+Le fichier @srcdir@/test_DataFile_BadMadF est invalide : OK : message d'erreur club :
+type of file is not valid
+
+Le fichier @srcdir@/test_DataFile_BadSF est invalide : OK : message d'erreur club :
+type of file is not valid

@@ -1,0 +1,505 @@
+2005-02-16  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* ClubErreurs.h (class ClubErreurs): ajout des erreurs
+	missing_attribute, redefined_unit, incompatible_units,
+	entity_syntax_error, unknown_general_entity et unit_syntax_error
+	(DM-ID 242)
+
+	* Unit.h (class Unit): nouveau fichier (DM-ID 242)
+
+	* Makefile.am: ajout du fichier Unit.h (DM-ID 242)
+
+2005-02-02  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* ClubConfig.h.in: ajout de la variable d'environnement
+	CLUB_VAR_XMLPATH (DM-ID 242)
+
+	* UniqDataFile.h: élimination des méthodes stringToDouble et stringToInt
+	(DM-ID 242)
+
+	* XMLData.h, XMLUnits.h: nouveaux fichiers (DM-ID 242)
+
+	* XMLFile.h: refonte complète et séparation en trois classes (DM-ID 242)
+
+	* Makefile.am: ajout des fichiers XMLData.h, XMLUnits.h
+	(DM-ID 242)
+
+2005-02-01  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* ClubConfig.h.in: ajout de la variable d'environnement d'accès
+	aux DTD et fichiers XML (DM-ID 242)
+
+2005-01-28  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* DataFile.h, MadonaFile.h, StructureFile.h, UniqDataFile.h,
+	XMLFile.h: élimination de la méthode loadUnitFile (DM-ID 242)
+
+	* ClubErreurs.h: ajout de l'erreur variable_environnement (DM-ID 242)
+
+2005-01-12  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* UniqDataFile.h, DataFile.h: élimination des références aux
+	classes DataProxyName et DataProxyIndex (DM-ID 241)
+
+	* Makefile.am: élimination des références aux fichiers
+	DataProxy.h, DataProxyName.h, DataProxyIndex.h (DM-ID 241)
+
+	* DataProxy.h, DataProxyName.h, DataProxyIndex.h: élimination des
+	fichiers (DM-ID 241)
+
+2003-12-08  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* XMLFile.h: mise en conformité avec Xerces 2.x (DM-ID 32).
+	
+	* DataFile.h, ClubErreurs.h : Suppression de la contrainte de fourniture du type 
+	de fichier lors de l'instanciation de la classe DataFile (DM-ID 31).
+
+2003-10-13  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* TamponTexte.h (getTampon, operator <<): Modification de la fonction 
+	inline operator << pour qu'elle utilise le nouveau service getTampon
+	au lieu de retourner directement le membre protege de la classe. (DM-ID 29)
+
+2003-07-15  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* OptionTableauEntiers.h, OptionTableauChaines.h,
+	OptionSansValeur.h, OptionReel.h, IterateurLigne.h: FA-ID 27
+	correction d'initialisations faites avec le mauvais type
+
+2003-06-24  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* ClubConfig.h.in: remplacement de VERSION par PACKAGE_VERSION
+	pour compatibilité avec autoconf 2.57 (DM-ID 24)
+
+2003-03-21  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* MadonaFile.h: traitement de la DM-ID 21
+	Ajout du repositionnement du pointeur madonna avant chaque opération de 
+	lecture/écriture/déplacement.
+
+2002-11-29  projet CHOPE O. Queyrut/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* BaseErreurs.h, ChaineSimple.h, ClubErreurs.h, OptionBase.h, TraducteurCC.h:
+	ré-agencement des déclarations public/protected/private
+
+	* AnalyseurLexical.h, BaseErreurs.h, CallTrace.h, ClubErreurs.h,
+	FichierStructure.h, IterateurAscii.h, Iterateur*.h, Option*.h,
+	StructureFile.h, TamponBase.h, TamponPartage.h, UniqDataFile.h,
+	XMLFile.h: Ajout de constructeurs et de destructeurs pour uniformiser
+	les fichiers H du point de vue qualité.
+
+2002-06-27  projet CHOPE O. Queyrut/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* FichierStructure.h: ajout de la méthode listeSousBlocs
+
+	* XMLFile.h: mise en conformité avec Xerces 1.7
+
+2002-05-17  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* FichierStructure.h: utilisation du type bool pour les retours
+	des méthodes terminal et contientSousBloc
+
+2002-01-12 Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: migration de ClubConfig.h de la cible pkginclude_HEADERS
+	vers la cible nodist_pkginclude_HEADERS afin que ce fichier ne soit plus
+	inclus dans le paquetage
+
+2001-06-22  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* ChaineSimple.h: remplacement de l'inclusion de cwctype par
+	l'inclusion de cctype
+
+2001-06-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: ajout de CallTrace.h
+
+	* CallTrace.h: nouveau fichier (en provenance de la bibliothèque marmottes)
+
+	* ClubErreurs.h: ajout des erreurs calltrace_not_activated,
+	file_open et internal_error
+
+2001-04-04  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* AnalyseurLexical.h: ajout de la reconnaissance paramétrable des
+	réels du langage fortran
+
+2001-03-22  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* UniqDataFile.h: élimination d'une spécification de lancement
+	d'exception
+
+2001-02-16  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* DataFile.h: correction de redéclarations de valeurs par défaut
+	dans la définition de fonctions en ligne
+
+	* Makefile.am: élimination de la classe Adressage
+
+	* OptionsAppli.h: remplacement de la classe hash_map par la classe
+	standard map
+
+	* TraducteurCC.h: remplacement de la classe hash_map par la classe
+	standard map
+
+2000-12-12  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Adressage.h (index): correction d'un oubli lors du passage de
+	ChaineSimple à string
+
+2000-12-04  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* ClubErreurs.h: correction d'une faute de frappe
+
+2000-11-21  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: ajout des fichiers DataProxy.h, DataProxyIndex.h et
+	DataProxyName.h, ajout des fichiers optionnels dans la distribution
+
+2000-11-07  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* ClubConfig.h.in: ajout des macro-définitions CLUB_VAR_LANG et
+	CLUB_VAR_TRADPATH pour faciliter la configuration des
+	bibliothèques clientes (cantor, marmottes, ...)
+
+	* UniqDataFile.h: élimination de replaceCharacter
+
+2000-11-06  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* UniqDataFile.h, DataProxy*.h: suppression des classes DataProxyIndex,
+	DataProxyName de UniqDataFile.h afin d'avoir un fichier par classe (création 
+	des fichiers DataProxy.h, DataProxyIndex.h, DataProxyName.h).
+
+2000-10-25  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* Makefile.am (pkginclude_HEADERS): ajout de ClubConfig.h
+
+2000-10-24  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* ClubConfig.h.in: nouveau fichier
+
+	* *.h: mise à jour des includes et ajout des tests de configuration.
+
+2000-10-17  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* UniqDataFile.h: suppression de la méthode obsolète 
+	testIndexAlreadyDefined. Le constructeur ne lève plus d'exception.
+
+	* ClubErreurs.h: suppression de l'exception no_parent_node
+
+2000-10-16  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* Makefile.am: ajout de StructureFile.h, UniqDataFile.h et DataFile.h 
+	dans pkginclude_HEADERS.
+	Utilisation d'un test sur la présence des bibliothèques Madona et XML 
+	pour ajouter ou non MadonaFile.h et XMLFile.h dans pkginclude_HEADERS
+
+	* ClubErreurs.h: ajout des exceptions liées aux fichiers XMLFile,
+	MadonaFile, StructureFile, UniqDataFile et DataFile.
+
+2000-10-12  projet CHOPE F.Deshaies/O.Queyrut <frederic.deshaies@cisi.cnes.fr>
+
+	* DataFile.h, UniqDataFile.h, 
+	* StructureFile.h, MadonaFile.h, XMLFile.h: nouveaux fichiers 
+	fournissant des classes de gestion des fichiers au format XML, Madona
+	ou FichierStructure.
+
+2000-09-07  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* Adressage.cc, Adressage.h: utilisation de string de la STL au lieu 
+	de ChaineSimple pour le tableau des clefs.
+
+2000-09-06  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* Makefile.am (pkginclude_HEADERS): suppression des classes _OBSOLETE
+
+	* FichierStructure.h, OptionBase.h, OptionsAppli.h
+	* ClubErreurs.h, BaseErreurs.h
+	* OptionTableauReels.h, OptionTableauEntiers.h, OptionTableauChaines.h
+	* OptionReel.h, OptionEntier.h, OptionSansValeur.h, OptionChaine.h
+	* TamponTexte.h, TamponAscii.h, TamponBase.h
+	* IterateurAscii.h, TraducteurCC.h
+	* FormatFortran.h, FormatC.h
+	* AnalyseurLexical.h: utilisation de string de la STL dans 
+	l'implémentation des classes : les signatures des méthodes sont
+	modifiées.
+
+2000-09-04  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* Adressage.cc: modification de l'implémentation des méthodes pour
+	utiliser la classe hash_map de la STL.
+
+2000-08-31  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* Adressage.h (Adressage): implémentation de la classe à partir de 
+	la classe hash_map de la STL. Utilisation d'un attribut de type vector
+	permettant d'indexer les clefs et de préserver le service d'accès aux
+	éléments de la table d'adressage par un index (service non offert par 
+	les hash_map). L'interface publique est inchangée.
+
+2000-08-30  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* Makefile.am (pkginclude_HEADERS): ajout de ClubHashFun.h
+
+	* ClubHashFun.h: nouveau fichier définissant les fonctions de 
+	hachage de Weinberger pour les string de la STL, les char* et les
+	const char*. Cette fonction de hachage est utilisable par la 
+	classe hash_map de la STL.
+
+	* ChaineSimple.h: utilisation de l'espace de nommage std et 
+	utilisation des variables de configuration HAVE_STL et HAVE_NAMESPACES
+
+	* Traducteur.h: suppression de l'include Adressage.h
+
+	* TraducteurCC.h (class Traducteur): utilisation d'un hash_map avec
+	une clé et des données de type string au lieu d'une instance de la 
+	classe Adressage<ChaineSimple>. Ajout des include à hash_map, string 
+	et ClubHashFun. Utilisation de l'espace de nommage std.
+
+2000-08-28  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* OptionsAppli.h (class OptionsAppli): utilisation de la structure
+	de données hash_map de la stl au lieu de la classe Adressage pour
+	définir le type de l'attribut tableOptions_.
+
+2000-08-25  projet BIBAM Olivier Queyrut  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* ChaineSimple.h (class ChaineSimple): ajout d'un constructeur
+	à partir d'un string et de l'opérateur de conversion implicite
+	d'une ChaineSimple en string.
+
+	* FormatC.h: ajout du copyright CNES.
+
+2000-08-24  projet BIBAM Olivier Queyrut  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* TraducteurCC.h: ajout de l'include FormatC pour permettre 
+	l'utilisation de ses services dans la traduction des messages.
+
+2000-07-31  projet BIBAM Olivier Queyrut  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* Makefile.am (pkginclude_HEADERS): ajout de la classe FormatC
+
+	* FormatC.h: création du fichier.
+
+2000-04-04  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* IterateurAscii.h, IterateurBase.h, IterateurCaractere.h,
+	IterateurChamp.h, IterateurChampLigne.h, IterateurLigne.h,
+	TamponAscii.h, TamponBase.h: déplacement du copyright
+
+2000-04-03  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* IterateurChamp.h: ajout de ClubErreurs dans la
+	liste des exceptions déclenchées par les constructeurs
+
+2000-03-30  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* *.h: ajout du copyright CNES
+
+	* TamponPartage.h (class TamponPartage): élimination de la valeur
+	nulle par défaut du pointeur de fonction,
+	(class TamponPartage::Acces): correction d'une erreur de
+	comptabilisation pour les tampons initalisés par défaut et
+	recopiés
+
+1999-08-11  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* BaseErreurs.h (class BaseErreurs): création de l'attribut privé 
+	donneesPartagees du type TamponPartage, suppression des attributs code_ 
+	et msg_, création de la méthode stockeCode qui permet de modifier le 
+	code de l'erreur, modification des autres fonctions en conséquence 
+	( notamment utilisation des accesseurs de la classe StructureErreurs et
+	de la fonction code () )
+	
+	* BaseErreurs.h (class StructureErreurs) : création de la classe pour
+	fournir une structure comprenant le message d'erreur et le code d'erreur
+	à la classe BaseErreurs : donneesPartagees est un TamponPartage dont
+	la zone mémoire allouée est celle d'une StructureErreurs.
+
+1999-06-28  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* FichierStructure.h: Changement des signatures pour gestion des erreurs
+	par mecanisme d'exception, deplacement de la partie privee en fin
+	de declaration. Suppression de l'inclusion de iostream
+
+	* FormatFortran.h: Changement des signatures pour gestion des erreurs
+	par mecanisme d'exception, deplacement de la partie privee en fin
+	de declaration.
+
+	* IterateurCaractere.h: correction indentation
+
+	* IterateurChamp.h: correction indentation, le constructeur
+	ne leve plus d'exception, rechercheChamp retourne void au lieu
+	de int.
+
+	* IterateurChampLigne.h: correction indentation, changement du nom
+	de l'argument de allerSur.
+
+	* IterateurLigne.h: la methode rechercheLigne retourne un void au 
+	lieu d'un int
+
+	* OptionsAppli.h: Changement des signatures pour gestion des erreurs
+	par mecanisme d'exception, deplacement de la partie privee en fin
+	de declaration.
+
+	* OptionBase.h: 
+	* OptionChaine.h: 
+	* OptionEntier.h: 
+	* OptionReel.h: 
+	* OptionSansValeur.h: 
+	* OptionTableauChaines.h: 
+	* OptionTableauEntiers.h: 
+	* OptionTableauReels.h: 
+	* TamponAscii.h: 
+	* TamponBase.h: 
+	* TamponTexte.h: Changement des signatures pour gestion des erreurs
+	par mecanisme d'exception.
+
+	* FichierStructure_OBSOLETE.h: 
+	* FormatFortran_OBSOLETE.h: 
+	* OptionBase_OBSOLETE.h: 
+	* OptionChaine_OBSOLETE.h: 
+	* OptionEntier_OBSOLETE.h: 
+	* OptionReel_OBSOLETE.h: 
+	* OptionSansValeur_OBSOLETE.h: 
+	* OptionsAppli_OBSOLETE.h: 
+	* OptionTableauChaines_OBSOLETE.h: 
+	* OptionTableauEntiers_OBSOLETE.h: 
+	* OptionTableauReels_OBSOLETE.h: 
+	* TamponTexte_OBSOLETE.h: Anciens fichiers suffixes par _OBSOLETE
+        pour garder une compatibilite. Ces classes utilisent une gestion 
+	d'erreur par code retour et pointeur sur ClubErreurs. Ce sont les 
+	memes fichiers (aux noms de classe pres) que ceux de la version 5.4.
+
+1999-06-01  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* Traducteur.h: rectification des commentaires de style C++ vers
+	style C pour utilisation multi-langages
+
+1999-04-11  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* TamponPartage.h (class TamponPartage): ajout des attributs
+	fonctionLiberation_ et arg_
+
+	* BaseErreurs.h: transfert du constructeur par défaut dans le
+	fichier d'implantation
+
+1999-03-18  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* OptionsAppli.h (class OptionsAppli): normalisation des
+	déclarations de chaînes littérales par l'utilisation de const
+	char* au lieu de char* pour compatibilité avec SUN Workshop 5.0
+
+1999-03-02  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* TamponTexte.h: refonte complète de la gestion du tampon de texte
+	en s'appuyant sur un tampon ascii et les itérateurs de champ,
+	ligne et champligne et en bloquant les exceptions levées par ces
+	classes pour conserver temporairement le mécanisme de gestion
+	d'erreurs ClubErreurs
+
+	* TamponAscii.h: nouveau fichier déclarant un tampon ascii
+	pouvant être utilisé tel quel ou être dérivé
+
+	* TamponBase.h: nouveau fichier déclarant un tampon de base
+	représentant le contenu d'un fichier
+
+1999-03-01  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* Makefile.am (pkginclude_HEADERS): ajout des nouveaux fichiers
+	concernant la gestion de tampons ascii, de TamponTexte et des
+	itérateurs associes
+
+	* IterateurChampLigne.h: nouveau fichier déclarant un itérateur
+	parcourant par ligne puis par champ un tampon ascii
+
+	* IterateurLigne.h: nouveau fichier définissant un itérateur ligne
+	sur un tampon ascii
+
+	* IterateurChamp.h: nouveau fichier qui déclarant un itérateur
+	champ sur un tampon ascii
+
+	* IterateurCaractere.h: nouveau fichier déclarant un itérateur
+	caractère sur un tampon ascii
+
+	* IterateurAscii.h: nouveau fichier déclarant un itérateur
+	abstrait sur un tampon ascii
+
+	* ClubErreurs.h (class ClubAllocHandler): ajout de l'erreur sur
+	un itérateur
+
+	* BaseErreurs.h: correction de la gestion d'erreur, toutes les
+	copies d'une erreur partagent un même message pour éviter la
+	duplication des messages d'erreur lors de la destruction,
+	notamment en cas de copies créées par une levée d'exceptions
+
+1999-02-23  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* IterateurBase.h: nouveau fichier déclarant un itérateur général
+	abstrait
+
+1998-11-17  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* OptionBase.h (constructeur par copie): correction de l'oubli de
+	l'initialisation de l'attribut valeursTrouvees_
+
+	* Traducteur.h: élimination de l'inclusion de ctype.h
+
+1998-10-19  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* ChaineSimple.h: ajout des opérateurs + entre ChaineSimple,
+	const char *, et char dans tous les sens
+
+1998-09-13  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Adressage.cc (adrIndex): correction de la fonction de hachage
+	qui ne dépendait réellement que des six derniers caractères de la
+	chaîne
+
+	* ClubErreurs.h: ajout de l'erreur etat_fichier
+
+	* FichierStructure.h (date_): nouvel attribut, (date): nouvelle
+	méthode, (signature_): nouvel attribut, (signature): nouvelle
+	méthode
+
+1998-08-11  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Traducteur.h: ajout des fonctions VariableLangue et
+	VariableCheminsTraduction
+
+1998-07-25  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* TraducteurCC.h: report des macros portant sur les variables
+	d'environnement au niveau de la configuration
+
+	* TamponTexte.h: mise au propre des inclusions système
+
+	* OptionTabReels.h: mise au propre des inclusions système,
+	remplacement des constantes symboliques	définies dans des
+	fichiers dépendant du système par des constantes litérales
+
+	* OptionTabEntiers.h: mise au propre des inclusions système,
+	remplacement des constantes symboliques	définies dans des
+	fichiers dépendant du système par des constantes litérales
+
+	* OptionReel.h: remplacement des constantes symboliques
+	définies dans des fichiers dépendant du système par des
+	constantes litérales
+
+	* OptionEntier.h: remplacement des constantes symboliques
+	définies dans des fichiers dépendant du système par des
+	constantes litérales
+
+	* OptionChaine.h: mise au propre des inclusions système
+
+	* ChaineSimple.h: mise au propre des inclusions système,
+	(ChaineSimple): transfert du constructeur dans le .cc,
+	(operator ==, operator !=): transfert des fonctions dans le .cc
+
+	* BaseErreurs.h: mise au propre des inclusions système
+
+	* Adressage.cc: mise au propre des inclusions système
+
+	* Makefile.am: nouveau fichier
+
+	* ChangeLog: nouveau fichier

@@ -1,0 +1,31 @@
+2001-06-22  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* galileo.en, galileo.fr: le balayage nécessite désormais la
+	spécification d'un axe et d'un angle, on ne peut plus utiliser une
+	rotation quelconque
+
+2001-03-26  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* galileo.en: remplacement earth -> horizon
+
+	* galileo.fr: remplacement terre -> horizon
+
+	* std15.en: remplacement earth -> horizon
+
+	* std15.fr: remplacement terre -> horizon
+
+2000-03-29  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* std15.en: introduction de noms pour les scans nord et sud dans
+	les zones d'inhibitions, afin de permettre la création de
+	pseud-senseurs à demi inhibés et d'en déduire quel scan est
+	concerné par un éblouissement
+
+	* std15.fr: introduction de noms pour les scans nord et sud dans
+	les zones d'inhibitions, afin de permettre la création de
+	pseud-senseurs à demi inhibés et d'en déduire quel scan est
+	concerné par un éblouissement
+
+2000-03-22  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: nouveau fichier

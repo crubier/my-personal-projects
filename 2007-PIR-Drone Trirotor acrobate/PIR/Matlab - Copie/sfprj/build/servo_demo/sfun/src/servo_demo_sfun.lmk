@@ -1,0 +1,34 @@
+CC     = "c:\matlab7\sys\lcc\bin\lcc.exe"
+LD     = "c:\matlab7\sys\lcc\bin\lcclnk.exe"
+LIBCMD = "c:\matlab7\sys\lcc\bin\lcclib.exe"
+CFLAGS = -c -Zp8 -DMATLAB_MEX_FILE -noregistrylookup
+LDFLAGS = -s -dll -L"c:\matlab7\sys\lcc\lib"
+LIBFLAGS = 
+
+OBJECTS = \
+	"servo_demo_sfun.obj"\
+	"servo_demo_sfun_registry.obj"\
+	"c1_servo_demo.obj"\
+	"lccstub.obj"\
+	"c:\matlab7\sys\lcc\mex\lccdef.def"\
+	"c:\matlab7\stateflow\c\debugger\lib\win32\sfc_debuglcc.lib"\
+	"c:\matlab7\stateflow\c\mex\lib\win32\sfc_mexlcc.lib"\
+	"c:\matlab7\extern\lib\win32\lcc\libmex.lib"\
+	"c:\matlab7\extern\lib\win32\lcc\libmx.lib"\
+	"c:\matlab7\extern\lib\win32\lcc\libfixedpoint.lib"\
+	"c:\matlab7\extern\lib\win32\lcc\libut.lib"\
+	"c:\matlab7\toolbox\dspblks\lib\win32\dsp_dyn_rt_lcc.lib"\
+
+INCLUDE_PATH= -I"c:\matlab7\sys\lcc\include"  -I"c:\matlab7\extern\include"  -I"c:\matlab7\simulink\include"  -I"c:\matlab7\stateflow\c\mex\include"  -I"c:\matlab7\stateflow\c\debugger\include"  -I"c:\matlab7\toolbox\eml\lib\dsp"  -I"c:\users\sebastien\desktop\pir\matlab\sfprj\build\servo_demo\sfun\src"  -I"c:\users\sebastien\desktop\pir\matlab"  -I"c:\matlab7\toolbox\sloptim\sloptdemos" 
+ 
+
+servo_demo_sfun.dll : $(MAKEFILE) $(OBJECTS)
+	$(LD) $(LDFLAGS) -o servo_demo_sfun.dll @servo_demo_sfun.lmko
+servo_demo_sfun.obj :	"servo_demo_sfun.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "servo_demo_sfun.c"
+servo_demo_sfun_registry.obj :	"servo_demo_sfun_registry.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "servo_demo_sfun_registry.c"
+c1_servo_demo.obj :	"c1_servo_demo.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "c1_servo_demo.c"
+lccstub.obj :	"c:\matlab7\sys\lcc\mex\lccstub.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "c:\matlab7\sys\lcc\mex\lccstub.c"

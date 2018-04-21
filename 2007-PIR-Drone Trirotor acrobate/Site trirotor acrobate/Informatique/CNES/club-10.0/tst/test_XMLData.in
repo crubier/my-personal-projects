@@ -1,0 +1,58 @@
+#! /bin/sh
+
+# identificateur RCS : "$Id: test_XMLData.in,v 1.3 2005/02/25 07:57:07 chope Exp $"
+
+copyWritable ()
+{
+  test -f $2 && rm -f $2
+  cp $1 $2
+  chmod +w $2
+}
+
+normalizeXML ()
+{
+  mv $1 $1.orig
+  sed -e 's,>,>,g' < $1.orig | tr '' '\12' | sed '/^ *$/d' > $1
+  rm $1.orig
+}
+
+# set up an english environment for tests
+@cl_cv_var_lang@=en                        ; export @cl_cv_var_lang@
+@cl_cv_var_tradpath@=@srcdir@/..           ; export @cl_cv_var_tradpath@
+@cl_cv_var_xmlpath@=@srcdir@/../resources  ; export @cl_cv_var_xmlpath@
+
+# run the test program
+copyWritable @srcdir@/test_XMLData.don2 ./test_XMLData.tmp
+test ! -d read-only-dir && mkdir read-only-dir
+chmod 400 read-only-dir
+./prgm_XMLData @srcdir@/test_XMLData.don1 ./test_XMLData.tmp \
+               ./test_XMLData.res1 > ./test_XMLData.res2 2>&1
+chmod 600 read-only-dir ; rmdir read-only-dir
+
+# normalize the XML files before comparison
+normalizeXML ./test_XMLData.res1
+normalizeXML ./test_XMLData.tmp
+copyWritable @srcdir@/test_XMLData.don2 ./test_XMLData.tmpnorm
+normalizeXML ./test_XMLData.tmpnorm
+copyWritable @srcdir@/test_XMLData.ref1 ./test_XMLData.ref1norm
+normalizeXML ./test_XMLData.ref1norm
+copyWritable @srcdir@/test_XMLData.ref3 ./test_XMLData.ref3norm
+normalizeXML ./test_XMLData.ref3norm
+
+# output files comparison
+echo "difference ./test_XMLData.res1 ./test_XMLData.ref1norm"
+./../utils/difference -rsynth -p 0.00001 -res ./test_XMLData.res1 -ref ./test_XMLData.ref1norm
+r=$?
+if [ $r = 0 ] ; then
+  echo "difference ./test_XMLData.res2 ./test_XMLData.ref2norm"
+  ./../utils/difference -rsynth -p 0.00001 -res ./test_XMLData.res2 -ref ./test_XMLData.ref2
+  r=$?;
+  if [ $r = 0 ] ; then
+    echo "difference ./test_XMLData.tmp ./test_XMLData.ref3norm"
+    ./../utils/difference -rsynth -p 0.00001 -res ./test_XMLData.tmp -ref ./test_XMLData.ref3norm
+    r=$?;
+  fi
+fi
+rm -f ./test_XMLData.res1 ./test_XMLData.res2 ./test_XMLData.tmp \
+      ./test_XMLData.tmpnorm ./test_XMLData.ref1norm ./test_XMLData.ref3norm
+exit $r

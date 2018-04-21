@@ -1,0 +1,222 @@
+#! /bin/sh
+
+# identificateur RCS : "$Id: test_Marmottes.in,v 1.12 2001/06/06 09:15:49 luc Exp $"
+
+# mise en place d un environnement anglais pour vérifier les messages
+@ma_cv_var_lang@=en              ; export @ma_cv_var_lang@
+@ma_cv_var_tradpath@=@srcdir@/.. ; export @ma_cv_var_tradpath@
+
+# TEST 1
+# test ne passant que par le cas général du modèle géométrique
+echo "" > test_Marmottes.1.res.$$
+echo "prgm_Marmottes -f senseurs.en -r"     >> test_Marmottes.1.res.$$
+echo "   -dc 22/10/93 -o 42164 0 0 0 0 116" >> test_Marmottes.1.res.$$
+echo "   -s1 DSS_1_PITCH   -m1  2.5"        >> test_Marmottes.1.res.$$
+echo "   -s2 GEOIRS_1_ROLL -m2  2.7"        >> test_Marmottes.1.res.$$
+echo "   -s3 DSS_1_YAW     -m3 -0.2"        >> test_Marmottes.1.res.$$
+echo "   -p  20            -i 100"          >> test_Marmottes.1.res.$$
+./prgm_Marmottes -f @srcdir@/senseurs.en -r        \
+                 -dc 22/10/93 -o 42164 0 0 0 0 116 \
+                 -s1 DSS_1_PITCH   -m1 2.5         \
+                 -s2 GEOIRS_1_ROLL -m2 2.7         \
+                 -s3 DSS_1_YAW     -m3 -0.2        \
+                 -p  20            -i  300  >> test_Marmottes.1.res.$$ 2>&1
+
+# TEST 2
+# test conduisant au cas particulier v1 = v2 (même cible pour deux senseurs)
+echo "" >> test_Marmottes.1.res.$$
+echo "prgm_Marmottes -f senseurs.en"        >> test_Marmottes.1.res.$$
+echo "   -dc 14/09/97-11:36:00"             >> test_Marmottes.1.res.$$
+echo "   -o 24372 0.73 7 23 0 130"          >> test_Marmottes.1.res.$$
+echo "   -s1 IRES_TKS_PITCH -m1  0.0"       >> test_Marmottes.1.res.$$
+echo "   -s2 IRES_TKS_ROLL  -m2  0.0"       >> test_Marmottes.1.res.$$
+echo "   -s3 YAW_MOMENTUM   -m3  0.0"       >> test_Marmottes.1.res.$$
+echo "   -p  300 -i 12"                     >> test_Marmottes.1.res.$$
+
+./prgm_Marmottes -f @srcdir@/senseurs.en      \
+                 -dc 14/09/97-11:36:00        \
+                 -o 24372 0.73 7 23 0 130     \
+                 -s1 IRES_TKS_PITCH -m1  0.0  \
+                 -s2 IRES_TKS_ROLL  -m2  0.0  \
+                 -s3 YAW_MOMENTUM   -m3  0.0  \
+                 -p  300 -i 12 >> test_Marmottes.1.res.$$
+
+# TEST 3
+# test passant par le cas général avec Mu1=Gamma=Pi/2
+echo "" >> test_Marmottes.1.res.$$
+echo "prgm_Marmottes -f senseurs.en"        >> test_Marmottes.1.res.$$
+echo "   -dc 14/09/97-11:36:00"             >> test_Marmottes.1.res.$$
+echo "   -o 24372 0.73 7 93.296966 0 130"   >> test_Marmottes.1.res.$$
+echo "   -s1 DSS_1_PITCH    -m1  0.0"       >> test_Marmottes.1.res.$$
+echo "   -s2 IRES_TKS_ROLL  -m2  0.0"       >> test_Marmottes.1.res.$$
+echo "   -s3 DSS_1_YAW      -m3  0.0"       >> test_Marmottes.1.res.$$
+echo "   -p  120 -i 3" >> test_Marmottes.1.res.$$
+
+./prgm_Marmottes -f @srcdir@/senseurs.en           \
+                 -dc 14/09/97-11:36:00             \
+                 -o 24372 0.73 7 93.296966 0 130   \
+                 -s1 DSS_1_PITCH    -m1  0.0       \
+                 -s2 IRES_TKS_ROLL  -m2  0.0       \
+                 -s3 DSS_1_YAW      -m3  0.0       \
+                 -p  120 -i 3 >> test_Marmottes.1.res.$$
+
+# TEST 4
+# test conduisant au cas particulier v1 = a2 et à des points singuliers
+# Mu1 = Gamma = Pi/2
+echo "" >> test_Marmottes.1.res.$$
+echo "prgm_Marmottes -f senseurs.en"            >> test_Marmottes.1.res.$$
+echo "   -dc 14/09/97-11:36:00"                 >> test_Marmottes.1.res.$$
+echo "   -o 24372 0.73 7 93.296966 0 128.707"   >> test_Marmottes.1.res.$$
+echo "   -s1 IRES_TKS_ROLL  -m1  0.0"           >> test_Marmottes.1.res.$$
+echo "   -s2 DELTA_X        -m2  6.92103"       >> test_Marmottes.1.res.$$
+echo "   -s3 IRES_TKS_PITCH -m3  0.0"           >> test_Marmottes.1.res.$$
+echo "   -p  120 -i 10"                         >> test_Marmottes.1.res.$$
+
+./prgm_Marmottes -f @srcdir@/senseurs.en               \
+                 -dc 14/09/97-11:36:00                 \
+                 -o 24372 0.73 7 93.296966 0 128.707   \
+                 -s1 IRES_TKS_ROLL  -m1  0.0           \
+                 -s2 DELTA_X        -m2  6.92103       \
+                 -s3 IRES_TKS_PITCH -m3  0.0           \
+                 -p  120 -i 10 >> test_Marmottes.1.res.$$
+
+# TEST 5
+# test conduisant au cas particulier v1 = a2 et à des points singuliers
+# Mu1 # Pi/2
+echo "" >> test_Marmottes.1.res.$$
+echo "prgm_Marmottes -f senseurs.en"       >> test_Marmottes.1.res.$$
+echo "   -dc 20/03/98-19:43:00"            >> test_Marmottes.1.res.$$
+echo "   -o 42164 0 0 0 0 180"             >> test_Marmottes.1.res.$$
+echo "   -s1 DELTA_X        -m1 -89.5298"  >> test_Marmottes.1.res.$$
+echo "   -s2 IRES_TKS_PITCH -m2 0.0"       >> test_Marmottes.1.res.$$
+echo "   -s3 IRES_TKS_ROLL  -m3 0.0"       >> test_Marmottes.1.res.$$
+echo "   -p  120 -i 10"                    >> test_Marmottes.1.res.$$
+
+./prgm_Marmottes -f @srcdir@/senseurs.en         \
+                 -dc 20/03/98-19:43:00           \
+                 -o 42164 0 0 0 0 180            \
+                 -s1 DELTA_X        -m1 -89.5298 \
+                 -s2 IRES_TKS_PITCH -m2 0.0      \
+                 -s3 IRES_TKS_ROLL  -m3 0.0      \
+                 -p  120 -i 10 >> test_Marmottes.1.res.$$
+
+# TEST 6
+# test conduisant au cas particulier v1 = a2
+# Cas très particuliers de Mu1 = Gamma = Mu2 = Alpha12 = Pi/2
+echo "" >> test_Marmottes.1.res.$$
+echo "prgm_Marmottes -f senseurs.en"       >> test_Marmottes.1.res.$$
+echo "   -dc 20/03/98-19:43:00"            >> test_Marmottes.1.res.$$
+echo "   -o 42164 0 0 0 0 45"              >> test_Marmottes.1.res.$$
+echo "   -s1 DELTA_X        -m1 0.0"       >> test_Marmottes.1.res.$$
+echo "   -s2 DSS_1_PITCH    -m2 0.0"       >> test_Marmottes.1.res.$$
+echo "   -s3 DELTA_Z        -m3 0.0"       >> test_Marmottes.1.res.$$
+echo "   -p  120 -i 10"                    >> test_Marmottes.1.res.$$
+
+./prgm_Marmottes -f @srcdir@/senseurs.en \
+                 -dc 20/03/98-19:43:00   \
+                 -o 42164 0 0 0 0 45     \
+                 -s1 DELTA_X -m1 0.0     \
+                 -s2 DSS_1_PITCH -m2 0.0 \
+                 -s3 DELTA_Z -m3 0.0     \
+                 -p  120 -i 10 >> test_Marmottes.1.res.$$
+
+# TEST 6 BIS
+# test conduisant au cas particulier v2 = a1
+# Cas très particuliers de Mu1 = Gamma = Mu2 = Alpha12 = Pi/2
+echo "" >> test_Marmottes.1.res.$$
+echo "prgm_Marmottes -f senseurs.en"       >> test_Marmottes.1.res.$$
+echo "   -dc 20/03/98-19:43:00"            >> test_Marmottes.1.res.$$
+echo "   -o 42164 0 0 0 0 45"              >> test_Marmottes.1.res.$$
+echo "   -s1 DSS_1_PITCH    -m1 0.0"       >> test_Marmottes.1.res.$$
+echo "   -s2 DELTA_X        -m2 0.0"       >> test_Marmottes.1.res.$$
+echo "   -s3 DELTA_Z        -m3 0.0"       >> test_Marmottes.1.res.$$
+echo "   -p  120 -i 10"                    >> test_Marmottes.1.res.$$
+
+./prgm_Marmottes -f @srcdir@/senseurs.en \
+                 -dc 20/03/98-19:43:00   \
+                 -o 42164 0 0 0 0 45     \
+                 -s1 DSS_1_PITCH -m1 0.0 \
+                 -s2 DELTA_X -m2 0.0     \
+                 -s3 DELTA_Z -m3 0.0     \
+                 -p  120 -i 10 >> test_Marmottes.1.res.$$
+
+# TEST 7
+# test complémentaire du test 6
+echo "" >> test_Marmottes.1.res.$$
+echo "prgm_Marmottes -f senseurs.en"            >> test_Marmottes.1.res.$$
+echo "   -dc 14/09/97-11:36:00"                 >> test_Marmottes.1.res.$$
+echo "   -o 24372 0.73 7 93.296966 0 128.708"   >> test_Marmottes.1.res.$$
+echo "   -s1 IRES_TKS_ROLL  -m1  0.0"           >> test_Marmottes.1.res.$$
+echo "   -s2 DSS_1_PITCH    -m2  0.0"           >> test_Marmottes.1.res.$$
+echo "   -s3 DSS_1_YAW      -m3  0.0"           >> test_Marmottes.1.res.$$
+echo "   -p  120 -i 10"                         >> test_Marmottes.1.res.$$
+
+./prgm_Marmottes -f @srcdir@/senseurs.en               \
+                 -dc 14/09/97-11:36:00                 \
+                 -o 24372 0.73 7 93.296966 0 128.708   \
+                 -s1 IRES_TKS_ROLL  -m1  0.0           \
+                 -s2 DSS_1_PITCH    -m2  0.0           \
+                 -s3 DSS_1_YAW      -m3  0.0           \
+                 -p  120 -i 10 >> test_Marmottes.1.res.$$
+
+# TEST 8
+# cas limite d'une consigne à 180 degrés
+echo "" >> test_Marmottes.1.res.$$
+echo "prgm_Marmottes -f senseurs.en"            >> test_Marmottes.1.res.$$
+echo "   -dj 18588.47916667"                    >> test_Marmottes.1.res.$$
+echo "   -o 24562.808206744 0.71652579597132"   >> test_Marmottes.1.res.$$
+echo "      6.9986710754451 0.85949852598"      >> test_Marmottes.1.res.$$
+echo "      323.46902713582 149.10517325635"    >> test_Marmottes.1.res.$$
+echo "   -s1 AZ_SUN  -m1   0.0"                 >> test_Marmottes.1.res.$$
+echo "   -s2 EL_SUN  -m2   0.0"                 >> test_Marmottes.1.res.$$
+echo "   -s3 PHASE   -m3 180.0"                 >> test_Marmottes.1.res.$$
+echo "   -p  20 -i 10"                          >> test_Marmottes.1.res.$$
+
+./prgm_Marmottes -f @srcdir@/senseurs.en             \
+                 -dj 18588.47916667                  \
+                 -o 24562.808206744 0.71652579597132 \
+                    6.9986710754451 0.85949852598    \
+                    323.46902713582 149.10517325635  \
+                 -s1 AZ_SUN  -m1   0.0               \
+                 -s2 EL_SUN  -m2   0.0               \
+                 -s3 PHASE   -m3 180.0               \
+                 -p  20 -i 10 >> test_Marmottes.1.res.$$
+
+# TEST 9
+# cas opérationnel ayant posé un problème sur le spin lors du
+# passage extrapolation/résolution, en raison d'une modélisation
+# discontinue dans le modèle cinématique
+touch test_Marmottes.1.res.$$
+echo "" >> test_Marmottes.1.res.$$
+echo "prgm_Marmottes -f senseurs.en"              >> test_Marmottes.1.res.$$
+echo "     -dc 16/03/2000-12:00:32:679"           >> test_Marmottes.1.res.$$
+echo "     -o 24543.137827937 0.71719629788376"   >> test_Marmottes.1.res.$$
+echo "        7.0             0.93576177219"      >> test_Marmottes.1.res.$$
+echo "        209.66672487159 165.57521238876"    >> test_Marmottes.1.res.$$
+echo "     -a 0.6777  -0.6795   0.1967  -0.2008"  >> test_Marmottes.1.res.$$
+echo "     -s1 GYRO+X   -m1 0.0"                  >> test_Marmottes.1.res.$$
+echo "     -s2 GYRO+Z   -m2 0.0"                  >> test_Marmottes.1.res.$$
+echo "     -s3 LIASS+Z+X_PW -m3 8.5347306158096"  >> test_Marmottes.1.res.$$
+echo "     -spin -p 1 -i 50"                      >> test_Marmottes.1.res.$$
+
+./prgm_Marmottes -f @srcdir@/senseurs.en -r         \
+               -dc 16/03/2000-12:00:32:679          \
+               -o 24543.137827937 0.71719629788376  \
+                  7.0             0.93576177219     \
+                  209.66672487159 165.57521238876   \
+               -a 0.6777  -0.6795   0.1967  -0.2008 \
+               -s1 GYRO+X   -m1 0.0                 \
+               -s2 GYRO+Z   -m2 0.0                 \
+               -s3 LIASS+Z+X_PW -m3 8.5347306158096 \
+               -spin -p 1 -i 50 >> test_Marmottes.1.res.$$
+
+# comparaison des fichiers
+echo "difference -p 1.0e-4 -ee 1 10 -shift 50 -res test_Marmottes.2.res.$$ -ref test_Marmottes.ref.$$ (hors temps de calcul)"
+grep -v "temps de calcul" test_Marmottes.1.res.$$ > test_Marmottes.2.res.$$
+grep -v "temps de calcul" @srcdir@/test_Marmottes.ref > test_Marmottes.ref.$$
+difference -p 1.0e-4 -ee 1 10 -shift 50 -res test_Marmottes.2.res.$$ -ref test_Marmottes.ref.$$
+r=$?
+
+# nettoyage
+rm -f test_Marmottes.1.res.$$ test_Marmottes.2.res.$$ test_Marmottes.ref.$$
+exit $r

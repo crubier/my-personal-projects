@@ -1,0 +1,296 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: ResolveurAttitude.tex,v 1.7 2004/06/21 14:43:01 marmottes Exp $
+\subsection{classe ResolveurAttitude}\label{sec:ResolveurAttitude}
+
+\subsubsection*{description}\label{sec:ResolveurAttitude-desc}
+
+Cette classe implante la phase de résolution numérique d'une attitude
+à partir d'un modèle n'ayant plus qu'un degré de liberté.
+\subsubsection*{interface publique}\label{sec:ResolveurAttitude-int}
+\begin{verbatim}
+#include "marmottes/ResolveurAttitude.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{ResolveurAttitude : méthodes publiques}
+{\label{tab:ResolveurAttitude-met-pub}}
+{retourne un pointeur sur le deuxième senseur de contrôle}
+
+\signature{\fonc{ResolveurAttitude} ()}
+          {}&
+
+constructeur par défaut\\
+
+\hline
+
+\signature{\fonc{ResolveurAttitude}}
+          {(const ResolveurAttitude\& \argument{r})}&
+
+constructeur par copie\\
+
+\signature{ResolveurAttitude\& \fonc{operator =}}
+          {(const ResolveurAttitude\& \argument{r})}&
+
+affectation\\
+
+\hline
+
+\signature{\fonc{\~{}ResolveurAttitude} ()}
+          {}&
+
+destructeur, libère la mémoire allouée pour la table des solutions\\
+
+\hline
+
+\signature{Senseur* \fonc{s1} () const}
+          {}&
+
+retourne un pointeur sur le premier senseur de contrôle\\
+
+\signature{Senseur* \fonc{s2} () const}
+          {}&
+
+retourne un pointeur sur le deuxième senseur de contrôle\\
+
+\signature{Senseur* \fonc{s3} () const}
+          {}&
+
+retourne un pointeur sur le troisième senseur de contrôle\\
+
+\hline
+
+\signature{void \fonc{reinitialise}}
+          {(Senseur* \argument{s1}, Senseur* \argument{s2}, Senseur* \argument{s3})\\
+          \throw{MarmottesErreurs}}&
+
+modifie les senseurs de contrôle (ceci affecte le seuil de
+convergence)\\
+
+\signature{void \fonc{modeliseConsignes}}
+          {(const Etat\& \argument{etatPrecedent},\\
+            const Etat\& \argument{etatResolution},\\
+            double \argument{m1}, double \argument{m2})\\
+          \throw{CantorErreurs, MarmottesErreurs}}&
+
+met en place le modèle analytique pour une résolution d'attitude
+partielle à deux senseurs uniquement\\
+
+\signature{void \fonc{modeliseConsignes}}
+          {(const Etat\& \argument{etatPrecedent},\\
+            const Etat\& \argument{etatResolution},\\
+            double \argument{m1}, double \argument{m2}, double \argument{m3})\\
+         \throw{CantorErreurs, MarmottesErreurs}}&
+
+met en place le modèle analytique pour une résolution d'attitude
+complète\\
+
+\hline
+
+\signature{void \fonc{miseAJourOmegaMax}}
+          {(double \argument{omega})\\
+          \throw{MarmottesErreurs}}&
+
+modifie la vitesse de rotation instantanée maximale du satellite
+utilisée dans la modélisation des attitudes contrôlées par deux
+senseurs cinématiques\\
+
+\signature{void \fonc{miseAJourConvergence}}
+          {(double \argument{seuil})\\
+          \throw{MarmottesErreurs} }&
+
+modifie le seuil de convergence de la résolution numérique\\
+
+\signature{void \fonc{miseAJourDichotomie}}
+          {(int \argument{tranches})\\
+          \throw{MarmottesErreurs}}&
+
+modifie le nombre de tranches de dichotomie pour la séparation des
+extrema locaux\\
+
+\hline
+
+\signature{void \fonc{deuxConsignes}}
+          {(SpinAtt* \argument{ptrSpinAtt})\\
+          \throw{CantorErreurs, MarmottesErreurs}}&
+
+résolution partielle d'attitude sur uniquement deux senseurs\\
+
+\hline
+
+\signature{void \fonc{trouveTout} ()}
+          {\throw{MarmottesErreurs}}&
+
+résolution complète d'attitude (on utilise trois senseurs, et on
+cherche toutes les solutions)\\
+
+\signature{void \fonc{elimineExcedentaires} ()}
+          {\throw{CantorErreurs, MarmottesErreurs}}&
+
+élimine les artefacts de résolution mathématiques issus d'un appel
+préalable à \fonc{trouveTout}\\
+
+\signature{int \fonc{nombreSolutions} () const}
+          {}&
+
+retourne le nombre total de solutions mémorisées pour la résolution
+courante\\
+
+\signature{const SpinAtt\& \fonc{selection} () const}
+          {}&
+
+sélectionne la \emph{meilleure} solution issue d'un appel préalable à
+\fonc{trouveTout} (s'il reste plusieurs solutions, le critère de
+sélection est la modification de spin nécessaire pour aboutir à
+l'attitude testée depuis l'attitude précédente)\\
+
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+
+\begin{verbatim}
+#include "marmottes/ResolveurAttitude.h"
+...
+
+void Marmottes::attitude (double date,
+                          const VecDBL& position, const VecDBL& vitesse,
+                          double m1, double m2, double m3,
+                          RotDBL *attitude, VecDBL *spin)
+  throw (CantorErreurs, MarmottesErreurs)
+{ // calcul d'une attitude donnée par trois consignes
+
+  try
+  {
+  ...
+
+    // mise à jour de la modélisation des mesures dans les senseurs
+    solveur_.modeliseConsignes (etatResolu_, etatExtrapole_,
+                                m1, m2, m3);
+    ...
+
+    // résolution du modèle pour respecter la troisième consigne
+    solveur_.trouveTout ();
+
+    ...
+
+    // filtrage des solutions engendrées par la modélisation mathématique
+    solveur_.elimineExcedentaires ();
+ 
+    ...
+
+    // récupération de la "meilleure" solution
+    SpinAtt sol = solveur_.selection ();
+    *attitude   = sol.attitude ();
+    *spin       = sol.spin     ();
+
+    // mise à jour de l'état de référence et de l'état extrapolé
+    etatResolu_.reinitialise (date, position, vitesse, *attitude);
+    etatResolu_.reinitialise (*spin);
+    etatExtrapole_ = etatResolu_;
+
+  }
+
+  catch (...)
+  {
+    etatExtrapole_ = etatResolu_;
+    throw;
+  } 
+}
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation spécifiques}
+\label{sec:ResolveurAttitude-conseils}
+La classe de résolution numérique n'a de raison d'être que pour une
+résolution donnée~; elle ne mémorise pas les états précédent et
+courant par exemple. Elle est conçue comme un moyen de sérialiser les
+étapes nécessaires, en mémorisant les résultats intermédiaires (le
+modèle analytique, les solutions mathématiques, les solutions
+physiques, \emph{la} solution finale). Il est nécessaire d'appeler ses
+différentes méthodes dans le bon ordre. Cette classe n'étant
+absolument pas réutilisable et n'étant appelée que par la classe de
+haut niveau Marmottes, aucun mécanisme de protection particulier n'a
+été mis en place pour garantir que le bon ordre soit respecté. Cet
+ordre est le suivant : mettre en place le modèle analytique, chercher
+l'ensemble des solutions, éliminer les artefacts de modélisation,
+sélectionner une solution physique respectant les contraintes
+technologiques.
+
+\subsubsection*{implantation}\label{sec:ResolveurAttitude-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:ResolveurAttitude-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe ResolveurAttitude}
+{\label{tab:ResolveurAttitude-att-priv}}
+{nombre de familles du modèle analytique courant}
+
+senseursConsigne\_ & Senseur* [3] & table des pointeurs sur les
+senseurs de contrôle (ces senseurs ne sont pas alloués dans la classe,
+ils doivent exister par ailleurs)\\
+
+sA1\_ & Senseur* & pointeur vers le premier senseur du modèle
+analytique courant (c'est l'un des pointeurs de la table
+senseursConsigne\_)\\
+
+sA2\_ & Senseur* & pointeur vers le second senseur du modèle
+analytique courant (c'est l'un des pointeurs de la table
+senseursConsigne\_)\\
+
+sB\_ & Senseur* & pointeur vers le senseur utilisé pour la résolution
+numérique (c'est l'un des pointeurs de la table senseursConsigne\_)\\
+
+\hline
+
+modeleCourant\_ & Modele*  & pointeur sur le modèle courant (il s'agit
+de l'un des attributs modeleGeom\_ ou modeleCine\_)\\
+
+modeleGeom\_ & ModeleGeom & modèle analytique pour les senseurs
+géométriques\\
+
+modeleCine\_ & ModeleCine & modèle analytique pour les senseurs
+cinématiques\\
+
+\hline
+
+etatPrecedent\_ & Etat & état précédent\\
+
+etatResolution\_ & Etat & état courant de la résolution (ni l'attitude
+ni le spin ne peuvent y être significatifs bien sûr)\\
+
+\hline
+
+famille\_ & int & nombre de familles du modèle analytique courant\\
+
+\hline
+
+tailleTable\_ & int & taille allouée totale de la table des
+solutions\\
+
+nbSol\_ & int & nombre de solutions mémorisées\\
+
+solutions\_ & SpinAtt * & table des solutions\\
+
+\hline
+
+seuil\_ & double & seuil de convergence\\
+
+tranches\_ & int & nombre de tranches de dichotomie de la séparation
+des extrema\\
+
+\end{tableAttributsFixe}
+Les méthodes privées sont décrites dans la table~\ref{tab:ResolveurAttitude-met-priv}.
+\begin{tableFonctionsFixe}{ResolveurAttitude : méthodes privées}
+{\label{tab:ResolveurAttitude-met-priv}}
+{ajoute une solution à la table pour la valeur \argument{t}}
+
+\signature{void \fonc{ajouteSolution} (double \argument{t})}
+          {}&
+
+ajoute une solution à la table pour la valeur \argument{t} de la
+variable libre du modèle analytique\\
+
+\signature{ValeurDerivee1 \fonc{f} (double \argument{t})}
+          {}&
+fonction à annuler pour résoudre l'attitude
+\\
+
+\signature{static ValeurDerivee1 \fonc{f}}
+          {(double \argument{t}, void * \argument{arg})}&
+fonction à annuler pour résoudre l'attitude, \argument{arg} étant un
+pointeur vers une instance
+
+\end{tableFonctionsFixe}

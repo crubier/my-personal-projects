@@ -1,0 +1,221 @@
+% -*- mode: latex; tex-main-file: "cantor.tex" -*-
+% $Id: ValeurDerivee2.tex,v 1.5 2003/07/09 08:55:11 cantor Exp $
+\subsection{classe ValeurDerivee2}\label{sec:ValeurDerivee2}
+
+\subsubsection*{description}\label{sec:ValeurDerivee2-desc}
+
+La classe ValeurDerivee2 est une classe de différentiation automatique
+à l'ordre 2 de fonctions réelles à une variable. Une instance de
+ValeurDerivee2 représente la valeur d'une fonction en un point, ainsi
+que la valeur de sa dérivée première et de sa dérivée seconde au même
+point. La classe ValeurDerivee2 fournit un ensemble d'opérations
+permettant de calculer la valeur de toute fonction explicite (et de
+ses dérivée première et seconde) en un point par combinaison des
+fonctions mathématiques de base.
+
+\subsubsection*{interface publique}\label{sec:ValeurDerivee2-int}
+Pour bénéficier à la fois des déclarations de la classe ValeurDerivee2
+et des paquetages de conversion et de combinaison d'opérandes qui vont
+avec, il faut utiliser la directive~:
+\begin{verbatim}
+#include "cantor/DeclVD2.h"
+\end{verbatim}
+
+Ce fichier inclut lui-même le fichier déclarant la classe~:
+\texttt{"cantor/ValeurDerivee2.h"}.
+
+Outre les méthodes publiques décrites dans la
+table~\ref{tab:ValeurDerivee2-met-pub}, tous les opérateurs \fonc{+=},
+\fonc{-=}, \fonc{*=}, \fonc{/=}, \fonc{+}, \fonc{-}, \fonc{*},
+\fonc{/}, $<$, $\le$, $>$, $\ge$ combinant des instances de
+ValeurDerivee2, des instances de ValeurDerivee2 et des réels en double
+précision sont définis. L'opérateur \fonc{-} unaire est également
+défini ainsi que les fonctions mathématiques $\sqrt a$, $\sin(a)$,
+$\cos(a)$, $\tan(a)$, $\arcsin(a)$, $\arccos(a)$, $\arctan(a)$, $e^a$,
+$\ln(a)$, $\mathrm{atan2}(y, x)$, $\mathrm{pow}(a, b)$,
+$\mathrm{fabs}(x)$, $\max(a,b)$ et $\min(a,b)$.
+
+\begin{tableFonctionsFixe}{ValeurDerivee2 : méthodes publiques}
+{\label{tab:ValeurDerivee2-met-pub}}
+{construit une instance à partir de la valeur \argument{f0}}
+
+\signature{\fonc{ValeurDerivee2}}
+          {(double \argument{f0} = 0, double \argument{f1} = 0, double \argument{f2} = 0)}&
+
+construit une instance à partir de la valeur \argument{f0}, de la
+dérivée première \argument{f1}, et de la dérivée seconde
+\argument{f2}\\
+
+\signature{\fonc{ValeurDerivee2}(const ValeurDerivee2\& \argument{a})}
+          {}&
+
+constructeur par copie \\
+
+\signature{ValeurDerivee2\& \fonc{operator =}(const ValeurDerivee2\& \argument{a})}
+          {}&
+
+affectation \\
+
+\hline
+
+\\signature{\fonc{~ValeurDerivee2} ()} {} &
+destructeur
+\\
+
+hline
+
+\signature{double \fonc{f0} () const}
+          {}&
+
+retourne la valeur de la fonction au point considéré \\
+
+\signature{double \fonc{f1}() const}
+          {}&
+
+retourne la dérivée première de la fonction au point considéré \\
+
+\signature{double \fonc{f2}() const}
+          {}&
+
+retourne la dérivée seconde de la fonction au point considéré \\
+
+\hline
+
+\signature{ValeurDerivee2\& \fonc{operator +=} (const ValeurDerivee2\& \argument{a})}
+          {}&
+
+incrémente l'instance de \argument{a} et retourne une référence sur
+l'instance modifiée \\
+
+\signature{ValeurDerivee2\& \fonc{operator -=} (const ValeurDerivee2\& \argument{a})}
+          {}&
+
+décrémente l'instance de \argument{a} et retourne une référence sur
+l'instance modifiée \\
+
+\signature{ValeurDerivee2\& \fonc{operator *=} (const ValeurDerivee2\& \argument{a})}
+          {}&
+
+multiplie l'instance par \argument{a} et retourne une référence sur
+l'instance modifiée\\
+
+\signature{ValeurDerivee2\& \fonc{operator /=} (const ValeurDerivee2\& \argument{a})}
+          {}&
+
+divise l'instance par \argument{a} et retourne une référence sur
+l'instance modifiée \\
+
+\hline
+
+\signature{double \fonc{taylor} (double \argument{h}) const}
+          {}&
+
+renvoie une estimation de la valeur de la fonction à la distance
+\argument{h} du point de calcul par la formule de Taylor \\
+
+\end{tableFonctionsFixe}
+
+\begin{tableFonctionsFixe}{ValeurDerivee2 : fonctions non membres}
+{\label{tab:ValeurDerivee2-non-membres}}
+{formate une chaîne de caractères représentant}
+
+\signature{ostream\& \fonc{operator <\relax<\relax}}
+          {(ostream\& \argument{s}, const ValeurDerivee2\& \argument{d})}&
+
+formate une chaîne de caractères représentant le ValeurDerivee2
+\argument{d} sur le flot \argument{s} \\
+
+\signature{ValeurDerivee2 \fonc{Approximation}}
+          {(const ValeurDerivee2\& \argument{t},\\
+            const ValeurDerivee2\& \argument{ta}, const ValeurDerivee2\& \argument{fa},\\
+            const ValeurDerivee2\& \argument{tb}, const ValeurDerivee2\& \argument{fb})
+          }&
+
+retourne une copie d'une approximation de la valeur en \argument{t} de
+la fonction \argument{f} prenant en \argument{ta} la valeur
+\argument{fa} et en \argument{tb} la valeur \argument{fb}, cette
+approximation est donnée par un polynôme de degré 5 ayant en
+\argument{ta} et \argument{tb} mêmes valeurs et dérivées que
+\argument{f} \\
+
+\end{tableFonctionsFixe}
+
+\subsubsection*{exemple d'utilisation}
+
+\begin{verbatim}
+#include cantor/DeclVD2.h
+...
+ValeurDerivee2 f (double t)
+{ // conversion de la variable en fonction identite
+  ValeurDerivee2 vdt (t, 1.0, 0.0);
+
+  // calcul de la fonction avec ses derivees
+  ValeurDerivee2 y  = sin (vdt) - 3.6 * vdt * vdt;
+                 y /= atan2 (vdt * 2.0, vdt + 17.0 * cos (vdt));
+
+  // retour a la fonction appelante
+  return y;
+
+}
+...
+for (double t = 0.0; t < 10.0; t += 1.0)
+{ ValeurDerivee2 y = f (t);
+  cout << t << y.f0 ()<< ` ` << y.f1 () << endl;
+}
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation
+spécifiques}\label{sec:ValeurDerivee2-conseils}
+La classe ValeurDerivee2 est destinée à être utilisée exactement comme
+un réel. Toute variable de type \texttt{double} peut être remplacée
+par un ValeurDerivee2 en ne changeant que sa déclaration (et
+éventuellement les déclarations des fonctions utilisateurs qui
+l'utilisent).
+
+Lorsque l'on désire calculer simultanément la valeur et les dérivées
+première et seconde d'une fonction $f$ par rapport à une variable $x$,
+il suffit de coder $f$ en utilisant des variables de type
+ValeurDerivee2 pour tous les calculs intermédiaires dépendant de x, et
+de construire x par :
+\begin{verbatim}
+ValeurDerivee2 x (x0, 1.0, 0.0);
+\end{verbatim}
+où \texttt{x0} est le point où l'on désire évaluer la fonction. La
+variable \texttt{x} est donc considérée comme la fonction identité,
+évaluée en \texttt{x0}.
+
+Il est possible de déclarer une classe de calcul \texttt{template
+class <T> class MaClasse \{ ... \}} puis de la spécialiser plusieurs
+fois :
+\begin{verbatim}
+typedef MaClasse<double> MCDBL;
+MaClasse<ValeurDerivee2> MCVD1;
+MaClasse<ValeurDerivee2> MCVD2;
+\end{verbatim}
+
+Si l'on a besoin de dérivées d'ordre inférieur, la classe
+ValeurDerivee1  existe également. Il faut cependant noter que si le
+calcul d'une dérivée première par la classe ValeurDerivee1 est
+relativement peu coûteux (trois multiplications et une addition pour
+calculer $a\times b$), le passage à la dérivée seconde augmente très
+sensiblement le nombre d'opérations élémentaires (cinq multiplications
+et quatre additions pour calculer $a\times b$). Il est parfois plus
+économique d'utiliser des algorithmes plus grossiers n'utilisant que
+la dérivée première même s'ils doivent évaluer la fonction un grand
+nombre de fois que des algorithmes utilisant les dérivées première et
+seconde et n'évaluant la fonction qu'un petit nombre de fois.
+
+\subsubsection*{implantation}\label{sec:ValeurDerivee2-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:ValeurDerivee2-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe ValeurDerivee2}
+{\label{tab:ValeurDerivee2-att-priv}}
+{dérivée première de la fonction}
+
+f2\_ & double  & dérivée seconde de la fonction \\
+
+f1\_ & double  & dérivée première de la fonction \\
+
+f0\_ & double  & valeur de la fonction \\
+
+\end{tableAttributsFixe}

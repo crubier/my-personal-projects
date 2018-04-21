@@ -1,0 +1,323 @@
+# fichier de traduction du domaine club
+# identificateur RCS : "$Id: club,v 1.12 2005/02/21 13:39:17 chope Exp $"
+
+
+# debut de message de description des options
+"usage : "
+   "usage : "
+
+# messages d'erreur
+"probleme d'allocation memoire"
+   "problème d'allocation mémoire"
+
+"probleme d'obtention de l'etat du fichier \"%s\""
+  "problème d'obtention de l'état du fichier \"%s\""
+
+"probleme d'ouverture du fichier \"%s\""
+   "problème d'ouverture du fichier \"%s\""
+
+"types incompatibles a la lecture de l'option -%s : %s/%s"
+   "types incompatibles à la lecture de l'option -%s : %s/%s"
+
+"arguments de l'option -%s accessibles uniquement par tableau de taille %d"
+   "arguments de l'option -%s accessibles uniquement par tableau de taille %d"
+
+"nombre d'arguments de l'option -%s incompatibles : %d trouves, %d attendus"
+   "nombre d'arguments de l'option -%s incompatibles : %d trouvés, %d attendus"
+
+"nombre d'arguments de l'option -%s negatif : %d"
+   "nombre d'arguments de l'option -%s négatif : %d"
+
+"l'option sans nom doit avoir un argument et un seul"
+   "l'option sans nom doit avoir un argument et un seul"
+
+"nom d'option illegal (ne commence pas par une lettre) : -%s"
+   "nom d'option illégal (ne commence pas par une lettre) : -%s"
+
+"pas d'argument pour l'option -%s"
+   "pas d'argument pour l'option -%s"
+
+"valeur par defaut manquante pour l'option -%s"
+   "valeur par défaut manquante pour l'option -%s"
+
+"argument de l'option -%s trop long : \"%s\" (%d caracteres max)"
+   "argument de l'option -%s trop long : \"%s\" (%d caractères max)"
+
+"argument hors domaine pour l'option -%s : \"%s\", arguments autorises :"
+   "argument hors domaine pour l'option -%s : \"%s\", arguments autorisés :"
+
+"option -%s hors limites ]-infini ; %d] : %d"
+   "option -%s hors limites ]-infini ; %d] : %d"
+
+"option -%s hors limites [%d ; +infini[ : %d"
+   "option -%s hors limites [%d ; +infini[ : %d"
+
+"option -%s hors limites [%d ; %d] : %d"
+   "option -%s hors limites [%d ; %d] : %d"
+
+"option -%s hors limites ]-infini ; %lf] : %lf"
+   "option -%s hors limites ]-infini ; %lf] : %lf"
+
+"option -%s hors limites [%lf ; +infini[ : %lf"
+   "option -%s hors limites [%lf ; +infini[ : %lf"
+
+"option -%s hors limites [%lf ; %lf] : %lf"
+   "option -%s hors limites [%lf ; %lf] : %lf"
+
+"code d'option \"%s\" non reconnu"
+   "code d'option \"%s\" non reconnu"
+
+"argument manquant pour l'option -%s"
+   "argument manquant pour l'option -%s"
+
+"option -%s definie deux fois"
+   "option -%s définie deux fois"
+
+"analyseur d'options de %s deja initialise"
+   "analyseur d'options de %s déjà initialisé"
+
+"analyseur d'options de %s non initialise"
+   "analyseur d'options de %s non initialisé"
+
+"arguments non reconnus par l'analyseur d'options de %s :"
+   "arguments non reconnus par l'analyseur d'options de %s :"
+
+"occurrence %d de l'option -%s inexistante (%d occurrences passees)"
+   "occurrence %d de l'option -%s inexistante (%d occurrences passées)"
+
+"option -%s absente"
+  "option -%s absente"
+
+"nombre d'occurrences de l'option -%s hors limites [%d ; %d] : %d"
+   "nombre d'occurrences de l'option -%s hors limites [%d ; %d] : %d"
+
+"tampon \"%s\" vide"
+   "tampon \"%s\" vide"
+
+"caractere \" ou caractere \' manquant dans le tampon \"%s\""
+  "caractère \" ou caractère \' manquant dans le tampon \"%s\""
+
+"ligne %d hors limites [%d ; %d], tampon \"%s\""
+   "ligne %d hors limites [%d ; %d], tampon \"%s\""
+
+"champ %d hors limites [%d ; %d], ligne %d du tampon \"%s\""
+   "champ %d hors limites [%d ; %d], ligne %d du tampon \"%s\""
+
+"champ %d hors limites [%d ; %d], tampon \"%s\""
+   "champ %d hors limites [%d ; %d], tampon \"%s\""
+
+"accolades non equilibrees dans le fichier \"%s\""
+   "accolades non équilibrées dans le fichier \"%s\""
+
+"sous-bloc \"%s\" introuvable dans le bloc \"%s\" du fichier \"%s\""
+   "sous-bloc \"%s\" introuvable dans le bloc \"%s\" du fichier \"%s\""
+
+"bloc \"%s\" introuvable dans le fichier \"%s\""
+   "bloc \"%s\" introuvable dans le fichier \"%s\""
+
+"pas de champ %d dans le bloc \"%s\" du fichier \"%s\""
+   "pas de champ %d dans le bloc \"%s\" du fichier \"%s\""
+
+"bloc \"%s\" non terminal dans le fichier \"%s\""
+   "bloc \"%s\" non terminal dans le fichier \"%s\""
+
+"'{' manquante (bloc \"%s\" du fichier \"%s\")"
+   "'{' manquante (bloc \"%s\" du fichier \"%s\")"
+
+"'>' manquant apres \"%s\" (fichier \"%s\")"
+  "'>' manquant apres \"%s\" (fichier \"%s\")"
+
+"nom de fichier a inclure manquant (fichier \"%s\")"
+  "nom de fichier à inclure manquant (fichier \"%s\")"
+
+"erreur d'analyse du format fortran \"%s\""
+  "erreur d'analyse du format fortran \"%s\""
+
+"passage par la ligne %d du fichier \"%s\""
+   "passage par la ligne %d du fichier \"%s\""
+
+"erreur du domaine %s numero %d non reconnue"
+   "erreur du domaine %s numéro %d non reconnue"
+
+"incoherence entre un iterateur et le tampon \"%s\""
+   "incohérence entre un itérateur et le tampon \"%s\""
+
+"caractere %d hors limites [%d ; %d], tampon \"%s\""
+   "caractère %d hors limites [%d ; %d], tampon \"%s\""
+
+"variable d'environnement \"%s\" manquante"
+  "variable d'environnement \"%s\" manquante"
+
+"trace des executions desactivee"
+   "trace des exécutions désactivée"
+
+"erreur a l'ouverture du fichier %s"
+  "erreur à l'ouverture du fichier %s"
+
+"erreur interne de CLUB, veuillez contacter la maintenance (ligne %d, fichier %s)"
+   "erreur interne de CLUB, veuillez contacter la maintenance (ligne %d, fichier %s)"
+
+
+
+#erreurs Madona/XML/StructureFile
+
+"fonction \"%s\" non implementee"
+   "fonction \"%s\" non implementée"
+
+"designation \"%s\" non valide"
+   "désignation \"%s\" non valide"
+
+"impossible de convertir \"%s\" en entier"
+   "impossible de convertir \"%s\" en entier"
+
+"impossible de convertir \"%s\" en reel"
+   "impossible de convertir \"%s\" en réel"
+
+"erreur fichier \"%s\": \"%s\""
+   "erreur fichier \"%s\": \"%s\""
+
+"structure de donnees non valide : %s"
+   "structure de données non valide : %s"
+
+"le tag %s manque"
+   "le tag %s manque"
+
+"attribut %s manquant dans l'element %s"
+  "attribut %s manquant dans l'élément %s"
+
+"reference xpointer \"%s\" incorrecte"
+   "référence xpointer \"%s\" incorrecte"
+
+"redefinition de l'unite %s"
+  "redéfinition de l'unité %s"
+
+"impossible d'effectuer une conversion entre les unites incompatibles %s et %s"
+  "impossible d'effectuer une conversion entre les unités incompatibles %s et %s"
+
+"erreur de syntaxe d'appel a une entite dans la chaine \"%s\""
+  "erreur de syntaxe d'appel à une entité dans la chaîne \"%s\""
+
+"entite generale %s inconnue dans la chaine \"%s\""
+  "entité générale %s inconnue dans la chaîne \"%s\""
+
+"erreur de syntaxe dans l'unite %s"
+  "erreur de syntaxe dans l'unité %s"
+
+"donnee \"%s\" non definie"
+   "donnée \"%s\" non définie"
+
+"structure ou table \"%s\" non definie"
+   "structure ou table \"%s\" non définie"
+
+"parametre \"%s\" non defini"
+   "paramètre \"%s\" non défini"
+
+"index %d de la table \"%s\" non defini"
+   "index %d de la table \"%s\" non défini"
+
+"unite \"%s\" non reconnue"
+   "unité \"%s\" non reconnue"
+
+"noeud %s de type inconnu"
+   "noeud %s de type inconnu"
+
+"donnee courante \"%s\" est un tableau"
+   "donnée courante \"%s\" est un tableau"
+
+"donnee courante \"%s\" n'est pas un tableau"
+   "donnée courante \"%s\" n'est pas un tableau"
+
+"impossible de remonter d'un niveau depuis la racine du document"
+   "impossible de remonter d'un niveau depuis la racine du document"
+
+"erreur Madona : \"%s\""
+   "erreur Madona : \"%s\""
+
+"erreur XML : \"%s\""
+   "erreur XML : \"%s\""
+
+"table \"%s\" de type \"%s\" ne peut contenir des elements de type \"%s\""
+    "table \"%s\" de type \"%s\" ne peut contenir des éléments de type \"%s\""
+
+"fonction non accessible : Madona n'est pas installee"
+   "fonction non accessible car la bibliothèque Madona n'est pas installée"
+
+"fonction non accessible : Xerces n'est pas installee"
+   "fonction non accessible car la bibliothèque Xerces n'est pas installée"
+
+"creation de l'index dans %s interdite"
+   "création d'un index dans %s interdite"
+
+"donnee \"%s\" deja definie"
+   "donnée \"%s\" déjà définie"
+
+"le format du fichier est invalide"
+   "le format du fichier est invalide"
+
+
+# messages des utilitaires
+"fichier %s inconnu"
+   "fichier %s inconnu"
+
+"options -e et -ee incompatibles"
+   "options -e et -ee incompatibles"
+
+"Analyse impossible : la place memoire necessaire pour le calcul d'un decalage de %d lignes est trop importante"
+   "Analyse impossible : la place mémoire nécessaire pour le calcul d'un décalage de %d lignes est trop importante"
+
+"le nombre de lignes a ignorer (%d) est superieur au nombre total de lignes (%d) du fichier %s"
+   "le nombre de lignes à ignorer (%d) est supérieur au nombre total de lignes (%d) du fichier %s"
+
+"les fichiers sont trop differents : plus de %d lignes separent deux lignes egales"
+   "les fichiers sont trop différents : plus de %d lignes séparent deux lignes égales"
+
+"les lignes suivantes sont en plus dans %s:"
+   "les lignes suivantes sont en plus dans %s:"
+
+"les lignes suivantes manquent dans %s,%d:"
+   "les lignes suivantes manquent dans %s,%d:"
+
+"chaines \"%s\" et \"%s\" differentes dans les lignes :\n%s,%d : %s\n%s,%d : %s"
+   "chaînes \"%s\" et \"%s\" différentes dans les lignes :\n%s,%d : %s\n%s,%d : %s"
+
+"entiers %d et %d differents dans les lignes :\n%s,%d : %s\n%s,%d : %s"
+   "entiers %d et %d différents dans les lignes :\n%s,%d : %s\n%s,%d : %s"
+
+"difference relative (%12.6e) entre les reels %f et %f superieure au seuil (%12.6e):\n%s,%d : %s\n%s,%d : %s"
+   "différence relative (%12.6e) entre les réels %f et %f supérieure au seuil (%12.6e):\n%s,%d : %s\n%s,%d : %s"
+
+"la chaine \"%s\" est en plus :\n%s,%d : %s\n%s,%d : %s"
+   "la chaîne \"%s\" est en plus :\n%s,%d : %s\n%s,%d : %s"
+
+"la chaine \"%s\" manque :\n%s,%d : %s\n%s,%d : %s"
+   "la chaîne \"%s\" manque :\n%s,%d : %s\n%s,%d : %s"
+
+"%d differences dans les lignes:\n%s,%d : %s\n%s,%d : %s"
+   "%d différences dans les lignes:\n%s,%d : %s\n%s,%d : %s"
+
+"nombre de messages de difference      : %d"
+   "nombre de messages de différence      : %d"
+
+"numeros des messages affiches         : %d a %d"
+   "numéros des messages affichés         : %d à %d"
+
+"nombre d'erreurs non acceptees        : %d\n\t%d erreur(s) numerique(s)\n\t%d erreur(s) lexicale(s)"
+   "nombre d'erreurs non acceptées        : %d\n\t%d erreur(s) numérique(s)\n\t%d erreur(s) lexicale(s)"
+
+"nombre d'erreurs numeriques acceptees : %d"
+   "nombre d'erreurs numériques acceptées : %d"
+
+"decalage maximal rencontre            : %d"
+   "décalage maximal rencontré            : %d"
+
+"seuil de tolerance numerique          : %12.6e"
+   "seuil de tolérance numérique          : %12.6e"
+
+"erreur numerique minimale             : %12.6e"
+   "erreur numérique minimale             : %12.6e"
+
+"erreur numerique maximale             : %12.6e"
+   "erreur numérique maximale             : %12.6e"
+
+"moyenne des erreurs numeriques        : %12.6e"
+   "moyenne des erreurs numériques        : %12.6e"

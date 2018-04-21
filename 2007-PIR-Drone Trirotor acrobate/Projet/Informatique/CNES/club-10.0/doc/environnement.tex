@@ -1,0 +1,42 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+% $Id: environnement.tex,v 1.2 2005/03/11 16:27:57 chope Exp $
+
+La bibliothèque \bibliotheque{club} a besoin, au minimum, des
+bibliothèques standards du langage \langage{c++}. Pour pouvoir accéder
+à des fichiers au format Madona ou XML, la bibliothèque
+\bibliotheque{club} a besoin repectivement de la bibliothèque
+\bibliotheque{madona} ou de la bibliothèque \bibliotheque{xerces}.
+
+Le système de traduction a besoin à l'exécution de deux variables
+d'environnement, une pour spécifier la langue, l'autre pour spécifier
+une liste de répertoires pouvant contenir les dictionnaires. Ces deux
+variables sont configurables à l'installation de la bibliothèque (voir
+la section~\ref{sec:installation}). Leur valeur par défaut est
+\texttt{CLUB\_LANG} pour la langue utilisateur et
+\texttt{CLUB\_TRADPATH} pour la liste de répertoires. L'installation
+\begin{changebar}
+standard de la bibliothèque pour le service \textsc{sb/ms}
+\end{changebar}
+spécifie cependant des variables différentes, à la fois pour des
+raisons historiques et par soucis d'homogénéité avec l'environnement
+\textsc{mercator} ; les variables sont alors \texttt{MRC\_USER\_LANG}
+pour la langue utilisateur et \texttt{MRC\_USER\_TRADPATH} pour la
+liste des répertoires.
+
+La conception du système de traduction permet à celui-ci de tourner en
+l'absence de tout fichier de traduction. Dans ce cas la langue interne
+du logiciel est utilisée.
+
+\begin{changebar}
+Le support optionnel des fichiers XML a besoin à l'exécution d'une
+variable d'environnement pour spécifier une liste de répertoires
+pouvant contenir les DTD (\emph{Document Type definition}, fichiers
+décrivant les syntaxes XML adoptées dans \bibliotheque{club}) et le
+fichier des unités par défaut. Cette variable est configurable à
+l'installation de la bibliothèque (voir la
+section~\ref{sec:installation}). Sa valeur par défaut est
+\texttt{CLUB\_XMLPATH}. L'installation standard de la bibliothèque
+pour le service \textsc{sb/ms} spécifie cependant une variable
+différente, par souci d'homogénéité avec les deux variables
+précédentes ; la variable est alors \texttt{MRC\_USER\_XMLPATH}.
+\end{changebar}

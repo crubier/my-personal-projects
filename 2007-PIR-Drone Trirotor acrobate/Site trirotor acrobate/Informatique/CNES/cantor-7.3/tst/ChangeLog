@@ -1,0 +1,502 @@
+2004-10-05  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* prgm_Field4.cpp, test_Field4.in, test_Field4.ref: nouveaux
+	fichiers (BIBMS-FA-2811-199-CN)
+
+	* Makefile.am: ajout du test Field4 (BIBMS-FA-2811-199-CN)
+
+2003-07-29  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* prgm_Field3.cpp, test_Field3.in, test_Field3.ref : FA_ID 22,
+	nouveaux fichiers
+
+	* Makefile.am: FA-ID 22, ajout du test Field3
+
+2003-06-24  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* Makefile.am: remplacement de LDFLAGS par AM_LDFLAGS pour compatibilité
+	avec automake 1.7.5
+
+2003-02-04  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* Makefile.am: mise à jour suite aux modifications des extensions des
+	noms de fichier (DM 17).
+
+	* prgm_*.cpp: modification de l'extension des fichiers sources en cpp (utilisation
+	de l'extension cc auparavant) (DM 17)
+
+2002-09-12  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* prgm_FonctionApprochee.cc: modification de la classe Alea utilisée
+	dans la génération pseudo-aléatoire de nombre. La procédure de genération
+	anterieure etait trop sensible aux erreurs numeriques (FA 10).
+
+	* test_FonctionApprochee.ref: mise à jour des résultats suite à la
+	correction de la FA 10.
+
+2002-09-02  projet CHOPE O. Queyrut/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* test_Field2.ref: mise à jour du test du à d'importants changements
+	dans la bibliothéque, notamment en ce qui concerne les arcs orientés.
+
+	* test_Field2.in: ajout de nouveaux tests
+
+	* test_Field1.ref: mise à jour du test du à d'importants changement
+	dans la bibliothéque, notamment en ce qui concerne les arcs orientés.
+
+	* prgm_Field2.cc: modification de l'option -begin afin qu'elle soit
+	optionelle pour utiliser des cones complets.
+
+2002-01-31  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* Makefile.am: utilisation de deux tests séparés pour Arc
+
+	* prgm_Arc1.cc, test_Arc1.in, test_Arc1.ref: nouveaux fichiers
+
+	* prgm_Arc2.cc, test_Arc2.in, test_Arc2.ref: nouveaux fichiers
+
+	* prgm_Arc.cc, test_Arc.in, test_Arc.ref: élimination des fichiers
+
+2001-09-18  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* prgm_Cone.cc, test_Cone.ref: test du constructeur par trois
+	points et de l'opérateur « - »
+
+2001-08-23  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* prgm_Field2.cc (parseCmdLine): autorisation de valeurs négatives
+	pour l'option -mSpread
+
+	* test_Field2.in, test_Field2.ref: ajout de tests pour des
+	balayages négatifs et alignés avec l'axe d'un arc
+
+2001-06-22  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* test_Field1.in, prgm_Field1.cc, test_Field1.ref, test_Field2.in,
+	prgm_Field2.cc, test_Field2.ref: nouveaux fichiers
+
+	* Makefile.am: ajout d'une seconde série des tests pour la classe
+	Field, spécifique de la construction par traînage d'arc
+
+	* drawField: ajout de la possibilité de créer des images PNG
+
+2001-06-06  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am, .cvsignore: ajout des fichiers de test CardanEuler
+	et Field
+
+	* test_Field.ref, test_Field.in, prgm_Field.cc: nouveaux fichiers
+
+	* test_CardanEuler.ref, test_CardanEuler.in, prgm_CardanEuler.cc:
+	nouveaux fichiers
+
+	* prgm_FonctionApprochee.cc: utilisation du mécanisme des
+	exception pour la gestion des erreurs
+
+	* test_Vecteur3.in, test_ValeurDerivee2.in,
+	test_ValeurDerivee1.in, test_StatistiqueEchantillon.in,
+	test_SectionDoree.in, test_Rotation.in,
+	test_Resolution2Iterateur.in, test_Resolution1Iterateur.in,
+	test_Polynome.in, test_Intervalle.in, test_FonctionApprochee.in,
+	test_Creneau.in, test_Cone.in, test_Arc.in: modification des
+	options d'affichage, passage en anglais
+
+2001-03-22  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* prgm_Arc.cc (main): suppression d'un avertissement de g++
+
+2001-03-14  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* prgm_Arc.cc (main): suppression d'une fuite de mémoire
+
+2000-11-07  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* test_*.in: utilisation des variables de configuration pour les
+	traductions
+
+2000-10-24  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* prgm_*.cc: ajout de l'include CantorConfigNoInstall.h
+	modification des includes du standard C et C++ : suppression du .h
+	dans le nom (pour permettre la compilation avec le SUN Workshop 5.0)
+
+2000-10-18  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* Makefile.am: l'édition de liens est réalisée avec libcantor.la. 
+	Ajout du LDFLAGS -static pour faire l'édition de liens avec la version 
+	statique de cantor (en effet il est impossible de réaliser l'édition de 
+	liens avec une bibliothèque partagée non installée).
+
+2000-08-09  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* test_*.in: précision du chemin des exécutables et des fichiers
+	dans les scripts de test.
+	utilisation de difference (utilitaire de club) pour recenser
+	les différences entre le fichier résultat et le fichier référence.
+
+2000-03-30  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* prgm_Rotation.cc: correction de la déclaration du type de main
+
+	* prgm_Polynome.cc: correction de la déclaration du type de main
+
+1999-06-28  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* test_Vecteur3.in: mise en place d'un environnement anglais pour 
+	vérifier les messages d'erreur
+
+	* test_ValeurDerivee2.in: mise en place d'un environnement anglais
+	pour vérifier les messages d'erreur
+
+	* test_ValeurDerivee1.in: mise en place d'un environnement anglais
+	pour vérifier les messages d'erreur
+
+	* test_StatistiqueEchantillon.in: mise en place d'un environnement 
+	anglais pour vérifier les messages d'erreur
+
+	* test_SectionDoree.in: mise en place d'un environnement anglais pour 
+	vérifier les messages d'erreur
+
+	* test_Rotation.in: mise en place d'un environnement anglais pour 
+	vérifier les messages d'erreur
+
+	* test_Resolution2Iterateur.in: mise en place d'un environnement 
+	anglais pour vérifier les messages d'erreur
+
+	* test_Resolution1Iterateur.in: mise en place d'un environnement 
+	anglais pour vérifier les messages d'erreur
+
+	* test_Polynome.in: mise en place d'un environnement anglais pour 
+	vérifier les messages d'erreur
+
+	* test_Intervalle.in: mise en place d'un environnement anglais pour 
+	vérifier les messages d'erreur
+
+	* test_FonctionApprochee.in: mise en place d'un environnement anglais
+	pour vérifier les messages d'erreur
+
+	* test_Creneau.in: mise en place d'un environnement anglais pour 
+	vérifier les messages d'erreur
+
+	* test_Cone.in: mise en place d'un environnement anglais pour vérifier
+	les messages d'erreur
+
+	* test_Arc.in: mise en place d'un environnement anglais pour vérifier
+	les messages d'erreur
+
+1999-04-26  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* prgm_Polynome.cc (main): remplacement de abs par fabs
+
+	* prgm_SectionDoree.cc (fonc): remplacement de abs par fabs
+
+	* prgm_Resolution1Iterateur.cc (main): limitation de l'affichage
+	selon le seuil de convergence
+
+	* test_Resolution1Iterateur.in: limitation de la précision d'une
+	convergence pour facilité la compatibilité du test entre
+	processeurs différents
+
+	* test_Resolution1Iterateur.ref: prise en compte des modifications
+	précédentes
+
+	* prgm_Resolution2Iterateur.cc (main): limitation de l'affichage
+	selon le seuil de convergence
+
+	* test_Resolution2Iterateur.in: limitation de la précision d'une
+	convergence pour facilité la compatibilité du test entre
+	processeurs différents
+
+	* test_Resolution2Iterateur.ref: prise en compte des modifications
+	précédentes
+
+1999-04-24  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* prgm_SectionDoree.cc (fonc): remplacement de abs par fabs
+
+	* prgm_Polynome.cc: remplacement de abs par fabs
+
+>>>>>>> 1.8.2.1
+1999-02-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* prgm_Cone.cc, test_Cone.ref: changement du test pour éviter un
+	résultat trop proche de zéro nuisant à la portabilité du test (une
+	machine donne 6.12303e-17 et une autre 6.12323e-17 par exemple)
+
+1998-10-19  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* test_Arc.in: recherche des fichiers de traduction et de
+	référence dans le répertoire des sources en cas de compilation à
+	distance (par exemple dans le cas du make distcheck)
+
+	* test_Cone.in: recherche des fichiers de traduction et de
+	référence dans le répertoire des sources en cas de compilation à
+	distance (par exemple dans le cas du make distcheck)
+
+	* test_Creneau.in: recherche des fichiers de traduction et de
+	référence dans le répertoire des sources en cas de compilation à
+	distance (par exemple dans le cas du make distcheck)
+
+	* test_FonctionApprochee.in: recherche des fichiers de traduction
+	et de référence dans le répertoire des sources en cas de
+	compilation à distance (par exemple dans le cas du make distcheck)
+
+	* test_Intervalle.in: recherche des fichiers de traduction et de
+	référence dans le répertoire des sources en cas de compilation à
+	distance (par exemple dans le cas du make distcheck)
+
+	* test_Polynome.in: recherche des fichiers de traduction et de
+	référence dans le répertoire des sources en cas de compilation à
+	distance (par exemple dans le cas du make distcheck)
+
+	* test_Resolution1Iterateur.in: recherche des fichiers de
+	traduction dans le répertoire des sources en cas de compilation à
+	distance (par exemple dans le cas du make distcheck)
+
+	* test_Resolution2Iterateur.in: recherche des fichiers de
+	traduction dans le répertoire des sources en cas de compilation à
+	distance (par exemple dans le cas du make distcheck)
+
+	* test_Rotation.in: recherche des fichiers de traduction et de
+	référence dans le répertoire des sources en cas de compilation à
+	distance (par exemple dans le cas du make distcheck)
+
+	* test_SectionDoree.in: recherche des fichiers de traduction et de
+	référence dans le répertoire des sources en cas de compilation à
+	distance (par exemple dans le cas du make distcheck)
+
+	* test_StatistiqueEchantillon.in: recherche des fichiers de
+	traduction et de référence dans le répertoire des sources en cas
+	de compilation à distance (par exemple dans le cas du make
+	distcheck)
+
+	* test_ValeurDerivee1.in: recherche des fichiers de traduction et
+	de référence dans le répertoire des sources en cas de compilation
+	à distance (par exemple dans le cas du make distcheck)
+
+	* test_ValeurDerivee2.in: recherche des fichiers de traduction et
+	de référence dans le répertoire des sources en cas de compilation
+	à distance (par exemple dans le cas du make distcheck)
+
+	* test_Vecteur3.in: recherche des fichiers de traduction et de
+	référence dans le répertoire des sources en cas de compilation à
+	distance (par exemple dans le cas du make distcheck)
+
+1998-10-16  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: ajout d'une option -I pour trouver les en-têtes en
+	cas de compilation à distance (par exemple dans le cas du make
+	distcheck), ajout des fichiers de donnée et de référence dans la
+	distribution
+
+1998-09-14  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* test_Vecteur3.in: prise en compte du déplacement des fichiers de
+	traduction
+
+	* test_ValeurDerivee2.in: prise en compte du déplacement des
+	fichiers de traduction
+
+	* test_ValeurDerivee1.in: prise en compte du déplacement des
+	fichiers de traduction
+
+	* test_StatistiqueEchantillon.in: prise en compte du déplacement
+	des fichiers de traduction
+
+	* test_SectionDoree.in: prise en compte du déplacement des
+	fichiers de traduction
+
+	* test_Rotation.in: prise en compte du déplacement des fichiers de
+	traduction
+
+	* test_Resolution2Iterateur.in: prise en compte du déplacement des
+	fichiers de traduction
+
+	* test_Resolution1Iterateur.in: prise en compte du déplacement des
+	fichiers de traduction
+
+	* test_Polynome.in: prise en compte du déplacement des fichiers de
+	traduction
+
+	* test_Intervalle.in: prise en compte du déplacement des fichiers
+	de traduction
+
+	* test_FonctionApprochee.in: prise en compte du déplacement des
+	fichiers de traduction
+
+	* test_Creneau.in: prise en compte du déplacement des fichiers de
+	traduction
+
+	* test_Cone.in: prise en compte du déplacement des fichiers de
+	traduction
+
+	* test_Arc.in: prise en compte du déplacement des fichiers de
+	traduction
+
+1998-07-31  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* test_Vecteur3.in: renommage des variables de cache de configure
+
+	* test_ValeurDerivee2.in: renommage des variables de cache de configure
+
+	* test_ValeurDerivee1.in: renommage des variables de cache de configure
+
+	* test_StatistiqueEchantillon.in: renommage des variables de cache de configure
+
+	* test_SectionDoree.in: renommage des variables de cache de configure
+
+	* test_Rotation.in: renommage des variables de cache de configure
+
+	* test_Resolution2Iterateur.in: renommage des variables de cache de configure
+
+	* test_Resolution1Iterateur.in: renommage des variables de cache de configure
+
+	* test_Polynome.in: renommage des variables de cache de configure
+
+	* test_Intervalle.in: renommage des variables de cache de configure
+
+	* test_FonctionApprochee.in: renommage des variables de cache de configure
+
+	* test_Creneau.in: renommage des variables de cache de configure
+
+	* test_Cone.in: renommage des variables de cache de configure
+
+	* Makefile.am: configuration des fichiers à nettoyer
+
+	* test_Arc.in: renommage des variables de cache de configure
+
+1998-07-29  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* test_Vecteur3.ref: élimination des caractères rcs
+
+	* test_ValeurDerivee2.ref: élimination des caractères rcs
+
+	* test_ValeurDerivee1.ref: élimination des caractères rcs
+
+	* test_StatistiqueEchantillon.ref: élimination des caractères rcs
+
+	* test_SectionDoree.ref: élimination des caractères rcs
+
+	* test_Rotation.ref: élimination des caractères rcs
+
+	* test_Resolution2Iterateur.ref: élimination des caractères rcs
+
+	* test_Resolution1Iterateur.ref: élimination des caractères rcs
+
+	* test_Polynome.ref: élimination des caractères rcs
+
+	* test_Intervalle.ref: élimination des caractères rcs
+
+	* test_FonctionApprochee.ref: élimination des caractères rcs
+
+	* test_Creneau.ref: élimination des caractères rcs
+
+	* test_Cone.ref: élimination des caractères rcs
+
+	* test_Arc.ref: élimination des caractères rcs
+
+	* prgm_Rotation.cc: inclusion de CantorConfig.h
+
+1998-07-27  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* test_Vecteur3.in: nouveau fichier
+
+	* test_ValeurDerivee2.in: nouveau fichier
+
+	* test_ValeurDerivee1.in: nouveau fichier
+
+	* test_StatistiqueEchantillon.in: nouveau fichier
+
+	* test_SectionDoree.in: nouveau fichier
+
+	* test_Rotation.in: nouveau fichier
+
+	* test_Resolution2Iterateur.in: nouveau fichier
+
+	* test_Resolution1Iterateur.in: nouveau fichier
+
+	* test_Polynome.in: nouveau fichier
+
+	* test_Intervalle.in: nouveau fichier
+
+	* test_FonctionApprochee.in: nouveau fichier
+
+	* test_Creneau.in: nouveau fichier
+
+	* test_Cone.in: nouveau fichier
+
+	* test_Arc.in: nouveau fichier
+
+	* test_Vecteur3: élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+	* test_ValeurDerivee2: élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+	* test_ValeurDerivee1: élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+	* test_StatistiqueEchantillon: élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+	* test_SectionDoree: élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+	* test_Rotation: élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+	* test_Resolution2Iterateur: élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+	* test_Resolution1Iterateur: élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+	* test_Polynome: élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+	* test_Intervalle: élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+	* test_FonctionApprochee: élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+	* test_Creneau: élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+	* test_Cone: élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+	* test_Arc: élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+1998-07-24  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* test_Vecteur3: élimination des commandes rcs
+
+	* test_ValeurDerivee2: élimination des commandes rcs
+
+	* test_ValeurDerivee1: élimination des commandes rcs
+
+	* test_StatistiqueEchantillon: élimination des commandes rcs
+
+	* test_SectionDoree: élimination des commandes rcs
+
+	* test_Rotation: élimination des commandes rcs
+
+	* test_Resolution2Iterateur: élimination des commandes rcs
+
+	* test_Resolution1Iterateur: élimination des commandes rcs
+
+	* test_Polynome: élimination des commandes rcs
+
+	* test_Intervalle: élimination des commandes rcs
+
+	* test_FonctionApprochee: élimination des commandes rcs
+
+	* test_Creneau: élimination des commandes rcs
+
+	* test_Cone: élimination des commandes rcs
+
+	* test_Arc: élimination des commandes rcs
+
+	* ChangeLog: nouveau fichier

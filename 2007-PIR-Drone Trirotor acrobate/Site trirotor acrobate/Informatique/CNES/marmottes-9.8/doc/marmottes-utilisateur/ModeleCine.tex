@@ -1,0 +1,140 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: ModeleCine.tex,v 1.5 2002/01/17 10:04:13 marmottes Exp $
+\subsection{classe ModeleCine}\label{sec:ModeleCine}
+
+\subsubsection*{description}\label{sec:ModeleCine-desc}
+
+Cette classe dérivée de la classe Modele implante le modèle analytique
+d'attitude à un degré de liberté respectant deux consignes
+cinématiques.
+
+Les consignes cinématiques étant des projections du vecteur de
+rotation instantané (le spin) sur des axes sensibles, repecter deux
+consignes revient à dire que le spin est sur une droite (par exemple
+une droite parallèle à l'axe $\vec{k}$ si les consignes portent sur
+$\omega_{\vec{i}}$ et $\omega_{\vec{j}}$). Le degré de liberté est
+donc une position sur cette droite, et le modèle est donc un modèle de
+spin. L'attitude se déduit du spin modélisé par intégration à partir
+de l'état précedent en supposant que le spin est resté constant entre
+l'état précedent et la date courante.
+
+\subsubsection*{interface publique}\label{sec:ModeleCine-int}
+\begin{verbatim}
+#include "marmottes/ModeleCine.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{ModeleCine : méthodes publiques}
+{\label{tab:ModeleCine-met-pub}}
+{construit une instance par défaut inutilisable}
+
+\signature{\fonc{ModeleCine} ()}
+          {}&
+
+construit une instance par défaut inutilisable sans réaffectation\\
+
+\hline
+
+\signature{\fonc{ModeleCine} (const ModeleCine\& \argument{m})}
+          {}&
+
+constructeur par copie\\
+
+\signature{ModeleCine\& \fonc{operator =} (const ModeleCine\& \argument{m})}
+          {}&
+
+affectation\\
+
+\hline
+
+\signature{\fonc{\~{}ModeleCine} ()}
+          {}&
+
+destructeur virtuel, ne fait rien dans cette classe\\
+
+\hline
+
+\signature{void \fonc{miseAJourOmegaMax}}
+          {(double \argument{omega})\\
+          \throw{MarmottesErreurs}}&
+
+mémorise une nouvelle vitesse de rotation instantané maximale
+$\omega_{\max}$ qui traduit l'étendue du modèle analytique\\
+
+\hline
+
+\signature{void \fonc{prendConsignesEnCompte}()}
+          {\throw{MarmottesErreurs}}&
+
+méthode d'initialisation du modèle à partir des consignes courantes
+des senseurs concernés\\
+
+\hline
+
+\signature{int \fonc{familles} () const}
+          {}&
+
+retourne le nombre de famillles d'attitude disjointes, qui vaut
+toujours 1 pour les modèles cinématiques\\
+
+
+\signature{void \fonc{attitude}}
+          {(const Etat\& \argument{etatPrecedent}, double \argument{date},\\
+            const ValeurDerivee1\& \argument{t}, int \argument{famille},\\
+            RotVD1* \argument{ptrAtt}, VecVD1* \argument{ptrSpin}) const
+          }&
+
+retourne l'attitude intégrée et le spin modélisé à la \argument{date}
+courante dans les variables pointées par \argument{ptrAtti} et
+\argument{ptrSpin} pour une valeur test du degré de liberté
+\argument{t} (compris entre $-1$ et $+1$) de la \argument{famille} en
+cours d'analyse, l'intégration de l'attitude selon le spin se faisant
+à partir de l'\argument{etatPrecedent}\\
+
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+La définition en ligne suivante, extraite du fichier de déclaration de
+la classe ResolveurAttitude est la \emph{seule} utilisation directe de
+la classe ModeleCine dans la bibliothèque \bibliotheque{marmottes} si
+l'on excepte les manipulations de pointeurs pour rendre courant soit
+le modèle géométrique soit le modèle cinématique. Tous les autres
+accès à la classe se font par l'intermédiaire de la classe de base
+Modele.
+
+\begin{verbatim}
+void  miseAJourOmegaMax    (double omega)
+  throw (MarmottesErreurs)
+                { modeleCine_.miseAJourOmegaMax (omega); }
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation spécifiques}
+\label{sec:ModeleCine-conseils}
+L'arborescence d'héritage des classes de modèles est un moyen de
+masquer aux algorithmes de résolution numérique le type de modèle
+sous-jacent. La seule chose qui soit utile à ce niveau est la
+possibilité d'initialiser le modèle en début de résolution, et la
+possibilité d'appliquer le modèle à une valeur test pour obtenir une
+attitude correspondante.
+
+Ce principe simplifie énormément les résolutions et doit être
+conservé~; il est donc fortement déconseillé de faire évoluer la
+classe ModeleCine indépendamment des classes Modele et ModeleGeom. La
+présence d'une méthode \fonc{miseAJourOmegaMax} peut déjà être
+considérée comme un défaut qu'il faudrait supprimer à terme.
+
+\subsubsection*{implantation}\label{sec:ModeleCine-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:ModeleCine-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe ModeleCine}
+{\label{tab:ModeleCine-att-priv}}
+{direction de la partie variable du spin~:
+$\vec{\Omega} = \vec{u} + \theta \vec{v}$}
+
+u\_ & VecVD1  & partie du spin indépendante du degré de liberté\\
+
+v\_ & VecVD1 & direction de la partie variable du spin~: $\vec{\Omega}
+= \vec{u} + \theta\vec{v}$\\
+
+thetaMax\_ & double  & amplitude maximale de $\theta$\\
+
+omegaMax\_ & double  & vitesse de rotation maximale\\
+
+\end{tableAttributsFixe}

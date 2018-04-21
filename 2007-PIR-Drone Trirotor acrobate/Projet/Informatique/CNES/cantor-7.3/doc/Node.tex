@@ -1,0 +1,236 @@
+% -*- mode: latex; tex-main-file: "cantor.tex" -*-
+% $Id: Node.tex,v 1.5 2003/07/09 08:55:11 cantor Exp $
+\subsection{classe Node}\label{sec:Node}
+
+\subsubsection*{description}\label{sec:Node-desc}
+
+Cette classe est utilisée conjointement avec la classe AnnotatedArc
+(cf~\ref{sec:AnnotatedArc}) pour réaliser la propagation des marques
+apposées sur les arcs de façon cohérente avec la topologie de
+l'entrelacement des frontières.
+
+Un n\oe{}ud représente la jonction entre deux ou quatre arcs
+annotés. Les n\oe{}uds simples ne reliant qu'un arc amont à un arc
+aval correspondent à une portion de frontière classique, séparant une
+zone intérieure d'une zone extérieure. Les n\oe{}uds multiples reliant
+quatre arcs correspondent à l'intersection de deux frontières, il y a
+donc un arc amont et un arc aval issus de la première frontière, un
+arc amont et un arc aval issus de la seconde frontière.
+
+Les n\oe{}ds simples sont crées champ par champ avant leur combinaison
+alors que les n\oe{}uds multiples sont crées au début de la
+combinaison des frontières. Tous les n\oe{}uds sont ensuite utilisés
+lors du marquage des arcs frontière. Lorsqu'un arc est identifié comme
+faisant partie soit de la frontière de l'intersection soit de la
+frontière de la réunion des champs, cette information est propagée par
+l'intermédiaire des n\oe{}uds aux arcs voisins, et éventuellement au
+reste de l'entrelacs, de proche en proche en suivant la structure
+topologique.
+
+\subsubsection*{interface publique}\label{sec:Node-int}
+\begin{verbatim}
+#include "cantor/Node.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{Node : méthodes publiques}
+{\label{tab:Node-met-pub}}
+{crée un n\oe{}ud reliant les quatre arcs passés en argument}
+
+\signature{\fonc{Node} ()}
+          {}&
+
+crée un n\oe{}ud par défaut \\
+
+\signature{\fonc{Node}}
+          {(const VecDBL\& \argument{u},\\
+            AnnotatedArc *\argument{upstream},\\
+            AnnotatedArc *\argument{downstream})\\
+           \throw{CantorErreurs}}&
+
+crée un n\oe{}ud reliant les deux arcs passés en argument\\
+
+\signature{\fonc{Node}}
+          {(const VecDBL\& \argument{u},\\
+            AnnotatedArc *\argument{upstream1},\\
+            AnnotatedArc *\argument{downstream1},\\
+            AnnotatedArc *\argument{upstream2},\\
+            AnnotatedArc *\argument{downstream2})\\
+           \throw{CantorErreurs}}&
+
+crée un n\oe{}ud reliant les quatre arcs passés en argument\\
+
+\hline
+
+\signature{\fonc{Node} (const Node\& \argument{n})}
+          {}&
+
+constructeur par copie\\
+
+\signature{Node\&  \fonc{operator =} (const Node\& \argument{n})}
+          {}&
+
+affectation\\
+
+\hline
+
+\signature{\fonc{~Node} ()} {} &
+destructeur
+\\
+
+\hline
+
+\signature{const VecDBL\& \fonc{direction} () const}
+          {}&
+
+retourne la direction du n\oe{}ud sur la sphère unité\\
+
+\hline
+
+\signature{int \fonc{nbArcs} () const}
+          {}&
+
+retourne le nombre d'arcs reliés par ce n\oe{}ud\\
+
+\signature{AnnotatedArc *\fonc{arc} (int \argument{i}) const}
+          {}&
+
+retourne l'arc spécifié par son index\\
+
+\signature{AnnotatedArc *\fonc{ptrUpstreamArc} () const}
+          {}&
+
+retourne l'arc amont s'il est unique, retourne un pointeur nul sinon\\
+
+\signature{AnnotatedArc *\fonc{ptrDownstreamArc} () const}
+          {}&
+
+retourne l'arc aval s'il est unique, retourne un pointeur nul sinon\\
+
+\hline
+
+\signature{void \fonc{replaceUpstreamArc}}
+          {(AnnotatedArc *\argument{ptrOld},\\
+            AnnotatedArc *\argument{ptrNew})}&
+
+remplace l'arc amont \argument{ptrOld} par \argument{ptrNew}\\
+
+\signature{void  \fonc{replaceDownstreamArc}}
+          {(AnnotatedArc *\argument{ptrOld},\\
+            AnnotatedArc *\argument{ptrNew})}&
+
+remplace l'arc aval \argument{ptrOld} par \argument{ptrNew}\\
+
+\signature{void \fonc{detach}}
+          {(AnnotatedArc *\argument{upstream},\\
+            AnnotatedArc *\argument{downstream})}&
+
+détache les deux arcs spécifiés de l'instance (qui change ainsi de type)\\
+
+\signature{void \fonc{absorbDownstream}}
+          {(AnnotatedArc *\argument{ptrNull1},\\
+            AnnotatedArc *\argument{ptrNull2})\\
+           \throw{CantorErreurs}}&
+
+absorbe les deux arcs nuls ainsi que leur n\oe{}ud commun suivant\\
+
+\hline
+
+\signature{bool \fonc{propagate} ()}
+          {}&
+
+propage les marques des arcs connectés à l'instance le plus loin
+possible\\
+
+\signature{bool \fonc{isConvergent}}
+          {(AnnotatedArc *\argument{ptrTest},\\
+            set<const AnnotatedArc *> *\argument{ptrAlreadyTested}) const}&
+
+test si l'arc \argument{ptrTest} converge vers l'instance, soit
+directement soit avec des arcs nuls intermédiaires. Utilise l'ensemble
+pointé par \argument{ptrAlreadyTested} pour éviter de tester plusieurs
+fois les mêmes arcs.\\
+
+\signature{bool \fonc{select}}
+          {(AnnotatedArc\char58\char58Annotation *\argument{annotation},\\
+            const AnnotatedArc **\argument{ptrA}, bool *\argument{ptrDirect},\\
+            set<const AnnotatedArc *> *\argument{ptrAlreadySelected}) const}&
+
+selectionne un arc selon l'\argument{annotation} spécifiée et le
+retourne dans la variable pointée par \argument{ptrA}, en indiquant
+dans la variable pointée par \argument{ptrDirect} si l'arc est
+parcouru dans le sens direct ou inverse en partant du n\oe{}ud
+courant. Utilise l'ensemble pointé par \argument{ptrAlreadySelected}
+pour éviter de sélectionner plusieurs fois les mêmes arcs.\\
+
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+
+\begin{verbatim}
+#include "marmottes/Node.h"
+
+bool
+AnnotatedArc::isConnected (AnnotatedArc *ptrA) const
+{ // check if the instance is connected with another arc
+  Node *downstream = (Node *) downstreamNode_.memoire ();
+  Node *upstream   = (Node *) upstreamNode_.memoire ();
+
+  set<const AnnotatedArc *> alreadyTested;
+  alreadyTested.insert (this);
+
+  return (((downstream != 0)
+           && downstream->isConvergent (ptrA, &alreadyTested))
+          ||  ((upstream != 0)
+               && upstream->isConvergent (ptrA, &alreadyTested)));
+
+}
+
+void
+AnnotatedArc::propagate ()
+{ // propagate the annotation of the instance to the neighboring
+  // arcs (recursively as far as possible) through the nodes
+
+  // propagate downstream
+  Node *downstream = (Node *) downstreamNode_.memoire ();
+  if (downstream)
+    downstream->propagate ();
+
+  // propagate upstream
+  Node *upstream = (Node *) upstreamNode_.memoire ();
+  if (upstream)
+    upstream->propagate ();
+
+}
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation spécifiques}
+\label{sec:Node-conseils}
+La classe Node est utilisée par les classes Braid et AnnotatedArc pour
+réaliser la propagation des marques lors de la détermination de la
+frontière d'une combinaison de deux champs. elle n'a pas d'autre
+utilisation.
+
+\subsubsection*{implantation}\label{sec:Node-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:Node-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe Node}
+{\label{tab:Node-att-priv}}
+{type du n\oe{}ud (inconnu, simple ou multiple)}
+
+type\_ & Type  & type du n\oe{}ud (inconnu, simple ou multiple)\\
+
+direction\_ & VecDBL  & direction du n\oe{}ud sur la sphère unité\\
+
+arcs\_ & AnnotatedArc * [4] & table des arcs connectés au n\oe{}ud\\
+
+\end{tableAttributsFixe}
+Les méthodes privées sont décrites dans la table~\ref{tab:Node-met-priv}.
+\begin{tableFonctionsFixe}{Node : méthodes privées}
+{\label{tab:Node-met-priv}}
+{propage les marques dans le cas d'un n\oe{}ud multiple reliant quatre arcs}
+
+\signature{bool \fonc{propagate2} ()}{} & propage les marques dans le
+cas d'un n\oe{}ud simple reliant deux arcs\\
+
+\signature{bool \fonc{propagate4} ()}{} & propage les marques dans le
+cas d'un n\oe{}ud multiple reliant quatre arcs\\
+
+\end{tableFonctionsFixe}

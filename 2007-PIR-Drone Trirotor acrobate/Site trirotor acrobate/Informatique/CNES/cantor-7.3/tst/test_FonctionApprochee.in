@@ -1,0 +1,19 @@
+#! /bin/sh
+
+# identificateur RCS : "$Id: test_FonctionApprochee.in,v 1.8 2001/06/06 07:03:00 cantor Exp $"
+
+# using an english environment for the tests
+@ca_cv_var_lang@=en              ; export @ca_cv_var_lang@
+@ca_cv_var_tradpath@=@srcdir@/.. ; export @ca_cv_var_tradpath@
+
+# run the test program
+./prgm_FonctionApprochee        >  ./test_FonctionApprochee.res 2>&1
+./prgm_FonctionApprochee -e 0.1 >> ./test_FonctionApprochee.res 2>&1
+
+# file comparison
+echo "difference -p 1.0e-4 -ee 1 10 -res ./test_FonctionApprochee.res -ref @srcdir@/test_FonctionApprochee.ref"
+difference -p 1.0e-4 -ee 1 10 -res ./test_FonctionApprochee.res -ref @srcdir@/test_FonctionApprochee.ref
+r=$?
+
+rm -f ./test_FonctionApprochee.res
+exit $r

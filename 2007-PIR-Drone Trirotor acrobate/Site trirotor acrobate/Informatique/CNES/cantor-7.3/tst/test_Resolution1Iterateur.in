@@ -1,0 +1,51 @@
+#! /bin/sh
+
+# identificateur RCS : "$Id: test_Resolution1Iterateur.in,v 1.9 2001/06/06 07:04:08 cantor Exp $"
+
+# using an english environment for the tests
+@ca_cv_var_lang@=en              ; export @ca_cv_var_lang@
+@ca_cv_var_tradpath@=@srcdir@/.. ; export @ca_cv_var_tradpath@
+
+# run the test program
+echo "prgm_Resolution1Iterateur -ab -100 100" \
+     >  ./test_Resolution1Iterateur.res 2>&1
+./prgm_Resolution1Iterateur -ab -100 100    \
+     >> ./test_Resolution1Iterateur.res 2>&1
+echo "" >> ./test_Resolution1Iterateur.res
+echo "prgm_Resolution1Iterateur -ab -20 20" \
+     >> ./test_Resolution1Iterateur.res 2>&1
+./prgm_Resolution1Iterateur -ab -20 20  \
+     >> ./test_Resolution1Iterateur.res 2>&1
+echo "" >> ./test_Resolution1Iterateur.res
+echo "prgm_Resolution1Iterateur-ab -20 20 -n 50" \
+     >> ./test_Resolution1Iterateur.res 2>&1
+./prgm_Resolution1Iterateur -ab -20 20 -n 50 \
+     >> ./test_Resolution1Iterateur.res 2>&1
+echo "" >> ./test_Resolution1Iterateur.res
+echo "prgm_Resolution1Iterateur -ab -20 20 -s 1.1e-13" \
+     >> ./test_Resolution1Iterateur.res 2>&1
+./prgm_Resolution1Iterateur -ab -20 20 -s 1.0e-13 \
+     >> ./test_Resolution1Iterateur.res 2>&1
+echo "" >> ./test_Resolution1Iterateur.res
+echo "prgm_Resolution1Iterateur -ab 0 6 -n 2" \
+     >> ./test_Resolution1Iterateur.res 2>&1
+./prgm_Resolution1Iterateur -ab 0 6 -n 2 \
+     >> ./test_Resolution1Iterateur.res 2>&1
+echo "" >> ./test_Resolution1Iterateur.res
+echo "prgm_Resolution1Iterateur -ab 0 6 -n 3" \
+     >> ./test_Resolution1Iterateur.res 2>&1
+./prgm_Resolution1Iterateur -ab 0 6 -n 3 \
+     >> ./test_Resolution1Iterateur.res 2>&1
+echo "" >> ./test_Resolution1Iterateur.res
+echo "prgm_Resolution1Iterateur -ab -12 12 -n 8" \
+     >> ./test_Resolution1Iterateur.res 2>&1
+./prgm_Resolution1Iterateur -ab -12 12 -n 8 \
+     >> ./test_Resolution1Iterateur.res 2>&1
+
+# file comparison
+echo "difference -p 1.0e-4 -ee 1 10 -res ./test_Resolution1Iterateur.res -ref @srcdir@/test_Resolution1Iterateur.ref"
+difference -p 1.0e-4 -ee 1 10 -res ./test_Resolution1Iterateur.res -ref @srcdir@/test_Resolution1Iterateur.ref
+r=$?
+
+rm -f ./test_Resolution1Iterateur.res
+exit $r

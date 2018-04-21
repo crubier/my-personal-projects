@@ -1,0 +1,111 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: FamilleAbstraite.tex,v 1.2 1999/09/17 15:30:13 luc Exp $
+\subsection{classe FamilleAbstraite}\label{sec:FamilleAbstraite}
+
+\subsubsection*{description}\label{sec:FamilleAbstraite-desc}
+
+Cette classe abstraite est l'interface d'accès aux différents types de
+familles de solutions aux modèles analytiques à un degré de liberté
+respectant deux consignes d'attitude dans le cas de senseurs
+géométriques.
+
+Elle est dérivée en six classes différentes.
+\subsubsection*{interface publique}\label{sec:FamilleAbstraite-int}
+\begin{verbatim}
+#include "marmottes/FamilleAbstraite.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{FamilleAbstraite : méthodes publiques}
+{\label{tab:FamilleAbstraite-met-pub}}
+{méthode virtuelle pure retournant le quaternion}
+
+\signature{\fonc{FamilleAbstraite} ()} 
+          {}& 
+initialise une instance par défaut inutilisable sans réaffectation\\
+
+\hline
+
+\signature{\fonc{FamilleAbstraite} (const Intervalle\&
+\argument{plages})} 
+          {}& 
+construit une FamilleAbstraite à partir d'un intervalle plages\\
+
+\hline
+
+\signature{\fonc{FamilleAbstraite} (const FamilleAbstraite\&
+\argument{f})} 
+          {}& 
+constructeur par copie\\
+
+\signature{FamilleAbstraite\&  \fonc{operator =}}
+          {(const FamilleAbstraite\& \argument{f})} & 
+affectation\\
+
+\signature{FamilleAbstraite *  \fonc{copie} () const = 0} 
+          {}& 
+opérateur de copie virtuel\\
+
+\signature{\fonc{\~{}FamilleAbstraite} ()} 
+          {}& 
+destructeur\\
+
+\hline
+
+\signature{const Intervalle  \fonc{plages} () const} 
+          {}&
+retourne l'intervalle de validité de $\theta$\\
+
+\hline
+
+\signature{RotVD1  \fonc{inertielCanonique}}{(const ValeurDerivee1\&
+\argument{t}) const = 0} & 
+
+méthode virtuelle pure retournant le quaternion de passage
+du repère inertiel au repère canonique de travail défini dans ModeleGeom\\
+ 
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+
+Il n'y a \emph{aucune} utilisation directe de la classe FamilleAbstraite
+dans toute la bibliothèque \bibliotheque{marmottes} ! Les accès à la classe se font
+tous par l'intermédiaire de la classe Famille.
+
+\subsubsection*{conseils d'utilisation
+spécifiques}\label{sec:FamilleAbstraite-conseils}
+
+Cette classe est abstraite, c'est à dire qu'aucune instance ne peut
+être créée directement. Tout pointeur sur un objet de ce type pointe
+en réalité sur un objet d'un des types dérivés~: FamilleFixe,
+FamilleGenerale, FamilleAlignementMoins,
+FamilleAlignementPlus, 
+FamilleProlongementPi, FamilleProlongementZero. Les constructeurs ne servent donc qu'à compléter les
+constructions d'objets plus gros et ne peuvent être appelés que par
+les constructeurs des classes dérivées.
+
+À la création, le type de famille de solutions est analysé de sorte
+que la famille courante soit du bon type (fixe, générale, ...), mais après cette mise en place
+il n'y a plus lieu de différencier les types de familles. La
+fonction de résolution d'attitude de \bibliotheque{marmottes} passent donc
+par l'interface de la classe abstraite.
+
+\subsubsection*{implantation}\label{sec:FamilleAbstraite-impl}
+Les attributs protégés sont décrits sommairement dans la
+table~\ref{tab:FamilleAbstraite-att-prot}, il n'y a pas d'attribut privé.
+\begin{tableAttributsFixe}{attributs protégés de la classe FamilleAbstraite}
+{\label{tab:FamilleAbstraite-att-prot}}
+{intervalle de validité de $\theta$}
+
+plages\_ & Intervalle  & intervalle de validité de $\theta$\\
+
+\end{tableAttributsFixe}
+Les méthodes protégées sont décrites dans la table~\ref{tab:FamilleAbstraite-met-prot}.
+\begin{tableFonctionsFixe}{FamilleAbstraite : méthodes protégées}
+{\label{tab:FamilleAbstraite-met-prot}}
+{méthode qui transforme le paramètre libre t compris}
+
+\signature{ValeurDerivee1  \fonc{transforme}}{(const ValeurDerivee1\&
+\argument{t}) const} & 
+
+méthode qui transforme le paramètre libre t compris entre 0 et 1 en le
+paramètre libre $\theta$ compris entre les bornes du domaine de validité\\
+
+\end{tableFonctionsFixe}

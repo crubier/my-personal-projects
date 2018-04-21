@@ -1,0 +1,12 @@
+%implements cgirblk_s0_b11_Outputs "C"
+
+%function Outputs(block, system) Output
+
+{
+int32_T i1;
+
+for(i1=0; i1<6; i1++) {
+%<LibBlockAssignOutputSignal(1, "i1", "", 0, "%<LibBlockInputSignal(0, "i1", "", 0)> * %<SLibCGIRBlockOutputSignal(0, "i1", "", 0)>")>\
+}
+}
+%endfunction

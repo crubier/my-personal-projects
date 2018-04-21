@@ -1,0 +1,20 @@
+# Marmottes trace
+# date : 2004-03-09T15:45:08
+# $Id: test_BugsIds.0034.log,v 1.2 2004/06/21 14:26:14 marmottes Exp $
+
+Marmottes::reinitialise 0x8176cd8 1.99068575924421311e+04 -1.76861859963080205e+04 3.78459212488488920e+04 5.27503836316546312e+02 -2.72260344042951941e+00 -1.13025136914634827e+00 -8.65561559658716978e-02 1.00000000000000000e+00 0.00000000000000000e+00 0.00000000000000000e+00 0.00000000000000000e+00 0.00000000000000000e+00 0.00000000000000000e+00 0.00000000000000000e+00 ./test_BugsIds.0034.sensors AMF-Ascension AMF-Declinaison YAW-ORM
+Marmottes::convertirConsignes 0x8176cd8 ./test_BugsIds.0034.sensors AMF-Ascension
+Marmottes::convertirMesures 0x8176cd8 ./test_BugsIds.0034.sensors AMF-Ascension
+Marmottes::convertirConsignes 0x8176cd8 ./test_BugsIds.0034.sensors AMF-Declinaison
+Marmottes::convertirMesures 0x8176cd8 ./test_BugsIds.0034.sensors AMF-Declinaison
+Marmottes::convertirConsignes 0x8176cd8 ./test_BugsIds.0034.sensors YAW-ORM
+Marmottes::convertirMesures 0x8176cd8 ./test_BugsIds.0034.sensors YAW-ORM
+Marmottes::convertirMesures 0x8176cd8 ./test_BugsIds.0034.sensors CKT-8
+Marmottes::convertirMesures 0x8176cd8 ./test_BugsIds.0034.sensors CKT-6
+Marmottes::attitude 0x8176cd8 1.99068585924421313e+04 -1.79210565670892393e+04 3.77474961960509318e+04 5.20014673816285267e+02 -2.71419788164978293e+00 -1.14809620994904060e+00 -8.68034556600782159e-02 2.29432867486009002e+02 3.15392168738286998e+01 -2.20000000000000000e+01
+  ->  4.54264282341479420e-01 -7.80569585836069779e-02 -4.82043659342372810e-01 7.45107363735772021e-01 -2.22952089274545051e-03 -1.37684894366995984e-02 2.12823105707870726e-02
+Marmottes::controlable 0x8176cd8 ./test_BugsIds.0034.sensors CKT-8
+  ->  1
+Marmottes::controlable 0x8176cd8 ./test_BugsIds.0034.sensors CKT-6
+  ->  1
+Marmottes::desinitialise 0x8176cd8

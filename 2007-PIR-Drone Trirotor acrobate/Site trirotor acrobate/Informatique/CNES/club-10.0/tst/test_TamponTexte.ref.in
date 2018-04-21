@@ -1,0 +1,130 @@
+avant filtrage, le tampon comporte 14 lignes
+-------------------------------------------------------
+#
+# Ceci est un fichier
+      	   	# de tests
+  # pour la classe FichierTexte
+
+# test des champs simples
+   111111 	22 3 \n\t\b\a dgdfgg # commentaire en fin de ligne
+
+# test des champs complexes
+"aaaa" "\x5b\x28\x29\x5D" "aa\tbbb\ncc\a\addd\b\43\173\175"
+   "\\\\" "\\\"xx\"\\"#commentaire colle a une fin de ligne
+
+# test de chaînes fortran et C
+xx xx' chaine fortran avec ", #, et '''" cha\356n\e\ C avec ', #, et \""yy yy
+-------------------------------------------------------
+filtrage effectue
+vision globale du tampon: @srcdir@/test_TamponTexte.don
+-------------------------------------------------------
+111111 	22 3 \n\t\b\a dgdfgg
+"aaaa" "\x5b\x28\x29\x5D" "aa\tbbb\ncc\a\addd\b\43\173\175"
+"\\\\" "\\\"xx\"\\"
+xx xx' chaine fortran avec ", #, et '''" cha\356n\e\ C avec ', #, et \""yy yy
+-------------------------------------------------------
+
+
+
+vision par lignes du tampon: @srcdir@/test_TamponTexte.don
+nombre de lignes: 4
+line 5 out of range [1 ; 4], buffer "@srcdir@/test_TamponTexte.don"
+ligne 4:
+----------xx xx' chaine fortran avec ", #, et '''" cha\356n\e\ C avec ', #, et \""yy yy----------
+ligne 3:
+----------"\\\\" "\\\"xx\"\\"----------
+ligne 2:
+----------"aaaa" "\x5b\x28\x29\x5D" "aa\tbbb\ncc\a\addd\b\43\173\175"----------
+ligne 1:
+----------111111 	22 3 \n\t\b\a dgdfgg----------
+line 0 out of range [1 ; 4], buffer "@srcdir@/test_TamponTexte.don"
+
+
+
+vision par lignes et champs du tampon: @srcdir@/test_TamponTexte.don
+nombre de lignes: 4
+nombre de champs de la ligne 4: 3
+champ 0 de la ligne 4:
+--------------------
+champ 1 de la ligne 4:
+----------xx----------
+champ 2 de la ligne 4:
+----------xx chaine fortran avec ", #, et ' chaîne C avec ', #, et "yy----------
+champ 3 de la ligne 4:
+----------yy----------
+field 4 out of range [1 ; 3], line 4, buffer "@srcdir@/test_TamponTexte.don"
+nombre de champs de la ligne 3: 2
+champ 0 de la ligne 3:
+--------------------
+champ 1 de la ligne 3:
+----------\\----------
+champ 2 de la ligne 3:
+----------\"xx"\----------
+field 3 out of range [1 ; 2], line 3, buffer "@srcdir@/test_TamponTexte.don"
+nombre de champs de la ligne 2: 3
+champ 0 de la ligne 2:
+--------------------
+champ 1 de la ligne 2:
+----------aaaa----------
+champ 2 de la ligne 2:
+----------[()]----------
+champ 3 de la ligne 2:
+----------aa	bbb
+ccddd#{}----------
+field 4 out of range [1 ; 3], line 2, buffer "@srcdir@/test_TamponTexte.don"
+nombre de champs de la ligne 1: 5
+champ 0 de la ligne 1:
+--------------------
+champ 1 de la ligne 1:
+----------111111----------
+champ 2 de la ligne 1:
+----------22----------
+champ 3 de la ligne 1:
+----------3----------
+champ 4 de la ligne 1:
+----------\n\t\b\a----------
+champ 5 de la ligne 1:
+----------dgdfgg----------
+field 6 out of range [1 ; 5], line 1, buffer "@srcdir@/test_TamponTexte.don"
+
+
+
+vision par champs du tampon: @srcdir@/test_TamponTexte.don
+nombre de champs: 13
+field 14 out of range [1 ; 13], buffer "@srcdir@/test_TamponTexte.don"
+champ 13:
+----------yy----------
+champ 12:
+----------xx chaine fortran avec ", #, et ' chaîne C avec ', #, et "yy----------
+champ 11:
+----------xx----------
+champ 10:
+----------\"xx"\----------
+champ 9:
+----------\\----------
+champ 8:
+----------aa	bbb
+ccddd#{}----------
+champ 7:
+----------[()]----------
+champ 6:
+----------aaaa----------
+champ 5:
+----------dgdfgg----------
+champ 4:
+----------\n\t\b\a----------
+champ 3:
+----------3----------
+champ 2:
+----------22----------
+champ 1:
+----------111111----------
+field 0 out of range [1 ; 13], buffer "@srcdir@/test_TamponTexte.don"
+field -1 out of range [1 ; 2], line 3, buffer "@srcdir@/test_TamponTexte.don"
+<insertion debut ligne 2>"aaaa" "\x5b\x28\x29\x5D" "aa\tbbb\ncc\a\addd\b\43\173\175"<ajout fin ligne 2>
+"\\\\" "\\\"xx\"\\"<ajout apres  2, ligne 3>
+xx xx' chaine fortran avec ", #, et '''" cha\356n\e\ C avec ', #, et \""yy yy
+<insertion avant champ n-3><ajout a la fin><ajout  champ n>
+aaa "BBB" cc dd"\t"dd
+EEEE EEEE
+X e

@@ -1,0 +1,49 @@
+2003-10-16  projet CHOPE O. Queyrut/L. Maisonobe/F. Auguie/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* marmottesReplay.cpp (main): DM 0028 prise en compte des appels
+	au constructeur par copie. DM 0027 prise en compte des appels
+	a la methode de lecture des parametres.
+
+2003-02-10  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* marmottesReplay.cpp: prise en compte des rayons lune et soleil
+	dans enregistreCorps
+
+2003-02-04  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* Makefile.am: mise à jour des extensions des fichiers (DM 17)
+
+2002-12-18  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* marmottesReplay.cc: ajout de fonctionnalité de traitement des
+	fonctions, des corps célestes, enregistrables par un utilisateur.
+
+2002-02-19  projet CHOPE O.Queyrut/S. Vresk  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* marmottesReplay.cc (main): ajout du traitement de la méthode
+	Marmottes::initialiseDerive
+
+2001-06-06  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* .cvsignore: ajout de marmottesReplay
+
+	* Makefile.am: installation de marmottesReplay
+
+	* marmottesReplay.cc: nouveau fichier (en provenance de ../tst)
+
+2001-02-16  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* marmottes-config.in: corrected an error in the usage message
+
+2000-12-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* traduitSenseurs.in: nouveau fichier (transféré depuis le
+	répertoire parent)
+
+	* marmottes-config.in: nouveau fichier
+
+	* .cvsignore: nouveau fichier
+
+	* ChangeLog: nouveau fichier
+
+	* Makefile.am: nouveau fichier

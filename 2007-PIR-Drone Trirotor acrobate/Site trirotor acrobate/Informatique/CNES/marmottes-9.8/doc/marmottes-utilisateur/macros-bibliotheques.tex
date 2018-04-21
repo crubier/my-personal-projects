@@ -1,0 +1,145 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: macros-bibliotheques.tex,v 1.14 2005/03/11 11:11:39 chope Exp $
+\usepackage{longtable}
+
+\usepackage[dvips]{changebar}
+\setcounter{changebargrey}{40}
+\outerbarstrue
+\setlength{\changebarsep}{5pt}
+
+\makeatletter
+\renewcommand{\l@subsection}{\@dottedtocline{2}{1.5em}{2.7em}}
+\makeatother
+
+\newcommand{\fonc}[1]{\textbf{#1}}
+\newcommand{\throw}[1]{\textbf{throw (#1)}}
+\newcommand{\argument}[1]{\textsl{#1}}
+\newcommand{\langage}[1]{\textsc{#1}}
+\newcommand{\bibliotheque}[1]{\textsc{#1}}
+\newcommand{\outil}[1]{\texttt{#1}}
+\newcommand{\nomBloc}[1]{\texttt{\scriptsize #1}}
+
+\newlength{\hauteurPile}\newlength{\hauteurPar}
+\newcommand{\pileDescendante}[1]{\settoheight{\hauteurPile}{\shortstack[l]{#1}}
+\settoheight{\hauteurPar}{()}\addtolength{\hauteurPile}{-\hauteurPar}
+\raisebox{-\hauteurPile}{\shortstack[l]{#1}}}
+
+\newlength{\largeurPar}
+\newcommand{\signature}[2]{\settowidth{\largeurPar}{(}
+\pileDescendante{{#1}\\\hspace{2em}\shortstack[l]{\hspace{-\largeurPar}#2}}}
+
+\newlength{\largeurTableFonctions}
+
+\newenvironment{tableFonctionsLibre}[3]{\begin{table}[htbp]\caption{#1}#2
+\begin{center}\footnotesize\settowidth{\largeurTableFonctions}{#3}
+\renewcommand{\arraystretch}{1.5}\begin{tabular}{|l|p{\largeurTableFonctions}|}
+\hline \multicolumn{1}{|c|}{signature} & \multicolumn{1}{c|}{description}\\
+\hline\hline\\}
+{\hline\end{tabular}\end{center}\end{table}}
+
+\newenvironment{tableFonctionsFixe}[3]{\footnotesize
+\settowidth{\largeurTableFonctions}{#3}
+\renewcommand{\arraystretch}{1.5}
+\begin{longtable}{|l|p{\largeurTableFonctions}|}\caption{#1}#2\\
+\hline\multicolumn{1}{|c|}{signature} & \multicolumn{1}{c|}{description}\\
+\hline\hline\endfirsthead\caption[]{#1 (suite)}\\
+\hline\multicolumn{1}{|c|}{signature} & \multicolumn{1}{c|}{description}\\
+\hline\hline\endhead
+\hline\multicolumn{2}{|r|}{à suivre ...}\\\hline\endfoot
+\hline\endlastfoot}{\end{longtable}}
+
+\newlength{\largeurTableAttributs}
+
+\newenvironment{tableAttributsLibre}[3]{\begin{table}[htbp]\caption{#1}#2
+\begin{center}\settowidth{\largeurTableAttributs}{#3}
+\begin{tabular}[b]{|c|c|p{\largeurTableAttributs}|}
+\hline nom & type & \multicolumn{1}{c|}{description}\\
+\hline\hline}
+{\hline\end{tabular}\end{center}\end{table}}
+
+\newenvironment{tableAttributsFixe}[3]{
+\settowidth{\largeurTableAttributs}{#3}
+\begin{longtable}{|c|c|p{\largeurTableAttributs}|}\caption{#1}#2\\
+\hline nom & type &\multicolumn{1}{c|}{description}\\\hline\hline\endfirsthead
+\caption[]{#1 (suite)}\\
+\hline nom & type &\multicolumn{1}{c|}{description}\\\hline\hline\endhead
+\hline\multicolumn{3}{|r|}{à suivre ...}\\\hline\endfoot
+\hline\endlastfoot}{\end{longtable}}
+
+\newcounter{exemple}\newlength{\largeurexemple}
+\newenvironment{exemple}[2]{\refstepcounter{exemple}\begin{center}
+\settowidth{\largeurexemple}{\ttfamily#2}\begin{minipage}{\largeurexemple}
+\centerline{Expl. \arabic{exemple} -- \textit{#1}}\ttfamily\raggedleft}
+{\end{minipage}\end{center}}
+
+\newlength{\largeurTableSenseurs}
+\newenvironment{tableSenseur}[3]{
+\settowidth{\largeurTableSenseurs}{#3}
+\begin{table}[htbp]\caption{#1}\renewcommand{\arraystretch}{1.5}
+\begin{center}\begin{tabular}[htbp]{|c|c|p{\largeurTableSenseurs}|}
+\hline
+nom du bloc & type & \multicolumn{1}{c|}{description} \\
+\hline
+\nomBloc{type} & mot-clef & Identificateur permettant de reconnaître le
+type de senseur, vaut obligatoirement #2. \\
+\nomBloc{precision} & réel & Précision du senseur en degrés, utilisée
+pour la convergence. \\
+\nomBloc{repere} & rotation & Définition du repère senseur, le plus
+pratique est d'utiliser la syntaxe \texttt{\{i\{...\} j\{...\}
+k\{...\}\}}, on donne alors les coordonnées \emph{en repère satellite}
+des axes canoniques du senseur. \\
+\nomBloc{axe\_calage} & vecteur & Bloc \emph{optionnel} définissant un
+axe de calage autour duquel le senseur peut tourner
+(voir~\ref{sec:orientation}). \\}
+{\hline\end{tabular}\end{center}\end{table}}
+
+\newcommand{\entreesChamps}{
+
+\nomBloc{champ\_de\_vue} & parcelle & Champ de vue du senseur \emph{en
+repère senseur}.\\
+
+\nomBloc{champ\_d\_inhibition\_corps\_central} 
+& parcelle & Bloc \emph{optionnel} définissant le champ d'inhibition
+du senseur par un astre de type corps central \emph{en repère senseur}. 
+Vide par défaut. \\
+
+\nomBloc{champ\_d\_inhibition\_soleil} & parcelle & Bloc
+\emph{optionnel} définissant le champ d'inhibition par le soleil du
+senseur \emph{en repère senseur}. Vide par défaut. \\
+
+\nomBloc{marge\_eclipse\_soleil} & réel & Bloc \emph{optionnel}
+définissant la marge angulaire sur la suppression des inhibitions pour
+les passages en éclipse. \\
+
+\nomBloc{champ\_d\_inhibition\_lune} & parcelle & Bloc \emph{optionnel}
+définissant le champ d'inhibition par la lune du senseur \emph{en
+repère senseur}. Vide par défaut. \\
+
+\nomBloc{marge\_eclipse\_lune} & réel & Bloc \emph{optionnel}
+définissant la marge angulaire sur la suppression des inhibitions pour
+les passages en éclipse. \\
+
+\nomBloc{seuil\_phase\_lune} & scalaire & Bloc \emph{optionnel}
+définissant le seuil sur l'angle Soleil/Satellite/Lune au
+\emph{dessous} duquel la lune devient gênante (0 signifie que la lune
+n'est jamais gênante, 180 signifie qu'elle est toujours gênante).}
+
+\newcommand{\entreesSenseurOptique}{
+
+\nomBloc{cible} & mot-clef & Cible du senseur. La
+table~\ref{tab:cibles}, page~\pageref{tab:cibles} donne la liste des
+valeurs reconnues. \\
+
+\nomBloc{observe} & vecteur & Coordonnées de la direction
+d'observation du senseur \emph{en repère senseur}, uniquement si
+\texttt{cible} vaut \texttt{vitesse-sol-apparente} \\
+
+\nomBloc{station} & structure & Définition de la station observée,
+uniquement si \texttt{cible} vaut \texttt{station}. \\
+
+\entreesChamps}
+
+\newenvironment{interface}[1]
+{\begin{tabbing}\hspace*{10mm}\=\kill interface \langage{#1} :\+\\}
+{\end{tabbing}}
+

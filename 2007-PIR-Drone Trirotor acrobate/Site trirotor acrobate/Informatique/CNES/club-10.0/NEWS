@@ -1,0 +1,353 @@
+Ce fichier regroupe les changements visibles par l'utilisateur, pour
+les modifications de plus bas niveau (développement) et en particulier
+pour chercher à quels moments certains bugs ont été introduits, il
+faut plutôt consulter le fichier ChangeLog.
+
+* version 10.0
+  
+  - refonte des DTD des fichiers XML avec séparation données/unités (DM-ID 242)
+    Le système de gestion des unités a été très largement étendu et
+    amélioré à cette occasion. Cette modification introduit une
+    incompatibilité avec les versions précédentes de la bibliothèque
+
+  - élimination des classes proxy dans l'interface DataFile (DM-ID 241)
+    les méthodes getData retournant des instances aux classes
+    DataProxyName et DataProxyIndex ont été éliminées
+
+* version 9.5
+  
+  - corrections mineures de formats d'écriture de réels (FA-ID 33)
+    Un indicateur de format long générait des avertissements sur le
+    compilateur GNU sous Solaris
+
+  - amélioration de la documentation de l'utilitaire difference (DM-ID 34)
+    Explication des calculs d'erreurs et des seuils associés 
+
+* version 9.4
+  
+  - mise en conformité avec Xerces 2.x (DM-ID 32)
+    La gestion des fichiers XML nécessite désormais la version 2.4.0
+    de la bibliothèque Xerces. L'option de configuration a également
+    changé de nom pour refléter le nom standard sous lequel la
+    bibliothèque est installée, il faut désormais utiliser
+    --with-xerces-c=/repertoire/installation/xerces ou
+    --with-xerces-c=no si les choix faits par défaut par le script
+    configure ne conviennent pas.
+
+  - Suppression de la contrainte de fourniture du type de fichier lors de 
+    l'instanciation de la classe DataFile (DM-ID 31).
+
+  - Amélioration de la documentation (DM-ID 30).
+
+  - ajout d'une methode publique a TamponTexte
+    Creation du service getTampon() pour eviter que la fonction 
+    inline operator << ne retourne directement un membre protege de 
+    la classe (DM-ID 29).
+
+* version 9.3
+
+  - contournement d'un problème introduit après la version 3.6 de madona
+    Ce problème est lié à la gestion des références entre données, qui
+    ne semble plus transparente pour l'utilisateur.
+
+  - correction d'une erreur de syntaxe dans MadonaFile.cpp
+    Cette erreur empêchait la compilation du support optionnel
+    de la bibliothèque madona
+
+  - prise en compte de nouvelles versions des outils de développement
+    Cette modification est sans impact sur les utilisateurs    
+
+* version 9.2
+
+  - homogénéisation des classes
+    Des méthodes ont été ajoutées dans différentes classes afin que
+    toutes aient des constructeurs par défaut, par copie,
+    par affectation et des destructeurs.
+    Les accès (public/protected/private) à ces méthodes sont tels
+    qu'ils respectent les accès antérieurs. De fait, ces accès sont
+    restreints et ne modifient aucunement le comportement des classes.
+
+  - changements des extensions des fichiers CC
+    Les extensions des fichiers .cc ont été changé en .cpp afin d'être
+    reconnues sur un plus grand nombre d'outils de compilation.
+
+  - correction de quelques fuites mémoires
+    Des fuites mémoires détectées par Valgrind ont été corrigé.
+
+  - passage en gcc 3.2.1
+    Quelques modifications ont été apportées au code afin de pouvoir
+    le compiler sans warning avec le compilateur gcc 3.2.1.
+
+  - Problème d'écriture du pointer NULL avec le compilateur gcc 3.2.1
+    L'écriture de l'adresse NULL (0 au lieu de 0x0), pouvant poser
+    des problèmes lors d'une analyse syntaxique, est detectée et
+    contournée.
+
+  - mise en conformité avec Xerces 1.7
+    Les dernières versions de la bibliothèque d'analyse de fichiers
+    XML Xerces placent les fichiers d'en-tête dans un sous
+    répertoire. Les directives d'inclusion de ces fichiers ont été
+    modifiées en conséquence. La compatibilité avec des versions très
+    anciennes de Xerces n'est pas assurée : les utilisateurs doivent
+    mettre à jour leur version de Xerces.
+
+  - corrections de scripts de configuration
+    Quelques erreurs rares de configuration dans des cas inhabituels
+    ont été corrigées. Il s'agit de corrections mineures n'affectant
+    pas les utilisateurs habituels.
+
+  - ajout d'une méthode FichierStructure::listeSousBlocs
+    Cette méthode permet d'explorer une structure pour déterminer
+    les élements qu'elle contient
+
+  - prise en compte de versions récentes des outils de développement GNU
+    Les outils de développement de la suite GNU ont été mis à jour
+    (autoconf 2.52, automake 1.5 et libtool 1.4.1). Ceci ne devrait
+    avoir aucun impact sur les utilisateurs (qui se contentent de
+    compiler la bibliothèque à partir des fichiers générés par ces
+    outils et inclus dans la distribution). Seuls les développeurs de
+    la bibliothèque qui sont amenés à y apporter des modification sont
+    concernés.
+
+* version 9.1
+
+  - réorganisation de classes entre club, cantor et marmottes
+    La classe CallTrace a été transférée depuis la bibliothèque marmottes.
+
+  - élimination d'une violation mémoire dans l'utilitaire difference
+    cette erreur se produisait lors de l'affichage des différences
+    entres lignes très longues (merci à Ole Kristian Kverneland).
+
+  - corrections pour permettre la compilation par gcc 3.0
+    la version 3.0 du compilateur gcc a détecté quelques erreurs nouvelles
+    qui ont été corrigées. La bibliothèque reste compilable avec les versions
+    2.95.x du compilateur gcc
+
+* version 9.0
+
+  - élimination de la classe Adressage
+    cette classe était conservée à titre de compatibilité. La dernière
+    version s'appuyait sur la classe hash_map de la STL de SGI.
+
+  - élimination de la classe hash_map qui ne fait pas partie du standard C++
+    cette classe est une extension de la STL réalisée par SGI, elle
+    n'était pas disponible sur toutes les implémentations (elle n'est
+    en particulier pas disponible avec les compilateurs SUN). Les
+    implications de cette suppression sont que les performances
+    d'accès aux clefs du système de traduction doivent passer de O(1)
+    à O(ln(n)), où n est le nombre d'éléments du dictionnaire, et que
+    la méthode OptionsAppli::usage affiche désormais les options dans
+    l'ordre lexicographique au lieu de l'ordre dans lequel elles ont
+    été créées.
+
+  - reconnaissance des réels du langage fortran
+    La classe AnalyseurLexical peut désormais reconnaître les réels du
+    langage fortran (c'est à dire les réels écrits en utilisant les
+    lettres d ou D comme indicateur d'exposant). Cette reconnaissance
+    est paramétrable. L'utilitaire difference peut désormais traiter
+    des fichiers créés par des programmes fortran utilisant les
+    lettres d ou D comme indicateurs d'exposant.
+
+  - correction d'erreurs détectées par purify
+    les erreurs étaient des fuites de mémoire, une désallocation avec
+    le mauvais opérateur, et une réutilisation d'un pointeur en pile
+    après retour d'une fonction
+
+  - amélioration du support des compilateurs SUN
+    la bibliothèque est désormais compilable par les compilateurs SUN,
+    ceci a été testé sur la version 6.1 et devrait probablement
+    fonctionner à partir de la version 5.0. Ces compilateurs comportent
+    cependant un grand nombre d'erreurs, leur utilisation n'est pas
+    conseillée.
+
+* version 8.2
+
+  - ajout d'un script club-config pour faciliter l'utilisation
+    les options de compilation -I, -L et -l pour les utilisateurs
+    de la bibliothèque varient suivant la façon dont club a été
+    configurée lors de l'installation. Le script club-config qui est
+    installé en même temps que club permet de retrouver les valeurs
+    nécessaires pour ces options. On peut ainsi mettre dans un Makefile
+    des règles du style :
+
+    client.o : client.cc
+        $(CXX) `club-config --cppflags` $(CPPFLAGS) $(CFLAGS) -c client.cc
+
+    et
+
+    client : client.o
+        $(CXX) -o $@ client.o \
+                  `club-config --ldflags` $(LDFLAGS) \
+                  `club-config --libs`    $(LIBS)
+
+* version 8.1
+
+  - amélioration de la robustesse des tests de madona
+
+  - amélioration des macros m4 de configuration de bibliothèques
+
+  - changement de la valeur par défaut sous solaris
+    on ne construit les bibliothèques partagées que sur demande car
+    elles semblent poser des problèmes aux programmes appelants
+    lorsqu'elles génèrent des exceptions et qu'il y a de nombreuses
+    bibliothèques partagées intermédiaires
+
+* version 8.0
+
+  - ajout des options --with-xerces et --with-madona dans la configuration
+
+  - ajout des classes DataFile, UniqDataFile, StructureFile, MadonaFile
+    et XMLFile. Ces classes offrent des services génériques de lecture et 
+    d'écriture de fichiers au format définit par la classe 
+    FichierStructuré ainsi qu'au format Madona et XML.
+    UniqDataFile est la classe de base identifiant tous les services
+    communs aux 3 formats de fichiers.
+    Les classes StructureFile, MadonaFile et XMLFile implémentent les 
+    services définis dans UniqDataFile et offrent des services spécifiques
+    au format associé.
+    DataFile est une classe de forme canonique et offre ainsi un 
+    constructeur de recopie et un opérateur d'affectation qui ne sont pas 
+    définis dans les autres classes. 
+    ATTENTION : ces classes sont expérimentales et susceptibles de
+    modifications importantes !
+
+* version 7.0
+
+  - ajout de la classe FormatC permettant de gérer les formats du langage C.
+
+  - utilisation de string et hash_map dans les classes de Club : de nombreuses
+    signatures de fonctions sont modifiées et sont donc incompatibles avec
+    les versions précédentes. 
+
+  - les utilisateurs sont vivement invités à utiliser les classes de la STL
+    plutôt que leur équivalent dans club (Adressage-hash_map, 
+    ChaineSimple-string).
+
+  - suppression des classes _OBSOLETE
+
+* version 6.3
+
+  - modification de l'utilitaire difference : affichage d'un message
+    par ligne analysée, comparaison des entiers et des réels entre eux,
+    suppression de la notion de nombre maximal d'erreurs acceptées par la
+    notion de nombre d'erreurs à afficher. De plus, l'utilitaire est 
+    désormais capable de se repositionner lorsqu'il y a des lignes en
+    plus dans un fichier. 
+
+  - modification de la signification des codes de retour de l'utilitaire : 
+    0=pas de différence, 1=au moins une différence, 2=erreur de fonctionnement.
+
+  - documentation de l'outil difference 
+
+* version 6.2.3
+
+  - première version en diffusion publique
+
+  - déclaration des exceptions engendrées par IterateurChamp
+    pour éviter les «unexpected exception»
+
+* version 6.2.2
+
+  - élimination d'une portion de code posant des problèmes de diffusion
+
+  - ajout de la licence publique et des copyright CNES
+
+* version 6.2.1
+
+  - correction d'une erreur de libération de mémoire dans TamponPartage
+
+* version 6.2
+
+  - création du répertoire utils et de l'utilitaire difference permettant
+    d'énumérer les différences entre deux fichiers tout en acceptant des
+    imprécisions numériques et un nombre maximal d'erreurs.
+
+* version 6.1
+
+  - correction de la gestion d'erreurs par la classe BaseErreurs :
+    une erreur construite par copie ou affectation partagent le message ET
+    le code d'erreur avec l'erreur d'origine. Ainsi si on corrige l'original, 
+    la copie l'est aussi et la destruction des deux instances n'entraînera
+    aucun affichage de message d'erreur.
+
+* version 6.0
+
+  - mise en place de gestion d'erreur par exception pour les classes
+    FichierStructure, FormatFortran, OptionBase, OptionChaine, 
+    OptionEntier, OptionReel, OptionSansValeur, OptionTableauChaines,
+    OptionTableauEntiers, OptionTableauReels, OptionsAppli et TamponTexte.
+
+  - compatibilite avec l'ancienne methode de gestion d'erreurs en utilisant
+    les classes suffixees par _OBSOLETE.
+
+  - renommage des fichiers OptionTabEntiers[.h,.cc] en 
+    OptionTableauEntiers[.h,.cc]. Idem pour OptionTabReels et OptionTabChaines.
+
+* version 5.3 :
+
+  - création d'un TamponAscii dans le traitement d'erreur des constructeurs 
+  et operator =
+
+* version 5.2 :
+
+  - correction d'un bug dans TamponTexte.cc (constructeur par copie
+  et operateur d'affectation)
+
+* version 5.1 :
+
+  - correction des include <string.h> en "ClubConfig.h" 
+
+  - ajout de protections des traitements sur TamponTexte (tampon nul)
+
+* version 5.0 :
+
+  - introduction des mécanismes m4, autoconf et automake pour produire
+    les fichiers makefile adaptés à la plateforme et à l'environnement
+    (compilateur et options)
+
+  - introduction d'une hiérarchie d'objets pour gérer des fichiers
+    ascii en  mémoire, avec gestion des erreurs par levée d'exception
+
+  - la classe TamponTexte s'appuie sur cette hiérarchie mais son
+    utilisation reste inchangée
+
+  - ajout d'une fonction utilisateur de libération de la mémoire
+    allouée dans la classe TamponPartage. Si l'utilisateur ne donne
+    pas de pointeur de fonction (ou s'il donne un pointeur nul) la
+    classe utilisera l'opérateur delete[] pour libérer la mémoire. Ce
+    comportement n'est conservé qu'à titre de compatibilité et n'est
+    pas recommandé
+
+  - correction de la gestion d'erreurs par la classe BaseErreurs :
+    une erreur construite par copie ou affectation est une erreur
+    partagée avec l'erreur d'origine afin que le message d'erreur 
+    associé, le cas échéant, ne soit produit qu'à la destruction 
+    de la dernière instance (cas où l'utilisateur ne corrige pas les
+    erreurs)
+
+* version 4.6 :
+
+  - correction de la fonction de hachage dans la classe Adressage :
+    la fonction précédente ne dépendait en fait que des six derniers
+    caractères
+
+  - ajout d'une date et d'une signature dans la classe FichierStructure
+
+  - utilisation de configure pour l'installation
+    il faut désormais faire quelque chose du genre :
+
+       ./configure
+       make
+       make install
+
+    le fichier INSTALL et la documentation papier donnent des
+    informations complémentaires
+
+* version 4.5 :
+
+  - descente des sources dans un sous-répertoire src
+
+Local variables:
+mode: outline
+outline-regexp: " *[*-]+"
+end:

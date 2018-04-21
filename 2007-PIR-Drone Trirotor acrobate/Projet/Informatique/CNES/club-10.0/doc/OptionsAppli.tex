@@ -1,0 +1,401 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+% $Id: OptionsAppli.tex,v 1.15 2005/03/03 16:39:06 chope Exp $
+\subsection{classe OptionsAppli}\label{sec:OptionsAppli}
+
+\subsubsection*{description}\label{sec:OptionsAppli-desc}
+Cette classe gère un analyseur offrant l'accès à partir de leur code à
+toutes les informations qui portent sur les options passées à une
+application par l'intermédiaire de la ligne de commande.
+
+Cet analyseur reconnaît les options attendant des arguments ou non,
+les options ayant un code en une ou plusieurs lettres introduites par
+le caractère \texttt{'-'}, les options sans nom (par exemple
+\textsl{fichier} dans la commande \texttt{ls} \textsl{fichier}), et
+les options regroupées (comme par exemple \texttt{-cvf /dev/fd0} au
+lieu de \texttt{-c -v -f /dev/fd0}). Chaque option peut d'autre part
+avoir des caractéristiques propres (nombre d'occurrences minimal,
+maximal, domaine de validité, valeur par défaut).
+
+\subsubsection*{interface publique}\label{sec:OptionsAppli-int}
+\begin{verbatim}
+#include "club/OptionsAppli.h"
+\end{verbatim}
+
+\begin{tableFonctionsFixe}{OptionsAppli : méthodes publiques}
+{\label{tab:OptionsAppli-met-pub}}
+{retourne le nombre d'occurrences de l'option \argument{code} passées
+dan}
+
+\signature{\fonc{OptionsAppli} (const char *\argument{nom})}
+          {}&
+
+construit un analyseur d'option pour l'application \argument{nom}. Le
+\argument{nom} est généralement la chaîne \texttt{argv[0]}, mais peut
+être n'importe quoi d'autre, elle ne sert qu'à produire les messages
+d'erreur et d'usage. \\
+
+\signature{\fonc{OptionsAppli}}
+          {(const string\& \argument{nom})}&
+
+construit un analyseur d'option pour l'application \argument{nom}. Le
+\argument{nom} est généralement la chaîne \texttt{argv[0]}, mais peut
+être n'importe quoi d'autre, elle ne sert qu'à produire les messages
+d'erreur et d'usage. \\
+
+\hline
+
+\signature{\fonc{OptionsAppli} (const OptionsAppli\& \argument{opts})}
+          {}&
+
+constructeur par copie \\
+
+\signature{OptionsAppli\& \fonc{operator =}}
+          {(const OptionsAppli\& \argument{opts})}&
+
+affectation \\
+
+\hline
+
+\signature{\fonc{\~{}OptionsAppli} ()}
+          {}&
+
+destructeur, libère la mémoire allouée \\
+
+\hline
+
+\signature{void \fonc{ajouterOption}}
+          {(const OptionEntier\& \argument{option})}&
+
+ajoute l'\argument{option} à l'ensemble déjà géré par l'instance 
+
+\textbf{Exceptions :} option\_deja\_definie,
+                      options\_appli\_de\-ja\_ini\-tialise. 
+\\
+
+\signature{void \fonc{ajouterOption}}
+          {(const OptionTableauEntiers\& \argument{option})}&
+
+ajoute l'\argument{option} à l'ensemble déjà géré par l'instance 
+
+\textbf{Exceptions :} option\_deja\_definie,
+                      options\_appli\_de\-ja\_ini\-tialise.
+\\
+
+\signature{void \fonc{ajouterOption}}
+          {(const OptionReel\& \argument{option})}&
+
+ajoute l'\argument{option} à l'ensemble déjà géré par l'instance
+
+\textbf{Exceptions :} option\_deja\_definie,
+                      options\_appli\_de\-ja\_ini\-tialise.
+\\
+
+\signature{void \fonc{ajouterOption}}
+          {(const OptionTableauReels\& \argument{option})}&
+
+ajoute l'\argument{option} à l'ensemble déjà géré par l'instance 
+
+\textbf{Exceptions :} option\_deja\_definie,
+                      options\_appli\_de\-ja\_ini\-tialise.
+\\
+
+\signature{void \fonc{ajouterOption}}
+          {(const OptionChaine\& \argument{option})}&
+
+ajoute l'\argument{option} à l'ensemble déjà géré par l'instance 
+
+\textbf{Exceptions :} option\_deja\_definie,
+                      options\_appli\_de\-ja\_ini\-tialise.
+\\
+
+\signature{void \fonc{ajouterOption}}
+          {(const OptionTableauChaines\& \argument{option})}&
+
+ajoute l'\argument{option} à l'ensemble déjà géré par l'instance 
+
+\textbf{Exceptions :} option\_deja\_definie,
+                      options\_appli\_de\-ja\_ini\-tialise.
+\\
+
+\signature{void \fonc{ajouterOption}}
+          {(const OptionSansValeur\& \argument{option})}&
+
+ajoute l'\argument{option} à l'ensemble déjà géré par l'instance 
+
+\textbf{Exceptions :} option\_deja\_definie,
+                      options\_appli\_de\-ja\_ini\-tialise.
+\\
+
+\hline
+
+\signature{void \fonc{initialiser}}
+          {(int \argument{argc}, const char *const \argument{argv} [])}&
+
+initialise l'instance avec les arguments de la ligne de commande et
+analyse cette ligne 
+
+\textbf{Exceptions :} plus\_d\_argument,
+                      options\_appli\_de\-ja\_ini\-tia\-lise. \\
+
+\hline
+
+\signature{const string\& \fonc{nom} () const}
+          {}&
+
+retourne le nom de l'instance \\
+
+\signature{const char *\fonc{usage} (int \argument{largeur}) const}
+          {}&
+
+retourne une chaîne de description de l'usage de l'application
+formatée pour un écran de \argument{largeur} colonnes \\
+
+\signature{int \fonc{verifier}}
+          {(string *\argument{ptrMessage}) const
+          }&
+
+vérifie les contraintes portant sur les arguments de la ligne de
+commande analysée, retourne une valeur non nulle et initialise la
+chaîne pointée par \argument{ptrMessage} en cas de violation d'une de
+ces contraintes \\
+
+\signature{int \fonc{argcReste} () const}
+          {}&
+
+retourne le nombre d'arguments non reconnus après analyse \\
+
+\signature{int \fonc{argvReste}}
+          {(char **\argument{argv})
+          }&
+
+rempli le tableau \argument{argv} avec les arguments non reconnus
+après analyse (ce tableau doit pouvoir contenir au moins
+\fonc{argcReste ()} éléments). Les chaînes retournées sont allouées
+dynamiquement, la libération de la mémoire est laissée à la charge de
+l'appelant. 
+
+\textbf{Exceptions :} options\_appli\_non\_initialise.
+\\
+
+\signature{int \fonc{garantirComplet}} 
+          {const}&
+
+vérifie la validité des options passées et vérifie que l'analyse est
+complète, c'est à dire qu'il ne reste aucun argument non reconnu. 
+
+\textbf{Exceptions :} message\_simple.
+\\
+
+\hline
+
+\signature{int \fonc{occurrencesPassees}}
+          {(const char *\argument{code}) const
+          }&
+
+retourne le nombre d'occurrences de l'option \argument{code} passées
+dans la ligne de commande (si une option n'est pas effectivement
+passée mais qu'elle a une valeur par défaut, celle est considérée
+comme une occurrence). 
+
+\textbf{Exceptions :} options\_appli\_non\_initialise,
+
+                      code\_option\_non\_reconnu. \\
+
+\signature{int \fonc{estInitialise} () const}
+          {}&
+
+indique si l'analyseur a été initialisé \\
+
+\hline
+
+\signature{void \fonc{lireValeur}}
+          {(const char *\argument{code}, int *\argument{dest},\\
+            int \argument{occurrence} = 1) const
+          }&
+
+lit la valeur de l'\argument{occurrence} spécifiée de l'option
+\argument{code} et la met dans \argument{dest}. 
+
+\textbf{Exceptions :} options\_appli\_non\_initialise,
+
+                      code\_option\_non\_reconnu.\\
+
+\signature{void \fonc{lireValeur}}
+          {(const char *\argument{code}, double *\argument{dest},\\
+            int \argument{occurrence} = 1) const
+          }&
+
+lit la valeur de l'\argument{occurrence} spécifiée de l'option
+\argument{code} et la met dans \argument{dest}. 
+
+\textbf{Exceptions :} options\_appli\_non\_initialise,
+
+                      code\_option\_non\_reconnu.\\
+
+\signature{void \fonc{lireValeur}}
+          {(const char *\argument{code}, char *\argument{dest},\\
+            int \argument{occurrence} = 1) const
+          }&
+
+lit la valeur de l'\argument{occurrence} spécifiée de l'option
+\argument{code} et la met dans \argument{dest}. 
+
+\textbf{Exceptions :} options\_appli\_non\_initialise,
+
+                      code\_option\_non\_reconnu.\\
+
+\signature{void \fonc{lireValeur}}
+          {(const char *\argument{code}, string *\argument{dest},\\
+            int \argument{occurrence} = 1) const
+          }&
+
+lit la valeur de l'\argument{occurrence} spécifiée de l'option
+\argument{code} et la met dans \argument{dest}. 
+
+\textbf{Exceptions :} options\_appli\_non\_initialise,
+
+                      code\_option\_non\_reconnu.\\
+
+\signature{void \fonc{lireValeur}}
+          {(const char *\argument{code},\\
+            int \argument{nombre}, int \argument{dest} [],\\
+            int \argument{occurrence} = 1) const
+          }&
+
+lit la valeur de l'\argument{occurrence} spécifiée de l'option
+\argument{code} et la met dans \argument{dest}. 
+
+\textbf{Exceptions :} options\_appli\_non\_initialise,
+
+                      code\_option\_non\_reconnu.\\
+
+\signature{void \fonc{lireValeur}}
+          {(const char *\argument{code},\\
+            int \argument{nombre}, double \argument{dest} [],\\
+            int \argument{occurrence} = 1) const
+          }&
+
+lit la valeur de l'\argument{occurrence} spécifiée de l'option
+\argument{code} et la met dans \argument{dest}. 
+
+\textbf{Exceptions :} options\_appli\_non\_initialise,
+
+                      code\_option\_non\_reconnu.\\
+
+\signature{void \fonc{lireValeur}}
+          {(const char *\argument{code},\\
+            int \argument{nombre}, char* \argument{dest} [],\\
+            int \argument{occurrence} = 1) const
+          }&
+
+lit la valeur de l'\argument{occurrence} spécifiée de l'option
+\argument{code} et la met dans \argument{dest}. 
+
+\textbf{Exceptions :} options\_appli\_non\_initialise,
+
+                      code\_option\_non\_reconnu.\\
+
+\signature{int \fonc{lireValeur}}
+          {(const char *\argument{code},\\
+            int \argument{nombre}, string \argument{dest} [],\\
+            int \argument{occurrence} = 1) const
+          }&
+
+lit la valeur de l'\argument{occurrence} spécifiée de l'option
+\argument{code} et la met dans \argument{dest}. 
+
+\textbf{Exceptions :} options\_appli\_non\_initialise,
+
+                      code\_option\_non\_reconnu.\\
+
+\end{tableFonctionsFixe}
+
+\begin{tableFonctionsFixe}{OptionsAppli : méthodes protégées}
+{\label{tab:OptionsAppli-met-prot}}
+{retourne le nombre d'occurrences de l'option \argument{code} passées}
+\signature{\fonc{OptionsAppli} ()} {} &
+constructeur par défaut.
+\\
+\end{tableFonctionsFixe}
+
+\subsubsection*{exemple d'utilisation}\label{sec:OptionsAppli-expl}
+
+\begin{verbatim}
+#include "club/OptionsAppli.h"
+...
+OptionsAppli analyseur (argv [0]);
+
+// axe
+// option axe: une occurrence, pas de valeur par defaut
+analyseur.ajouterOption (OptionTableauReels ("axe", 0, 1, sansValeurDefaut, 3));
+
+// angle
+// option angle: une occurrence, pas de valeur par defaut
+analyseur.ajouterOption (OptionReel ("angle", 0, 1, sansValeurDefaut,
+                                     0.0, -360.0, 360.0));
+// quaternion
+// option q: une occurrence, pas de valeur par defaut
+analyseur.ajouterOption (OptionTableauReels ("q", 0, 1, sansValeurDefaut, 4));
+
+// vecteur auquel appliquer la rotation
+// option u: une occurrence, pas de valeur par defaut
+analyseur.ajouterOption (OptionTableauReels ("u", 0, 1, sansValeurDefaut, 3));
+
+// analyse de la ligne
+analyseur.initialiser (argc, argv);
+analyseur.garantirComplet ();
+
+// recuperation des donnees
+if (analyseur.occurrencesPassees ("axe") > 0)
+{ // l'utilisateur a passe un axe et un angle
+  if (analyseur.occurrencesPassees ("q")  > 0)
+  { char tampon [1000];
+    (void) sprintf (tampon, "options -axe et -q incompatibles");
+    ClubErreurs::erreur (0, ClubErreurs::message_simple, tampon);
+  }
+  double tableau [3];
+  analyseur.lireValeur ("axe", 3, tableau);
+  VecDBL axe (tableau [0], tableau [1], tableau [2]);
+
+  if (analyseur.occurrencesPassees ("angle") <= 0)
+  { char tampon [1000];
+    (void) sprintf (tampon, "option -axe sans option -angle");
+    ClubErreurs::erreur (0, ClubErreurs::message_simple, tampon);
+  }
+  double angle;
+  analyseur.lireValeur ("angle", &angle);
+  angle = radians (angle);
+
+  RotDBL  r (axe, angle);
+  AfficheRotation (r);
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation spécifiques}
+\label{sec:OptionsAppli-conseils}
+Après création d'une instance vide d'OptionsAppli, on ajoute les
+options une à une, on initialise l'analyseur à l'aide des arguments de
+la ligne de commande, puis on récupère les résultats de
+l'analyse. L'initialisation est une étape après laquelle on ne peut
+plus ajouter d'options dans l'analyseur, et avant laquelle on ne peut
+pas récupérer les résultats de l'analyse.
+
+\subsubsection*{implantation}\label{sec:OptionsAppli-impl}
+Les attributs sont décrits sommairement dans la
+table~\ref{tab:OptionsAppli-att}, la seule méthode privée est la
+méthode \mbox{\fonc{ajouterNonReconnu} (const char
+*\argument{chaine})} qui ajoute un argument à la liste des arguments
+non reconnus.
+
+\begin{tableAttributsFixe}{attributs de la classe OptionsAppli}
+{\label{tab:OptionsAppli-att}}
+{nombre d'arguments non reconnus après analyse }
+tableOptions\_ & \raisebox{-3ex}{\shortstack[r]{hash\_map <string, OptionBase *, \\
+                                             club\_hash<string> >}} & 
+table contenant l'ensemble des options pouvant être reconnues \\
+nom\_ & string & nom de l'application \\
+nombreNonReconnus\_ & int & nombre d'arguments non reconnus après
+analyse \\
+argumentsNonReconnus\_ & string * & table des arguments non
+reconnus après analyse \\
+initialise\_ & int & indicateur d'analyseur initialisé \\
+\end{tableAttributsFixe}

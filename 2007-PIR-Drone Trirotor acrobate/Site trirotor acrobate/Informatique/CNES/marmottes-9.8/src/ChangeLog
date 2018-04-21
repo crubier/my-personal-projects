@@ -1,0 +1,1184 @@
+2005-03-04  projet CHOPE G. Prat/L. Maisonobe  <Guylaine.Prat@c-s.fr>
+ 
+	* SenseurCardan.cpp (mesure): recalage de la mesure à moins de 180
+ 	degrés de la consigne initiale (FA-ID 230)
+ 
+	* MarmottesErreurs.cpp (operator): correction d'un partage de
+	données erroné (FA-ID 230)
+
+2004-06-21  projet CHOPE G. Prat/L. Maisonobe  <Guylaine.Prat@c-s.fr>
+
+	* SenseurFonction.cpp (SenseurFonction): transformation des
+	vecteurs du repère senseur au repère satellite (FA-ID 35)
+
+2004-03-09  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* StationCible.cpp (masque): correction d'une erreur
+	d'interpolation dans les masques d'antenne (FA-ID 34)
+
+2003-10-15  projet CHOPE O. Queyrut/L. Maisonobe/F. Auguie/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* Marmottes.cpp (lireParametres), InterfaceC.cpp (MarmottesLireParametres)
+	  InterfaceF.cpp (marmotteslireparametres_) : Ajout de la methode permettant
+	de renvoyer la date, position, vitesse, attitude et spin courants (DM 0027)
+
+	* SenseurOptique.cpp (initialiseCible), Lecture.cpp (LireCible): Extension 
+	de la notion de cible sans eclipse a polaris et canope (DM 0026)
+
+2003-10-07  projet CHOPE O. Queyrut/L. Maisonobe/F. Auguie/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* SenseurOptique.cpp (criteresControlabilite): Normalisation du vecteur 
+	dirCentral. Cet oubli generait une erreur interne a Cantor non traitee
+	par les mecanismes de gestion d'erreurs (FA 0029)
+ 
+	* ResolveurAttitude.cpp: utilisation d'une méthode statique
+ 	et d'une méthode privée pour résoudre l'attitude sans violer
+ 	l'encapsulation objet (DM 0029)
+
+	* SenseurOptique.cpp, SenseurGyroInteg.cpp,
+ 	SenseurGeometrique.cpp, SenseurFonction.cpp,
+ 	SenseurCinematique.cpp, SenseurAlpha.cpp: DM 0025 prise en
+ 	compte de la position et vitesse courante (dans l'état de
+ 	résolution), élimination du qualificateur const de la méthode
+ 	foncEcart
+
+	* SenseurDiedre.cpp (foncEcart): DM 0025 réinitialisation de la
+ 	cible vitesse-sol-apparente à chaque modification de l'attitude
+ 
+	* MarmottesErreurs.cpp (formate): DM 0025 élimination de
+ 	l'erreur pas_de_point_sol
+
+	* SenseurOptique.cpp (modifieCible): FA 0031 autorisation des
+ 	cibles position-sans-eclipse et direction-sans-eclipse en tant que
+ 	cibles modifiables par l'utilisateur,
+ 	(initialiseCible): DM 0025 extension du domaine de validité
+ 	de la cible codeVitesseSolApparente
+ 	(foncEcart): DM 0025 réinitialisation de la cible
+ 	vitesse-sol-apparente à chaque modification de l'attitude
+ 	(criteresControlabilite): DM 0025 élimination de l'erreur
+ 	pas_de_point_sol
+ 	
+	* Marmottes.cpp: DM 0028 instrumentation de l'appel au
+ 	constructeur par copie pour permettre la création de fichiers de
+ 	journalisation d'appels depuis un programme en C++
+	Desactivation des traces lors de l'instantiation de l'objet senseur
+	dans le constructeur par recopie et l'operateur =.
+	
+
+2003-07-15  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* MarmottesErreurs.cpp: FA-ID 27 correction d'initialisations faites
+	avec le mauvais type
+
+2003-07-02  marmottes  <marmottes@sagitta>
+
+	* ChangeLog:
+	FA-ID 0023 Annonce de la mise a disposition des fonctions fortran par defaut pour enregistreCorps
+	
+	* marmottes/ChangeLog:
+	FA-ID 0023 Annonce de la mise a disposition des fonctions fortran par defaut pour enregistreCorps
+	
+	* marmottes/InterfaceF.h, marmottes/BodyEphem.h, InterfaceF.cpp:
+	FA-ID 0023 Ajout des interfaces des fonctions par defaut pour marmottesenregistrecorps
+	
+2003-07-08  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* MarmottesVersion.cpp (marmottesVersion): remplacement de VERSION
+	par PACKAGE_VERSION pour compatibilité avec autoconf 2.57 (DM 24)
+	
+
+2003-03-27  marmottes  <marmottes@sagitta>
+
+	* marmottes/InterfaceF.h, InterfaceF.cpp:
+	Suppression des '&' en trop dans enregistreCorps
+
+	* marmottes/InterfaceF.h, ChangeLog, InterfaceF.cpp, marmottes/ChangeLog:
+	Annulation de la correction de la FA-ID 0023 car la correction ne permettait
+	pas de couvrir tous les cas.
+
+2003-03-26  marmottes  <marmottes@sagitta>
+
+	* marmottes/ChangeLog:
+	FA-ID 0023 Annonce de la modification du type des fonctions fortran dans enregistreCorps
+
+	* marmottes/InterfaceF.h:
+	FA-ID 0023 Modification du type des fonctions fortran dans enregistreCorps
+
+	* ChangeLog:
+	FA-ID 0023 Annonce de la modification du type des fonctions fortran dans enregistreCorps
+
+	* InterfaceF.cpp:
+	FA-ID 0023 Modification du type des fonctions fortran dans enregistreCorps
+
+2003-02-27  marmottes  <marmottes@sagitta>
+
+	* ChangeLog:
+	DM-ID 19 Annonce des modifications pour la prise en compte des rayons des astres inhibants
+
+	* Lecture.cpp, SenseurFonctionSinCard2.cpp, SenseurLimbe.cpp,
+	SenseurOptique.cpp, SenseurVecteur.cpp,
+	SenseurFonctionSinCardXY.cpp, SenseurFonctionGauss.cpp,
+	SenseurFonctionEchant1D.cpp, SenseurFonction.cpp,
+	SenseurDiedre.cpp, MarmottesErreurs.cpp, Marmottes.cpp,
+	InterfaceF.cpp, InterfaceC.cpp, Etat.cpp, BodyEphemF.cpp,
+	BodyEphemC.cpp, BodyEphem.cpp:
+	DM-ID 19 Modifications pour la prise en compte des rayons des astres inhibants
+
+	* marmottes/ChangeLog:
+	DM-ID 19 Annonce des modifications pour la prise en compte des rayons des astres inhibants
+
+	* marmottes/BodyEphem.h, marmottes/BodyEphemC.h,
+	marmottes/BodyEphemF.h, marmottes/Etat.h, marmottes/InterfaceC.h,
+	marmottes/InterfaceF.h, marmottes/Marmottes.h,
+	marmottes/MarmottesErreurs.h, marmottes/SenseurCartesien.h,
+	marmottes/SenseurDiedre.h, marmottes/SenseurElevation.h,
+	marmottes/SenseurFonction.h, marmottes/SenseurFonctionEchant1D.h,
+	marmottes/SenseurFonctionGauss.h,
+	marmottes/SenseurFonctionSinCard2.h,
+	marmottes/SenseurFonctionSinCardXY.h, marmottes/SenseurLimbe.h,
+	marmottes/SenseurOptique.h, marmottes/SenseurVecteur.h:
+	DM-ID 19 Modifications pour la prise en compte des rayons des astres inhibants
+
+2003-02-11  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* MarmottesErreurs.cpp: ajout de l'erreur champ_inhibition_cible_central
+
+	* Lecture.cpp, SenseurFonctionSinCard2.cpp,
+	SenseurFonctionSinCardXY.cpp, SenseurDiedre.cpp, SenseurLimbe.cpp,
+	SenseurFonction.cpp, SenseurFonctionEchant1D.cpp,
+	SenseurVecteur.cpp, SenseurFonctionGauss.cpp: ajout d'un champ
+	d'inhibition par le corps central
+
+	* SenseurOptique.cpp: prise en compte du rayon des astres inhibants,
+	ajout d'un champ d'inhibition par le corps central
+
+	* InterfaceC.cpp, InterfaceF.cpp, Marmottes.cpp: ajout de la
+	personnalisation des rayons lune et soleil
+
+	* Etat.cpp: ajout du rayon soleil
+
+	* BodyEphem.cpp, BodyEphemC.cpp, BodyEphemF.cpp: ajout des rayons
+	lune et soleil
+
+2003-02-04  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* *.cpp: mise à jour des extensions de fichiers dans les
+	bandeaux (DM 17).
+
+2003-01-28 projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+	
+	* makefile.am: mise à jour des extensions de fichiers (DM 17).
+
+2003-01-22  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* InterfaceF.cc: Ajout de contrôles sur la chaîne passée
+	en paramétres.
+
+2002-12-18 projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* BodyEphemC.cc, BodyEphemF.cc: Ajout des appels aux fonctionnalitées de CallTrace
+	pour les fonctions enregistrées par un utilisateur.
+
+2002-11-28  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* InterfaceC.cc, InterfaceF.cc, Lecture.cc, Marmottes.cc,
+	MarmottesErreurs.cc: Ajout de l'initialisation de pointeur.
+	
+2002-11-28  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* InterfaceF.cc: Ajout de la fonction marmottesversion_, 
+	interface Fortran de la fonction marmottesVersion.
+
+	* Marmottes.cc: Ajout de l'appel à enregistreCorps, dans la
+	méthode Marmottes::reinitialise.
+
+2002-09-13  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* BodyEphemC.cc (siderealTime,moonPosition,earthPosition):
+	homogénéisation de l'appel à la fonction utilisateur (rendu
+	identique à celui fait dans sunPosition)
+
+	* Etat.cc: extension du copyright à 2002 suite à la DM 0007
+
+2002-09-09  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* BodyEphem.cc, BodyEphemC.cc, BodyEphemF.cc: nouveaux fichiers
+	(DM 0007)
+
+	* Etat.cc: évolution des attributs et ajout de méthodes dus à la
+	possibilité de configuration des modèles d'éphémérides pour les
+	corps (DM 007)
+	
+	* Marmottes.cc: ajout de la méthode enregistreCorps (DM 0007)
+
+	* InterfaceC.cc: ajout de la fonction MarmottesEnregistreCorps,
+	interface C de la méthode Marmottes::EnregistreCorps (DM 0007)
+
+	* InterfaceF.cc: ajout de la fonction marmottesenregistrecorps_,
+	interface Fortran de la méthode Marmottes::EnregistreCorps
+	(DM 0007)
+
+	* Makefile.am: ajout de BodyEphem.cc, BodyEphemC.cc et
+	BodyEphemF.cc
+
+2002-08-29  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* SenseurVecteur.cc (modeliseConsigne): déplacement de la
+	vérification de consigne avant le filtrage des secteurs, pour
+	générer une exception MarmottesErreurs plus pertinente que
+	l'erreur Cantor sous-jacente en cas de problème.
+
+2002-04-16  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* ParcelleElementaire.cc, ReunionEtParcelles.cc,
+	ReunionOuParcelles.cc (appliqueMarge, integreRotation): ajout de
+	directives throw oubliées
+
+2002-04-04  projet CHOPE O. Queyrut/S. Vresk  <Olivier.Queyrut@c-s.fr>
+
+	* Marmottes.cc: création des interfaces utilisateurs C++,
+	des méthodes etat et accesSenseur
+
+2002-02-27  projet CHOPE O. Queyrut/S. Vresk  <Olivier.Queyrut@c-s.fr>
+
+	* InterfaceF.cc, InterfaceC.cc, SenseurCinematique.cc, 
+	* Marmottes.cc, MarmottesErreurs.cc: suppression de la description 
+	de la révision insérée manuellement et mise à jour du copyright CNES
+
+2002-02-19  projet CHOPE O.Queyrut/S. Vresk  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* InterfaceF.cc (marmottesinitialisederive_): création de
+	l'interface utilisateur Fortran de la méthode Marmottes::initialiseDerive
+
+	* InterfaceC.cc (MarmottesInitialiseDerive): création de
+	l'interface utilisateur C de la méthode Marmottes::initialiseDerive
+
+	* SenseurCinematique.cc (initialiseDerive): nouvelle méthode
+	créée pour prendre en compte la dérive (offset) d'un senseur
+	cinématique
+
+	* Marmottes.cc (initialiseDerive): ajout de la méthode
+
+	* MarmottesErreurs.cc (formate): ajout de l'erreur
+	pas_senseur_cinematique
+
+2002-02-01  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* MarmottesErreurs.cc (formate): ajout des erreurs
+	champ_inhibition_cible_soleil et champ_inhibition_cible_lune
+
+	* Lecture.cc (LireCible): ajout d'une vérification de la cohérence
+	des champs d'inhibition et de la cible
+
+2002-01-16  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* FamilleFixe.cc (FamilleFixe): remplacement de l'attribut
+	v1_ par axe_, passage explicite de v1 et de axe dans le
+	constructeur (FA 0007)
+
+	* ModeleGeom.cc (prendConsignesEnCompte): passage de l'axe du cône
+	de consigne dans la construction des familles fixes (FA 0007)
+
+	* SenseurGyroInteg.cc (modeliseConsigne): correction d'une erreur
+	d'unités
+
+	* ModeleCine.cc (prendConsignesEnCompte): génération de l'erreur
+	consignes_gyro_elevees (FA 0001)
+
+	* MarmottesErreurs.cc (formate): ajout de l'erreur
+	consignes_gyro_elevees (FA 0001)
+
+	* SenseurGeometrique.cc (verifieConsigne): rejet des cônes de
+	consigne de demi ouverture PI/2 en plus des cônes de demi
+	ouverture nulle (FA 0003)
+
+	* Marmottes.cc, ParcelleElementaire.cc, ReunionEtParcelles.cc,
+	ReunionOuParcelles.cc, ResolveurAttitude.cc, Senseur.cc,
+	SenseurAlpha.cc, SenseurCardan.cc, SenseurCartesien.cc,
+	SenseurCinematique.cc, SenseurDelta.cc, SenseurDiedre.cc,
+	SenseurElevation.cc, SenseurFonction.cc, SenseurGyroInteg.cc,
+	SenseurLimbe.cc, SenseurOptique.cc, SenseurVecteur.cc : correction
+	de spécifications throw
+
+2001-07-19  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* MarmottesErreurs.cc (formate): élimination d'une variable
+	inutilisée
+
+	* Etat.cc (miseAJourTempsSideral): correction de la formule du
+	temps sidéral
+
+2001-07-17  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* SenseurFonctionSinCardXY.cc: nouveau fichier
+
+	* Lecture.cc: séparation de la lecture de la cible et des éléments
+	géométriques, ajout du senseur gain_sinus_cardinal_xy, ajout de la
+	cible vitesse-sol-apparente
+
+	* Makefile.am: ajout de SenseurFonctionSinCardXY.cc
+
+	* Marmottes.cc: lancement de CantorErreurs par toutes les
+	fonctions pouvant lire un nouveau senseur
+
+	* ResolveurAttitude.cc (elimineExcedentaires): protection contre
+	les exceptions pouvant être lancées par les méthodes de mesure des
+	capteurs
+
+	* SenseurDiedre.cc, SenseurFonction.cc,
+	SenseurFonctionEchant1D.cc, SenseurFonctionGauss.cc,
+	SenseurFonctionSinCard2.cc: ajout du vecteur observé pour la cible
+	vitesse-sol-apparente, lancement d'une exception par le
+	constructeur
+
+	* SenseurLimbe.cc: forçage du code et de la station pour la classe
+	de base élimination de la méthode filtreSecteurs (implantée
+	entièrement dans la classe de base)
+
+	* MarmottesErreurs.cc: ajout de l'erreur pas_de_point_sol
+
+	* Etat.cc: ajout d'une méthode vitesseRotation
+
+	* SenseurOptique.cc: ajout du vecteur observé pour la cible
+	vitesse-sol-apparente, changement des attributs privés en
+	attributs protégés, ajout des attributs visee_,
+	secteursFiltrables_ et observe_, la méthode filtreSecteurs n'est
+	plus virtuelle
+
+	* SenseurVecteur.cc: ajout du vecteur observé pour la cible
+	vitesse-sol-apparente, lancement d'une exception par le
+	constructeur
+
+2001-06-22  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Lecture.cc: utilisation d'un axe et d'un angle pour spécifier
+	l'intégration le long d'une rotation
+
+	* FamilleAlignementMoins.cc, FamilleAlignementPlus.cc,
+	FamilleGenerale.cc: correction d'une utilisation ambigue d'une
+	surcharge de acos
+
+	* ParcelleElementaire.cc, ReunionEtParcelles, ReunionOuParcelles:
+	utilisation du type bool pour les prédicats utilisation d'un axe
+	et d'un angle pour spécifier l'intégration le long d'une rotation
+
+2001-06-06  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* AnnotatedArc.cc, Braid.cc, CallTrace.cc, Field.cc, Node.cc,
+	Secteurs.cc: transfert des fichiers vers cantor
+
+	* Makefile.am: élimination des classes AnnotatedArc, Braid, Field,
+	Node et Secteurs
+
+	* InterfaceC.cc, InterfaceF.cc, Marmottes.cc: prise en compte du
+	déplacement de CallTrace vers club
+
+	* Lecture.cc, ResolveurAttitude.cc, Etat.cc, SenseurCardan.cc:
+	remontée des exceptions Cantor
+
+	* ModeleGeom.cc: remontée des exceptions Cantor, prise en compte
+	du déplacement de Secteurs vers cantor
+
+	* FamilleFixe.cc: prise en compte du déplacement de Secteurs vers
+	cantor
+
+	* MarmottesErreurs.cc: élimination des erreurs echec_heuristique,
+	ouverture_fichier, trace_inactif et frontiere_ouverte
+
+2001-05-23  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* SenseurOptique.cc (initialiseCible): ajout de la cible
+	lune-sans-eclipse
+
+	* Lecture.cc (LireElementsOptiques): ajout de la cible
+	lune-sans-eclipse
+
+2001-04-04  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* ParcelleElementaire.cc, ReunionEtParcelles.cc,
+	ReunionOuParcelles.cc: ajout de la méthode ecartFrontiere
+
+	* InterfaceC.f: ajout de la fonction MarmottesCriteresControlabilite
+
+	* InterfaceC.cc: ajout de la fonction MarmottesCriteresControlabilite
+
+	* Etat.cc: ajout des distances lune et soleil, report du corps du
+	constructeur par copie depuis Etat.h
+
+	* Lecture.cc: remplacement de "horizon" par "limbe" (mots-clefs,
+	classes et fonctions), ajout des mots-clefs liés au corps central,
+	ajout des mots-clefs position-sans-eclipse et
+	direction-sans-eclipse
+
+	* Field.cc: ajout de la méthode offsetFromBoundary
+
+	* Marmottes.cc: ajout de la méthode criteresControlabilite
+
+	* Makefile.am: renommage de SenseurHorizon en SenseurLimbe
+
+	* Senseur.cc: ajout de la méthode criteresControlabilite
+
+	* SenseurLimbe.cc: renommage de SenseurHorizon en SenseurLimbe,
+	élimination de la spécialisation de la méthode controlable, ajout
+	d'une spécialisation de la méthode ecartFrontiere
+
+	* SenseurOptique.cc: élimination de la méthode visible, ajout des
+	méthodes ecartFrontiere et criteresControlabilite
+
+2001-03-26  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Etat.cc: ajout des caractéristiques du corps central (et
+	correction du calcul du rayon angulaire fait de façon erronée dans
+	l'ancienne classe SenseurTerre)
+
+	* SenseurHorizon.cc: nouveau fichier créé à partir d'une
+	simplification de la classe SenseurTerre (les inhibitions étant
+	gérées dans la classe SenseurOptique)
+
+	* SenseurTerre.cc: élimination du fichier au profit de
+	SenseurHorizon.cc
+
+	* SenseurOptique.cc: prise en charge du traitement des inhibitions
+	implanté auparavant dans l'ancienne classe SenseurTerre
+
+	* SenseurDiedre.cc: mise à jour résultant de la modélisation
+	des inhibitions dans la classe SenseurOptique
+
+	* SenseurFonction.cc: mise à jour résultant de la modélisation
+	des inhibitions dans la classe SenseurOptique
+
+	* SenseurFonctionEchant1D.cc: mise à jour résultant de la
+	modélisation des inhibitions dans la classe SenseurOptique
+
+	* SenseurFonctionGauss.cc: mise à jour résultant de la
+	modélisation des inhibitions dans la classe SenseurOptique
+
+	* SenseurFonctionSinCard2.cc: mise à jour résultant de la
+	modélisation des inhibitions dans la classe SenseurOptique
+
+	* SenseurVecteur.cc: mise à jour résultant de la modélisation des
+	inhibitions dans la classe SenseurOptique
+
+	* Lecture.cc: factorisation de la lecture des champs d'inhibition
+	pour tous les capteurs optiques, renommage de la classe
+	SenseurTerre en SenseurHorizon, ajout de mots-clefs "horizon",
+	"corps-central" et "corps-central-soleil" en doublon de mots-clefs
+	existants et en prévision d'une évolution vers l'interplanétaire
+
+	* Makefile.am: remplacement de SenseurTerre.cc par SenseurHorizon.cc
+
+2001-03-23  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Braid.cc: introduction de conditions d'arrêt de boucles pour
+	éviter l'accès à des zones mémoires libérées
+
+	* Lecture.cc (LireSenseurFonctionEchant1D): suppression de fuites
+	de mémoire
+
+2001-02-27  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* InterfaceF.cc: ajout des fonctions MarmottesImposeAttitude et
+	MarmottesImposeSpin, élimination de constructions d'objets
+	inutiles
+
+	* InterfaceC.cc: ajout des fonctions MarmottesImposeAttitude et
+	MarmottesImposeSpin
+
+	* Marmottes.cc: ajout des méthodes Marmottes::imposeAttitude et
+	Marmottes::imposeSpin
+
+2001-02-16  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Field.cc: correction d'un mauvais comportement du test
+	d'inclusion de point lorsque le chemin passait trop près d'un
+	sommet de la frontière.
+
+2001-02-08  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Marmottes.cc: vidage de l'ancienne table des senseurs dans
+	l'affectation
+
+2001-02-07  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Marmottes.cc: remplacement de la classe non standard hash_map
+	par map, correction d'erreurs de copie des pointeurs de senseurs
+	dans le constructeur par copie et l'affectation (qui pouvait
+	conduire à des violations mémoire lorsque l'objet copié libérait
+	ses pointeurs)
+
+	* AnnotatedArc.cc: remplacement de PointerRegister par la classe set de la STL
+
+	* Node.cc: remplacement de PointerRegister par la classe set de la STL
+
+2001-01-25  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* ModeleCine.cc: modification de la valeur par défaut de la
+	vitesse maximale de rotation de 2 radians par seconde à 0.4 radian
+	par seconde
+
+	* SenseurCardan.cc: changement du type de refUtilInitialisee_ en
+	bool, correction d'une erreur de prise en compte du repère senseur
+
+2000-12-19  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Lecture.cc (LireElementsGeometriques): correction d'une
+	initialisation oubliée induisant des problèmes en cas de lancement
+	d'exception
+
+2000-11-21  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Field.cc (FindInOutPoints): remplacement d'un itérateur par un
+	pointeur pour permettre à la fonction d'être appelée sur des
+	frontières vides
+
+	* Makefile.am: modification de la numérotation de la bibliothèque
+	partagée par libtool
+
+2000-11-16  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* .cvsignore: ajout de libmarmottes.la
+
+	* Lecture.cc: ajout du senseur de fonction échantillonnée en
+	radial, modifications « cosmétiques » du code
+
+	* SenseurFonctionEchant1D.cc: nouveau fichier
+
+	* Makefile.am: utilisation de libtool, ajout de
+	SenseurFonctionEchant1D.cc
+
+	* MarmottesErreurs.cc: ajout des erreurs points_echantillon,
+	echantillon_vide et echantillon_rejete
+
+	* .cvsignore: ajout du répertoire .libs et des fichiers */lo
+
+2000-11-13  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* InterfaceF.cc, InterfaceC.cc, CallTrace.cc: changement des
+	fichiers d'inclusion
+
+	* Lecture.cc: changement des fichiers d'inclusion, remplacement de
+	la classe Champ par Field
+
+	* Champ.cc: élimination du fichier
+
+	* ParcelleElementaire.cc, ParcelleElementaire.cc,
+	ReunionOuParcelles.cc, ReunionEtParcelles.cc: remplacement de
+	TypeFoncConstChamp par Champ::TypeFoncConstChamp dans les
+	signatures des différentes méthodes applique
+
+	* Parcelle.cc: remplacement de la classe Champ par la classe Field
+	modification de la signature de la méthode pointSuivant
+
+	* MarmottesErreurs.cc: remplacement de l'erreur point_triple par
+	l'erreur echec_heuristique, ajout de l'erreur frontiere_ouverte,
+	changement des fichiers d'inclusion
+
+	* MarmottesVersion.cc: changement du nom du fichier d'inclusion
+
+	* Field.cc, Braid.cc, AnnotatedArc.cc, Node.cc: nouveaux fichiers
+
+	* Makefile.am: ajout des fichiers, Field.cc, Braid.cc,
+	AnnotatedArc.cc et Node.cc, élimination de Champ.cc
+	
+2000-10-10  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Marmottes.cc: correction de l'affichage manquant des valeurs de
+	retour des méthodes deuxConsignes et attitude lors des
+	extrapolations
+
+2000-10-09  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Marmottes.cc: initialisation de attitude et spin dès le début de
+	la résolution
+
+2000-10-06  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Marmottes.cc: élimination de la séparation entre états résolu et
+	extrapolé, elle engendrait des spins faux en calculant des
+	différences finies sur des états trop anciens lors des changements
+	de lois de contrôle
+
+2000-10-02  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Marmottes.cc: ajout d'un destructeur, prise en compte de
+	l'évolution de l'interface publique de CallTrace, remplacement de
+	certains attributs entiers en booléens
+
+	* MarmottesErreurs.cc: remplacement du terme gyroscope par gyromètre
+
+	* CallTrace.cc: remplacement des méthodes xxxArg par logXxx, ajout
+	des méthodes putToSleep et wakeUp
+
+	* Senseur.cc, SenseurGyroInteg.cc: remplacement d'attributs
+	entiers en booléens
+
+2000-09-18  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* SenseurFonctionGauss.cc: correction d'une conversion inutile
+	dans le constructeur, changement de sémantique du maximum,
+	désormais en dB
+
+	* SenseurFonctionSinCard2.cc: correction d'une conversion inutile
+	dans le constructeur, changement de sémantique du maximum,
+	désormais en dB
+
+2000-09-13  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* ModeleGeom.cc, ResolveurAttitude.cc, InterfaceF.cc,
+	SenseurFonctionSinCard2.cc, SenseurFonctionGauss.cc,
+	SenseurFonction.cc, SenseurVecteur.cc, SenseurOptique.cc,
+	SenseurGeometrique.cc, SenseurDiedre.cc, SenseurCardan.cc,
+	SenseurAlpha.cc, MarmottesErreurs.cc, Lecture.cc, Etat.cc:
+	remplacement de tous les ChaineSimple par des string
+
+	* Marmottes.cc: remplacement de tous les ChaineSimple par des
+	string et de Adressage par hash_map
+
+2000-09-08  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* CallTrace.cc: ajout des méthodes startResult et endResult,
+	suppression d'une inclusion inutile
+
+	* Marmottes.cc: ajout des résultats dans les traces d'exécution,
+	ajout du spin dans la trace de l'appel à reinitialise, transfert
+	des méthodes wMax, convergence, autoriseExtrapolation et
+	interditExtrapolation depuis le .h pour inclure les traces
+	d'exécution
+
+2000-09-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* CallTrace.cc: nouveau fichier
+
+	* InterfaceC.cc: ajout des fonctions MarmottesActiveTrace et
+	MarmottesDesactiveTrace
+
+	* InterfaceF.cc: ajout des fonctions marmottesactivetrace_ et
+	marmottesdesactivetrace_
+
+	* Makefile.am: ajout du fichier CallTrace.cc
+
+	* Marmottes.cc: ajout du mécanisme de trace d'exécution
+
+	* MarmottesErreurs.cc (formate): ajout des erreurs
+	ouverture_fichier, allocation_memoire, trace_inactif,
+	objet_inconnu
+
+2000-06-07  Geraldine FILAIRE  <Geraldine.Filaire@cnes.fr>
+
+	* SenseurFonctionSinCard2.cc (fonction): correction d'une erreur 
+	de syntaxe
+
+	* SenseurFonction.cc (modeliseConsigne): correction du nom de 
+	l'erreur
+
+	* ModeleCine.cc (attitude): correction d'une erreur de 
+	signe
+
+2000-06-07  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: ajout des fichiers SenseurFonction.cc,
+	SenseurFonctionGauss.cc et SenseurFonctionSinCard2.cc
+
+	* ModeleCine.cc (attitude): correction d'une erreur de valeur
+	absolue
+
+	* Lecture.cc (LireSenseur): ajout de la lecture des senseurs de
+	gain d'antenne en sinus cardianl et en gaussienne
+
+	* MarmottesErreurs.cc (formate): ajout de l'erreur
+	senseur_mesure_pure
+
+	* SenseurFonction.cc, SenseurFonctionSinCard2.cc,
+	SenseurFonctionGauss.cc: nouveau fichiers
+
+	* ResolveurAttitude.cc: repassage à 50 tranches pour éviter des
+	problèmes lors de l'utilisation de modèles cinématiques
+
+2000-04-17  Luc Maisonobe  <Luc.Maisonobe@free.fr>
+
+	* MarmottesErreurs.cc (formate): correction d'un message d'erreur
+
+2000-03-30  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* *.cc: ajout du copyright CNES
+
+2000-03-29  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Marmottes.cc (attitude, deuxConsignes): vérification de la
+	contrôlabilité des senseurs lors de l'extrapolation
+
+2000-03-14  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* ModeleCine.cc (attitude): correction d'une discontinuité du
+	modèle pour les spins faibles mais non nuls (introduction d'un
+	développement limité du sinus cardinal)
+
+2000-02-07  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* ResolveurAttitude.cc (ResolveurAttitude): passage de 50 tranches
+	à 5 tranches pour accélerer les calculs
+
+2000-01-07  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* MarmottesErreurs.cc (formate): élimination de la traduction
+	inutile des noms de senseurs dans les messages d'erreur
+
+	* Lecture.cc (LireSenseurCardan): correction du nom du senseur
+	dans les messages d'erreur
+
+2000-01-06  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Lecture.cc (LireSenseurCardan): correction de l'oubli des genres
+	LRT-lacet, LRT-roulis et LRT-tangage.
+
+1999-12-13  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* SenseurDiedre.cc (mesure): recalage de la mesure à moins d'un
+	demi-tour de la valeur de consigne, (foncEcart): recalage de la
+	mesure à moins d'un demi-tour de la valeur de consigne
+
+1999-10-15  Geraldine FILAIRE  <Geraldine.Filaire@cnes.fr>
+
+	* ModeleGeom.cc (prendConsignesEnCompte): modification du calcul
+	de cosGamma (ce n'est plus directement le produit scalaire de
+	a1Sat et a2Sat, mais on passe par la fonction angle de cantor),
+	pour s'affranchir de cos > 1
+
+1999-10-15  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* ModeleGeom.cc (prendConsignesEnCompte): transfert de la
+	responsabilité de la désallocation mémoire des familles à la
+	classe d'encapsulation Famille (pour corriger un bug de fuite
+	mémoire)
+
+	* Famille.cc (Famille): ajout d'un booléen dans le constructeur
+	par pointeur de façon à déterminer si l'instance peut prendre la
+	responsabilité de la désallocation mémoire ou si elle doit se
+	faire sa propre copie. (operator =): correction d'un bug de fuite
+	de mémoire lors de l'écrasement du pointeur précédent.
+
+1999-10-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* StationCible.cc (initMasque): correction d'un bug lors de la
+	copie de stations non initialisées (masque comportant 0 point), le
+	patch a été suggéré par Annie Gauzens.
+
+1999-09-14  Geraldine FILAIRE  <Geraldine.Filaire@cnes.fr>
+
+	* ModeleGeom.cc (prendConsignesEnCompte): ajout de marges sur le
+	domaine de validité de théta dans le cas particulier
+	(Mu1=Gamma=Pi/2) (précision machine)
+	(intersection): ajout de marges sur le domaine de validité de
+	théta (précision machine)
+
+	* FamilleGenerale.cc (inertielCanonique): test sur la valeur sous
+	l'arccos
+
+	* FamilleAlignementPlus.cc (inertielCanonique): test sur la
+	valeur sous l'arccos
+
+	* FamilleAlignementMoins.cc (inertielCanonique): test sur la
+	valeur sous l'arccos
+
+1999-08-20  Geraldine FILAIRE  <Geraldine.Filaire@cnes.fr>
+
+	* ModeleGeom.cc (prendConsignesEnCompte): suppression des marges
+	prises sur le domaine de validité de théta dans le cas particulier
+	(Mu1=Gamma=Pi/2)
+
+1999-08-16  Geraldine FILAIRE  <Geraldine.Filaire@cnes.fr>
+
+	* SenseurVecteur.cc: mise à jour des signatures des méthodes
+	(throw ...)
+
+	* SenseurTerre.cc: les méthodes "controlable et inhibe" deviennent
+	throw (MarmottesErreurs)
+
+	* SenseurOptique.cc: mise à jour des signatures des méthodes
+	(throw ...)
+
+	* SenseurGyroInteg.cc: mise à jour des signatures des méthodes
+	(throw ...)
+
+	* SenseurElevation.cc: mise à jour des signatures des méthodes
+	(throw ...)
+
+	* SenseurDiedre.cc: mise à jour des signatures des méthodes
+	(throw ...)
+
+	* SenseurDelta.cc: mise à jour des signatures des méthodes (throw
+	...)
+
+	* SenseurCinematique.cc: mise à jour des signatures des méthodes
+	(throw ...)
+
+	* SenseurCartesien.cc: mise à jour des signatures des méthodes
+	(throw ...)
+
+	* SenseurCardan.cc: la méthode "initialiseCible" devient throw
+	(MarmottesErreurs)
+
+	* SenseurAlpha.cc: mise à jour des signatures des méthodes (throw
+	...)
+
+	* Senseur.cc: mise à jour des signatures des méthodes (throw ...)
+
+	* ResolveurAttitude.cc (trouveTout): la méthode "est" throw
+	(CantorErreurs, MarmottesErreurs)
+
+	* MarmottesErreurs.cc: amélioration du message pour le
+	"cas_impossible"
+	création de l'erreur "rotation_bloc"
+	création de l'erreur "rotation_cardan"
+
+	* Marmottes.cc: mise à jour des signatures des méthodes (throw
+	...)
+
+	* Lecture.cc: mise à jour des signatures des méthodes (throw ...)
+
+	* InterfaceF.cc: suppression de catch inutiles
+
+	* InterfaceC.cc: suppression de catch inutiles
+
+1999-08-13  Geraldine FILAIRE  <Geraldine.Filaire@cnes.fr>
+
+	* MarmottesErreurs.cc (MarmottesErreurs): mise à jour par rapport
+	à Club-6.1, utilisation de stockeCode
+	(erreur): même chose
+
+1999-08-06  Geraldine FILAIRE  <Geraldine.Filaire@cnes.fr>
+
+	* ModeleCine.cc (miseAJourOmegaMax): utilisation des exceptions =>
+	changement de signature de la méthode
+
+	* Lecture.cc: utilisation des exceptions => changement de signature
+	de l'ensemble des méthodes
+
+	* ResolveurAttitude.cc (modeliseConsignes): utilisation des
+	exceptions => changement de signature de la méthode
+	(modeliseConsignes): même chose
+	(miseAJourConvergence): même chose
+	(miseAJourDichotomie): même chose
+	(deuxConsignes): même chose
+	(trouveTout): même chose
+	(elimineExcedentaires): même chose
+
+	* InterfaceF.cc: utilisation des exceptions
+
+	* InterfaceC.cc: utilisation des exceptions
+
+	* Etat.cc (unitesPositionVitesse): utilisation des
+	exceptions => changement de signature de la méthode
+	(normesLitigieuses): même chose
+
+	* SenseurTerre.cc (controlable): utilisation des
+	exceptions => changement de signature de la méthode
+	(inhibe): même chose
+
+	* SenseurVecteur.cc (modeliseConsigne): utilisation des
+	exceptions => changement de signature de la méthode
+	(mesure): même chose
+
+	* SenseurElevation.cc (modeliseConsigne): utilisation des
+	exceptions => changement de signature de la méthode
+	(mesure): même chose
+
+	* SenseurDiedre.cc (modeliseConsigne): utilisation des
+	exceptions => changement de signature de la méthode
+	(mesure): même chose
+
+	* SenseurDelta.cc (modeliseConsigne): utilisation des
+	exceptions => changement de signature de la méthode
+	(mesure): même chose
+
+	* SenseurCartesien.cc (modeliseConsigne): utilisation des
+	exceptions => changement de signature de la méthode
+	(mesure): même chose
+
+	* SenseurGeometrique.cc (verifieConsigne): utilisation des
+	exceptions => changement de signature de la méthode
+
+	* SenseurAlpha.cc (modeliseConsigne): utilisation des exceptions
+	=> changement de signature de la méthode
+	(mesure): même chose
+
+	* SenseurCardan.cc (metAJourReference): utilisation des exceptions
+	=> changement de signature de la méthode
+	(modeliseConsigne): même chose
+	(mesure): même chose
+	(modifieReference): même chose
+
+	* SenseurOptique.cc (initialiseCible): utilisation des exceptions
+	=> changement de signature de la méthode
+	(modifieCible): même chose
+
+	* Senseur.cc (calage): utilisation des exceptions => changement de
+	signature de la méthode
+	(modeliseConsigne): même chose
+
+	* SenseurCinematique.cc (mesure): utilisation des exceptions =>
+	changement de signature de la méthode
+	(modeliseConsigne): même chose
+
+	* SenseurGyroInteg.cc (mesure): utilisation des exceptions =>
+	changement de signature de la méthode
+	(prendEtatEnCompte): même chose
+	(initialiseGyro): même chose
+	(modeliseConsigne): même chose
+
+	* Marmottes.cc: gestion des erreurs par le mécanisme des exceptions
+
+1999-07-12  Geraldine FILAIRE  <filaire@cnes.fr>
+
+	* ResolveurAttitude.cc (modeliseConsignes): utilisation des exceptions =>
+	appel de prendConsignesEnCompte modifié
+	(modeliseConsignes): même chose
+
+	* ModeleCine.cc (prendConsignesEnCompte): utilisation des exceptions =>
+	changement de signature de la méthode + throw de l'erreur
+
+	* ModeleGeom.cc: remodélisation complète de la classe
+	et de l'ensemble de ses méthodes, création d'une table de Famille,
+	utilisation de la STL
+
+	* FamilleProlongementZero.cc: création de la classe pour correction de bug
+
+	* FamilleProlongementPi.cc: création de la classe pour correction de bug
+
+	* FamilleGenerale.cc: création de la classe pour correction de bug
+
+	* FamilleFixe.cc: création de la classe pour correction de bug
+
+	* FamilleAlignementPlus.cc: création de la classe pour correction de bug
+
+	* FamilleAlignementMoins.cc: création de la classe pour correction de bug
+
+	* FamilleAbstraite.cc: création de la classe pour correction de bug
+
+	* Famille.cc: création de la classe pour correction de bug
+
+1999-07-06  Geraldine FILAIRE  <filaire@cnes.fr>
+
+	* Makefile.am: suppression de Continuite.cc, de ModeleGeomDomaine.cc, 
+	de ModeleGeomV1Fixe.cc.
+	Ajout de Famille.cc, FamilleAbstraite.cc, FamilleAlignementMoins.cc,
+	FamilleAlignementPlus.cc, FamilleFixe.cc, FamilleGenerale.cc,
+	FamilleProlongementPi.cc, FamilleProlongementZero.cc
+	
+
+1999-05-18  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Champ.cc: utilisation du type bool et de la STL
+
+1999-04-26  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Secteurs.cc (modifieReference): nouvelle méthode
+
+	* StationCible.cc (correctionTropoInverse): remplacement de abs par fabs
+
+	* SenseurOptique.cc (cibleNadir): remplacement de abs par fabs
+
+	* SenseurGyroInteg.cc (modeliseConsigne): remplacement de abs par fabs
+
+	* ResolveurAttitude.cc (trouveTout): remplacement de abs par fabs
+	(elimineExcedentaires): remplacement de abs par fabs
+
+	* Marmottes.cc (deuxConsignes): remplacement de abs par fabs
+	(attitude): remplacement de abs par fabs
+
+	* Etat.cc (spinExtrapole): remplacement de abs par fabs
+
+	* Champ.cc (appliqueMarge): remplacement de abs par fabs
+
+1999-04-23  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* MarmottesErreurs.cc (formate): ajout de erreur_non_reconnue
+
+	* TableInstances.cc (CopieMessageC): élimination de la fonction
+	(InstanceInitialisee): utilisation des exceptions et changement de
+	signature
+
+	* InterfaceC.cc: ajout de blocs try/catch dans toutes les
+	fonctions d'interface
+	(CopieMessageC): nouvelle fonction
+
+	* InterfaceF.cc: ajout de blocs try/catch dans toutes les
+	fonctions d'interface
+
+1999-04-20  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* SenseurTerre.cc (filtreSecteurs): ajout d'une spécialisation de
+	la fonction, pour ne rien filtrer
+	(modeliseConsigne): élimination de la spécialisation
+
+	* SenseurDiedre.cc (modeliseConsigne): ajout systématique du
+	filtrage par le champ de vue (la fonction de filtrage peut être
+	redéfinie dans les classes derivées, par exemple SenseurTerre),
+	(modeliseConsigneSansFiltre): élimination de la fonction
+
+	* SenseurOptique.cc (filtreSecteurs): transfert de la fonction du
+	.h au .cc
+
+1998-11-06  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* SenseurOptique.cc (initialiseCible): ajout de la cible "nadir"
+
+	* Lecture.cc (LireElementsGeometriques): ajout de la cible "nadir"
+
+1998-10-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: utilisation de libmarmottes_a_LIBADD pour gérer les
+	fichiers objets créés lors de l'instanciation des templates
+	(compilateur Sun)
+
+	* SenseurTerre.cc: importation de la constante
+	rayonInfrarougeTerre depuis le .h pour contourner un bug du
+	compilateur Sun
+
+	* TableInstances.cc (EtendreTable): ajout d'un typedef pour aider
+	le compilateur Sun à comprendre une allocation de table de
+	pointeurs
+
+	* ModeleCine.cc (attitude): contournement d'un bug du compilateur
+	Sun, (prendConsignesEnCompte): élimination de la constante
+	DBL_EPSILON pour éviter les problèmes de portabilité
+
+	* MarmottesErreurs.cc: [STDC_HEADERS]: inclusion de stlib.h pour
+	avoir le prototype de exit
+
+	* Marmottes.cc (initialiseGyro, modifieCible, modifieReference):
+	élimination de spécifications de valeur par défaut (elles sont
+	dans le fichier d'en-tête)
+
+	* Etat.cc (unitesPositionVitesse): élimination d'une spécification
+	de valeur par défaut (elle est dans le fichier d'en-tête)
+
+1998-09-12  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* SenseurVecteur.cc (modeliseConsigne): vérification de la
+	consigne modélisée
+
+	* SenseurElevation.cc (modeliseConsigne): vérification de la
+	consigne modélisée
+
+	* SenseurDelta.cc (modeliseConsigne): vérification de la consigne
+	modélisée
+
+	* SenseurCartesien.cc (modeliseConsigne): vérification de la
+	consigne modélisée
+
+	* SenseurCardan.cc (modeliseConsigne): vérification de la consigne
+	modélisée
+
+	* SenseurGeometrique.cc (verifieConsigne): nouvelle fonction
+
+	* MarmottesErreurs.cc (formate): ajout de l'erreur
+	consigne_degeneree
+
+	* ModeleGeom.cc (prendConsignesEnCompte): simplification d'un test
+
+	* ModeleGeomDomaine.cc: élimination de caractères de contrôle
+	parasites devant des accents dans l'en-tête
+
+1998-08-11  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* MarmottesErreurs.cc (formate): ajout des listes de genres et de
+	repères reconnus pour les senseurs de Cardan dans les messages
+
+	* SenseurCardan.cc (modeliseConsigne): utilisation de l'erreur
+	cas_impossible à la place de genre_cardan_inconnu,
+	(mesure): utilisation de l'erreur cas_impossible à la place de
+	genre_cardan_inconnu
+
+	* Marmottes.cc (modifieCible): prise en compte des unités
+	position-vitesse
+
+1998-08-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* SenseurCardan.cc (modifieReference): initialisation d'attributs
+	spécifiques pour le repère utilisateur,
+	(metAJourReference): copie du repère utilisateur dans le repère
+	courant, correction de l'influence du repère senseur,
+	(modeliseConsigne): correction de l'influence du repère senseur
+	(operator =): copie du repère utilisateur
+
+1998-08-03  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* ModeleGeom.cc (consignesGenerales): séparation des modèles plus
+	et moins en deux instances de ModeleGeomDomaine
+
+	* ModeleGeomDomaine.cc (prolonge, vecteurs): réduction de
+	l'intervalle de la variable de résolution entre 0 et +1,
+	(prendConsignesEnCompte): séparation des modèles plus et moins en
+	deux instances
+
+	* ModeleGeomV1Fixe.cc (attitude): réduction de l'intervalle de la
+	variable de résolution entre 0 et +1
+
+	* ModeleCine.cc (attitude): réduction de l'intervalle de la
+	variable de résolution entre 0 et +1
+
+	* ResolveurAttitude.cc (deuxConsignes, trouveTout): réduction de
+	l'intervalle de la variable de résolution entre 0 et +1
+
+1998-07-31  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* TableInstances.cc: inclusion de MarmottesConfig.h
+
+	* MarmottesVersion.cc: utilisation de la macro définie
+	par configure
+
+	* InterfaceF.cc: inclusion de MarmottesConfig.h
+
+	* Lecture.cc [HAVE_STDLIB_H]: inclusion de stdlib.h
+
+	* StationCible.cc: remplacement de math.h par cantor/MathPi.h
+
+1998-07-30  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* .cvsignore: nouveau fichier
+
+	* Makefile.am: nouveau fichier
+
+1998-07-20  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* MarmottesErreurs.cc (formate): ajout de l'erreur
+	consignes_incompatibles
+
+	* ModeleGeom.cc (prendConsignesEnCompte): détection des
+	consignes incompatibles
+
+1998-07-10  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Lecture.cc (LireSenseurGyroInteg): nouvelle fonction
+	(LireSenseur): reconnaissance des gyros intégrateurs
+
+	* SenseurGyroInteg.cc: nouveau fichier
+
+1998-07-09  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* SenseurOptique.cc (modifieCible) : nouvelle fonction,
+	(initialiseCible) : ajout des cibles "position" et "direction"
+
+	* SenseurCardan.cc (metAJourReference, modifieReference) : nouvelles
+	fonctions, (modeliseConsigne, mesure) : ajout des senseurs de
+	troisième rotation
+
+	* MarmottesErreurs.cc (formate) : remplacement de cardan_inconnu
+	par genre_cardan_inconnu, ajout des erreurs reference_cardan_inconnue,
+	cible_utilisateur, modifie_cible, senseur_sans_cible,
+	pas_gyro_integrateur, reference_utilisateur, modifie_reference,
+	senseur_sans_reference, cas_impossible
+
+	* Lecture.cc (LireSenseurCardan) : nouvelle fonction,
+	(LireSenseur) : utilisation d'un seul type pour les senseurs de Cardan,
+	(LireElementsGeometriques) : ajout des cibles "position" et "direction"
+
+	* InterfaceF.cc (marmottesmodifiecible_, marmottesinitialisegyro_,
+	marmottesmodifiereference_) : nouvelles fonctions
+
+	* InterfaceC.cc (MarmottesModifieCible, MarmottesInitialiseGyro,
+	MarmottesModifieReference) : nouvelles fonctions
+
+	* Marmottes.cc (modifieCible, initialiseGyro, modifieReference,
+	valideNouvelEtat) : nouvelles fonctions

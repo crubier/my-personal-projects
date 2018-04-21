@@ -1,0 +1,144 @@
+% -*- mode: latex; tex-main-file: "cantor.tex" -*-
+% $Id: conventions.tex,v 1.5 2000/11/21 15:37:06 cantor Exp $
+Un certain nombre de principes ont été respectés lors de la conception
+et du développement de cette bibliothèque. Ces principes sont placés
+en exergue ici et ne seront pas répétés lors de la description des
+classes et des méthodes.
+
+\subsection{conventions de nommage}
+{\setlength{\leftmargini}{10mm}\begin{itemize}
+
+\item chaque mot constitutif d'un nom de classe est capitalisé
+(exemple : \texttt{ArcIterateur}) ;
+
+\item le premier mot constitutif des méthodes et des attributs est en
+minuscules, mais les mots suivants sont capitalisés (exemple :
+\texttt{ArcIterateur}\verb=::=\texttt{nbPoints ()}) ;
+
+\item les noms des attributs se terminent par le caractère
+'\verb=_=' (exemple : \texttt{ArcIterateur}\verb=::=\texttt{arc\_});
+
+\item les noms des fichiers déclarant ou implantant les classes sont
+les noms des classes, auxquels on ajoute le suffixe \texttt{.cc} ou
+\texttt{.h} (exemple : \texttt{ArcIterateur.cc}) ;
+
+\item les noms des fichiers sources n'implantant pas de classes
+suivent la même convention de nommage, par homogénéité (exemple :
+\texttt{Resolution1.cc}).
+
+\end{itemize}}
+
+\subsection{retour des erreurs}
+Traditionnellement, les fonctions \langage{c} générant une erreur
+retournent un entier non nul représentant le code d'erreur, et
+retournent 0 en cas de succès. Cette convention est respectée,
+cependant il s'avère que dans une bibliothèque un entier n'est pas
+suffisant pour que l'appelant génère un message d'erreur pertinent ;
+de plus en \langage{c++} les constructeurs ne retournent aucune valeur
+qui puisse être testée. La convention adoptée est donc que le code de
+l'erreur (destiné à être testé par l'appelant) et le message d'erreur
+(destiné à être lu par l'opérateur) sont également retournés dans une
+instance de classe spécialisée (dérivée de BaseErreurs) fournie par
+l'appelant.
+
+\begin{itemize}
+\item Si la fonction ne retourne pas de valeur testable simplement (par
+exemple un constructeur), l'instance d'erreur peut elle-même être
+testée ;
+\item L'appelant peut s'abstenir de fournir l'instance pour le retour des
+erreurs\footnote{l'instance est généralement fournie sous la forme
+d'un pointeur optionnel en dernier argument}, auquel cas l'erreur est
+générée dans un objet local qui est soit retourné à l'appelant par le
+mécanisme des exceptions soit construit puis détruit localement ;
+\item Lorsqu'une instance d'erreur contenant un compte rendu d'echec est
+détruite, son destructeur a pour effet de bord de réaliser l'affichage
+du message, à l'aide d'une fonction qui peut être personnalisée par
+l'utilisateur.
+\end{itemize}
+
+Ce mécanisme offre l'avantage de couvrir des besoins relativement
+larges. Dans le cadre d'un développement rapide de code
+\emph{jetable}, on ne se préoccupe de rien, on ne donne pas les instances
+pour les erreurs, et on peut même s'abstenir de tester les codes de
+retour. Les erreurs sont alors générées et affichées à très bas niveau
+par la bibliothèque elle-même.
+
+Dans le cadre d'un développement ayant des objectifs de qualité élevés
+on peut dissocier la génération du message de son affichage en
+permettant à l'appelant de récupérer l'erreur (soit par exceptions
+soit en fournissant lui-même les instances pour les erreurs) et de
+décider s'il doit la corriger (pour éviter son affichage au moment de
+la destruction de l'objet) ou arrêter proprement ses traitements.
+
+Il est intéressant de remarquer que dans tous les cas (même pour un
+développement rapide) la génération du message est faite à très bas
+niveau, là où l'on dispose de l'information la plus complète, et que
+le formatage de la chaîne de caractères peut être réalisé dans la
+langue de l'utilisateur si l'environnement comporte les fichiers de
+traduction des formats internes (si l'environnement n'est pas en
+place, un message est tout de même affiché, mais bien sûr sans
+traduction).
+
+Un exemple typique de traitement d'erreur est donné par les lignes
+suivantes, dans lesquelles l'utilisateur donne l'instance d'erreur (la
+variable \texttt{ce}) dans le seul but de pouvoir tester le résultat
+de la construction de l'objet RotDBL, mais ne fait pas grand chose de
+plus (il sait que la destruction de cet objet au moment où le
+\texttt{return 1} sera exécuté affichera proprement les problèmes) :
+\newlength{\largeurCode}
+\settowidth{\largeurCode}{\ttfamily
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+}
+\begin{center}\begin{minipage}{\largeurCode}\begin{verbatim}
+#include "cantor/DeclDBL.h"
+
+int main (int argc, char **argv)
+{ CantorErreurs ce;
+
+  double matrice [3][3];
+  litMatrice (matrice);
+
+  RotDBL rotation (matrice, 1.0e-6, &ce);
+  if (ce.existe ())
+    return 1;
+
+  VecDBL axe = rotation.axe ();
+  (void) printf ("la rotation a pour axe :"
+                 " (%9.6f, %9.6f, %9.6f), et pour angle :"
+                 " %8.4f degrés\n",
+                 axe.x (), axe.y (), axe.z (), degres (rotation.angle ()));
+
+  // fin normale du programme
+  return 0;
+
+}
+\end{verbatim}\end{minipage}\end{center}
+
+\subsection{utilisation de la \bibliotheque{stl}}\label{subsec:util-stl}
+
+Comme celle du \langage{c}, la norme \langage{c++} comprend la
+définition d'une bibiliothèque standard dont la majorité des fonctions
+et des patrons de classes provient de la Standard Template Library
+(\bibliotheque{stl}).
+
+Cette bibiliothèque fournit un ensemble de composants
+génériques structurés en \langage{c++}. Ces composants ont été créés
+dans le but de pouvoir être utilisés à la fois sur les structures
+fournies par la bibliothèque et sur les structures du langage \langage{c++}.  
+
+La bibiliothèque \bibliotheque{club} implémente des classes et
+fonctions dont certaines s'apparentent à celles présentées par la
+\bibliotheque{stl}. Comme il est fortement conseillé de suivre les
+standards de codage, la version 5.3 de \bibliotheque{cantor} utilise
+les classes de la \bibliotheque{stl} plutôt que leur équivalent
+\bibliotheque{club} et notamment la classe string au lieu de ChaineSimple. 
+
+L'implémentation de la classe CantorErreurs (seule
+utilisatrice de ChaineSimple) s'en trouve ainsi modifiée. Néanmoins,
+comme les méthodes concernées sont déclarées protégées, aucune
+évolution sur les codes utilisateurs de \bibliotheque{cantor} n'a besoin
+d'être réalisée.
+
+Par ailleurs, le document~\ref{ref:club} fournit les informations nécessaires pour
+substituer efficacement les ChaineSimples par des strings dans les
+codes utilisateurs des bibliothèques \bibliotheque{chope}.

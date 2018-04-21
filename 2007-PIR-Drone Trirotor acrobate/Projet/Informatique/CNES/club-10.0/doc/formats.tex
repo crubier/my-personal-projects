@@ -1,0 +1,598 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+% $Id: formats.tex,v 1.2 2005/03/11 16:27:57 chope Exp $
+
+\subsection{fichiers structurés}\label{sec:format-fichiers-structures}
+\emph{Le format des fichiers structurés est le format historique supporté
+par \bibliotheque{club}. Il n'est dans la pratique utilisé que par la
+bibliothèque \bibliotheque{marmottes} pour les descriptions des
+senseurs. Il a été créé un peu avant le format Madona, et longtemps
+avant que \bibliotheque{club} ne s'interface avec la bibliothèque
+\bibliotheque{madona}. Ce format est désormais considéré comme
+obsolète et les nouveaux développements ne devraient pas s'appuyer sur
+celui-ci mais plutôt sur les formats madona (voir la
+section~\ref{sec:format-fichiers-Madona}) et XML (voir la
+section~\ref{sec:format-fichiers-XML}). Ce format est conservé pour le
+support des fichiers senseurs de \bibliotheque{marmottes}.}
+
+Le principe des fichiers structurés a été élaboré afin de permettre
+une représentation textuelle de structures de données imbriquées avec
+un nombre de niveaux quelconque non déterminé à l'avance, mais
+découvert au cours de la lecture du fichier. Ceci permet en
+particulier de décrire des structures récursives (par exemple une
+rotation peut être définie par combinaison d'autres rotations).
+
+L'analyse est contrôlée par le programme, qui va chercher les blocs
+dont il a besoin les uns après les autres, inspecte leur contenu, et
+éventuellement fonde ses choix sur les valeurs lues. Il ne s'agit
+absolument pas d'un \emph{langage}, pour lequel ce serait plutôt le
+texte du fichier qui contrôlerait le programme lecteur (traduction
+dirigée par la syntaxe).
+
+Les lexèmes des fichiers structurés sont le marqueur de commentaire
+\texttt{\#}, les délimiteurs \texttt{\{} et \texttt{\}}, les
+séparateurs (espace, tabulation, fin de ligne), et les champs (suite
+de caractères n'appartenant à aucune des catégories précédentes).
+
+Les commentaires s'étendent du marqueur \texttt{\#} à la fin de la
+ligne, il peut y avoir des données entre le début de ligne et les
+commentaires.
+
+Hormis leur rôle de séparation des champs, les séparateurs n'ont
+aucune fonction dans la syntaxe des fichiers structurés, l'utilisateur
+peut en user à loisir pour améliorer la lisibilité de son fichier en
+jouant sur les lignes vides et l'indentation.
+
+\subsubsection{Blocs}
+Toute donnée qu'elle soit élémentaire ou composée est définie dans un
+bloc entre accolades précédé par un nom, la donnée est repérée dans le
+fichier par le nom de son bloc. On peut ainsi définir un fichier de
+constantes par :
+
+\begin{exemple}{blocs de données}{pi \{3.14\}}\begin{verbatim}
+pi {3.14}
+e  {2.17}
+\end{verbatim}\end{exemple}
+
+Seul le nom est utilisé pour accéder à la donnée, l'ordre des blocs
+dans le fichier est indifférent. Les blocs sans nom sont autorisés (on
+utilise alors une chaîne vide en guise de nom dans les routines
+d'accès). Le bloc étant référencé par son nom, il ne faut pas que deux
+blocs différents portent le même nom à l'intérieur d'une zone de
+recherche unique. La casse utilisée pour les caractères du nom
+\emph{est} significative.
+
+\subsubsection{Données élémentaires}
+Une donnée élémentaire est une donnée ne contenant pas de sous-bloc
+(pas d'accolades imbriquées). Une donnée élémentaire peut contenir un
+ou plusieurs champs, alphabétiques et numériques, séparés par des
+blancs (espace, tabulation, fins de lignes). On accède à ces champs
+par leur numéro, l'ordre est donc important à l'intérieur d'un bloc
+élémentaire, comme le montre l'exemple~\ref{expl:elementaires} :
+
+\begin{exemple}{différents types de blocs élémentaires}
+{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\label{expl:elementaires}\begin{verbatim}
+cible      {Soleil}
+precision  {0.1}                 # unités : degrés
+axe        {0.707  0.707  0.0 }  #  <--  attention à l'ordre !!!
+\end{verbatim}\end{exemple}
+
+\subsubsection{Données composées}
+Une donnée composée est décrite par un bloc contenant des sous-blocs
+(accolades imbriquées). Chaque sous-bloc a un nom (qui peut être vide)
+et l'ordre des sous-blocs est indifférent. En fait l'accès à un
+sous-bloc à partir d'un bloc est similaire à l'accès à un
+bloc depuis le fichier, exactement comme si un bloc n'était qu'un
+sous-bloc du fichier\footnote{ce n'est pas un hasard, c'est implanté
+exactement de cette façon ...}. La recherche d'un sous-bloc étant
+limitée par le bloc englobant, deux blocs différents peuvent contenir
+un sous-bloc de même nom sans ambiguïté.
+
+\begin{exemple}{bloc composé}
+{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\label{expl:compose}\begin{verbatim}
+cone { # cône d'axe i et d'angle pi/2 : demi-espace x > 0
+       axe   {1.0  0.0  0.0}
+       angle {90.0}
+     }
+\end{verbatim}\end{exemple}
+
+
+Cette syntaxe permet de décrire une donnée structurée même à
+définition récursive (comme un arbre) mais pas de donnée engendrant
+une récursivité infinie (par exemple une liste dont la fin
+rebouclerait sur le début). Un programme prévu pour lire des données
+récursives recherche d'abord les blocs principaux, en extrait les
+sous-blocs, puis les sous-sous-blocs, jusqu'aux blocs élémentaires, à
+chaque fois par le nom. Selon la façon dont cette structure générale
+est spécialisée, on peut soit avoir des imbrications figées (un
+fichier est composé des blocs A, B et C, C étant décomposé en C1 et
+C2), soit avoir des imbrications variables (un fichier est composé
+d'un bloc état et d'un bloc liste, un bloc liste étant soit un bloc
+élémentaire - une tête de liste - soit composé d'un bloc tête
+élémentaire et d'un bloc queue, la queue étant une liste).
+
+\subsubsection{Inclusions}
+Il est souvent utile de séparer des données ayant trait à des domaines
+différents (par exemple les vrais senseurs d'un côté, les
+pseudo-senseurs de l'autre), la syntaxe des fichiers structurés
+propose donc un mécanisme d'inclusion de fichiers.
+
+Le principe est que seul le nom du fichier \emph{primaire} est fourni
+aux routines d'accès, mais que si ce fichier contient une chaîne du
+type : \texttt{<\relax autre>\relax}, l'ensemble de cette chaîne
+(caractères \texttt{<\relax} et \texttt{>\relax} compris) doit être
+remplaçé par le contenu du fichier \texttt{autre}. Si le nom
+\texttt{autre} commence par un caractère~\texttt{/} (par exemple
+\texttt{<\relax/usr/local/senseurs/ires.fr>\relax}), il est utilisé
+tel quel. Si le nom ne commence pas par \texttt{/}, il est ajouté à la
+fin du nom du répertoire dans lequel le fichier primaire a été ouvert,
+pour constituer le nom complet du fichier à ouvrir (avec un \texttt{/}
+entre le nom du répertoire et le nom \texttt{autre}).
+
+\subsubsection{Héritage}
+Il est fréquent de prévoir dans un fichier plusieurs configurations
+pour un même senseur (avec ou sans inhibition, selon plusieurs modes
+de fonctionnement, en considérant tous les exemplaires montés
+différemment,~...). Une grande partie des données de chaque
+configuration est alors similaire, et dupliquer les blocs qui les
+définissent conduit vite à de très gros fichiers.
+
+\begin{exemple}{duplication d'informations}
+{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\label{expl:duplication}\begin{verbatim}
+config_1  { structure_complexe {...}
+            valeur {1}
+          }
+config_2  { structure_complexe {...} # duplication des valeurs de config_1
+            valeur {2}
+          }
+
+  ...
+
+config_12 { structure_complexe {...} # duplication des valeurs de config_1
+            valeur {12}
+           }
+\end{verbatim}\end{exemple}
+
+
+Si le bloc \texttt{structure\_complexe} est difficile à décrire, le
+dupliquer dans le fichier est lourd, peu lisible, et peut conduire à
+des erreurs en cas de modification (il faut bien penser à mettre à
+jour toutes les occurences distinctes dans le fichier simultanément).
+
+Pour pallier à ce genre de problème, la syntaxe générale propose un
+mécanisme d'héritage : si au moment de la recherche d'un bloc (ou d'un
+sous-bloc) on ne trouve pas le nom désiré dans la zone de recherche
+(le bloc englobant ou le fichier complet), alors on regarde s'il n'y a
+pas un bloc élémentaire nommé \texttt{=>\relax}\footnote{on peut lire
+\texttt{=>\relax} comme : « \emph{voir aussi} »}, le contenu de ce
+bloc est interprété comme le nom d'un bloc dans lequel on peut puiser
+les sous-blocs manquants.
+
+L'exemple~\ref{expl:duplication} peut être reproduit en évitant la
+duplication à l'aide de ce mécanisme :
+
+\begin{exemple}{utilisation de l'héritage pour
+éviter la duplication}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\label{expl:heritage}\begin{verbatim}
+config_1  { structure_complexe { ... }
+           valeur { 1 }
+          }
+config_2  { valeur { 2 }  => { config_1 } }
+
+ ...
+
+config_12 { valeur { 12 } => { config_1 } }
+\end{verbatim}\end{exemple}
+
+Le nom du bloc référencé par le pointeur d'héritage \texttt{=>\relax}
+est interprété au niveau fichier, c'est-à-dire qu'il est recherché
+dans tout le fichier et non à l'intérieur d'un bloc particulier qui
+l'engloberait. Il est cependant possible d'hériter des données d'un
+sous-bloc si l'on précise son chemin d'accès complet, avec tous ses
+blocs ancêtres séparés par des points.
+
+\begin{exemple}{héritage de sous-blocs}
+{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\label{expl:heritage-sous-bloc}\begin{verbatim}
+primaire  { secondaire { tertiaire { i { 1 0 0 }
+                                     j { 0 1 0 }
+                                     k { 0 0 1 }
+                                   }
+                       }
+          }
+repere    { => { primaire.secondaire.tertiaire } } # on hérite de i, j, k
+\end{verbatim}\end{exemple}
+
+Il est important de remarquer que ce mécanisme d'héritage n'est
+utilisé que pour la recherche de blocs \emph{nommés}, on ne peut pas
+l'utiliser pour hériter un champ d'un bloc élémentaire\footnote{ce
+serait à la fois difficile à mettre en place, peu lisible, et peu
+utile}.
+
+Les mécanismes d'inclusion et d'héritage peuvent être utilisés
+conjointement pour mettre en place des senseurs complexes possédant
+des données ajustables profondément enfouies au sein des structures de
+données. La démarche recommandée est alors de décrire dans un fichier
+unique la structure complète, en héritant les parties variables d'un
+bloc de \emph{paramétrage} externe à ce fichier. L'utilisateur voulant
+utiliser un tel senseur doit alors inclure le fichier générique dans
+son fichier de senseurs et définir lui-même les données du bloc de
+paramétrage. Si de plus il décide d'isoler le bloc de paramétrage dans
+un fichier inclus, il limite considérablement les risques liés à
+l'édition manuelle de ce fichier pour ajuster le senseur (par exemple
+pour suivre les ajustements de paramètres selon les télécommandes).
+
+Les exemples~\ref{expl:complexe-1}, \ref{expl:complexe-2} et
+\ref{expl:complexe-3} montrent ainsi que dans le (très) complexe
+fichier \texttt{std15.fr} (situé dans le répertoire \texttt{exemples}
+de la distribution de la bibliothèque \bibliotheque{marmottes}), des
+pointeurs vers des sous-blocs numérotés de
+\texttt{STD15\_PARAMETRES.ZPT1} à \texttt{STD15\_PARAMETRES.ZPT4} ont
+été prévus pour définir les angles de début des zones de présence
+Terre, des pointeurs vers un sous-bloc \texttt{STD15\_PARAMETRES.LG}
+permettant de définir la longueur commune de toutes ces
+zones. L'utilisateur peut ainsi prendre en compte les capacités de
+programmation du champ de vue du senseur. D'autre part dès lors que le
+bloc \texttt{STD15\_PARAMETRES} est défini dans un fichier indépendant
+inclus par le fichier primaire, la modification des angles de
+programmation est simple et peu risquée.  \glossary{[IRES] : Infra Red
+Earth Sensor}
+
+\begin{exemple}{extrait de senseurs.fr}
+{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\label{expl:complexe-1}\begin{verbatim}
+<parametrage.fr>
+<std15.fr>
+IRES_ROULIS { repere { ... } => { STD15_BASE_ROULIS } }
+\end{verbatim}\end{exemple}
+
+\begin{exemple}{extrait de parametrage.fr}
+{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\label{expl:complexe-2}\begin{verbatim}
+STD15_PARAMETRES { ZPT1 { angle { 80.15 } }
+                   ZPT2 { angle {  0.00 } }
+                   ZPT3 { angle { 81.57 } }
+                   ZPT4 { angle {  1.41 } }
+                   LG   { angle {  9.84 } }
+                 }
+\end{verbatim}\end{exemple}
+
+\begin{exemple}{extrait de std15.fr}
+{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\label{expl:complexe-3}\begin{verbatim}
+STD15_BASE_ROULIS
+{ ...
+  zone_1
+  { { => { STD15_BASE_ROULIS.trace_1_sans_masque } }
+    inter
+    { { rotation { axe { 0 1 0 } => { STD15_PARAMETRES.ZPT1 } }
+        de       { cone { axe { 0 0 1 } angle { 90 }}}
+      }
+      inter
+      { rotation { rotation { axe { 0 1 0 } => { STD15_PARAMETRES.ZPT1 } }
+                   de       { axe { 0 1 0 } => { STD15_PARAMETRES.LG   } }
+                 }
+        de       { cone { axe { 0 0 -1 } angle { 90 } } }
+      }
+    }
+  }
+  ...
+}
+\end{verbatim}\end{exemple}
+
+\subsection{fichiers Madona}\label{sec:format-fichiers-Madona}
+
+Le format Madona est le format supporté par la bibliothèque du même
+nom. Il est supporté de façon optionnelle par \bibliotheque{club}
+depuis la version 8.0, sous réserve que la bibliothèque ait été
+configurée en ce sens (voir la section~\ref{sec:installation},
+page~\pageref{sec:installation}) en s'appuyant directement sur la
+bibliothèque \bibliotheque{madona} elle-même. Ce format est décrit
+dans la documentation Madona \ref{ref:madona-util}.
+
+\subsection{fichiers XML}\label{sec:format-fichiers-XML}
+
+Le format XML est une instanciation XML spécifique à
+\bibliotheque{club}. Il est supporté de façon optionnelle par
+\bibliotheque{club} depuis la version 8.0, sous réserve que la
+bibliothèque ait été configurée en ce sens (voir la
+section~\ref{sec:installation}, page~\pageref{sec:installation}) en
+s'appuyant sur la bibliothèque \bibliotheque{xerces}, et a été
+complètement revu pour la version 10.0.
+
+Le principe adopté lors de la création de ce format a été de réaliser
+les vérifications de structuration de bas niveau (typage des données,
+imbrications) comme un service interne fourni par la bibliothèque, de
+la même façon que pour les deux autres formats (fichiers structurés et
+Madona), l'application se consacrant quant à elle à la sémantique du
+contenu (nom associés aux données). C'est ce choix qui permet à
+\bibliotheque{club} d'offrir une interface commune permettant à un
+applicatif de s'affranchir du format de fichier réellement utilisé,
+par l'intermédiaire de la classe UniqDataFile décrite à la
+section~\ref{sec:UniqDataFile-desc},
+page~\pageref{sec:UniqDataFile-desc}.
+
+Ce choix a ainsi conduit à la création d'un format XML utilisant les
+types en tant qu'éléments XML, les noms et les valeurs des données
+étant représentées par des attributs de ces éléments, comme le montre
+l'exemple simple suivant :
+
+\begin{exemple}{éléments XML}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}\begin{verbatim}
+<structure name="polynome">
+  <int-data name="ordre" value="2"/>
+  <real-table name="coefficients">
+    <real-data index="0" value="-0.5"/>
+    <real-data index="1" value="0.0" />
+    <real-data index="2" value="1.5" />
+  </real-table>
+</structure>
+\end{verbatim}\end{exemple}
+
+La DTD (\emph{Document Type Definition}) de club est définie dans le
+fichier \texttt{club-data.dtd} installé avec la bibliothèque et trouvé
+automatiquement à l'aide du mécanisme décrit à la
+section~\ref{sec:environnement},
+page~\pageref{sec:environnement}. Cette DTD spécifie que l'élément
+racine a pour nom \texttt{club-data} et possède un attribut
+obligatoire \texttt{version} (dont la valeur doit pour l'instant
+systématiquement être \texttt{"1.0"}) et un attribut implicite
+\texttt{units-file} dont la valeur par défaut est
+\texttt{"club-units.xml"} et qui correspond au fichier d'unités
+associé à ce fichier de données (la valeur par défaut correspond au
+fichier qui est installé avec la bibliothèque et dont le but est qu'il
+réponde à la majorité des besoins). L'élément \texttt{club-data} peut
+contenir une suite d'éléments de données ou d'éléments
+\texttt{include}. Les éléments de données sont \texttt{structure},
+\texttt{reference}, \texttt{real-data}, \texttt{int-data},
+\texttt{string-data}, \texttt{int-table}, \texttt{real-table},
+\texttt{string-table}, \texttt{structure-table}
+et \texttt{table-table}.
+
+Les éléments de type \textsl{xxx-}\texttt{table} contiennent des
+éléments du type prévu auxquels on accède par un numéro (attribut
+\texttt{index}). Les tables de réels peuvent définir une unité par
+défaut à l'aide de l'attribut \texttt{default-unit}. Les éléments de
+type \textsl{xxx-}\texttt{structure} contiennent des éléments
+quelconques auxquels on accède par leur nom (attribut
+\texttt{name}). Les éléments de type \textsl{xxx-}\texttt{data} sont
+des élements finaux vides, on y accède soit par leur index soit par
+leur nom selon l'élément qui les contient, et leur valeur est définie
+par l'attribut \texttt{value}. Les données réelles peuvent avoir une
+unité spécifiée dans l'attribut \texttt{unit}, c'est le symbole de
+l'unité qui doit être indiqué, ou la combinaison de symboles pour une
+unité composée. La syntaxe utilisée pour la combinaison des unités est
+identique à la syntaxe définie par la bibliothèque
+\bibliotheque{madona}, elle est rappelée à la
+section~\ref{sec:format-fichiers-unites-XML}.
+
+Les éléments \texttt{include} permettent d'inclure des fichiers
+annexes à partir d'un fichier principal, ils sont vides et ont un
+attribut obligatoire, \texttt{included-file} qui contient le nom
+relatif ou absolu du fichier à inclure.
+
+Les éléments \texttt{reference} permettent de faire référence à une
+donnée qui est physiquement stockée ailleurs, dans le même fichier ou
+dans un fichier différent, l'accès à l'élément se faisant par
+l'attribut \texttt{reference} à l'aide d'un sous-ensemble de la
+syntaxe normalisée XPointer sous la forme indiquée dans l'exemple
+suivant, dans lequel on fait référence à l'élément du fichier
+\texttt{WGSB4.xml} dont l'attribut \texttt{name} vaut
+\texttt{ellipsoïde}. Il faut prendre garde au fait que le support
+Xpointer est limité à cette seule syntaxe. On ne peut pas chercher à
+un endroit précis de l'arborescence, ni selon un critère autre que la
+valeur de l'attribut \texttt{name}. La raison en est qu'implémenter
+une syntaxe spécifique aurait imposé l'utilisation de
+\bibliotheque{club} pour gérer les fichiers, alors que le standard
+permet de les faire traiter par n'importe quel autre applicatif XML. Ce
+standard étant assez lourd, cependant, il semblait préférable
+d'attendre que les bibliothèques XML de bas niveau le supportent de
+façon native plutôt que de tenter de l'implémenter nous-même. La
+limitation doit donc être vue comme une limitation temporaire,
+susceptible d'être levée avec les évolutions de \bibliotheque{Xerces}.
+
+\begin{exemple}{fichier XML complet avec référence externe}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}\begin{verbatim}
+<?xml version="1.0" encoding="iso-8859-1" ?>
+
+<!DOCTYPE club-data
+          PUBLIC "-//CNES// DTD club-data XML V1.0//EN"
+                 "http://logiciels.cnes.fr/CLUB/club-data.dtd" >
+
+<club-data version="1.0" >
+  <structure name="modèle" >
+    <string-data name="name" value="GRIM5 C1" />
+    <real-data name="mu" value="398600.4415" unit="km^3/s^2">
+  </structure>
+  <reference name="ellipsoïde"
+             reference="WGS84.xml#xpointer(/*[@name='ellipsoïde'])">
+</club-data>
+\end{verbatim}\end{exemple}
+
+L'exemple précédent montre également que l'on peut utiliser n'importe
+quel type de caractère dans les noms, y compris des caractères
+accentués dès lors que l'on spécifie l'encodage du fichier (ici
+iso-8601). L'ensemble des caractères unicode est supporté.
+
+La syntaxe complète et précise des fichiers peut être trouvée dans la
+DTD installée avec la bibliothèque et qui représente la référence
+ultime. Il n'est de toute façon pas recommandé de tenter d'écrire de
+tels fichiers à la main, il vaut mieux s'appuyer sur les services
+d'écriture fournis par la bibliothèque qui garantissent le respect de
+la syntaxe.
+
+\subsection{fichiers d'unités XML}\label{sec:format-fichiers-unites-XML}
+
+Les fichiers de données XML supportent les conversions d'unités. Ils
+s'appuient pour cela sur un fichier externe définissant les unités, ce
+fichier pouvant être partagé par de nombreux fichiers de
+données. L'idéal serait même que le fichier par défaut installé par la
+bibliothèque soit enrichi selon les besoins des utilisateurs (il
+contient déjà beaucoup d'unités dans sa version initiale) et que
+ceux-ci n'aient pas besoin d'en spécifier un autre dans l'attribut
+\texttt{units-file} de l'élément racine de leurs fichiers de données.
+
+Le fichier des unités utilise une syntaxe propre pour décrire les
+unités. Cette syntaxe très simple est spécifiée par la DTD installée
+par la bibliothèque (fichier \texttt{club-units.dtd}). L'élément de
+base s'appelle \texttt{club-units}, il n'a aucun argument. Cet élement
+contient une suite d'éléments \texttt{reference-unit} qui définissent
+des unités de référence qui doivent être des unités SI ou des
+combinaisons d'unités SI. Chaque unité doit définir les attributs
+\texttt{description}, \texttt{name} et \texttt{symbol}, seul le
+symbole étant important puisque c'est lui qui intervient dans les
+combinaisons du type \texttt{kg*m/s\^{}2}. Les attributs restant
+(\texttt{dim-length}, \texttt{dim-mass}, \texttt{dim-time},
+\texttt{dim-electric-current}, \texttt{dim-temperature},
+\texttt{dim-amount-of-substance} et \texttt{dim-luminous-intensity}
+pour les sept axes de référence du système international,
+\texttt{dim-planar-angle} et \texttt{dim-solid-angle} pour les deux
+axes supplémentaires sont des entiers signés qui indiquent la
+dimension de l'unité. Ces attributs ont 0 comme valeur par défaut, ce
+qui permet de ne spécifier que les attributs ayant des valeurs non
+nulles. Ce sont ces dimensions qui permettent au système de convertir
+correctement par exemple des henry en nanosecondes par siemens et de
+savoir qu'il est impossible de convertir des webers en teslas par
+mètre carré alors que rien ne relie aucune de ces six unités de façon
+explicite dans le fichier. Les éléments \texttt{reference-unit}
+peuvent contenir des élements \texttt{alternate-unit} donnant des
+unités alternatives ayant la même dimension physique mais des échelles
+différentes ou des décalages. L'exemple suivant montre ainsi un
+extrait du fichier des unités installé par la bibliothèque, pour l'axe
+des temps.
+
+\begin{exemple}{fichier d'unités XML}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}\begin{verbatim}
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+
+<!DOCTYPE club-units PUBLIC "-//CNES// DTD club-units XML V1.0//EN"
+                            "http://logiciels.cnes.fr/CLUB/club-units.dtd" >
+<club-units>
+
+  <!-- ... quelques unités omises ici ... -->
+
+  <reference-unit description="time" symbol="s" name="second" dim-time="1" >
+    <alternate-unit symbol="mn"       name="minute"      factor="60"     />
+    <alternate-unit symbol="h"        name="hour"        factor="3600"   />
+    <alternate-unit symbol="d"        name="day"         factor="86400"  />
+    <alternate-unit symbol="j"        name="jour"        factor="86400"  />
+    <alternate-unit symbol="ms"       name="millisecond" factor="1.0e-3" />
+    <alternate-unit symbol="us"       name="microsecond" factor="1.0e-6" />
+    <alternate-unit symbol="&micro;s" name="microsecond" factor="1.0e-6" />
+    <alternate-unit symbol="ns"       name="nanosecond"  factor="1.0e-9" />
+  </reference-unit>
+
+  <!-- ... quelques unités omises ici ... -->
+
+</club-units>
+\end{verbatim}\end{exemple}
+
+Cet exemple montre que la même unité peut apparaître plusieurs fois
+avec des symboles différents (\texttt{d} et \texttt{j} pour les
+jours). Certaines unités nécessitent d'utiliser des caractères hors de
+l'ASCII, ainsi le symbole des microsecondes est : \texttt{$µ$s} (mais on
+utilise souvent \texttt{us} en plus).
+
+XML permettant l'utilisation de ces symboles, le fichier des unités a
+été écrit en les premant en compte. Cependant, l'encodage de ces
+symboles varie d'un système à l'autre. Si le fichier est écrit à
+l'aide de l'encodage iso-latin-1, le caractère $µ$ (qui est présent
+sur les claviers de PC français) a pour code hexadécimal 0xB5, dans un
+autre encodage il sera à une position différente. Afin d'éviter aux
+utilisateurs des problèmes de conversion, les deux DTD
+\texttt{club-data.dtd} et \texttt{club-units.dtd} définissent des
+entités générales pour ces symboles particuliers (voir la
+table~\ref{tab:entites-predefinies}). Ces entités générales peuvent
+être utilisées dans le fichier des unités (l'exemple précedent
+illustre ce cas), dans les fichiers de données, mais également dans
+les arguments des fonctions de la bibliothèque (méthode
+\fonc{getRealData} de la classe XMLData et autres méthodes
+similaires).
+
+\begin{table}[htbp]\caption{entités générales prédéfinies}\label{tab:entites-predefinies}
+\begin{center}\begin{tabular}[b]{|c|c|c|c|}
+\hline nom & code hexdecimal unicode & exemple & aspect visuel\\
+\hline\hline
+deg   & 0x00B0 & \&deg;C   & °C \\
+micro & 0x00B5 & \&micro;s & $µ$s \\
+ohm   & 0x2126 & k\&ohm;   & k$\Omega$ \\
+\hline
+\end{tabular}\end{center}\end{table}
+
+Les unités prédéfinies dans le fichier \texttt{club-unites.xml}
+installé par la bibliothèque sont listées dans la
+table~\ref{tab:unites-installees} (les unités de référence sont en
+gras). Les symboles sont tous différents, cette propriété est
+indispensable. C'est la raison pour laquelle il a été décidé
+d'utiliser °C et °F pour représenter les degrés celsius et fahrenheit,
+afin d'éviter les conflits avec les coulombs et les farads.
+
+\newpage
+\begin{table}[htbp]\caption{unités du fichier installé}\label{tab:unites-installees}
+\begin{center}\begin{tabular}[b]{|cc|cc|cc|}
+\hline nom & symbole & nom & symbole & nom & symbole \\
+\hline\hline
+\textbf{meter} & \textbf{m}     & \textbf{kelvin} & \textbf{K}    & \textbf{ohm}& \textbf{$\Omega$}  \\
+kilometer    & km               & celsius degree & °C             & kiloohm & k$\Omega$              \\
+decimeter    & dm               & fahrenheit & °F                 & megaohm & M$\Omega$              \\
+\cline{3-6}
+centimeter   & cm               & \textbf{mole} & \textbf{mol}    & \textbf{watt} & \textbf{W}       \\
+\cline{3-4}
+millimeter   & mm               & \textbf{candela} & \textbf{cd}  & milliwatt & mW                   \\
+\cline{3-4}
+inch         & in               & \textbf{radian} & \textbf{rad}  & kilowatt & kW                    \\
+foot         & ft               & degree & deg                    & megawatt & MW                    \\
+yard         & yd               & grade & gra                     & horsepower & Hp                  \\
+\cline{3-6}
+nautic mile  & nmi              & \textbf{steradian} & \textbf{sr}& \textbf{coulomb} & \textbf{C}    \\
+\cline{5-6}
+mile         & mi               & spat & sp                       & \textbf{volt} & \textbf{V}       \\
+\cline{1-4}
+\textbf{kilogram} & \textbf{kg} & \textbf{hertz} & \textbf{Hz}    & kilovolt & kV                    \\
+gram & g                        & kilohertz & kHz                 & millivolt & mV                   \\
+milligram & mg                  & megahertz & MHz                 & microvolt & uV                   \\
+ton & t                         & gigahertz & GHz                 & microvolt & $µ$V                 \\
+\cline{3-6}
+pound & lb                      & \textbf{newton} & \textbf{N}    & \textbf{farad} & \textbf{F}      \\
+ounce & oz                      & millinewton & mN                & microfarad & uF                  \\
+\cline{1-2}
+\textbf{second} & \textbf{s}    & kilogram-force & kgf            & microfarad & $µ$F                \\
+\cline{3-4}
+minute & mn                     & \textbf{pascal} & \textbf{Pa}   & nanofarad & nF                   \\
+hour & h                        & hectopascal & hPa               & picofarad & pF                   \\
+\cline{5-6}
+day & d                         & kilopascal & kPa                & \textbf{siemens} & \textbf{S}    \\
+\cline{5-6}
+jour & j                        & atmosphere & atm                & \textbf{weber} & \textbf{Wb}     \\
+\cline{5-6}
+millisecond & ms                & bar & b                         & \textbf{henry} & \textbf{H}      \\
+\cline{5-6}
+microsecond & us                & millibar & mb                   & \textbf{lumen} & \textbf{lm}     \\
+\cline{5-6}
+microsecond & $µ$s              & pounds per square inch & psi    & \textbf{lux} & \textbf{lx}       \\
+\cline{3-6}
+nanosecond & ns                 & \textbf{joule} & \textbf{J}     & \textbf{becquerel} & \textbf{Bq} \\
+\cline{1-2}\cline{5-6}
+\textbf{ampere} & \textbf{A}    & kilojoule & kJ                  & \textbf{gray} & \textbf{Gy}      \\
+\cline{5-6}
+milliampere & mA                & megajoule & MJ                  & \textbf{sievert} & \textbf{Sv}   \\
+\cline{3-6}
+microampere & uA                & \textbf{tesla} & \textbf{T}     & \textbf{katal} & \textbf{kat}    \\
+microampere & $µ$A              & gauss & G                       &                &                 \\
+\hline
+\end{tabular}\end{center}\end{table}
+
+La combinaison des unités obéit à une syntaxe très simple identique à
+celle qui est utilisée par la bibliothèque
+\bibliotheque{madona}. Cette syntaxe utilise les opérateurs
+\texttt{*} pour la multiplication, \texttt{/} pour la division et
+\texttt{\^{}} ou \texttt{**} pour l'exponentiation et autorise des
+exposants sous formes d'entiers positifs ou négatifs. L'associativité
+des opérateurs est de gauche à droite et les exposants sont
+prioritaires par rapport aux multiplications et divisions. Ceci
+implique que les définitions suivantes sont toutes équivalentes :
+
+\centerline{
+                  \texttt{m*s\^{}-2}
+$\Leftrightarrow$ \texttt{m/s/s}
+$\Leftrightarrow$ \texttt{m/s*s**-1}
+}

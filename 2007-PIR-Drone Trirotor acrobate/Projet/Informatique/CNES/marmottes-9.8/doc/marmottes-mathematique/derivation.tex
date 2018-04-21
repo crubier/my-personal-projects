@@ -1,0 +1,168 @@
+% -*- mode: latex; tex-main-file: "marmottes-mathematique.tex" -*-
+% $Id: derivation.tex,v 1.5 2001/01/29 15:49:43 luc Exp $
+\cleardoublepage\section{Dérivation automatique}\label{sec:derivation}
+\subsection{besoins}\label{sec:besoins-derivation}
+La bibliothèque \bibliotheque{marmottes} est destinée à être appelée au
+c\oe{}ur des boucles de calcul des logiciels de mécanique spatiale,
+qui peuvent donc demander un grand nombre de déterminations d'orientation
+(parfois quelques centaines de milliers d'appels). De plus, la
+possibilité de passer en cours de calcul, d'un type de capteur à un
+autre, peut faire évoluer considérablement les ordres de grandeurs
+manipulés (voire les unités, quand on passe d'un capteur qui mesure
+des angles à un capteur qui mesure des vitesses angulaires).
+
+Ces deux points ont conduit à rejeter les méthodes de différences
+finies pour calculer les dérivées des fonctions dans les algorithmes
+de recherche de zéros.
+
+La complexité des équations a conduit, quant à elle, à rejeter les
+méthodes où la dérivée symbolique était codée dans le logiciel.
+
+\bibliotheque{marmottes} utilise donc un système de dérivation
+automatique.
+
+\subsection{principe}\label{sec:principes-derivation}
+La dérivation automatique consiste à réaliser le calcul de la dérivée
+de proche en proche, à chaque opération élémentaire, en parallèle du
+calcul de la valeur. Ce sont donc les règles élémentaires de
+dérivation qui sont codées (la dérivée de la somme est la somme des
+dérivées,...). Ce procédé permet d'obtenir un calcul exact (à la
+précision de la machine près) sans avoir besoin de coder effectivement
+la formule symbolique, puisque l'ensemble des calculs est réalisé à
+chaque opération, en utilisant les valeurs et dérivées courantes.
+
+Cette méthode est applicable quel que soit l'ordre de dérivation
+nécessaire, la seule contrainte étant que si l'on veut avoir l'ordre
+$n$, il faut calculer également tous les ordres de 0 à $n-1$.
+
+L'un des inconvénients de cette méthode est que la moindre addition
+devient un appel de fonction. Ceci peut être très largement compensé
+par l'utilisation des fonctions \texttt{inline} du langage
+\langage{c++} qui évitent le surcoût en temps des appels, et par la
+surcharge d'opérateurs, qui permet de continuer à écrire : \texttt{y =
+sin (x) + 3 * x}. C'est le compilateur qui se charge d'interpréter
+l'expression et de mettre les appels (ou le code dans le cas des
+fonctions \texttt{inline}) à la place des opérateurs \texttt{+} et
+\texttt{*} et de la fonction \texttt{sin}.
+
+\subsection{formulation}\label{sec:formulation-derivation}
+L'ensemble des calculs de fonctions explicites peut être réalisé à
+l'aide des formules suivantes, dans lesquelles $g$ et $h$ sont les données
+d'entrée et où $f$ est la fonction calculée.
+\subsubsection{initialisation}\label{sec:initialisation-derivation}
+Si la variable selon laquelle on dérive est $x$, on initialise le calcul
+en déclarant $x$ comme fonction identité :
+\begin{eqnarray*}
+f'' & = & 0 \\
+f'  & = & 1 \\
+f   & = & x
+\end{eqnarray*}
+
+La constante $c$ est initialisée comme fonction constante :
+\begin{eqnarray*}
+f'' & = & 0 \\
+f'  & = & 0 \\
+f   & = & c
+\end{eqnarray*}
+
+\subsubsection{opérations arithmétiques}\label{sec:operations-derivation}
+L'addition de deux fonctions se fait par :
+\begin{eqnarray*}
+f'' & = & g'' + h'' \\
+f'  & = & g'  + h'  \\
+f   & = & g   + h
+\end{eqnarray*}
+
+La soustraction de deux fonctions se fait par :
+\begin{eqnarray*}
+f'' & = & g'' - h'' \\
+f'  & = & g'  - h'  \\
+f   & = & g   - h
+\end{eqnarray*}
+
+La multiplication de deux fonctions se fait par :
+\begin{eqnarray*}
+f'' & = & g'' \times h' + 2 g' \times h' + g \times h''\\
+f'  & = & g' \times h + g \times h'\\
+f   & = & g \times h
+\end{eqnarray*}
+
+La division de deux fonctions se fait par :
+\begin{eqnarray*}
+f'' & = & \frac{[ h  (g'' \times h - g \times h'')
+               - 2h''(g' \times h - g \times h')]}
+               {h^3}\\
+f'  & = & \frac{g' \times h - g \times h'}{h^2}\\
+f   & = & \frac{g}{h}
+\end{eqnarray*}
+
+\subsubsection{composition par une fonction scalaire}
+\label{sec:composition-derivation}
+La composition par une fonction $\lambda$ se fait par :
+\begin{eqnarray*}
+f'' & = & \lambda' (g) \times g'' + \lambda'' (g) \times g'^2 \\
+f'  & = & \lambda' (g) \times g' \\
+f   & = & \lambda(g)
+\end{eqnarray*}
+Les dérivées des fonctions usuelles sont données par le tableau :
+\begin{displaymath}\begin{array}{|c|c|c|}
+\hline
+\lambda(x) & \lambda'(x) & \lambda''(x) \\
+\hline
+\sqrt(x)   &   \frac{1}{2\sqrt{x}}   &   \frac{-1}{4x^{3/2}}    \\
+\sin(x)    &        \cos (x)         &   -\sin(x)               \\
+\cos(x)    &       -\sin (x)         &   -\cos(x)               \\
+\tan(x)    &       1+\tan^2(x)       &   2\tan(x)[1+\tan^2(x)]  \\
+\arcsin(x) & \frac{1}{\sqrt{1-x^2}}  & \frac{x}{(1-x^2)^{3/2}}  \\
+\arccos(x) & \frac{-1}{\sqrt{1-x^2}} & \frac{-x}{(1-x^2)^{3/2}} \\
+\arctan(x) &     \frac{1}{1+x^2}     & \frac{-2x}{(1+x^2)^2}    \\
+e^x        &          e^x            &             e^x          \\
+\ln(x)     &        \frac{1}{x}      &       \frac{-1}{x^2}     \\
+\hline
+\end{array}\end{displaymath}
+\subsubsection{règles particulières}\label{sec:particularites-derivation}
+Deux fonctions à deux variables sont parfois utilisées dans les
+calculs et nécessitent des règles particulières, qui sont implantées
+sous forme d'algorithmes faisant intervenir les règles
+précédentes. $x^y$ est calculé par : $x^y = e^{y\ln(x)}$,
+$\alpha$~=~\texttt{atan2}~($x$,~$y$) est calculé par :
+\begin{flushleft}
+$r = \sqrt{x^2+y^2}$\\
+Si ($x\ge0$)\\
+\hspace{10mm}$\alpha = 2 \arctan\left(\frac{y}{r+x}\right)$\\
+Sinon\\
+\hspace{10mm}$\beta = 2 \arctan \left(\frac{y}{r-x}\right)$\\
+\hspace{10mm}Si ($\beta \le 0$)\\
+\hspace{20mm}$\alpha=-\pi-\beta$\\
+\hspace{10mm}Sinon\\
+\hspace{20mm}$\alpha=\pi-\beta$\\
+\hspace{10mm}Fin si\\
+Fin si
+\end{flushleft}
+Il faut remarquer que le branchement conditionnel sur $x$ ne génère
+aucun problème pour la dérivation.  En effet, les deux formulations
+sont toutes deux applicables au voisinage du changement d'alternative
+et donnent le même résultat. Le test n'est présent que pour éviter les
+problèmes numériques qui se posent loin de la zone de changement. Cet
+algorithme renvoie un angle compris entre $-\pi$ et $\pi$, comme la
+fonction \texttt{atan2} des langages de programmation.
+
+\subsubsection{implantation informatique}\label{sec:implantation-derivation}
+On peut remarquer que dans les formules précédentes, le calcul des
+dérivées secondes était toujours présenté avant le calcul des dérivées
+premières, lui même toujours exposé avant le calcul des fonctions. Ce
+choix a été réalisé pour le codage, car il permet en effet de rendre
+les algorithmes valides, même si on stocke $f$ dans une des variables
+d'appel $g$ ou $h$ ; en effet, on écrase $f''$ une fois qu'on n'en n'a
+plus besoin. ($g''$ et $h''$ n'interviennent jamais dans le calcul de
+$f'$ ou $f$), il en est de même pour $f'$.
+
+Dans la pratique, \bibliotheque{marmottes} n'utilise que des calculs
+limités aux dérivées d'ordre~1. En effet, si l'utilisation de
+dérivation automatique d'ordre~1 permet de mettre en place des
+algorithmes plus rapides de recherche de zéros, la dérivation jusqu'à
+l'ordre~2 est considérablement plus coûteuse en temps de calcul, et le
+gain en nombre d'itérations n'est pas énorme, globalement l'expérience
+montre que l'on perd du temps. L'une des opérations les plus critiques
+est la multiplication, qui demande 10 opérations si l'on va jusqu'à
+l'ordre~2, et qui n'en demande que 4 si l'on s'arrête à l'ordre~1.

@@ -1,0 +1,747 @@
+# RCS identifier : "$Id: senseurs.en,v 1.17 2001/03/30 08:50:58 luc Exp $"
+
+# Digital Sun Sensor 1 (pitch)
+DSS_1_PITCH
+{ type               {dihedral}
+  target             {sun}
+  accuracy           { 0.01 }
+
+  # sensor axis definitions in satellite frame
+  frame { i { -1  0  0 } j { 0 0 1 } k { 0 1 0 }}
+
+  # specific sensor axis definitions in sensor frame
+  wedging_axis    { 0 1 0 }
+  sensitive_axis  { 0 0 1 }
+  zero_reference  { 1 0 0 }
+
+
+  # field of view definition in sensor frame
+  field_of_view  { { # j axis dihedra (+/- 26 degrees opening)
+                   { cone { axis {  0.438371 0.0  0.898794 } angle { 90 }}}
+                   inter
+                   { cone { axis {  0.438371 0.0 -0.898794 } angle { 90 }}}
+                 }
+                 inter
+                 { # k axis dihedra (+/- 26 degrees opening)
+                   { cone { axis { 0.438371  0.898794 0.0 } angle { 90 }}}
+                   inter
+                   { cone { axis { 0.438371 -0.898794 0.0 } angle { 90 }}}
+                 }
+               }
+}
+
+# Digital Sun Sensor 1 (yaw)
+DSS_1_YAW
+{ => { DSS_1_PITCH}
+
+  # only measurements axis differ between DSS_1_PITCH and DSS_1_YAW
+  wedging_axis    { 0 0 1 }
+  sensitive_axis  { 0 1 0 }
+  zero_reference  { 1 0 0 }
+
+}
+
+GEOIRS_1_ROLL
+{ type           { limb }
+  accuracy       { 0.02 }
+
+  frame          { i {1 0 0}   j {0 1 0}   k {0 0 1}}
+  sensitive_axis { -1 0 0 }
+  zero_reference {  0 0 1 }
+
+  # field of view
+  y_dihedra      {       { cone { axis { -0.90631 0 0.42262 } angle { 90 }}}
+                   inter { cone { axis {  0.90631 0 0.42262 } angle { 90 }}}
+                 }
+  south_parallel {       { cone { axis { 0  1 0 } angle { 84.159 }}}
+                   inter { cone { axis { 0 -1 0 } angle { 96.491 }}}
+                 }
+  north_parallel {       { cone { axis { 0 -1 0 } angle { 84.159 }}}
+                   inter { cone { axis { 0  1 0 } angle { 96.491 }}}
+                 }
+  field_of_view  {    {       { => { GEOIRS_1_ROLL.y_dihedra      }}
+                        inter { => { GEOIRS_1_ROLL.south_parallel }}}
+                  and {       { => { GEOIRS_1_ROLL.y_dihedra      }}
+                        inter { => { GEOIRS_1_ROLL.north_parallel }}}
+                 }
+
+  # field of inhibition is FOV enlarged by 4 degrees
+  sun_field_of_inhibition
+  { margin { 4.0 } upon { => { GEOIRS_1_ROLL.field_of_view }}}
+  sun_eclipse_margin { 0 }
+  moon_field_of_inhibition
+  { => { GEOIRS_1_ROLL.sun_field_of_inhibition } }
+  moon_eclipse_margin { 0 }
+  moon_phase_threshold { 90 }
+
+}
+
+GEOIRS_1_PITCH { sensitive_axis { 0 1 0 }
+                 zero_reference { 0 0 1 }
+                      =>        { GEOIRS_1_ROLL }
+               }
+
+COMMON-PSEUDOS
+{ accuracy { 0.0001 }
+  frame    { 1 0 0 0 } # identity quaternion
+}
+
+ALPHA_X { type { right_ascension } observed { 1 0 0 } => {COMMON-PSEUDOS}}
+DELTA_X { type { declination }     observed { 1 0 0 } => {COMMON-PSEUDOS}}
+ALPHA_Y { type { right_ascension } observed { 0 1 0 } => {COMMON-PSEUDOS}}
+DELTA_Y { type { declination }     observed { 0 1 0 } => {COMMON-PSEUDOS}}
+ALPHA_Z { type { right_ascension } observed { 0 0 1 } => {COMMON-PSEUDOS}}
+DELTA_Z { type { declination }     observed { 0 0 1 } => {COMMON-PSEUDOS}}
+
+GYRO_X  { type { kinematic } sensitive_axis { 1 0 0 } => {COMMON-PSEUDOS}}
+GYRO_Y  { type { kinematic } sensitive_axis { 0 1 0 } => {COMMON-PSEUDOS}}
+GYRO_Z  { type { kinematic } sensitive_axis { 0 0 1 } => {COMMON-PSEUDOS}}
+
+YAW_MOMENTUM
+{  =>            { COMMON-PSEUDOS }
+  type           { dihedral }
+  target         { momentum }
+  zero_reference {  0 -1  0 }
+  sensitive_axis {  0  0 -1 }
+  field_of_view  { cone { axis { 0 -1 0 } angle { 180 } } }
+}
+
+STD15_BASE_ROLL
+{ # general definitions
+  type            { limb }
+  accuracy        { 0.002  } # measurement accuracy = 0.02
+
+  sensitive_axis  {   1  0  0   }
+  zero_reference  {   0  0  1   }
+
+  field_of_view
+  { { { => {STD15_BASE_ROLL.zone_1} } and { => {STD15_BASE_ROLL.zone_4} } }
+    or
+    { { => {STD15_BASE_ROLL.zone_2} } and { => {STD15_BASE_ROLL.zone_3} } }
+  }
+
+  sun_field_of_inhibition  { => { STD15_BASE_ROLL.5Hz.sun.scans_1_2       } }
+  moon_field_of_inhibition { => { STD15_BASE_ROLL.5Hz.full_moon.scans_1_2 } }
+
+   moon_phase_threshold          { 180 } # quarter moon
+   sun_eclipse_margin            { 0 }
+   moon_eclipse_margin           { 0 }
+
+  # the construction angles used here are :
+  #   spinning mirror inclination : 48.1025 degrees
+  #   bolometer diameter          : 1.8 degrees
+  #   thermal hood mask 1         : 292.5 to  73.125 degrees
+  #   thermal hood mask 2         : 112.5 to 253.125 degrees
+  #   inhibition scan diameter    : 5 degrees
+  elevation { angle {   6.205 } } # <-- 2 * 48.1025 - 90
+  r_bolo    { angle {   0.9   } } # <-- 1.8 / 2
+  begin_1   { angle {  73.125 } }
+  end_1     { angle { 112.5   } }
+  begin_2   { angle { 253.125 } }
+  end_2     { angle { 292.5   } }
+  r_inhib   { angle {   2.5   } } # <-- 5.0 / 2
+
+  scan_1_without_mask
+  { { spread { axis { 0 1 0 } angle { 180 } }
+      of { rotation { axis { 0 1 0 } angle { -90 } }
+           of { rotation { axis { -1 0 0 } => { STD15_BASE_ROLL.elevation } }
+                of { cone { axis { 0 0 1 } => { STD15_BASE_ROLL.r_bolo } } }
+              }
+         }
+    }
+    inter
+    { { rotation { axis { 0 1 0 } => { STD15_BASE_ROLL.begin_1 } }
+        of       { cone { axis { 0 0 1 } angle { 90 } } }
+      }
+      inter
+      { rotation { axis { 0 1 0 } => { STD15_BASE_ROLL.end_1 } }
+        of       { cone { axis { 0 0 -1 } angle { 90 } } }
+      }
+    }
+  }
+
+  scan_2_without_mask
+  { { spread { axis { 0 -1 0 } angle { 180 } }
+      of { rotation { axis { 0 -1 0 } angle { -90 } }
+           of { rotation { axis {  1 0 0 } =>  { STD15_BASE_ROLL.elevation } }
+                of { cone { axis { 0 0 1 } =>  { STD15_BASE_ROLL.r_bolo } } }
+              }
+         }
+    }
+    inter
+    { { rotation { axis { 0 -1 0 } => { STD15_BASE_ROLL.begin_2 } }
+        of       { cone { axis { 0 0 -1 } angle { 90 } } }
+      }
+      inter
+      { rotation { axis { 0 -1 0 } => { STD15_BASE_ROLL.end_2 } }
+        of       { cone { axis { 0 0  1 } angle { 90 } } }
+      }
+    }
+  }
+
+  zone_1
+  { { => { STD15_BASE_ROLL.scan_1_without_mask } }
+    inter
+    { { rotation { axis { 0 1 0 } => { STD15_PARAMETERS.ZPT1 } }
+        of       { cone { axis { 0 0 1 } angle { 90 } } }
+      }
+      inter
+      { rotation { rotation { axis { 0 1 0 } => { STD15_PARAMETERS.ZPT1 } }
+                   of       { axis { 0 1 0 } => { STD15_PARAMETERS.LG   } }
+                 }
+        of       { cone { axis { 0 0 -1 } angle { 90 } } }
+      }
+    }
+  }
+
+  zone_2
+  { { => { STD15_BASE_ROLL.scan_1_without_mask } }
+    inter
+    { { rotation { axis { 0 1 0 } => { STD15_PARAMETERS.ZPT2 } }
+        of       { cone { axis { 1 0 0 } angle { 90 } } }
+      }
+      inter
+      { rotation { rotation { axis { 0 1 0 } => { STD15_PARAMETERS.ZPT2 } }
+                   of       { axis { 0 1 0 } => { STD15_PARAMETERS.LG   } }
+                 }
+        of       { cone { axis { -1 0 0 } angle { 90 } } }
+      }
+    }
+  }
+
+  zone_3
+  { { => { STD15_BASE_ROLL.scan_2_without_mask } }
+    inter
+    { { rotation { axis { 0 -1 0 } => { STD15_PARAMETERS.ZPT3 } }
+        of       { cone { axis { 0 0 1 } angle { 90 } } }
+      }
+      inter
+      { rotation { rotation { axis { 0 -1 0 } => { STD15_PARAMETERS.ZPT3 } }
+                   of       { axis { 0 -1 0 } => { STD15_PARAMETERS.LG   } }
+                 }
+        of       { cone { axis { 0 0 -1 } angle { 90 } } }
+      }
+    }
+  }
+
+  zone_4
+  { { => { STD15_BASE_ROLL.scan_2_without_mask } }
+    inter
+    { { rotation { axis { 0 -1 0 } => { STD15_PARAMETERS.ZPT4 } }
+        of       { cone { axis { -1 0 0 } angle { 90 } } }
+      }
+      inter
+      { rotation { rotation { axis { 0 -1 0 } => { STD15_PARAMETERS.ZPT4 } }
+                   of       { axis { 0 -1 0 } => { STD15_PARAMETERS.LG   } }
+                 }
+        of       { cone { axis { 1 0 0 } angle { 90 } } }
+      }
+    }
+  }
+
+  # STD15 earth sensor inhibitions depends on the rotating mirror speed and
+  # on the brightness of the perturbing body. The fields defined here models
+  # the following table (all angles are in degrees) :
+  #   ----------------------------------------------------------------------
+  #   |     conditions     | alpha min | alpha max | delta min | delta max |
+  #   |--------------------|-----------|-----------|-----------|-----------|
+  #   |     sun       5Hz  |    -60    |    +10    |   3.705   |   8.705   |
+  #   |     sun     1.25Hz |    -25    |    +10    |   3.705   |   8.705   |
+  #   |--------------------|-----------|-----------|-----------|-----------|
+  #   |   full moon   5Hz  |    -44    |    +10    |   3.705   |   8.705   |
+  #   |   full moon 1.25Hz |    -19    |    +10    |   3.705   |   8.705   |
+  #   |--------------------|-----------|-----------|-----------|-----------|
+  #   |   half moon   5Hz  |    -40    |    +10    |   3.705   |   8.705   |
+  #   |   half moon 1.25Hz |    -18    |    +10    |   3.705   |   8.705   |
+  #   ----------------------------------------------------------------------
+  inhibition_base_1 # this fields corresponds to an alpha min of -90 degrees
+  { { spread { axis { 0  1 0 } angle { 180 } }
+      of { rotation { axis { 0  1 0 } angle { -90 } }
+           of { rotation { axis { -1 0 0 } => {STD15_BASE_ROLL.elevation} }
+                of { cone { axis { 0 0 1 } => {STD15_BASE_ROLL.r_inhib} } }
+              }
+         }
+    }
+    inter
+    { rotation { axis { 0 1 0 } angle { 10 } }
+      of       { cone { axis { -1 0 0 } angle { 90 } } }
+    }
+  }
+
+  inhibition_base_2 # this fields corresponds to an alpha min of -90 degrees
+  { { spread { axis { 0 -1 0 } angle { 180 } }
+      of { rotation { axis { 0 -1 0 } angle { -90 } }
+           of { rotation { axis {  1 0 0 } => {STD15_BASE_ROLL.elevation} }
+                of { cone { axis { 0 0 1 } => {STD15_BASE_ROLL.r_inhib} } }
+              }
+         }
+    }
+    inter
+    { rotation { axis { 0 -1 0 } angle { 10 } }
+      of       { cone { axis { 1 0 0 } angle { 90 } } }
+    }
+  }
+
+  5Hz
+  { sun         { # alpha min = -60 degrees
+
+                  scan_1
+                  { { => { STD15_BASE_ROLL.inhibition_base_1 } }
+                    inter
+                    { rotation { axis { 0 1 0 } angle { -60 } }
+                      of       { cone { axis { 1 0 0 } angle { 90 } } }
+                    }
+                  }
+
+                  scan_2
+                  { { => { STD15_BASE_ROLL.inhibition_base_2 } }
+                    inter
+                    { rotation { axis { 0 -1 0 } angle { -60 } }
+                      of       { cone { axis { -1 0 0 } angle { 90 } } }
+                    }
+                  }
+
+                  scans_1_2
+                  { { => { STD15_BASE_ROLL.5Hz.sun.scan_1 } }
+                    union
+                    { => { STD15_BASE_ROLL.5Hz.sun.scan_2 } }
+                  }
+
+                }
+
+    full_moon   { # alpha min = -44 degrees
+
+                  scan_1
+                  { { => { STD15_BASE_ROLL.inhibition_base_1 } }
+                    inter
+                    { rotation { axis { 0 1 0 } angle { -44 } }
+                      of       { cone { axis { 1 0 0 } angle { 90 } } }
+                    }
+                  }
+
+                  scan_2
+                  { { => { STD15_BASE_ROLL.inhibition_base_2 } }
+                    inter
+                    { rotation { axis { 0 -1 0 } angle { -44 } }
+                      of       { cone { axis { -1 0 0 } angle { 90 } } }
+                    }
+                  }
+
+                  scans_1_2
+                  { { => { STD15_BASE_ROLL.5Hz.full_moon.scan_1 } }
+                    union
+                    { => { STD15_BASE_ROLL.5Hz.full_moon.scan_2 } }
+                  }
+
+                }
+
+    half_moon   { # alpha min = -40 degrees
+
+                  scan_1
+                  { { => { STD15_BASE_ROLL.inhibition_base_1 } }
+                    inter
+                    { rotation { axis { 0 1 0 } angle { -40 } }
+                      of       { cone { axis { 1 0 0 } angle { 90 } } }
+                    }
+                  }
+
+                  scan_2
+                  { { => { STD15_BASE_ROLL.inhibition_base_2 } }
+                    inter
+                    { rotation { axis { 0 -1 0 } angle { -40 } }
+                      of       { cone { axis { -1 0 0 } angle { 90 } } }
+                    }
+                  }
+
+                  scans_1_2
+                  { { => { STD15_BASE_ROLL.5Hz.half_moon.scan_1 } }
+                    union
+                    { => { STD15_BASE_ROLL.5Hz.half_moon.scan_2 } }
+                  }
+
+                }
+  }
+
+  1_25Hz
+  { sun         { # alpha min = -25 degrees
+
+                  scan_1
+                  { { => { STD15_BASE_ROLL.inhibition_base_1 } }
+                    inter
+                    { rotation { axis { 0 1 0 } angle { -25 } }
+                      of       { cone { axis { 1 0 0 } angle { 90 } } }
+                    }
+                  }
+
+                  scan_2
+                  { { => { STD15_BASE_ROLL.inhibition_base_2 } }
+                    inter
+                    { rotation { axis { 0 -1 0 } angle { -25 } }
+                      of       { cone { axis { -1 0 0 } angle { 90 } } }
+                    }
+                  }
+
+                  scans_1_2
+                  { { => { STD15_BASE_ROLL.1_25Hz.sun.scan_1 } }
+                    union
+                    { => { STD15_BASE_ROLL.1_25Hz.sun.scan_2 } }
+                  }
+
+                }
+
+    full_moon   { # alpha min = -19 degrees
+
+                  scan_1
+                  { { => { STD15_BASE_ROLL.inhibition_base_1 } }
+                    inter
+                    { rotation { axis { 0 1 0 } angle { -19 } }
+                      of       { cone { axis { 1 0 0 } angle { 90 } } }
+                    }
+                  }
+
+                  scan_2
+                  { { => { STD15_BASE_ROLL.inhibition_base_2 } }
+                    inter
+                    { rotation { axis { 0 -1 0 } angle { -19 } }
+                      of       { cone { axis { -1 0 0 } angle { 90 } } }
+                    }
+                  }
+
+                  scans_1_2
+                  { { => { STD15_BASE_ROLL.1_25Hz.full_moon.scan_1 } }
+                    union
+                    { => { STD15_BASE_ROLL.1_25Hz.full_moon.scan_2 } }
+                  }
+
+                }
+
+    half_moon   { # alpha min = -18 degrees
+
+                  scan_1
+                  { { => { STD15_BASE_ROLL.inhibition_base_1 } }
+                    inter
+                    { rotation { axis { 0 1 0 } angle { -18 } }
+                      of       { cone { axis { 1 0 0 } angle { 90 } } }
+                    }
+                  }
+
+                  scan_2
+                  { { => { STD15_BASE_ROLL.inhibition_base_2 } }
+                    inter
+                    { rotation { axis { 0 -1 0 } angle { -18 } }
+                      of       { cone { axis { -1 0 0 } angle { 90 } } }
+                    }
+                  }
+
+                  scans_1_2
+                  { { => { STD15_BASE_ROLL.1_25Hz.half_moon.scan_1 } }
+                    union
+                    { => { STD15_BASE_ROLL.1_25Hz.half_moon.scan_2 } }
+                  }
+
+                }
+  }
+
+}
+
+STD15_BASE_PITCH
+{      =>        { STD15_BASE_ROLL }
+  sensitive_axis { 0 1 0 }
+  zero_reference { 0 0 1 }
+  field_of_view
+  { { { => {STD15_BASE_ROLL.zone_1} } and { => {STD15_BASE_ROLL.zone_2} } }
+    or
+    { { => {STD15_BASE_ROLL.zone_3} } and { => {STD15_BASE_ROLL.zone_4} } }
+  }
+}
+
+STD15_PARAMETERS { ZPT1 { angle { 80.15 } }
+                   ZPT2 { angle {  0.00 } }
+                   ZPT3 { angle { 81.57 } }
+                   ZPT4 { angle {  1.41 } }
+                   LG   { angle {  9.84 } }
+                 }
+STD15_LUNE_21
+{ => { STD15_BASE_ROLL }
+  accuracy    { 0.01 }
+  frame       { i {-1 0 0} j {0 -1 0} k {0 0 1}}
+
+  moon_field_of_inhibition { margin { 90 }
+                             upon   { => { STD15_BASE_ROLL.5Hz.full_moon } }
+                           }
+  moon_phase_threshold     { 62.83 }
+
+}
+
+STD15_LUNE_20 { moon_phase_threshold { 64.72 } => {STD15_LUNE_21}}
+
+IRES_TKS_ROLL
+{ type           { limb }
+  accuracy       { 0.2 }
+
+  # IRES frame is obtained by tilting satellite frame -0.4702 degrees
+  # around Ysat axis
+  frame          { axis { 0 1 0 } angle { -0.4702} }
+
+  sensitive_axis { -1 0 0 }
+  zero_reference {  0 0 1 }
+
+  # IRES detector is a square bolometer 1.3 degrees wide
+  # tilted 45 degrees around Z : it is a double dihedra
+  fictious_bolometer { { { cone { axis {  45 0.65 } angle { 90 } } }
+                         inter
+                         { cone { axis { 225 0.65 } angle { 90 } } }
+                       }
+                       inter
+                       { { cone { axis { 135 0.65 } angle { 90 } } }
+                         inter
+                         { cone { axis { 315 0.65 } angle { 90 } } }
+                       }
+                     }
+
+  # in order to define a scan, place a bolometer at the mid point of the scan,
+  # move it -1/2 scan, then spread it over the entire scan
+  # total angle is 8 degrees for wide scan and 5.3 degrees for narrow scan
+  scan_1_center { rotation { axis { 0 1 0 } angle { -6.2 } }
+                  of       { axis { 1 0 0 } angle {  6.2 } }
+                }
+  scan_2_center { rotation { axis { 0 1 0 } angle { -6.2 } }
+                  of       { axis { 1 0 0 } angle { -6.2 } }
+                }
+  scan_3_center { rotation { axis { 0 1 0 } angle {  6.2 } }
+                  of       { axis { 1 0 0 } angle {  6.2 } }
+                }
+  scan_4_center { rotation { axis { 0 1 0 } angle {  6.2 } }
+                  of       { axis { 1 0 0 } angle { -6.2 } }
+                }
+  scan          { axis { 0 1 0 } angle {  8.00 } }
+  half_scan     { axis { 0 1 0 } angle { -4.00 } }
+
+  # field of view elementary scans
+  scan_1
+  { spread   { => { IRES_TKS_ROLL.scan } }
+    of       { rotation { => { IRES_TKS_ROLL.half_scan } }
+               of       { rotation { => { IRES_TKS_ROLL.scan_1_center } }
+                          of       { => { IRES_TKS_ROLL.fictious_bolometer } }
+                        }
+             }
+  }
+
+  scan_2
+  { spread   { => { IRES_TKS_ROLL.scan } }
+    of       { rotation { => { IRES_TKS_ROLL.half_scan } }
+               of       { rotation { => { IRES_TKS_ROLL.scan_2_center } }
+                          of       { => { IRES_TKS_ROLL.fictious_bolometer } }
+                        }
+             }
+  }
+
+  scan_3
+  { spread   { => { IRES_TKS_ROLL.scan } }
+    of       { rotation { => { IRES_TKS_ROLL.half_scan } }
+               of       { rotation { => { IRES_TKS_ROLL.scan_3_center } }
+                          of       { => { IRES_TKS_ROLL.fictious_bolometer } }
+                        }
+             }
+  }
+
+  scan_4
+  { spread   { => { IRES_TKS_ROLL.scan } }
+    of       { rotation { => { IRES_TKS_ROLL.half_scan } }
+               of       { rotation { => { IRES_TKS_ROLL.scan_4_center } }
+                          of       { => { IRES_TKS_ROLL.fictious_bolometer } }
+                        }
+             }
+  }
+
+  field_of_view
+  { { { => { IRES_TKS_ROLL.scan_1 } } and { => { IRES_TKS_ROLL.scan_2 } } }
+    or
+    { { => { IRES_TKS_ROLL.scan_3 } } and { => { IRES_TKS_ROLL.scan_4 } } }
+  }
+
+  sun_field_of_inhibition
+  { { margin { 3.0 }
+      upon   { { { => { IRES_TKS_ROLL.scan_1 } }
+                 union
+                 { => { IRES_TKS_ROLL.scan_2 } }
+               }
+               union
+               { { => { IRES_TKS_ROLL.scan_3 } }
+                 union
+                 { => { IRES_TKS_ROLL.scan_4 } }
+               }
+             }
+    }
+    except
+    { cone { axis { 0 0 1 } angle { 8.2 } } }
+  }
+
+  sun_eclipse_margin { 0 }
+
+  moon_field_of_inhibition { => { IRES_TKS_ROLL.sun_field_of_inhibition } }
+
+  moon_eclipse_margin { 0 }
+
+  moon_phase_threshold { 90 }
+
+}
+
+IRES_TKS_PITCH
+{ sensitive_axis { 0 -1 0 }
+
+  field_of_view
+  { { { => { IRES_TKS_ROLL.scan_1 } } and { => { IRES_TKS_ROLL.scan_3 } } }
+    or
+    { { => { IRES_TKS_ROLL.scan_2 } } and { => { IRES_TKS_ROLL.scan_4 } } }
+  }
+
+  => {IRES_TKS_ROLL}
+
+}
+
+AUS-RHCP
+{ type           { vector }
+  accuracy       { 0.001  }
+
+  frame          { v_base  { -0.2983745340 0.0 0.9544488658 }
+                   v_image { 0 0 1 }
+                 }
+  reference      { 0 0 1 }
+  field_of_view  { cone { axis { 0 0 1 } angle { 95 } } }
+
+  target         { station }
+  station        { longitude    { 1.49939883  }
+                   latitude     { 43.42869186 }
+                   altitude     { 261.58      }
+
+                   pressure     { 1000 }
+                   temperature  { 15   }
+                   hygrometry   { 80   }
+
+                   mask         { 0 10 }
+
+                 }
+}
+
+AUS-LHCP
+{   =>  { AUS-RHCP }
+  frame { v_base  { 0.2983745340 0.0 -0.9544488658 }
+          v_image { 0 0 1 }
+        }
+}
+
+
+YPR-YAW
+{  =>            { COMMON-PSEUDOS }
+  type           {     cardan     }
+  kind           {     YPR-yaw    }
+  reference      {   geocentric   }
+}
+
+YPR-PITCH { => { YPR-YAW } kind { YPR-pitch } }
+
+YPR-ROLL  { => { YPR-YAW } kind { YPR-roll  } }
+
+YPR-ROLL-USER
+{  =>            { COMMON-PSEUDOS }
+  type           {     cardan     }
+  kind           {     YPR-roll   }
+  reference      {      user      }
+}
+
+
+USER-YAW
+{  =>            { COMMON-PSEUDOS }
+  type           {    dihedral    }
+  target         {    direction   }
+  zero_reference { 1 0 0 }
+  sensitive_axis { 0 1 0 }
+  field_of_view  { cone { axis { 0 -1 0 } angle { 180 } } }
+}
+
+
+INTEG+Y
+{  =>            {  COMMON-PSEUDOS  }
+  type           { integrating_gyro }
+  sensitive_axis { 0 1 0 }
+}
+
+pseudo-common
+{ accuracy        { 0.00001 }
+  frame           { i {1 0 0} j {0 1 0} k {0 0 1}}
+}
+
+#
+# Senseurs d'azimut et elevation par rapport au plan XZ satellite
+# L'elevation est >0 vers -Y satellite
+#
+AZ_SUN {
+ =>               { pseudo-common }
+ type             { dihedral }
+ target           { pseudo-sun }
+ sensitive_axis   { 0 1 0 }
+ zero_reference   { 0 0 1 }
+ field_of_view    { cone { axis { 1 0 0 } angle { 180 } } }
+}
+
+EL_SUN {
+ =>               { pseudo-common }
+ type             { plane_vector }
+ target           { pseudo-sun }
+ normal_reference { 0 -1 0 }
+ field_of_view    { cone { axis { 1 0 0 } angle { 180 } } }
+}
+
+
+
+#
+# angle de phase autour de la l'axe Z satellite
+#
+PHASE {
+ =>                   { pseudo-common }
+ type                 { dihedral }
+ target               { earth }
+ sensitive_axis       { 0 0 1 }
+ zero_reference       { 0 1 0 }
+ field_of_view        { cone { axis { 0 1 0 } angle { 180 } } }
+}
+
+
+# senseurs pour le test 9
+LIASS+Z+X_PW { type                { dihedral }
+               target              { sun }
+               accuracy            { 0.001 }                 
+
+               field_of_view       {
+                                     {
+                                       { cone { axis {   0.0 30.0 } angle {90} }}
+                                       inter
+                                       { cone { axis { 180.0 30.0 } angle {90} }}
+                                     }
+                                     inter
+                                     {
+                                       { cone { axis {  90.0 30.0 } angle {90} }}
+                                       inter
+                                       { cone { axis { 270.0 30.0 } angle {90} }}
+                                     }
+                                   }
+
+               frame  { i {   -0.0445657   0.9988562  -0.0173261 }
+                        j {   -0.3419030   0.0010460   0.9397347 }
+                        k {    0.9386779   0.0478038   0.3414653 }
+                      }
+               zero_reference  { 0 0 1 }
+               sensitive_axis { -1 0 0 }
+             }
+
+GYRO+X { type           {kinematic}
+         accuracy       { 0.0002 }
+         frame          { v_base { 0.999986234  0.003367460  0.004023932 } v_image { 1 0 0 }}
+         sensitive_axis { 1  0. 0. }
+       }
+
+GYRO+Z { => {GYRO+X}
+         frame          { v_base { -0.001787382  0.001330360   0.999997518 } v_image { 0 0 1 }}
+         sensitive_axis { 0 0 1 }
+       }

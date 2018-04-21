@@ -1,0 +1,743 @@
+2005-02-16  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* ClubErreurs.cpp: ajout des erreurs missing_attribute,
+	redefined_unit, incompatible_units, entity_syntax_error,
+	unknown_general_entity et unit_syntax_error, correction de
+	l'opérateur d'affectation (DM-ID 242)
+
+	* Unit.cpp: nouveau fichier (DM-ID 242)
+
+	* Makefile.am: ajout du fichier Unit.cpp (DM-ID 242)
+
+2005-02-02  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* UniqDataFile.cpp, StructureFile.cpp: removed the stringToDouble
+	and stringToInt functions (DM-ID 242)
+
+	* DataFile.cpp: remplacement des instances XMLFile par XMLData
+	(DM-ID 242)
+
+	* XMLFileStrings.txt, XMLDataStrings.txt, XMLUnitsStrings.txt:
+	nouveaux fichiers (DM-ID 242)
+
+	* XMLData.cpp, XMLUnits.cpp: nouveaux fichiers (DM-ID 242)
+
+	* Makefile.am: ajout des fichiers XMLFileStrings.h,
+	XMLFileStrings.txt, XMLDataStrings.h, XMLDataStrings.txt,
+	XMLUnitsStrings.h, XMLUnitsStrings.txt (DM-ID 242)
+
+2005-01-31  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* MadonaFile.cpp, StructureFile.cpp, XMLFile.cpp: élimination de
+	la méthode loadUnitFile (DM-ID 242)
+
+	* CallTrace.cpp: remplacement de l'erreur file_open par
+	ouverture_fichier (DM-ID 242)
+
+	* XMLFile.cpp: refonte de la classe pour séparer les unités des
+	données dans deux fichiers XML distincts (DM-ID 242)
+
+	* DataFile.cpp: ajout d'une spécification d'espace de nommage
+	(DM-ID 242)
+
+	* ClubErreurs.cpp (formate): ajout de l'erreur
+	variable_environnement (DM-ID 242)
+
+2005-01-12  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* UniqDataFile.cpp: élimination des références aux classes
+	DataProxyName et DataProxyIndex (DM-ID 241)
+
+	* Makefile.am: élimination des références aux fichiers
+	DataProxyName.cpp, DataProxyIndex.h (DM-ID 241)
+
+	* DataProxyName.cpp, DataProxyIndex.cpp: élimination des fichiers
+	(DM-ID 241)
+
+2004-06-10  projet CHOPE G. Prat/L. Maisonobe  <Guylaine.Prat@c-s.fr>
+
+	* FormatFortran.cpp (terme), ClubErreurs.cpp (formate): correction du format 
+	d'écriture des réels (FA-ID 33)
+	
+2003-12-08  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* XMLFile.cpp: mise en conformité avec Xerces 2.x (DM-ID 32).
+	
+	* DataFile.cpp, ClubErreurs.cpp : Suppression de la contrainte de fourniture du type 
+	de fichier lors de l'instanciation de la classe DataFile (DM-ID 31).
+	
+2003-10-13  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* TamponTexte.cpp (getTampon): Creation du service pour eviter que
+	la fonction inline operator << ne retourne directement un membre
+	protege de la classe (DM-ID 29).
+
+2003-07-15  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* MadonaFile.cpp (moveDown(string), moveDown(int), reposition):
+	FA-ID 28 contournement d'un problème introduit après la version 3.6
+	de madona qui semble incapable d'accéder à une structure par un
+	acc_select(acces, nom, ACC_STRUCT) lorsque le nom est en réalité
+	une référence à une structure
+
+	* OptionsAppli.cpp, OptionBase.cpp, MadonaFile.cpp,
+	FormatFortran.cpp, FichierStructure.cpp, ClubErreurs.cpp,
+	ChaineSimple.cpp: FA-ID 27 correction d'initialisations faites
+	avec le mauvais type
+
+2003-07-02  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* MadonaFile.cpp (moveDown): FA-ID 26 correction d'une erreur de
+	syntaxe
+
+2003-06-24  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* ClubVersion.cpp: DM-ID 24 remplacement de VERSION par
+	PACKAGE_VERSION pour compatibilité avec autoconf 2.57
+
+2003-03-21  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* MadonaFile.cpp: traitement de la DM-ID 21
+	Ajout du repositionnement du pointeur madonna avant chaque opération de 
+	lecture/écriture/déplacement.
+
+
+2003-02-26  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* CallTrace.cpp: FA-ID 21 contournement du problème de l'écriture
+	de 0, la norme C++ imposant que 0 soit écrit 0 quelque soit la
+	base, constaté à partir de GCC 3.2.1
+
+2003-02-13  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* XMLFile.cpp: correction d'une fuite mémoire
+
+2003-02-03  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* UniqDataFile.cpp, XMLFile.cpp: utilisation de l'include sstream
+	au lieu de strstream et mise à jour du code en conséquence
+
+2003-01-28  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* DataProxyIndex.cpp, FichierStructure.cpp: mise à jour d'un
+	include vis à vis de la norme C++.
+
+2003-01-24  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* AnalyseurLexical.cpp, BaseErreurs.cpp, ChaineSimple.cpp,
+	ClubErreurs.cpp, ClubVersion.cpp, ClubVersion.cpp, DataFile.cpp,
+	DataProxyIndex.cpp, DataProxyName.cpp, FichierStructure.cpp,
+	FormatC.cpp, FormatFortran.cpp, IterateurAscii.cpp,
+	IterateurCaractere.cpp, IterateurChamp.cpp,
+	IterateurChampLigne.cpp, IterateurLigne.cpp, MadonaFile.cpp,
+	OptionBase.cpp, OptionChaine.cpp, OptionEntier.cpp,
+	OptionReel.cpp, OptionSansValeur.cpp, OptionTableauChaines.cpp,
+	OptionTableauEntiers.cpp, OptionTableauReels.cpp,
+	OptionsAppli.cpp, StructureFile.cpp, TamponAscii.cpp,
+	TamponBase.cpp, TamponPartage.cpp, TamponTexte.cpp,
+	Traducteur.cpp, UniqDataFile.cpp, XMLFile.cpp: mise à jour des
+	noms des fichiers dans leur bandeau respectif
+
+2002-06-27  projet CHOPE O. Queyrut/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* FichierStructure.cc: ajout de la méthode listeSousBlocs
+
+	* XMLFile.cc: mise en conformité avec Xerces 1.7
+
+2002-05-17  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* FichierStructure.cc (rechercheSousBloc): ajout d'une protection
+	dans le cas de blocs sans nom
+	(contientSousBloc): utilisation du type bool pour la valeur de retour
+	(terminal): utilisation du type bool pour la valeur de retour
+
+001-06-22  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* CallTrace.cc: correction d'un type (de long en ios::fmtflags)
+
+	* AnalyseurLexical.cc, FichierStructure.cc, OptionBase.cc,
+	OptionsAppli.cc: remplacement de l'inclusion de cwctype par
+	l'inclusion de cctype
+
+2001-06-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: ajout de CallTrace.cc
+
+	* CallTrace.cc: nouveau fichier (en provenance de la bibliothèque marmottes)
+
+	* ClubErreurs.cc: ajout des erreurs calltrace_not_activated,
+	file_open et internal_error
+
+
+2001-04-04  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* AnalyseurLexical.cc: ajout de la reconnaissance paramétrable des
+	réels du langage fortran
+
+2001-03-22  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* UniqDataFile.cc (stringToInt): utilisation de atoi et
+	élimination de l'exception, (intToString) correction de la
+	désallocation mémoire
+
+	* OptionsAppli.cc (~OptionsAppli, CopieTable): suppression de
+	fuites mémoire
+
+2001-03-14  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* TamponTexte.cc (~TamponTexte): correction d'une fuite de mémoire
+
+	* Traducteur.cc (traductionFormatC): correction du retour erroné
+	d'un pointeur sur un attribut d'une variable automatique
+
+2001-03-13  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* MadonaFile.cc: removed spurious default values in function
+	definitions
+
+	* StructureFile.cc: corrected a return statement in a void function
+
+2001-02-16  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* OptionsAppli.cc: correction de redéclarations de valeurs par
+	défaut dans la définition de fonctions en ligne,
+	ajout de transtypages explicites pour aider le compilateur SUN
+
+	* StructureFile.cc: correction de redéclarations de valeurs par
+	défaut dans la définition de fonctions en ligne
+
+	* Traducteur.cc: remplacement de la classe hash_map par la classe
+	standard map
+
+2000-11-21  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: modification de la numérotation de la bibliothèque
+	partagée par libtool,
+	ajout des fichiers optionnels dans la distribution
+
+	* FichierStructure.cc: homogénéisation de la signature des catch
+
+	* .cvsignore: ajout des fichiers *.lo et libclub.la
+
+2000-11-07  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* StructureFile.cc: élimination des transformations entre ',' et
+	'.' à la lecture
+
+	* UniqDataFile.cc: élimination de replaceCharacter
+
+	* XMLFile.cc: élimination de l'inclusion conditionnelle des
+	en-têtes de Xerces, l'ensemble du fichier est compilé de façon
+	conditionnelle, élimination des transformations entre ',' et
+	'.' à la lecture et à l'écriture.
+
+2000-11-06  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* Makefile.am, UniqDataFile.cc, DataProxyIndex.cc, DataProxyName.cc : 
+	suppression des classes DataProxyIndex, DataProxyName de 
+	UniqDataFile.cc afin d'avoir une fichier par classe (création des 
+	fichiers DataProxyIndex.cc, DataProxyName.cc).
+
+2000-10-26  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* Makefile.am (libclub_la_LDFLAGS): ajout d'un LDFLAGS pour donner
+	un numéro de version à la bibliothèque club générée par libtool
+
+2000-10-26    <Martine.Julien@cisi.cnes.fr>
+
+	* XMLFile.cc (setDTDPath): modification de l'implémentation suite au
+	passage à Xerces 1.3
+
+2000-10-24  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* *.cc: modification des include du standard : utilisation de cNAME
+	au lieu de NAME.h (pour permettre la compilation avec le Sun 
+	Workshop 5.0). Remplacement de l'include ClubConfig.h par 
+	ClubConfigNoInstall.h
+
+2000-10-17  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* UniqDataFile.cc: suppression de la méthode testIndexAlreadyDefined
+
+	* ClubErreurs.cc (formate): suppression des messages d'erreur 
+	associés à no_parent_node, invalid_index et index_already_defined.
+
+2000-10-16  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* Makefile.am: ajout de la compilation de UniqDataFile.cc, DataFile.cc
+	et StructureFile.cc
+	Compilation de XMLFile.cc si la bibliothèque Xerces est installée.
+	Compilation de MadonaFile.cc si la bibliothèque Madona est installée.
+
+	* ClubErreurs.cc: ajout des messages d'erreur sur les exceptions 
+	propres aux classes XMLFile, StructureFile, MadonaFile, DataFile et
+	UniqDataFile.
+
+2000-10-12  projet CHOPE F.Deshaies/O.Queyrut <frederic.deshaies@cisi.cnes.fr>
+
+	* DataFile.cc, UniqDataFile.cc,
+	* StructureFile.cc, MadonaFile.cc, XMLFile.cc: nouveaux fichiers
+	fournissant des classes de gestion des fichiers au format XML, Madona
+	ou FichierStructure.
+	
+2000-09-20  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* Makefile.am: modification du Makefile pour générer club sous forme
+	partagée.
+
+2000-09-13  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* FormatC.cc (applique): allocation de la chaine temporaire s avec
+	une taille supposée suffisante.
+
+2000-09-06  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* Makefile.am: suppression des classes _OBSOLETE
+
+	* ClubErreurs.cc, BaseErreurs.cc
+	* OptionTableauReels.cc, OptionTableauEntiers.cc, OptionTableauChaines.cc
+	* OptionSansValeur.cc, OptionBase.cc, OptionsAppli.cc
+	* IterateurChampLigne.cc, IterateurLigne.cc, IterateurChamp.cc
+	* TamponTexte.cc, TamponAscii.cc, TamponBase.cc
+	* IterateurCaractere.cc, Traducteur.cc, FichierStructure.cc
+	* FormatFortran.cc, FormatC.cc
+	* AnalyseurLexical.cc: utilisation de string de la STL dans 
+	l'implémentation des classes et modification des signatures des méthodes
+	en conséquence. Ajout des includes au fichier d'entête standard du C 
+	lorsque cela est nécessaire (ces includes étaient founis auparavant par 
+	l'intermédiaire de ChaineSimple) : stdio.h, ctype.h, stdlib.h.
+
+2000-08-30  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* BaseErreurs.cc: ajout de l'include limits.h avant celui de float.h : 
+	si float.h est avant limits.h des conflits de définition apparaissent 
+	( ce qui était le cas car limits.h est inclus indirectement par l'include 
+	hash_map dans Traducteur.h ). 
+
+	* ChaineSimple.cc: utilisation de l'espace de nommage std.
+	(ChaineSimple): ajout du '\0' final pour la construction d'une ChaineSimple 
+	à partir d'un string.
+
+	* Traducteur.cc: l'attribut tableCorrespondance_ devient un hash_map 
+	avec une clé et des données de type string au lieu d'une instance de 
+	la classe Adressage<ChaineSimple>. Modification des méthodes de la
+	classe Traducteur en conséquence.
+
+2000-08-28  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* OptionsAppli.cc: utilisation de la classe hash_map de la STL au lieu
+	de Adressage de Club. Modification de l'implémentation des fonctions
+	en conséquence.
+
+2000-08-25  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* ChaineSimple.cc (ChaineSimple): ajout de la construction de 
+	ChaineSimple à partir d'un string.
+
+2000-08-24  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* Traducteur.cc (traductionFormatC): utilisation des services 
+	de la classe FormatC. Suppression de la méthode statique 
+	SpecificateurFormatC.
+
+2000-07-31  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* Makefile.am (libclub_a_SOURCES): ajout de la classe FormatC
+
+	* FormatC.cc: création du fichier.
+
+2000-04-04  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* IterateurAscii.cc, IterateurCaractere.cc,
+	IterateurChampLigne.cc, IterateurLigne.cc, TamponAscii.cc,
+	TamponTexte.cc, TamponTexte_OBSOLETE.cc: déplacement du copyright
+
+2000-04-03  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* IterateurChamp.cc (IterateurChamp): ajout de ClubErreurs dans la
+	liste des exceptions déclenchées par les constructeurs
+
+2000-03-30  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* *.cc: ajout du copyright CNES
+
+	* ChaineSimple.cc: élimination d'une portion de code optionnelle
+	posant des problèmes de droits de distribution
+
+	* TamponPartage.cc (operator =, destructor): élimination du
+	delete[] lorsque l'utilisateur ne donne pas de pointeur de
+	fonction valide
+
+1999-10-18  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* TamponPartage.cc (operator =): modification de l'opérateur 
+	d'affectation pour corriger un bug sur la fuite mémoire. En effet, la 
+	valeur de l'indicateur de référence peut être négatif (cas où l'on 
+	construit le TamponPartage avec le constructeur sans argument) alors 
+	qu'on teste uniquement la nullité de cet indicateur. On vérifie 
+	désormais s'il est négatif.
+
+1999-08-11  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* FichierStructure.cc (rechercheSousBloc): suppression de la copie
+	de l'erreur ce.
+
+	* ClubErreurs.cc (ClubErreurs): utilisation de l'initialiseur stockeCode
+	qui permet de modifier la valeur du code d'erreur.
+	(erreur): idem
+
+	* BaseErreurs.cc (AlloueMessage): retourne désormais un pointeur sur une
+	StructureErreurs
+	(LibereMessage): détruit une zone mémoire allouée à une StructureErreurs
+	(BaseErreurs): modification des constructeurs suite au changement
+	de structure de la classe BaseErreurs (donneesPartagees contient à la
+	fois un code d'erreur et un message, utilisation de la fonction
+	stockeCode ())
+	(affiche): utilisation de la fonction msg() de StructureErreurs pour
+	lire le message d'erreur
+	(Toutes les fonctions): utilisation de l'accesseur code() et de 
+	l'initialiseur stockeCode (int code) du code d'erreur.
+
+1999-06-28  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* FichierStructure.cc: Passage a une gestion d'erreurs par exceptions.
+	Correction de l'indentation. Changement du nom de l'argument de
+	la methode lit en ptrTampon pour etre coherent avec FichierStructure.h.
+
+	* FormatFortran.cc: Deplacement de plusieurs methodes pour respecter
+	l'ordre de declaration de FormatFortran.h.
+
+	* IterateurCaractere.cc: Deplacement de la methode allerSur pour
+	respecter l'ordre de IterateurCaractere.h. Suppression de 
+	l'utilisation du pointeur nonConstThis dans nombreIterations.
+	Code de retour des operateurs ++ et -- egal a 0 si en extremite de
+	tampon.
+
+	* IterateurChamp.cc: Le constructeur IterateurChamp ne leve pas
+	d'exceptions, correction de l'indentation, le code retour de 
+	l'operateur -- vaut 0 lorsque l'on est sur le premier champ.
+	Dans la methode compteChamp : restructuration complete de la methode.
+	Si on interprete le tampon, un commentaire = un champ, meme si le 
+	commentaire est compose de plusieurs mots. Dans la methode sauteChampAvant
+	si on interprete le tampon, un commentaire = un champ. La methode 
+	rechercheChamp retourne void au lieu de int et si on interprete le 
+	tampon, saute un commentaire entier.
+
+	* IterateurChampLigne.cc: Correction de l'indentation, la methode
+	dernier pointe sur le dernier champ _non vide_ , la methode premier
+	fait pointer sur le premier champ non vide, la methode allerSur
+	permet de se positionner sur le champ 0 d'une ligne, bien que ce 
+	champ n'existe pas (utile pour les lignes vides). Les operateurs
+	++ et -- vont de champs non vides en champs non vides. Suppression de
+	l'appel a debutDeChampLigne dans actualiseEtat.
+
+	* IterateurLigne.cc : Correction de l'indentation, suppression
+	du pointeur nomConstThis dans nombreIterations, retour de l'operateur
+	-- egal a 0 lorsque le debut du tampon est atteint
+
+	* OptionBase.cc: 
+	* OptionChaine.cc: 
+	* OptionEntier.cc: 
+	* OptionReel.cc: Passage a une gestion d'erreurs basee sur les
+	exceptions.
+
+	* OptionSansValeur.cc: Passage a une gestion d'erreurs basee sur les
+	exceptions.
+
+	* OptionTableauChaines.cc: 
+	* OptionTableauEntiers.cc: 
+	* OptionTableauReels.cc: Changement de nom des fichiers *Tab* en
+	*Tableau* pour correspondre au nom de la classe. Passage a une 
+	gestion d'erreurs basee sur les exceptions.
+
+	* OptionsAppli.cc: Passage a une gestion d'erreurs basee sur les
+	exceptions. Correction de l'indentation.
+
+	* TamponAscii.cc: Passage de type de retour int vers void lorsque
+	aucune information ne transitait par cet entier. Suppression de 
+	l'inclusion des fichiers iostream.h et fstream.h deja inclus dans 
+	TamponAscii.h.
+
+	* TamponBase.cc: Passage de type de retour int vers void
+
+	* TamponTexte.cc: Abandon de l'ancien mecanisme de gestion des 
+	erreurs au profit des exceptions. Changement des signatures de methodes
+	type de retour de type void au lieu de int, suppression de l'argument
+	pointeur sur ClubErreurs. Les exceptions levees par TamponAscii ne sont
+	plus rattrapees.
+
+	* FichierStructure_OBSOLETE.cc: 
+	* FormatFortran_OBSOLETE.cc: 
+	* OptionBase_OBSOLETE.cc: 
+	* OptionChaine_OBSOLETE.cc: 
+	* OptionEntier_OBSOLETE.cc: 
+	* OptionReel_OBSOLETE.cc: 
+	* OptionSansValeur_OBSOLETE.cc: 
+	* OptionsAppli_OBSOLETE.cc: 
+	* OptionTableauChaines_OBSOLETE.cc: 
+	* OptionTableauEntiers_OBSOLETE.cc: 
+	* OptionTableauReels_OBSOLETE.cc: 
+	* TamponTexte_OBSOLETE.cc: Anciens fichiers suffixes par _OBSOLETE
+	pour garder une compatibilite. Ces classes utilisent une gestion d'erreur
+	par code retour et pointeur sur ClubErreurs. Ce sont les memes fichiers
+	(aux noms de classe pres) que ceux de la version 5.4.
+
+	* Traducteur.cc: Adaptation aux classes utilisant les exceptions,
+	correction de l'indentation
+
+1999-06-25  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* FichierStructure.cc (lit): incrementation du pointeur passe
+	en parametre a elimineZone pour eliminer une zone commencant
+	au debut du tampon.
+
+1999-06-17  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* TamponTexte.cc: création d'un TamponAscii dans le 
+	traitement d'erreur des constructeurs et operator =
+
+1999-06-09  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* TamponTexte.cc: correction d'un bug dans l'opérateur d'affectation 
+	(recopie de l'attribut tampon_)
+
+1999-06-01  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* TamponBase.cc (lit): correction de l'indentation
+
+	* IterateurChampLigne.cc : correction de l'include obsolete <strings.h>
+	en "ClubConfig.h"
+	protection pour les traitements sur un tampon nul (total = 0) par
+	un test sur la variable mobile
+	
+	* IterateurChamp.cc : correction de l'include obsolete <strings.h>
+	en "ClubConfig.h" 
+	protection pour les traitements sur un tampon nul (total = 0) par
+	un test sur la variable mobile
+
+	* IterateurAscii.cc: correction de l'include obsolete <strings.h>
+	en "ClubConfig.h"
+
+1999-04-11  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* TamponPartage.cc (TamponPartage): initialisation des attributs
+	fonctionLiberation_ et arg_
+	(operator =): utilisation de la fonction utilisateur pour libérer
+	la mémoire allouée
+	(~TamponPartage): utilisation de la fonction utilisateur pour
+	libérer la mémoire allouée
+
+	* FichierStructure.cc (AlloueChaine): nouvelle fonction
+	(SepareDelimiteurs): utilisation de AlloueChaine
+	(LibereChaine): nouvelle fonction
+	(lit): enregistrement de la fonction de libération de la mémoire
+	allouée
+
+	* BaseErreurs.cc (AlloueMessage): nouvelle fonction
+	(LibereMessage): nouvelle fonction
+	(BaseErreurs): enregistrement de la fonction de libération de la
+	mémoire allouée
+
+1999-03-24  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* Makefile.am (CLEANFILES): ajout de cette cible pour nettoyer
+	les fichiers crées pour le traitement des templates par le
+	compilateur
+
+1999-03-18  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* OptionsAppli.cc (initialiser): normalisation des déclarations 
+	de chaînes littérales par l'utilisation de const char* au lieu 
+	de char* pour compatibilité avec SUN Workshop 5.0
+
+	* OptionTabChaines.cc (OptionTableauChaines): modification 
+	d'un calcul de longueur de chaîne avec déclaration et utilisation
+	séparée, l'opérateur de coercition et l'utilisation simultanés étant refusés
+	par le compilateur SUN Workshop 5.0
+
+	* OptionBase.cc (LectureTypesIncompatibles): normalisation 
+	des déclarations de chaînes littérales par l'utilisation
+	de const char* au lieu de char* pour compatibilité avec le 
+	compilateur SUN Workshop 5.0
+
+1999-03-08  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* Makefile.am (libclub_a_SOURCES): ajout des nouveaux fichiers
+	concernant la gestion de TamponTexte et des itérateurs
+
+	* TamponTexte.cc: remplacement complet des mécanismes de
+	TamponTexte par l'utilisation de la hiérarchie de TamponAscii et
+	des itérateurs Champ, Ligne et ChampLigne
+
+	* TamponBase.cc: nouveau fichier implémentant un tampon de base,
+	représentant le contenu d'un fichier
+
+	* TamponAscii.cc: nouveau fichier implémentant un tampon ascii
+
+	* IterateurLigne.cc: nouveau fichier implémentant un itérateur se
+	déplaçant par ligne sur un tampon ascii
+
+	* IterateurChampLigne.cc: nouveau fichier implémentant un
+	itérateur se déplaçant par champ dans une ligne sur un tampon
+	ascii
+
+	* IterateurChamp.cc: nouveau fichier implémentant un itérateur se
+	déplaçant par champ sur un tampon ascii
+
+	* IterateurCaractere.cc: nouveau fichier implémentant un itérateur
+	se déplaçant par caractère sur un tampon ascii
+
+	* IterateurAscii.cc: nouveau fichier implémentant un itérateur
+	abstrait sur un tampon ascii
+
+1999-03-02  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* ClubErreurs.cc (formate): ajout d'un message d'erreur sur les
+	itérateurs
+
+	* BaseErreurs.cc (BaseErreurs): correction de la gestion d'erreur,
+	toutes les copies d'une erreur partagent un même message pour
+	éviter la duplication des messages d'erreur lors de la
+	destruction, notamment en cas de copies créées par une levée
+	d'exceptions (copie par copie constructeur ou par affectation)
+
+1999-02-11  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* ClubErreurs.cc (formate): prise en compte d'un nouveau message
+	d'erreur indiquant l'utilisation d'un itérateur non valide sur un
+	tampon
+
+	* ChaineSimple.cc (reinitialise): ajout d'une allocation de chaîne
+	si la chaîne n'existe pas
+
+	* AnalyseurLexical.cc (analyseChaineC): Correction des masques
+	de protection, sur le domaine des caractères lus sous forme octale ou
+	hexadécimale, pour prendre en compte les caracteres ISO-Latin1 :
+	code > 127
+
+1998-11-17  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* AnalyseurLexical.cc (analyseChaineC): ajout de protection sur le
+	domaine des caractères lus sous forme octale ou hexadécimale,
+	(operator =, constructeur par copie) correction de l'oubli de
+	l'affectation de derniereChaineC_ et derniereChaineFortran_
+
+	* BaseErreurs.cc: élimination de l'inclusion de ctype.h
+
+	* FichierStructure.cc: élimination de l'inclusion de ctype.h,
+	(terminal, nombreChamps, champs) : protection contre une
+	possibilité d'utilisation de pointeur nul
+
+	* FormatFortran.cc: élimination de l'inclusion de ctype.h
+
+	* OptionBase.cc: élimination de l'inclusion de ctype.h,
+	(operator =) correction de l'oubli de l'affectation de l'attribut
+	valeursTrouvees_
+
+	* OptionTabChaines.cc: ajout de (void) explicites pour montrer que
+	l'on ignore certaines valeurs de retour
+
+	* OptionTabEntiers.cc: ajout de (void) explicites pour montrer que
+	l'on ignore certaines valeurs de retour
+
+	* OptionsAppli.cc: élimination de l'inclusion de ctype.h
+
+	* TamponTexte.cc: élimination de l'inclusion de ctype.h
+
+	* Traducteur.cc: élimination de l'inclusion de ctype.h
+
+1998-10-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: utilisation de libclub_a_LIBADD pour gérer les
+	fichiers objets créés lors de l'instanciation des templates
+	(compilateur Sun)
+
+	* ClubErreurs.cc: [STDC_HEADERS]: inclusion de stlib.h pour avoir
+	le prototype de exit
+
+	* BaseErreurs.cc: [STDC_HEADERS]: inclusion de stlib.h pour avoir
+	le prototype de exit
+
+1998-09-13  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* FichierStructure.cc (operator =): ajout de la date et de la
+	signature, (lit): ajout de la date et de la signature
+
+	* ClubErreurs.cc (formate): ajout de l'erreur etat_fichier
+
+	* ClubConfig.h.in: [HAVE_SYS_STAT_H]: nouvelle macro
+	[HAVE_TIME_H]: nouvelle macro
+
+1998-08-11  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Traducteur.cc (VariableLangue): nouvelle fonction,
+	(VariableCheminsTraduction): nouvelle fonction
+
+1998-08-04  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* OptionsAppli.cc [HAVE_INSTANTIATIONS]: mise en conformité de la
+	condition avec les standards de configure
+
+	* Traducteur.cc [HAVE_INSTANTIATIONS]: mise en conformité de la
+	condition avec les standards de configure
+
+1998-07-29  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* stamp-h.in: élimination du fichier (il est généré automatiquement)
+
+	* ClubVersion.cc (clubVersion): utilisation de la macro
+	VERSION mise en place par configure
+
+1998-07-25  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Traducteur.cc: inclusion de ClubConfig.h,
+	mise au	propre des inclusions système,
+	(tradext_, tradint_, tradform_, tradecrch_): remplacement
+	des memset par des boucles explicites,
+	(AjouterDomaine, Traducteur): élimination des macros imbriquées
+
+	* TamponTexte.cc: inclusion de ClubConfig.h
+
+	* OptionTabReels.cc: inclusion de ClubConfig.h,
+	mise au	propre des inclusions système
+
+	* OptionTabEntiers.cc: inclusion de ClubConfig.h,
+	mise au	propre des inclusions système
+
+	* OptionTabChaines.cc: inclusion de ClubConfig.h
+
+	* FormatFortran.cc: inclusion de ClubConfig.h,
+	mise au	propre des inclusions système
+
+	* FichierStructure.cc: inclusion de ClubConfig.h,
+	remplacement de tous les size_t par des int
+
+	* ClubVersion.cc: élimination des commentaires décrivant
+	les divers numéros de versions de fichiers
+	inclusion de ClubConfig.h
+
+	* ClubErreurs.cc:  mise au propre des inclusions système,
+	(formate) [HAVE_STRERROR]: compilation conditionnelle,
+	(erreur) [HAVE_EXCEPTIONS]: mise en conformité de la condition
+	avec les standards de configure
+
+	* ChaineSimple.cc: inclusion de ClubConfig.h,
+	[!HAVE_VPRINTF] (vsprintf): nouvelle fonction,
+	(ChaineSimple, reinitialise): remplacement des memset par des
+	boucles explicites,
+	(ChaineSimple): remplacement de memchr par une boucle explicite,
+	(operator ==, operator !=): transfert des définitions des
+	fonctions depuis le fichier d'en-tête
+
+	* BaseErreurs.cc: inclusion de ClubConfig.h,
+	mise au propre des inclusions système,
+	(erreur) [HAVE_EXCEPTIONS]: mise en conformité de la condition
+	avec les standards de configure
+
+	* AnalyseurLexical.cc: inclusion de ClubConfig.h et stdlib.h
+
+	* ClubConfig.h.in: nouveau fichier
+
+	* stamp-h.in: nouveau fichier (pour automake)
+
+	* ChangeLog: nouveau fichier

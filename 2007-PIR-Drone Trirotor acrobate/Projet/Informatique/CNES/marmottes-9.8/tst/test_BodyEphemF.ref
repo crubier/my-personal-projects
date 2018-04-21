@@ -1,0 +1,16 @@
+
+ prgm_BodyEphemF
+  -------------------------------------------------- --------------------
+  Appel a MarmottesEnregistreCorps en utilisant les fonctions par defaut
+  -------------------------------------------------- --------------------
+  Mesure realisee par le 1er senseur  3.73193756
+  -------------------------------------------------- ----------------------
+  Appel a MarmottesEnregistreCorps en utilisant les fonctions utilisateurs
+  -------------------------------------------------- ----------------------
+  Mesure realisee par le 1er senseur  3.73193756
+  Lecture des parametres courants :
+   date :  1600.
+   position : x=  42164. y=  0. z=  0.
+   vitesse  : x=  0. y=  3.07466627 z=  0.
+   attitude : q0=  0.5 q1= -0.5 q2= -0.5 q3=  0.5
+   spin     : x=  0. y=  0. z=  0.

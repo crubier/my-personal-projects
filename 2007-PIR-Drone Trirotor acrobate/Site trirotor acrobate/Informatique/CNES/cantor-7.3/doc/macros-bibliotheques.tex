@@ -1,0 +1,68 @@
+% -*- mode: latex; tex-main-file: "cantor.tex" -*-
+% $Id: macros-bibliotheques.tex,v 1.6 2005/03/11 10:43:03 chope Exp $
+\usepackage{longtable}
+
+\usepackage[dvips]{changebar}
+\setcounter{changebargrey}{40}
+\outerbarstrue
+\setlength{\changebarsep}{5pt}
+
+\makeatletter
+\renewcommand{\l@subsection}{\@dottedtocline{2}{1.5em}{2.7em}}
+\makeatother
+
+\newcommand{\fonc}[1]{\textbf{#1}}
+\newcommand{\throw}[1]{\textbf{throw}(#1)}
+\newcommand{\argument}[1]{\textsl{#1}}
+\newcommand{\langage}[1]{\textsc{#1}}
+\newcommand{\bibliotheque}[1]{\textsc{#1}}
+\newcommand{\outil}[1]{\texttt{#1}}
+
+\newcommand{\template}[2]{#1<\relax{}#2>\relax{}}
+
+\newlength{\hauteurPile}\newlength{\hauteurPar}
+\newcommand{\pileDescendante}[1]{\settoheight{\hauteurPile}{\shortstack[l]{#1}}
+\settoheight{\hauteurPar}{()}\addtolength{\hauteurPile}{-\hauteurPar}
+\raisebox{-\hauteurPile}{\shortstack[l]{#1}}}
+
+\newlength{\largeurPar}
+\newcommand{\signature}[2]{\settowidth{\largeurPar}{(}
+\pileDescendante{{#1}\\\hspace{2em}\shortstack[l]{\hspace{-\largeurPar}#2}}}
+
+\newlength{\largeurTableFonctions}
+
+\newenvironment{tableFonctionsLibre}[3]{\begin{table}[htbp]\caption{#1}#2
+\begin{center}\footnotesize\settowidth{\largeurTableFonctions}{#3}
+\renewcommand{\arraystretch}{1.5}\begin{tabular}{|l|p{\largeurTableFonctions}|}
+\hline \multicolumn{1}{|c|}{signature} & \multicolumn{1}{c|}{description}\\
+\hline\hline\\}
+{\hline\end{tabular}\end{center}\end{table}}
+
+\newenvironment{tableFonctionsFixe}[3]{\footnotesize
+\settowidth{\largeurTableFonctions}{#3}
+\renewcommand{\arraystretch}{1.5}
+\begin{longtable}{|l|p{\largeurTableFonctions}|}\caption{#1}#2\\
+\hline\multicolumn{1}{|c|}{signature} & \multicolumn{1}{c|}{description}\\
+\hline\hline\endfirsthead\caption[]{#1 (suite)}\\
+\hline\multicolumn{1}{|c|}{signature} & \multicolumn{1}{c|}{description}\\
+\hline\hline\endhead
+\hline\multicolumn{2}{|r|}{à suivre ...}\\\hline\endfoot
+\hline\endlastfoot}{\end{longtable}}
+
+\newlength{\largeurTableAttributs}
+
+\newenvironment{tableAttributsLibre}[3]{\begin{table}[htbp]\caption{#1}#2
+\begin{center}\settowidth{\largeurTableAttributs}{#3}
+\begin{tabular}[b]{|c|c|p{\largeurTableAttributs}|}
+\hline nom & type & \multicolumn{1}{c|}{description}\\
+\hline\hline}
+{\hline\end{tabular}\end{center}\end{table}}
+
+\newenvironment{tableAttributsFixe}[3]{
+\settowidth{\largeurTableAttributs}{#3}
+\begin{longtable}{|c|c|p{\largeurTableAttributs}|}\caption{#1}#2\\
+\hline nom & type &\multicolumn{1}{c|}{description}\\\hline\hline\endfirsthead
+\caption[]{#1 (suite)}\\
+\hline nom & type &\multicolumn{1}{c|}{description}\\\hline\hline\endhead
+\hline\multicolumn{3}{|r|}{à suivre ...}\\\hline\endfoot
+\hline\endlastfoot}{\end{longtable}}

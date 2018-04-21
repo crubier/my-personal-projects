@@ -1,0 +1,101 @@
+\clearpage\section{Définitions des repères utilisés}\label{sec:def-reperes}
+
+Marmottes utilise principalement trois grandes catégorie de repère.\\
+\\
+Le repère inertiel est le repère dont l'origine est au centre du corps
+attracteur et les axes sont fixes dans l'espace (gamma50 CNES, J2000,
+...). Toutes les positions et vitesses passées en argument à Marmottes
+sont exprimées dans ce repère. L'attitude est la rotation qui,
+appliquée aux coordonnées d'un vecteur exprimé dans ce repère, donne les
+coordonnées, de ce même vecteur, exprimées en repère satellite.\\
+\\
+Le repère satellite est le repère dont on cherche à déterminer
+l'orientation par rapport au repère inertiel. Il est défini par le
+constructeur et correspond au coprs du satellite.\\
+\\
+Les repères senseurs sont les repères propres aux équipements de
+mesure de l'attitude (typiquement la tête optique des senseurs ou le
+boîtier des gyromètres). Ce repère est calé, par construction, par
+rapport au repère satellite. C'est ce repère qui doit être défini pour
+chaque senseur dans le fichier des senseurs. Tous les vecteurs de
+définition des axes de visée, de mesure, de champ de vue des senseurs
+sont exprimés dans ce repère dans le fichier senseurs.\\
+\\
+Outre ces repères généraux, les capteurs de Cardan utilisent des
+repères spécifiques.
+Les capteurs d'angles de Cardan mesurent les angles de rotation
+successives permettant de passer d'un repère de référence au repère
+satellite. Plusieurs repère de référence sont prédéfinis et peuvent
+être spécifiés dans le fichier senseurs. Ces repères sont définis de
+la façon suivante, par rapport au repère inertiel (dans ces
+définitions, $\vec{P}$ est le vecteur position du satellite, compté du
+centre du corps attracteur vers le satellite et $\vec{V}$ est le
+vecteur vitesse du satellite).
+
+\begin{description}
+
+\item[] repère géocentrique \\
+    Ce repère dépend de la position du satellite et
+    tourne à la fréquence orbitale. \\
+    Ce repère est défini par :
+\begin{itemize}
+    \item $\vec{Z}$ est dirigé du satellite vers le centre du corps
+    attracteur ($\vec{Z} = -\vec{P} / ||\vec{P}||$),
+    \item $\vec{Y}$ est porté par l'opposé du moment cinétique
+    ($\vec{Y} = -\vec{P} \wedge \vec{V} / ||\vec{P} \wedge \vec{V}||$),
+    \item $\vec{X}$ complète le trièdre ($\vec{X} = \vec{Y} \wedge \vec{Z}$).
+\end{itemize}
+
+\item[] repère QSW \\
+    Ce repère dépend de la position du satellite et
+    tourne à la fréquence orbitale. \\
+    Ce repère est défini par :
+\begin{itemize}
+    \item $\vec{X}$ pointe vers l'opposé du centre du corps attracteur
+    ($\vec{X} = -\vec{P} \wedge ||\vec{P}||$),
+    \item $\vec{Z}$ est porté par le moment orbital ($\vec{Z} =
+    \vec{P} \wedge \vec{V} / ||\vec{P} \wedge \vec{V}||$),
+    \item $\vec{Y}$ complète le trièdre ($\vec{Y} = \vec{Z} \wedge
+    \vec{X}$).
+\end{itemize}
+
+\item[] repère topocentrique \\
+    Ce repère dépend de la position du satellite et
+    tourne à la fréquence orbitale. \\
+    Ce repère est défini par :
+\begin{itemize}
+    \item $\vec{Z}$ pointe vers le centre du corps attracteur
+    ($\vec{Z} = -\vec{P} / ||\vec{P}||$),
+    \item $\vec{Y}$ pointe vers l'Est, ses coordonnées sont ($-P_y /
+    \sqrt{P_x^2 + P_y^2}, P_x / \sqrt{P_x^2 + P_y^2}, 0$) en repère
+    inertiel,
+    \item $\vec{X}$ complète le triédre ($\vec{X} = \vec{Y} \wedge
+    \vec{Z}$).
+\end{itemize}
+
+\item[] repère inertiel \\
+    Ce repère ne dépend de rien et est fixe. \\
+    Ce repère est le repère de définition. Ses axes sont donc les axes
+    canoniques ($\vec{X}$ (1,0,0),$\vec{Y}$ (0,1,0),$\vec{Z}$ (0,0,1)).
+
+\item[] repère TNW \\
+    Ce repère dépend de la position du satellite et
+    tourne à la fréquence orbitale. \\
+    Ce repère est défini par :
+\begin{itemize}
+    \item $\vec{X}$ est porté par la vitesse ($\vec{X} = \vec{V} /
+    ||\vec{V}||$),
+    \item $\vec{Z}$ est porté par le moment orbital ($\vec{Z} =
+    \vec{P} \wedge \vec{V} / ||\vec{P} \wedge \vec{V}||$),
+    \item $\vec{Y}$ complète le triédre ($\vec{Y} = \vec{Z} \wedge
+    \vec{X}$).
+\end{itemize}
+     
+\item[] repère utilisateur \\
+    Ce repère est entiérement paramétré par l'utilisateur à l'aide de
+    la fonction \fonc{MarmottesModifieReference}. Il s'agit typiquement de
+    l'attitude retournée par un appel préalable à
+    \fonc{MarmottesAttitude}. Ceci permet alors de considérer les mesures des
+    senseurs de Cardan comme les \emph{écarts} (ou les erreurs de
+    pilotage) par rapport à cette attitude de référence.
+\end{description}

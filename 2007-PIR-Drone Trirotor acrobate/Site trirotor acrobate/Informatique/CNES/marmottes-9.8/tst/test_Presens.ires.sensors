@@ -1,0 +1,218 @@
+# $Id: test_Presens.ires.sensors,v 1.3 2001/03/30 08:51:35 luc Exp $
+
+BP
+{ type                {diedre}
+  cible               {soleil}
+  precision           { 1.0 }
+
+  champ_de_vue
+  { {
+      { cone { axe { 0.0  5.0 } angle {90} }}
+      inter
+      { cone { axe { 0.0 -5.0 } angle {90} }}
+    }
+    inter
+    {
+      { cone { axe {  5.0 0.0 } angle {90} }}
+      inter
+      { cone { axe { -5.0 0.0 } angle {90} }}
+    }
+  }
+
+  repere          { i { -1 0 0 }    j { 0 0 1 }    k { 0 1 0 } } 
+  axe_sensible    { 0 0 1 }
+  reference_zero  { 1 0 0 }
+
+}
+
+BY { => { BP } axe_sensible { 0 1 0 } reference_zero { 1 0 0 } }
+
+INHIB
+{ type           { limbe }
+  precision      { 0.02  }
+  repere         { i { 1 0 0 } j { 0 1 0 } k { 0 0 1 } }
+  axe_sensible   { -1 0 0 }
+  reference_zero {  0 0 1 }
+
+
+  champ_de_vue { marge { 17.0 }
+                 sur   {
+                         { { => {INHIB.zone_1} } et { => {INHIB.zone_4} } }
+                         ou
+                         { { => {INHIB.zone_2} } et { => {INHIB.zone_3} } }
+                       }
+               }
+
+  champ_d_inhibition_soleil { cone { axe { 0 0 1 } angle { 0 } } }
+
+  champ_d_inhibition_lune
+  { balayage { axe { 0.0 15.0 } angle { 12.0 } }
+    de       { rotation { axe { 0.0 15.0 } angle { -6.0 } }
+               de       { marge { 0.250 }
+                          sur   { { { => { INHIB.inhibition_base_1 } }
+                                    inter
+                                    { rotation { axe { 0 1 0 } angle { -60 } }
+                                      de       { cone { axe { 1 0 0 } angle { 90 } } }
+                                    }
+                                  }
+                                  union
+                                  { { => { INHIB.inhibition_base_2 } }
+                                    inter
+                                    { rotation { axe { 0 -1 0 } angle { -60 } }
+                                      de       { cone { axe { -1 0 0 } angle { 90 } } }
+                                    }
+                                  }
+                                }
+                        }
+             }
+  }
+
+  seuil_phase_lune                { 90 }
+  marge_eclipse_soleil            { 0 }
+  marge_eclipse_lune              { 0 }
+
+  elevation { angle {   6.205 } } # <-- 2 * 48.1025 - 90
+  r_bolo    { angle {   0.9   } } # <-- 1.8 / 2
+  debut_1   { angle {  73.125 } }
+  fin_1     { angle { 112.5   } }
+  debut_2   { angle { 253.125 } }
+  fin_2     { angle { 292.5   } }
+  r_inhib   { angle {   2.5   } } # <-- 5.0 / 2
+
+  trace_1_sans_masque
+  { { balayage { axe { 0 1 0 } angle { 180 } }
+      de { rotation { axe { 0 1 0 } angle { -90 } }
+           de { rotation { axe { -1 0 0 } => { INHIB.elevation } }
+                de { cone { axe { 0 0 1 } => { INHIB.r_bolo } } }
+              }
+         }
+    }
+    inter
+    { { rotation { axe { 0 1 0 } => { INHIB.debut_1 } }
+        de       { cone { axe { 0 0 1 } angle { 90 }}}
+      }
+      inter
+      { rotation { axe { 0 1 0 } => { INHIB.fin_1 } }
+        de       { cone { axe { 0 0 -1 } angle { 90 } } }
+      }
+    }
+  }
+
+  trace_2_sans_masque
+  { { balayage { axe { 0 -1 0 } angle { 180 } }
+      de { rotation { axe { 0 -1 0 } angle { -90 } }
+           de { rotation { axe {  1 0 0 } =>  { INHIB.elevation } }
+                de { cone { axe { 0 0 1 } =>  { INHIB.r_bolo } } }
+              }
+         }
+    }
+    inter
+    { { rotation { axe { 0 -1 0 } => { INHIB.debut_2 } }
+        de       { cone { axe { 0 0 -1 } angle { 90 }}}
+      }
+      inter
+      { rotation { axe { 0 -1 0 } => { INHIB.fin_2 } }
+        de       { cone { axe { 0 0  1 } angle { 90 } } }
+      }
+    }
+  }
+
+  zone_1
+  { { => { INHIB.trace_1_sans_masque } }
+    inter
+    { { rotation { axe { 0 1 0 } angle { 45.0 } }
+        de       { cone { axe { 0 0 1 } angle { 90 }}}
+      }
+      inter
+      { rotation { rotation { axe { 0 1 0 } angle { 45 } }
+                   de       { axe { 0 1 0 } angle { 45 } }
+                 }
+        de       { cone { axe { 0 0 -1 } angle { 90 } } }
+      }
+    }
+  }
+
+  zone_2
+  { { => { INHIB.trace_1_sans_masque } }
+    inter
+    { { rotation { axe { 0 1 0 } angle {  0 } }
+        de       { cone { axe { 1 0 0 } angle { 90 }}}
+      }
+      inter
+      { rotation { rotation { axe { 0 1 0 } angle {  0 } }
+                   de       { axe { 0 1 0 } angle { 45 } }
+                 }
+        de       { cone { axe { -1 0 0 } angle { 90 } } }
+      }
+    }
+  }
+
+  zone_3
+  { { => { INHIB.trace_2_sans_masque } }
+    inter
+    { { rotation { axe { 0 -1 0 } angle { 45 } }
+        de       { cone { axe { 0 0 1 } angle { 90 }}}
+      }
+      inter
+      { rotation { rotation { axe { 0 -1 0 } angle { 45 } }
+                   de       { axe { 0 -1 0 } angle { 45 } }
+                 }
+        de       { cone { axe { 0 0 -1 } angle { 90 } } }
+      }
+    }
+  }
+
+  zone_4
+  { { => { INHIB.trace_2_sans_masque } }
+    inter
+    { { rotation { axe { 0 -1 0 } angle {  0 } }
+        de       { cone { axe { -1 0 0 } angle { 90 }}}
+      }
+      inter
+      { rotation { rotation { axe { 0 -1 0 } angle {  0 } }
+                   de       { axe { 0 -1 0 } angle { 45 } }
+                 }
+        de       { cone { axe { 1 0 0 } angle { 90 } } }
+      }
+    }
+  }
+
+  inhibition_base_1
+  { { balayage { axe { 0  1 0 } angle { 180 } }
+      de { rotation { axe { 0  1 0 } angle { -90 } }
+           de { rotation { axe { -1 0 0 } => {INHIB.elevation} }
+                de { cone { axe { 0 0 1 } => {INHIB.r_inhib} } }
+              }
+         }
+    }
+    inter
+    { rotation { axe { 0 1 0 } angle { 10 } }
+      de       { cone { axe { -1 0 0 } angle { 90 } } }
+    }
+  }
+
+  inhibition_base_2
+  { { balayage { axe { 0 -1 0 } angle { 180 } }
+      de { rotation { axe { 0 -1 0 } angle { -90 } }
+           de { rotation { axe {  1 0 0 } => {INHIB.elevation} }
+                de { cone { axe { 0 0 1 } => {INHIB.r_inhib} } }
+              }
+         }
+    }
+    inter
+    { rotation { axe { 0 -1 0 } angle { 10 } }
+      de       { cone { axe { 1 0 0 } angle { 90 } } }
+    }
+  }
+
+}
+
+SR
+{ type      {diedre}
+  cible     {terre}
+  repere    { i { 1 0 0 } j { 0 1 0 } k { 0 0 1 } }
+  precision { 0.0001 }
+  champ_de_vue { cone { axe { 0 0 1 } angle { 90 } } }
+  axe_sensible { 1 0 0 }
+  reference_zero { 0 0 1 }
+}

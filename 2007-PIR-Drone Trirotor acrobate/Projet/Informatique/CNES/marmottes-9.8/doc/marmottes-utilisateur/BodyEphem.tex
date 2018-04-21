@@ -1,0 +1,219 @@
+% $Id: BodyEphem.tex,v 1.3 2003/10/08 09:42:08 marmottes Exp $
+\subsection{classe BodyEphem}\label{sec:BodyEphem}
+
+\subsubsection*{description}\label{sec:BodyEphem-desc}
+
+Cette classe abstraite est l'interface d'accès aux différentes
+implémentations utilisateurs (\langage{C} ou \langage{FORTRAN}) 
+du calcul du temps sidéral et des éphémérides du Soleil,
+de la Lune et de la Terre, par rapport au corps central.\\
+Elle permet aussi l'accès à des grandeurs physiques du corps central
+(rayon équatorial, aplatissement et vitesse de rotation).\\
+
+Elle est dérivée en deux classes différentes.
+
+\subsubsection*{interface publique}\label{sec:BodyEphem-int}
+\begin{verbatim}
+#include "marmottes/BodyEphem.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{BodyEphem : méthodes publiques}
+{\label{tab:BodyEphem-met-pub}}
+{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+
+
+\signature{BodyEphem * \fonc{clone} () const}{} 
+           & 
+permet la duplication sans connaître la classe dérivée employée (méthode virtuelle)\\
+
+\signature{\fonc{\~{}BodyEphem()}}{} & destructeur \\
+
+\hline
+
+\signature{double  \fonc{siderealTime}}
+          {(double \argument{t}, \\ double \argument{offset}) } &
+            calcule le temps sidéral en \texttt{rad} à la
+            date~\argument{t} en \texttt{jour}, avec un écart de
+            datation \argument{offset} (généralement en \texttt{s})
+            entre l'échelle de temps utilisé pour la date~\argument{t}
+            et l'échelle de temps utilisé par le modèle de calcul du
+            temps sidéral (méthode virtuelle)\\
+
+\signature{VecDBL  \fonc{sunPosition}}
+          {(double \argument{t})
+         } &  
+calcule la position du Soleil par rapport au corps central en
+\texttt{km} à la date~\argument{t} (méthode virtuelle) \\
+ 
+\signature{VecDBL  \fonc{moonPosition}}
+          {(double \argument{t})
+         } &  
+calcule la position de la Lune par rapport au corps central en
+\texttt{km} à la date~\argument{t} (méthode virtuelle) \\
+ 
+\signature{VecDBL  \fonc{earthPosition}}
+          {(double \argument{t})
+         } & 
+calcule la position de la Terre par rapport au corps central en
+\texttt{km} à la date~\argument{t} (méthode virtuelle) \\
+
+\hline
+
+\signature{double  \fonc{getEquatorialRadius} () const}{} 
+           & 
+retourne le rayon équatorial du corps central en \texttt{km} (sans
+conversion dans les unités utilisateur)\\
+
+\signature{double  \fonc{getOblateness} () const}{}  
+           & 
+retourne l'aplatissement du corps central \\
+
+\signature{double  \fonc{getRotationVelocity} () const}{}  
+           & 
+retourne la vitesse angulaire de rotation du corps central en \texttt{km/s}  (sans
+conversion dans les unités utilisateur)\\
+
+\hline
+
+\signature{double  \fonc{defaultFsiderealTime}}
+{(double *\argument{ptrT}, double *\argument{ptrOffset})}
+           & 
+fonction par défaut pour le \langage{fortran} de calcul du temps
+sidéral dans le système de référence de Veis, à la
+date~*\argument{ptrT} (en~jour) avec un écart de datation
+*\argument{ptrOffset} (en~s) entre l'échelle de temps \textsc{TU1} et
+l'échelle de temps utilisé pour la date~*\argument{ptrT}. L'écart
+*\argument{ptrOffset} est ajouté à la date~*\argument{ptrT}
+\\
+
+\signature{void  \fonc{defaultFsunPosition}}
+{(double *\argument{ptrT}, double \argument{BodySun[3]})}
+           &
+fonction par défaut pour le \langage{fortran} de calcul de la position
+\argument{BodySun[3]} (en~km) du Soleil par rapport à la Terre (corps
+central par défaut), à la date~*\argument{ptrT} (en~jour), selon le modèle de Newcomb
+\\
+
+\signature{void  \fonc{defaultFmoonPosition}}
+{(double *\argument{ptrT}, double \argument{BodyMoon[3]})}
+           & 
+fonction par défaut pour le \langage{fortran} de calcul de la position
+\argument{BodyMoon[3]} (en~km) de la Lune par rapport à la Terre (corps
+central par défaut), à la date~*\argument{ptrT} (en~jour), selon le modèle de Brown
+\\
+
+\signature{void  \fonc{defaultFearthPosition}}
+{(double *\argument{ptrT}, double \argument{BodyEarth[3]})}
+           & 
+fonction par défaut pour le \langage{fortran} de calcul de la position
+\argument{BodyEarth[3]} (en~km) de la Terre par rapport à la Terre (corps
+central par défaut)~=~0
+\\
+
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+
+Il n'y a \emph{aucune} utilisation directe de la classe BodyEphem
+dans toute la bibliothèque \bibliotheque{marmottes}.
+
+
+\subsubsection*{conseils d'utilisation
+spécifiques}\label{sec:BodyEphem-conseils}
+Cette classe est abstraite, c'est à dire qu'aucune instance ne peut
+être créée directement. Tout pointeur sur un objet de ce type pointe
+en réalité sur un objet d'un des types dérivés~: BodyEphemC ou
+BodyEphemF. Les constructeurs ne servent donc qu'à compléter les
+constructions d'objets plus gros et ne peuvent être appelés que par
+les constructeurs des classes dérivées.
+
+Les unités utilisées, les valeurs par défaut, un rappel sur la notion
+de date utilisée dans \bibliotheque{marmottes} et des indications sur
+la définition des fonctions par l'utilisateur sont donnés au niveau de
+la description de l'interface utilisateur (cf~\ref{sec:mod-ephem}).
+
+\subsubsection*{implantation}\label{sec:BodyEphem-impl}
+Les attributs protégés sont décrits sommairement dans la
+table~\ref{tab:BodyEphem-att-prot}, il n'y a pas d'attribut privé.
+
+\begin{tableAttributsFixe}{attributs protégés de la classe BodyEphem}
+{\label{tab:BodyEphem-att-prot}}
+{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+
+defaultEquatorialRadius & static const double & valeur par défaut du
+rayon équatorial: pour la Terre \\
+                        & & (en km) \\
+
+defaultOblateness & static const double  &  valeur par défaut de l'aplatissement: pour la Terre\\
+
+defaultRotationVelocity & static const double  &  valeur par défaut de
+la vitesse de rotation: pour la Terre \\
+                        & & (en rad/s)\\
+
+equatorialRadius\_ & double  &  rayon équatorial (en km)\\
+
+oblateness\_ & double  & aplatissement \\
+
+rotationVelocity\_ & double  & vitesse de rotation (en rad/s) \\
+
+\end{tableAttributsFixe}
+Les méthodes protégées sont décrites dans la table~\ref{tab:BodyEphem-met-prot}.
+\begin{tableFonctionsFixe}{BodyEphem : méthodes protégées}
+{\label{tab:BodyEphem-met-prot}}
+{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+
+\signature{static double  \fonc{defaultCsiderealTime}}{(double
+\argument{t}, double \argument{offset})} & 
+fonction par défaut pour le \langage{C} de calcul du temps sidéral
+dans le système de référence de Veis, à la date~\argument{t} (en~jour)
+avec un écart de datation \argument{offset} (en~s) entre l'échelle de
+temps \textsc{TU1} et l'échelle de temps utilisé pour la
+date~\argument{t}. L'écart \argument{offset} est ajouté à la date~\argument{t}\\
+
+% Deplacement defaultFsiderealTime() dans le bloc des methodes publiques
+
+\signature{static void  \fonc{defaultCsunPosition}}{(double \argument{t}, double \argument{BodySun[3]})} & 
+fonction par défaut pour le \langage{C} de calcul de la position \argument{BodySun[3]}
+(en~km) du Soleil par rapport à la Terre (corps central par défaut),
+à la date~\argument{t} (en~jour), selon le modèle de Newcomb
+\\
+
+% Deplacement defaultFsunPosition() dans le bloc des methodes publiques
+
+\signature{static void  \fonc{defaultCmoonPosition}}{(double
+ \argument{t}, double \argument{BodyMoon[3]})} & 
+fonction par défaut pour le \langage{C} de calcul de la position \argument{BodyMoon[3]}
+(en~km) de la Lune par rapport à la Terre (corps central par défaut),
+à la date~\argument{t} (en~jour), selon le modèle de Brown
+\\
+
+% Deplacement defaultFmoonPosition() dans le bloc des methodes publiques
+
+\signature{static void  \fonc{defaultCearthPosition}}{(double
+\argument{t}, double \argument{BodyEarth[3]})} & 
+fonction par défaut pour le \langage{fortran} de calcul de la position
+\argument{BodyEarth[3]} (en~km) de la Terre par rapport à la Terre (corps
+central par défaut)~=~0
+\\
+
+% Deplacement defaultFearthPosition() dans le bloc des methodes publiques
+
+\hline
+
+\signature{\fonc{BodyEphem}}{(double \argument{equatorialRadius}, \\
+double \argument{oblateness}, \\
+double \argument{rotationVelocity})} 
+& 
+construit une instance à partir des caractéristiques physiques du
+corps central: rayon équatorial \argument{equatorialRadius} (en~km),
+aplatissement \argument{oblateness} et vitesse de
+rotation \argument{rotationVelocity} (en~rad/s)  \\
+\hline
+\signature{\fonc{BodyEphem} () }{} & 
+initialise une instance par défaut \\
+
+\signature{\fonc{BodyEphem} (const BodyEphem\& \argument{b})}{} &
+constructeur par copie\\
+
+\signature{const BodyEphem\&  \fonc{operator =} }{(const BodyEphem\& \argument{b})} & 
+affectation \\
+
+\end{tableFonctionsFixe}

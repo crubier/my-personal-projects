@@ -1,0 +1,773 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+% $Id: club.tex,v 1.58 2005/03/11 16:27:57 chope Exp $
+\documentclass[a4paper,11pt]{article}
+\usepackage{notechope}
+
+\input{macros-bibliotheques}
+\input{pages-liminaires}
+\input{references}
+
+\nochangebars
+
+\begin{document}
+
+\section{présentation}\label{sec:presentation}
+La bibliothèque \bibliotheque{club} regroupe des classes implantant des
+utilitaires \langage{c++} de bas niveau. Elle offre principalement des
+services liés aux entrées-sorties (fichiers et arguments de la ligne
+de commande, erreurs) et au texte (chaînes de caractères, traduction
+de messages et mots-clefs, analyse lexicale).
+
+\begin{changebar}
+Ce document décrit la version 10.0 de la bibliothèque.
+\end{changebar}
+
+\section{description du contexte}\label{sec:contexte}
+La bibliothèque \bibliotheque{club} contient des routines de bas
+niveau (son nom signifie CLasses Utilitaires de Base). Elle s'appuie
+sur les éléments des bibliothèques standards \langage{c++} et
+\langage{c} et si elles sont disponibles elle peut également s'appuyer
+sur les bibliotheques \bibliotheque{xerces} et
+\bibliotheque{madona}. La liste ordonnée des bibliothèques à spécifier
+à l'éditeur de liens varie selon le compilateur utilisé pour générer
+la bibliothèque et selon la disponibilité des bibliothèques
+optionnelles.
+
+Les versions de \bibliotheque{club} ultérieures à la version 6.0
+utilisent le mécanisme des exceptions, qui n'est mis en place
+correctement que si l'édition de liens est réalisée par le compilateur
+\langage{c++} qui a servi à compiler la bibliothèque. Cette condition
+impérative a un impact à l'exécution, pas lors de l'édition de liens
+elle-même, ce qui la rend insidieuse. En effet, en cas d'absence du
+mécanisme de récupération, aucune exception lancée ne peut pas être
+interceptée, le programme s'arrête alors sur une erreur fatale dès la
+première exception. Le résultat typique est une violation mémoire avec
+génération d'un fichier \texttt{core}). Il faut noter également que le
+mélange des compilateurs (\textsc{sun} et \textsc{gnu} par exemple) ne
+fonctionne pas.
+
+Les bibliothèques
+\bibliotheque{marmottes}~\ref{ref:marmottes-math},
+\bibliotheque{cantor}~\ref{ref:cantor} ainsi que des d'autres
+bibliothèques internes du \textsc{cnes} s'appuient toutes sur
+\bibliotheque{club}.
+
+\section{conventions}\label{sec:conventions}
+\input{conventions}
+
+\section{catalogue}\label{sec:catalogue}
+\input{catalogue}
+
+\section{environnement}\label{sec:environnement}
+\input{environnement}
+
+\section{installation}\label{sec:installation}
+\input{installation}
+
+\section{messages d'avertissements et d'erreurs}\label{sec:messages-erreurs}
+\input{messages-erreurs}
+
+\section{tests}
+La bibliothèque \bibliotheque{club} dispose d'un certain nombre de
+tests de non régression automatiques que l'on peut exécuter par la
+commande \texttt{make check} disponible dans la distribution
+standard. Cette commande lance les tests existants et compare
+automatiquement (à l'aide de l'utilitaire \texttt{difference}) le
+résultat avec le résultat de référence archivé.
+
+Les classes disposant de tests spécifiques sont :
+
+\begin{itemize}
+\item AnalyseurLexical
+\item FichierStructure
+\item FormatC
+\item FormatFortran
+\item IterateurLigne
+\item IterateurChamp
+\item IterateurChampLigne
+\item MadonaFile
+\item OptionsAppli
+\item StructureFile
+\item TamponCaractere
+\item TamponPartage
+\item TamponTexte
+\item Traducteur
+\begin{changebar}
+\item XMLData
+\item XMLUnits
+\end{changebar}
+\end{itemize}
+
+Les diverses classes dérivées de OptionBase sont testées par le test
+de OptionsAppli.
+
+La classe TamponAscii est testée par l'intermédiaire des tests sur les
+itérateurs et TamponTexte.
+
+Les classes ChaineSimple, BaseErreurs, ClubErreurs, ClubAllocHandler
+n'ont pas de test. Elles ont cependant été utilisées de façon très
+intensive (dans cette bibliothèque et dans d'autres) et peuvent
+être considérées comme étant les classes les plus validées de
+la bibliothèque.
+
+Les tests automatiques de \bibliotheque{club} ont été analysés à
+l'aide de l'outil de vérification de mémoire \texttt{purify} à
+l'occasion de la distribution de la version 8.3 de la
+bibliothèque. Les erreurs détectées correspondant à la bibliothèque
+elle-même ont été corrigées. Il subsiste des fuites qui semblent liées
+à l'implémentation de la \bibliotheque{stl} dans le compilateur SUN et
+des \emph{fuites potentielles}\footnote{selon les comptes-rendus de
+l'outil} qui ne semblent pas réelles d'après une analyse manuelle du
+code correspondant.
+
+\section{maintenance}\label{sec:maintenance}
+\input{maintenance}
+
+\section{changements depuis les versions précédentes}
+
+
+\subsection{évolutions entre la version 9.5 et la version 10.0}
+
+\begin{changebar}
+La DTD des fichiers XML a été complètement modifiée de façon à séparer
+la description des unités (généralement unique et partagée par tous)
+des données elles-même. Le système de gestion des unités a été très
+largement étendu et amélioré à cette occasion. Cette modification
+introduit une incompatibilité avec les versions précédentes de la
+bibliothèque. La version de la bibliothèque \bibliotheque{xerces}
+utilisée est la 2.6.0 avec un patch corrigeant le problème
+XERCESC-1356 (DM-ID 242).
+
+Les méthodes getData de la classe DataFile (et de sa classe dérivée
+UniqDataFile) retournant des instances aux classes DataProxyName et
+DataProxyIndex ont été éliminées (DM-ID 241).
+
+Les outils libres utilisés pour le développement ont été mis à jour
+(voir section~\ref{sec:maintenance} pour les numéros de version
+courants), ces modifications n'ont aucun impact sur les utilisateurs.
+\end{changebar}
+
+\subsection{évolutions entre la version 9.4 et la version 9.5}
+
+Corrections mineures de formats d'écriture de réels (FA-ID 33).  
+Un indicateur de format long générait des avertissements sur le
+compilateur GNU sous Solaris.
+
+Amélioration de la documentation de l'utilitaire difference (DM-ID 34).
+Explication des calculs d'erreurs et des seuils associés.
+
+\subsection{évolutions entre la version 9.3 et la version 9.4}
+Creation du service TamponTexte\char58\char58getTampon pour éviter que
+la fonction \fonc{inline operator $<<$} ne retourne directement
+un membre protégé de la classe (DM-ID 29).
+
+Amélioration de la documentation (DM-ID 30).
+
+Suppression de la contrainte de fourniture du type de fichier pour
+l'instanciation de la classe DataFile (DM-ID 31).
+
+La gestion des fichiers XML nécessite désormais la version 2.4.0 de la
+bibliothèque \outil{Xerces}. L'option de configuration a également
+changé de nom pour refléter le nom standard sous lequel la
+bibliothèque est installée, il faut désormais utiliser
+\texttt{-{}-with-xerces-c=/repertoire/installation/xerces} pour
+spécifier un répertoire d'installation non standard ou
+\texttt{-{}-with-xerces-c=no} pour inhiber manuellement le support de
+\outil{Xerces} (DM-ID 32).
+
+\subsection{évolutions entre la version 9.2 et la version 9.3}
+Une erreur de syntaxe a été corrigée dans \texttt{MadonaFile.cpp}.
+Cette erreur empêchait la compilation du support optionnel de la
+bibliothèque \bibliotheque{madona}.
+
+Un problème introduit après la version 3.6 de la bibliothèque
+\bibliotheque{madona} a été contourné. Ce problème est lié à la
+gestion des références entre données, qui ne semble plus transparente.
+
+Des erreurs d'initialisation introduites lors des interventions
+qualité du projet ATV ont été corrigées.
+
+Les scripts de configuration ont été mis à niveau par rapport aux
+versions courantes des outils de développement GNU (\outil{autoconf}
+version 2.57, \outil{automake} version 1.7.5 et \outil{libtool}
+version 1.5). Cette modification n'a pas d'impact pour les
+utilisateurs.
+
+\subsection{évolutions entre la version 9.1 et la version 9.2}
+La bibliothèque a été mise en conformité avec \outil{Xerces} 1.7.  Les
+dernières versions de la bibliothèque d'analyse de fichiers XML
+\outil{Xerces} placent les fichiers d'en-tête dans un sous
+répertoire. Les directives d'inclusion de ces fichiers ont été
+modifiées en conséquence. La compatibilité avec des versions très
+anciennes de \outil{Xerces} n'est pas assurée : les utilisateurs
+doivent mettre à jour leur version de \outil{Xerces}.
+
+Les scripts de configuration ont été corrigés. Quelques erreurs rares
+de configuration dans des cas inhabituels ont été corrigées. Il s'agit
+de corrections mineures n'affectant pas les utilisateurs habituels.
+
+La méthode \texttt{FichierStructure\char58\char58listeSousBlocs} a été
+ajoutée. Cette méthode permet d'explorer une structure pour déterminer
+les élements qu'elle contient.
+
+Les versions des outils de la suite de développement \textsc{gnu}
+(\outil{libtool}, \outil{autoconf} et \outil{automake}) ont été prises
+en compte. Ces versions facilitent le développement en réduisant les
+dépendances par rapport aux autres produits \textsc{gnu} et en
+simplifiant les macros de test.
+
+Pour répondre aux exigences qualité du projet ATV, les constructeurs,
+destructeurs et opérateurs d'assignation ont été explicitement définis
+dans chaque classe de la bibliothèque. Si ces méthodes ne devaient pas
+être disponibles dans l'interface publique, elles ont été créées en 
+restreignant leur accès (protected ou private). L'ordre des sections
+public, protected et private a par ailleurs été
+uniformisé afin de faciliter les activités de maintenance.
+Ces modifications n'ont aucun impact sur le code appelant des
+bibliothèques.
+
+Enfin les extensions des fichiers sources qui étaient de la forme .cc
+ont été modifiés en .cpp afin de faciliter un portage ultérieur de la
+bibliothèque sous Windows.
+
+\subsection{évolutions entre la version 9.0 et la version 9.1}
+La classe CallTrace a été transférée depuis la bibliothèque
+\bibliotheque{marmottes}.
+
+Une violation mémoire dans l'utilitaire difference a été corrigée.
+Cette erreur se produisait lors de l'affichage des différences entres
+lignes très longues (merci à Ole Kristian \textsc{Kverneland}).
+
+La version 3.0 du compilateur \outil{gcc} a détecté quelques erreurs
+nouvelles qui ont été corrigées. La bibliothèque reste compilable avec
+les versions 2.95.x du compilateur \outil{gcc}.
+
+\subsection{évolutions entre la version 8.2 et la version 9.0}
+La classe Adressage a été supprimée de la bibliothèque. Cette classe
+n'était conservée qu'à titre de compatibilité. Les utilisateurs sont
+invités à s'appuyer sur les conteneurs disponibles dans la
+\bibliotheque{stl}, par exemple la classe map. Le fichier d'en-tête
+ClubHashFun.h a également été supprimé. La classe ChaineSimple
+devrait suivre le même chemin et être supprimée rapidement.
+
+Les tables de hachage dans les classes OptionsAppli et Traducteur
+implémentées jusqu'à présent avec hash\_map, sont désormais
+représentées par la classe patron map de la \bibliotheque{stl}, la
+classe hash\_map étant une extension qui n'était pas disponible sur
+toutes les implémentations de la \bibliotheque{stl}. Cette évolution
+n'a aucune incidence sur l'interface publique. Les implications de
+cette suppression sont que les performances d'accès aux clefs du
+système de traduction doivent passer de $O(1)$ à $O(ln(n))$, où $n$
+est le nombre d'éléments du dictionnaire, et que la méthode
+OptionsAppli\char58\char58usage affiche désormais les options dans
+l'ordre lexicographique au lieu de l'ordre dans lequel elles ont été
+créées.
+
+La classe AnalyseurLexical peut désormais reconnaître les réels du
+langage \langage{fortran} (c'est à dire les réels écrits en utilisant
+les lettres \texttt{d} ou \texttt{D} comme indicateur
+d'exposant). Cette reconnaissance est paramétrable.
+
+L'utilitaire \outil{difference} peut désormais traiter des fichiers
+créés par des programmes fortran utilisant les lettres \texttt{d} ou
+\texttt{D} comme indicateurs d'exposant.
+
+Plusieurs erreurs détectées par l'outil \outil{purify} ont été
+corrigées. Il s'agissait essentiellement de fuites de mémoire (dans la
+bibliothèque et dans de simples programmes de test), d'une
+désallocation avec le mauvais opérateur, et d'une réutilisation d'un
+pointeur en pile après retour d'une fonction. L'outil signale encore
+des fuites avérées ou potentielles qui ont été analysées
+individuellement, aucune erreur n'a été identifiée.
+
+\subsection{évolutions entre la version 8.1 et la version 8.2}
+
+Les seules modifications introduites dans la version 8.2 de la
+bibliothèque sont l'ajout du script \texttt{club-config} destiné à
+faciliter la compilation d'applicatifs dépendant de
+\bibliotheque{club} (cf~\ref{sec:ClubConfig},
+page~\pageref{sec:ClubConfig}). La version anglaise du fichier de
+licence a également été ajoutée dans la distribution.
+
+\subsection{évolutions entre la version 8.0 et la version 8.1}
+
+Les modifications apportées dans la version 8.1 sont essentiellement
+des modifications de configuration et de tests de non-régression, une
+petite homogénéisation mineure dans un fichier source a également été
+réalisée. Les fonctionnalités du code n'ont pas évolué.
+
+La première modification de configuration concerne les tests des
+bibliothèques optionnelles \bibliotheque{xerces} et
+\bibliotheque{madona}. Les nouvelles macros couvrent plus de cas, par
+exemple lorsque les fichiers d'en-tête de madona se trouvent dans un
+répertoire \texttt{include/madona} en plus des cas où ils se trouvent
+directement dans un répertoire \texttt{include}. De plus les
+dépendances entre bibliothèques sont mieux gérées.
+
+La seconde modification de configuration provient d'un problème
+rencontré sous solaris lors des tests de \bibliotheque{marmottes}. Les
+exceptions générées dans \bibliotheque{club} ne sont pas récupérées
+par \bibliotheque{club} lorsque toutes les bibliothèques sont
+partagées. Le problème ne se pose pas avec des bibliothèques
+statiques. Dans l'attente d'une meilleure compréhension du phénomène,
+la configuration par défaut sous solaris consiste donc à ne construire
+que des bibliothèques statiques. L'utilisateur aventureux peut
+toujours construire des bibliothèques partagées en utilisant l'option
+\texttt{-{}-enable-shared} du script de configuration.
+
+Les tests de non-régression de la classe MadonaFile ont été
+améliorés. Ils testent désormais les variables d'environnement madona
+avant de se lancer.
+
+\subsection{évolutions entre la version 7.0 et la version 8.0}
+
+La bibliothèque supporte de nouveaux formats de fichiers structurés en
+plus du format historique FichierStructure. Ces formats sont Madona
+(un format propriétaire du \textsc{cnes}) et XML. Ces formats sont
+accessibles soit directement à travers les classes MadonaFile,
+StructureFile et XMLFile, soit accessibles à travers une interface
+commune DataFile. Il est dès lors possible d'écrire des applications
+ignorant dans une large mesure le type exact de fichier réellement
+utilisé. Ces classes expérimentales sont susceptibles de subir des
+modifications importantes. La gestion de fichiers au format Madona
+s'appuie sur la bibliothèque Madona 3.3, la gestion des fichiers XML
+utilise, quant à elle, la bibliothèque \outil{Xerces} 1.3.0. Si ces
+bibliothèques ne sont pas disponibles (ou si l'utilisateur ne souhaite
+pas les utiliser\footnote{voir la description des options
+\texttt{-{}-with-xerces=no} et \texttt{-{}-with-madona=no} dans la
+section~\ref{sec:installation}}) \bibliotheque{club} sera compilée
+sans le support de ces formats.
+
+La bibliothèque \bibliotheque{club} peut être générée sous forme
+partagée à l'aide de l'outil \textsc{gnu} \outil{libtool}.
+
+\subsection{évolutions entre la version 6.3 et la version 7.0}
+
+L'implémentation des classes de \bibliotheque{club} s'appuie désormais
+sur la \bibliotheque{stl} et notamment sur les strings. La classe
+ChaineSimple n'est donc plus utilisée par \bibliotheque{club}. Elle
+reste néanmoins disponible dans l'interface publique de la
+bibliothèque. Il en résulte des problèmes de compatibilité entre les
+versions 6 et 7 (cf~\ref{subsec:util-stl} page~\pageref{subsec:util-stl}).
+
+La gestion des formats du langage \langage{c} qui était réalisée 
+en interne de la classe Traducteur, est désormais implémentée dans 
+une classe indépendante nommée FormatC. Elle fournit des services
+semblables à ceux de la classe FormatFortran.
+
+La classe ChaineSimple a été complétée par un constructeur à partir
+d'un string de la STL et par un opérateur de conversion implicite de
+ChaineSimple en string. Cette évolution doit permettre de favoriser
+l'utilisation de la classe string de la STL plutôt que celle de
+ChaineSimple (ces deux classes fournissant des services identiques).
+
+Les tables de hachage dans les classes OptionsAppli et Traducteur
+implémentées jusqu'à présent avec Adressage, sont désormais
+représentées par la classe patron hash\_map de la
+\bibliotheque{stl}. Pour réaliser cette conversion, a été créé un
+fichier d'interface nommé ClubHashFun.h déclarant les fonctions de
+hachage propres à \bibliotheque{club}. Cette évolution n'a aucune
+incidence sur l'interface publique.
+
+Enfin, les macros m4 de configuration internes au CNES ont été
+remplacées, lorsque c'était possible, par les
+macros de l'archive publique autoconf.
+
+\section{évolutions possibles}
+Il serait souhaitable d'augmenter la couverture de tests de la
+bibliothèque \bibliotheque{club}. Ceci sous-entend à la fois créer des
+tests pour les classes qui n'en ont pas mais également compléter les
+tests existants.
+
+La classe AnalyseurLexical reconnaît comme nom toute suite de
+caractères commençant par une lettre ou le caractère \verb=_= et se
+poursuivant par des lettres, des chiffres, ou des caractères
+\verb=_=. Ce choix est calqué sur les règles des langages de
+programmation classiques, il faudrait peut-être le rendre
+paramétrable. Cette évolution est à envisager avec précautions, en
+effet une seule application (la bibliothèque de filtrage de télémesure
+décommutée au format \textsc{mercator}) a rencontré cette limite à ce
+jour, et la difficulté a été contournée sans intervenir sur le moindre
+logiciel.
+
+L'analyseur d'options devrait reconnaître les abréviations non
+ambiguës, par exemple si les options entières \texttt{-maximum} et
+\texttt{-minimum} existaient toutes les deux, alors la ligne de commande
+\texttt{prgm -minmax 10 20} devrait affecter 10 au minimum et 20 au
+maximum du programme.
+
+La classe FichierStructure n'est utilisée que par la bibliothèque de
+haut niveau \bibliotheque{marmottes}, il faudrait probablement
+la changer de bibliothèque.
+
+La classe TamponTexte devrait pouvoir interpréter les retours chariot
+et les coupures de ligne.
+
+\newpage
+ 
+\section{description des classes}\label{sec:description-classes}
+Les classes et fonctions décrites dans cette section composent
+l'interface utilisateur de la bibliothèque \bibliotheque{club}.
+
+\input{AnalyseurLexical}
+\input{BaseErreurs}
+\input{ChaineSimple}
+\input{CallTrace}
+\input{ClubAllocHandler}
+\input{ClubErreurs}
+\input{DataFile}
+\input{FichierStructure}
+\input{FormatC}
+\input{FormatFortran}
+\input{IterateurCaractere}
+\input{IterateurChamp}
+\input{IterateurLigne}
+\input{IterateurChampLigne}
+\input{MadonaFile}
+\input{OptionBase}
+\input{OptionXXX}
+\input{OptionsAppli}
+\input{StructureFile}
+\input{TamponAscii}
+\input{TamponPartage}
+\input{TamponTexte}
+\input{Traducteur}
+\input{UniqDataFile}
+\input{Unit}
+\input{XMLData}
+\input{XMLFile}
+\input{XMLUnits}
+
+\section{description des utilitaires}\label{sec:description-utils}
+Cette section décrit les utilitaires fournis par la bibliothèque
+\bibliotheque{club}. Cette description concerne l'utilisation des
+utilitaires et les principes généraux auxquels ils répondent. 
+
+\input{Difference}
+\input{Club-Config}
+
+\section{description des routines}\label{sec:description-routines}
+Les seules fonctions externes disponibles dans la bibliothèque sont
+les interfaces \langage{c} et \langage{fortran} du système de
+traduction (voir section~\ref{sec:Traducteur}).
+
+Ces routines agissent sur deux instances particulières de la classe
+Traducteur qui sont allouées dès que l'on a besoin d'elles et restent
+en place après. L'une de ces instances gère les traductions de la
+langue interne vers la langue utilisateur définie par variable
+d'environnement (voir section~\ref{sec:environnement}), l'autre gère
+les traductions en sens inverse.
+
+Ces instances sont dans la pratique des pointeurs statiques dont la
+portée est limitée au fichier de définition des fonctions d'interface
+\langage{c} et \langage{fortran} ; elles ne font pas partie de
+l'interface publique de la bibliothèque.
+
+\subsection{guide d'utilisation}
+Si l'on désire utiliser ce système pour un nouveau développement ou
+pour adapter un logiciel existant, la démarche à suivre est la
+suivante :
+
+{\setlength{\leftmargini}{10mm}\begin{itemize}
+
+\item pour chaque chaîne de caractères utilisée dans les entrées
+sorties du programme, faire précéder l'utilisation de la chaîne par
+sa traduction et utiliser la chaîne traduite. Si de plus la chaîne est
+utilisée dans une boucle (par exemple un format d'impression), alors
+il est prudent d'extraire la traduction hors de la boucle, pour des
+questions de performances.
+\end{itemize}}
+
+Ainsi, un code qui aurait été écrit :
+
+\begin{verbatim} 
+déclarer chaîne
+initialiser chaîne
+utiliser chaîne
+\end{verbatim}
+
+deviendra :
+
+\begin{verbatim} 
+déclarer chaîne1, chaîne2
+initialiser chaîne1
+chaîne2 = traduction(chaîne1)
+utiliser chaîne2
+\end{verbatim}
+
+{\setlength{\leftmargini}{10mm}\begin{itemize}
+
+\item en début de programme, ajouter une fonction d'initialisation du domaine.
+\end{itemize}}
+
+Si l'application est une bibliothèque, la fonction d'ajout de domaine
+sera placée en début de toutes les fonctions susceptibles d'être
+appelées en premier par l'extérieur, et protégée de la sorte qu'elle
+ne s'exécute qu'une fois, par un test du type :
+
+\begin{verbatim} 
+déclarer entier statique Déja=0
+si (Déja=0) faire
+   ajouterDomaine("xxx")
+   Déja=1
+fin si
+\end{verbatim}
+
+{\setlength{\leftmargini}{10mm}\begin{itemize}
+
+\item en fin de développement (voire longtemps après), on crée le
+fichier de ressources du domaine regroupant toutes les chaînes et
+leurs traductions, et ce pour chaque langue que l'on désire implanter.
+\end{itemize}}
+
+Cette étape peut également être faite par l'utlisateur qui désire
+implémenter une nouvelle langue (ou changer les messages pour une
+traduction qu'il trouve plus explicite). Ceci signifie donc que le
+système n'est pas seulement un système de développement mais également
+un environnement d'exécution (avec l'avantage que même s'il est vide,
+le propgramme tourne).
+
+
+\subsection{fonctions \langage{c}}\label{sec:fonctions-c}
+\begin{verbatim}
+#include "club/Traducteur.h"
+\end{verbatim}
+
+\begin{tableFonctionsFixe}{fonctions C}
+{\label{tab:fonctions-c}}
+{traduit le \argument{format} du langage
+\langage{c} de la langue de codage vers }
+
+\signature{\fonc{AjouterDomaine} (const char *\argument{domaine})}{} &
+ajoute le \argument{domaine} dans les traducteurs interne et externe
+statiques \\
+
+\signature{const char *\fonc{TraduitVersExterne}}{(const char
+*\argument{interne})} & traduit la chaîne \argument{interne} de la
+langue interne de codage dans la langue de l'utilisateur \\
+
+\signature{const char *\fonc{TraduitVersInterne}}{(const char
+*\argument{externe})} & traduit la chaîne \argument{externe} de la
+langue externe de l'utilisateur dans la langue de codage \\
+
+\signature{const char *\fonc{TraduitFormatCVersExterne}}{(const char
+*\argument{format})} & traduit le \argument{format} du langage
+\langage{c} de la langue de codage vers la langue de l'utilisateur, en
+garantissant la compatibilité des formats au niveau des arguments
+attendus \\
+
+\signature{const char *\fonc{VariableLangue} ()}{} & retourne le nom de
+la variable d'environnement utilisée pour la langue\\
+
+\signature{const char *\fonc{VariableCheminsTraduction} ()}{} &
+retourne le nom de la variable d'environnement utilisée pour les
+chemins vers les fichiers de traduction\\
+
+\end{tableFonctionsFixe}
+
+Le mécanisme de traduction est considéré comme un mécanisme de
+\emph{confort} non indispensable. Dans ces conditions il ne doit pas
+empêcher l'exécution d'un programme en cas d'indisponibilité des
+fichiers dictionnaires (sauf s'il s'agit de reconnaître des mots-clefs
+en entrée). Il est donc \emph{recommandé} d'ignorer le code de retour
+de la fonction \fonc{AjouterDomaine}, sachant que si ce code est non
+nul de toute façon le programme devrait fonctionner normalement, en
+affichant ses messages dans la langue de codage interne.
+
+
+\begin{description}
+\item[AjouterDomaine] permet d'ajouter un domaine de traduction à la
+table de correspondance déjà gérée, en lisant le fichier de ressources
+associé au domaine.
+En cas de problème la fonction renvoie un code retour différent de 0,
+mais comme expliqué ci-dessus, on peut ignorer les problèmes.
+
+\item[TraduitVersExterne] traduit le mot-clef interne dans la langue 
+utilisateur. Le pointeur retourné pointe sur une variable statique
+interne qui peut etre écrasée à chaque nouvel appel.
+Si aucune traduction n'existe, la chaine interne est copiée sans
+modification dans la variable statique avant retour.
+
+\item[TraduitVersInterne] traduit le mot-clef externe dans la langue 
+interne de développement. Le pointeur retourné pointe sur une variable statique
+interne qui peut être écrasée à chaque nouvel appel.
+Si aucune traduction n'existe, la chaine externe est copiée sans
+modification dans la variable statique avant retour.
+
+\item[TraduitFormatCVersExterne] traduit le format dans la langue
+utilisateur, en vérifiant que le nombre, le type et l'ordre des
+spécificateurs de conversions (\%s, \%f, \%d, \%o ...) sont respectés
+au cours de la traduction. On est donc assuré que la traduction d'un
+format valide pour une séquence d'appel donné dans une impression
+formatée sera un format valide dans la même impression. Le pointeur 
+retourné pointe sur une variable statique interne qui peut etre
+écrasée à chaque nouvel appel.
+Si aucune traduction n'existe (ou si la traduction n'est pas valide),
+le format interne est copié sans modification dans la variable
+statique avant retour.
+
+{\bf Remarque :}
+Dans le cas du langage \langage{c++}, on dispose en plus de la classe
+Traducteur, qui permet de créer une instance spécifique de traducteur
+entre la langue interne et une langue quelconque (pas forcément celle
+de la variable \texttt{MRC\_USER\_LANG}), avec les domaines que l'on veut.
+\end{description}
+
+\subsubsection*{exemple de programme \langage{c} utilisant le systeme de traduction}
+
+{\bf Fichier source :}
+
+\begin{verbatim}
+
+#include <stdio.h>
+#include "club/Traducteur.h"
+
+main ()
+{ 
+/* initialisation du domaine de traduction */
+(void) AjouterDomaine(``ExempleC``);
+
+/* impression avec traduction du formatage */
+(void) printf(TraduitFormatCVersExterne("nom de la couleur : %s, 
+valeur %d\n"), TraduitVersExterne("rouge"), 255);
+
+return 0;
+}
+\end{verbatim}
+
+{\bf Avec le fichier de ressources anglais :}
+
+\begin{verbatim}
+"nom de la couleur : %s, valeur %d\n"
+   "color name : %s, value %d\n" 
+
+"rouge"
+   "red" 
+
+\end{verbatim}
+
+\subsection{sous-routines \langage{fortran}}
+\label{sec:sous-routines-fortran}
+\begin{tableFonctionsFixe}{sous-routines FORTRAN}
+{\label{tab:sous-routines-fortran}}
+{traduit la chaîne \argument{interne} de la langue interne de codage}
+\signature{integer function \fonc{domtrad}
+(\argument{domaine})}{character*(*) \argument{domaine}} &
+ajoute le \argument{domaine} dans les traducteurs internes et externes
+statiques \\
+
+\signature{subroutine \fonc{tradext} (\argument{interne},
+\argument{externe}, \argument{lUtile})}{character*(*)
+\argument{interne}, \argument{externe}\\integer \argument{lUtile}} &
+traduit la chaîne \argument{interne} de la langue interne de codage
+dans la langue de l'utilisateur, \argument{lUtile} indique le nombre
+de caractères utiles de la chaîne résultat \argument{externe}\\
+
+\signature{subroutine \fonc{tradint} (\argument{externe},
+\argument{interne}, \argument{lUtile})}{character*(*)
+\argument{externe}, \argument{interne}\\integer \argument{lUtile}} &
+traduit la chaîne \argument{externe} de la langue externe de l'utilisateur
+dans la langue de codage, \argument{lUtile} indique le nombre
+de caractères utiles de la chaîne résultat \argument{interne}\\
+
+\signature{subroutine \fonc{tradform} (\argument{interne},
+\argument{externe}, \argument{lUtile})}{character*(*)
+\argument{interne}, \argument{externe}\\integer \argument{lUtile}} &
+traduit le format \argument{interne} du langage \langage{fortran} de
+la langue de codage vers la langue de l'utilisateur, en garantissant
+la compatibilité des formats au niveau des arguments attendus,
+\argument{lUtile} indique le nombre de caractères utiles de la chaîne
+résultat \argument{externe} \\
+
+\signature{subroutine \fonc{tradecrCH} (\argument{chaîne},
+\argument{lUtile}, \argument{format} ...)}{character*(*)
+\argument{chaîne}, \argument{format}\\integer \argument{lUtile}} &
+traduit le \argument{format} du langage \langage{fortran} et utilise
+le résultat pour formater les arguments variables qui suivent dans la
+\argument{chaîne}, \argument{lUtile} indique le nombre de caractères
+utiles de la \argument{chaîne} \\
+
+\signature{subroutine \fonc{tradecrFD} (\argument{fd},
+\argument{format} ...)}{character*(*) \argument{format}\\integer
+\argument{fd}} & traduit le \argument{format} du langage
+\langage{fortran} et utilise le résultat pour formater les arguments
+variables qui suivent dans le fichier spécifié par le descripteur de
+fichier \argument{fd} (il s'agit bien d'un descripteur \langage{c}, pas
+d'une unité logique \langage{fortran}) \\
+
+\end{tableFonctionsFixe}
+
+Le mécanisme de traduction est considéré comme un mécanisme de
+\emph{confort} non indispensable. Dans ces conditions il ne doit pas
+empêcher l'exécution d'un programme en cas d'indisponibilité des
+fichiers dictionnaires (sauf s'il s'agit de reconnaître des mots-clefs
+en entrée). Il est donc \emph{recommandé} d'ignorer le code de retour
+de la fonction \fonc{domtrad}, sachant que si ce code est non
+nul de toute façon le programme devrait fonctionner normalement, en
+affichant ses messages dans la langue de codage interne.
+
+Le système de traduction est applicable à partir d'un programme
+\langage{fortran}. Les routines ci-dessus réalisent l'interface entre le
+\langage{fortran} et le \langage{c++}.
+Les chaînes fortran n'ayant pas de marqueur de fin, celles-ci sont
+toujours complétées par des blancs si la chaîne à stocker est plus
+courte que le tableau. Par conséquent, les routines commencent par
+éliminer les blancs en fin de la chaîne en entrée avant de chercher la 
+traduction. 
+Il faut donc que les fichiers de ressources n'aient pas de blanc en
+fin de format, sinon les chaînes ne pourront jamais correspondre. 
+Enfin, il est indispensable que la longueur de déclaration de la
+chaîne de sortie soit suffisante pour contenir la chaîne d'entrée 
+(sans ses derniers blancs); en effet, en cas d'échec de traduction (ou
+de dépassement de capacité), la chaîne d'entrée sera recopiée dans la 
+chaîne de sortie, cette copie étant effectuée sans vérification de
+dépassement de capacité.
+
+\subsubsection*{exemple de programme \langage{fortran} utilisant 
+le systeme de traduction}
+
+{\bf Fichier source :}
+
+\begin{verbatim}
+
+c     program couleur
+
+      character*1000 form, nom
+      integer        lform, lnom, ier
+C
+      integer        domtrad
+      external       domtrad
+
+C     initialisation du domaine de traduction
+
+      ier = domtrad('exempleF')
+
+C     impression avec traduction du formatage
+
+      form = '("nom de la couleur : ", A, I)'
+      tradform(form, form, lform)
+      tradext('rouge', nom, lnom)
+      write (6, form(1:lform)) nom(1:lnom), 255
+C
+      stop
+      end
+\end{verbatim}
+
+{\bf Avec le fichier de ressources anglais :}
+
+\begin{verbatim}
+
+"('nom de la couleur : ', A, I)"
+   "('color name : ', A, I)"
+
+"rouge"
+   "red" 
+
+\end{verbatim}
+
+\begin{changebar}
+\section{description des formats de fichiers}\label{sec:description-formats}
+\input{formats}
+\end{changebar}
+
+\end{document}

@@ -1,0 +1,252 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: SenseurOptique.tex,v 1.17 2004/06/21 14:43:26 marmottes Exp $
+\subsection{classe SenseurOptique}\label{sec:SenseurOptique}
+
+\subsubsection*{description}\label{sec:SenseurOptique-desc}
+
+Cette classe abstraite est l'interface d'accès aux senseurs
+optiques.
+
+Cette classe implante la fonction \fonc{typeGeometrique}, elle
+implante une version générale de la fonction de vérification de la
+contrôlabilité (certaines classes dérivées s'en contentent, d'autres
+la spécialise), et introduit de nouvelles méthodes spécifiques aux
+senseurs optiques (\fonc{champDeVue}, \fonc{typeOptique},
+\fonc{visible}, \fonc{typeOptique}).
+\subsubsection*{interface publique}\label{sec:SenseurOptique-int}
+\begin{verbatim}
+#include "marmottes/SenseurOptique.h"
+\end{verbatim}
+
+\begin{verbatim}
+enum codeCible {codeInvalide,             codeSoleil,
+                codeSoleilSansEclipse,    codeCorpsCentralSoleil,
+                codeLune,                 codeLuneSansEclipse,
+                codeCorpsCentral,         codeTerre,
+                codeVitesseSolApparente,  codeNadir,
+                codePolaire,              codeCanope,
+                codeVitesse,              codeMoment,
+                codeDevant,               codePosition,
+                codePositionSansEclipse,  codeDirection,
+                codeDirectionSansEclipse, codeStation};
+\end{verbatim}
+
+\begin{tableFonctionsFixe}{SenseurOptique : méthodes publiques}
+{\label{tab:SenseurOptique-met-pub}}
+{retourne le type de senseur optique (sansInhibition par défaut)}
+
+\signature{\fonc{SenseurOptique}}
+          {(const string\& \argument{nom},\\
+            const RotDBL\& \argument{repere},\\
+            const VecDBL\& \argument{axeCalage},\\
+            double \argument{precision},\\
+            codeCible \argument{code},\\
+            const StationCible *\argument{ptrStation},\\
+            const VecDBL\& \argument{observe},\\
+            Parcelle* \argument{ptrChampDeVue},\\
+            Parcelle* \argument{ptrChampInhibitionSoleil},\\
+            Parcelle* \argument{ptrChampInhibitionLune},\\
+            Parcelle* \argument{ptrChampInhibitionCentral},\\
+            double \argument{margeEclipseSoleil},\\
+            double \argument{margeEclipseLune},\\
+            double \argument{seuilPhaseLune})}&
+
+construit une instance à partir des données technologiques\\
+
+\hline
+
+\signature{\fonc{SenseurOptique}}
+          { (const SenseurOptique\& \argument{s})}&
+
+constructeur par copie\\
+
+\signature{SenseurOptique\& \fonc{operator =}}
+          {(const SenseurOptique\& \argument{s})}&
+
+affectation\\
+
+\hline
+
+\signature{\fonc{\~{}SenseurOptique} ()}
+          {}&
+
+destructeur, libère la mémoire allouée aux champs de vue et d'inhibition\\
+
+\hline
+
+\signature{void \fonc{nouveauRepere}}
+          {(const RotDBL\& \argument{nouveau})}&
+
+remplace le repère du senseur par le \argument{nouveau}\\
+
+\hline
+
+\signature{const Parcelle* \fonc{champDeVue} () const}
+          {}&
+
+retourne un pointeur sur le champ de vue\\
+
+\signature{typeGeom \fonc{typeGeometrique} () const}
+          {}&
+
+retourne le type de senseur géométrique (optique)\\
+
+\hline
+
+\signature{int \fonc{controlable} (const Etat\& \argument{etat})}
+          {\throw{MarmottesErreurs, CantorErreurs}}&
+
+indique si le senseur serait capable de contrôler le satellite dans
+l'\argument{etat} fourni (par défaut, ceci correspond à la cible dans
+le champ de vue et non éclipsée et à l'absence d'inhibition, les
+classes dérivées peuvent bien sûr redéfinir ce comportement)\\
+
+\signature{void \fonc{criteresControlabilite}}
+          {(const Etat\& \argument{etat},\\
+            codeAstre *\argument{ptrInhibant}, codeAstre *\argument{ptrEclipsant},\\
+            double *\argument{ptrEcartFrontiere},\\
+            bool *\argument{ptrAmplitudeSignificative})\\
+           \throw{MarmottesErreurs, CantorErreurs}}&
+
+donne le détail des critères de contrôlabilité : corps inhibant, cors
+éclipsant, écart angulaire entre la cible et la frontière (positif à
+l'intérieur du champ de vue et négatif au dehors), et indicateur
+permettant de savoir si la valeur numérique de cet écart est significative
+(ce calcul ne pouvant pas être fait pour certains types de senseurs,
+typiquement les senseurs de limbe) ou si seul le signe est calculé\\
+
+\hline
+
+\signature{const Parcelle* \fonc{champInhibitionSoleil} () const}
+          {}&
+
+retourne un pointeur sur le champ d'inhibition associé au soleil\\
+
+\signature{const Parcelle* \fonc{champInhibitionLune} () const}
+          {}&
+
+retourne un pointeur sur le champ d'inhibition associé à la lune\\
+
+\signature{const Parcelle* \fonc{champInhibitionCentral} () const}
+          {}&
+
+retourne un pointeur sur le champ d'inhibition associé au corps central\\
+
+
+\signature{double \fonc{margeEclipseSoleil} () const}
+          {}&
+
+retourne la marge à prendre sur les éclipses solaires\\
+
+\signature{double \fonc{margeEclipseLune} () const}
+          {}&
+
+retourne la marge à prendre sur les éclipses lunaires\\
+
+\hline
+
+\signature{void \fonc{modifieCible} (const VecDBL\& \argument{cible})}
+          {\throw{MarmottesErreurs}}&
+
+mémorise la \argument{cible} donnée par l'utilisateur
+\end{tableFonctionsFixe}
+
+\subsubsection*{implantation}\label{sec:SenseurOptique-impl}
+Les attributs protégés sont décrits sommairement dans la
+table~\ref{tab:SenseurOptique-att-prot}.
+
+\begin{tableAttributsFixe}{attributs protégés de la classe SenseurOptique}
+{\label{tab:SenseurOptique-att-prot}}
+{caractéristiques de la station cible, utilisées uniquement }
+ 
+visee\_ & VecDBL & point visé par l'optique ; peut être différent de
+la cible, par exemple quand on vise optiquement un point au sol mais
+que l'on est sensible à sa vitesse plutôt qu'à sa direction, comme
+dans le cas de la cible \texttt{codeVitesseSolApparente}.\\
+
+ptrChampDeVue\_ & Parcelle* & pointeur sur le champ de vue\\
+
+ptrChampInhibitionSoleil\_ & Parcelle* & pointeur sur le champ
+d'inhibition associé au soleil\\
+
+ptrChampInhibitionLune\_ & Parcelle* & pointeur sur le champ
+d'inhibition associé à la lune\\
+
+ptrChampInhibitionCentral\_ 
+& Parcelle* & pointeur sur le champ d'inhibition associé au 
+corps central\\
+
+margeEclipseSoleil\_ & double & marge à prendre sur les éclipses
+solaires\\
+
+margeEclipseLune\_ & double & marge à prendre sur les éclipses
+lunaires\\
+
+seuilPhaseLune\_ & double & Seuil sur l'angle Soleil/Satellite/Lune au
+\emph{dessous} duquel la lune devient gênante (0 signifie que la lune
+n'est jamais gênante, 180 signifie qu'elle est toujours gênante)\\
+
+code\_ & codeCible  & code de la cible inertielle\\
+
+station\_ & StationCible & caractéristiques de la station cible,
+utilisées uniquement lorsque code\_ vaut \texttt{codeStation}\\
+
+utilisateur\_ & VecDBL & cible donnée par l'utilisateur\\
+
+utilisateurInitialise\_ & bool & indique si la cible utilisateur a été
+initialisée\\
+
+secteursFiltrables\_ & bool & indique s'il est possible d'accélérer
+les calculs en filtrant les secteurs de consigne avant d'entamer la
+résolution. Ceci n'est en effet possible ni pour les senseurs de limbe
+(la cible pouvant être hors du champ de vue, qui observe le limbe et
+pas le centre de l'astre), ni pour la cible
+\texttt{codeVitesseSolApparente} (la cible du modèle ne correspond pas
+à la direction de la cible optique, mais à la direction de son
+déplacement).
+
+\end{tableAttributsFixe}
+
+Les méthodes protégées sont décrites dans la table~\ref{tab:SenseurOptique-met-prot}.
+\begin{tableFonctionsFixe}{SenseurOptique : méthodes protégées}
+{\label{tab:SenseurOptique-met-prot}}
+{méthode virtuelle de filtrage des secteurs de consigne}
+
+\signature{\fonc{SenseurOptique} ()}
+          {}&
+constructeur par défaut. Il est défini explicitement uniquement pour
+prévenir celui créé automatiquement par le compilateur et ne doit pas être
+utilisé.\\
+
+\signature{void \fonc{reinitVitesseSolApparente}}
+          {(const Etat\& \argument{etatPrecedent},\\
+            const RotVD1\& \argument{attitude})\\
+           \throw{MarmottesErreurs}}&
+réinitialise la cible spécialisée vitesse-sol-apparente, en tenant
+compte de l'\argument{attitude} test et de ses dérivées
+\\
+
+\signature{void \fonc{initialiseCible} (const Etat\& \argument{etat})}
+          {\throw{MarmottesErreurs}}&
+
+initialise la cible en repère inertiel\\
+
+\signature{void \fonc{ecartFrontiere}}
+          {(const Etat\& \argument{etat},\\
+            double *\argument{ptrEcartFrontiere},\\
+            bool *\argument{ptrAmplitudeSignificative}) const\\
+           \throw{CantorErreurs}}&
+
+calcule l'écart angulaire entre la cible et la frontière (positif à
+l'intérieur du champ de vue et négatif au dehors), et un indicateur
+permettant de savoir si la valeur numérique de cet écart est significative
+(ce calcul ne pouvant pas être fait pour certains types de senseurs,
+typiquement les senseurs de limbe) où si seul le signe est calculé\\
+
+\signature{void \fonc{filtreSecteurs}()}
+          {\throw{CantorErreurs}}&
+
+méthode de filtrage des secteurs de consigne par le champ de vue, pour
+accélérer les calculs\\
+
+\end{tableFonctionsFixe}

@@ -1,0 +1,110 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: SenseurCartesien.tex,v 1.11 2004/06/21 14:43:06 marmottes Exp $
+\subsection{classe SenseurCartesien}\label{sec:SenseurCartesien}
+
+\subsubsection*{description}\label{sec:SenseurCartesien-desc}
+
+Cette classe implante les senseurs cartésiens, c'est à dire les
+senseurs qui mesurent des coordonnées cartésiennes de leur direction
+cible. Ces pseudo-senseurs permettent par exemple de faire des tracés
+de passage d'astre dans des champs de vue de senseurs réels, en
+associant un triplet de tels senseur pour obtenir les trois
+coordonnées de l'astre.
+\subsubsection*{interface publique}\label{sec:SenseurCartesien-int}
+\begin{verbatim}
+#include "marmottes/SenseurCartesien.h"
+\end{verbatim}
+
+\begin{tableFonctionsFixe}{SenseurCartesien : méthodes publiques}
+{\label{tab:SenseurCartesien-met-pub}}
+{force le senseur à respecter les unités de mesures dans ses sorties}
+
+\signature{\fonc{SenseurCartesien}}
+          {(const string\& \argument{nom},\\
+            const RotDBL\& \argument{repere},\\
+            const VecDBL\& \argument{axeCalage},\\
+            double \argument{precision},\\
+            codeCible \argument{code},\\
+            const StationCible *\argument{ptrStation},\\
+            const VecDBL\& \argument{observe},\\
+            Parcelle* \argument{ptrChampDeVue},\\
+            Parcelle* \argument{ptrChampInhibitionSoleil},\\
+            Parcelle* \argument{ptrChampInhibitionLune},\\
+            Parcelle* \argument{ptrChampInhibitionCentral},\\
+            double \argument{margeEclipseSoleil},\\
+            double \argument{margeEclipseLune},\\
+            double \argument{seuilPhaseLune},\\
+            const VecDBL\& \argument{reference})
+          }&
+
+construit une instance à partir des données technologiques\\
+
+\hline
+
+\signature{\fonc{SenseurCartesien}}
+          {(const SenseurCartesien\& \argument{s})}&
+
+constructeur par copie\\
+
+\signature{SenseurCartesien\& \fonc{operator =}}
+          { (const SenseurCartesien\& \argument{s})}&
+
+affectation\\
+
+\hline
+
+\signature{\fonc{\~{}SenseurCartesien} ()}
+          {}&
+
+destructeur, ne fait rien dans cette classe\\
+
+\hline
+
+\signature{void \fonc{respecterMesures} ()}
+          {}&
+
+force le senseur à respecter les unités de mesures dans ses sorties\\
+
+\signature{void \fonc{convertirMesures} ()}
+          {}&
+
+force le senseur à convertir les unités de mesures dans ses sorties\\
+
+\hline
+
+\signature{Senseur* \fonc{copie} () const}
+          {}&
+
+opérateur de copie virtuel\\
+
+\signature{void \fonc{modeliseConsigne}}
+          {(const Etat\& \argument{etat},\\
+            double \argument{valeur})\\
+          \throw{CantorErreurs, MarmottesErreurs}}&
+
+modélise la consigne \argument{valeur} dans l'\argument{etat} fourni\\
+
+\signature{double \fonc{mesure} (const Etat\& \argument{etat})}
+          {\throw{MarmottesErreurs}}&
+
+retourne la mesure que produirait le senseur dans l'\argument{etat}
+fourni\\
+
+\end{tableFonctionsFixe}
+
+\subsubsection*{implantation}\label{sec:SenseurCartesien-impl}
+Il n'y a ni attribut privé, ni attribut protégé.
+
+Les méthodes protégées sont décrites dans la table~\ref{tab:SenseurCartesien-met-prot}.
+\begin{tableFonctionsFixe}{SenseurCartesien : méthodes protégées}
+{\label{tab:SenseurCartesien-met-prot}}
+{constructeur par défaut. Il est défini explicitement uniquement pour }
+
+\signature{\fonc{SenseurCartesien} ()}
+          {}&
+
+constructeur par défaut. Il est défini explicitement uniquement pour
+prévenir celui créé automatiquement par le compilateur et ne doit pas être
+utilisé.
+\\
+\end{tableFonctionsFixe}

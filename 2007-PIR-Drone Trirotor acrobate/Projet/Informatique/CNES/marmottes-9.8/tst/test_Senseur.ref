@@ -1,0 +1,1149 @@
+prgm_Senseur -f test_Senseur.sensors
+   -dc 22/10/93 -o 42164 0 0 0 0 116
+   -s1 YPR-YAW   -m1  2.5
+   -s2 YPR-PITCH -m2  2.7
+   -s3 YPR-ROLL  -m3 -0.2
+   -p 20 -i 4
+   -s YPR-YAW
+ 
+YPR-YAW
+  contrôlable,        0.04363323
+  consigne,           0.04363323
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0.0391769 0.0191786 -0.999048
+  cible [x/y/z] (repere satellite) : 2.35922e-16 0.999994 0.00349065
+  secteur
+    axe [x/y/z]                      1 0 0
+    angle                            90
+    reference [x/y/z]                0 -1.22465e-16 -1
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   1.7469e-16
+YPR-PITCH
+  contrôlable,        0.04712389
+  consigne,           0.04712389
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0.439682 -0.898154 6.66134e-16
+  cible [x/y/z] (repere satellite) : -0.0471065 -0.00348678 0.998884
+  secteur
+    axe [x/y/z]                      -1 0 0
+    angle                            87.3
+    reference [x/y/z]                -0 0 -1
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   1.59596e-16
+YPR-ROLL
+  contrôlable,       -0.00349066
+  consigne,          -0.00349066
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0.439682 -0.898154 6.66134e-16
+  cible [x/y/z] (repere satellite) : -0.0471065 -0.00348678 0.998884
+  secteur
+    axe [x/y/z]                      0 0.999994 0.00349065
+    angle                            90
+    reference [x/y/z]                0 0.00349065 -0.999994
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   3.21217e-11
+YPR-YAW
+  contrôlable,        0.04363323
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+YPR-YAW
+  contrôlable,        0.04363323
+  consigne,           0.04363323
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0.0391489 0.0192358 -0.999048
+  cible [x/y/z] (repere satellite) : 7.63278e-17 0.999994 0.00349065
+  secteur
+    axe [x/y/z]                      1 0 0
+    angle                            90
+    reference [x/y/z]                0 -1.22465e-16 -1
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   1.50955e-17
+YPR-PITCH
+  contrôlable,        0.04712389
+  consigne,           0.04712389
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0.440991 -0.897512 8.88178e-16
+  cible [x/y/z] (repere satellite) : -0.0471065 -0.00348678 0.998884
+  secteur
+    axe [x/y/z]                      -1 0 0
+    angle                            87.3
+    reference [x/y/z]                -0 0 -1
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   1.24902e-16
+YPR-ROLL
+  contrôlable,       -0.00349066
+  consigne,          -0.00349066
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0.440991 -0.897512 8.88178e-16
+  cible [x/y/z] (repere satellite) : -0.0471065 -0.00348678 0.998884
+  secteur
+    axe [x/y/z]                      0 0.999994 0.00349065
+    angle                            90
+    reference [x/y/z]                0 0.00349065 -0.999994
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   3.2122e-11
+YPR-YAW
+  contrôlable,        0.04363323
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+YPR-YAW
+  contrôlable,        0.04363323
+  consigne,           0.04363323
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0.0391208 0.0192928 -0.999048
+  cible [x/y/z] (repere satellite) : 4.23273e-16 0.999994 0.00349065
+  secteur
+    axe [x/y/z]                      1 0 0
+    angle                            90
+    reference [x/y/z]                -0 0 1
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   3.6204e-16
+YPR-PITCH
+  contrôlable,        0.04712389
+  consigne,           0.04712389
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0.442299 -0.896867 0
+  cible [x/y/z] (repere satellite) : -0.0471065 -0.00348678 0.998884
+  secteur
+    axe [x/y/z]                      -1 0 0
+    angle                            87.3
+    reference [x/y/z]                -0 0 -1
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   1.3184e-16
+YPR-ROLL
+  contrôlable,       -0.00349066
+  consigne,          -0.00349066
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0.442299 -0.896867 0
+  cible [x/y/z] (repere satellite) : -0.0471065 -0.00348678 0.998884
+  secteur
+    axe [x/y/z]                      0 0.999994 0.00349065
+    angle                            90
+    reference [x/y/z]                0 0.00349065 -0.999994
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   3.21209e-11
+YPR-YAW
+  contrôlable,        0.04363323
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+YPR-YAW
+  contrôlable,        0.04363323
+  consigne,           0.04363323
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0.0390926 0.0193499 -0.999048
+  cible [x/y/z] (repere satellite) : 4.16334e-17 0.999994 0.00349065
+  secteur
+    axe [x/y/z]                      1 0 0
+    angle                            90
+    reference [x/y/z]                -0 0 1
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   1.9599e-17
+YPR-PITCH
+  contrôlable,        0.04712389
+  consigne,           0.04712389
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0.443607 -0.896221 6.66134e-16
+  cible [x/y/z] (repere satellite) : -0.0471065 -0.00348678 0.998884
+  secteur
+    axe [x/y/z]                      -1 0 0
+    angle                            87.3
+    reference [x/y/z]                -0 0 -1
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   1.11024e-16
+YPR-ROLL
+  contrôlable,       -0.00349066
+  consigne,          -0.00349066
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0.443607 -0.896221 6.66134e-16
+  cible [x/y/z] (repere satellite) : -0.0471065 -0.00348678 0.998884
+  secteur
+    axe [x/y/z]                      0 0.999994 0.00349065
+    angle                            90
+    reference [x/y/z]                0 0.00349065 -0.999994
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   3.21212e-11
+YPR-YAW
+  contrôlable,        0.04363323
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+ 
+prgm_Senseur -f test_Senseur.sensors
+   -dc 22/10/93 -o 42164 0 0 0 0 116
+   -s1 DSS_1_PITCH   -m1  2.5
+   -s2 GEOIRS_1_ROLL -m2  2.7
+   -s3 DSS_1_YAW     -m3 -0.2
+   -p 20 -i 4
+   -s YPR-YAW
+ 
+DSS_1_PITCH
+  contrôlable,        0.04363323
+  consigne,           0.04363323
+  inhibition      : aucun astre
+  eclipse         : aucun astre
+  ecart frontiere : 0.41015 (amplitude significative)
+  cible [x/y/z] (repere inertiel)  : -0.882102 -0.430851 -0.190429
+  cible [x/y/z] (repere satellite) : -0.999042 0.00348733 0.0436191
+  secteur
+    axe [x/y/z]                      0.0436194 2.21833e-16 0.999048
+    angle                            90
+    reference [x/y/z]                0.00205508 0.999998 -8.97266e-05
+    creneau(x)                       [64.1394 ; 116.096]  
+  ecart cible - secteur consigne :   8.4655e-16
+GEOIRS_1_ROLL
+  contrôlable,        0.04712389
+  consigne,           0.04712389
+  inhibition      : aucun astre
+  eclipse         : aucun astre
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0.439682 -0.898154 0
+  cible [x/y/z] (repere satellite) : 0.0446082 0.0470596 0.997896
+  secteur
+    axe [x/y/z]                      0 0.99889 -0.0471065
+    angle                            90
+    reference [x/y/z]                0.0436678 0.0470615 0.997937
+    creneau(x)                       [-92.5028 ; 87.4972]  
+  ecart cible - secteur consigne :   6.93889e-18
+DSS_1_YAW
+  contrôlable,       -0.00349066
+  consigne,          -0.00349066
+  inhibition      : aucun astre
+  eclipse         : aucun astre
+  ecart frontiere : 0.41015 (amplitude significative)
+  cible [x/y/z] (repere inertiel)  : -0.882102 -0.430851 -0.190429
+  cible [x/y/z] (repere satellite) : -0.999042 0.00348733 0.0436191
+  secteur
+    axe [x/y/z]                      -0.00349065 -0.999994 2.22043e-16
+    angle                            90
+    reference [x/y/z]                -0.89879 0.00313738 0.438369
+    creneau(x)                       [0 ; 51.9997]  
+  ecart cible - secteur consigne :   1.31882e-14
+YPR-YAW
+  contrôlable,       -2.94856440
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+DSS_1_PITCH
+  contrôlable,        0.04363323
+  consigne,           0.04363323
+  inhibition      : aucun astre
+  eclipse         : aucun astre
+  ecart frontiere : 0.41015 (amplitude significative)
+  cible [x/y/z] (repere inertiel)  : -0.8821 -0.430854 -0.190431
+  cible [x/y/z] (repere satellite) : -0.999042 0.00348733 0.0436191
+  secteur
+    axe [x/y/z]                      0.0436194 2.21833e-16 0.999048
+    angle                            90
+    reference [x/y/z]                0.00205508 0.999998 -8.97266e-05
+    creneau(x)                       [64.1394 ; 116.096]  
+  ecart cible - secteur consigne :   2.35924e-16
+GEOIRS_1_ROLL
+  contrôlable,        0.04712389
+  consigne,           0.04712389
+  inhibition      : aucun astre
+  eclipse         : aucun astre
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0.440991 -0.897512 0
+  cible [x/y/z] (repere satellite) : 0.0460348 0.0470565 0.997831
+  secteur
+    axe [x/y/z]                      0 0.99889 -0.0471065
+    angle                            90
+    reference [x/y/z]                0.0436678 0.0470615 0.997937
+    creneau(x)                       [-92.5028 ; 87.4972]  
+  ecart cible - secteur consigne :   3.40455e-16
+DSS_1_YAW
+  contrôlable,       -0.00349066
+  consigne,          -0.00349066
+  inhibition      : aucun astre
+  eclipse         : aucun astre
+  ecart frontiere : 0.41015 (amplitude significative)
+  cible [x/y/z] (repere inertiel)  : -0.8821 -0.430854 -0.190431
+  cible [x/y/z] (repere satellite) : -0.999042 0.00348733 0.0436191
+  secteur
+    axe [x/y/z]                      -0.00349065 -0.999994 2.22043e-16
+    angle                            90
+    reference [x/y/z]                -0.89879 0.00313738 0.438369
+    creneau(x)                       [0 ; 51.9997]  
+  ecart cible - secteur consigne :   1.30723e-14
+YPR-YAW
+  contrôlable,       -2.94856244
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+DSS_1_PITCH
+  contrôlable,        0.04363323
+  consigne,           0.04363323
+  inhibition      : aucun astre
+  eclipse         : aucun astre
+  ecart frontiere : 0.41015 (amplitude significative)
+  cible [x/y/z] (repere inertiel)  : -0.882099 -0.430857 -0.190432
+  cible [x/y/z] (repere satellite) : -0.999042 0.00348733 0.0436191
+  secteur
+    axe [x/y/z]                      0.0436194 2.21833e-16 0.999048
+    angle                            90
+    reference [x/y/z]                -0.898103 0.438034 0.039212
+    creneau(x)                       [-1.47225e-15 ; 51.957]  
+  ecart cible - secteur consigne :   2.26639e-10
+GEOIRS_1_ROLL
+  contrôlable,        0.04712388
+  consigne,           0.04712389
+  inhibition      : aucun astre
+  eclipse         : aucun astre
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0.442299 -0.896867 0
+  cible [x/y/z] (repere satellite) : 0.0474612 0.0470534 0.997764
+  secteur
+    axe [x/y/z]                      0 0.99889 -0.0471065
+    angle                            90
+    reference [x/y/z]                -1 0 0
+    creneau(x)                       [0 ; 180]  
+  ecart cible - secteur consigne :   6.15231e-09
+DSS_1_YAW
+  contrôlable,       -0.00349066
+  consigne,          -0.00349066
+  inhibition      : aucun astre
+  eclipse         : aucun astre
+  ecart frontiere : 0.41015 (amplitude significative)
+  cible [x/y/z] (repere inertiel)  : -0.882099 -0.430857 -0.190432
+  cible [x/y/z] (repere satellite) : -0.999042 0.00348733 0.0436191
+  secteur
+    axe [x/y/z]                      -0.00349065 -0.999994 2.22043e-16
+    angle                            90
+    reference [x/y/z]                -0.89879 0.00313738 0.438369
+    creneau(x)                       [0 ; 51.9997]  
+  ecart cible - secteur consigne :   1.04019e-09
+YPR-YAW
+  contrôlable,       -2.94856009
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+DSS_1_PITCH
+  contrôlable,        0.04363323
+  consigne,           0.04363323
+  inhibition      : aucun astre
+  eclipse         : aucun astre
+  ecart frontiere : 0.41015 (amplitude significative)
+  cible [x/y/z] (repere inertiel)  : -0.882097 -0.43086 -0.190434
+  cible [x/y/z] (repere satellite) : -0.999042 0.00348733 0.0436191
+  secteur
+    axe [x/y/z]                      0.0436194 2.21833e-16 0.999048
+    angle                            90
+    reference [x/y/z]                -0.898103 0.438034 0.039212
+    creneau(x)                       [-1.47225e-15 ; 51.957]  
+  ecart cible - secteur consigne :   6.80552e-10
+GEOIRS_1_ROLL
+  contrôlable,        0.04712387
+  consigne,           0.04712389
+  inhibition      : aucun astre
+  eclipse         : aucun astre
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0.443607 -0.896221 0
+  cible [x/y/z] (repere satellite) : 0.0488875 0.0470501 0.997695
+  secteur
+    axe [x/y/z]                      0 0.99889 -0.0471065
+    angle                            90
+    reference [x/y/z]                -1 0 0
+    creneau(x)                       [0 ; 180]  
+  ecart cible - secteur consigne :   1.95992e-08
+DSS_1_YAW
+  contrôlable,       -0.00349066
+  consigne,          -0.00349066
+  inhibition      : aucun astre
+  eclipse         : aucun astre
+  ecart frontiere : 0.41015 (amplitude significative)
+  cible [x/y/z] (repere inertiel)  : -0.882097 -0.43086 -0.190434
+  cible [x/y/z] (repere satellite) : -0.999042 0.00348733 0.0436191
+  secteur
+    axe [x/y/z]                      -0.00349065 -0.999994 2.22043e-16
+    angle                            90
+    reference [x/y/z]                -0.89879 0.00313738 0.438369
+    creneau(x)                       [0 ; 51.9997]  
+  ecart cible - secteur consigne :   3.12044e-09
+YPR-YAW
+  contrôlable,       -2.94855734
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+ 
+prgm_Senseur -f test_Senseur.sensors
+   -dc 22/10/93 -o 42164 0 0 0 0 116
+   -s1 ALPHA_X -m1  2.5
+   -s2 DELTA_Y -m2  2.7
+   -s3 DELTA_Z -m3 -0.2
+   -p 20 -i 4
+   -s YPR-YAW
+ 
+ALPHA_X
+  contrôlable,        0.04363323
+  consigne,           0.04363323
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0.0436194 -0.999048 0
+  cible [x/y/z] (repere satellite) : -1.00614e-15 0.0738987 0.997266
+  secteur
+    axe [x/y/z]                      1 0 0
+    angle                            90
+    reference [x/y/z]                0 1 -1.83697e-16
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   1.06746e-15
+DELTA_Y
+  contrôlable,        0.04712389
+  consigne,           0.04712389
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0 0 1
+  cible [x/y/z] (repere satellite) : -0.998884 0.0471065 -0.00349065
+  secteur
+    axe [x/y/z]                      0 1 0
+    angle                            87.3
+    reference [x/y/z]                1 -0 1.83697e-16
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   6.932e-15
+DELTA_Z
+  contrôlable,       -0.00349066
+  consigne,          -0.00349066
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0 0 1
+  cible [x/y/z] (repere satellite) : -0.998884 0.0471065 -0.00349065
+  secteur
+    axe [x/y/z]                      0 0 1
+    angle                            90.2
+    reference [x/y/z]                0 1 -0
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   1.61062e-09
+YPR-YAW
+  contrôlable,        1.61410797
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+ALPHA_X
+  contrôlable,        0.04363323
+  consigne,           0.04363323
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0.0436194 -0.999048 0
+  cible [x/y/z] (repere satellite) : -1.00614e-15 0.0738987 0.997266
+  secteur
+    axe [x/y/z]                      1 0 0
+    angle                            90
+    reference [x/y/z]                0 1 -1.83697e-16
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   1.06746e-15
+DELTA_Y
+  contrôlable,        0.04712389
+  consigne,           0.04712389
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0 0 1
+  cible [x/y/z] (repere satellite) : -0.998884 0.0471065 -0.00349065
+  secteur
+    axe [x/y/z]                      0 1 0
+    angle                            87.3
+    reference [x/y/z]                1 -0 1.83697e-16
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   6.932e-15
+DELTA_Z
+  contrôlable,       -0.00349066
+  consigne,          -0.00349066
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0 0 1
+  cible [x/y/z] (repere satellite) : -0.998884 0.0471065 -0.00349065
+  secteur
+    axe [x/y/z]                      0 0 1
+    angle                            90.2
+    reference [x/y/z]                0 1 -0
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   1.61062e-09
+YPR-YAW
+  contrôlable,        1.61408038
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+ALPHA_X
+  contrôlable,        0.04363323
+  consigne,           0.04363323
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0.0436194 -0.999048 0
+  cible [x/y/z] (repere satellite) : -1.00614e-15 0.0738987 0.997266
+  secteur
+    axe [x/y/z]                      1 0 0
+    angle                            90
+    reference [x/y/z]                -0 0 1
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   1.06746e-15
+DELTA_Y
+  contrôlable,        0.04712389
+  consigne,           0.04712389
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0 0 1
+  cible [x/y/z] (repere satellite) : -0.998884 0.0471065 -0.00349065
+  secteur
+    axe [x/y/z]                      0 1 0
+    angle                            87.3
+    reference [x/y/z]                0 0 -1
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   6.932e-15
+DELTA_Z
+  contrôlable,       -0.00349066
+  consigne,          -0.00349066
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0 0 1
+  cible [x/y/z] (repere satellite) : -0.998884 0.0471065 -0.00349065
+  secteur
+    axe [x/y/z]                      0 0 1
+    angle                            90.2
+    reference [x/y/z]                0 1 -0
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   1.61062e-09
+YPR-YAW
+  contrôlable,        1.61405270
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+ALPHA_X
+  contrôlable,        0.04363323
+  consigne,           0.04363323
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0.0436194 -0.999048 0
+  cible [x/y/z] (repere satellite) : -1.00614e-15 0.0738987 0.997266
+  secteur
+    axe [x/y/z]                      1 0 0
+    angle                            90
+    reference [x/y/z]                -0 0 1
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   1.06746e-15
+DELTA_Y
+  contrôlable,        0.04712389
+  consigne,           0.04712389
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0 0 1
+  cible [x/y/z] (repere satellite) : -0.998884 0.0471065 -0.00349065
+  secteur
+    axe [x/y/z]                      0 1 0
+    angle                            87.3
+    reference [x/y/z]                0 0 -1
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   6.932e-15
+DELTA_Z
+  contrôlable,       -0.00349066
+  consigne,          -0.00349066
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0 0 1
+  cible [x/y/z] (repere satellite) : -0.998884 0.0471065 -0.00349065
+  secteur
+    axe [x/y/z]                      0 0 1
+    angle                            90.2
+    reference [x/y/z]                0 1 -0
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   1.61062e-09
+YPR-YAW
+  contrôlable,        1.61402493
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+ 
+prgm_Senseur -f test_Senseur.sensors
+   -dc 22/10/93 -o 42164 0 0 0 0 116
+   -s1 YAW_MOMENTUM -m1  2.5
+   -s2 AZ_SUN       -m2  2.7
+   -s3 EL_SUN       -m3 -0.2
+   -p 20 -i 4
+   -s YPR-YAW
+ 
+YAW_MOMENTUM
+  contrôlable,        0.04363323
+  consigne,           0.04363323
+  inhibition      : aucun astre
+  eclipse         : aucun astre
+  ecart frontiere : 3.14159 (amplitude significative)
+  cible [x/y/z] (repere inertiel)  : 0 0 1
+  cible [x/y/z] (repere satellite) : -0.0428649 -0.981767 -0.18519
+  secteur
+    axe [x/y/z]                      -0.999048 0.0436194 0
+    angle                            90
+    reference [x/y/z]                0.0296185 0.678375 -0.734119
+    creneau(x)                       [-180 ; -137.233]  [42.7672 ; 180]  
+  ecart cible - secteur consigne :   9.95836e-16
+AZ_SUN
+  contrôlable,        0.04712389
+  consigne,           0.04712389
+  inhibition      : aucun astre
+  eclipse         : aucun astre
+  ecart frontiere : 3.14159 (amplitude significative)
+  cible [x/y/z] (repere inertiel)  : -0.882102 -0.430851 -0.190429
+  cible [x/y/z] (repere satellite) : 0.0471062 0.00349065 0.998884
+  secteur
+    axe [x/y/z]                      0.99889 0 -0.0471065
+    angle                            90
+    reference [x/y/z]                -0.0345488 0.679776 -0.732606
+    creneau(x)                       [-180 ; -132.826]  [47.1739 ; 180]  
+  ecart cible - secteur consigne :   1.49187e-15
+EL_SUN
+  contrôlable,       -0.00349066
+  consigne,          -0.00349066
+  inhibition      : aucun astre
+  eclipse         : aucun astre
+  ecart frontiere : 3.14159 (amplitude significative)
+  cible [x/y/z] (repere inertiel)  : -0.882102 -0.430851 -0.190429
+  cible [x/y/z] (repere satellite) : 0.0471062 0.00349065 0.998884
+  secteur
+    axe [x/y/z]                      0 -1 0
+    angle                            90.2
+    reference [x/y/z]                0 0 1
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   2.73173e-11
+YPR-YAW
+  contrôlable,        0.83538265
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+YAW_MOMENTUM
+  contrôlable,        0.04363323
+  consigne,           0.04363323
+  inhibition      : aucun astre
+  eclipse         : aucun astre
+  ecart frontiere : 3.14159 (amplitude significative)
+  cible [x/y/z] (repere inertiel)  : 0 0 1
+  cible [x/y/z] (repere satellite) : -0.0428649 -0.981767 -0.185191
+  secteur
+    axe [x/y/z]                      -0.999048 0.0436194 0
+    angle                            90
+    reference [x/y/z]                0.0296185 0.678375 -0.734119
+    creneau(x)                       [-180 ; -137.233]  [42.7672 ; 180]  
+  ecart cible - secteur consigne :   8.34003e-16
+AZ_SUN
+  contrôlable,        0.04712389
+  consigne,           0.04712389
+  inhibition      : aucun astre
+  eclipse         : aucun astre
+  ecart frontiere : 3.14159 (amplitude significative)
+  cible [x/y/z] (repere inertiel)  : -0.8821 -0.430854 -0.190431
+  cible [x/y/z] (repere satellite) : 0.0471062 0.00349065 0.998884
+  secteur
+    axe [x/y/z]                      0.99889 0 -0.0471065
+    angle                            90
+    reference [x/y/z]                -0.0345488 0.679776 -0.732606
+    creneau(x)                       [-180 ; -132.826]  [47.1739 ; 180]  
+  ecart cible - secteur consigne :   1.9429e-15
+EL_SUN
+  contrôlable,       -0.00349066
+  consigne,          -0.00349066
+  inhibition      : aucun astre
+  eclipse         : aucun astre
+  ecart frontiere : 3.14159 (amplitude significative)
+  cible [x/y/z] (repere inertiel)  : -0.8821 -0.430854 -0.190431
+  cible [x/y/z] (repere satellite) : 0.0471062 0.00349065 0.998884
+  secteur
+    axe [x/y/z]                      0 -1 0
+    angle                            90.2
+    reference [x/y/z]                0 0 1
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   2.73327e-11
+YPR-YAW
+  contrôlable,        0.85433033
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+YAW_MOMENTUM
+  contrôlable,        0.04363323
+  consigne,           0.04363323
+  inhibition      : aucun astre
+  eclipse         : aucun astre
+  ecart frontiere : 3.14159 (amplitude significative)
+  cible [x/y/z] (repere inertiel)  : 0 0 1
+  cible [x/y/z] (repere satellite) : -0.0428649 -0.981767 -0.185193
+  secteur
+    axe [x/y/z]                      -0.999048 0.0436194 0
+    angle                            90
+    reference [x/y/z]                0 0 -1
+    creneau(x)                       [0 ; 180]  
+  ecart cible - secteur consigne :   5.80067e-12
+AZ_SUN
+  contrôlable,        0.04712389
+  consigne,           0.04712389
+  inhibition      : aucun astre
+  eclipse         : aucun astre
+  ecart frontiere : 3.14159 (amplitude significative)
+  cible [x/y/z] (repere inertiel)  : -0.882099 -0.430857 -0.190432
+  cible [x/y/z] (repere satellite) : 0.0471062 0.00349065 0.998884
+  secteur
+    axe [x/y/z]                      0.99889 0 -0.0471065
+    angle                            90
+    reference [x/y/z]                0 1 0
+    creneau(x)                       [0 ; 180]  
+  ecart cible - secteur consigne :   5.97291e-10
+EL_SUN
+  contrôlable,       -0.00349066
+  consigne,          -0.00349066
+  inhibition      : aucun astre
+  eclipse         : aucun astre
+  ecart frontiere : 3.14159 (amplitude significative)
+  cible [x/y/z] (repere inertiel)  : -0.882099 -0.430857 -0.190432
+  cible [x/y/z] (repere satellite) : 0.0471062 0.00349065 0.998884
+  secteur
+    axe [x/y/z]                      0 -1 0
+    angle                            90.2
+    reference [x/y/z]                0 0 1
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   4.99965e-11
+YPR-YAW
+  contrôlable,        0.87392565
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+YAW_MOMENTUM
+  contrôlable,        0.04363323
+  consigne,           0.04363323
+  inhibition      : aucun astre
+  eclipse         : aucun astre
+  ecart frontiere : 3.14159 (amplitude significative)
+  cible [x/y/z] (repere inertiel)  : 0 0 1
+  cible [x/y/z] (repere satellite) : -0.0428649 -0.981767 -0.185194
+  secteur
+    axe [x/y/z]                      -0.999048 0.0436194 0
+    angle                            90
+    reference [x/y/z]                0 0 -1
+    creneau(x)                       [0 ; 180]  
+  ecart cible - secteur consigne :   1.74037e-11
+AZ_SUN
+  contrôlable,        0.04712389
+  consigne,           0.04712389
+  inhibition      : aucun astre
+  eclipse         : aucun astre
+  ecart frontiere : 3.14159 (amplitude significative)
+  cible [x/y/z] (repere inertiel)  : -0.882097 -0.43086 -0.190434
+  cible [x/y/z] (repere satellite) : 0.0471062 0.00349065 0.998884
+  secteur
+    axe [x/y/z]                      0.99889 0 -0.0471065
+    angle                            90
+    reference [x/y/z]                0 1 0
+    creneau(x)                       [0 ; 180]  
+  ecart cible - secteur consigne :   1.79192e-09
+EL_SUN
+  contrôlable,       -0.00349066
+  consigne,          -0.00349066
+  inhibition      : aucun astre
+  eclipse         : aucun astre
+  ecart frontiere : 3.14159 (amplitude significative)
+  cible [x/y/z] (repere inertiel)  : -0.882097 -0.43086 -0.190434
+  cible [x/y/z] (repere satellite) : 0.0471062 0.00349065 0.998884
+  secteur
+    axe [x/y/z]                      0 -1 0
+    angle                            90.2
+    reference [x/y/z]                0 0 1
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   9.54959e-11
+YPR-YAW
+  contrôlable,        0.89418650
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+ 
+prgm_Senseur -f test_Senseur.sensors
+   -dc 22/10/93 -o 42164 0 0 0 0 116
+   -s1 DELTA_X -m1  2.5
+   -s2 DELTA_Y -m2  2.7
+   -s3 GYRO+Z  -m3 -0.2
+   -p 20 -i 4
+   -s INTEG+Y
+ 
+DELTA_X
+  contrôlable,        0.04363323
+  consigne,           0.04363323
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0 0 1
+  cible [x/y/z] (repere satellite) : 0.0436194 0.0471065 0.997937
+  secteur
+    axe [x/y/z]                      1 0 0
+    angle                            87.5
+    reference [x/y/z]                0 1 -1.83697e-16
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   8.33582e-17
+DELTA_Y
+  contrôlable,        0.04712389
+  consigne,           0.04712389
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0 0 1
+  cible [x/y/z] (repere satellite) : 0.0436194 0.0471065 0.997937
+  secteur
+    axe [x/y/z]                      0 1 0
+    angle                            87.3
+    reference [x/y/z]                0 0 -1
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   1.04444e-16
+GYRO+Z
+  contrôlable,       -0.03839724
+  consigne,          -0.03839724
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+INTEG+Y
+  contrôlable,        0.00000000
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+DELTA_X
+  contrôlable,        0.04363323
+  consigne,           0.04363323
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0 0 1
+  cible [x/y/z] (repere satellite) : 0.0436194 0.0471065 0.997937
+  secteur
+    axe [x/y/z]                      1 0 0
+    angle                            87.5
+    reference [x/y/z]                0 1 -1.83697e-16
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   2.08347e-17
+DELTA_Y
+  contrôlable,        0.04712389
+  consigne,           0.04712389
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0 0 1
+  cible [x/y/z] (repere satellite) : 0.0436194 0.0471065 0.997937
+  secteur
+    axe [x/y/z]                      0 1 0
+    angle                            87.3
+    reference [x/y/z]                0 0 -1
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   3.54055e-17
+GYRO+Z
+  contrôlable,       -0.03839724
+  consigne,          -0.03839724
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+INTEG+Y
+  contrôlable,       -0.03625059
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+DELTA_X
+  contrôlable,        0.04363323
+  consigne,           0.04363323
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0 0 1
+  cible [x/y/z] (repere satellite) : 0.0436194 0.0471065 0.997937
+  secteur
+    axe [x/y/z]                      1 0 0
+    angle                            87.5
+    reference [x/y/z]                -0 0 1
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   2.01454e-16
+DELTA_Y
+  contrôlable,        0.04712389
+  consigne,           0.04712389
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0 0 1
+  cible [x/y/z] (repere satellite) : 0.0436194 0.0471065 0.997937
+  secteur
+    axe [x/y/z]                      0 1 0
+    angle                            87.3
+    reference [x/y/z]                0 0 -1
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   3.53922e-17
+GYRO+Z
+  contrôlable,       -0.03839724
+  consigne,          -0.03839724
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+INTEG+Y
+  contrôlable,       -0.07250117
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+DELTA_X
+  contrôlable,        0.04363323
+  consigne,           0.04363323
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0 0 1
+  cible [x/y/z] (repere satellite) : 0.0436194 0.0471065 0.997937
+  secteur
+    axe [x/y/z]                      1 0 0
+    angle                            87.5
+    reference [x/y/z]                -0 0 1
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   3.26481e-16
+DELTA_Y
+  contrôlable,        0.04712389
+  consigne,           0.04712389
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0 0 1
+  cible [x/y/z] (repere satellite) : 0.0436194 0.0471065 0.997937
+  secteur
+    axe [x/y/z]                      0 1 0
+    angle                            87.3
+    reference [x/y/z]                0 0 -1
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   6.25042e-17
+GYRO+Z
+  contrôlable,       -0.03839724
+  consigne,          -0.03839724
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+INTEG+Y
+  contrôlable,       -0.03625059
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+ 
+prgm_Senseur -f test_Senseur.sensors
+   -dc 22/10/93 -o 42164 0 0 0 0 116
+   -s1 YPR-YAW   -m1  2.5
+   -s2 YPR-PITCH -m2  2.7
+   -s3 GNA-RHCP  -m3  90.
+   -p 20 -i 4
+   -s YPR-YAW
+ 
+YPR-YAW
+  contrôlable,        0.04363323
+  consigne,           0.04363323
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0.0391769 0.0191786 -0.999048
+  cible [x/y/z] (repere satellite) : 2.08167e-16 0.993255 -0.115953
+  secteur
+    axe [x/y/z]                      1 0 0
+    angle                            90
+    reference [x/y/z]                0 -1.22465e-16 -1
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   1.47588e-16
+YPR-PITCH
+  contrôlable,        0.04712389
+  consigne,           0.04712389
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0.439682 -0.898154 6.66134e-16
+  cible [x/y/z] (repere satellite) : -0.0471065 0.115824 0.992152
+  secteur
+    axe [x/y/z]                      -1 0 0
+    angle                            87.3
+    reference [x/y/z]                -0 0 -1
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   4.89281e-16
+GNA-RHCP
+  contrôlable,        1.57079633
+  consigne,           1.57079633
+  inhibition      : aucun astre
+  eclipse         : aucun astre
+  ecart frontiere : 0.823385 (amplitude significative)
+  cible [x/y/z] (repere inertiel)  : 0.382273 -0.917059 0.113445
+  cible [x/y/z] (repere satellite) : 0.00809001 -2.46758e-12 0.999967
+  secteur
+    axe [x/y/z]                      -0 1 0
+    angle                            90
+    reference [x/y/z]                1.22465e-16 0 1
+    creneau(x)                       [-82.36 ; -2.54444e-14]  [0 ; 47.64]  
+  ecart cible - secteur consigne :   2.46764e-12
+YPR-YAW
+  contrôlable,        0.04363323
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+YPR-YAW
+  contrôlable,        0.04363323
+  consigne,           0.04363323
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0.0391489 0.0192358 -0.999048
+  cible [x/y/z] (repere satellite) : 2.08167e-17 0.993255 -0.115953
+  secteur
+    axe [x/y/z]                      1 0 0
+    angle                            90
+    reference [x/y/z]                0 -1.22465e-16 -1
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   4.04157e-17
+YPR-PITCH
+  contrôlable,        0.04712389
+  consigne,           0.04712389
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0.440991 -0.897512 8.88178e-16
+  cible [x/y/z] (repere satellite) : -0.0471065 0.115824 0.992152
+  secteur
+    axe [x/y/z]                      -1 0 0
+    angle                            87.3
+    reference [x/y/z]                -0 0 -1
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   2.53062e-16
+GNA-RHCP
+  contrôlable,        1.57079633
+  consigne,           1.57079633
+  inhibition      : aucun astre
+  eclipse         : aucun astre
+  ecart frontiere : 0.823385 (amplitude significative)
+  cible [x/y/z] (repere inertiel)  : 0.38361 -0.916501 0.113445
+  cible [x/y/z] (repere satellite) : 0.00809001 -2.46747e-12 0.999967
+  secteur
+    axe [x/y/z]                      -0 1 0
+    angle                            90
+    reference [x/y/z]                1.22465e-16 0 1
+    creneau(x)                       [-82.36 ; -2.54444e-14]  [0 ; 47.64]  
+  ecart cible - secteur consigne :   2.46753e-12
+YPR-YAW
+  contrôlable,        0.04363323
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+YPR-YAW
+  contrôlable,        0.04363323
+  consigne,           0.04363323
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0.0391208 0.0192928 -0.999048
+  cible [x/y/z] (repere satellite) : -3.81015e-14 0.993255 -0.115953
+  secteur
+    axe [x/y/z]                      1 0 0
+    angle                            90
+    reference [x/y/z]                -0 0 1
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   3.81627e-14
+YPR-PITCH
+  contrôlable,        0.04712389
+  consigne,           0.04712389
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0.442299 -0.896867 0
+  cible [x/y/z] (repere satellite) : -0.0471065 0.115824 0.992152
+  secteur
+    axe [x/y/z]                      -1 0 0
+    angle                            87.3
+    reference [x/y/z]                -0 0 -1
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   1.58593e-15
+GNA-RHCP
+  contrôlable,        1.57079633
+  consigne,           1.57079633
+  inhibition      : aucun astre
+  eclipse         : aucun astre
+  ecart frontiere : 0.823385 (amplitude significative)
+  cible [x/y/z] (repere inertiel)  : 0.384947 -0.91594 0.113445
+  cible [x/y/z] (repere satellite) : 0.00809001 -2.46658e-12 0.999967
+  secteur
+    axe [x/y/z]                      -0 1 0
+    angle                            90
+    reference [x/y/z]                1.22465e-16 0 1
+    creneau(x)                       [-82.36 ; -2.54444e-14]  [0 ; 47.64]  
+  ecart cible - secteur consigne :   2.46664e-12
+YPR-YAW
+  contrôlable,        0.04363323
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+YPR-YAW
+  contrôlable,        0.04363323
+  consigne,           0.04363323
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0.0390926 0.0193499 -0.999048
+  cible [x/y/z] (repere satellite) : -1.15838e-13 0.993255 -0.115953
+  secteur
+    axe [x/y/z]                      1 0 0
+    angle                            90
+    reference [x/y/z]                -0 0 1
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   1.15899e-13
+YPR-PITCH
+  contrôlable,        0.04712389
+  consigne,           0.04712389
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)
+  cible [x/y/z] (repere inertiel)  : 0.443607 -0.896221 6.66134e-16
+  cible [x/y/z] (repere satellite) : -0.0471065 0.115824 0.992152
+  secteur
+    axe [x/y/z]                      -1 0 0
+    angle                            87.3
+    reference [x/y/z]                -0 0 -1
+    creneau(x)                       [-180 ; 180]  
+  ecart cible - secteur consigne :   2.61973e-15
+GNA-RHCP
+  contrôlable,        1.57079633
+  consigne,           1.57079633
+  inhibition      : aucun astre
+  eclipse         : aucun astre
+  ecart frontiere : 0.823385 (amplitude significative)
+  cible [x/y/z] (repere inertiel)  : 0.386282 -0.915378 0.113445
+  cible [x/y/z] (repere satellite) : 0.00809001 -2.46536e-12 0.999967
+  secteur
+    axe [x/y/z]                      -0 1 0
+    angle                            90
+    reference [x/y/z]                1.22465e-16 0 1
+    creneau(x)                       [-82.36 ; -2.54444e-14]  [0 ; 47.64]  
+  ecart cible - secteur consigne :   2.46542e-12
+YPR-YAW
+  contrôlable,        0.04363323
+  inhibition      : non significative
+  eclipse         : non significative
+  ecart frontiere : 1 (amplitude non significative)

@@ -1,0 +1,12 @@
+2000-03-30  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* *.h: ajout du copyright CNES
+
+1998-10-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* CombPolDBLVD2.h: réécriture de fonctions pour contourner un bug
+	des compilateurs Sun (4.0 et 4.2 au moins)
+
+	* CombPolDBLVD1.h: réécriture de fonctions pour contourner un bug
+	des compilateurs Sun (4.0 et 4.2 au moins)
+

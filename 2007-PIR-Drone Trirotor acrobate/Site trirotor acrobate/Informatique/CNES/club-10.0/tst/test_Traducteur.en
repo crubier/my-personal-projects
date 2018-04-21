@@ -1,0 +1,29 @@
+# Ceci est un fichier de domaine de traduction d'essai
+# identificateur RCS : "$Id: test_Traducteur.en,v 3.1 1997/03/19 16:09:08 luc Exp $"
+un    one
+
+deux
+# commentaire entre deux champs
+"two"
+
+xxx  "XAA\b\n"
+"A-Z\t\173\175" xxx
+
+# traduction correcte de format C
+"reel: %7.2le, chaine: %s\n" "real: %lf, string: %30s\n"
+
+# traduction erronee de format C (inversion des specificateurs)
+"chaine: %s, reel: %7.2le\n" "real: %lf, string: %s\n"
+
+# traduction correcte de format Fortran
+"(I2, 3X, 'nom: ', 2(X, F6.3, X, A5), L)"
+   "(I, ' name: ', E10.2, A, E11.3, A, L)"
+
+# traduction erronee de format Fortran (inversion des specificateurs)
+"(2(F6.3, X, A5))" "(2E10.2, 2A)"
+
+# traduction correcte de format Fortran sans argument
+"('aaaxx', 2X, 3('ss', X))" "('-translated format without arguments-')"
+
+# traduction erronee de format Fortran sans argument
+"('X, 3('FFF', X))" "('wrong traduction (there is an argument): ', I)"

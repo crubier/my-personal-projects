@@ -1,0 +1,142 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: MarmottesErreurs.tex,v 1.14 2003/10/08 09:42:08 marmottes Exp $
+\subsection{classe MarmottesErreurs}\label{sec:MarmottesErreurs}
+
+\subsubsection*{description}\label{sec:MarmottesErreurs-desc}
+
+Cette classe permet de formater et traduire dans la langue de
+l'utilisateur des messages d'erreur liés à la bibliothèque
+\bibliotheque{marmottes}. Elle utilise les mécanismes qui lui sont
+fournis par sa classe de base.
+
+\subsubsection*{interface publique}\label{sec:MarmottesErreurs-int}
+\begin{verbatim}
+#include "marmottes/MarmottesErreurs.h"
+\end{verbatim}
+
+Les opérations publiques sont essentiellement celles de la classe de
+base \texttt{BaseErreurs}, qui appartient à la bibliothèque
+\bibliotheque{club} (voir~\ref{ref:club}). Les méthodes qui ne peuvent
+être héritées (les constructeurs et les méthodes de classe) ont été
+redéfinies avec des sémantiques équivalentes. Dans ces méthodes
+redéfinies, les codes d'erreurs (déclarés comme type énuméré public
+interne) attendent les arguments suivants dans la liste des arguments
+variables :
+
+\begin{description}
+\item[id\_marmottes\_non\_initialise] :  \texttt{int} (pour
+l'identificateur) ;
+\item[bloc\_non\_terminal] : \texttt{char *} (pour le nom du bloc) ;
+\item[rotation\_bloc] : \texttt{char *} (pour le nom du bloc) ;
+\item[nombre\_champs\_bloc] : \texttt{char *} (pour le nom du bloc,
+\texttt{int} (pour le nombre de champs trouvés) , \texttt{int} (pour
+le nombre de champs demandés) ;
+\item[bloc\_introuvable] : \texttt{char *} (pour le message issu de la
+bibliothèque \bibliotheque{club}) ;
+\item[vecteur\_nul] : \texttt{char *} (pour le nom du bloc) ;
+\item[quaternion\_nul] : \texttt{char *} (pour le nom du bloc) ;
+\item[liste\_non\_initialisee] : néant ;
+\item[gyros\_coaxiaux] : néant ;
+\item[consignes\_gyro\_elevees] : \texttt{char *} (pour le nom du
+premier senseur), \texttt{char *} (pour le nom du second senseur),
+\texttt{double} (pour la valeur de la vitesse de rotation maximale) ;
+\item[consigne\_degeneree] : \texttt{char *} (pour le nom du senseur) ;
+\item[consignes\_incompatibles] : \texttt{char *} (pour le nom du premier
+senseur), \texttt{char *} (pour le nom du second senseur) ;
+\item[type\_inconnu] : \texttt{char *} (pour le type trouvé),
+\texttt{char *} (pour chacun des types connus), \texttt{(char *) 0}
+(pour indiquer la fin de la liste) ;
+\item[cible\_inconnue] : \texttt{char *} (pour la cible trouvée),
+\texttt{char *} (pour chacune des cibles connues), \texttt{(char *) 0}
+(pour indiquer la fin de la liste) ;
+\item[champ\_inhibition\_cible\_soleil] :\texttt{char *} (pour le nom du
+senseur) ;
+\item[champ\_inhibition\_cible\_lune] :\texttt{char *} (pour le nom du
+senseur) ;
+\item[champ\_inhibition\_cible\_central] :\texttt{char *} (pour le nom du
+senseur) ;
+\item[omega\_neg] : \texttt{double} (pour la vitesse fournie) ;
+\item[seuil\_neg] : \texttt{double} (pour le seuil fourni) ;
+\item[tranches\_neg] : \texttt{int} (pour le nombre fourni) ;
+\item[pas\_de\_solution] : néant ;
+\item[controlabilite] : \texttt{char *} (pour le nom du senseur) ;
+\item[calage\_interdit] : néant ;
+\item[types\_incompatibles] : \texttt{char *} (pour le nom du premier
+senseur), \texttt{char *} (pour le nom du second senseur) ;
+\item[consigne\_interdite] : \texttt{char *} (pour le nom du premier
+senseur), \texttt{char *} (pour le nom du second senseur) ;
+\item[genre\_cardan\_inconnu] : \texttt{char *} (pour le nom du
+senseur), \texttt{char *} (pour chacun des genres connus), \texttt{(char *) 0}
+(pour indiquer la fin de la liste)  ;
+\item[reference\_cardan\_inconnue] : \texttt{char *} (pour le nom du
+senseur), \texttt{char *} (pour chacun des repères connus), \texttt{(char *) 0}
+(pour indiquer la fin de la liste)  ;
+\item[rotation\_cardan] : \texttt{char *} (pour le nom du senseur) ;
+\item[points\_masque] : \texttt{int} (pour le nombre de points
+trouvé), \texttt{char *} (pour le nom du bloc) ;
+\item[unite\_position] : \texttt{char *} (pour l'unité fournie),
+\texttt{char *} (pour chacune des unités connues), \texttt{(char *) 0}
+(pour indiquer la fin de la liste) ;
+\item[unite\_vitesse] : \texttt{char *} (pour l'unité fournie),
+\texttt{char *} (pour chacune des unités connues), \texttt{(char *) 0}
+(pour indiquer la fin de la liste) ;
+\item[normes\_litigieuses] : néant ;
+\item[cible\_utilisateur] : \texttt{char *} (pour le nom du senseur) ;
+\item[modifie\_cible] : \texttt{char *} (pour le nom du senseur) ;
+\item[senseur\_sans\_cible] : \texttt{char *} (pour le nom du senseur) ;
+\item[pas\_gyro\_integrateur] : \texttt{char *} (pour le nom du senseur) ;
+\item[pas\_senseur\_cinematique] : \texttt{char *} (pour le nom du senseur) ;
+\item[reference\_utilisateur] : \texttt{char *} (pour le nom du senseur) ;
+\item[modifie\_reference] : \texttt{char *} (pour le nom du senseur) ;
+\item[senseur\_sans\_reference] : \texttt{char *} (pour le nom du senseur) ;
+\item[erreur\_non\_reconnue] : néant ;
+\item[senseur\_mesure\_pure] : \texttt{char *} (pour le nom du senseur) ;
+\item[allocation\_memoire] : néant ;
+\item[points\_echantillon] : \texttt{int} (pour le nombre de points),
+\texttt{char *} (pour le nom du bloc) ;
+\item[echantillon\_vide] : \texttt{char *} (pour le nom du bloc) ;
+\item[echantillon\_rejete] : \texttt{double} (pour la première
+coordonnée du point), \texttt{double} (pour la seconde coordonnée du
+point), \texttt{char *} (pour le nom du bloc) ;
+\item[objet\_inconnu] : néant ;
+\item[cas\_impossible] : \texttt{int} (pour le numéro de ligne),
+\texttt{char *} (pour le nom du fichier source).
+\end{description}
+
+
+\subsubsection*{exemples d'utilisation}
+
+\begin{verbatim}
+#include "marmottes/MarmottesErreurs.h"
+#include "marmottes/Lecture.h"
+
+try
+{
+  Senseur *s = LireSenseur  (fichier, "ires-roll");
+}
+
+catch (MarmottesErreurs me)
+{
+  return me.code ();
+}
+
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation spécifiques}
+\label{sec:MarmottesErreurs-conseils}
+Cette classe est principalement utilisée pour tester la bonne
+exécution des fonctions de la bibliothèque \bibliotheque{marmottes}
+elle-même. Son utilisation se résume donc à tester correctement la
+présence ou l'absence d'erreurs (méthode \texttt{existe ()}), et à
+décider du comportement à adopter en présence d'une erreur.
+
+Si la même instance d'erreur est utilisée pour tester le retour de
+plusieurs fonctions, il faut prendre garde de la tester au bon
+moment~; il est en effet possible qu'une erreur soit générée par le
+premier appel, qu'elle soit ignorée par l'appelant, qu'une seconde
+fonction de \bibliotheque{marmottes} se termine ensuite normalement et
+que l'appelant ne détecte la première erreur qu'à cet instant.
+
+\subsubsection*{implantation}\label{sec:MarmottesErreurs-impl}
+La classe dérive publiquement de \texttt{BaseErreurs}, elle ne possède
+aucun attribut propre.

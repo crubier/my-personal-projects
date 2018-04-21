@@ -1,0 +1,175 @@
+% -*- mode: latex; tex-main-file: "cantor.tex" -*-
+% $Id: messages-erreurs.tex,v 1.8 2003/03/20 10:54:58 cantor Exp $
+La bibliothèque \bibliotheque{cantor} peut générer des messages
+d'erreurs en fonction de la langue de l'utilisateur. La liste suivante
+est triée par ordre alphabétique du format d'écriture dans le fichier
+de traduction français d'origine\footnote{la langue interne est le
+français sans les accents et c'est le fichier de traduction français
+qui introduit les accents, le fichier de traduction anglais reste
+ainsi lisible par un utilisateur anglophone qui n'aurait pas configuré
+son éditeur de texte de sorte qu'il affiche correctement les
+caractères utilisant le codage iso-8859-1 (IsoLatin 1)}. Le format de
+la traduction anglaise d'origine est indiqué entre parenthèses. Si un
+utilisateur modifie les fichiers de traduction d'origine (ce qui est
+tout à fait raisonnable), la liste suivante devra être interprétée
+avec une certaine tolérance.
+
+\verb|"ajustement des moindres carrés impossible (matrice singulière)"|
+\\(\verb|"impossible adjustment of least squares (singular matrix)"|)
+Cette erreur se produit lors d'une tentative d'ajustement d'un
+filtre de moindres carrés. La forme d'une matrice des moindres carrés
+conduit nécessairement cette dernière à être symétrique définie
+positive dès que suffisamment de points ont été accumulés dans
+l'échantillon. Cette erreur témoigne donc d'un échantillon trop
+restreint (ce qui peut être dû au nombre total de points inférieur à
+la dimension du problème ou du fait que le même point a été mis
+plusieurs fois dans l'échantillon).
+
+\verb|"ajustement du filtre des moindres carrés non effectué"|
+\\(\verb|"least squares filter adjustment not yet available"|)
+Ce message signale que l'utilisateur a tenté d'extraire les
+coefficients d'un ajustement par un filtre de moindres carrés,
+d'évaluer l'erreur quadratique de l'ajustement, ou d'appliquer la
+fonction filtrée en ayant oublié de refaire cet ajustement depuis le
+dernier ajout ou retrait de points. Cette erreur indique normalement
+une erreur de codage de l'appelant.
+
+\verb|"axe d'une rotation nul"|
+\\(\verb|"null rotation axis"|)
+Cette erreur se produit lorsque l'axe donné en argument d'un
+constructeur de rotation par un axe et angle a une norme trop faible.
+
+\verb|"cas non implanté\nveuillez contacter la maintenance de CANTOR"|
+\\(\verb|"unimplemented case\nplease contact CANTOR support"|)
+Ce message est produit par une opération interne de la classe Field
+appelée notamment lors de la construction d'un champ ou lors des
+opérations entre champs (intersection, réunion, balayage, ...). Elle
+provient de la détection de l'échec de toutes les méthodes devant
+rejeter les arcs frontières parasites créés lors de ces
+opérations. L'apparition de ce message signale un bug interne de
+\bibliotheque{cantor} !
+
+\verb|"cônes coaxiaux"|
+\\(\verb|"coaxials cones"|)
+Ce message apparaît lorsque l'on tente de calculer l'intersection de
+deux cônes coaxiaux.
+
+\verb|"cônes disjoints"|
+\\(\verb|"separated cones"|)
+Ce message apparaît lorsque l'on tente de calculer l'intersection de
+deux cônes disjoints.
+
+\verb|"dimension de l'espace d'approximation nulle"|
+\\(\verb|"null dimension of approximation space"|)
+Cette erreur se produit lors d'une tentative d'ajustement d'un filtre
+de moindres carrés, lorsque la dimension de l'espace vectoriel
+d'ajustement n'a pas été initialisée correctement. Ceci peut provenir
+de l'utilisation directe d'une instance créée par le constructeur par
+défaut (typiquement un élément de tableau) qui n'a pas été réaffectée
+par une instance créée normalement avec un argument de dimension.
+
+\verb|"ensemble vide d'intervalles"|
+\\(\verb|"empty set of intervals"|)
+Ce message est produit lorsque l'on tente d'accéder aux éléments
+internes (valeur minimale, maximale, ou intervalle d'index donné) dans
+un créneau vide.
+
+\verb|"erreur %d dans les fonctions de base de l'approximation"|
+\\(\verb|"error %d in base functions for approximation"|)
+Cette erreur se produit lors de l'ajout ou du retrait d'un point de
+référence lors de la constitution d'un échantillon pour une
+approximation fonctionnelle, ou lors de l'évaluation de la fonction
+ajustée. Cette erreur signale que la fonction que l'utilisateur avait
+spécifiée à la construction de l'instance et qui est appelée à ces
+occasions retourne un code d'erreur (c'est à dire une valeur non
+nulle).
+
+\verb|"erreur interne de CANTOR, veuillez contacter la maintenance (ligne %d, fichier %s)"|
+\\(\verb|"CANTOR internal error, contact the support (line %d, file %s)"|)
+Ce message ne devrait normalement pas apparaître ... Il indique qu'un
+cas non supporté a été rencontré, ce qui temoigne d'une erreur de la
+bibliothèque. Dans une telle éventualité, il faut prévenir la
+maintenance.
+
+\verb|"extremité d'un arc alignée avec l'axe"|
+\\(\verb|"endpoint of an arc aligned with the axis"|)
+Ce message est généré lorsqu'à la construction d'un arc sur la sphère
+unité, le début ou la fin de l'arc sont alignés avec l'axe,
+interdisant ainsi de définir correctement les plans délimitant le
+dièdre de l'arc. Ceci arrive en particulier pour les arcs appartenant
+à des cônes dégénérés d'angle d'ouverture proche de $0$ ou de
+$\pi$. Ce type d'erreur devrait être traité par l'application, elle ne
+devrait normalement pas remonter jusqu'à l'utilisateur.
+
+\verb|"frontière de champ ouverte"|
+\\(\verb|"open field boundary"|)
+Ce message indique que deux arcs successifs de la liste composant la
+frontière d'un champ de vue (ou d'un champ d'inhibition) sont trop
+éloignés l'un de l'autre, ce qui temoigne d'une erreur de la
+bibliothèque. Dans une telle éventualité, il faut prévenir la
+maintenance.
+
+\verb|"indice \"%s\" = %d, hors bornes [%d; %d]"|
+\\(\verb|"index \"%s\" = %d, out of range [%d; %d]"|)
+Ce message est généré lors de l'utilisation d'un mauvais index de
+monôme dans un polynôme, ou lors de l'accès à un intervalle inexistant
+dans un créneau. La chaîne affichée précise le type de l'indice fautif.
+
+\verb|"matrice non orthogonalisable"|
+\\(\verb|"non orthogonalisable matrix"|)
+Ce message est généré lors de la construction d'une rotation par sa
+matrice, si celle ci ne peut être orthogonalisée après dix
+itérations. Ceci indique probablement un problème important sur la
+matrice, ou une erreur dans le seuil de convergence à respecter.
+
+\verb|"matrice singulière"|
+\\(\verb|"singular matrix"|)
+Ce message est généré lors de la tentative de factorisation d'une
+matrice sous forme $LDL^T$. Ceci indique probablement un problème
+important sur la matrice, ou une erreur dans le seuil de convergence à
+respecter.
+
+\verb|"norme d'un vecteur nulle"|
+\\(\verb|"null vector"|)
+Ce message provient d'une tentative de normalisation (ou
+d'orthonormalisation) d'un vecteur de norme trop faible.
+
+\verb|"opération sur un polynôme invalide"|
+\\(\verb|"operation upon invalid polynom"|)
+Ce message est généré lors d'une tentative d'utilisation d'un polynôme
+qui n'a pas encore été initialisé. Ceci peut provenir de l'utilisation
+directe d'une instance créée par le constructeur par défaut
+(typiquement un élément de tableau) qui n'a pas été réaffectée par une
+instance créée normalement avec des coefficients de monômes.
+
+\verb|"ordre de rotations élémentaires inconnu : %d\nordres connus :"|
+\\(\verb|"unknown elementary rotations ordre: %d\nknown orders:"|)
+Ce message est généré lors de la construction d'une rotation par trois
+angles élémentaires ou dans l'extraction de ces angles, lorsque
+l'ordre des rotations élémentaires n'est pas reconnu. Cette erreur ne
+peut survenir qu'avec l'interface \langage{fortran} qui utilise des
+entiers, les interfaces \langage{c} et \langage{c++} utilisent des
+types énumérés. Ce message est suivi de la liste des ordres reconnus,
+sous la forme des \textsc{parameter} déclarés dans le fichier
+\texttt{cantdefs.f}.
+
+\verb|"pas de base de fonctions d'approximation"|
+\\(\verb|"no base functions for approximation"|)
+Cette erreur se produit lors de l'ajout ou du retrait d'un point de
+référence lors de la constitution d'un échantillon pour une
+approximation fonctionnelle. Cette erreur signale que l'utilisateur
+n'a pas spécifié de pointeur de fonction à la construction de
+l'instance. Ceci peut provenir de l'utilisation directe d'une instance
+créée par le constructeur par défaut (typiquement un élément de
+tableau) qui n'a pas été réaffectée par une instance créée normalement
+avec un pointeur de fonction non nul.
+
+\verb|"singularite au niveau du calcul des angle de rotation"|
+\\(\verb|"rotation angle computation: singularity found"|)
+Ce message est généré lorsque, lors du calcul des anges de rotation
+d'Euler ou de Cardan, des incertitudes sur les angles apparaissent
+notamment au voisinage de 0 degré pour les angles d'Euler ou au
+voisinage de 90 degrés pour les angles de Cardan.
+Ces singularités ne permettent pas de calculer les angles de rotation
+avec précision mais ce problème peut être contourné en changeant le
+type de la rotation.

@@ -1,0 +1,189 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+% $Id: IterateurCaractere.tex,v 1.8 2005/03/03 16:41:40 chope Exp $
+\subsection{classe IterateurCaractere}\label{sec:IterateurCaractere}
+
+\subsubsection*{description}\label{sec:IterateurCaractere-desc}
+
+La classe IterateurCaractere permet de parcourir un TamponAscii
+caractère par caractère. Cet itérateur possède les propriétés
+suivantes :
+
+\begin{itemize}
+\item À un instant donné, l'itérateur possède une valeur qui désigne
+un élément du tampon. On accède à cette valeur par \texttt{valeur()} ;
+\item L'itérateur peut être incrémenté par l'opérateur ++ de manière à
+pointer sur l'élément suivant ;
+\item L'itérateur peut également être décrémenté par l'opérateur $--$ de
+manière à pointer sur l'élément précédent (itérateur bidirectionnel) ;
+\item L'itérateur permet d'accéder directement à un élément du tampon
+en utilisant la méthode \texttt{allerSur (int index)}.
+\end{itemize}
+\subsubsection*{interface publique}\label{sec:IterateurCaractere-int}
+\begin{verbatim}
+#include "club/IterateurCaractere.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{IterateurCaractere : méthodes publiques}
+{\label{tab:IterateurCaractere-met-pub}}
+{Si direction = 1, synchronise la position de l'itérateur sur la position}
+
+\signature{\fonc{IterateurCaractere}}{( const TamponAscii\&
+\argument{tampon} ) } & 
+
+construit une instance parcourant \argument{tampon}
+
+\textbf{Exceptions :} - \\
+
+\signature{\fonc{IterateurCaractere}}{( TamponAscii* \argument{tampon}
+)}& 
+
+construit une instance parcourant \argument{tampon}
+
+\textbf{Exceptions :} - \\
+
+\signature{\fonc{~IterateurCaractere} ()} {}& 
+destructeur de la classe.
+\\
+
+\hline
+
+\signature{void \fonc{premier} ()}{}   & 
+
+positionne l'itérateur sur le premier caractère du tampon
+
+\textbf{Exceptions :} - \\
+
+\signature{void \fonc{dernier} ()}{} & 
+
+positionne l'itérateur sur le dernier caractère du tampon
+
+\textbf{Exceptions :} - \\
+
+\signature{void \fonc{allerSur} (int index)}{} & 
+
+positionne l'itérateur sur le caractère numéro \argument{index} du tampon.
+Les caractère sont numérotés à partir de 1.
+
+\textbf{Exceptions :} caractere\_hors\_domaine.\\
+
+\hline
+
+\signature{int  \fonc{termine} () const}{} & 
+
+indique que l'itérateur pointe sur la fin du tampon. \\
+
+\hline
+
+\signature{int  \fonc{nombreIterations} () const}{} & 
+
+retourne le nombre de caractères du tampon. \\
+
+\signature{int  \fonc{operator++} (int) }{} & 
+positionne l'itérateur sur le caractère suivant du tampon
+
+\textbf{Exceptions :} iterateur\_invalide. \\
+
+\signature{int  \fonc{operator$--$} (int)}{} &
+positionne l'itérateur sur le caractère précedent du tampon
+
+\textbf{Exceptions :} iterateur\_invalide \\
+
+\hline
+
+\signature{const char*  \fonc{valeur} () const}{} &  
+retourne un pointeur sur le caractère courant.
+
+\textbf{Exceptions :} iterateur\_invalide\\
+
+\signature{int  \fonc{longueurElement}}{(int \argument{avecFin} = 0)
+const} & 
+
+retourne la longeur de l'élément pointé par l'itérateur,
+ici cette longeur est toujours égale à 1 (1 caractère).
+
+\textbf{Exceptions :} -\\
+
+\signature{void \fonc{synchronize}} {(int direction = 0)} &
+Si direction = 1, synchronise la position de l'itérateur sur la
+position réelle dans le tampon (itérateur altéré lors d'une
+modification du tampon). Si direction = 0 (par défaut), synchronise
+l'état du tampon (position courante du curseur) sur la position
+courante de l'itérateur (mémorisation avant altération du tampon)
+
+\textbf{Exceptions :} iterateur\_invalide\\
+
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+
+\begin{verbatim}
+#include "club/IterateurCaractere.h"
+#include "club/TamponAscii.h"
+...
+
+try 
+{
+  TamponAscii t(nom_fichier);
+  IterateurCaractere itc (t);
+
+  //parcours decremental
+  itc.dernier();
+  do
+  {
+    cout << itc.valeur();
+  }
+  while (itc--);
+}
+catch (ClubErreurs ce)
+{
+  cout << "Erreur : "<<ce.why()<<endl;
+  ce.correction();
+  exit(1);
+}
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation
+spécifiques}\label{sec:IterateurCaractere-conseils}
+Les opérateurs $++$ et $--$ retournent 0 lorsqu'ils sont arrivés à
+l'extrémité du tampon. Il est ainsi possible de tester leur code
+retour dans un while (cf exemple d'utilisation précédent).
+
+Les classes IterateurX développées pour la bibliothèque 
+\bibliotheque{Club} sont dédiées à la gestion d'objets TamponAscii. En
+conséquence, les interfaces de ces classes n'offrent que les méthodes
+utiles à cette gestion. Si les besoins de parcours d'un tampon sont
+des besoins classiques, la classe TamponTexte offre les
+fonctionnalités nécessaires, sans nécessiter la manipulation d'itérateurs.
+
+\subsubsection*{implantation}\label{sec:IterateurCaractere-impl}
+Les attributs protégés sont décrits sommairement dans la
+table~\ref{tab:IterateurCaractere-att-prot}, il n'y a pas d'attribut privé.
+\begin{tableAttributsFixe}{attributs protégés de la classe IterateurCaractere}
+{\label{tab:IterateurCaractere-att-prot}}
+{pointeur sur le caractère courant du tampon}
+
+caractereCourant\_ & char*  & pointeur sur le caractère courant du
+tampon\\
+
+\end{tableAttributsFixe}
+Les méthodes protégées sont décrites dans la table~\ref{tab:IterateurCaractere-met-prot}.
+\begin{tableFonctionsFixe}{IterateurCaractere : méthodes protégées}
+{\label{tab:IterateurCaractere-met-prot}}
+{remet l'itérateur en conformité avec l'état courant du tampon.}
+
+\signature{void  \fonc{actualiseEtat} ()}{} & 
+remet l'itérateur en conformité avec l'état courant du tampon.\\
+
+\signature{\fonc{IterateurCaractere} ()} {} &
+constructeur par défaut.
+\\
+
+\signature{\fonc{IterateurCaractere}}{(const IterateurCaractere \&
+\argument{other})} &
+constructeur par copie.
+\\
+
+\signature{IterateurCaractere\& \fonc{operator =}} {(const
+IterateurCaractere\& \argument{other})}&
+affectation.
+\\
+
+\end{tableFonctionsFixe}

@@ -1,0 +1,106 @@
+format : "erreur %-2d fonction %4s"
+  2 arguments :  d s
+erreur 4  fonction aaaa
+format : "%-2d error in function %4s"
+  2 arguments :  d s
+4  error in function aaaa
+"erreur %-2d fonction %4s" compatible avec "%-2d error in function %4s"
+
+format : "pas d'integration trop faible: %9.2e"
+  1 arguments :  f
+pas d'integration trop faible:  1.10e-11
+format : "too small integration step: %9.2e"
+  1 arguments :  f
+too small integration step:  1.10e-11
+"pas d'integration trop faible: %9.2e" compatible avec "too small integration step: %9.2e"
+
+format : "convergence du Cowell impossible en %2d iterations"
+  1 arguments :  d
+convergence du Cowell impossible en 11 iterations
+format : "Cowell unable to converge in %2d iterations"
+  1 arguments :  d
+Cowell unable to converge in 11 iterations
+"convergence du Cowell impossible en %2d iterations" compatible avec "Cowell unable to converge in %2d iterations"
+
+format : "
+
+  final date : %12.5f     %2.2i/%2.2i/%4.4i/%2.2i/%2.2i/%2.2i/%3.3i
+  step for the numerical integration: %5.1f h
+  cpssm : %7.4fm**2/kg
+  number of impulsions : %+3i"
+  11 arguments :  f d d d d d d d f f d
+
+
+  final date :  22222.22220     04/11/2010/05/19/58/080
+  step for the numerical integration:   0.0 h
+  cpssm : -0.0330m**2/kg
+  number of impulsions :  +88
+format : "
+
+  date finale: %12.5f     %2.2i/%2.2i/%4.4i/%2.2i/%2.2i/%2.2i/%3.3i
+  pas pour l''integration numerique : %5.1f h
+  cpssm : %7.4fm**2/kg
+  nombre d'impulsions : %+3i"
+  11 arguments :  f d d d d d d d f f d
+
+
+  date finale:  22222.22220     04/11/2010/05/19/58/080
+  pas pour l''integration numerique :   0.0 h
+  cpssm : -0.0330m**2/kg
+  nombre d'impulsions :  +88
+"
+
+  final date : %12.5f     %2.2i/%2.2i/%4.4i/%2.2i/%2.2i/%2.2i/%3.3i
+  step for the numerical integration: %5.1f h
+  cpssm : %7.4fm**2/kg
+  number of impulsions : %+3i" compatible avec "
+
+  date finale: %12.5f     %2.2i/%2.2i/%4.4i/%2.2i/%2.2i/%2.2i/%3.3i
+  pas pour l''integration numerique : %5.1f h
+  cpssm : %7.4fm**2/kg
+  nombre d'impulsions : %+3i"
+
+format : "mode : %20s - code : %4i"
+  2 arguments :  s d
+mode :                 aaaa - code :    4
+format : "mode : %20s - A098L telemetry value : %4i"
+  2 arguments :  s d
+mode :                 aaaa - A098L telemetry value :    4
+"mode : %20s - code : %4i" compatible avec "mode : %20s - A098L telemetry value : %4i"
+
+format : " Donnees:
+ --------
+Mode traite : % 11s"
+  1 arguments :  s
+ Donnees:
+ --------
+Mode traite :         bbb
+format : " Data:
+ -----
+    Computed mode           : %11s"
+  1 arguments :  s
+ Data:
+ -----
+    Computed mode           :         bbb
+" Donnees:
+ --------
+Mode traite : % 11s" compatible avec " Data:
+ -----
+    Computed mode           : %11s"
+
+format : "| Tuyere |   %1i   |   %1i   |   %1i   |   %1i   |   %1i   |   %1i   |   %1i   |"
+  7 arguments :  d d d d d d d
+| Tuyere |   4   |   11   |   2010   |   5   |   19   |   58   |   80   |
+format : "| Thruster |   %1i   |   %1i   |   %1i   |   %1i   |   %1i   |   %1i   |   %1i   |"
+  7 arguments :  d d d d d d d
+| Thruster |   4   |   11   |   2010   |   5   |   19   |   58   |   80   |
+"| Tuyere |   %1i   |   %1i   |   %1i   |   %1i   |   %1i   |   %1i   |   %1i   |" compatible avec "| Thruster |   %1i   |   %1i   |   %1i   |   %1i   |   %1i   |   %1i   |   %1i   |"
+
+"convergence du Cowell impossible en %2d iterations" incompatible avec "| Tuyere |   %1i   |   %1i   |   %1i   |   %1i   |   %1i   |   %1i   |   %1i   |"
+
+"erreur %-2d fonction %4s" incompatible avec "Cowell unable to converge in %2d iterations"
+
+"mode : %20s - code : %4i" incompatible avec " Data:
+ -----
+    Computed mode           : %11s"
+

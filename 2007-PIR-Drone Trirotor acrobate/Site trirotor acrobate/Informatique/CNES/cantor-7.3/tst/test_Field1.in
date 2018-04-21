@@ -1,0 +1,43 @@
+#! /bin/sh
+
+# identificateur RCS : "$Id: test_Field1.in,v 1.1 2001/06/22 06:38:59 cantor Exp $"
+
+# using an english environment for the tests
+@ca_cv_var_lang@=en              ; export @ca_cv_var_lang@
+@ca_cv_var_tradpath@=@srcdir@/.. ; export @ca_cv_var_tradpath@
+
+# run the test program
+touch test_Field1.res
+
+for marge in 0 1 2 3 4 5 ; do
+  echo "" >> test_Field1.res 2>&1
+  echo "prgm_Field1 -pm $marge" >> test_Field1.res 2>&1
+  prgm_Field1 -pm $marge >> test_Field1.res 2>&1
+done
+
+for tolerance in 0.001 0.01 0.1 ; do
+  echo "" >> test_Field1.res 2>&1
+  echo "prgm_Field1 -pt $tolerance" >> test_Field1.res 2>&1
+  prgm_Field1 -pt $tolerance >> test_Field1.res 2>&1
+done
+
+for alpha in 90 270 ; do
+  for delta in 83.508 83.510 84.158 85.160 ; do
+    echo "" >> test_Field1.res 2>&1
+    echo "prgm_Field1 -c $alpha $delta" >> test_Field1.res 2>&1
+    prgm_Field1 -c $alpha $delta >> test_Field1.res 2>&1
+  done
+done
+
+for marge in 5.840 5.842 ; do
+  echo "" >> test_Field1.res 2>&1
+  echo "prgm_Field1 -c 0 90 -m $marge" >> test_Field1.res 2>&1
+  prgm_Field1 -c 0 90 -m $marge >> test_Field1.res 2>&1
+done
+
+# file comparison
+echo "difference -p 1.0e-4 -ee 1 10 -res test_Field1.res -ref @srcdir@/test_Field1.ref"
+difference -p 1.0e-4 -ee 1 10 -res test_Field1.res -ref @srcdir@/test_Field1.ref
+r=$?
+rm -f test_Field1.res
+exit $r

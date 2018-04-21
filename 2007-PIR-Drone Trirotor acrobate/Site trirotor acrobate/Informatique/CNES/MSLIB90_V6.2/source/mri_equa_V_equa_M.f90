@@ -1,0 +1,86 @@
+subroutine mri_equa_V_equa_M (model, jul1950_t1, jul1950_t2, mat_pass, retour)
+
+! (C) Copyright CNES - MSLIB - 1998-2003
+
+!************************************************************************
+!
+! But:  Calcul de la matrice de passage du repere EQUAtorial VRAI a T1 au repere EQUAtorial MOYen a T2.
+! ===
+!
+! Note d'utilisation: - Routine interne
+! ==================  
+!
+! Historique:
+! ==========
+!   + Version 1.0 (SP 268 ed01 rev00): creation a partir de la routine MRQQVM de la MSLIB f77
+!   + Version 2.0 (DE 362 ed01 rev00): suppression des commentaires sur la limitation sur les dates et des codes retour
+!   + Version 4.1 (DE globale 482 ed01 rev00): Corrections qualite
+!************************************************************************
+
+
+! Modules
+! =======
+use int_mslib_mri_equa_M_equa_V
+use code_modeles_mslib    ! contient toutes les valeurs possibles pour "model"
+
+use precision_mslib
+use type_mslib
+use valeur_code_retour_mslib
+use longueur_chaine_mslib
+
+
+! Declarations
+! ============
+implicit none
+
+include 'arg_mri_equa_V_equa_M.h'
+
+! Autres declarations
+! -------------------
+
+real(pm_reel), dimension(3,3)  ::  mat_pass1  ! matrice intermediaire
+
+intrinsic transpose
+
+
+character(len=pm_longueur_info_utilisateur) :: info_utilisateur = &
+                     '@(#) Fichier MSLIB mri_equa_V_equa_M.f90: derniere modification V4.1 >'
+
+! Ne pas toucher a la ligne suivante
+character(len=pm_longueur_rcs_id) :: rcs_id =' $Id: mri_equa_V_equa_M.f90,v 1.8 2003/10/14 12:51:02 mslibdev Exp $ '
+
+!************************************************************************
+
+! initialisation de la valeur du code retour
+! ..........................................
+retour = pm_OK
+
+if (model == pm_lieske_wahr) then
+
+   ! calcul de la matrice de passage du repere equatorial vrai a t1 au repere equatorial moyen a t2
+   ! avec le modele de precession de Lieske et le modele de nutation de Wahr (epoque de base : J2000)
+
+   ! ===============================================================
+   ! calcul de la matrice de passage du repere equatorial moyen a t2
+   ! au repere  equatorial vrai a t1
+   ! ===============================================================
+
+   call mri_equa_M_equa_V (model, jul1950_t2, jul1950_t1, mat_pass1, retour)
+   ! pas de test de retour car il ne peut etre que nul (controles deja effectues)
+
+
+   ! =======================
+   ! transposition de matrice
+   ! =======================
+
+   mat_pass=transpose(mat_pass1)
+
+else    !  modele inconnu
+
+   retour = pm_err_ind_model
+
+end if
+
+6000 continue
+
+end subroutine mri_equa_V_equa_M

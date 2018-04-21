@@ -1,0 +1,399 @@
+% -*- mode: latex; tex-main-file: "marmottes-mathematique.tex" -*-
+% $Id: zeros.tex,v 1.9 2002/01/17 13:58:05 marmottes Exp $
+\cleardoublepage\section{Recherche des zéros d'une fonction}\label{sec:zeros}
+\subsection{besoins}\label{sec:zeros-besoins}
+Le principe de fonctionnement de \bibliotheque{marmottes} consiste à
+fabriquer puis annuler une fonction scalaire à une variable respectant
+toujours deux consignes sur les trois, et s'annulant lorsque la
+troisième consigne est respectée.
+
+La fonction fabriquée est définie entre $0$ et $+1$ (au prix d'un
+changement de variable), elle est dérivable partout sauf
+éventuellement aux bornes. Les implantations classiques de capteurs
+conduisent de plus à des fonctions relativement régulières ayant des
+extremums locaux bien séparés et des zéros bien séparés. La méthode
+présentée est en fait capable de détecter également des zéros proches
+les uns des autres.
+
+\subsection{principes}\label{sec:zeros-principes}
+\subsubsection{encadrement des racines}\label{sec:zeros-encadrement}
+Le principe de résolution adopté consiste à identifier des intervalles
+monotones entourant chaque zéro, puis à rechercher le zéro
+correspondant.
+\begin{figure}[htbp]\caption{\label{fig:monotones}recherche des
+intervalles monotones}
+\begin{center}\begin{minipage}{120mm}
+\setlength{\unitlength}{0.1mm}\begin{picture}(1200,700)
+\put(0,300){\vector(1,0){1200}}\put(1150,310){\mbox{$t$}}
+\put(600,0){\vector(0,1){700}}\put(620,650){\mbox{$f(t)$}}
+\multiput(110,300)(140,0){8}{\line(0,-1){20}}
+\put(120,260){\mbox{$t_1$}}\put(260,260){\mbox{$t_2$}}
+\put(400,260){\mbox{$t_3$}}\put(540,260){\mbox{$t_4$}}
+\put(680,260){\mbox{$t_5$}}\put(820,260){\mbox{$t_6$}}
+\put(960,260){\mbox{$t_7$}}\put(1100,260){\mbox{$t_8$}}
+\put(253,400){\mbox{$\tau_0$}}\put(263,390){\vector(0,-1){80}}
+\put(692,400){\mbox{$\tau_1$}}\put(702,390){\vector(0,-1){80}}
+\put(772,400){\mbox{$\tau_2$}}\put(782,390){\vector(0,-1){80}}
+\qbezier(100,100)(500,650)(600,400)
+\qbezier(600,400)(700,150)(1100,500)
+\end{picture}\end{minipage}\end{center}\end{figure}
+
+Les intervalles monotones sont trouvés en explorant l'intervalle avec
+un pas fixe et en calculant en chaque point la dérivée première de la
+fonction de façon exacte (par dérivation automatique, conformément à
+la méthode exposée dans l'annexe~\ref{sec:derivation}).
+
+Dans l'exemple de la figure~\ref{fig:monotones}, on voit que
+l'intervalle $[t_1 ; t_2]$ est monotone croissant mais n'encadre aucun
+zéro. L'intervalle $[t_2 ; t_3]$ est monotone croissant et encadre un
+zéro qui devra être recherché par la méthode décrite plus loin.
+
+Après calcul de ce zéro, l'exploration se poursuit avec l'intervalle
+$[t_3 ; t_4]$, qui n'est pas monotone (on le détecte par le signe des
+dérivées), cependant la fonction croît à partir d'une valeur positive
+puis décroît jusqu'à une autre valeur également positive, elle ne peut
+donc pas s'annuler dans l'intervalle dès lors que le pas d'exploration
+est plus petit que l'écart entre deux extremums locaux\footnote{il ne
+peut y avoir qu'un extremum par intervalle, et ici on sait qu'il
+s'agit d'un maximum}. Un simple test sur les dérivées montre que
+l'intervalle $[t_4 ; t_5]$ est monotone décroissant, un autre test sur
+$f(t_5)$ montre qu'il est toujours positif ; il ne peut donc contenir
+aucun zéro. Quand on arrive à l'intervalle $[t_6 ; t_7]$, on ne peut
+pas savoir d'avance s'il y aura des zéros dans l'intervalle ou pas, on
+recherche alors l'extremum local (c'est-à-dire le zéro de la dérivée),
+en s'arrêtant soit lorsque cet extremum est trouvé soit quand on a un
+point au-dessous de l'axe, suffisant pour encadrer un zéro dans un
+intervalle monotone (voir la figure~\ref{fig:arret}, où l'intervalle
+$[t_5 ; t']$ encadre $\tau_1$).
+\begin{figure}[htbp]\caption{\label{fig:arret}arrêt de la recherche
+lorsqu'un zéro est encadré}
+\begin{center}\begin{minipage}{120mm}
+\setlength{\unitlength}{0.1mm}\begin{picture}(1200,500)
+\put(0,100){\vector(1,0){1200}}\put(1150,110){\mbox{$t$}}
+\qbezier(100,500)(600,-300)(1100,300)
+\put(140,80){\line(0,1){390}}\put(150,60){\mbox{$t_5$}}
+\put(900,80){\line(0,1){60}}\put(910,60){\mbox{$t_6$}}
+\put(500,120){\line(0,-1){60}}\put(510,110){\mbox{$t'$}}
+\put(460,200){\mbox{$\tau_1$}}\put(470,190){\vector(0,-1){80}}
+\end{picture}\end{minipage}\end{center}\end{figure}
+
+Le point obtenu après convergence de l'algorithme n'a généralement pas
+une dérivée rigoureusement nulle. Par conséquent, pour que l'analyse
+du tronçon suivant fonctionne, on force le fait qu'après un maximum la
+fonction décroît, et qu'elle croît après un minimum, même si
+l'approximation de l'extremum obtenue a une dérivée du mauvais signe.
+
+Afin d'éviter les recherches d'extremums inutiles, on fait la remarque
+suivante : si la fonction $f$ est assez régulière pour ne pas avoir de
+grandes variations de la dérivée sur un intervalle, le cas schématisé
+par la figure~\ref{fig:acceleration} ne peut pas se produire.
+\begin{figure}[htbp]\caption{\label{fig:acceleration}fonction
+irrégulière avec accélération de la dérivée}
+\begin{center}\begin{minipage}{120mm}
+\setlength{\unitlength}{0.1mm}\begin{picture}(1200,900)
+\put(0,350){\vector(1,0){1200}}
+\put(100,330){\line(0,1){600}}\put(110,320){\mbox{$t_{n-1}$}}
+\put(1000,330){\line(0,1){600}}\put(1010,320){\mbox{$t_n$}}
+\qbezier(0,900)(500,800)(525,500)
+\qbezier(525,500)(600,-400)(675,500)
+\qbezier(675,500)(700,800)(1100,900)
+\end{picture}\end{minipage}\end{center}\end{figure}
+On ne fait donc pas de recherche d'extremum si une approximation
+$\mathcal{P}$ de l'extremum paraît vraiment très loin de l'axe par
+rapport à la valeur observée aux bornes (voir
+figure~\ref{fig:approximation}).
+\begin{figure}[htbp]\caption{\label{fig:approximation}approximation
+d'un extremum par les bornes}
+\begin{center}\begin{minipage}{120mm}
+\setlength{\unitlength}{0.1mm}\begin{picture}(1200,700)
+\put(0,50){\vector(1,0){1200}}
+\put(100,30){\line(0,1){600}}\put(110,20){\mbox{$t_{n-1}$}}
+\put(1100,30){\line(0,1){600}}\put(1110,20){\mbox{$t_n$}}
+\qbezier(100,600)(500,300)(1100,600)
+\put(100,600){\line(4,-3){500}}
+\put(300,200){\line(2,1){800}}
+\put(480,260){\mbox{$\mathcal{P}$}}
+\put(550,450){\vector(1,0){200}}\put(550,450){\vector(-1,0){200}}
+\end{picture}\end{minipage}\end{center}\end{figure}
+
+\subsubsection{raffinage}\label{sec:zeros-principes-raffinage}
+Une fois détecté un intervalle monotone encadrant la racine, on
+recherche cette racine par une méthode de Newton modifiée pour
+utiliser les deux bornes de l'intervalle dans une approximation
+cubique inverse. Cette approximation n'est pas calculable si l'une des
+dérivées est trop petite, on utilise alors une méthode de sécante en
+remplacement de la méthode de Newton modifiée pour assurer que dans
+tous les cas le nouveau point sera entre les anciens (voir la
+figure~\ref{fig:secante}). Une fois la fonction évaluée sur le nouveau
+point, on remplace une des bornes par ce point de façon a réduire
+l'intervalle de recherche.
+\begin{figure}[htbp]\caption{\label{fig:secante}utilisation d'une
+sécante si la méthode de Newton modifiée n'est pas applicable}
+\begin{center}\begin{minipage}{120mm}
+\setlength{\unitlength}{0.1mm}\begin{picture}(1200,500)
+\put(0,250){\vector(1,0){1200}}
+\put(100,230){\line(0,1){270}}\put(110,210){\mbox{$t_{n-1}$}}
+\put(700,270){\line(0,-1){270}}\put(710,210){\mbox{$t_n$}}
+\put(390,270){\mbox{$t_{\mathit{secante}}$}}
+\qbezier(100,450)(600,450)(700,50)
+\put(100,450){\line(3,-2){650}}
+\end{picture}\end{minipage}\end{center}\end{figure}
+
+La convergence de l'algorithme est testée par une fonction définie par
+l'utilisateur et à qui seront fournies les bornes et les valeurs de la
+fonction aux bornes. Cette fonction indiquera en retour si l'une des
+bornes peut être considérée comme ayant convergé vers la solution ou
+si aucune n'est assez proche. L'utilisateur peut fonder sa décision
+sur la taille de l'intervalle (convergence en abscisse) ou sur les
+valeurs de la fonction (convergence en
+ordonnée). \bibliotheque{marmottes} utilise la convergence en
+ordonnée, le seuil de convergence étant pas défaut le dixième de la
+précision du capteur concerné.
+
+Si l'utilisateur utilise la convergence en abscisse, la méthode
+précédente peut échouer dans le cas schématisé par la
+figure~\ref{fig:une-borne}, où la borne inférieure de l'intervalle
+converge vers la racine alors que la borne supérieure en reste
+toujours éloignée. Il faut donc sécuriser l'algorithme en
+rééquilibrant l'intervalle quand une borne est beaucoup plus proche de
+la racine que l'autre en ordonnée.
+\begin{figure}[htbp]\caption{\label{fig:une-borne}convergence d'une
+seule borne de l'intervalle}
+\begin{center}\begin{minipage}{120mm}
+\setlength{\unitlength}{0.1mm}\begin{picture}(1200,400)
+\put(0,200){\vector(1,0){1200}}
+\put(900,180){\line(0,1){180}}\put(910,160){\mbox{$b$}}
+\put(100,220){\line(0,-1){220}}\put(110,220){\mbox{$a_1$}}
+\put(200,220){\line(0,-1){150}}\put(210,220){\mbox{$a_2$}}
+\put(350,220){\line(0,-1){50}}\put(360,220){\mbox{$a_3$}}
+\qbezier(100,0)(200,200)(1100,400)
+\end{picture}\end{minipage}\end{center}\end{figure}
+Le rééquilibrage est réalisé en décalant toute la courbe de $y_{\min}$
+pour une itération, ce qui revient à chercher le point d'ordonnée
+$-y_{\min}$ sur la courbe originale au lieu de rechercher le point
+d'ordonnée 0 (voir la figure~\ref{fig:reequilibrage}).
+\begin{figure}[htbp]\caption{\label{fig:reequilibrage}rééquilibrage de
+l'intervalle}
+\begin{center}\begin{minipage}{120mm}
+\setlength{\unitlength}{0.1mm}\begin{picture}(1200,500)
+\put(0,300){\vector(1,0){1200}}
+\put(1100,280){\line(0,1){220}}\put(1110,260){\mbox{$b$}}
+\put(200,320){\line(0,-1){150}}\put(210,320){\mbox{$a$}}
+\put(100,200){\line(1,0){120}}\put(100,220){\mbox{$y_{\min}$}}
+\put(700,420){\line(0,-1){140}}\put(710,260){\mbox{$b'$}}
+\put(100,400){\line(1,0){620}}\put(100,420){\mbox{$-y_{\min}$}}
+\qbezier(100,100)(200,300)(1100,500)
+\qbezier[50](100,0)(200,200)(1100,400)
+\end{picture}\end{minipage}\end{center}\end{figure}
+
+\subsection{algorithme}\label{sec:zeros-algorithme}
+\subsubsection{séparation des zéros}\label{sec:zeros-separation}
+L'algorithme suivant sépare les zéros par découpage de l'intervalle
+général, avec si nécessaire calcul des extremums locaux. Le même
+algorithme est utilisé que l'on dispose de la dérivée seconde ou que
+l'on ne dispose que de la dérivée première (la différence n'intervient
+que dans les recherches fines sous-jacentes décrites dans les sections
+\ref{sec:zeros-extremum} et \ref{sec:zeros-algo-raffinage}). Les
+entrées de l'algorithme sont les bornes \texttt{a} et \texttt{b} de
+l'intervalle et le \texttt{pas} de découpage. Les variables
+\texttt{min} et \texttt{max} sont destinées à encadrer les zéros
+($f(\mbox{\texttt{min}})<0$, $f(\mbox{\texttt{max}})>0$), elles ne
+correspondent donc pas à des extremums locaux mais aux extremums sur
+l'intervalle d'encadrement qu'elles définissent. Si les valeurs
+\texttt{a}, \texttt{b}, \texttt{pas}, \texttt{min} et \texttt{max}
+sont conservées d'un appel à l'autre, l'algorithme trouve tous les
+zéros de l'intervalle dans l'ordre croissant, en déplaçant la borne
+\texttt{a}.
+
+\begin{algorithme}
+\boucler indéfiniment
+\emph{ajustement du pas en fin de parcours}
+\si $(\mbox{\texttt{a}} + \mbox{\texttt{pas}} > \mbox{\texttt{b}})$
+$\mbox{\texttt{pas}} \leftarrow \max{(\varepsilon, \mbox{\texttt{b}}-\mbox{\texttt{a}})}$
+\finsi
+$t \leftarrow t + \mbox{\mbox{\texttt{pas}}}$
+\si $(t > \mbox{\mbox{\texttt{b}}})$
+échec de la recherche
+\finsi
+\si $f'(\mbox{\mbox{\texttt{a}}})$ et $f'(t)$ sont de même signe
+\si fonction croissante
+\si ($f(t) \le 0$)
+$\mbox{\texttt{min}} \leftarrow t$
+\sinon
+\si $(f(t) < 0)$
+$t_0 \leftarrow$ zéro situé entre \texttt{min} et $t$, \emph{critère de convergence : fonction utilisateur}
+$\mbox{\texttt{a}} \leftarrow t$
+$\mbox{\texttt{min}} \leftarrow t$
+retourner $t_0$
+\finsi
+\finsi
+\sinon
+\si $(f(t) \ge 0)$
+$\mbox{\texttt{max}} \leftarrow t$
+\sinon
+\si $(f(\mbox{\mbox{\texttt{max}}}) > 0)$
+$t_0 \leftarrow$ zéro situé entre $t$ et \texttt{max}, \emph{critère de convergence : fonction utilisateur}
+$\mbox{\texttt{a}} \leftarrow t$
+$\mbox{\texttt{max}} \leftarrow t$
+retourner $t_0$
+\finsi
+\finsi
+\finsi
+\sinon
+\emph{il y a un extremum entre \texttt{a} et $t$}
+\si $(f(\mbox{\mbox{\texttt{a}}}) > 0)$
+\si $(f(\mbox{\mbox{\texttt{a}}}) > 0)$ et $(f(t) > 0)$
+\emph{on sait d'emblée que tout l'intervalle est positif}
+$\mbox{\texttt{max}} \leftarrow \mbox{\texttt{a}}$
+mémoriser le fait qu'il faudra réinitialiser \texttt{max}
+\sinon
+$\mbox{\texttt{max}} \leftarrow$ extremum entre \texttt{a} et $t$, \emph{critère de convergence : intervalle entièrement positif}
+$t \leftarrow \mbox{\texttt{max}}$
+\finsi
+\sinon
+\si $(f(\mbox{\mbox{\texttt{a}}}) < 0)$ et $(f(t) < 0)$
+\emph{on sait d'emblée que tout l'intervalle est négatif}
+$\mbox{\texttt{min}} \leftarrow \mbox{\texttt{a}}$
+mémoriser le fait qu'il faudra réinitialiser \texttt{min}
+\sinon
+$\mbox{\texttt{min}} \leftarrow$ extremum entre \texttt{a} et $t$, \emph{critère de convergence : intervalle entièrement négatif}
+$t \leftarrow \mbox{\texttt{min}}$
+\finsi
+\finsi
+\emph{à partir de là, on sait qu'il y a au plus un zéro entre \texttt{min} et \texttt{max}}
+\si $(f(\mbox{\mbox{\texttt{min}}}) \le 0)$ et $(f(\mbox{\mbox{\texttt{max}}}) \ge 0)$
+$t_0 \leftarrow$ zéro situé ente \texttt{min} et \texttt{max}, \emph{critère de convergence : fonction utilisateur}
+$\mbox{\texttt{a}}\leftarrow t$
+\si \texttt{min} doit être réinitialisé
+$\mbox{\texttt{min}}\leftarrow t$
+\finsi
+\si \texttt{max} doit être réinitialisé
+$\mbox{\texttt{max}}\leftarrow t$
+\finsi
+Retourner $t_0$
+\finsi
+\si \texttt{min} doit être réinitialisé
+$\mbox{\texttt{min}}\leftarrow t$
+\finsi
+\si \texttt{max} doit être réinitialisé
+$\mbox{\texttt{max}}\leftarrow t$
+\finsi
+\emph{préparation de l'analyse du tronçon suivant}
+$\mbox{\texttt{a}}\leftarrow t$
+\finsi
+\finboucle
+\end{algorithme}
+
+\subsubsection{recherche d'extremum}\label{sec:zeros-extremum}
+\paragraph{Utilisation des seules dérivées premières.}
+Trouver l'extremum de la fonction $f$ entre \texttt{a} et \texttt{b}
+lorsque l'on dispose de sa dérivée revient à calculer le zéro de la
+fonction $f'$ sans connaître sa dérivée. On utilise pour cela la
+méthode de \textsc{Brent}. Il s'agit d'une méthode hybride conjugant
+la bissection et la sécante, avec en amélioration supplémentaire
+l'utilisation d'une approximation quadratique inverse lorsque l'on a
+évalué assez de points distincts au cours des itérations.
+
+\paragraph{Utilisation des dérivées premières et secondes.}
+Lorsque l'on dispose des dérivées secondes, on peut utiliser une
+méthode de Newton modifiée pour utiliser les dérivées aux deux bornes
+de l'intervalle courant pour trouver l'extremum, en conservant la
+sécante pour sécuriser l'algorithme en cas de dérivée seconde trop
+faible sur une des bornes (ce qui empêche l'utilisation du Newton
+modifié). L'algorithme suivant trouve par cette conjugaison de
+méthodes l'extremum de la fonction $f$ entre \texttt{a} et \texttt{b}
+lorsque l'on sait qu'il y en a un.
+\begin{algorithme}
+\boucler
+$y_a \leftarrow f'(\mbox{\texttt{a}})$
+$y'_a \leftarrow f''(\mbox{\texttt{a}})$
+$y_b \leftarrow f'(\mbox{\texttt{b}})$
+$y'_b \leftarrow f''(\mbox{\texttt{b}})$
+\si ($|y_a| > 10|y_b|$)
+\emph{intervalle disproportionné, on décale les ordonnées pour chercher $-y_b$ au lieu de $0$}
+$y_a \leftarrow y_a+y_b$
+$y_b \leftarrow y_b+y_b$
+\sinon
+\si ($|y_b| > 10|y_a|$)
+\emph{intervalle disproportionné, on décale les ordonnées pour chercher $-y_a$ au lieu de $0$}
+$y_b \leftarrow y_b+y_a$
+$y_a \leftarrow y_a+y_a$
+\finsi
+\finsi
+$t\leftarrow\mbox{\texttt{a}}-1$
+\si ($|y'_a| > \varepsilon$ et $|y'_b| > \varepsilon$)
+\emph{les dérivées sont suffisantes pour appliquer Newton en deux points}
+$r_1\leftarrow\frac{y_a y'_a + y_b y'_b}{y'_a y'_b}$
+$r_2\leftarrow \frac{(\mbox{\texttt{b}}-\mbox{\texttt{a}})(y_a + y_b)}{y_b-y_a}$
+$t\leftarrow\frac{\mbox{\texttt{a}} y_b - \mbox{\texttt{b}} y_a - y_a y_b \frac{r_1-r_2}{y_b-y_a}}{y_b-y_a}$
+\finsi
+\si ($t < \mbox{\texttt{a}}$) ou ($t > \mbox{\texttt{b}}$)
+\emph{protection contre les $t$ hors intervalle}
+$t\leftarrow\frac{\mbox{\texttt{a}} y_b - \mbox{\texttt{b}} y_a}{y_b-y_a}$
+\finsi
+$m\leftarrow\frac{\mbox{\texttt{a}}+\mbox{\texttt{b}}}{2}$
+$\delta\leftarrow\varepsilon \times max(1, |m|)$
+\si ($t < \mbox{\texttt{a}} + \delta$)
+\emph{protection contre les $t$ trop proches des bornes (stagnation)}
+\si ($\mbox{\texttt{b}}-\mbox{\texttt{a}} < 1\,000\delta$)
+$t\leftarrow m$
+\sinon
+$t\leftarrow 0,999\mbox{\texttt{a}} + 0,001\mbox{\texttt{b}}$
+\finsi
+\sinon
+\si ($t > \mbox{\texttt{b}} - \delta$)
+\emph{protection contre les $t$ trop proches des bornes (stagnation)}
+\si ($\mbox{\texttt{b}}-\mbox{\texttt{a}} < 1\,000\delta$)
+$t\leftarrow m$
+\sinon
+$t\leftarrow 0,001\mbox{\texttt{a}} + 0,999\mbox{\texttt{b}}$
+\finsi
+\finsi
+\finsi
+évaluer $f'(t)$
+\si $f'(t)$ est du même signe que $f'(\mbox{\texttt{a}})$
+$\mbox{\texttt{a}}\leftarrow t$
+\sinon
+$\mbox{\texttt{b}}\leftarrow t$
+\finsi
+\jusqua vérification du critère de convergence ou jusqu'à avoir $\mbox{\texttt{b}}-\mbox{\texttt{a}}\le\varepsilon$
+\si convergence atteinte
+Retourner le point ayant convergé
+\sinon
+Retourner le dernier point calculé
+\finsi
+\end{algorithme}
+
+\subsubsection{raffinage des zéros}\label{sec:zeros-algo-raffinage}
+\paragraph{Utilisation des seuls dérivées premières.}
+La recherche des zéros avec les dérivées premières est similaire à la
+recherche des extremums avec les dérivées secondes, en remplaçant $f'$
+par $f$ et $f''$ par $f'$.
+
+\paragraph{Utilisation des dérivées premières et secondes.}
+Lorsque l'on dispose des dérivées secondes, on applique une méthode de
+Newton améliorée par l'adjonction de la dérivée seconde, mais on se
+contente de l'appliquer en une seule borne\footnote{simplement parce
+que l'auteur ne s'est pas préoccupé d'étendre la méthode à deux points
+dans ce cas ...}.
+
+La progression d'un point à l'autre se fait à l'aide de la formule suivante~:
+\begin{displaymath}
+t = a-\frac{2f(a)f'(a)}{2f'^2(a)-f(a)f''(a)}
+\end{displaymath}
+
+La convergence de ce schéma est d'ordre 3 comme le montre l'analyse de
+l'erreur $\varepsilon_n$ à chaque itération :
+\begin{displaymath}
+\varepsilon_{n+1} = \frac{3f''(x_0)-2f'(x_0)f'''(x_0)}
+                      {12f'^2(x_0)}
+                 \varepsilon_n^3
+                +O(\varepsilon_n^4)
+\end{displaymath}
+
+Il faut tout de même signaler que si le surcoût du calcul simultané de
+la fonction et de sa dérivée première est largement compensé par le
+gain d'une méthode de Newton (même en un seul point), les dérivées
+secondes n'apportent souvent pas une diminution suffisante du nombre
+d'évaluations de la fonction pour être globalement rentable en nombre
+d'opérations.

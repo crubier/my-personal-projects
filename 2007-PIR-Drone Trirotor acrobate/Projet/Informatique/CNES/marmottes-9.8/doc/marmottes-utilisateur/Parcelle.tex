@@ -1,0 +1,227 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: Parcelle.tex,v 1.7 2002/04/17 16:11:26 marmottes Exp $
+\subsection{classe Parcelle}\label{sec:Parcelle}
+
+\subsubsection*{description}\label{sec:Parcelle-desc}
+
+Cette classe abstraite est l'interface de haut niveau avec les champs
+de vue possédant une logique booléenne. Ces champs de vue sont
+utilisés par les senseurs terre pour modéliser des notions telles
+que~: la terre est considérée comme visible si une partie du limbe
+est dans le scan Nord \emph{et} qu'une autre partie est dans le scan
+Sud.
+\subsubsection*{interface publique}\label{sec:Parcelle-int}
+
+Le fichier
+\texttt{cantor/Field.h} qui est inclus par par
+\texttt{marmottes/Parcelle.h} définit deux types fonctions qui peuvent
+être passées à certaines méthodes de la classe~:
+\begin{verbatim}
+typedef void TypeFuncConstField (const Field& f, void* data);
+typedef void TypeFuncField      (      Field& f, void* data);
+\end{verbatim}
+
+\begin{verbatim}
+#include "marmottes/Parcelle.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{Parcelle : méthodes publiques}
+{\label{tab:Parcelle-met-pub}}
+{constructeur par défaut (la classe étant abstraite ne peut être instanciée,}
+
+\signature{\fonc{Parcelle} ()}
+          {}&
+
+constructeur par défaut (la classe étant abstraite ne peut être
+instanciée, ce constructeur est destiné à être appelé par les
+constructeurs des classes dérivées)\\
+
+\hline
+
+\signature{Parcelle* \fonc{copie} () const = 0}
+          {}&
+
+opérateur de copie virtuel\\
+
+\signature{\fonc{\~{}Parcelle} ()}
+          {}&
+
+destructeur virtuel\\
+
+\hline
+
+\signature{bool \fonc{inclus} (const VecDBL\& \argument{u}) const = 0}
+          {}&
+
+indique si le vecteur $\vec{u}$ est inclus dans la parcelle\\
+
+\signature{double \fonc{ecartFrontiere}}
+          {(const VecDBL\& \argument{u}) const = 0}&
+
+calcule l'écart angulaire signé entre le vecteur $\vec{u}$ et la
+frontière (positif si le point est à l'intérieur de la parcelle,
+négatif sinon)\\
+
+\signature{bool \fonc{visible}}
+          {(const Cone\& \argument{c})\\
+           \throw{CantorErreurs}\\
+           const = 0}&
+
+indique si le cône \argument{c} est visible au moins partiellement\\
+
+\signature{Secteurs \fonc{visible}}
+          {(const Secteurs\& \argument{s})\\
+           \throw{CantorErreurs}\\
+           const = 0}&
+
+filtre la partie visible du secteur \argument{s}\\
+
+\hline
+
+\signature{void \fonc{appliqueRotation}}
+          {(const RotDBL\& \argument{r}) = 0}&
+
+transforme l'instance en lui appliquant la rotation \argument{r}\\
+
+\signature{void \fonc{integreRotation}}
+          {(const VecDBL\& \argument{axe}, double \argument{angle})\\
+           \textbf{throw (CantorErreurs,}\\\textbf{MarmottesErreurs)} = 0}&
+
+transforme l'instance en la \emph{trainant} selon la rotation
+définie par l'\argument{axe} et l'\argument{angle}\\
+
+\signature{void \fonc{appliqueMarge}}
+          {(double \argument{m})\\
+           \textbf{throw (CantorErreurs,}\\\textbf{MarmottesErreurs)} = 0}&
+
+transforme l'instance en lui appliquant la marge angulaire
+\argument{m}\\
+
+\hline
+
+\signature{void \fonc{applique}}
+          {(TypeFoncConstChamp *\argument{f},\\
+            void *\argument{d}) const = 0
+          }&
+
+applique la fonction \argument{f} (qui ne modifie pas ses arguments) à
+tous les champs qui composent la parcelle, l'argument anonyme
+\argument{d} est passé à \argument{f} à chaque appel\\
+
+\signature{void \fonc{applique}}
+          {(TypeFoncChamp *\argument{f}, void *\argument{d}) = 0}&
+
+applique la fonction \argument{f} (qui peut modifier ses arguments) à
+tous les champs qui composent la parcelle, l'argument anonyme
+\argument{d} est passé à \argument{f} à chaque appel\\
+
+\hline
+
+\signature{void \fonc{rechercheChamp}}
+          {(Champ **\argument{adressePtr}) = 0}&
+
+recherche le champ suivant celui dont l'adresse est donnée en
+argument, et le retourne dans \argument{adressePtr} (cette fonction
+est utilisée en interne par les classes dérivées, elle n'est publique
+qu'en raison de limitations d'accès complexes propres au
+\langage{c++})\\
+
+\signature{void \fonc{initParcours}}
+          {(double \argument{tolerance} = 1.0e-4)}&
+
+initialise les fonctions de parcours de sorte que l'erreur maximale
+respecte la \argument{tolerance}\\
+
+
+\signature{bool \fonc{pointSuivant}}
+          {(VecDBL *\argument{u}, bool *\argument{dernier})}&
+
+retourne le point suivant du parcours dans le vecteur $\vec{u}$, et
+indique dans la booléen pointé par \argument{dernier} si ce point est
+le dernier d'un tronçon intermédiaire (c'est à dire s'il faudra lever
+le crayon dans un tracé après ce point). Retourne un booléen faux
+lorsque le parcours est terminé\\
+
+\signature{void \fonc{arreteParcours} ()}
+          {}&
+
+arrête le parcours courant\\
+
+\end{tableFonctionsFixe}
+
+\subsubsection*{exemple d'utilisation}
+
+\begin{verbatim}
+#include "marmottes/Parcelle.h"
+
+for (int i = 0; i < nbParcelles; i++)
+{ // boucle sur toutes les parcelles à tracer
+  bool dernier;
+  VecDBL point;
+
+  // tracé en repère senseur
+  tableParcelles [i]->initParcours (tolerance);
+  ptrTraceur->modePointille  ();
+  ptrTraceur->commenceCourbe ();
+  while (tableParcelles [i]->pointSuivant (&point, &dernier))
+  { ptrTraceur->ajoutePoint (satSens (point), -1.0e-4);
+    if (dernier)
+      ptrTraceur->termineCourbe ();
+  }
+  ptrTraceur->termineCourbe  ();
+  ptrTraceur->modeContinu    ();
+  tableParcelles [i]->arreteParcours ();
+
+  // nettoyage
+  delete tableParcelles [i];
+  tableParcelles [i] = 0;
+
+}
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation spécifiques}
+\label{sec:Parcelle-conseils}
+Cette classe est abstraite, c'est à dire qu'aucune instance ne peut
+être créée directement. Tout pointeur sur un objet de ce type pointe
+en réalité sur un objet d'un des types dérivés~: ParcelleElementaire,
+ReunionEtParcelle ou ReunionOuParcelle. Les constructeurs ne servent
+donc qu'à compléter les constructions d'objets plus gros et ne peuvent
+être appelés que par les constructeurs des classes dérivées.
+
+Seules les fonctions de lecture des senseurs ont besoin de connaître les
+types de base, pour construire les parcelles petit à petit. Une fois
+ces parcelles construites toutes les autres fonctions doivent passer
+par la classe de base Parcelle.
+
+\subsubsection*{implantation}\label{sec:Parcelle-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:Parcelle-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe Parcelle}
+{\label{tab:Parcelle-att-priv}}
+{pointeur sur le champ courant lors d'un parcours}
+
+courant\_ & Champ * & pointeur sur le champ courant lors d'un parcours\\
+
+tolerance\_ & double  & tolérance sur le parcours\\
+
+\end{tableAttributsFixe}
+Les méthodes privées sont décrites dans la table~\ref{tab:Parcelle-met-priv}.
+\begin{tableFonctionsFixe}{Parcelle : méthodes privées}
+{\label{tab:Parcelle-met-priv}}
+{prépare le parcours du champ suivant}
+
+\signature{bool \fonc{champSuivant} ()}
+          {}&
+
+prépare le parcours du champ suivant\\
+
+\signature{\fonc{Parcelle} (const Parcelle\& \argument{p})}
+          {}&
+
+constructeur par copie\\
+
+\signature{Parcelle\& \fonc{operator =} (const Parcelle\& \argument{p})}
+          {}&
+
+affectation\\
+
+\end{tableFonctionsFixe}

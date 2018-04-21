@@ -1,0 +1,218 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+% $Id: CallTrace.tex,v 1.3 2003/07/09 07:57:26 club Exp $
+\subsection{classe CallTrace}\label{sec:CallTrace}
+
+\subsubsection*{description}\label{sec:CallTrace-desc}
+
+Cette classe permet d'instrumenter les méthodes d'autres classes pour
+enregistrer dans un fichier tous les appels à ces méthodes.
+
+Les méthodes publiques de la classe Marmottes~\ref{ref:marmottes-util}
+ont été instrumentées de la sorte, ce qui permet de rejouer des
+scénarios sans pour autant disposer des programmes appelants. Ceci est
+utilisé d'une part pour créer des tests de non-régression
+représentatifs de l'utilisation réelle de la bibliothèque, et d'autre
+part pour identifier et corriger les problèmes qu'ils peuvent
+rencontrer.
+
+Cette classe est une utilisation du modèle de
+conception\footnote{\emph{desing pattern}} du \emph{singleton}. La
+classe gérant un fichier permettant d'enregistrer les appels, il faut
+garantir l'unicité de ce fichier.
+
+\subsubsection*{interface publique}\label{sec:CallTrace-int}
+\begin{verbatim}
+#include "club/CallTrace.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{CallTrace : méthodes publiques}
+{\label{tab:CallTrace-met-pub}}
+{enregistre la valeur d'un pointeur, dans un appel ou dans les résultats
+d'un appel}
+
+\signature{static CallTrace *\fonc{getInstance} ()}
+          {\throw{ClubErreurs}}
+&
+retourne l'instance unique (\emph{singleton}) de la classe\\
+
+\hline
+
+\signature{void \fonc{activate} (string \argument{fileName})}
+          {\throw{ClubErreurs}}
+&
+active l'enregistrement des appels aux méthodes intrumentées dans le
+fichier \argument{fileName}, le fichier est écrasé s'il existe déjà.\\
+
+\signature{void \fonc{deactivate} ()}{}
+&
+désactive l'enregistrement des appels et ferme le fichier.\\
+
+\signature{bool \fonc{isActive} ()}{}
+&
+teste si l'enregistrement des appels a été activé ou non.\\
+
+\hline
+
+\signature{void \fonc{putToSleep} ()}{}
+&
+suspend momentanément l'enregistrement des appels\\
+
+\signature{void \fonc{wakeUp} ()}{}
+&
+reprend l'enregistrement des appels\\
+
+\hline
+
+\signature{void \fonc{registerObject}}{(const void *\argument{p})}
+&
+enregistre une référence sur un objet spécifié par le pointeur
+\argument{p}, afin de le reconnaître ultérieurement dans un autre
+appel\\
+
+\signature{void \fonc{unregisterObject}}{(const void *\argument{p})}
+&
+supprime la référence à un objet enregistré au préalable\\
+
+\signature{bool \fonc{isRegistered}}{(const void *\argument{p}) const}
+&
+teste si un objet était enregistré\\
+
+\hline
+
+\signature{void \fonc{startCall}}
+          {(string \argument{functionName},\\
+            const void *\argument{object})\\
+           \throw{ClubErreurs}}
+&
+démarre l'enregistrement d'un appel à la méthode
+\argument{functionName} pour l'objet pointé par \argument{object}\\
+
+\signature{void \fonc{endCall} ()}
+          {\throw{ClubErreurs}}
+&
+arrête l'enregistrement d'un appel\\
+
+\hline
+
+\signature{void \fonc{startResult} ()}
+          {\throw{ClubErreurs}}
+&
+démarre l'enregistrement des résultats d'un appel\\
+
+\signature{void \fonc{endResult} ()}
+          {\throw{ClubErreurs}}
+&
+arrête l'enregistrement des résultats d'un appel\\
+
+\hline
+
+\signature{void \fonc{logBool} (bool \argument{b})}
+          {\throw{ClubErreurs}}
+&
+enregistre la valeur d'un booléen, dans un appel ou dans les résultats
+d'un appel\\
+
+\signature{void \fonc{logInt} (int \argument{i})}
+          {\throw{ClubErreurs}}
+&
+enregistre la valeur d'un entier, dans un appel ou dans les résultats
+d'un appel\\
+
+\signature{void \fonc{logDouble} (double \argument{d})}
+          {\throw{ClubErreurs}}
+&
+enregistre la valeur d'un double, dans un appel ou dans les résultats
+d'un appel\\
+
+\signature{void \fonc{logString} (string \argument{s})}
+          {\throw{ClubErreurs}}
+&
+enregistre la valeur d'une chaîne, dans un appel ou dans les résultats
+d'un appel\\
+
+\signature{void \fonc{logPointer} (void *\argument{p})}
+          {\throw{ClubErreurs}}
+&
+enregistre la valeur d'un pointeur, dans un appel ou dans les résultats
+d'un appel\\
+
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+
+L'exemple suivant montre comment la méthode \fonc{reinitialise} de la classe
+Marmottes a été instrumentée. L'objectif étant de reproduire les
+appels réalisés par l'utilisateur et uniquement ceux-ci, on supprime
+temporairement l'enregistrement lors de l'appel à la méthode \fonc{senseur}
+qui est également instrumentée.
+
+\begin{verbatim}
+#include "club/CallTrace.h"
+
+...
+
+  if (trace->isActive ())
+  {
+    trace->registerObject ((void *) this);
+    trace->startCall (string ("Marmottes::reinitialise"), (void *) this);
+    trace->logDouble (date);
+    trace->logDouble (position.x ());
+    trace->logDouble (position.y ());
+    trace->logDouble (position.z ());
+
+    ...
+
+    trace->logString (string (senseur1));
+    trace->logString (string (senseur2));
+    trace->logString (string (senseur3));
+    trace->endCall ();
+  }
+
+  // mise à jour des attributs
+  trace->putToSleep ();
+  senseurs (fichier, senseur1, senseur2, senseur3);
+  trace->wakeUp ();
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation
+spécifiques}\label{sec:CallTrace-conseils}
+
+\subsubsection*{implantation}\label{sec:CallTrace-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:CallTrace-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe CallTrace}
+{\label{tab:CallTrace-att-priv}}
+{table des pointeurs d'objets enregistrés}
+
+instance\_ & static CallTrace * & pointeur vers l'unique instance de
+la classe (modèle de conception du singleton)\\
+
+logFile\_ & ofstream  & fichier d'enregistrement\\
+
+registeredObjects\_ & map<const void *, const void *> &
+table des pointeurs d'objets enregistrés\\
+
+inCall\_ & bool  & indicateur d'appel en cours d'enregistrement\\
+
+awaken\_ & bool  & indicateur d'enregistrement possible\\
+
+\end{tableAttributsFixe}
+Les méthodes privées sont décrites dans la
+table~\ref{tab:CallTrace-met-priv}. Il s'agit des constructeurs et de
+l'opérateur d'affectation, qui sont privés afin d'interdire la
+création de plusieurs instances de la classe (modèle de conception du singleton).
+\begin{tableFonctionsFixe}{CallTrace : méthodes privées}
+{\label{tab:CallTrace-met-priv}}
+{opérateur d'affectation}
+
+\signature{\fonc{CallTrace} ()}{} & constructeur simple\\
+
+\signature{\fonc{CallTrace} (const CallTrace\& \argument{c})}{} &
+constructeur par copie\\
+
+\signature{CallTrace\&  \fonc{operator =} (const CallTrace\&
+\argument{c})}{} & opérateur d'affectation\\
+
+\signature{\fonc{~CallTrace} ()}{} &
+destructeur de la classe.
+\\
+
+\end{tableFonctionsFixe}

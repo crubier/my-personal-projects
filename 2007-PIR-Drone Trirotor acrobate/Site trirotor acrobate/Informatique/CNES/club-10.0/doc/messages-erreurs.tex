@@ -1,0 +1,566 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+% $Id: messages-erreurs.tex,v 1.16 2005/03/11 16:27:57 chope Exp $
+La bibliothèque \bibliotheque{club} peut générer des messages
+d'erreurs en fonction de la langue de l'utilisateur. La liste suivante
+est triée par ordre alphabétique du format d'écriture dans le fichier
+de traduction français d'origine\footnote{la langue interne est le
+français sans les accents et c'est le fichier de traduction français
+qui introduit les accents, le fichier de traduction anglais reste
+ainsi lisible par un utilisateur anglophone qui n'aurait pas configuré
+son éditeur de texte de sorte qu'il affiche correctement les
+caractères utilisant le codage iso-8859-1 (IsoLatin 1)}. Le format de
+la traduction anglaise d'origine est indiqué entre parenthèses. Si un
+utilisateur modifie les fichiers de traduction d'origine (ce qui est
+tout à fait raisonnable), la liste suivante devra être interprétée
+avec une certaine tolérance.
+
+\verb="'>' manquant après \"%s\" (fichier \"%s\")"=
+\\(\verb="missing '>' after \"%s\" (file \"%s\")"=)
+ce message indique une erreur de syntaxe à la lecture d'une directive
+d'inclusion \texttt{<nom\_de\_fichier>} dans un FichierStructure.
+
+\verb="'{' manquante (bloc \"%s\" du fichier \"%s\")"=
+\\(\verb="missing '{' in bloc \"%s\" (file \"%s\")"=)
+ce message indique une erreur de syntaxe après un nom de bloc dans un
+FichierStructure.
+
+\verb="accolades non équilibrées dans le fichier \"%s\""=
+\\(\verb="non matching braces in file \"%s\""=)
+ce message indique une erreur de syntaxe dans un FichierStructure.
+
+\verb="analyseur d'options de %s déjà initialisé"=
+\\(\verb="options analyser %s already initialized"=)
+ce message est généré lors de la mise en place d'un analyseur d'option
+si la méthode OptionsAppli\char58\char58nitialiser est appelée plus
+d'une fois ; il s'agit probablement d'une erreur de codage.
+
+\verb="analyseur d'options de %s non initialisé"=
+\\(\verb="options analyser %s not initialized"=)
+ce message est généré lors de la mise en place d'un analyseur d'option
+si la méthode OptionsAppli\char58\char58initialiser n'est pas appelée
+avant de commencer l'extraction des arguments ; il s'agit probablement
+d'une erreur de codage.
+
+\verb="argument de l'option -%s trop long : \"%s\" (%d caractères max)"=
+\\(\verb="too long argument for -%s option : \"%s\" (%d charactersmax)"=)
+ce message indique à l'utilisateur qu'il viole une limite de longueur
+autorisée pour l'argument d'une option de type chaîne de caractères
+(ou tableau de chaînes) lors de l'exécution.
+
+\verb="argument hors domaine pour l'option -%s : \"%s\", arguments autorisés :"=
+\\(\verb="unauthorized argument for -%s option : \"%s\", authorized arguments :"=)
+ce message indique à l'utilisateur que l'argument d'une option de type
+chaîne de caractères (ou tableau de chaînes) qu'il a donné
+n'appartient pas à la liste autorisée (la liste est affichée juste
+après, par un autre format).
+
+\verb="argument manquant pour l'option -%s"=
+\\(\verb="missing argument for -%s option"=)
+ce message indique à l'utilisateur qu'il a passé une option attendant
+un argument et qu'il n'a pas donné cet argument (ce message est
+affiché lorsque l'analyse arrive à la fin de la liste des arguments).
+
+\verb="arguments de l'option -%s accessibles uniquement par tableau de taille %d"=
+\\(\verb="access to arguments of -%s option allowed only through array of size %d"=)
+l'apparition de ce message indique qu'une méthode
+OptionsAppli\char58\char58lireValeur a été appelée avec un tableau
+dont la taille ne correspondait pas à ce qui avait été paramétré lors
+de la création de l'option correspondante ; il s'agit probablement
+d'une erreur de codage.
+
+\verb="arguments non reconnus par l'analyseur d'options de %s :"=
+\\(\verb="options analyser %s unable to recognize :"=)
+ce message est généré par l'appel de la méthode
+OptionsAppli\char58\char58garantirComplet s'il reste des arguments non
+reconnus dans la ligne de commande.
+
+\begin{changebar}
+\verb="attribut %s manquant dans l'élément %s"=
+\\(\verb="missing %s attribute in element %s"=)
+ce message indique que l'attribut spécifié n'est pas renseigné dans un
+élément d'un fichier XML ; il s'agit probablement d'une erreur dans le
+fichier (l'erreur n'étant générée que si l'attribut est indispensable).
+\end{changebar}
+
+\verb="bloc \"%s\" introuvable dans le fichier \"%s\""=
+\\(\verb="no bloc \"%s\" in file \"%s\""=)
+ce message est généré en cas d'échec d'une tentative d'extraction d'un
+bloc de haut niveau d'un FichierStructure, il s'agit le plus souvent
+d'une erreur de nommage de ce bloc (soit dans l'appel soit dans le
+fichier).
+
+\verb="bloc \"%s\" non terminal dans le fichier \"%s\""=
+\\(\verb="non terminal bloc \"%s\" in file \"%s\""=)
+ce message est généré en cas de tentative d'extraction directe de
+données d'un bloc qui contient encore un niveau de structuration dans
+un FichierStructure ; il s'agit probablement d'une erreur d'analyse de
+la structure du fichier si celle-ci est variable ou d'une erreur de
+syntaxe dans le fichier si la structure est fixe.
+
+\verb="caractère %d hors limites [%d ; %d], tampon \"%s\""=
+\\(\verb="character number %d out of range [%d ; %d], buffer \"%s\""=)
+ce message indique une erreur dans le numéro d'index de caractère lors d'un appel
+à l'une des méthodes d'accès par caractère de TamponAscii ; il
+s'agit probablement d'une erreur de codage, des méthodes étant
+disponibles pour vérifier le nombre de caractères dans un tampon avant de
+tenter une opération.
+
+\verb="caractère \" ou caractère \' manquant dans le tampon \"%s\""=
+\\(\verb="missing character \" or \' in buffer \"%s\""=)
+un tel message est généré lorsque le guillement (ou l'apostrophe) fermant
+une chaîne du langage \langage{c} (respectivement \langage{fortran})
+ne peut être trouvé(e) lors de l'analyse d'un texte à travers un
+TamponTexte avec interprétation des caractères spéciaux ; il s'agit
+probablement d'une erreur de syntaxe dans le fichier.
+
+\verb="champ %d hors limites [%d ; %d], ligne %d du tampon \"%s\""=
+\\(\verb="field %d out of range [%d ; %d], line %d, buffer \"%s\""=)
+ce message indique une erreur dans le numéro de champ lors d'un appel
+à l'une des méthodes d'accès par champs et lignes de TamponTexte ; il
+s'agit probablement d'une erreur de codage, des méthodes étant
+disponibles pour vérifier le nombre de champs dans une ligne avant de
+tenter l'extraction.
+
+\verb="champ %d hors limites [%d ; %d], tampon \"%s\""=
+\\(\verb="field %d out of range [%d ; %d], buffer \"%s\""=)
+ce message indique une erreur dans le numéro de champ lors d'un appel
+à l'une des méthodes d'accès par champs simple de TamponTexte ; il
+s'agit probablement d'une erreur de codage, des méthodes étant
+disponibles pour vérifier le nombre de champs avant de
+tenter l'extraction.
+
+\verb="code d'option \"%s\" non reconnu"=
+\\(\verb="unknown option code \"%s\""=)
+ce message est généré lors de l'analyse des arguments de la ligne de
+commande par la classe OptionsAppli, si l'on cherche à récupérer une
+occurrence qui n'avait pas été décrite à l'analyseur au préalable ; il
+s'agit probablement d'une erreur de codage.
+
+\verb="création de l'index %s interdite"=
+\\(\verb="creation of index %s is forbidden"=)
+ce message est émis lorsque l'utilisateur tente de créer une donnée en
+indiquant un numéro d'index (par exemple~: \texttt{createStringData
+("[12]", "valeur")}).
+
+\verb="désignation \"%s\" non valide"=
+\\(\verb="invalid data name \"%s\""=)
+ce message indique que la désignation d'une donnée n'est pas valide.
+
+\verb="donnée courante \"%s\" est un tableau"=
+\\(\verb="current data \"%s\" is a table"=)
+ce message indique que la donnée courante est un tableau ce qui rend
+la fonction appelée non réalisable (par exemple~: accès à une donnée
+par son nom alors que la donnée courante est un tableau).
+
+\verb="donnée courante \"%s\" n'est pas un tableau"=
+\\(\verb="current data \"%s\" is not a table"=)
+ce message indique que la donnée courante n'est pas un tableau ce qui rend
+la fonction appelée non réalisable (par exemple~: accès à une donnée
+par son index alors que la donnée courante n'est pas un tableau).
+
+\verb="donnée \"%s\" déjà définie"=
+\\(\verb="data \"%s\" is already defined"=)
+ce message est émis lorsqu'on essaie de créer une donnée qui existe déjà.
+
+\verb="le format du fichier est invalide"=
+\\(\verb="type of file is not valid"=)
+ce message est émis lorsqu'on essaie de créer un instance de DataFile
+en fournissant un type de fichier inconnu, ou en désignant un fichier
+dont le format ne respecte pas celui des fichiers structurés, des
+fichiers XML (et la DTD) et Madona.
+
+\verb="donnée \"%s\" non définie"=
+\\(\verb="no data named \"%s\""=)
+ce message est émis lorsqu'on essaie d'accéder à une donnée non
+définie.
+
+\begin{changebar}
+\verb="entité générale %s inconnue dans la chaîne \"%s\""=
+\\(\verb="unknown general entity %s in string \"%s\""=)
+ce message indique qu'une entité générale du type \verb=&micro;= n'a pas été reconnue
+(voir la section \ref{sec:XMLFile-desc} pour la liste des entités reconnues). Il s'agit
+généralement d'une erreur de programmation dans une constante chaîne de caractères
+représentant une unité (les erreurs dans les fichiers XML eux-mêmes sont générées par la
+bibliothèque Xerces elle-même).
+\end{changebar}
+
+\verb="erreur à l'ouverture du fichier %s"=
+\\(\verb="error while opening file %s"=)
+ce message est généré lorsque la bibliothèque tente n'arrive pas à
+ouvrir un fichier dans le mode désiré (écriture pour le fichier des
+traces d'exécution). Il faut généralement vérifier le nom et le chemin
+d'accès au fichier, les droits de l'utilsateur sur le fichier (ou le
+répertoire qui le contient) et la place disque disponible.
+
+\begin{changebar}
+\verb="erreur de syntaxe dans l'unité %s"=
+\\(\verb="syntax error in unit %s"=)
+ce message indique qu'une erreur de syntaxe est présente dans la
+définition d'une unité composée. Il s'agit soit d'une erreur de
+programmation dans une constante chaîne de caractères représentant une
+unité, soit d'une erreur dans un fichier d'unités.
+
+\verb="erreur de syntaxe d'appel à une entité dans la chaîne \"%s\""=
+\\(\verb="entity reference syntax error in string \"%s\""=)
+ce message est généré lorsqu'un appel d'entité paramètre du type
+\verb=&micro;=, ou un appel de caractère du type \verb=&#x00B5;= est
+mal fait (typiquement entité vide, caractères interdits ou oubli du
+point-virgule de fin). Il s'agit généralement d'une erreur de
+programmation dans une constante chaîne de caractères représentant une
+unité (les erreurs dans les fichiers XML eux-mêmes sont générées par
+la bibliothèque Xerces elle-même).
+\end{changebar}
+
+\verb="erreur d'analyse du format fortran \"%s\""=
+\\(\verb="analysis error for fortran format \"%s\""=)
+ce message est généré par le méthode anlyse de la classe FormatFortran
+si la chaîne fournie en argument n'est pas reconnue. Il faut noter que
+le système de traduction qui utilise cette méthode récupère cette
+erreur pour sécuriser l'utilisation ultérieure du format ; elle ne
+remonte pas jusqu'à l'utilisateur dans ce cas.
+
+\verb="erreur du domaine %s numéro %d non reconnue"=
+\\(\verb="unknown domain %s error (number %d)"=)
+ce message ne devrait jamais apparaître, il indique un oubli dans le
+code de sélection des messages d'une classe dérivée de
+BaseErreurs. Toute apparation d'un message de ce type doit être
+signalée au responsable de la maintenance de la bibliothèque concernée
+(que l'on reconnait par le nom du domaine).
+
+\verb="erreur fichier \"%s\": \"%s\""=
+\\(\verb="error in file \"%s\": \"%s\""=)
+ce message indique qu'une erreur est survenue lors de la lecture ou de
+l'écriture d'un fichier de données.
+
+\verb|"erreur interne de CLUB, veuillez contacter la maintenance (ligne %d, fichier %s)"|
+\\(\verb|"CLUB internal error, please contact the support (line %d, file %s)"|)
+Ce message ne devrait normalement pas apparaître ... Il indique qu'un
+cas théoriquement impossible a été rencontré, ce qui temoigne d'une
+erreur de la bibliothèque. Dans une telle éventualité, il faut
+prévenir la maintenance.
+
+\verb="erreur Madona : \"%s\""=
+\\(\verb="Madona error : \"%s\""=)
+ce message est émis lorsqu'une erreur s'est produite lors de l'appel à
+une méthode de la bibliothèque Madona. Le message d'erreur est fourni
+dans le texte. 
+
+\verb="erreur XML : \"%s\""=
+\\(\verb="XML error : \"%s\""=)
+ce message est émis lorsqu'une erreur s'est produite lors de l'appel à
+une méthode de la bibliothèque Xerces. Le message d'erreur est fourni
+dans le texte.
+
+\verb="fonction \"%s\" non accessible car la bibliothèque Madona n'est pas installée"=
+\\(\verb="as Madona is not installed, function named \"%s\" is not accessible"=)
+ce message indique qu'il n'est pas possible de réaliser la fonction
+appelée car elle nécessite l'appel à des méthodes de Madona qui n'est
+pas installée.
+
+\verb="fonction \"%s\" non accessible car la bibliothèque Xerces n'est pas installée"=
+\\(\verb="as Xerces is not installed, function named \"%s\" is not accessible"=)
+ce message indique qu'il n'est pas possible de réaliser la fonction
+appelée car elle nécessite l'appel à des méthodes de Xerces qui n'est
+pas installée.
+
+\verb="fonction \"%s\" non implementée"=
+\\(\verb="function \"%s\" not implemented"=)
+ce message est émis lorsqu'une fonction de l'interface est appelée
+mais qu'aucune implémentation de cette fonction n'est réalisée. 
+
+\begin{changebar}
+\verb="impossible d'effectuer une conversion entre les unités incompatibles %s et %s"=
+\\(\verb="forbidden conversion between incompatible units %s and %s"=)
+ce message indique qu'une tentative de conversion entre deux unités
+incompatibles a été tentée. Il s'agit soit d'une erreur de
+programmation (passage de la mauvaise unité pour une donnée), soit
+d'une erreur dans un fichier de données (unité erronée), soit d'une
+erreur dans le fichier de définition des unités (dimensions physiques
+de l'unité).
+\end{changebar}
+
+\verb="impossible de convertir \"%s\" en entier"=
+\\(\verb="converting \"%s\" into an integer is impossible"=)
+ce message peut être émis dans deux cas~: premièrement, lorsqu'on veut
+accéder à une donnée en indiquant une valeur d'index erronée
+(exemple~: «[12a]») ; deuxièmement lorsqu'une donnée entière tente
+d'être lue alors que sa valeur n'est pas un entier.
+
+\verb="impossible de convertir \"%s\" en réel"=
+\\(\verb="converting \"%s\" into a real is impossible"=)
+ce message est émis lorsqu'une donnée réelle tente
+d'être lue alors que sa valeur n'est pas un réel.
+
+\verb="impossible de remonter d'un niveau depuis la racine du document"=
+\\(\verb="moving up from the root of document is impossible"=)
+ce message précise qu'il est impossible de remonter dans la structure
+de données lorsque la donnée courante est l'élément racine.
+
+\verb="incohérence entre un itérateur et le tampon \"%s\""=
+\\(\verb="iterator out of date towards buffer \"%s\""=)
+ce message est généré lorsque des opérations de modification d'un
+tampon ont été effectuées après la déclaration d'un itérateur, et que
+cet itérateur n'a pas été ensuite synchronisé sur le nouvel état du tampon.
+
+\verb="index %d de la table \"%s\" non défini"=
+\\(\verb="no index number %d in table \"%s\""=)
+ce message est émis lorsqu'on essaie d'accéder à une donnée par un
+index indéfini dans une table.
+
+\verb="l'option sans nom doit avoir un argument et un seul"=
+\\(\verb="the unnamed option should have one and only one argument"=)
+ce message est généré lors de la mise en place d'un analyseur
+d'options, il indique que l'on a tenté de créer une option sans nom
+sans respecter son nombre d'argument imposé (à 1) ; il s'agit
+probablement d'une erreur de codage.
+
+\verb="le tag %s manque"=
+\\(\verb="missing tag %s"=)
+ce message indique l'absence d'une balise dans un document XML. 
+
+\verb="ligne %d hors limites [%d ; %d], tampon \"%s\""=
+\\(\verb="line %d out of range [%d ; %d], buffer \"%s\""=)
+ce message indique une erreur dans le numéro de ligne lors d'un appel
+à l'une des méthodes d'accès par lignes de TamponTexte ; il
+s'agit probablement d'une erreur de codage, des méthodes étant
+disponibles pour vérifier le nombre de lignes avant de
+tenter l'extraction.
+
+\verb="noeud %s de type inconnu"=
+\\(\verb="unknown type for node %s"=)
+ce message indique que la lecture du noeud n'est pas possible car son
+type n'est pas reconnu.
+
+\verb="nom d'option illégal (ne commence pas par une lettre) : -%s"=
+\\(\verb="illegal option name (should begin with a letter) : -%s"=)
+ce message est généré lors de la mise en place d'un analyseur
+d'options, il indique que l'on a tenté de créer une option sans
+respecter les règles de nommage ; il s'agit probablement d'une erreur
+de codage.
+
+\verb="nom de fichier à inclure manquant (fichier \"%s\")"=
+\\(\verb="missing name of file to include (file \"%s\")"=)
+ce message indique une erreur de syntaxe dans un fichier lu à travers
+la classe FichierStructure, il s'agit d'une direction d'inclusion
+\texttt{<nom>} dans laquelle aucun nom de fichier n'a été spécifié.
+
+\verb="nombre d'arguments de l'option -%s incompatibles : %d trouvés, %d attendus"=
+\\(\verb="wrong arguments number for -%s option : %d found, %d expected"=)
+ce message est généré lors de l'analyse des arguments de la ligne de
+commande, il indique que la ligne ne correspond pas à ce que
+l'analyseur attendait\footnote{il est probable qu'en fait cette erreur
+ne puisse jamais être générée, les nombres d'arguments étant vérifiés
+avant d'appeler la méthode concernée ...}.
+
+\verb="nombre d'arguments de l'option -%s négatif : %d"=
+\\(\verb="negative arguments number for -%s option : %d"=)
+ce message est généré lors de la mise en place d'un analyseur
+d'options, il indique que l'on a tenté de créer une option attendant
+un nombre négatif d'arguments ; il s'agit probablement d'une erreur de
+codage.
+
+\verb="nombre d'occurrences de l'option -%s hors limites [%d ; %d] : %d"=
+\\(\verb="instance number of -%s option out of range [%d ; %d] : %d"=)
+ce message est généré lors de l'analyse des arguments de la ligne de
+commande, il indique à l'utilisateur qu'il n'a pas respecté les
+limites que l'analyseur imposait.
+
+\verb="occurrence %d de l'option -%s inexistante (%d occurrences passées)"=
+\\(\verb="instance %d of -%s option not available (%d instances available)"=)
+ce message est généré lors de l'analyse des arguments de la ligne de
+commande, il indique que l'on cherche à récupérer une occurrence qui
+n'a pas été fournie par l'utilisateur ; il s'agit à la fois d'une
+erreur de l'utilisateur (qui n'a pas fourni ce qu'il fallait) et d'une
+erreur de codage, puisque la validité de la ligne de commande n'a pas
+été vérifiée avant son l'exploitation.
+
+\verb="option -%s absente"=
+\\(\verb="missing -%s option"=)
+ce message est généré lors de l'analyse des arguments de la ligne de
+commande, il indique à l'utilisateur qu'il n'a pas spécifié une option
+obligatoire (ce message est similaire à celui portant sur le nombre
+d'occurrences hors limites, il est simplement adapté au cas où l'on
+attend une occurrence et une seule).
+
+\verb="option -%s définie deux fois"=
+\\(\verb="-%s option defined twice"=)
+ce message est généré lorsque l'on tente de stocker une option dans un
+analyseur (class OptionsAppli) alors qu'une option de même nom y est
+déjà présente ; il s'agit probablement d'une erreur de codage.
+
+\verb="option -%s hors limites [%d ; %d] : %d"=
+\\(\verb="-%s option out of range [%d ; %d] : %d"=)
+ce message est généré lors de la vérification de la validité des
+arguments de la ligne de commande à travers la classe OptionAppli, il
+indique que l'utilisateur n'a pas fourni ce qu'il fallait (ou qu'à la
+construction la valeur par défaut était déjà hors limites, ce qui
+résulte probablement d'une erreur de codage).
+
+\verb="option -%s hors limites [%d ; +infini[ : %d"=
+\\(\verb="-%s option out of range [%d ; +infinity[ : %d"=)
+ce message est généré lors de la vérification de la validité des
+arguments de la ligne de commande à travers la classe OptionAppli, il
+indique que l'utilisateur n'a pas fourni ce qu'il fallait (ou qu'à la
+construction la valeur par défaut était déjà hors limites, ce qui
+résulte probablement d'une erreur de codage).
+
+\verb="option -%s hors limites [%f ; %f] : %f"=
+\\(\verb="-%s option out of range [%f ; %f] : %f"=)
+ce message est généré lors de la vérification de la validité des
+arguments de la ligne de commande à travers la classe OptionAppli, il
+indique que l'utilisateur n'a pas fourni ce qu'il fallait (ou qu'à la
+construction la valeur par défaut était déjà hors limites, ce qui
+résulte probablement d'une erreur de codage).
+
+\verb="option -%s hors limites [%f ; +infini[ : %f"=
+\\(\verb="-%s option out of range [%f ; +infinity[ : %f"=)
+ce message est généré lors de la vérification de la validité des
+arguments de la ligne de commande à travers la classe OptionAppli, il
+indique que l'utilisateur n'a pas fourni ce qu'il fallait (ou qu'à la
+construction la valeur par défaut était déjà hors limites, ce qui
+résulte probablement d'une erreur de codage).
+
+\verb="option -%s hors limites ]-infini ; %d] : %d"=
+\\(\verb="-%s option out of range ]-infinity ; %d] : %d"=)
+ce message est généré lors de la vérification de la validité des
+arguments de la ligne de commande à travers la classe OptionAppli, il
+indique que l'utilisateur n'a pas fourni ce qu'il fallait (ou qu'à la
+construction la valeur par défaut était déjà hors limites, ce qui
+résulte probablement d'une erreur de codage).
+
+\verb="option -%s hors limites ]-infini ; %f] : %f"=
+\\(\verb="-%s option out of range ]-infinity ; %f] : %f"=)
+ce message est généré lors de la vérification de la validité des
+arguments de la ligne de commande à travers la classe OptionAppli, il
+indique que l'utilisateur n'a pas fourni ce qu'il fallait (ou qu'à la
+construction la valeur par défaut était déjà hors limites, ce qui
+résulte probablement d'une erreur de codage).
+
+\verb="paramètre \"%s\" non défini"=
+\\(\verb="no parameter named \"%s\""=)
+ce message est émis lorsqu'on essaie d'accéder à un paramètre non
+définie.
+
+\verb="pas d'argument pour l'option -%s"=
+\\(\verb="no argument for -%s option"=)
+ce message est généré lors de la mise en place d'un analyseur
+d'options, il indique qu'une option typée (chaîne de caractères,
+entier, réel) est créée comme n'attendant aucun argument ; il s'agit
+probablement d'une erreur de codage.
+
+\verb="pas de champ %d dans le bloc \"%s\" du fichier \"%s\""=
+\\(\verb="no %d field within bloc \"%s\" (file \"%s\")"=)
+ce message est généré lors de la recherche d'un champ dans un bloc
+terminal d'un fichier lu par FichierStructure, il s'agit le plus
+souvent d'une erreur de syntaxe dans le fichier de données.
+
+\verb="passage par la ligne %d du fichier \"%s\""=
+\\(\verb="passing through line %d (file \"%s\")"=)
+ce message est généré lors de l'exécution d'une ligne de code où une
+trace a été laissée, il s'agit normalement d'une aide au développement
+qui devrait disparaître dans la version définitive de tout logiciel.
+
+\verb="problème d'allocation mémoire"=
+\\(\verb="memory allocation problem"=)
+ce message peut être généré au cours de toute allocation mémoire par
+les opérateurs \texttt{new} et \texttt{new []} au cours de l'exécution
+d'une portion de code protégée par une instance de ClubAllocHandler
+(c'est à dire pendant la durée de vie de cette instance, même si elle
+n'est pas dans la fonction courante). Elle indique un dépassement des
+capacités du système hôte.
+
+\verb="problème d'obtention de l'état du fichier \"%s\""=
+\\(\verb="unable to get \"%s\" file state"=)
+ce message est généré lors d'une tentative de lecture de l'état d'un
+fichier, il est normalement suivi d'une copie du message système
+expliquant la raison de l'échec (droits d'accès, nombre de fichiers
+ouverts, ...).
+
+\verb="problème d'ouverture du fichier \"%s\""=
+\\(\verb="unable to open file \"%s\""=)
+ce message est généré lors d'une tentative d'ouverture de fichier, il
+est normalement suivi d'une copie du message système expliquant la
+raison de l'échec (droits d'accès, nombre de fichiers ouverts, ...).
+
+\begin{changebar}
+\verb="redéfinition de l'unité %s"=
+\\(\verb="unit %s redefined"=)
+ce message indique qu'un même symbole a été utilisé deux fois dans un
+fichier XML d'unités, il s'agit d'une erreur dans le fichier, les
+symboles devant être uniques.
+\end{changebar}
+
+\verb="référence xpointer \"%s\" incorrecte"=
+\\(\verb="invalid xpointer reference \"%s\""=)
+ce message indique qu'une référence XML n'est pas à la norme xpointer.
+
+\verb="sous-bloc \"%s\" introuvable dans le bloc \"%s\" du fichier \"%s\""=
+\\(\verb="no bloc \"%s\" inside bloc \"%s\" (file \"%s\")"=)
+ce message est généré lors de la recherche d'un sous-bloc dans un bloc
+non terminal d'un fichier lu par FichierStructure, il s'agit le plus
+souvent d'une erreur de syntaxe dans le fichier de données.
+
+\verb="structure de données non valide : %s"=
+\\(\verb="invalid data structure : %s"=)
+ce message indique soit que la structure de donnée ne présente pas les
+unités de la manière définie dans la DTD, soit que la donnée mère de
+la donnée courante n'est pas un élément.
+
+\verb="structure ou table \"%s\" non définie"=
+\\(\verb="no structure or table named \"%s\""=)
+ce message est émis lorsqu'on essaie de descendre dans une table ou
+une structure non définie.
+
+\verb="table \"%s\" de type \"%s\" ne peut contenir des éléments de type \"%s\""=
+\\(\verb="table \"%s\" (type \"%s\") can not contain element of type \"%s\""=)
+ce message indique qu'une fonction d'accès, de création ou de mise à
+jour d'un élément a été réalisée alors que la table n'est pas du bon
+type (par exemple~: appel à la méthode getStringData (int index) alors
+que la donnée courante est un tableau de réels).
+
+\verb="tampon \"%s\" vide"=
+\\(\verb="\"%s\" buffer empty"=)
+ce message peut être généré par quasiment toutes les méthodes d'accès
+de la classe TamponTexte si le tampon courant est vide.
+
+\verb="trace des exécutions désactivée"=
+\\(\verb="call trace not activated"=)
+Ce message est activé lorsque l'on tente d'utiliser le mécanisme de
+trace des exécutions sans l'avoir activé. Il indique une erreur de
+codage. si l'utilisateur n'a pas tenté d'utiliser les routines
+internes de ce mécanisme sans précaution, alors il s'agit d'une erreur
+interne à la bibliothèque et il faut prévenir la maintenance.
+
+\verb="types incompatibles à la lecture de l'option -%s : %s/%s"=
+\\(\verb="non matching types while reading -%s option : %s/%s"=)
+ce message est généré par les diverses méthodes lireValeur des classes
+dérivées de OptionBase, il indique par exemple que l'on tente
+d'extraire un entier d'une option de type chaîne de caractère ; il
+s'agit probablement d'une erreur de codage.
+
+\verb="unité \"%s\" non reconnue"=
+\\(\verb="unknown unit \"%s\""=)
+ce message indique que l'unité spécifiée (pour une conversion par
+exemple) est inconnue.
+
+\verb="usage : "=
+\\(\verb="usage : "=)
+ce format est le début d'un message d'usage généré soit par l'appel
+direct à la méthode usage de la classe OptionsAppli, soit  par l'appel
+à la méthode garantirComplet.
+
+\verb="valeur par défaut manquante pour l'option -%s"=
+\\(\verb="missing default value for -%s option"=)
+ce message est généré lors de la mise en place d'un analyseur
+d'options lorsque l'on tente de construire une option qui doit avoir
+des valeurs par défaut et que l'on omet ces valeurs ; il s'agit
+probablement d'une erreur de codage.
+
+\begin{changebar}
+\verb="variable d'environnement \"%s\" manquante"=
+\\(\verb="missing environment variable \"%s\""=)
+ce message indique qu'une variable d'environnment nécessaire au
+fonctionnement de la bibliothèque n'est pas initialisée ;
+l'utilisateur doit mettre son environnement à jour pour pouvoir
+utiliser tout programme basé sur \bibliotheque{club}
+\end{changebar}

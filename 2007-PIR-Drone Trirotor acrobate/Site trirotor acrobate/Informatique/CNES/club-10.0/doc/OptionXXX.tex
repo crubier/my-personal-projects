@@ -1,0 +1,372 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+% $Id: OptionXXX.tex,v 1.11 2000/09/07 13:06:17 club Exp $
+\subsection{classes dérivées de OptionBase}\label{sec:OptionXXX}
+
+\subsubsection*{description}\label{sec:OptionXXX-desc}
+Les classes dérivées de la classe OptionBase modélisent les divers
+types d'options dont on peut avoir besoin dans la ligne de commande
+d'une application. Ces options sont différenciées par les arguments
+qu'elles attendent, comme le montre la
+table~\ref{tab:derivees-OptionBase}.
+
+\begin{figure}[htbp]\caption{\label{fig:hierarchie}Hiérarchie
+d'héritage des classes d'options}
+\begin{center}\begin{minipage}{162mm}
+\setlength{\unitlength}{3mm}\begin{picture}(54,20)
+\put(21,16){\framebox(12,4){ OptionBase}}
+\put(0,8){\framebox(12,4){ OptionSansValeur}}
+\put(13,8){\framebox(13,4){ OptionTableauEntiers}}
+\put(27,8){\framebox(13,4){ OptionTableauReels}}
+\put(41,8){\framebox(13,4){ OptionTableauChaines}}
+\put(13,0){\framebox(13,4){ OptionEntiers}}
+\put(27,0){\framebox(13,4){ OptionReels}}
+\put(41,0){\framebox(13,4){ OptionChaines}}
+\put(27,16){\line(0,-1){1}}\put(6,13){\line(1,0){42}}
+\put(26,13){\line(1,2){1}}\put(27,15){\line(1,-2){1}}
+\multiput(6,13)(14,0){4}{\line(0,-1){1}}
+\multiput(20,8)(14,0){3}{\line(0,-1){1}}
+\multiput(19,5)(14,0){3}{\line(1,0){2}}
+\multiput(19,5)(14,0){3}{\line(1,2){1}}
+\multiput(20,7)(14,0){3}{\line(1,-2){1}}
+\multiput(20,5)(14,0){3}{\line(0,-1){1}}
+\end{picture}\end{minipage}\end{center}
+\end{figure}
+
+\begin{table}[htbp]\caption{classes dérivées de le classe OptionBase}
+\label{tab:derivees-OptionBase}\begin{center}\begin{tabular}{|c|c|}
+\hline
+classe & arguments attendus \\
+\hline
+OptionSansValeur & rien \\
+OptionChaine & une chaîne de caractères \\
+OptionTabChaines & un tableau de chaînes de caractères \\
+OptionEntier & un entier \\
+OptionTabEntiers & un tableau d'entiers \\
+OptionReel & un réel\\
+OptionTabReels & un tableau de réels \\
+\hline
+\end{tabular}\end{center}\end{table}
+
+\subsubsection*{interface publique}\label{sec:OptionXXX-int}
+\begin{verbatim}
+#include "club/OptionsAppli.h"
+\end{verbatim}
+
+Le fichier de déclaration de la classe OptionsAppli (qui déclare la
+classe d'analyseur qui regroupera les instances d'options) inclut
+directement tous les fichiers d'en-tête des diverses options.
+
+Les méthodes publiques de toutes ces classes sont héritées (ou
+redéfinies) à partir des méthodes de la classe OptionBase, elles sont
+décrites dans la table~\ref{tab:OptionBase-met-pub},
+page~\pageref{tab:OptionBase-met-pub}.
+
+Les méthodes qui ne sont pas applicables à un type d'option (par
+exemple lire une valeur réelle pour une option attendant un tableau de
+chaînes de caractères) génèrent systématiquement un message d'erreur
+explicitant le conflit de type.
+
+Les seules méthodes nécessitant une description sont les
+constructeurs, qui sont spécifiques à chaque classe dérivée :
+\begin{tableFonctionsFixe}{constructeurs des classes dérivées de OptionBase}
+{\label{tab:OptionXXX-ctor}}
+{construit une option attendant un tableau de chaînes de }
+
+\signature{\fonc{OptionSansValeur}}
+          {(const char *\argument{code},\\
+            int \argument{occurrencesMin}, int \argument{occurrencesMax})
+          }&
+
+construit une option n'attendant aucun argument 
+
+\textbf{Exceptions :} nb\_arguments\_option\_vide, 
+nombre\_ar\-guments\_negatif, nom\_option\_non\_lettre.
+\\
+
+\signature{\fonc{OptionSansValeur}}
+          {(const string\& \argument{code},\\
+            int \argument{occurrencesMin}, int \argument{occurrencesMax})
+          }&
+
+construit une option n'attendant aucun argument 
+
+\textbf{Exceptions :} nb\_arguments\_option\_vide, 
+nombre\_ar\-guments\_negatif, nom\_option\_non\_lettre.
+\\
+
+\hline
+
+\signature{\fonc{OptionChaine}}
+          {(const char *\argument{code},\\
+            int \argument{occurrencesMin}, int \argument{occurrencesMax},\\
+            int \argument{valueeParDefaut},\\
+            const char *\argument{valeur}, int \argument{longueurMax} = 1000,\\
+            int \argument{nbAutorisees} = 0,\\
+            const char **\argument{tabAutorisees} = 0)
+          }&
+
+construit une option attendant une chaîne de caractères dont on peut
+limiter la taille et dont on peut restreindre la à un ensemble
+prédéfini 
+
+\textbf{Exceptions :} nb\_arguments\_option\_vide, 
+nombre\_ar\-guments\_negatif, nom\_option\_non\_lettre, 
+nombre\_ar\-guments\_nul,
+option\_chaine\_trop\_longue,
+option\_chai\-ne\_hors\_domaine,
+valeur\_par\_defaut\_man\-quan\-te.\\
+
+\signature{\fonc{OptionChaine}}
+          {(const string\& \argument{code},\\
+            int \argument{occurrencesMin}, int \argument{occurrencesMax},\\
+            int \argument{valueeParDefaut},\\
+            const string\& \argument{valeur},\\
+            int \argument{longueurMax} = 1000,\\
+            int \argument{nbAutorisees} = 0,\\
+            const string *\argument{tabAutorisees} = 0)
+          }&
+
+construit une option attendant une chaîne de caractères dont on peut
+limiter la taille et dont on peut restreindre la à un ensemble
+prédéfini 
+
+\textbf{Exceptions :} nb\_arguments\_option\_vide, 
+nombre\_ar\-guments\_negatif, nom\_option\_non\_lettre, 
+nombre\_ar\-guments\_nul,
+option\_chaine\_trop\_longue,
+option\_chai\-ne\_hors\_domaine,
+valeur\_par\_defaut\_man\-quan\-te.\\
+
+\hline
+
+\signature{\fonc{OptionTableauChaines}}
+          {(const char *\argument{code},\\
+            int \argument{occurrencesMin}, int \argument{occurrencesMax},\\
+            int \argument{valueeParDefaut},\\
+            int \argument{nombreValeurs}, const char **\argument{valeurs},\\
+            int \argument{longueurMax} = 1000,\\
+            int \argument{nbAutorisees} = 0,\\
+            const char **\argument{tabAutorisees} = 0)
+          }&
+
+construit une option attendant un tableau de chaînes de caractères
+dont on peut limiter la taille et dont on peut restreindre la à un
+ensemble prédéfini 
+
+\textbf{Exceptions :} nb\_arguments\_option\_vide, 
+nombre\_ar\-guments\_negatif, nom\_option\_non\_lettre, 
+nombre\_ar\-guments\_nul,
+option\_chaine\_trop\_longue,
+option\_chai\-ne\_hors\_domaine,
+valeur\_par\_defaut\_man\-quan\-te.\\
+
+\signature{\fonc{OptionTableauChaines}}
+          {(const string\& \argument{code},\\
+            int \argument{occurrencesMin}, int \argument{occurrencesMax},\\
+            int \argument{valueeParDefaut},\\
+            int \argument{nombreValeurs},\\
+            const string\& \argument{valeurs},\\
+            int \argument{longueurMax} = 1000,\\
+            int \argument{nbAutorisees} = 0,\\
+            const string *\argument{tabAutorisees} = 0)
+          }&
+
+construit une option attendant un tableau de chaînes de caractères
+dont on peut limiter la taille et dont on peut restreindre la à un
+ensemble prédéfini 
+
+\textbf{Exceptions :} nb\_arguments\_option\_vide, 
+nombre\_ar\-guments\_negatif, nom\_option\_non\_lettre, 
+nombre\_ar\-guments\_nul,
+option\_chaine\_trop\_longue,
+option\_chai\-ne\_hors\_domaine,
+valeur\_par\_defaut\_man\-quan\-te.\\
+
+\hline
+
+\signature{\fonc{OptionEntier}}
+          {(const char *\argument{code},\\
+            int \argument{occurrencesMin}, int \argument{occurrencesMax},\\
+            int \argument{valueeParDefaut},\\
+            int \argument{valeur} = 0, int \argument{limiteInf} = INT\_MIN,\\
+            int \argument{limiteSup} = INT\_MAX)
+          }&
+
+construit une option attendant un entier que l'on peut restreindre à
+un domaine particulier 
+
+\textbf{Exceptions :} nb\_arguments\_option\_vide, 
+nombre\_ar\-guments\_negatif, nom\_option\_non\_lettre,
+nombre\_ar\-guments\_nul, valeur\_par\_defaut\_manquante, 
+option\_\-entiere\_hors\_limites.\\
+
+\signature{\fonc{OptionEntier}}
+          {(const string\& \argument{code},\\
+            int \argument{occurrencesMin}, int \argument{occurrencesMax},\\
+            int \argument{valueeParDefaut},\\
+            int \argument{valeur} = 0, int \argument{limiteInf} = INT\_MIN,\\
+            int \argument{limiteSup} = INT\_MAX)
+          }&
+
+construit une option attendant un entier que l'on peut restreindre à
+un domaine particulier 
+
+\textbf{Exceptions :} nb\_arguments\_option\_vide, 
+nombre\_ar\-guments\_negatif, nom\_option\_non\_lettre,
+nombre\_ar\-guments\_nul, valeur\_par\_defaut\_manquante, 
+option\_\-entiere\_hors\_limites.\\
+
+\hline
+
+\signature{\fonc{OptionTableauEntiers}}
+          {(const char *\argument{code},\\
+            int \argument{occurrencesMin}, int \argument{occurrencesMax},\\
+            int \argument{valueeParDefaut},\\
+            int \argument{nombreValeurs}, int \argument{valeurs} = 0,\\
+            int \argument{limiteInf} = INT\_MIN,\\
+            int \argument{limiteSup} = INT\_MAX)
+          }&
+
+construit une option attendant un tableau d'entiers que l'on peut
+restreindre à un domaine particulier 
+
+\textbf{Exceptions :} nb\_arguments\_option\_vide, 
+nombre\_ar\-guments\_negatif, nom\_option\_non\_lettre,
+nombre\_ar\-guments\_nul, valeur\_par\_defaut\_manquante, 
+option\_\-entiere\_hors\_limites.\\
+
+\signature{\fonc{OptionTableauEntiers}}
+          {(const string\& \argument{code},\\
+            int \argument{occurrencesMin}, int \argument{occurrencesMax},\\
+            int \argument{valueeParDefaut},\\
+            int \argument{nombreValeurs}, int \argument{valeurs} = 0,\\
+            int \argument{limiteInf} = INT\_MIN,\\
+            int \argument{limiteSup} = INT\_MAX)
+          }&
+
+construit une option attendant un tableau d'entiers que l'on peut
+restreindre à un domaine particulier 
+
+\textbf{Exceptions :} nb\_arguments\_option\_vide, 
+nombre\_ar\-guments\_negatif, nom\_option\_non\_lettre,
+nombre\_ar\-guments\_nul, valeur\_par\_defaut\_manquante, 
+option\_\-entiere\_hors\_limites.\\
+
+\hline
+
+\signature{\fonc{OptionReel}}
+          {(const char *\argument{code},\\
+            int \argument{occurrencesMin}, int \argument{occurrencesMax},\\
+            int \argument{valueeParDefaut},\\
+            double \argument{valeur} = 0,\\
+            double \argument{limiteInf} = -DBL\_MAX,\\
+            double \argument{limiteSup} = DBL\_MAX)
+          }&
+
+construit une option attendant un réel que l'on peut restreindre à un
+domaine particulier 
+
+\textbf{Exceptions :} nb\_arguments\_option\_vide, 
+nombre\_ar\-guments\_negatif, nom\_option\_non\_lettre,
+nombre\_ar\-guments\_nul, valeur\_par\_defaut\_manquante, 
+option\_\-entiere\_hors\_limites.\\
+
+\signature{\fonc{OptionReel}}
+          {(const string\& \argument{code},\\
+            int \argument{occurrencesMin}, int \argument{occurrencesMax},\\
+            int \argument{valueeParDefaut},\\
+            double \argument{valeur} = 0,\\
+            double \argument{limiteInf} = -DBL\_MAX,\\
+            double \argument{limiteSup} = DBL\_MAX)
+          }&
+
+construit une option attendant un réel que l'on peut restreindre à un
+domaine particulier 
+
+\textbf{Exceptions :} nb\_arguments\_option\_vide, 
+nombre\_ar\-guments\_negatif, nom\_option\_non\_lettre,
+nombre\_ar\-guments\_nul, valeur\_par\_defaut\_manquante, 
+option\_\-entiere\_hors\_limites.\\
+
+\hline
+
+\signature{\fonc{OptionTableauReels}}
+          {(const char *\argument{code},\\
+            int \argument{occurrencesMin}, int \argument{occurrencesMax},\\
+            int \argument{valueeParDefaut},\\
+            int \argument{nombreValeurs}, double \argument{valeurs} = 0,\\
+            double \argument{limiteInf} = -DBL\_MAX,\\
+            double \argument{limiteSup} = DBL\_MAX)
+          }&
+
+construit une option attendant un tableau de réels que l'on peut
+restreindre à un domaine particulier 
+
+\textbf{Exceptions :} nb\_arguments\_option\_vide, 
+nombre\_ar\-guments\_negatif, nom\_option\_non\_lettre,
+nombre\_ar\-guments\_nul, valeur\_par\_defaut\_manquante, 
+option\_\-entiere\_hors\_limites.\\
+
+\signature{\fonc{OptionTableauReels}}
+          {(const string\& \argument{code},\\
+            int \argument{occurrencesMin}, int \argument{occurrencesMax},\\
+            int \argument{valueeParDefaut},\\
+            int \argument{nombreValeurs}, double \argument{valeurs} = 0,\\
+            double \argument{limiteInf} = -DBL\_MAX,\\
+            double \argument{limiteSup} = DBL\_MAX)
+          }&
+
+construit une option attendant un tableau de réels que l'on peut
+restreindre à un domaine particulier 
+
+\textbf{Exceptions :} nb\_arguments\_option\_vide, 
+nombre\_ar\-guments\_negatif, nom\_option\_non\_lettre,
+nombre\_ar\-guments\_nul, valeur\_par\_defaut\_manquante, 
+option\_\-entiere\_hors\_limites.\\
+
+
+\end{tableFonctionsFixe}
+
+\subsubsection*{exemple d'utilisation}\label{sec:OptionXXX-expl}
+Un exemple d'utilisation global du système d'analyse des options de la
+ligne de commande apparaît dans la
+section~\ref{sec:OptionsAppli-expl} relative à la classe OptionsAppli.
+
+\subsubsection*{conseils d'utilisation spécifiques}
+\label{sec:OptionXXX-conseils}
+Voir section~\ref{sec:OptionsAppli-conseils} relative à la classe OptionsAppli.
+
+\subsubsection*{implantation}\label{sec:OptionXXX-impl}
+La classe OptionSansValeur n'a aucun attribut supplémentaire par
+rapport à sa classe de base.
+
+Les options sans tableau sont dérivées des classe avec tableau, ce
+sont des spécialisations pour la cas où la dimension du tableau est 1.
+
+\begin{tableAttributsFixe}{attributs de la classe OptionTableauChaine}
+{\label{tab:OptionTableauChaine-att}}
+{nombre d'alternatives autorisées pour les chaînes }
+tabValeurs\_ & string ** & table des valeurs pour chaque
+occurrence \\
+longueurMax\_ & int & longueur maximale tolérée pour les chaînes \\
+nbAutorisees\_ & int & nombre d'alternatives autorisées pour les
+chaînes \\
+tabAutorisees\_ & string & table des alternatives autorisées
+pour les chaînes \\
+\end{tableAttributsFixe}
+
+\begin{tableAttributsFixe}{attributs de la classe OptionTableauEntiers}
+{\label{tab:OptionTableauEntiers-att}}
+{table des valeurs pour chaque occurrence}
+tabValeurs\_ & int ** & table des valeurs pour chaque occurrence \\
+limiteInf\_ & int & valeur minimale tolérée \\
+limiteSup\_ & int & valeur maximale tolérée \\
+\end{tableAttributsFixe}
+
+\begin{tableAttributsFixe}{attributs de la classe OptionTableauReels}
+{\label{tab:OptionTableauReels-att}}
+{table des valeurs pour chaque occurrence}
+tabValeurs\_ & double ** & table des valeurs pour chaque occurrence \\
+limiteInf\_ & double & valeur minimale tolérée \\
+limiteSup\_ & double & valeur maximale tolérée \\
+\end{tableAttributsFixe}

@@ -1,0 +1,5 @@
+2005-01-28  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* club-data.dtd, club-units.dtd, Makefile.am, units.xml :
+	nouveaux fichiers
+

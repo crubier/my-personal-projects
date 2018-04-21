@@ -1,0 +1,155 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: FamilleGenerale.tex,v 1.3 2002/02/27 13:36:02 marmottes Exp $
+\subsection{classe FamilleGenerale}\label{sec:FamilleGenerale}
+
+\subsubsection*{description}\label{sec:FamilleGenerale-desc}
+
+Cette classe implante le cas général du modèle analytique
+d'attitude à un degré de liberté respectant deux consignes
+géométriques. On entend par cas général le cas où aucun alignement ne
+se produit, ni avec les axes des cônes de consignes, ni avec les
+points des cônes, ni avec les vecteurs cibles.
+
+\subsubsection*{interface publique}\label{sec:FamilleGenerale-int}
+\begin{verbatim}
+#include "marmottes/FamilleGenerale.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{FamilleGenerale : méthodes publiques}
+{\label{tab:FamilleGenerale-met-pub}}
+{méthode virtuelle pure de la classe FamilleAbstraite, }
+
+\signature{\fonc{FamilleGenerale}()} 
+          {}&
+
+initialise une instance par défaut inutilisable sans réaffectation\\
+
+\hline
+
+\signature{\fonc{FamilleGenerale}}
+          {(const Intervalle\& \argument{plages},
+            const VecVD1\& \argument{u1}, \\
+            const VecVD1\& \argument{u2},
+            double \argument{signe},
+            double \argument{sinMu1},\\ double \argument{cosMu1},
+            double \argument{sinMu2}, double \argument{cosMu2},\\
+            double \argument{sinGamma}, double \argument{cosGamma},\\
+            double \argument{cosAlpha\_1\_2})}& 
+
+construit une FamilleGenerale à partir d'un intervalle plages,
+des vecteurs $\vec{u}_1$ et $\vec{u}_2$ exprimés dans le repère
+inertiel, d'un signe ($\pm1$), et des constantes technologiques
+$\sin\mu_1$, $\cos\mu_1$, $\sin\mu_2$, $\cos\mu_2$, $\sin\gamma$,
+$\cos\gamma$ et $\cos\alpha_{1,2}$\\
+
+\hline
+
+\signature{\fonc{FamilleGenerale}(const FamilleGenerale\&
+\argument{f})} 
+          {}& 
+
+constructeur par copie\\
+
+\signature{FamilleGenerale\&  \fonc{operator =}(const
+FamilleGenerale\& \argument{f})} 
+          {}&
+
+affectation\\
+
+\signature{FamilleAbstraite *  \fonc{copie}() const} 
+          {}& 
+
+opérateur de copie\\
+
+\signature{\fonc{\~{}FamilleGenerale}()} 
+          {}& 
+
+destructeur\\
+
+\hline
+
+\signature{RotVD1  \fonc{inertielCanonique}}{(const ValeurDerivee1\&
+\argument{t}) const} & 
+
+méthode virtuelle pure de la classe FamilleAbstraite, redéfinie ici et
+qui retourne le quaternion de passage du repère inertiel au repère canonique de travail défini dans ModeleGeom\\
+
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+L'exemple suivant, directement extrait du code de la bibliothèque
+montre comment, dans la classe ModeleGeom, on a créé un vecteur (au
+sens de la \bibliotheque{stl}~\ref{ref:stl}) de FamilleGenerale.
+
+\begin{verbatim}
+#include "marmottes/FamilleGenerale.h"
+
+{
+  // Ni Theta = 0, ni Theta = Pi ne sont rencontrés
+  Famille f (new FamilleGenerale (creneauInter [i], u1, u2, -1.0,
+                                  sinMu_1, cosMu_1, sinMu_2, cosMu_2,
+                                  sinGamma, cosGamma, cosAlpha_1_2));
+  table_.push_back (f);
+  nombreFamilles_++;
+  f = new FamilleGenerale (creneauInter [i], u1, u2, 1.0,
+                           sinMu_1, cosMu_1, sinMu_2, cosMu_2,
+                           sinGamma, cosGamma, cosAlpha_1_2);
+  table_.push_back (f);
+  nombreFamilles_++;
+}
+
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation
+spécifiques}\label{sec:FamilleGenerale-conseils}
+Une importante amélioration (et correction de bug !) a été apportée à
+la version 7.0 par rapport aux versions précédentes de
+\bibliotheque{marmottes}.
+
+La prise en compte des singularités ne se fait plus numériquement mais
+analytiquement. C'est pourquoi une nouvelle architecture a été
+implantée et a mis au point ce système de \emph{familles}.
+
+\subsubsection*{implantation}\label{sec:FamilleGenerale-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:FamilleGenerale-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe FamilleGenerale}
+{\label{tab:FamilleGenerale-att-priv}}
+{variable qui vaut $\cos\alpha_{1,2}-\cos\mu_2\times\cos\gamma\times\cos\mu_1$}
+
+u1\_ & VecVD1 & premier vecteur cible en repère inertiel\\
+
+u2\_ & VecVD1 & second vecteur cible en repère inertiel\\
+
+\hline
+
+signe\_ & double & signe $\pm1$\\
+
+\hline
+
+sinMu\_1\_ & double & sinus du demi-angle d'ouverture du premier cône
+de consigne\\
+
+sinMu\_2\_ & double & sinus du demi-angle d'ouverture du second cône
+de consigne\\
+
+cosMu\_2\_ & double & cosinus du demi-angle d'ouverture du second cône
+de consigne\\
+
+\hline
+
+sinGammaCosMu1\_ & double & variable qui vaut $\sin\gamma\times\cos\mu_1$ \\
+
+cosGammaSinMu1\_ & double & variable qui vaut $\cos\gamma\times\sin\mu_1$ \\
+
+sinGammaSinMu1\_ & double & variable qui vaut $\sin\gamma\times\sin\mu_1$\\
+
+cosGammaCosMu1\_ & double & variable qui vaut $\cos\gamma\times\cos\mu_1$\\
+
+\hline
+
+partieConstante\_ & double & variable qui vaut $\cos\alpha_{1,2} -
+\cos\mu_2\times\cos\gamma\times\cos\mu_1$\\
+
+cosMu2SinGammaSinMu1\_ & double & variable qui vaut
+$\cos\mu_2\times\sin\gamma\times\sin\mu_1$\\
+
+\end{tableAttributsFixe}

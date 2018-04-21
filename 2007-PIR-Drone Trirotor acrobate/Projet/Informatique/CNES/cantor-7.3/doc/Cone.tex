@@ -1,0 +1,168 @@
+% -*- mode: latex; tex-main-file: "cantor.tex" -*-
+% $Id: Cone.tex,v 1.9 2003/07/09 08:55:11 cantor Exp $
+\subsection{classe Cone}\label{sec:Cone}
+
+\subsubsection*{description}\label{sec:Cone-desc}
+
+Cette classe décrit l'intersection d'un cône et de la sphère unité
+dans un espace vectoriel de dimension 3.
+
+\subsubsection*{interface publique}\label{sec:Cone-int}
+\begin{verbatim}
+#include "cantor/Cone.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{Cone : méthodes publiques}
+{\label{tab:Cone-met-pub}}
+{construit le cône d'axe $\vec{a}$ et de demi-angle d'ouverture $\mu$}
+
+\signature{\fonc{Cone} ()}
+          {}&
+
+construit un cône par défaut (d'axe aligné avec l'axe des abscisses et
+de demi-angle d'ouverture nul)\\
+
+\signature{\fonc{Cone} (const VecDBL\& \argument{a}, double \argument{mu})}
+          {\throw{CantorErreurs}}&
+
+construit le cône d'axe $\vec{a}$ et de demi-angle d'ouverture $\mu$
+(l'angle est ramené entre $0$ et $\pi$ au besoin). Une exception est
+lancée si l'axe est de norme quasi-nulle\\
+
+\signature{\fonc{Cone}}
+          {(const VecDBL\& \argument{p1},
+            const VecDBL\& \argument{p2},\\
+            const VecDBL\& \argument{p3})\\
+            \throw{CantorErreurs}}&
+
+construit le cône passant par les points $\vec{p_{1}}$, $\vec{p_{2}}$
+$\vec{p_{3}}$. Une exception est lancée si les points ne sont pas
+distincts\\
+
+\hline
+
+\signature{\fonc{Cone} (const Cone\& \argument{c})}
+          {}&
+
+constructeur par copie\\
+
+\signature{Cone\& \fonc{operator =} (const Cone\& \argument{c})}
+          {}&
+
+affectation\\
+
+\hline
+
+\signature{\fonc{~Cone} ()} {} &
+destructeur
+\\
+
+\hline
+
+\signature{Cone \fonc{operator -} () const}
+          {}&
+
+retourne le cône complémentaire de l'instance par rapport à la sphère
+unité\\
+
+\hline
+
+\signature{const VecDBL\& \fonc{axe} () const}
+          {}&
+
+retourne une référence constante sur l'axe du cône\\
+
+\signature{double \fonc{angle} () const}
+          {}&
+
+retourne le demi-angle d'ouverture du cône\\
+
+\signature{double \fonc{cosinus} () const}
+          {}&
+
+retourne le cosinus du demi-angle d'ouverture du cône\\
+
+\signature{double \fonc{sinus} () const}
+          {}&
+
+retourne le sinus du demi-angle d'ouverture du cône\\
+
+\hline
+
+\signature{void \fonc{corrige} (double \argument{ecart})}
+          {}&
+
+corrige le demi-angle ouverture du cône de l'\argument{ecart} (le
+demi-angle est ramené entre $0$ et $\pi$ après correction)\\
+
+\hline
+
+\signature{bool \fonc{inclus} (const VecDBL \&\argument{u}) const}
+          {}&
+
+indique si le vecteur $\vec{u}$ est inclus dans le cône\\
+
+\signature{void \fonc{intersection}}
+          {(const Cone \&\argument{v},\\
+            VecDBL* \argument{p\_deb}, VecDBL* \argument{p\_fin}) const\\
+           \throw{CantorErreurs}
+          }&
+
+initialise les variables pointées par \argument{p\_deb} et
+\argument{p\_fin} aux vecteurs définissant l'intersection de
+l'instance et du cône \argument{v}. La portion de l'instance comprise
+dans \argument{v} va de \argument{p\_deb} à \argument{p\_fin} en
+tournant positivement autour de l'axe du cône\\
+
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+
+\begin{verbatim}
+#include "cantor/Cone.h"
+#include "cantor/util.h"
+
+...
+
+Cone c1 (VecDBL (1.0, 0.0, 0.0), radians (60.0));
+Cone c2 (VecDBL (0, 1, 0), radians (90.0));
+VecDBL deb, fin;
+c1.intersection (c2, &deb, &fin);
+cout << "deb = " << deb << endl;
+cout << "fin = " << fin << endl;
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation spécifiques}
+\label{sec:Cone-conseils}
+
+Les cônes sont les éléments de base pour les calculs sur la sphère
+unité. Les triangles sphériques ne peuvent pas être considérés comme
+des éléments de base, car ils peuvent être construits par des grands
+cercles de la sphère qui ne sont que des cas particuliers de
+cônes\footnote{ce sont des cônes de demi-angle d'ouverture $\pi/2$}.
+
+Il faut prendre garde que l'angle considéré dans les cônes est
+toujours le demi-angle d'ouverture, c'est à dire qu'un cône qui
+définit un grand cercle sur la sphère a un demi-angle d'ouverture de
+$\pi/2$, et qu'un cône qui recouvre la totalité de la sphère a un
+demi-angle d'ouverture de $\pi$.
+
+Les autres classes permettant de travailler sur le sphère unité sont
+Arc (cf~\ref{sec:Arc}), ArcIterateur(cf~\ref{sec:ArcIterateur}), Champ
+(cf~\ref{ref:marmottes-util}), et Secteurs
+(cf~\ref{ref:marmottes-util}).
+
+\subsubsection*{implantation}\label{sec:Cone-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:Cone-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe Cone}
+{\label{tab:Cone-att-priv}}
+{cosinus du demi-angle d'ouverture du cône}
+
+a\_ & VecDBL  & axe du cône\\
+
+cosMu\_ & double  & cosinus du demi-angle d'ouverture du cône\\
+
+sinMu\_ & double  & sinus du demi-angle d'ouverture du cône\\
+
+mu\_ & double  & demi-angle d'ouverture du cône\\
+
+\end{tableAttributsFixe}

@@ -1,0 +1,216 @@
+# $Id: test_Prems.gto.sensors,v 1.3 2001/03/30 08:50:59 luc Exp $
+
+# gyros
+GYRO+X { type           { kinematic }
+         accuracy       { 0.000001 }
+         frame          { i { 1 0 0 } j { 0 1 0 } k { 0 0 1 } }
+         sensitive_axis { 1 0 0 }
+       }
+GYRO+Y { => { GYRO+X } sensitive_axis { 0 1 0} }
+GYRO+Z { => { GYRO+X } sensitive_axis { 0 0 1} }
+
+
+# coarse roll and pitch sun sensors
+BZR
+{ type     { dihedral }
+  target   { sun }
+  accuracy { 0.000001 }
+
+  frame    { i { 0.17365  0.00000 -.98480 } 
+             j { 0.00000  1.00000 0.00000 }
+             k { 0.98480  0.00000 0.17365 }
+           }
+
+  field_of_view
+  {
+    {
+      { cone { axis  { 0.0  5.0 } angle {90} } }
+      inter
+      { cone { axis  { 0.0 -5.0 } angle {90} } }
+    }
+    inter
+    {
+      { cone { axis  {  5.0 0.0 } angle {90} } }
+      inter
+      { cone { axis  { -5.0 0.0 } angle {90} } }
+    }
+  }
+
+  sensitive_axis { 0 0 1 }
+  zero_reference { 1 0 0 }
+}
+
+BZP { => { BZR } sensitive_axis { 0 -1 0 } }
+
+MZ_SUN {
+ type             { vector }
+ target           { pseudo-sun }
+ accuracy         { 0.00001 }
+ frame            { i {1 0 0} j {0 1 0} k {0 0 1}}
+ reference        { 0 0 -1 }
+ field_of_view    { cone { axis { 0 0 -1 } angle { 180 } } }
+}
+
+AZ_SUN
+{
+  type             { dihedral }
+  accuracy         { 0.00001 }
+  frame            { i {1 0 0} j {0 1 0} k {0 0 1}}
+  target           { pseudo-sun }
+  sensitive_axis   { 0 1 0 }
+  zero_reference   { 0 0 1 }
+  field_of_view    { cone { axis { 1 0 0 } angle { 180 } } }
+}
+
+EL_SUN
+{
+  type             { plane_vector }
+  accuracy         { 0.00001 }
+  frame            { i {1 0 0} j {0 1 0} k {0 0 1}}
+  target           { pseudo-sun }
+  normal_reference { 0 -1 0 }
+  field_of_view    { cone { axis { 1 0 0 } angle { 180 } } }
+}
+
+IRES_R_NH
+{
+  type            { limb }
+  accuracy        { 0.000001 }
+
+  frame  { i { -0.999998631   0.001012474 -0.001308855 }
+           j { -0.001012290  -0.999999478 -0.000140951 }
+           k { -0.001308997  -0.000139626  0.999999134 }
+         }
+
+  sensitive_axis  {   1  0  0   }
+  zero_reference  {   0  0  1   }
+
+  field_of_view
+  { { { => {IRES_R_NH.zone_1} } and { => {IRES_R_NH.zone_4} } }
+    or
+    { { => {IRES_R_NH.zone_2} } and { => {IRES_R_NH.zone_3} } }
+  }
+
+  sun_field_of_inhibition   { cone { axis { 0 0 1 } angle {0} } }
+  moon_field_of_inhibition  { cone { axis { 0 0 1 } angle {0} } }
+  moon_phase_threshold          { 90 }
+  sun_eclipse_margin            { 0 }
+  moon_eclipse_margin           { 0 }
+  elevation { angle {   6.205 } } # <-- 2 * 48.1025 - 90
+  r_bolo    { angle {   0.9   } } # <-- 1.8 / 2
+  begin_1   { angle {  73.125 } }
+  end_1     { angle { 112.5   } }
+  begin_2   { angle { 253.125 } }
+  end_2     { angle { 292.5   } }
+  r_inhib   { angle {   2.5   } } # <-- 5.0 / 2
+
+  scan_1_without_mask
+  { { spread { axis { 0 1 0 } angle { 180 } }
+      of { rotation { axis { 0 1 0 } angle { -90 } }
+           of { rotation { axis { -1 0 0 } => { IRES_R_NH.elevation } }
+                of { cone { axis { 0 0 1 } => { IRES_R_NH.r_bolo } } }
+              }
+         }
+    }
+    inter
+    { { rotation { axis { 0 1 0 } => { IRES_R_NH.begin_1 } }
+        of       { cone { axis { 0 0 1 } angle { 90 } } }
+      }
+      inter
+      { rotation { axis { 0 1 0 } => { IRES_R_NH.end_1 } }
+        of       { cone { axis { 0 0 -1 } angle { 90 } } }
+      }
+    }
+  }
+
+  scan_2_without_mask
+  { { spread { axis { 0 -1 0 } angle { 180 } }
+      of { rotation { axis { 0 -1 0 } angle { -90 } }
+           of { rotation { axis {  1 0 0 } =>  { IRES_R_NH.elevation } }
+                of { cone { axis { 0 0 1 } =>  { IRES_R_NH.r_bolo } } }
+              }
+         }
+    }
+    inter
+    { { rotation { axis { 0 -1 0 } => { IRES_R_NH.begin_2 } }
+        of       { cone { axis { 0 0 -1 } angle { 90 } } }
+      }
+      inter
+      { rotation { axis { 0 -1 0 } => { IRES_R_NH.end_2 } }
+        of       { cone { axis { 0 0  1 } angle { 90 } } }
+      }
+    }
+  }
+
+  zone_1
+  { { => { IRES_R_NH.scan_1_without_mask } }
+    inter
+    { { rotation { axis { 0 1 0 } angle { 79.8 } }
+        of       { cone { axis { 0 0 1 } angle { 90 } } }
+      }
+      inter
+      { rotation { rotation { axis { 0 1 0 } angle { 79.8 } }
+                   of       { axis { 0 1 0 } angle { 11.2 } }
+                 }
+        of       { cone { axis { 0 0 -1 } angle { 90 } } }
+      }
+    }
+  }
+
+  zone_2
+  { { => { IRES_R_NH.scan_1_without_mask } }
+    inter
+    { { rotation { axis { 0 1 0 } angle {  2.1 } }
+        of       { cone { axis { 1 0 0 } angle { 90 } } }
+      }
+      inter
+      { rotation { rotation { axis { 0 1 0 } angle {  2.1 } }
+                   of       { axis { 0 1 0 } angle { 11.2 } }
+                 }
+        of       { cone { axis { -1 0 0 } angle { 90 } } }
+      }
+    }
+  }
+
+  zone_3
+  { { => { IRES_R_NH.scan_2_without_mask } }
+    inter
+    { { rotation { axis { 0 -1 0 } angle { 79.8 } }
+        of       { cone { axis { 0 0 1 } angle { 90 } } }
+      }
+      inter
+      { rotation { rotation { axis { 0 -1 0 } angle { 79.8 } }
+                   of       { axis { 0 -1 0 } angle { 11.2 } }
+                 }
+        of       { cone { axis { 0 0 -1 } angle { 90 } } }
+      }
+    }
+  }
+
+  zone_4
+  { { => { IRES_R_NH.scan_2_without_mask } }
+    inter
+    { { rotation { axis { 0 -1 0 } angle {  2.1 } }
+        of       { cone { axis { -1 0 0 } angle { 90 } } }
+      }
+      inter
+      { rotation { rotation { axis { 0 -1 0 } angle {  2.1 } }
+                   of       { axis { 0 -1 0 } angle { 11.2 } }
+                 }
+        of       { cone { axis { 1 0 0 } angle { 90 } } }
+      }
+    }
+  }
+
+}
+
+IRES_P_NH
+{ => {IRES_R_NH}
+  sensitive_axis { 0 1 0 }
+  zero_reference { 0 0 1 }
+  field_of_view
+  { { { => {IRES_R_NH.zone_1} } and { => {IRES_R_NH.zone_2} } }
+    or
+    { { => {IRES_R_NH.zone_3} } and { => {IRES_R_NH.zone_4} } }
+  }
+}

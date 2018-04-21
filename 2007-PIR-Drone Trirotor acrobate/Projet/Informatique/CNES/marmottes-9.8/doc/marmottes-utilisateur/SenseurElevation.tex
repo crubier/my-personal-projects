@@ -1,0 +1,94 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: SenseurElevation.tex,v 1.13 2004/06/21 14:43:11 marmottes Exp $
+\subsection{classe SenseurElevation}\label{sec:SenseurElevation}
+
+\subsubsection*{description}\label{sec:SenseurElevation-desc}
+
+Cette classe implante les senseurs mesurant des angles d'élévation par
+rapport à un plan de référence, elle permet d'obtenir les coordonnées
+sphériques d'un astre en associant un SenseurDiedre et un SenseurElevation.
+\subsubsection*{interface publique}\label{sec:SenseurElevation-int}
+\begin{verbatim}
+#include "marmottes/SenseurElevation.h"
+\end{verbatim}
+
+\begin{tableFonctionsFixe}{SenseurElevation : méthodes publiques}
+{\label{tab:SenseurElevation-met-pub}}
+{construit une instance à partir des données technologiques}
+
+\signature{\fonc{SenseurElevation}}
+          {(const string\& \argument{nom},\\
+            const RotDBL\& \argument{repere},\\
+            const VecDBL\& \argument{axeCalage},\\
+            double \argument{precision},\\
+            codeCible \argument{code},\\
+            const StationCible *\argument{ptrStation},\\
+            const VecDBL\& \argument{observe},\\
+            Parcelle* \argument{ptrChampDeVue},\\
+            Parcelle* \argument{ptrChampInhibitionSoleil},\\
+            Parcelle* \argument{ptrChampInhibitionLune},\\
+            Parcelle* \argument{ptrChampInhibitionCentral},\\
+            double \argument{margeEclipseSoleil},\\
+            double \argument{margeEclipseLune},\\
+            double \argument{seuilPhaseLune},\\
+            const VecDBL\& \argument{reference})
+          }&
+
+construit une instance à partir des données technologiques\\
+
+\hline
+
+\signature{\fonc{SenseurElevation}}
+          {(const SenseurElevation\& \argument{s})}&
+
+constructeur par copie\\
+
+\signature{SenseurElevation\& \fonc{operator =}}
+          {(const SenseurElevation\& \argument{s})}&
+
+affectation\\
+
+\hline
+
+\signature{\fonc{\~{}SenseurElevation} ()}
+          {}&
+
+destructeur, ne fait rien dans cette classe\\
+
+\hline
+
+\signature{Senseur* \fonc{copie} () const}
+          {}&
+
+opérateur de copie virtuel\\
+
+\signature{void \fonc{modeliseConsigne}}
+          {(const Etat\& \argument{etat}, double \argument{valeur})\\
+          \throw{CantorErreurs, MarmottesErreurs}}&
+
+modélise la consigne \argument{valeur} dans l'\argument{etat} fourni\\
+
+\signature{double \fonc{mesure} (const Etat\& \argument{etat})}
+          {\throw{MarmottesErreurs}}&
+
+retourne la mesure que produirait le senseur dans l'\argument{etat}
+fourni\\
+
+\end{tableFonctionsFixe}
+
+\subsubsection*{implantation}\label{sec:SenseurElevation-impl}
+Il n'y a ni attribut privé, ni attribut protégé.
+
+Les méthodes protégées sont décrites dans la table~\ref{tab:SenseurElevation-met-prot}.
+\begin{tableFonctionsFixe}{SenseurElevation : méthodes protégées}
+{\label{tab:SenseurElevation-met-prot}}
+{constructeur par défaut. Il est défini explicitement uniquement pour }
+
+\signature{\fonc{SenseurElevation} ()}
+          {}&
+
+constructeur par défaut. Il est défini explicitement uniquement pour
+prévenir celui créé automatiquement par le compilateur et ne doit pas être
+utilisé.
+\\
+\end{tableFonctionsFixe}

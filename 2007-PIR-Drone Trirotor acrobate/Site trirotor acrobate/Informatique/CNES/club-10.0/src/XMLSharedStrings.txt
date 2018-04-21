@@ -1,0 +1,10 @@
+#
+# process this file with create-xml-strings to produce a header file
+# defining the specified constants as static XMLCh arrays
+#
+# $Id: XMLSharedStrings.txt,v 1.2 2005/02/21 13:21:33 chope Exp $
+
+DATA_DTD_SYS_ID         "http://logiciels.cnes.fr/CLUB/club-data.dtd"
+DATA_DTD_PUB_ID         "-//CNES// DTD club-data XML V1.0//EN"
+UNITS_DTD_SYS_ID        "http://logiciels.cnes.fr/CLUB/club-units.dtd"
+UNITS_DTD_PUB_ID        "-//CNES// DTD club-units XML V1.0//EN"

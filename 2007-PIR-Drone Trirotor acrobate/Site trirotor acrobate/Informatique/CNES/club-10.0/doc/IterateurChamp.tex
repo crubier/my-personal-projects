@@ -1,0 +1,228 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+% $Id: IterateurChamp.tex,v 1.9 2005/03/03 16:41:40 chope Exp $
+\subsection{classe IterateurChamp}\label{sec:IterateurChamp}
+
+\subsubsection*{description}\label{sec:IterateurChamp-desc}
+
+La classe IterateurChamp permet de parcourir un TamponAscii de
+champ en champ. Les champs sont délimités par les séparateurs (la
+liste des séparateurs peut être modifiée par appel de méthode de
+TamponAscii). Si le tampon est interprété, un commentaire dans sa
+totalité est alors considéré comme un champ unique. Cet itérateur
+possède les propriétés suivantes :
+
+\begin{itemize}
+\item À un instant donné, l'itérateur possède une valeur qui désigne
+un élément du tampon. On accède à cette valeur par \texttt{valeur()} ;
+\item L'itérateur peut être incrémenté par l'opérateur ++ de manière à
+pointer sur l'élément suivant ;
+\item L'itérateur peut également être décrémenté par l'opérateur $--$ de
+manière à pointer sur l'élément précédent (itérateur bidirectionnel) ;
+\item L'itérateur permet d'accéder directement à un élément du tampon
+en utilisant la méthode \texttt{allerSur (int index)}.
+\end{itemize}
+
+\subsubsection*{interface publique}\label{sec:IterateurChamp-int}
+\begin{verbatim}
+#include "club/IterateurChamp.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{IterateurChamp : méthodes publiques}
+{\label{tab:IterateurChamp-met-pub}}
+{Si direction=1, synchronise la position de l'itérateur sur la
+position }
+
+\signature{\fonc{IterateurChamp}}{( const TamponAscii\&
+\argument{tampon},\\
+ int \argument{compterChamps} = 1 )} & 
+construit une instance parcourant \argument{tampon}
+
+\textbf{Exceptions :} manque\_guillemet\\
+
+\signature{\fonc{IterateurChamp}}{( const TamponAscii*
+\argument{tampon}, \\
+int \argument{compterChamps} = 1 ) } & 
+construit une instance parcourant \argument{tampon}
+
+\textbf{Exceptions :} manque\_guillemet\\
+
+\signature{\fonc{~IterateurChamp} ()}{} &
+destructeur de la classe.
+\\ 
+
+\hline
+
+\signature{void \fonc{premier} ()}{} &
+positionne l'itérateur sur le premier champ du tampon.
+
+\textbf{Exceptions :} iterateur\_invalide.\\
+
+\signature{void \fonc{dernier} ()}{} &
+positionne l'itérateur sur le dernier champ du tampon.
+
+\textbf{Exceptions :} tampon\_vide, manque\_guillemet,
+champ\_hors\_do\-maine, iterateur\_invalide.\\
+
+\signature{void \fonc{allerSur} (int\argument{index})}{} &
+positionne l'itérateur sur le champ numéro \argument{index}. Les
+champs sont numérotés à partir de 1.\\
+
+\hline
+
+\signature{int  \fonc{termine} () const}{} & 
+indique que l'itérateur est à la fin du tampon.\\
+
+\hline
+
+\signature{int  \fonc{nombreIterations} () const}{} & 
+retourne le nombre de champs du tampon.
+
+\textbf{Exceptions :} iterateur\_invalide.\\
+
+\signature{int  \fonc{operator++} (int) }{} & 
+positionne l'itérateur sur le champ suivant du tampon.
+
+\textbf{Exceptions :} tampon\_vide, manque\_guillemet,
+champ\_hors\_do\-maine, iterateur\_invalide. \\
+
+\signature{int  \fonc{operator$--$} (int) }{} & 
+positionne l'itérateur sur le champ précedent du tampon
+
+\textbf{Exceptions :} tampon\_vide, manque\_guillemet,
+champ\_hors\_do\-maine, iterateur\_invalide.\\
+
+\hline
+
+\signature{int  \fonc{longueurElement}}{(int \argument{avecFin} = 0)
+const} &
+retourne la longueur de l'élément pointé par l'itérateur.
+
+\textbf{Exceptions :} manque\_guillemet, iterateur\_invalide.\\
+
+\signature{const char*  \fonc{valeur} () const}{} & 
+
+retourne un pointeur sur le champ courant.
+
+\textbf{Exceptions :} iterateur\_invalide.\\
+
+\signature{void \fonc{synchronize}} {(int argument{direction} = 0)} &
+Si direction=1, synchronise la position de l'itérateur sur la
+position réelle dans le tampon (itérateur altéré lors d'une
+modification du tampon). Si direction = 0 (par défaut), synchronise
+l'état du tampon (position courante du curseur) sur la position
+courante de l'itérateur (mémorisation avant altération du tampon)
+
+\textbf{Exceptions :} iterateur\_invalide\\
+
+\signature{void  \fonc{actualise} ()}{} & 
+réinitialise l'itérateur sur le début du tampon.\\
+
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+
+\begin{verbatim}
+#include "club/IterateurChamp.h"
+#include "club/TamponAscii.h"
+...
+try
+{ TamponAscii t(nom_fichier);
+  IterateurChamp itc(t);
+  
+  // acces direct
+  itc.allerSur( 100 );
+  cout << " valeur de l'element 100 : " ;
+  cout << itc.valeur() << endl;
+}
+catch (ClubErreurs ce)
+{ //exemple de discrimination des exceptions
+  if (ce.code()==ClubErreurs::champ_hors_domaine)
+  {
+    cout << " le champ demande est hors domaine"<<endl;
+    ce.correction();
+  }
+  else
+  {
+    cout << "Erreur inattendue : "<< ce.why()<<endl;
+    ce.correction();
+  }
+}
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation
+spécifiques}\label{sec:IterateurChamp-conseils}
+Les opérateurs $++$ et $--$ retournent 0 lorsqu'ils sont arrivés à
+l'extrémité du tampon. Il est ainsi possible de tester leur code
+retour dans un while pour parcourir l'ensemble du tampon.
+
+Les classes IterateurX développées pour la bibliothèque 
+\bibliotheque{Club} sont dédiées à la gestion d'objets TamponAscii. En
+conséquence, les interfaces de ces classes n'offrent que les méthodes
+utiles à cette gestion. Si les besoins de parcours d'un tampon sont
+des besoins classiques, la classe TamponTexte offre les
+fonctionnalités nécessaires, sans nécessiter la manipulation d'itérateurs.
+
+\subsubsection*{implantation}\label{sec:IterateurChamp-impl}
+Les attributs protégés sont décrits sommairement dans la
+table~\ref{tab:IterateurChamp-att-prot}, il n'y a pas d'attribut privé.
+\begin{tableAttributsFixe}{attributs protégés de la classe IterateurChamp}
+{\label{tab:IterateurChamp-att-prot}}
+{ nombre total de champs du tampon }
+
+debutChamp\_ & char * & pointeur sur le début du champ \\
+
+numChamp\_ & int  & numéro du champ courant \\
+
+nombreChamps\_ & int  & nombre total de champs du tampon \\
+
+\end{tableAttributsFixe}
+Les méthodes protégées sont décrites dans la table~\ref{tab:IterateurChamp-met-prot}.
+\begin{tableFonctionsFixe}{IterateurChamp : méthodes protégées}
+{\label{tab:IterateurChamp-met-prot}}
+{remet l'itérateur en conformité avec l'état courant du }
+
+\signature{void  \fonc{actualiseEtat} ()}{} & remet l'itérateur en
+conformité avec l'état courant du tampon. \\
+
+\signature{int  \fonc{analyseChamp}}{(const char* \argument{mobile},
+int \argument{sauteFinLigne}) const} & 
+analyse lexicale du champ courant avec mémorisation de la valeur du
+champ.
+
+\textbf{Exceptions :} manque\_guillemet.\\
+
+\signature{int  \fonc{compteChamps}}{(char* \argument{mobile},  
+          int \argument{sauteFinLigne}) const} & 
+retourne de nombre de champs à partir d'une position donnée jusqu'à la
+fin de ligne ou de tampon.\\
+
+\signature{const char*  \fonc{sauteChampAvant}}{(char*
+\argument{mobile}, int \argument{n}, int \argument{sauteFinLigne})
+const} & 
+saute \argument{n} champs à partir d'une position donnée. \\
+
+\signature{void \fonc{rechercheChamp}} {(int \argument{c}, 
+int \argument{sauteFinLigne})} &
+recherche du champ numéro \argument{c}
+
+\textbf{Exceptions :} tampon\_vide, champ\_hors\_domaine,
+manque\_guillemet.\\
+
+\signature{void  \fonc{debutDeChamp}}{(const char *\argument{mobile},
+int \argument{sauteFinLigne})} & 
+positionne l'itérateur sur un début de champ. \\
+
+\signature{\fonc{IterateurChamp} ()}{} &
+constructeur par défaut.
+\\
+
+\signature{\fonc{IterateurChamp}}{(const IterateurChamp \&
+\argument{other})} &
+constructeur par copie.
+\\
+
+\signature{IterateurChamp\& \fonc{operator =}} {(const
+IterateurChamp\& \argument{other})}&
+affectation.
+\\
+
+
+\end{tableFonctionsFixe}

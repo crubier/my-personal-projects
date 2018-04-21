@@ -1,0 +1,86 @@
+<!-- $Id: club-data.dtd,v 1.2 2005/02/21 13:32:24 chope Exp $ -->
+
+
+<!ENTITY deg    "&#x00B0;">
+<!ENTITY micro  "&#x00B5;">
+<!ENTITY ohm    "&#x2126;">
+
+<!--    DATA HANDLING    -->
+<!ENTITY % common-attributes "
+        name            CDATA           #IMPLIED
+        index           CDATA           #IMPLIED
+        comment         CDATA           #IMPLIED
+        ">
+
+<!ENTITY % data-attributes "
+        value           CDATA           #REQUIRED
+        ">
+
+<!ENTITY % reference-attributes "
+        reference       CDATA           #REQUIRED
+        ">
+
+<!ELEMENT real-data EMPTY>
+<!ATTLIST real-data 
+        %common-attributes;
+        %data-attributes;
+        unit            CDATA           ""
+         >
+
+<!ELEMENT int-data EMPTY>
+<!ATTLIST int-data 
+        %common-attributes;
+        %data-attributes;
+         >
+
+<!ELEMENT string-data EMPTY>
+<!ATTLIST string-data 
+        %common-attributes;
+        %data-attributes;
+        >
+
+<!ELEMENT reference EMPTY>
+<!ATTLIST reference 
+        %common-attributes;
+        %reference-attributes;
+        >
+
+<!ELEMENT int-table (int-data)*>
+<!ATTLIST int-table 
+        %common-attributes;
+        >
+
+<!ELEMENT real-table (real-data)*>
+<!ATTLIST real-table 
+        %common-attributes;
+        default-unit CDATA  ""
+        >
+
+<!ELEMENT string-table (string-data)*>
+<!ATTLIST string-table 
+        %common-attributes;
+        >
+
+<!ELEMENT structure-table (structure)*>
+<!ATTLIST structure-table 
+        %common-attributes;
+        >
+
+<!ELEMENT table-table (structure-table | table-table | int-table | real-table | string-table )*>
+<!ENTITY % all-tables "
+        int-table | real-table | string-table | structure-table | table-table
+        ">
+
+<!ELEMENT structure ( structure  | reference | real-data | int-data | string-data | %all-tables; )* >
+<!ATTLIST structure  
+        %common-attributes;
+        >
+
+<!ELEMENT include EMPTY >
+<!ATTLIST include included-file CDATA #REQUIRED >
+
+<!ELEMENT club-data ( include | structure | reference | real-data | int-data | string-data |  %all-tables; )* >
+<!ATTLIST club-data 
+          version     CDATA   #REQUIRED
+          units-file  CDATA  "club-units.xml"
+>

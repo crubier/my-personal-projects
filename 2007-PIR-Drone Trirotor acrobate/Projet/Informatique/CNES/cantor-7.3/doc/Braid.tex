@@ -1,0 +1,218 @@
+% -*- mode: latex; tex-main-file: "cantor.tex" -*-
+% $Id: Braid.tex,v 1.7 2003/07/09 08:55:11 cantor Exp $
+\subsection{classe Braid}\label{sec:Braid}
+
+\subsubsection*{description}\label{sec:Braid-desc}
+
+Cette classe modélise un entrelacement d'arcs frontières sur la sphère
+unité. Elle est utilisée pour calculer la frontière résultant de la
+combinaison de deux champs par réunion ouintersection.
+
+La combinaison des frontières de deux champs se fait en redécoupant
+tous les arcs frontières aux niveau des points d'intersection entre
+frontières, puis en marquant différemment les arcs qui font partie de
+l'intersection et ceux qui font partie de la réunion. Cette classe
+propose les services permettant de réaliser toutes ces opérations
+(découpage, marquage, sélection des arcs selon l'opération désirée).
+
+\subsubsection*{interface publique}\label{sec:Braid-int}
+\begin{verbatim}
+#include "cantor/Braid.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{Braid : méthodes publiques}
+{\label{tab:Braid-met-pub}}
+{initialise toutes les marques de tous les arcs à la valeur}
+
+\signature{\fonc{Braid} ()}
+          {}&
+
+construit un entrelacs par défaut\\
+
+\signature{\fonc{Braid}}
+          {(const Arc\& \argument{a},\\
+            const VecDBL\& \argument{axis},double \argument{spreading})\\
+           \throw{CantorErreurs}}&
+
+construit un entrelacs par \emph{étalement} d'un arc à l'aide d'une
+rotation définie par \argument{axis} et \argument{spreading}\\
+
+\hline
+
+\signature{\fonc{Braid} (const Braid\& \argument{b})}
+          {}&
+
+constructeur par copie\\
+
+\signature{Braid\& \fonc{operator =} (const Braid\& \argument{b})}
+          {}&
+
+affectation\\
+
+\hline
+
+\signature{\fonc{~Braid} ()}{} &
+destructeur
+\\
+
+\hline
+
+\signature{static void \fonc{intertwine}}
+          {(Braid *ptrB1, Braid *ptrB2)\\
+           \throw{CantorErreurs}}&
+
+entrelace deux instances\\
+
+\signature{void \fonc{absorb} (Braid *\argument{ptrOther})}
+           {}&
+
+absorbe tout le contenu d'un entrelacs dans l'instance\\
+
+\hline
+
+\signature{void \fonc{initAnnotations} ()}
+          {}&
+
+initialise toutes les marques de tous les arcs à la valeur
+AnnotatedArc\verb=::=notAnnotated\\
+
+\signature{void \fonc{identifyArcs}}
+          {(const Field *\argument{ptrF1}, const Field
+          *\argument{ptrF2})}&
+
+identifie et marque les arcs non ambigüs\\
+
+\signature{bool \fonc{isCompletelyAnnotated} () const}
+          {}&
+
+teste si l'ensemble des arcs de l'entrelacs est marqué\\
+
+\hline
+
+\signature{void \fonc{simplify} ()}
+          {\throw{CantorErreurs}}&
+
+élimine les arcs et n\oe{}uds inutiles de l'entrelacs (arcs nuls)\\
+
+\signature{bool \fonc{coveringHeuristic}}
+          {(const Arc\& \argument{a},\\
+            const VecDBL\& \argument{axis}, double \argument{spreading})\\
+           \throw{CantorErreurs}}&
+
+tente de marquer les arcs recouverts par l'étalement de l'arc origine\\
+
+\signature{bool \fonc{closeParallelsHeuristic} ()}
+          {\throw{CantorErreurs}}&
+
+tente de marquer les arcs parallèles proches
+
+tente de marquer les arcs recouverts par l'étalement de l'arc origine\\
+
+\signature{bool \fonc{splittingHeuristic} ()}
+          {\throw{CantorErreurs}}&
+
+tente de redécouper les arcs dont seule une zone est ambigüe de façon
+à permettre leur marquage\\
+
+\signature{bool \fonc{equivalentPathsHeuristic} ()}
+          {}&
+
+tente de marquer les arcs parallèles qui se perturbent mutuellement\\
+
+\hline
+
+\signature{void \fonc{intersectionBoundary}}
+          {(vector< vector<Arc> > *\argument{ptrB}) const}&
+
+initialise la frontière pointée par l'argument avec les arcs
+représentant la frontière de l'intersection des champs initiaux\\
+
+\signature{void \fonc{unionBoundary}}
+          {(vector< vector<Arc> > *\argument{ptrB}) const}&
+
+initialise la frontière pointée par l'argument avec les arcs
+représentant la frontière de la réunion des champs initiaux\\
+
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+
+\begin{verbatim}
+#include "marmottes-utilisateur/Braid.h"
+
+const Field&
+Field::combine (const Field& c, bool intersection)
+  throw (CantorErreurs)
+{ // generic function to compute both reunion and intersection
+
+  ...
+
+  // create the two strands of a braid from the boundaries of both fields
+  Braid b1 (this, boundary_.begin (), boundary_.end ());
+  Braid b2 (&c, c.boundary_.begin (), c.boundary_.end ());
+  Braid::intertwine (&b1, &b2);
+
+  // gather the strands in a uniq list
+  b1.absorb (&b2);
+  b1.simplify ();
+
+  // at the beginning, no arc is annotated
+  b1.initAnnotations ();
+
+  // annotation loop
+  for (bool modification = true; modification;)
+  {
+    modification = false;
+
+    // annotate unambiguous arcs
+    b1.identifyArcs (this, &c);
+
+    if (! b1.isCompletelyAnnotated ())
+    {
+      // there are some ambiguous arcs left
+      // we apply several heuristics to remove the ambiguities
+
+      // heuristic 1:
+      // splitting arcs where only one part is ambiguous
+      modification = b1.splittingHeuristic ();
+
+      // heuristic 2:
+      // detect parallel paths
+      if (!modification)
+        modification = b1.equivalentPathsHeuristic ();
+
+      // more heuristics can be added here
+
+      if (! modification)
+        throw CantorErreurs (CantorErreurs::heuristic_failure);
+
+    }
+
+  }
+
+  // select the arcs according to the desired operation (intersection vs union)
+  Boundary b;
+  if (intersection)
+    b1.intersectionBoundary (&b);
+  else
+    b1.unionBoundary        (&b);
+
+  ...
+
+}
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation
+spécifiques}\label{sec:Braid-conseils}
+La classe Braid est utilisée par la classe Field pour calculer la
+frontière résultant de la combinaison de deux champs par réunion ou
+intersection. Elle n'a pas d'autre utilisation.
+
+\subsubsection*{implantation}\label{sec:Braid-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:Braid-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe Braid}
+{\label{tab:Braid-att-priv}}
+{liste de stockage des arcs}
+
+arcs\_ & list<AnnotatedArc>  & liste de stockage des arcs \\
+
+\end{tableAttributsFixe}

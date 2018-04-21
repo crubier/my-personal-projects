@@ -1,0 +1,382 @@
+# Identificateur RCS identifier: "$Id: std15.fr,v 1.4 2001/04/05 10:32:30 luc Exp $ "
+# This file contains all base parameters needed to construct the
+# field of view of the SODERN STD15 earth sensor
+
+# In order to use these fields of view, one MUST define the telecommanded
+# angles in a STD15_PARAMETERS bloc.
+# The default inhibition parameters are the most restrictive ones
+# (speed 5 Hz, full moon, moon phase threshold : 180), the user
+# can choose other parameters by a bloc "pointer" in his main sensor bloc :
+#
+# STD15_PARAMETERS { ZPT1 { angle { 79.8 } }
+#                    ZPT2 { angle {  2.1 } }
+#                    ZPT3 { angle { 79.8 } }
+#                    ZPT4 { angle {  2.1 } }
+#                    LG   { angle { 11.2 } }
+#                  }
+# MY_SENSOR_R
+# { => { STD15_BASE_ROLL }
+#   frame     { i { 1 0 0 } j { 0 1 0 } k { 0 0 1 } }
+#
+#   sun_field_of_inhibition
+#   { => { STD15_BASE_ROLL.1_25Hz.sun.scans_1_2 } }
+#
+#   moon_field_of_inhibition
+#   { => { STD15_BASE_ROLL.1_25Hz.half_moon.scans_1_2 } }
+#
+#   moon_phase_threshold { 90 }    quarter moon
+#
+# }
+# MY_SENSOR_P
+# { => { MY_SENSOR_R }
+#   sensitive_axis { 0 1 0 } zero_reference { 0 0 1 }
+# }
+
+STD15_BASE_ROLL
+{ # general definitions
+  type            { limbe }
+  precision        { 0.002  } # measurement accuracy = 0.02
+
+  axe_sensible  {   1  0  0   }
+  reference_zero  {   0  0  1   }
+
+  champ_de_vue
+  { { { => {STD15_BASE_ROLL.zone_1} } et { => {STD15_BASE_ROLL.zone_4} } }
+    ou
+    { { => {STD15_BASE_ROLL.zone_2} } et { => {STD15_BASE_ROLL.zone_3} } }
+  }
+
+  champ_d_inhibition_soleil  { => { STD15_BASE_ROLL.5Hz.soleil.scans_1_2       } }
+  champ_d_inhibition_lune { => { STD15_BASE_ROLL.5Hz.full_moon.scans_1_2 } }
+
+   seuil_phase_lune          { 180 } # new moon
+   marge_eclipse_soleil            { 0 }
+   marge_eclipse_lune           { 0 }
+
+  # the construction angles used here are :
+  #   spinning mirror inclination : 48.1025 degrees
+  #   bolometer diameter          : 1.8 degrees
+  #   thermal hood mask 1         : 292.5 to  73.125 degrees
+  #   thermal hood mask 2         : 112.5 to 253.125 degrees
+  #   inhibition scan diameter    : 5 degrees
+  elevation { angle {   6.205 } } # <-- 2 * 48.1025 - 90
+  r_bolo    { angle {   0.9   } } # <-- 1.8 / 2
+  begin_1   { angle {  73.125 } }
+  end_1     { angle { 112.5   } }
+  begin_2   { angle { 253.125 } }
+  end_2     { angle { 292.5   } }
+  r_inhib   { angle {   2.5   } } # <-- 5.0 / 2
+
+  scan_1_without_mask
+  { { balayage { axe { 0 1 0 } angle { 180 } }
+      de { rotation { axe { 0 1 0 } angle { -90 } }
+           de { rotation { axe { -1 0 0 } => { STD15_BASE_ROLL.elevation } }
+                de { cone { axe { 0 0 1 } => { STD15_BASE_ROLL.r_bolo } } }
+              }
+         }
+    }
+    inter
+    { { rotation { axe { 0 1 0 } => { STD15_BASE_ROLL.begin_1 } }
+        de       { cone { axe { 0 0 1 } angle { 90 } } }
+      }
+      inter
+      { rotation { axe { 0 1 0 } => { STD15_BASE_ROLL.end_1 } }
+        de       { cone { axe { 0 0 -1 } angle { 90 } } }
+      }
+    }
+  }
+
+  scan_2_without_mask
+  { { balayage { axe { 0 -1 0 } angle { 180 } }
+      de { rotation { axe { 0 -1 0 } angle { -90 } }
+           de { rotation { axe {  1 0 0 } =>  { STD15_BASE_ROLL.elevation } }
+                de { cone { axe { 0 0 1 } =>  { STD15_BASE_ROLL.r_bolo } } }
+              }
+         }
+    }
+    inter
+    { { rotation { axe { 0 -1 0 } => { STD15_BASE_ROLL.begin_2 } }
+        de       { cone { axe { 0 0 -1 } angle { 90 } } }
+      }
+      inter
+      { rotation { axe { 0 -1 0 } => { STD15_BASE_ROLL.end_2 } }
+        de       { cone { axe { 0 0  1 } angle { 90 } } }
+      }
+    }
+  }
+
+  zone_1
+  { { => { STD15_BASE_ROLL.scan_1_without_mask } }
+    inter
+    { { rotation { axe { 0 1 0 } => { STD15_PARAMETERS.ZPT1 } }
+        de       { cone { axe { 0 0 1 } angle { 90 } } }
+      }
+      inter
+      { rotation { rotation { axe { 0 1 0 } => { STD15_PARAMETERS.ZPT1 } }
+                   de       { axe { 0 1 0 } => { STD15_PARAMETERS.LG   } }
+                 }
+        de       { cone { axe { 0 0 -1 } angle { 90 } } }
+      }
+    }
+  }
+
+  zone_2
+  { { => { STD15_BASE_ROLL.scan_1_without_mask } }
+    inter
+    { { rotation { axe { 0 1 0 } => { STD15_PARAMETERS.ZPT2 } }
+        de       { cone { axe { 1 0 0 } angle { 90 } } }
+      }
+      inter
+      { rotation { rotation { axe { 0 1 0 } => { STD15_PARAMETERS.ZPT2 } }
+                   de       { axe { 0 1 0 } => { STD15_PARAMETERS.LG   } }
+                 }
+        de       { cone { axe { -1 0 0 } angle { 90 } } }
+      }
+    }
+  }
+
+  zone_3
+  { { => { STD15_BASE_ROLL.scan_2_without_mask } }
+    inter
+    { { rotation { axe { 0 -1 0 } => { STD15_PARAMETERS.ZPT3 } }
+        de       { cone { axe { 0 0 1 } angle { 90 } } }
+      }
+      inter
+      { rotation { rotation { axe { 0 -1 0 } => { STD15_PARAMETERS.ZPT3 } }
+                   de       { axe { 0 -1 0 } => { STD15_PARAMETERS.LG   } }
+                 }
+        de       { cone { axe { 0 0 -1 } angle { 90 } } }
+      }
+    }
+  }
+
+  zone_4
+  { { => { STD15_BASE_ROLL.scan_2_without_mask } }
+    inter
+    { { rotation { axe { 0 -1 0 } => { STD15_PARAMETERS.ZPT4 } }
+        de       { cone { axe { -1 0 0 } angle { 90 } } }
+      }
+      inter
+      { rotation { rotation { axe { 0 -1 0 } => { STD15_PARAMETERS.ZPT4 } }
+                   de       { axe { 0 -1 0 } => { STD15_PARAMETERS.LG   } }
+                 }
+        de       { cone { axe { 1 0 0 } angle { 90 } } }
+      }
+    }
+  }
+
+  # STD15 earth sensor inhibitions depends on the rotating mirror speed and
+  # on the brightness of the perturbing body. The fields defined here models
+  # the following table (all angles are in degrees) :
+  #   ----------------------------------------------------------------------
+  #   |     conditions     | alpha min | alpha max | delta min | delta max |
+  #   |--------------------|-----------|-----------|-----------|-----------|
+  #   |     sun       5Hz  |    -60    |    +10    |   3.705   |   8.705   |
+  #   |     sun     1.25Hz |    -25    |    +10    |   3.705   |   8.705   |
+  #   |--------------------|-----------|-----------|-----------|-----------|
+  #   |   full moon   5Hz  |    -44    |    +10    |   3.705   |   8.705   |
+  #   |   full moon 1.25Hz |    -19    |    +10    |   3.705   |   8.705   |
+  #   |--------------------|-----------|-----------|-----------|-----------|
+  #   |   half moon   5Hz  |    -40    |    +10    |   3.705   |   8.705   |
+  #   |   half moon 1.25Hz |    -18    |    +10    |   3.705   |   8.705   |
+  #   ----------------------------------------------------------------------
+  inhibition_base_1 # this fields corresponds to an alpha min of -90 degrees
+  { { balayage { axe { 0  1 0 } angle { 180 } }
+      de { rotation { axe { 0  1 0 } angle { -90 } }
+           de { rotation { axe { -1 0 0 } => {STD15_BASE_ROLL.elevation} }
+                de { cone { axe { 0 0 1 } => {STD15_BASE_ROLL.r_inhib} } }
+              }
+         }
+    }
+    inter
+    { rotation { axe { 0 1 0 } angle { 10 } }
+      de       { cone { axe { -1 0 0 } angle { 90 } } }
+    }
+  }
+
+  inhibition_base_2 # this fields corresponds to an alpha min of -90 degrees
+  { { balayage { axe { 0 -1 0 } angle { 180 } }
+      de { rotation { axe { 0 -1 0 } angle { -90 } }
+           de { rotation { axe {  1 0 0 } => {STD15_BASE_ROLL.elevation} }
+                de { cone { axe { 0 0 1 } => {STD15_BASE_ROLL.r_inhib} } }
+              }
+         }
+    }
+    inter
+    { rotation { axe { 0 -1 0 } angle { 10 } }
+      de       { cone { axe { 1 0 0 } angle { 90 } } }
+    }
+  }
+
+  5Hz
+  { soleil         { # alpha min = -60 degrees
+
+                  scan_1
+                  { { => { STD15_BASE_ROLL.inhibition_base_1 } }
+                    inter
+                    { rotation { axe { 0 1 0 } angle { -60 } }
+                      de       { cone { axe { 1 0 0 } angle { 90 } } }
+                    }
+                  }
+
+                  scan_2
+                  { { => { STD15_BASE_ROLL.inhibition_base_2 } }
+                    inter
+                    { rotation { axe { 0 -1 0 } angle { -60 } }
+                      de       { cone { axe { -1 0 0 } angle { 90 } } }
+                    }
+                  }
+
+                  scans_1_2
+                  { { => { STD15_BASE_ROLL.5Hz.soleil.scan_1 } }
+                    union
+                    { => { STD15_BASE_ROLL.5Hz.soleil.scan_2 } }
+                  }
+
+                }
+
+    full_moon   { # alpha min = -44 degrees
+
+                  scan_1
+                  { { => { STD15_BASE_ROLL.inhibition_base_1 } }
+                    inter
+                    { rotation { axe { 0 1 0 } angle { -44 } }
+                      de       { cone { axe { 1 0 0 } angle { 90 } } }
+                    }
+                  }
+
+                  scan_2
+                  { { => { STD15_BASE_ROLL.inhibition_base_2 } }
+                    inter
+                    { rotation { axe { 0 -1 0 } angle { -44 } }
+                      de       { cone { axe { -1 0 0 } angle { 90 } } }
+                    }
+                  }
+
+                  scans_1_2
+                  { { => { STD15_BASE_ROLL.5Hz.full_moon.scan_1 } }
+                    union
+                    { => { STD15_BASE_ROLL.5Hz.full_moon.scan_2 } }
+                  }
+
+                }
+
+    half_moon   { # alpha min = -40 degrees
+
+                  scan_1
+                  { { => { STD15_BASE_ROLL.inhibition_base_1 } }
+                    inter
+                    { rotation { axe { 0 1 0 } angle { -40 } }
+                      de       { cone { axe { 1 0 0 } angle { 90 } } }
+                    }
+                  }
+
+                  scan_2
+                  { { => { STD15_BASE_ROLL.inhibition_base_2 } }
+                    inter
+                    { rotation { axe { 0 -1 0 } angle { -40 } }
+                      de       { cone { axe { -1 0 0 } angle { 90 } } }
+                    }
+                  }
+
+                  scans_1_2
+                  { { => { STD15_BASE_ROLL.5Hz.half_moon.scan_1 } }
+                    union
+                    { => { STD15_BASE_ROLL.5Hz.half_moon.scan_2 } }
+                  }
+
+                }
+  }
+
+  1_25Hz
+  { soleil         { # alpha min = -25 degrees
+
+                  scan_1
+                  { { => { STD15_BASE_ROLL.inhibition_base_1 } }
+                    inter
+                    { rotation { axe { 0 1 0 } angle { -25 } }
+                      de       { cone { axe { 1 0 0 } angle { 90 } } }
+                    }
+                  }
+
+                  scan_2
+                  { { => { STD15_BASE_ROLL.inhibition_base_2 } }
+                    inter
+                    { rotation { axe { 0 -1 0 } angle { -25 } }
+                      de       { cone { axe { -1 0 0 } angle { 90 } } }
+                    }
+                  }
+
+                  scans_1_2
+                  { { => { STD15_BASE_ROLL.1_25Hz.soleil.scan_1 } }
+                    union
+                    { => { STD15_BASE_ROLL.1_25Hz.soleil.scan_2 } }
+                  }
+
+                }
+
+    full_moon   { # alpha min = -19 degrees
+
+                  scan_1
+                  { { => { STD15_BASE_ROLL.inhibition_base_1 } }
+                    inter
+                    { rotation { axe { 0 1 0 } angle { -19 } }
+                      de       { cone { axe { 1 0 0 } angle { 90 } } }
+                    }
+                  }
+
+                  scan_2
+                  { { => { STD15_BASE_ROLL.inhibition_base_2 } }
+                    inter
+                    { rotation { axe { 0 -1 0 } angle { -19 } }
+                      de       { cone { axe { -1 0 0 } angle { 90 } } }
+                    }
+                  }
+
+                  scans_1_2
+                  { { => { STD15_BASE_ROLL.1_25Hz.full_moon.scan_1 } }
+                    union
+                    { => { STD15_BASE_ROLL.1_25Hz.full_moon.scan_2 } }
+                  }
+
+                }
+
+    half_moon   { # alpha min = -18 degrees
+
+                  scan_1
+                  { { => { STD15_BASE_ROLL.inhibition_base_1 } }
+                    inter
+                    { rotation { axe { 0 1 0 } angle { -18 } }
+                      de       { cone { axe { 1 0 0 } angle { 90 } } }
+                    }
+                  }
+
+                  scan_2
+                  { { => { STD15_BASE_ROLL.inhibition_base_2 } }
+                    inter
+                    { rotation { axe { 0 -1 0 } angle { -18 } }
+                      de       { cone { axe { -1 0 0 } angle { 90 } } }
+                    }
+                  }
+
+                  scans_1_2
+                  { { => { STD15_BASE_ROLL.1_25Hz.half_moon.scan_1 } }
+                    union
+                    { => { STD15_BASE_ROLL.1_25Hz.half_moon.scan_2 } }
+                  }
+
+                }
+  }
+
+}
+
+STD15_BASE_PITCH
+{      =>        { STD15_BASE_ROLL }
+  axe_sensible { 0 1 0 }
+  reference_zero { 0 0 1 }
+  champ_de_vue
+  { { { => {STD15_BASE_ROLL.zone_1} } et { => {STD15_BASE_ROLL.zone_2} } }
+    ou
+    { { => {STD15_BASE_ROLL.zone_3} } et { => {STD15_BASE_ROLL.zone_4} } }
+  }
+}

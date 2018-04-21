@@ -1,0 +1,10 @@
+# Ceci est un fichier de domaine de traduction d'essai
+# identificateur RCS : "$Id: test_Traducteur.fr,v 3.1 1997/03/19 16:09:16 luc Exp $"
+un    un
+
+deux
+# commentaire entre deux champs
+"deux"
+
+xxx  "XAA\b\n"
+"A-Z\t\173\175" xxx

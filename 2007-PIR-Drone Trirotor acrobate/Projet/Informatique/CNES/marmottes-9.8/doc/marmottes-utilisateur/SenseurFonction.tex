@@ -1,0 +1,163 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: SenseurFonction.tex,v 1.9 2004/06/21 14:43:13 marmottes Exp $
+\subsection{classe SenseurFonction}\label{sec:SenseurFonction}
+
+\subsubsection*{description}\label{sec:SenseurFonction-desc}
+
+Cette classe abstraite est l'interface d'accès aux senseurs mesurant
+une fonction scalaire définie sur la sphère unité. Ce type de senseurs
+a été créé à l'origine pour faciliter le calcul de bilans de liaison,
+les fonctions modélisées représentant les gains d'antennes bord. C'est
+en raison de cette application que ces senseurs sont des
+spécialisations de la classe SenseurOptique, afin de bénéficier de la
+notion de champ de vue, généralement associée à une iso-valeur du
+gain.
+
+Les fonctions implantées par les classes dérivées étant généralement
+difficiles à inverser, on considère par défaut que l'on ne \emph{peut
+pas utiliser ces senseurs en consigne}, ils sont destinés à être
+utilisés en \emph{mesure uniquement}.
+
+Cette classe introduit la méthode fonction que les classes dérivée
+doivent implémenter pour le calcul explicite de la fonction mesurée.
+\subsubsection*{interface publique}\label{sec:SenseurFonction-int}
+\begin{verbatim}
+#include "marmottes/SenseurFonction.h"
+\end{verbatim}
+
+\begin{tableFonctionsFixe}{SenseurFonction : méthodes publiques}
+{\label{tab:SenseurFonction-met-pub}}
+{construit une instance à partir des données technologiques   }
+
+\signature{\fonc{SenseurFonction}}
+          {(const string\& \argument{nom},\\
+            const RotDBL\& \argument{repere},\\
+            const VecDBL\& \argument{axeCalage},\\
+            double \argument{precision},\\
+            codeCible \argument{code},\\
+            const StationCible *\argument{ptrStation},\\
+            const VecDBL\& \argument{observe},\\
+            Parcelle* \argument{ptrChampDeVue},\\
+            Parcelle* \argument{ptrChampInhibitionSoleil},\\
+            Parcelle* \argument{ptrChampInhibitionLune},\\
+            Parcelle* \argument{ptrChampInhibitionCentral},\\
+            double \argument{margeEclipseSoleil},\\
+            double \argument{margeEclipseLune},\\
+            double \argument{seuilPhaseLune},\\
+            const VecDBL\& \argument{axe},\\
+            const VecDBL\& \argument{origine})\\
+            \throw{CantorErreurs}
+          }&
+
+construit une instance à partir des données technologiques\\
+
+\hline
+
+\signature{\fonc{SenseurFonction}}
+          {(const SenseurFonction\& \argument{s})}&
+constructeur par copie\\
+
+\signature{SenseurFonction\& \fonc{operator =}}
+          {(const SenseurFonction\& \argument{s})}&
+affectation\\
+
+\hline
+
+\signature{\fonc{\~{}SenseurFonction} ()}{} &
+destructeur, ne fait rien dans cette classe\\
+
+\hline
+
+\signature{void  \fonc{respecterMesures} ()}{} &
+la classe n'ayant aucune information sur la signification des mesures,
+cette fonction est sans effet ici\\
+
+\signature{void  \fonc{convertirMesures} ()}{} &
+la classe n'ayant aucune information sur la signification des mesures,
+cette fonction est sans effet ici\\
+
+\hline
+
+\signature{void \fonc{nouveauRepere}}
+          {(const RotDBL\& \argument{nouveau})} &
+remplace le repère du senseur par le \argument{nouveau}\\
+
+\signature{int \fonc{methode} () const}{} &
+les fonctions implantées par les classes dérivées étant généralement
+difficiles à inverser, l'implantation de cette méthode fournie ici est
+de retourner la constante \texttt{aucuneMethode}, qui implique que
+l'on ne \emph{peut pas utiliser ces senseurs en consigne}\\
+
+\signature{void \fonc{modeliseConsigne}}
+          {(const Etat\& etat, double valeur)\\
+            \throw{CantorErreurs, MarmottesErreurs}
+          }&
+ce senseur ne peut pas être utilisé en consigne, cette méthode
+retourne donc systématiquement une erreur\\
+
+\signature{double \fonc{mesure}}
+          {(const Etat\& etat)\\
+            \throw{MarmottesErreurs}
+          }&
+retourne la mesure que fournirait le senseur dans l'état fourni, c'est
+à dire la valeur de la fonction sous-jacente dans la direction de la cible\\
+
+\signature{ValeurDerivee1  \fonc{foncEcart}}
+          {(const Etat\& \argument{etatPrecedent},\\
+            const Etat\& \argument{etatResolution},\\
+            const RotVD1\& \argument{attitude},\\
+            const VecVD1\& \argument{spin} )} &
+ce senseur ne peut pas être utilisé en consigne,
+on retourne donc systématiquement la valeur 1.0
+\\
+
+\signature{double \fonc{fonction}}
+          {(double \argument{azimut}, double \argument{depointage}) const\\
+           \throw{MarmottesErreurs} = 0
+          } &
+
+cette méthode virtuelle évalue la valeur de fonction sous-jacente au
+point défini par \argument{azimut} et \argument{depointage}. Elle doit
+être implantée par les classes dérivées. Le \argument{depointage} est
+l'angle entre le point de calcul et l'axe donné à la construction,
+l'\argument{azimut} est l'angle autour de l'axe, compté à partir de
+l'origine donnée à la construction. À titre d'exemple, si l'on
+considère que l'axe était $\vec{k}$ et que l'origine était $\vec{i}$,
+alors la direction $\vec{i}$ correspond à \argument{azimut}=0 et
+\argument{depointage}=$\pi/2$, la direction $\vec{j}$ correspond à
+\argument{azimut}=$\pi/2$ et \argument{depointage}=$\pi/2$, et la
+direction $\vec{k}$ correspond à \argument{azimut} quelconque et
+\argument{depointage}=0\\
+\end{tableFonctionsFixe}
+
+\subsubsection*{implantation}\label{sec:SenseurFonction-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:SenseurFonction-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe SenseurFonction}
+{\label{tab:SenseurFonction-att-priv}}
+{deuxième axe canonique du repère de calcul}
+
+i\_ & VecDBL  & premier axe canonique du repère de calcul de la
+fonction sous-jacente\\
+
+j\_ & VecDBL  & deuxième axe canonique du repère de calcul de la
+fonction sous-jacente\\
+
+k\_ & VecDBL  & troisième axe canonique du repère de calcul de la
+fonction sous-jacente\\
+
+\end{tableAttributsFixe}
+
+Les méthodes protégées sont décrites dans la table~\ref{tab:SenseurFonction-met-prot}.
+\begin{tableFonctionsFixe}{SenseurFonction : méthodes protégées}
+{\label{tab:SenseurFonction-met-prot}}
+{constructeur par défaut. Il est défini explicitement uniquement pour }
+
+\signature{\fonc{SenseurFonction} ()}
+          {}&
+
+constructeur par défaut. Il est défini explicitement uniquement pour
+prévenir celui créé automatiquement par le compilateur et ne doit pas être
+utilisé.
+\\
+\end{tableFonctionsFixe}

@@ -1,0 +1,325 @@
+#VRML_SIM V4.0 utf8
+#000000
+WorldInfo {
+  info [
+    "Description"
+    "Author: first name last name <e-mail>"
+    "Date: DD MMM YYYY"
+  ]
+}
+Viewpoint {
+  orientation 0.42026 0.902595 0.0932986 5.36767
+  position -1.84666 0.949035 1.74417
+}
+Background {
+  skyColor [
+    0.4 0.7 1
+  ]
+}
+PointLight {
+  ambientIntensity 0.5
+  attenuation 1 1 1
+  intensity 0.6
+  location 0.5 0.5 0.5
+}
+PointLight {
+  ambientIntensity 0.5
+  attenuation 1 1 1
+  intensity 0.6
+  location 0.5 0.5 -0.5
+}
+PointLight {
+  ambientIntensity 0.5
+  attenuation 1 1 1
+  intensity 0.6
+  location -0.5 0.5 -0.5
+}
+PointLight {
+  ambientIntensity 0.5
+  attenuation 1 1 1
+  intensity 0.6
+  location -0.5 0.5 0.5
+}
+DEF FLOOR Solid {
+  translation -0.5 0 -0.5
+  children [
+    Shape {
+      geometry ElevationGrid {
+        color Color {
+          color [
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+            1 1 0
+            0.803922 0.498039 0.298039
+          ]
+        }
+        colorPerVertex FALSE
+        xDimension 11
+        xSpacing 0.1
+        zDimension 11
+        zSpacing 0.1
+      }
+    }
+  ]
+  boundingObject IndexedFaceSet {
+    coord Coordinate {
+      point [
+        1 0 1
+        1 0 0
+        0 0 0
+        0 0 1
+      ]
+    }
+    coordIndex [
+      0, 1, 2, 3
+    ]
+  }
+}
+CustomRobot {
+  rotation 1 0 0 0
+  children [
+    Solid {
+      rotation 0 1 0 0.15
+      children [
+        DEF QUART_HELICO Solid {
+          rotation -1 0 0 0
+          children [
+            Solid {
+              translation 0 0 0.1125
+              rotation 1 0 0 1.57
+              children [
+                Shape {
+                  appearance Appearance {
+                    material Material {
+                      diffuseColor 0 0 0
+                    }
+                  }
+                  geometry Cylinder {
+                    height 0.225
+                    radius 0.004
+                  }
+                }
+              ]
+              name "Barre"
+            }
+            Solid {
+              translation 0 0.01 0.2126
+              rotation -1 0 0 0
+              children [
+                Shape {
+                  appearance Appearance {
+                    material Material {
+                      diffuseColor 1 1 1
+                    }
+                  }
+                  geometry Cylinder {
+                    height 0.002
+                    radius 0.1425
+                  }
+                }
+              ]
+              name "Hélice"
+            }
+            Solid {
+              translation 0 -0.012 0.2
+              rotation -1 0 0 0
+              children [
+                Shape {
+                  appearance Appearance {
+                    material Material {
+                      diffuseColor 1 0 0
+                    }
+                  }
+                  geometry Cylinder {
+                    height 0.024
+                    radius 0.0085
+                  }
+                }
+              ]
+              name "Moteur"
+            }
+          ]
+          name "Quart d'hélico"
+        }
+      ]
+      name "Quart Z +"
+    }
+    Solid {
+      rotation 0 1 0 1.57
+      children [
+        USE QUART_HELICO
+      ]
+      name "Quart X +"
+    }
+    Solid {
+      rotation 0 1 0 3.14
+      children [
+        USE QUART_HELICO
+      ]
+      name "Quart Z -"
+    }
+    Solid {
+      rotation 0 1 0 4.71
+      children [
+        USE QUART_HELICO
+      ]
+      name "Quart X -"
+    }
+    Solid {
+      translation 0 0.019 0
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              diffuseColor 0 0.501961 0.25098
+            }
+          }
+          geometry Box {
+            size 0.039 0.03 0.054
+          }
+        }
+      ]
+      name "Electronique + support"
+    }
+    Solid {
+      translation 0 -0.0065 0
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              diffuseColor 0 0 1
+            }
+          }
+          geometry Box {
+            size 0.065 0.005 0.095
+          }
+        }
+      ]
+      name "Batterie"
+    }
+    GPS {
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              diffuseColor 1 1 0
+            }
+          }
+          geometry Box {
+            size 0.01 0.004 0.01
+          }
+        }
+      ]
+      name "gps1"
+      resolution 0.005
+    }
+  ]
+  name "Quadrarotor VTOL"
+  boundingObject Box {
+    size 0.3255 0.039392 0.3235
+  }
+  physics Physics {
+    density -1
+    mass 0.29
+    inertiaMatrix [
+      0, -7e-006, 0, 0.002567, 0.00509, 0.002598, 0, 0, 0
+    ]
+  }
+  controller "Helico"
+}

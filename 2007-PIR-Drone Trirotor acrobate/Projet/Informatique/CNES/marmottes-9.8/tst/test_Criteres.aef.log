@@ -1,0 +1,198 @@
+# Marmottes trace
+# date : 2001-03-30T07:19:32
+# $Id: test_Criteres.aef.log,v 1.2 2002/09/09 14:43:49 marmottes Exp $
+
+Marmottes::reinitialise 0x80e09c0 1.71073656481481485e+04 -3.93293550217729426e+04 1.01033270165876256e+04 -2.77464026499016063e+03 -1.09598638646141500e+00 -1.27978509955436648e+00 6.14345734396335219e-01 5.51695154720059366e-01 -3.05355150650471030e-01 6.10462495622138279e-01 -4.79297642043468364e-01 0.00000000000000000e+00 -9.86076131526264757e-32 4.44089209850062616e-16 ./test_Criteres.aef.sensors GYRO+X GYRO+Y GYRO+Z
+Marmottes::convertirConsignes 0x80e09c0 ./test_Criteres.aef.sensors GYRO+X
+Marmottes::convertirMesures 0x80e09c0 ./test_Criteres.aef.sensors GYRO+X
+Marmottes::convertirConsignes 0x80e09c0 ./test_Criteres.aef.sensors GYRO+Y
+Marmottes::convertirMesures 0x80e09c0 ./test_Criteres.aef.sensors GYRO+Y
+Marmottes::convertirConsignes 0x80e09c0 ./test_Criteres.aef.sensors GYRO+Z
+Marmottes::convertirMesures 0x80e09c0 ./test_Criteres.aef.sensors GYRO+Z
+Marmottes::convertirMesures 0x80e09c0 ./test_Criteres.aef.sensors IRES_R
+Marmottes::convertirMesures 0x80e09c0 ./test_Criteres.aef.sensors IRES_P
+Marmottes::convertirMesures 0x80e09c0 ./test_Criteres.aef.sensors L-P
+Marmottes::convertirMesures 0x80e09c0 ./test_Criteres.aef.sensors L-Y
+Marmottes::convertirMesures 0x80e09c0 ./test_Criteres.aef.sensors L+P
+Marmottes::convertirMesures 0x80e09c0 ./test_Criteres.aef.sensors L+Y
+Marmottes::convertirMesures 0x80e09c0 ./test_Criteres.aef.sensors ALPHA_Z
+Marmottes::convertirMesures 0x80e09c0 ./test_Criteres.aef.sensors DELTA_Z
+Marmottes::attitude 0x80e09c0 1.71073656597222216e+04 -3.93304508928963405e+04 1.01020471980949260e+04 -2.77402590663554565e+03 -1.09575387162698767e+00 -1.27984482582568893e+00 6.14362137421380350e-01 0.00000000000000000e+00 1.00000000000000000e+00 0.00000000000000000e+00
+  ->  5.46346925653115045e-01 -3.01160916113228649e-01 6.15253638048722906e-01 -4.81944084207951873e-01 0.00000000000000000e+00 1.74532925199432955e-02 8.48578439291237428e-17
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors IRES_R
+  ->  aucunAstre aucunAstre 1.00000000000000000e+00 0
+Marmottes::mesure 0x80e09c0 ./test_Criteres.aef.sensors IRES_R
+  ->  3.17687242361782861e-03
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors IRES_P
+  ->  aucunAstre aucunAstre 1.00000000000000000e+00 0
+Marmottes::mesure 0x80e09c0 ./test_Criteres.aef.sensors IRES_P
+  ->  1.00279185076889044e+00
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors L-P
+  ->  aucunAstre aucunAstre 4.39116545154748017e-01 1
+Marmottes::mesure 0x80e09c0 ./test_Criteres.aef.sensors L-P
+  ->  -2.21965652824488924e+00
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors L-Y
+  ->  aucunAstre aucunAstre 4.39116545154748017e-01 1
+Marmottes::mesure 0x80e09c0 ./test_Criteres.aef.sensors L-Y
+  ->  4.82040873287003624e+00
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors L+P
+  ->  aucunAstre aucunAstre -7.25792096372970930e-01 1
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors L+Y
+  ->  aucunAstre aucunAstre -7.25792096372970930e-01 1
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors ALPHA_Z
+  ->  nonSignificatif nonSignificatif 1.00000000000000000e+00 0
+Marmottes::mesure 0x80e09c0 ./test_Criteres.aef.sensors ALPHA_Z
+  ->  -1.53348750989443872e+01
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors DELTA_Z
+  ->  nonSignificatif nonSignificatif 1.00000000000000000e+00 0
+Marmottes::mesure 0x80e09c0 ./test_Criteres.aef.sensors DELTA_Z
+  ->  3.52764489772560941e+00
+Marmottes::attitude 0x80e09c0 1.71073660069444450e+04 -3.93632189358269097e+04 1.00636249175767098e+04 -2.75558754814368967e+03 -1.08878097886522540e+00 -1.28163167072384954e+00 6.14852148522349595e-01 0.00000000000000000e+00 1.00000000000000000e+00 0.00000000000000000e+00
+  ->  3.68491245878536877e-01 -1.66162798611352414e-01 7.35694368616264471e-01 -5.43468418636117945e-01 0.00000000000000000e+00 1.74532925199432955e-02 8.48578439291237428e-17
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors IRES_R
+  ->  aucunAstre aucunAstre -1.00000000000000000e+00 0
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors IRES_P
+  ->  aucunAstre aucunAstre -1.00000000000000000e+00 0
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors L-P
+  ->  aucunAstre aucunAstre 3.97374297667548934e-02 1
+Marmottes::mesure 0x80e09c0 ./test_Criteres.aef.sensors L-P
+  ->  2.77185084016224614e+01
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors L-Y
+  ->  aucunAstre aucunAstre 3.97374297667548934e-02 1
+Marmottes::mesure 0x80e09c0 ./test_Criteres.aef.sensors L-Y
+  ->  4.15452797172290822e+00
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors L+P
+  ->  aucunAstre aucunAstre -2.10124955431749777e-01 1
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors L+Y
+  ->  aucunAstre aucunAstre -2.10124955431749777e-01 1
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors ALPHA_Z
+  ->  nonSignificatif nonSignificatif 1.00000000000000000e+00 0
+Marmottes::mesure 0x80e09c0 ./test_Criteres.aef.sensors ALPHA_Z
+  ->  -4.31341184768113166e+01
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors DELTA_Z
+  ->  nonSignificatif nonSignificatif 1.00000000000000000e+00 0
+Marmottes::mesure 0x80e09c0 ./test_Criteres.aef.sensors DELTA_Z
+  ->  -7.91550345408708900e+00
+Marmottes::attitude 0x80e09c0 1.71073663541666683e+04 -3.93957778655411457e+04 1.00251491747980617e+04 -2.73713454948702338e+03 -1.08181299504847317e+00 -1.28340897325456660e+00 6.15338144319017011e-01 0.00000000000000000e+00 1.00000000000000000e+00 0.00000000000000000e+00
+  ->  1.65523496495136924e-01 -1.98409609077204452e-02 8.05998743430053621e-01 -5.67956278218189503e-01 0.00000000000000000e+00 1.74532925199432955e-02 8.48578439291237428e-17
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors IRES_R
+  ->  aucunAstre aucunAstre -1.00000000000000000e+00 0
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors IRES_P
+  ->  aucunAstre aucunAstre -1.00000000000000000e+00 0
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors L-P
+  ->  aucunAstre aucunAstre -4.78418726685235884e-01 1
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors L-Y
+  ->  aucunAstre aucunAstre -4.78418726685235884e-01 1
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors L+P
+  ->  aucunAstre aucunAstre 3.09469491318905277e-01 1
+Marmottes::mesure 0x80e09c0 ./test_Criteres.aef.sensors L+P
+  ->  -1.22095159739296513e+01
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors L+Y
+  ->  aucunAstre aucunAstre 3.09469491318905277e-01 1
+Marmottes::mesure 0x80e09c0 ./test_Criteres.aef.sensors L+Y
+  ->  4.70507851672709965e+00
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors ALPHA_Z
+  ->  nonSignificatif nonSignificatif 1.00000000000000000e+00 0
+Marmottes::mesure 0x80e09c0 ./test_Criteres.aef.sensors ALPHA_Z
+  ->  -7.23417778420162563e+01
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors DELTA_Z
+  ->  nonSignificatif nonSignificatif 1.00000000000000000e+00 0
+Marmottes::mesure 0x80e09c0 ./test_Criteres.aef.sensors DELTA_Z
+  ->  -1.74609231743822093e+01
+Marmottes::attitude 0x80e09c0 1.71073664699074070e+04 -3.94065843976548276e+04 1.00123120963861547e+04 -2.73098031748881886e+03 -1.07949141654103831e+00 -1.28399929335561125e+00 6.15499253134985769e-01 0.00000000000000000e+00 1.00000000000000000e+00 0.00000000000000000e+00
+  ->  9.46462117428948785e-02 2.97351903386194778e-02 8.17357998006699726e-01 -5.67524286839537040e-01 0.00000000000000000e+00 1.74532925199432955e-02 8.48578439291237428e-17
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors IRES_R
+  ->  soleil aucunAstre -1.00000000000000000e+00 0
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors IRES_P
+  ->  soleil aucunAstre -1.00000000000000000e+00 0
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors L-P
+  ->  aucunAstre aucunAstre -6.49968242349532765e-01 1
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors L-Y
+  ->  aucunAstre aucunAstre -6.49968242349532765e-01 1
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors L+P
+  ->  aucunAstre aucunAstre 4.39114375195246986e-01 1
+Marmottes::mesure 0x80e09c0 ./test_Criteres.aef.sensors L+P
+  ->  -2.21885764503534411e+00
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors L+Y
+  ->  aucunAstre aucunAstre 4.39114375195246986e-01 1
+Marmottes::mesure 0x80e09c0 ./test_Criteres.aef.sensors L+Y
+  ->  4.82054763573796663e+00
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors ALPHA_Z
+  ->  nonSignificatif nonSignificatif 1.00000000000000000e+00 0
+Marmottes::mesure 0x80e09c0 ./test_Criteres.aef.sensors ALPHA_Z
+  ->  -8.26153800805609535e+01
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors DELTA_Z
+  ->  nonSignificatif nonSignificatif 1.00000000000000000e+00 0
+Marmottes::mesure 0x80e09c0 ./test_Criteres.aef.sensors DELTA_Z
+  ->  -1.97499901925453258e+01
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors GYRO+X
+  ->  nonSignificatif nonSignificatif 1.00000000000000000e+00 0
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors L+P
+  ->  aucunAstre aucunAstre 4.39114375195246986e-01 1
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors GYRO+Z
+  ->  nonSignificatif nonSignificatif 1.00000000000000000e+00 0
+Marmottes::convertirConsignes 0x80e09c0 ./test_Criteres.aef.sensors GYRO+X
+Marmottes::convertirMesures 0x80e09c0 ./test_Criteres.aef.sensors GYRO+X
+Marmottes::convertirConsignes 0x80e09c0 ./test_Criteres.aef.sensors L+P
+Marmottes::convertirMesures 0x80e09c0 ./test_Criteres.aef.sensors L+P
+Marmottes::convertirConsignes 0x80e09c0 ./test_Criteres.aef.sensors GYRO+Z
+Marmottes::convertirMesures 0x80e09c0 ./test_Criteres.aef.sensors GYRO+Z
+Marmottes::mesure 0x80e09c0 ./test_Criteres.aef.sensors GYRO+X
+  ->  0.00000000000000000e+00
+Marmottes::mesure 0x80e09c0 ./test_Criteres.aef.sensors L+P
+  ->  -2.21885764503534411e+00
+Marmottes::mesure 0x80e09c0 ./test_Criteres.aef.sensors GYRO+Z
+  ->  4.63995171079359454e-15
+Marmottes::senseurs 0x80e09c0 ./test_Criteres.aef.sensors GYRO+X L+P GYRO+Z
+Marmottes::attitude 0x80e09c0 1.71073664814814802e+04 -3.94076637739883736e+04 1.00110280640648489e+04 -2.73036480576610893e+03 -1.07925928834840446e+00 -1.28405826732876704e+00 6.15515339586817922e-01 0.00000000000000000e+00 -1.15715268707021179e+00 2.34862786900627260e-14
+  ->  8.70651974826919667e-02 3.49948898159393521e-02 8.18200252804960226e-01 -5.67224254932711114e-01 0.00000000000000000e+00 1.85403621711592408e-02 4.14029679576037458e-16
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors IRES_R
+  ->  soleil aucunAstre -1.00000000000000000e+00 0
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors IRES_P
+  ->  soleil aucunAstre -1.00000000000000000e+00 0
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors L-P
+  ->  aucunAstre aucunAstre -6.68130119543509760e-01 1
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors L-Y
+  ->  aucunAstre aucunAstre -6.68130119543509760e-01 1
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors L+P
+  ->  aucunAstre aucunAstre 4.39319992335908571e-01 1
+Marmottes::mesure 0x80e09c0 ./test_Criteres.aef.sensors L+P
+  ->  -1.15715268707964181e+00
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors L+Y
+  ->  aucunAstre aucunAstre 4.39319992335908571e-01 1
+Marmottes::mesure 0x80e09c0 ./test_Criteres.aef.sensors L+Y
+  ->  4.82336498901159150e+00
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors ALPHA_Z
+  ->  nonSignificatif nonSignificatif 1.00000000000000000e+00 0
+Marmottes::mesure 0x80e09c0 ./test_Criteres.aef.sensors ALPHA_Z
+  ->  -8.37226613922649392e+01
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors DELTA_Z
+  ->  nonSignificatif nonSignificatif 1.00000000000000000e+00 0
+Marmottes::mesure 0x80e09c0 ./test_Criteres.aef.sensors DELTA_Z
+  ->  -1.99593027207925005e+01
+Marmottes::attitude 0x80e09c0 1.71073664930555533e+04 -3.94087429181962289e+04 1.00097439727747224e+04 -2.72974927795908343e+03 -1.07902716553853417e+00 -1.28411723075591366e+00 6.15531421599189388e-01 0.00000000000000000e+00 -1.64454463147694074e-01 2.15290887992241655e-14
+  ->  7.99702623004133334e-02 3.99099319952949880e-02 8.18924147556050586e-01 -5.66899633996468477e-01 0.00000000000000000e+00 1.73350084687595267e-02 3.79602629607511886e-16
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors IRES_R
+  ->  soleil aucunAstre -1.00000000000000000e+00 0
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors IRES_P
+  ->  soleil aucunAstre -1.00000000000000000e+00 0
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors L-P
+  ->  aucunAstre aucunAstre -6.85098064196251300e-01 1
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors L-Y
+  ->  aucunAstre aucunAstre -6.85098064196251300e-01 1
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors L+P
+  ->  aucunAstre aucunAstre 4.39395245122351730e-01 1
+Marmottes::mesure 0x80e09c0 ./test_Criteres.aef.sensors L+P
+  ->  -1.64454463147689051e-01
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors L+Y
+  ->  aucunAstre aucunAstre 4.39395245122351730e-01 1
+Marmottes::mesure 0x80e09c0 ./test_Criteres.aef.sensors L+Y
+  ->  4.82439676389836958e+00
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors ALPHA_Z
+  ->  nonSignificatif nonSignificatif 1.00000000000000000e+00 0
+Marmottes::mesure 0x80e09c0 ./test_Criteres.aef.sensors ALPHA_Z
+  ->  -8.47605741534100190e+01
+Marmottes::criteresControlabilite 0x80e09c0 ./test_Criteres.aef.sensors DELTA_Z
+  ->  nonSignificatif nonSignificatif 1.00000000000000000e+00 0
+Marmottes::mesure 0x80e09c0 ./test_Criteres.aef.sensors DELTA_Z
+  ->  -2.01487822043729672e+01

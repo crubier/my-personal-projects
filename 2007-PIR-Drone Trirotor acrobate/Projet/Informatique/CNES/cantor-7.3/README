@@ -1,0 +1,25 @@
+La bibliothèque CANTOR (Composants et Algorithmes Numériques
+Traduits sous forme d'Objets Réutilisables) regroupe des classes et
+des fonctions mathématiques de base. Ces fonctions sont principalement
+orientées autour de la géométrie sur la sphère unité, mais on trouve
+aussi des notions plus générales comme les polynômes, les fonctions,
+et des algorithmes de filtrage ou de recherche de racines.
+
+Cette bibliothèque utilise les services de CLUB et est utilisée par
+MARMOTTES.
+
+Cette bibliothèque s'installe exactement comme les produits GNU :
+généralement ./configure, puis make, puis make install si l'on accepte
+les conventions par défaut (voir la documentation, disponible au
+format PDF dans le sous-répertoire doc).
+
+Une description complète de la procédure d'installation se trouve dans
+le fichier INSTALL. Nous signalons cependant ici les personnalisations
+les plus courantes.
+
+Pour spécifier que l'installation de la bibliothèque sera faite à un
+endroit spécifique (l'espace par défaut est /usr/local), il faut
+utiliser l'option --prefix du script configure comme dans l'exemple
+suivant:
+
+        ./configure --prefix=/racine/espace/installation

@@ -1,0 +1,114 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+% $Id: MadonaFile.tex,v 1.6 2005/03/03 16:40:08 chope Exp $
+\subsection{classe MadonaFile}\label{sec:MadonaFile}
+
+\subsubsection*{description}\label{sec:MadonaFile-desc}
+
+Cette classe fournit une interface d'accès aux données contenues dans
+un fichier au format «Madona». Elle encapsule ainsi dans une interface
+simple et générique les appels aux services de la bibliothèque Madona.
+
+Cette classe dérivant de UniqDataFile, elle hérite de toutes les
+méthodes publiques et protégées de UniqDataFile et implémente
+les méthodes virtuelles pures de UniqDataFile.
+
+\subsubsection*{interface publique}\label{sec:MadonaFile-int}
+\begin{verbatim}
+#include "club/MadonaFile.h"
+\end{verbatim}
+
+
+La majorité des méthodes publiques de la classe MadonaFile sont décrites
+dans le tableau~\ref{tab:UniqDataFile-met-pub}
+page~\pageref{tab:UniqDataFile-met-pub}.
+
+Le tableau~\ref{tab:MadonaFile-met-pub} présente les méthodes
+publiques propres à la classe MadonaFile.
+
+\begin{tableFonctionsFixe}{MadonaFile : méthodes publiques}
+{\label{tab:MadonaFile-met-pub}}
+{constructeur avec ou sans argument~: fileName est le nom X}
+
+\signature{\fonc{MadonaFile} ()}{}
+&
+construit une instance en ouvrant une zone d'accès
+
+\textbf{Exceptions :} madona\_error \\
+
+\signature{\fonc{\~{}MadonaFile} ()}{}
+&
+détruit l'instance en fermant la zone d'accès..
+
+\textbf{Exceptions :} madona\_error \\
+
+\end{tableFonctionsFixe}
+
+
+\subsubsection*{exemple d'utilisation}
+
+Un exemple d'utilisation des services généraux de gestion des formats
+de fichiers (Madona, XML ou FichierStructure) est fourni dans la
+section~\ref{sec:UniqDataFile} page~\pageref{sec:UniqDataFile}.
+
+\subsubsection*{implantation}\label{sec:MadonaFile-impl}
+
+Les attributs protégés sont décrits sommairement dans la
+table~\ref{tab:MadonaFile-att-prot}, il n'y a pas d'attribut privé.
+
+\begin{tableAttributsFixe}{attributs protégés de la classe MadonaFile}
+{\label{tab:MadonaFile-att-prot}}
+{compte le nombre de sélections à réaliser
+pour aller de la donnée racine à la donnée courante}
+
+access\_      & ACCES*  & buffer partagé sur la zone d'accès Madona \\
+selectCount\_ & int     & compte le nombre de sélections à réaliser
+pour aller de la donnée racine à la donnée courante \\
+
+\end{tableAttributsFixe}
+
+Les méthodes protégées sont décrites dans la table~\ref{tab:MadonaFile-met-prot}.
+
+\begin{tableFonctionsFixe}{MadonaFile : méthodes protégées}
+{\label{tab:MadonaFile-met-prot}}
+{teste s'il est possible de remonter d'un niveau dans la structure de
+données}
+
+\signature{ACCES* \fonc{getAccess} ()}{} 
+& 
+retourne le pointeur sur la zone d'accès Madona \\
+
+\signature{bool \fonc{canMoveUp} ()}{} 
+&
+teste s'il est possible de remonter d'un niveau dans la structure de
+données \\
+
+\signature{void \fonc{reposition} ()}{} 
+& 
+repositionne le pointeur madona sur la donnée courante. Le pointeur
+pouvant être partagé entre plusieurs instances de la classe
+MadonaFile, le pointeur peut ne pas pointer sur la donnée courante
+d'une instance. Pour garantir l'accès aux données, chaque opération de
+lecture, écriture ou de déplacement dans la structure de données fait
+appel à cette méthode.
+
+\textbf{Exceptions :} madona\_error\\
+
+\end{tableFonctionsFixe}
+
+Les méthodes privées sont décrites dans la table~\ref{tab:MadonaFile-met-priv}.
+
+\begin{tableFonctionsFixe}{MadonaFile : méthodes privées}
+{\label{tab:MadonaFile-met-priv}}
+{teste s'il est possible de remonter d'un niveau dans un deux trois}
+
+\signature{\fonc{MadonaFile}}{(const \& \argument{MadonaFile})} &
+constructeur par copie.
+\\
+
+\signature{MadonaFile \& \fonc{operator =}}{(const \&
+\argument{MadonaFile})} &
+affectation.
+\\
+
+\end{tableFonctionsFixe}
+

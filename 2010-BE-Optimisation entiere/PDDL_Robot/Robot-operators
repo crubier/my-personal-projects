@@ -1,0 +1,38 @@
+;; Specification in PDDL1 of the BallRobot domain
+;; Ball Robot Room
+
+
+(define (domain BallRobot)
+
+(:requirements :strips :typing )
+
+(:types 
+	room												;
+	ball												;
+	robot												;
+)
+
+(:predicates
+	(adjacent		?ro1 - room		?ro2 - room)		;room ro1 is adjacent to room ro2
+	(belong			?bal - ball		?roo - room)		;ball bal belongs to room roo
+	(located		?rob - robot	?roo - room)		;robot rob is located in room roo
+	(carried		?bal - ball		?rob - robot)		;robot rob is carrying ball bal
+	(busy			?rob - robot)						;robot rob is busy, holding something
+	(full			?roo - room)						;the room roo contains 1 robot.
+	(allows-more	?roo - room)						;the room roo allows more than one robot
+)
+
+;; pickup a ball from a room
+(:action pickup	:parameters				(?bal - ball 				?rob - robot 				?roo - room					)	:precondition 	(and 	(belong ?bal ?roo) 			(located ?rob ?roo) 		(not (busy ?rob)) 			)	:effect 		(and 	(carried ?bal ?rob)			(busy ?rob) 				(not (belong ?bal ?roo))	) 
+)																									
+
+;; put down a ball in a room
+(:action putdown	:parameters				(?bal - ball 				?rob - robot 				?roo - room					)	:precondition 	(and 	(carried ?bal ?rob) 		(located ?rob ?roo) 		(busy ?rob)					)	:effect			(and	(not (carried ?bal ?rob))	(not (busy ?rob))			(belong ?bal ?roo)			)
+)
+
+;; move the robot 
+(:action move	:parameters				(?rob - robot 				?ro1 - room					?ro2 - room					)	:precondition 	(and 	(located ?rob ?ro1) 		(adjacent ?ro1 ?ro2)		
+							(or (allows-more ?ro2) (not (full ?ro2)))											)	:effect 		(and 	(located ?rob ?ro2)			(not (located ?rob ?ro1))	(full ?ro2)					
+							(not (full ?ro1))																	)
+)
+)

@@ -1,0 +1,511 @@
+# translation file for marmottes domain
+# $Id: marmottes,v 1.20 2003/10/22 12:59:32 marmottes Exp $
+
+# sensor file keywords
+"type"
+   "type"
+
+"repere"
+   "frame"
+
+"axe_calage"
+   "wedging_axis"
+
+"precision"
+   "accuracy"
+
+"reference"
+   "reference"
+
+"normale_reference"
+   "normal_reference"
+
+"reference_zero"
+   "zero_reference"
+
+"axe_sensible"
+   "sensitive_axis"
+
+"observe"
+   "observed"
+
+"cible"
+   "target"
+
+"champ_de_vue"
+   "field_of_view"
+
+"champ_d_inhibition_soleil"
+   "sun_field_of_inhibition"
+
+"marge_eclipse_soleil"
+  "sun_eclipse_margin"
+
+"champ_d_inhibition_lune"
+   "moon_field_of_inhibition"
+
+"marge_eclipse_lune"
+  "moon_eclipse_margin"
+
+"seuil_phase_lune"
+   "moon_phase_threshold"
+
+"champ_d_inhibition_corps_central"
+   "central_body_field_of_inhibition"
+
+"et"
+   "and"
+
+"ou"
+   "or"
+
+"marge"
+   "margin"
+
+"sur"
+   "upon"
+
+"rotation"
+   "rotation"
+
+"balayage"
+   "spread"
+
+"de"
+   "of"
+
+"inter"
+   "inter"
+
+"union"
+   "union"
+
+"sauf"
+   "except"
+
+"cone"
+   "cone"
+
+"axe"
+   "axis"
+
+"angle"
+   "angle"
+
+"i"
+   "i"
+
+"j"
+   "j"
+
+"k"
+   "k"
+
+"v_base_1"
+   "v_base_1"
+
+"v_base_2"
+   "v_base_2"
+
+"v_base"
+   "v_base"
+
+"v_image_1"
+   "v_image_1"
+
+"v_image_2"
+   "v_image_2"
+
+"v_image"
+   "v_image"
+
+"genre"
+   "kind"
+
+"longitude"
+  "longitude"
+
+"latitude"
+  "latitude"
+
+"altitude"
+  "altitude"
+
+"pression"
+  "pressure"
+
+"temperature"
+  "temperature"
+
+"hygrometrie"
+  "hygrometry"
+
+"masque"
+  "mask"
+
+"origine"
+  "origin"
+
+"maximum"
+  "maximum"
+
+"angle_3dB"
+  "angle_3dB"
+
+"angle_3dB_x"
+  "angle_3dB_x"
+
+"angle_3dB_y"
+  "angle_3dB_y"
+
+"angle_zero"
+  "zero_angle"
+
+"echantillon"
+  "sample"
+
+# known sensor types
+"limbe"
+   "limb"
+
+"terre"
+   "earth"
+
+"diedre"
+   "dihedral"
+
+"cartesien"
+   "cartesian"
+
+"vecteur"
+   "vector"
+
+"plan_vecteur"
+   "plane_vector"
+
+
+"gain_echantillonne_1D"
+   "sampled_1D_gain"
+
+"gain_gauss"
+   "gauss_gain"
+
+"gain_sinus_cardinal_2"
+   "square_cardinal_sine_gain"
+
+"gain_sinus_cardinal_xy"
+   "xy_cardinal_sine_gain"
+
+"ascension_droite"
+   "right_ascension"
+
+"declinaison"
+   "declination"
+
+"cinematique"
+   "kinematic"
+
+"gyro_integrateur"
+   "integrating_gyro"
+
+"cardan"
+   "cardan"
+
+
+# Cardan sensors types
+"LRT-lacet"
+  "YRP-yaw"
+
+"LRT-roulis"
+  "YRP-roll"
+
+"LRT-tangage"
+  "YRP-pitch"
+
+"LTR-lacet"
+  "YPR-yaw"
+
+"LTR-tangage"
+  "YPR-pitch"
+
+"LTR-roulis"
+  "YPR-roll"
+
+"RLT-roulis"
+  "RYP-roll"
+
+"RLT-lacet"
+  "RYP-yaw"
+
+"RLT-tangage"
+  "RYP-pitch"
+
+"RTL-roulis"
+  "RPY-roll"
+
+"RTL-tangage"
+  "RPY-pitch"
+
+"RTL-lacet"
+  "RPY-yaw"
+
+"TLR-tangage"
+  "PYR-pitch"
+
+"TLR-lacet"
+  "PYR-yaw"
+
+"TLR-roulis"
+  "PYR-roll"
+
+"TRL-tangage"
+  "PRY-pitch"
+
+"TRL-roulis"
+  "PRY-roll"
+
+"TRL-lacet"
+  "PRY-yaw"
+
+# reference frames for Cardan sensors
+"geocentrique"
+  "geocentric"
+
+"orbital-TNW"
+  "TNW-orbital"
+
+"orbital-QSW"
+  "QSW-orbital"
+
+"inertiel"
+  "inertial"
+
+"topocentrique"
+  "topocentric"
+
+"utilisateur"
+  "user"
+
+# known optical sensor targets
+# earth is not repeted (already present above)
+"soleil"
+   "sun"
+
+"pseudo-soleil"
+   "pseudo-sun"
+
+"soleil-sans-eclipse"
+   "eclipse-free-sun"
+
+"corps-central-soleil"
+   "central-body-sun"
+
+"terre-soleil"
+   "earth-sun"
+
+"corps-central"
+   "central-body"
+
+"nadir"
+   "nadir"
+
+"vitesse-sol-apparente"
+   "apparent-ground-velocity"
+
+"lune"
+   "moon"
+
+"lune-sans-eclipse"
+   "eclipse-free-moon"
+
+"polaris"
+   "polaris"
+
+"canopus"
+   "canopus"
+
+"vitesse"
+   "velocity"
+
+"moment"
+   "momentum"
+
+"devant"
+   "along-track"
+
+"position"
+   "position"
+
+"position-sans-eclipse"
+   "eclipse-free-position"
+
+"direction"
+   "direction"
+
+"direction-sans-eclipse"
+   "eclipse-free-direction"
+
+"station"
+   "station"
+
+"polaris-sans-eclipse"
+   "eclipse-free-polaris"
+
+"canopus-sans-eclipse"
+   "eclipse-free-canopus"
+
+# known units
+"km"
+  "km"
+
+"m"
+  "m"
+
+"km/s"
+  "km/s"
+
+"m/s"
+  "m/s"
+
+# error messages
+"identificateur marmottes non initialise : %d"
+  "uninitialized marmottes id : %d"
+
+"bloc \"%s\" non terminal"
+  "bloc \"%s\" not terminal"
+
+"le bloc \"%s\" a %d champs (%d demandes)"
+  "bloc \"%s\" has %d fields (%d asked for)"
+
+"norme du vecteur \"%s\" trop petite"
+  "too small norm for vector \"%s\""
+
+"norme du quaternion \"%s\" trop petite"
+  "too small norm for quaternion \"%s\""
+
+"liste des senseurs de controle non initialisee"
+  "list of control sensors not initialized"
+
+"gyrometres coaxiaux"
+   "coaxials rate gyros"
+
+"consignes des senseurs \"%s\" et \"%s\" incompatibles avec un omega maximal limite a %f degres par seconde"
+   "attitude constraints for sensors \"%s\" et \"%s\" inconsistent with maximal omega limited to %f degrees per seconde"
+
+
+"consigne du senseur \"%s\" degeneree"
+  "degenerated attitude constraint for sensor \"%s\""
+
+"consignes des senseurs \"%s\" et \"%s\" incompatibles"
+  "inconsistent attitude constraints for sensors \"%s\" and \"%s\""
+
+"type d'un senseur inconnu : \"%s\"\ntypes connus :"
+   "unknown sensor type : \"%s\"\nknown types :"
+
+"cible d'un senseur inconnue : \"%s\"\ncibles connues :"
+   "unknown sensor target : \"%s\"\nknown targets :"
+
+"le senseur \"%s\" observe le soleil mais est inhibe par le soleil"
+  "sensor \"%s\" observes the sun but is also inhibited by the sun"
+
+"le senseur \"%s\" observe la lune mais est inhibe par la lune"
+  "sensor \"%s\" observes the moon but is also inhibited by the moon"
+
+"le senseur \"%s\" observe le corps central mais est inhibe par le corps central"
+  "sensor \"%s\" observes the central body but is also inhibited by the central body"
+
+"vitesse de rotation max negative ou nulle : %f deg/s"
+   "negative or null maximum angular rate : %f deg/s"
+
+"seuil de convergence negatif ou nul : %f"
+   "negative or null convergence threshold : %f"
+
+"nombre de tranches de dichotomie negatif ou nul : %d"
+   "negative or null dichotomy samples number : %d"
+
+"pas de solution aux consignes d'attitude"
+   "no solution to attitude constraints found"
+
+"attitude solution theorique incontrolable (senseur %s)"
+  "solved theoretical attitude cannot be controlled (%s sensor)"
+
+"pas d'axe de calage de defini pour ce senseur"
+  "no defined wedging axis for this sensor"
+
+"types des senseurs \"%s\" et \"%s\" incompatibles"
+  "incompatible types for sensors \"%s\" and \"%s\""
+
+"les senseurs \"%s\" et \"%s\" ne peuvent pas etre utilises en consigne simultanement"
+  "sensors \"%s\" and \"%s\" cannot be used simultaneously for control"
+
+"genre non reconnu pour le senseur d'angle de Cardan \"%s\"\ngenres connus :"
+  "unknown kind of Cardan angle sensor \"%s\"\nknown kinds :"
+
+"repere non reconnu pour le senseur d'angle de Cardan \"%s\"\nreperes connus :"
+  "unknown frame for Cardan angle sensor \"%s\"\nknown frames :"
+
+"nombre de points de masque incorrect (%d points, bloc \"%s\")"
+  "incorrect number of mask points (%d points, bloc \"%s\")"
+
+"unite de position inconnue : \"%s\"\nunites connues :"
+  "unknown position unit : \"%s\"\nknown units :"
+
+"unite de vitesse inconnue : \"%s\"\nunites connues :"
+  "unknown speed unit : \"%s\"\nknown units :"
+
+"la norme des vecteurs position/vitesse est temporairement litigieuse et ne doit pas etre utilisee"
+  "the size of position/speed vectors is temporarily questionable and should not be used"
+
+"cible du senseur \"%s\" non initialisee"
+  "\"%s\" sensor, uninitialized target"
+
+"la cible du senseur \"%s\" n'est pas modifiable"
+  "target modification is not allowed for sensor \"%s\""
+
+"\"%s\" n'est pas un senseur optique, initialisation de la cible impossible"
+  "\"%s\" is not an optical sensor, unable to initialize target"
+
+"\"%s\" n'est pas un gyrometre integrateur, initialisation impossible"
+  "\"%s\" is not a rate integrated gyro, unable to initialize"
+
+"repere de reference du senseur \"%s\" non initialise"
+  "\"%s\" sensor, uninitialized reference frame"
+
+"le repere de reference du senseur \"%s\" n'est pas modifiable"
+  "reference frame modification is not allowed for sensor \"%s\""
+
+"\"%s\" n'est pas un senseur de Cardan, initialisation du repere de reference impossible"
+  "\"%s\" is not a Cardan sensor, unable to initialize reference frame"
+
+"erreur non reconnue"
+  "unknown error"
+
+"erreur interne de MARMOTTES, veuillez contacter la maintenance (ligne %d, fichier %s)"
+  "MARMOTTES internal error, contact the support (line %d, file %s)"
+
+"axe de rotation nul dans le bloc %s"
+  "null rotation axis in bloc %s"
+
+"probleme dans la mise a jour du repere de reference du senseur %s"
+  "problem in sensor %s reference frame update"
+
+"le senseur \"%s\" ne peut etre utilise qu'en mesure, pas en consigne"
+  "\"%s\" sensor can be used only for measurements, not for attitude constraints"
+
+"erreur d'allocation memoire"
+  "memory allocation error"
+
+"nombre de points d'echantillonnage incorrect (%d points, bloc \"%s\")"
+  "incorrect number of sample points (%d points, bloc \"%s\")"
+
+"echantillon vide (bloc \"%s\")"
+  "empty sample (bloc \"%s\")"
+
+"point d'echantillonnage (%f, %f) hors bornes (bloc \"%s\")"
+  "sample point (%f, %f) out of bounds (bloc \"%s\")"
+
+"reference a un objet inconnu dans le trace"
+  "reference to an unknown object in the call trace"
+
+"\"%s\" n'est pas un senseur cinematique, initialisation de la derive impossible"
+  "\"%s\" is not a kinematic sensor, unable to initialize the drift"

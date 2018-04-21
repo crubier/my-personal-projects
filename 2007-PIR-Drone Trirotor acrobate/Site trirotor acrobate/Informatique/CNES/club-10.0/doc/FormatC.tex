@@ -1,0 +1,164 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+% $Id: FormatC.tex,v 1.4 2005/03/03 16:42:08 chope Exp $
+\subsection{classe FormatC}\label{sec:FormatC}
+
+\subsubsection*{description}\label{sec:FormatC-desc}
+
+La classe FormatC permet de gérer des formats d'écriture du
+langage \langage{c}. Elle est utilisée de façon interne par la
+classe Traducteur (voir section~\ref{sec:Traducteur}), pour tester la
+compatibilité d'un format traduit par rapport à un format de référence
+et pour appliquer un format traduit.
+
+\subsubsection*{interface publique}\label{sec:FormatC-int}
+\begin{verbatim}
+#include "club/FormatC.h"
+\end{verbatim}
+
+La classe définit un type énuméré anonyme public pour représenter les
+différents arguments reconnus par le format.
+\newlength{\largeurEnumFormatC}
+\settowidth{\largeurEnumFormatC}{\ttfamily
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+}
+\begin{center}\begin{minipage}{\largeurEnumFormatC}\begin{verbatim}
+enum { ENTIER, REEL, CHAINE, CARACTERE, INCONNU, ERREUR };
+\end{verbatim}\end{minipage}\end{center}
+
+\begin{tableFonctionsFixe}{FormatC : méthodes publiques}
+{\label{tab:FormatC-met-pub}}
+{applique le format déja analysé à la liste des arguments }
+
+\signature{\fonc{FormatC} ()}
+          {} & 
+
+constructeur par défaut \\
+
+\signature{\fonc{FormatC}}
+          {(const string\& \argument{format})} & 
+
+construit une instance à partir du \argument{format} et déclenche son
+analyse\\
+
+\hline
+
+\signature{\fonc{FormatC} (const FormatC\& \argument{f})}
+          {} & 
+
+constructeur par copie \\
+
+\signature{FormatC\&  \fonc{operator =} (const FormatC\& \argument{f})}
+          {} & 
+
+affectation\\
+
+\hline
+
+\signature{\fonc{\~{}FormatC} ()}
+          {} & 
+
+destructeur \\
+
+\hline
+
+\signature{void  \fonc{analyse}}
+          {(const string\& \argument{format})} & 
+
+analyse le format pour déterminer le nombre
+et le type des arguments qu'il attend\\
+
+\signature{va\_list  \fonc{applique}}
+          {(va\_list \argument{ap}, 
+            string *\argument{ptrChaine}) const} & 
+
+applique le format déja analysé à la liste des arguments variables
+passées par l'intermédiaire de \argument{ap}.\\
+
+\hline
+
+\signature{int  \fonc{compatible} 
+           (const FormatC\& \argument{f}) const}{} & 
+
+indique si le format de l'instance est compatible avec \argument{f},
+c'est à dire s'il admet la même liste d'arguments \\
+
+\hline
+
+\signature{const string\&  \fonc{chaine} () const}
+          {} & 
+
+retourne la chaîne spécifiant le format \\
+
+\signature{int  \fonc{nbArgs} () const}
+          {} & 
+
+retourne le nombre d'arguments attendus par le format \\
+
+\signature{int  \fonc{typeArg} (int \argument{i}) const}
+          {} & 
+
+retourne le type de l'argument \argument{i} (c'est une valeur prise
+dans l'énuméré public anonyme de la classe) \\
+
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+
+\begin{verbatim}
+#include "club/FormatC.h"
+...
+const char* TraduitFormatCVersExterne (const char* format)
+{ 
+  InitTraducteurs ();
+
+  // traduction directe
+  FormatC  origine (format);
+
+  FormatC traduit (ptrExterne->operator () (format));
+
+  // vérification de la compatibilité des formats
+  if (! origine.compatible (traduit))
+  {  
+     string res ("FORMAT TRADUIT INCOMPATIBLE");
+     return res.c_str ();
+  }
+
+  // retour du format traduit sous forme compatible
+  return traduit.chaine ();
+}
+
+\end{verbatim}
+
+\subsubsection*{implantation}\label{sec:FormatC-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:FormatC-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe FormatC}
+{\label{tab:FormatC-att-priv}}
+{nombre de parts de formats dans les tables}
+
+tailleTableParts\_ & int  & taille des tables des parts de formats \\
+
+nombreParts\_ & int  & nombre de parts de formats dans les tables \\
+
+type\_ & int * & table des types de parts \\
+
+chaine\_ & string  & format \langage{c} de base \\
+
+\end{tableAttributsFixe}
+Les méthodes privées sont décrites dans la table~\ref{tab:FormatC-met-priv}.
+\begin{tableFonctionsFixe}{FormatC : méthodes privées}
+{\label{tab:FormatC-met-priv}}
+{ajoute un élément (fixe ou variable) aux tables d'analyse}
+
+\signature{void  \fonc{ajoutePart}}
+          {(int \argument{type})} & 
+
+ajoute un élément (fixe ou variable) aux tables d'analyse de parts de
+format\\
+
+\signature{const char*  \fonc{specificateurSuivant}}
+          {(const char* \argument{mobile}) const} & 
+
+recherche le premier spécificateur du format \langage{c} dans les
+caractères suivant \argument{mobile}\\
+
+\end{tableFonctionsFixe}

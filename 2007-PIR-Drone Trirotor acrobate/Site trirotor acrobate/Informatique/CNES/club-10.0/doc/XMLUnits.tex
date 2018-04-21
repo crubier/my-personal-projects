@@ -1,0 +1,156 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+% $Id: XMLUnits.tex,v 1.3 2005/03/03 16:33:46 chope Exp $
+\subsection{classe XMLUnits}\label{sec:XMLUnits}
+
+\subsubsection{description}\label{sec:XMLUnits-desc}
+
+Cette classe contient l'ensemble des unités définies dans un fichier
+XML respectant la DTD \texttt{club-units}.
+
+\subsubsection{interface publique}\label{sec:XMLUnits-int}
+\begin{verbatim}
+#include "club/XMLUnits.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{XMLUnits : méthodes publiques}
+{\label{tab:XMLUnits-met-pub}}
+{construit une instance par chargement d'un fichier d'unités}
+
+\signature{\fonc{XMLUnits}}
+          {(const string\& \argument{fileName})
+           \throw{ClubErreurs}}
+&
+construit une instance par chargement d'un fichier d'unités
+\\
+
+\signature{\fonc{\~{}XMLUnits} ()}{}
+&
+détruit l'instance
+\\
+
+\hline
+\signature{double \fonc{convert}}
+          {(double \argument{value},\\
+            const XMLCh* \argument{fromUnit},\\
+            const XMLCh* \argument{toUnit}) const\\
+            \throw{ClubErreurs}}
+&
+convertit la valeur spécifiée entre depuis l'unité \argument{fromUnit}
+vers l'unité \argument{toUnit}
+\\
+\end{tableFonctionsFixe}
+\subsubsection{exemple d'utilisation}
+
+\begin{verbatim}
+#include "club/XMLUnits.h"
+
+// this defines the units having "m", "km", "h", and "s" symbols
+XMLUnits units ("/usr/local/share/club/club-units.xml");
+
+// perform a conversion, computing the combined units on the fly
+cout << units.convert (130.0,
+                       XMLString::transcode ("km/h"),
+                       XMLString::transcode ("m/s"));
+\end{verbatim}
+
+\subsubsection{conseils d'utilisation spécifiques}\label{sec:XMLUnits-conseils}
+L'instance est chargée au préalable avec les unités élémentaires
+définies dans le fichier, mais elle mémorise également toutes les
+unités combinées pour lesquelles on lui demande d'effectuer des
+conversions. La syntaxe simple utilisée pour les combinaisons d'unités
+est identique à la syntaxe définie par la bibliothèque
+\bibliotheque{madona}. Elle est rappelée à la
+section~\ref{sec:format-fichiers-unites-XML},
+page~~\pageref{sec:format-fichiers-unites-XML}.
+
+\subsubsection{implantation}\label{sec:XMLUnits-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:XMLUnits-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe XMLUnits}
+{\label{tab:XMLUnits-att-priv}}
+{carte des unités}
+
+units\_ & mutable UnitsMap  & carte des unités\\
+
+\end{tableAttributsFixe}
+
+Les méthodes protégées sont décrites sommairement dans la
+table~\ref{tab:XMLUnits-met-prot}, les méthodes privées étant quant à
+elles dans la table~\ref{tab:XMLUnits-met-priv}.
+
+\begin{tableFonctionsFixe}{XMLUnits : méthodes protégées}
+{\label{tab:XMLUnits-met-prot}}
+{convertit une chaîne de caractères XML en chaîne de la STL,}
+
+\signature{string \fonc{toString} (const XMLCh* \argument{s}) const}
+          {}
+&
+convertit une chaîne de caractères XML en chaîne de la STL,
+en traitant de façon spécifique le caractère Unicode $\Omega$ (ohm,
+ayant pour code 0x2126), de façon à ce qu'il soit représenté par
+l'appel d'entité prédéfinie \texttt{\&ohm;}
+\\
+
+\end{tableFonctionsFixe}
+
+\begin{tableFonctionsFixe}{XMLUnits : méthodes privées}
+{\label{tab:XMLUnits-met-priv}}
+{affectation, déclarée privée pour éviter tout appel}
+
+\signature{\fonc{XMLUnits} (const XMLUnits \& \argument{other})}{}
+&
+constructeur par copie, déclaré privé pour éviter tout appel
+\\
+
+\signature{XMLUnits \&  \fonc{operator =} (const XMLUnits \& \argument{other})}
+          {}
+&
+affectation, déclarée privée pour éviter tout appel
+\\
+
+\hline
+\signature{XMLCh \fonc{parseHexaChar}}
+          {(const XMLCh* \argument{s},\\
+            int \argument{start}, int \argument{end}) const\\
+           \throw{ClubErreurs}}
+&
+retourne le caractère Unicode correspondant à l'appel d'entité
+caractère hexadécimal situé entre les indices spécifiés
+\\
+
+\signature{XMLCh  \fonc{parseDeciChar}}
+          {(const XMLCh* \argument{s},\\
+            int \argument{start}, int \argument{end}) const\\
+           \throw{ClubErreurs}}
+&
+retourne le caractère Unicode correspondant à l'appel d'entité
+caractère décimal situé entre les indices spécifiés
+\\
+
+\signature{XMLCh \fonc{parsePredefinedEntityChar}}
+          {(const XMLCh* \argument{s},\\
+            int \argument{start}, int \argument{end}) const\\
+           \throw{ClubErreurs}}
+&
+retourne le caractère Unicode correspondant à l'appel d'entité
+générale prédéfini situé entre les indices spécifiés (les entités
+prédéfinies sont \texttt{deg}, \texttt{micro} et \texttt{ohm})
+\\
+
+\signature{void  \fonc{removeCharReferences}}
+          {(XMLCh* \argument{s}) const\\
+           \throw{ClubErreurs}}
+&
+remplace dans la chaîne spécifiée tous les caractères spéciaux
+représentés par des appels à des entités caractères ou des
+entités générales prédéfinies par le caractère Unicode correspondant
+\\
+
+\signature{void \fonc{cacheSymbol}}
+          {(const XMLCh* \argument{symbol}) const\\
+           \throw{ClubErreurs}}
+&
+analyse selon la syntaxe de combinaison d'unité décrite à la
+section~\ref{sec:XMLUnits-conseils} et mémorise le symbole spécifié
+\\
+
+\end{tableFonctionsFixe}

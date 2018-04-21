@@ -1,0 +1,164 @@
+# RCS identifier : "$Id: sensors.en,v 1.1 1997/12/01 09:36:46 luc Exp $"
+
+#------------------------------ PSSH2/5 ------------------------------
+PSSH2/5_P
+{ type                {  dihedral  }
+  target              { pseudo-sun }
+  accuracy            {    0.02    }
+
+  # linear field of view (opening +/- 63.5 degrees)
+  field_of_view
+  { { # i vertices dihedra
+      { cone { axis  {  90.0 63.5 } angle { 90 } } }
+      inter
+      { cone { axis  { 270.0 63.5 } angle { 90 } } }
+    }
+    inter
+    { # j vertices dihedra
+      { cone { axis  {   0.0 63.5 } angle { 90 } } }
+      inter
+      { cone { axis  { 180.0 63.5 } angle { 90 } } }
+    }
+  }
+
+  frame          { i {  0.459102176515 0.003294243139 -0.888377363220 }
+                   j { -0.002981877725 0.999993205942  0.002167135594 }
+                   k {  0.888378466603 0.001654096003  0.459108880378 }
+                 }
+  sensitive_axis { 0 -1 0 }
+  zero_reference { 0  0 1 }
+
+}
+
+PSSH2/5_RY { => { PSSH2/5_P } sensitive_axis { 1 0 0 } }
+
+PSSH2/5_RY-M1
+{ => { PSSH2/5_RY }
+  field_of_view { margin { -1 } upon { => { PSSH2/5_RY.field_of_view } } }
+}
+
+PSSH2/5_RY-M5
+{ => { PSSH2/5_RY }
+  field_of_view { margin { -5 } upon { => { PSSH2/5_RY.field_of_view } } }
+}
+
+
+
+#------------------------------ PSSH1/4 ------------------------------
+PSSH1/4_P  {  =>   { PSSH2/5_P }
+             frame { i {  0.463269076202 -0.001497351474 0.886216407529 }
+                     j {  0.001485549750  0.999998479760 0.000913027485 }
+                     k { -0.886216427390  0.000893541163 0.463270596312 }
+                   }
+                      
+           }
+
+PSSH1/4_RY {  =>   { PSSH2/5_RY }
+             frame { => { PSSH1/4_P.frame } }
+           }
+
+PSSH1/4_RY-M1
+{ => { PSSH1/4_RY }
+  field_of_view { margin { -1 } upon { => { PSSH1/4_RY.field_of_view } } }
+}
+
+PSSH1/4_RY-M5
+{ => { PSSH1/4_RY }
+  field_of_view { margin { -5 } upon { => { PSSH1/4_RY.field_of_view } } }
+}
+
+
+
+#------------------------------ PSSH3/6 ------------------------------
+PSSH3/6_P  {  =>   { PSSH2/5_P }
+             frame { i { -0.999998075972  0.001880354654  0.000558855048 }
+                     j {  0.001879880881  0.999997874252 -0.000847077125 }
+                     k { -0.000560446665 -0.000846024914 -0.999999485071 }
+                   }
+           }
+
+PSSH3/6_RY {  =>   { PSSH2/5_RY }
+             frame { => { PSSH3/6_P.frame } }
+           }
+
+PSSH3/6_RY-M1
+{ => { PSSH3/6_RY }
+  field_of_view { margin { -1 } upon { => { PSSH3/6_RY.field_of_view } } }
+}
+
+PSSH3/6_RY-M5
+{ => { PSSH3/6_RY }
+  field_of_view { margin { -5 } upon { => { PSSH3/6_RY.field_of_view } } }
+}
+
+
+
+#------------------------------ AZ_BAPTA ------------------------------
+AZ_BAPTA  { => { PSSH3/6_P } sensitive_axis { 0 1 0 } }
+
+
+
+#------------------------------ GYROS ------------------------------
+# WARNING : the X/Y/Z indicators describe MIMU axes, NOT spacecraft axes !!!
+MIMU-1+X
+{ type           { kinematic }
+  accuracy       {   0.0002  }
+  frame          { i {  0.001289049 -0.999998537 -0.001124198 }
+                   j { -0.000711209  0.001124344 -0.999999115 }
+                   k {  0.999998914  0.001291995 -0.000708395 }
+                 }
+  sensitive_axis { 1 0 0 }
+}
+
+MIMU-1+Y { => { MIMU-1+X } sensitive_axis  { 0 1 0 } }
+
+MIMU-1+Z { => { MIMU-1+X } sensitive_axis  { 0 0 1 } }
+
+MIMU-2+X
+{ type           { kinematic }
+  accuracy       {   0.0002  }
+  frame          { i { -0.000275217 -0.999997487 -0.002224993 }
+                   j { -0.000881147  0.002222204 -0.999997143 }
+                   k {  0.999999572 -0.000272573 -0.000883926 }
+                 }
+sensitive_axis { 1 0 0 }
+}
+
+MIMU-2+Y { => { MIMU-2+X } sensitive_axis  { 0 1 0 } }
+
+MIMU-2+Z { => { MIMU-2+X } sensitive_axis  { 0 0 1 } }
+
+
+#------------------------------ IRES ------------------------------
+
+# The <galileo.en> file defines the base characteristics of the sensor.
+# The user should define the HALF width of the scan in a special block.
+# The wide scan used during acquisition phases is 18 degrees wide
+# (so the angle in the block should be 9.0). The narrow scan used in fine
+# pointing phases is 10 degrees wide (so the angle in the block should be 5.0).
+
+<galileo.en>
+GALILEO_SCAN_HALF_WIDTH { angle { 9.0 } }
+
+# In order to define completely its sensor, the user of the <galileo.en>
+# file should define the sensor frame and point to the GALILEO_ROLL and the
+# GALILEO_PITCH which define everything else.
+IRES_ROLL
+{  =>   { GALILEO_ROLL  }
+  frame { i {  0.999999999 -4.46666e-5  1.20512e-5  }
+          j {  4.46648e-5   0.999999988 0.000148608 }
+          k { -1.20578e-5  -0.000148608 0.999999989 }
+        }
+}
+
+IRES_PITCH
+{  => { GALILEO_PITCH } frame { => { IRES_ROLL.frame } } }
+
+
+
+#------------------------------ PSEUDO ------------------------------
+<pseudo-sensors.en>
+
+
+#----------------------------- R/F LINK -----------------------------
+<rf-link.en>

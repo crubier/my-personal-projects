@@ -1,0 +1,16 @@
+%implements cgirblk_s0_b44_BlockOutputSignal "C"
+
+%function BlockOutputSignal(block,system,portIdx,ucv,lcv,idx,retType) void
+  %if retType == "Signal"
+    %switch portIdx
+      %case 0
+         %return "(rt_atan2(%<LibBlockInputSignal(0, "", "", 0)>, %<LibBlockInputSignal(1, "", "", 0)>) - %<LibBlockInputSignal(2, "", "", 0)>)"
+      %case 2
+         %return "(%<LibBlockInputSignal(3, "", "", 0)> * %<tLocalBlockIO>_CosErreurAngle_p)"
+    %default
+      %assign errTxt = "No expression on port %<portIdx>"
+      %<LibBlockReportError(block,errTxt)>
+  %endswitch
+  %else
+  %endif
+%endfunction

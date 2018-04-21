@@ -1,0 +1,505 @@
+2005-03-08  projet CHOPE G. Prat/L. Maisonobe  <Guylaine.Prat@c-s.fr>
+
+	* pages-liminaires.tex: passage de la documentation en version 5.11
+
+	* references.tex: mise à jour des numéros de version des documents
+	de référence
+
+2004-10-05  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* references.tex: mise à jour des numéros de version des documents
+	de référence
+
+	* pages-liminaires.tex: mise à jour des signataires et de leur
+	affiliation
+
+	* cantor.tex: annonce de la correction de BIBMS-FA-2811-199-CN
+
+2005-03-04  projet CHOPE G. Prat/L. Maisonobe  <Guylaine.Prat@c-s.fr>
+
+	* maintenance.tex: mise à jour des numéros de version des outils
+	de développement
+
+2003-08-19  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* cantor.tex: correction du numéro de version dans la section évolutions entre
+	les versions 7.1 et 7.2
+
+2003-07-28  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* pages-liminaires.tex: passage de la documentation en version 5.10
+
+	* cantor.tex : passage de la bibliothèque en version 7.2
+
+2003-07-15  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* cantor.tex: FA-ID 27 annonce de la correction d'une erreur
+	d'initialisation
+
+2003-07-08  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* cantor.tex: annonce de la correction de la (FA 22)
+
+2003-07-07  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* Resolution2Iterateur.tex: correction d'une référence croisée en
+	double
+
+2003-06-24  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* cantor.tex: annonce de la mise à niveau des scripts de
+	configuration, annonce de la correction du test de list::splice
+	(FA 25)
+
+	* maintenance.tex: mise à jour des numéros de version des outils
+	de développement, suppression de la référence au fichier
+	acconfig.h, remplacement de la commande AM_INIT_AUTOMAKE par
+	AC_INIT, renommage de configure.in en configure.ac (DM 24)
+
+	* AnnotatedArc.tex, ArcIterateur.tex, Arc.tex,
+	Braid.tex, cantor.tex, Cone.tex, Field.tex, Intervalle.tex,
+	Node.tex, Polynome.tex, Resolution1Iterateur.tex,
+	Resolution2Iterateur.tex, Rotation.tex, Secteurs.tex,
+	StatistiqueEchantillon.tex, ValeurDerivee1.tex,
+	ValeurDerivee2.tex, Variation1.tex, Variation2.tex, Vecteur3.tex:
+	suppression des marques de révision de la version 5.9 de la
+	documentation
+
+2003-03-20  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* AnnotatedArc.tex, Creneau.tex, messages-erreurs.tex, Secteurs.tex, 
+	CantorErreurs.tex, Field.tex, Arc.tex: suppression des marques de révision
+	de la version 5.8 de la documentation
+
+	* pages-liminaires.tex: passage en révision 5.9 de la documentation
+
+	* cantor.tex: description de la version 7.1 de la bibliothèque
+
+2003-01-21  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* AnnotatedArc.tex, Arc.tex, ArcIterateur.tex, Braid.tex, Cone.tex,
+	Field.tex, Intervalle.tex, Node.tex, Polynome.tex, Resolution1Iterateur.tex,
+	Resolution2Iterateur.tex, Rotation.tex, Secteurs.tex, StatistiqueEchantillon.tex,
+	ValeurDerivee1.tex, ValeurDerivee2.tex, Variation1.tex, Variation2.tex,
+	Vecteur3.tex: mise à jour de la documentation conformément aux
+	modifications apportées par le processus d'homogénéisation des classes
+	(processus qualité).
+
+2002-09-13  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* pages-liminaires.tex: montée du numéro de révision
+
+2002-09-12  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* cantor.tex: description du traitement de la FA 10
+
+2002-09-06  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* AnnotatedArc.tex: passage du type de l'origine de const Field* à
+	const void*
+
+2002-08-29  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* Creneau.tex: ajout de l'opérateur -=, ajout de l'opérateur -,
+	ajout d'un constructeur à partir de deux intervalles
+
+	* messages-erreurs.tex: description de l'erreur
+	alignement_axe_extremite
+
+	* Secteurs.tex: renommage de la méthode vecteurs en diedre suite à
+	un changement de signification de deux des vecteurs retournés
+
+	* CantorErreurs.tex: documentation d'erreurs oubliées, ajout de
+	l'erreur alignement_axe_extremite, élimination de l'erreur
+	point_triple
+
+	* Field.tex: élimination des attributs inside_ et outside_, ajout
+	des attributs targetPoint_ et activeTargetPoint_, ajout des
+	méthodes computeTargetPoint et firstCrossing, correction de
+	directives throw
+
+	* Arc.tex: ajout de la méthode balaye (correspondant à l'ancienne
+	méthode Braid::isCovered), correction de spécifications throw,
+	retypage des prédicats en bool plutôt qu'en int
+
+	* Braid.tex: élimination de la méthode isCovered
+
+2002-04-24  projet CHOPE O. Queyrut/S. Vresk  <Olivier.Queyrut@c-s.fr>
+
+	* Field.tex: modification de la taille des tableaux pour respecter
+	la bordure droite.
+
+	* Cone.tex: modification de la taille du tableau des méthodes publiques
+
+	* cantor.tex (subsection{évolutions entre la version 5.4 et la version 5.5}): 
+	modification de la description pour éviter qu'une ligne dépasse
+	la bordure droite.
+
+2002-02-08  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* cantor.tex: annonce du contournement d'un bug du compilateur Sun
+
+	* AnnotatedArc.tex: ajout de la méthode replace ayant un seul arc
+	en argument
+
+2002-01-31  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* pages-liminaires.tex: passage en version 5.7 à l'occasion de la
+	diffusion de la version 6.3 de la bibliothèque
+
+	* cantor.tex: annonce de la correction de la FA 0002, de acinclude.m4,
+	de Makefile.am et de diverses amélioration dans les codes.
+
+2002-01-18  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+	* message-erreurs.tex: ajout de l'erreur singularite_angle
+
+2001-11-19  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* Braid.tex, Field.tex, Node.tex: correction de spécifications throw
+
+	* Node.tex: correction d'une faute de frappe (absorbDonwstream ->
+	absorbDownstream)
+
+	* cantor.tex: annonce de la correction de l'erreur de
+	Senseurs::vecteurs
+
+2001-09-18  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* pages-liminaires.tex: passage en version 5.6 à l'occasion de la
+	diffusion de la version 6.2 de la bibliothèque
+
+	* cantor.tex: annonce de l'optimisation des tests d'appartenance à
+	des champs
+
+	* Arc.tex: documentation de Arc::proche
+
+	* Cone.tex: documentation du constructeur à partir de trois
+	points, documentation de l'opérateur « - » unaire
+
+	* Field.tex: documentation des attributs rejectionCone_ et
+	activeRejectionCone_ et des méthodes selectClosest,
+	recursRejectionCone et computeRejectionCone
+
+2001-09-12  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* cantor.tex: annonce d'une correction d'erreur mémoire
+
+2001-09-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* cantor.tex: annonce de l'utilisation des nouvelles versions des
+	outils GNU
+
+	* maintenance.tex: élimination de la nécessité d'avoir GNU-make
+
+	* references.tex: mise à jour des références des outils GNU
+
+2001-08-23  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* pages-liminaires.tex: passage de la documentation en versions
+	5.5
+
+	* cantor.tex: annonce des corrections de bugs réalisées pour la
+	versions 6.1 de la bibliothèque
+
+2001-06-22  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* pages-liminaires.tex: correction de la date du document
+
+	* cantor.tex: annonce de la refonte du traînage des arcs sur la
+	sphère unité
+
+	* Braid.tex: ajout des méthodes isCovered, coveringHeuristic et
+	closeParallelsHeuristic, les méthodes intersectionBoundary,
+	unionBoundary et boundary sont désormais const
+
+	* Field.tex: ajout des méthodes isEmpty et isFull
+
+	* Node.tex: documentation de la méthode select
+
+	* references.tex: mise à jour des versions de référence
+
+2001-06-12  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Secteurs.tex: utilisation du type bool pour les valeurs de
+	retour des prédicats
+
+	* cantor.tex: annonce de la correction du bug de l'étalement des
+	champs de vue
+
+	* Braid.tex, Field.tex: utilisation d'un axe et d'un angle au lieu
+	d'une rotation pour l'étalement
+
+2001-06-07  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* cantor.tex: annonce de la correction d'un bug de filtrage de
+	secteurs par les champs
+
+2001-06-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: ajout de AnnotatedArc.tex, Braid.tex, Field.tex,
+	Node.tex, Secteurs.tex, ajout de l'impression PostScript en
+	double-face
+
+	* Polynome.tex: utilisation du mécanisme des exceptions pour la
+	gestion des erreurs
+
+	* Resolution2Iterateur.tex: suppression d'un argument inutilisé
+
+	* Resolution1Iterateur.tex: suppression d'un argument inutilisé
+
+	* Rotation.tex: utilisation du mécanisme des exceptions pour la
+	gestion des erreurs, support des angles de Cardan et d'Euler
+
+	* Cone.tex: utilisation du mécanisme des exceptions pour la
+	gestion des erreurs, utilisation du type bool pour les prédicats
+
+	* Arc.tex: remontée d'exceptions générées par les classes
+	sous-jacentes
+
+	* cantor.tex: annonce des évolutions entre la version 5.6 et la
+	version 6.0
+
+	* Creneau.tex: utilisation du mécanisme des exceptions pour la
+	gestion des erreurs, utilisation du type bool pour les prédicats
+
+	* Intervalle.tex: utilisation du type bool pour les prédicats
+
+	* MoindreCarreLineaire.tex: utilisation du mécanisme des
+	exceptions pour la gestion des erreurs
+
+	* FonctionApprochee.tex: utilisation du mécanisme des exceptions
+	pour la gestion des erreurs
+
+	* Vecteur3.tex: utilisation du mécanisme des exceptions pour la
+	gestion des erreurs
+
+	* catalogue.tex: ajout des classes AnnotatedArc, Braid, Field,
+	Node et Secteurs, ajout des fonctions RotTroisAngles et
+	TroisAnglesRot
+
+	* fonctions-C++.tex: changement de la signature de factLDLt
+
+	* fonctions-C.tex: ajout des fonctions RotTroisAngles et
+	TroisAnglesRot, ajout de lgMaxMessage dans les signatures
+
+	* fonctions-fortran.tex: ajout des fonctions RotTroisAngles et
+	TroisAnglesRot
+
+	* macros-bibliotheques.tex: ajout de la macro \throw
+
+	* Secteurs.tex: transfert du fichier (en provenance de la
+	bibliothèques marmottes)
+
+	* Node.tex: transfert du fichier (en provenance de la
+	bibliothèques marmottes)
+
+	* Braid.tex: transfert du fichier (en provenance de la
+	bibliothèques marmottes)
+
+	* AnnotatedArc.tex: transfert du fichier (en provenance de la
+	bibliothèques marmottes)
+
+	* messages-erreurs.tex: ajout des erreurs ordre_inconnu,
+	matrice_singuliere, echec_heuristique, frontiere_ouverte et
+	erreur_interne
+
+2001-02-16  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* pages-liminaires.tex: révision 5.3 du document cohérente avec la
+	version 5.6 de la bibliothèque
+
+	* cantor.tex: indication du support des compilateurs SUN
+
+2000-12-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Cantor-Config.tex: nouveau fichier
+
+	* Makefile.am: ajout de Cantor-Config.tex
+
+	* maintenance.tex: correction de la présentation typographique
+
+	* cantor.tex: ajout des évolutions entre la version 5.4 et la
+	version 5.5 de la bibliothèque, inclusion de Cantor-Config
+
+	* pages-liminaires.tex: révision 5.2 du document; cohérente avec
+	la version 5.5 de la bibliothèque
+
+2000-11-22  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* installation.tex: correction d'une faute d'orthographe
+
+	* pages-liminaires.tex: ajustement de la date
+
+2000-11-21  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* installation.tex: description de l'option --with-club
+
+	* cantor.tex: ajout des évolutions entre la version 5.3 et la
+	version 5.4 de la bibliothèque
+
+	* pages-liminaires.tex: révision 5.1 du document, cohérente avec
+	la version 5.4 de la bibliothèque
+
+2000-10-18  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* references.tex: ajout de la référence à la documentation libtool.
+
+	* maintenance.tex (subsection{environnement de maintenance}): ajout
+	de l'outil libtool.
+	(subsection{compilation}): présentation de l'option --disable-shared
+	permettant de générer la bibliothèque cantor en statique.
+
+	* installation.tex: modification du nom de l'archive installée du 
+	fait de la génération de cantor sous forme partagée.
+
+2000-09-11  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* references.tex: modification de la version de club dans la table 
+	des références cantor.
+
+	* cantor.tex: ajout de la description de la version 5.3
+
+	* conventions.tex: description de la convention d'utilisation de la
+	STL.
+
+2000-09-04  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* Conversions.tex: modification d'une phrase pour éviter un 
+	débordement de ligne.
+
+	* Arc.tex: correction d'une faute de frappe
+
+	* cantor.tex: utilisation de la feuille de style notechope et de la
+	classe article (au lieu de notecs)
+
+	* Makefile.am (cantor_TEX): ajout de la compilation de references.tex
+	et génération de la documentation au format PDF.
+	
+	* pages-liminaires.tex: passage en version 5.0 et modification du 
+	fichier suite à l'utilisation de la feuille de style notechope.
+
+	* references.tex: création du fichier fournissant les références 
+	de la documentation cantor.
+
+2000-07-31  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* pages-liminaires.tex: passage en version 4.2 de la documentation
+
+	* cantor.tex: référence à la version 5.2.2 de la bibliothèque,
+	ajout d'une section «changements depuis les versions précédentes»
+
+1999-08-26  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* pages-liminaires.tex: modification du numéro de version de la
+	documentation (l'édition 1 passe en édition 4 pour éviter les
+	confusions avec les références aux documents CNES)
+
+1999-08-13  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* cantor.tex : introduction du tableau de compatibilité entre les
+	versions de cantor et celles de club.
+
+1999-08-10  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* Polynome.tex : modification de la taille du tableau des méthodes
+	privés
+
+	* FonctionApprochee.tex : modification de la taille du tableau des 
+	méthodes privés
+
+	* Arc.tex : modification de la taille du tableau des attributs privés
+
+1999-08-05  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* cantor.tex: modification du tableau des spécifications pour
+	l'édition des liens
+
+	* catalogue.tex: regroupement des notes de bas de pages en une seule
+	lorsque celles-ci sont identiques
+
+	* pages-liminaires.tex: modifications des pages liminaires pour
+	harmoniser la présentation compte tenu du passage en notecs
+
+	* cantor.tex : passage en document du type notecs
+
+1999-05-17  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Vecteur3.tex: remplacement de DBL_EPSILON par cantorEpsilon
+
+	* FonctionApprochee.tex: correction de styles d'arguments
+
+	* Cone.tex: correction de fautes de frappe
+
+	* MoindreCarreLineaire.tex: correction d'un style d'argument
+
+	* Combinaisons.tex: correction d'une faute de frappe
+
+	* Rotation.tex: correction d'une faute de frappe
+
+	* Polynome.tex: correction d'une faute de frappe,
+	 remplacement de DBL_EPSILON par cantorEpsilon
+
+	* messages-erreurs.tex: correction d'une faute de frappe
+
+	* catalogue.tex: correction de fautes de frappe
+
+1999-04-26  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Creneau.tex: ajout de la méthode decale
+
+	* Intervalle.tex: ajout de la méthode decale
+
+1999-04-25  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* cantor.tex: passage en version 5.1
+
+	* pages-liminaires.tex: ajout d'une référence à la note de
+	J.-C. Bergès sur la méthode de Brent
+
+	* Creneau.tex: remplacement de DBL_EPSILON par cantorEpsilon
+
+	* fonctions-C++.tex: explication des nouveaux algorithmes de
+	résolution de zéros, élimination de la fonction abs
+
+	* Resolution1Iterateur.tex: élimination d'un caractère de contrôle
+	de l'exemple
+
+	* Resolution2Iterateur.tex: élimination d'un caractère de contrôle
+	de l'exemple
+
+1999-04-24  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Cone.tex: ajout du sinus du demi-angle
+
+	* cantor.tex: ajout d'une section sur la maintenance
+
+	* maintenance.tex: nouveau fichier
+
+	* Makefile.am (cantor_TEX): ajout du fichier maintenance.tex
+
+	* pages-liminaires.tex: correction de la liste de diffusion,
+	mise à jour des références à la documentation de club,
+	ajout des références des outils de développement
+
+	* macros-bibliotheques.tex: ajout d'une macro \outil
+
+	* ValeurDerivee1.tex: remplacement de |x| par fabs(x)
+
+	* ValeurDerivee2.tex: remplacement de |x| par fabs(x)
+
+1999-04-16  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* cantor.tex: passage en version 5.0
+
+1998-07-27  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: nouveau fichier
+
+	* Makefile: élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+1998-07-24  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile: élimination des commandes rcs
+
+	* ChangeLog: nouveau fichier

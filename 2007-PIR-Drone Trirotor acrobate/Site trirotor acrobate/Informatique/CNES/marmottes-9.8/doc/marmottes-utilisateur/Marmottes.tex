@@ -1,0 +1,546 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: Marmottes.tex,v 1.21 2004/06/21 14:43:00 marmottes Exp $
+\subsection{classe Marmottes}\label{sec:Marmottes}
+
+\subsubsection*{description}\label{sec:Marmottes-desc}
+
+Cette classe est la classe de plus haut niveau de la bibliothèque
+\bibliotheque{marmottes}. Dans la plupart des cas, les utilisateurs
+n'utiliseront que cette classe pour leurs applicatifs, soit
+directement s'ils programment en \langage{c++}, soit à travers les
+interfaces fonctionnelles s'ils programment en \langage{c} ou en
+\langage{fortran} (ces interfaces fonctionnelles n'encapsulent en
+effet que les appels à des instances de la classe Marmottes, en gérant
+ces instances dans un tableau de sorte que les interfaces
+fonctionnelles ne voient qu'un index).
+
+Les explications données ici sont relativement succinctes, en effet
+toutes les méthodes nécessaires aux utilisateurs sont décrites en
+parallèles avec leurs interfaces \langage{c} et \langage{fortran} dans
+la section~\ref{sec:description-routines},
+page~\pageref{sec:description-routines}.
+
+\subsubsection*{interface publique}\label{sec:Marmottes-int}
+\begin{verbatim}
+#include "marmottes/Marmottes.h"
+\end{verbatim}
+
+\begin{tableFonctionsFixe}{Marmottes : méthodes publiques}
+{\label{tab:Marmottes-met-pub}}
+{change l'orientation du \argument{senseur} par rapport à ce qui a été}
+
+\signature{\fonc{Marmottes} ()}
+          {}&
+
+construit une instance de simulateur par défaut, non initialisée\\
+
+
+\signature{\fonc{Marmottes}}
+          {(double \argument{date},\\
+            const VecDBL\& \argument{position},\\
+            const VecDBL\& \argument{vitesse},\\
+            const RotDBL\& \argument{attitude},\\
+            const VecDBL\& \argument{spin},\\
+            const string\& \argument{fichier},\\
+            const string\& \argument{senseur1},\\
+            const string\& \argument{senseur2},\\
+            const string\& \argument{senseur3})
+          }&
+
+construit une instance de simulateur à partir d'un état initial\\
+
+\hline
+
+\signature{\fonc{Marmottes} (const Marmottes\& \argument{m})}
+          {\throw{ClubErreurs, MarmottesErreurs}}&
+
+constructeur par copie\\
+
+\signature{Marmottes\& \fonc{operator =}}
+          {(const Marmottes\& \argument{m})\\
+          \throw{ClubErreurs, MarmottesErreurs}}&
+
+affectation\\
+
+\hline
+
+\signature{void \fonc{desinitialise} ()}
+          {}&
+
+désinitialise l'instance, cette méthode est utilisée par l'interface
+fonctionnelle pour gérer le tableau des instances pour le \langage{c}
+et le \langage{fortran}, elle n'est pas d'une grande utilité pour le
+\langage{c++} qui a accès aux constructeurs, destructeur, et opérateur
+d'affectation.\\
+
+
+\signature{void \fonc{reinitialise}}
+          {(double \argument{date},\\
+            const VecDBL\& \argument{position},\\
+            const VecDBL\& \argument{vitesse},\\
+            const RotDBL\& \argument{attitude},\\
+            const VecDBL\& \argument{spin},\\
+            const string\& \argument{fichier},\\
+            const string\& \argument{senseur1},\\
+            const string\& \argument{senseur2},\\
+            const string\& \argument{senseur3})\\
+          \throw{ClubErreurs, MarmottesErreurs}}&
+
+réinitialise une instance comme si elle venait d'être créée avec les
+arguments fournis\\
+
+\hline
+
+\signature{void \fonc{senseurs}}
+          {(const string\& \argument{fichier},\\
+            const string\& \argument{senseur1},\\
+            const string\& \argument{senseur2},\\
+            const string\& \argument{senseur3})\\
+          \throw{ClubErreurs, MarmottesErreurs}}&
+
+change les senseurs de contrôle à utiliser pour la suite des
+résolutions\\
+
+\hline
+
+\signature{void \fonc{nouveauRepere}}
+          {(const string\& \argument{fichier},\\
+            const string\& \argument{senseur},\\
+            const RotDBL\& \argument{nouveau})\\
+          \throw{ClubErreurs, MarmottesErreurs}}&
+
+change l'orientation du \argument{senseur} par rapport à ce qui a été
+lu dans le fichier de configuration\\
+
+\signature{void \fonc{calage}}
+          {(const string\& \argument{fichier},\\
+            const string\& \argument{senseur}, double \argument{c})\\
+          \throw{ClubErreurs, MarmottesErreurs}}&
+
+positionne le \argument{senseur} par rapport à son repère de base
+selon l'angle de \argument{calage} (il faut qu'un axe de calage ait
+été défini pour ce senseur dans son fichier de configuration)\\
+
+\hline
+
+\signature{void \fonc{modifieCible}}
+          {(const string\& \argument{fichier},\\
+            const string\& \argument{senseur},\\
+            const VecDBL\& \argument{cible})\\
+          \throw{ClubErreurs, MarmottesErreurs}}&
+
+mémorise la \argument{cible} du \argument{senseur} dérivé d'un senseur
+optique spécifié\\
+
+\signature{void \fonc{initialiseGyro}}
+          {(const string\& \argument{fichier},\\
+            const string\& \argument{senseur},\\
+            double \argument{date}, double \argument{angle})\\
+          \throw{ClubErreurs, MarmottesErreurs}}&
+
+réinitialise le gyromètre intégrateur \argument{senseur} de sorte
+qu'il donne la mesure \argument{angle} à la \argument{date} spécifiée\\
+
+\signature{void \fonc{modifieReference}}
+          {(const string\& \argument{fichier},\\
+            const string\& \argument{senseur},\\
+            const RotDBL\& \argument{reference})\\
+          \throw{ClubErreurs, MarmottesErreurs}}&
+
+mémorise le repère \argument{reference} pour le senseur de Cardan
+\argument{senseur}\\
+
+\hline
+
+\signature{void \fonc{deuxConsignes}}
+          {(double \argument{date},\\
+            const VecDBL\& \argument{position},\\
+            const VecDBL\& \argument{vitesse},\\
+            double \argument{m1}, double \argument{m2},\\
+            RotDBL *\argument{attitude}, VecDBL *\argument{spin})\\
+          \throw{CantorErreurs, MarmottesErreurs}}&
+
+résoud une attitude de façon partielle pour qu'elle ne respecte que
+les consignes des deux premiers senseurs de contrôle ; cette méthode
+est réservée aux utilisateurs expérimentés\\
+
+\signature{void \fonc{attitude}}
+          {(double \argument{date},\\
+            const VecDBL\& \argument{position},\\
+            const VecDBL\& \argument{vitesse},\\
+            double \argument{m1}, double \argument{m2}, double \argument{m3},\\
+            RotDBL *\argument{attit}, VecDBL *\argument{spin})\\
+          \throw{CantorErreurs, MarmottesErreurs}}&
+
+résoud l'attitude qui respecte les consignes fournies pour cette date
+et met à jour l'instance ; cette méthode est la plus importante de la
+bibliothèque\\
+
+\signature{void \fonc{imposeAttitude}}
+          {(double \argument{date},\\
+            const VecDBL\& \argument{position}, const VecDBL\& \argument{vitesse},\\
+            const RotDBL\& \argument{attit})\\
+           \throw{MarmottesErreurs}}&
+force l'attitude à la valeur spécifiée par \argument{attit} ; le spin
+est déduit par différences finies\\
+
+\signature{void \fonc{imposeSpin}}
+          {(double \argument{date},\\
+            const VecDBL\& \argument{position}, const VecDBL\& \argument{vitesse},\\
+            const VecDBL\& \argument{spin})\\
+           \throw{MarmottesErreurs}}&
+force le spin à la valeur spécifiée par \argument{spin} ; l'attitude
+est déduite par intégration\\
+
+\hline
+
+\signature{void \fonc{repereBase}}
+          {(const string\& \argument{fichier},\\
+            const string\& \argument{senseur},\\
+            RotDBL *\argument{r})\\
+          \throw{ClubErreurs, MarmottesErreurs}}&
+
+retourne le repère de base du \argument{senseur}, indépendamment de
+toute réorientation\\
+
+\signature{void \fonc{repere}}
+          {(const string\& \argument{fichier},\\
+            const string\& \argument{senseur},\\
+            RotDBL *\argument{r})\\
+          \throw{ClubErreurs, MarmottesErreurs}}&
+
+retourne le repère courant du \argument{senseur}, en tenant compte des
+réorientations éventuelles\\
+
+\hline
+
+\signature{void \fonc{mesure}}
+          {(const string\& \argument{fichier},\\
+            const string\& \argument{senseur},\\
+            double *\argument{m})\\
+          \throw{ClubErreurs, MarmottesErreurs}}&
+
+retourne dans la variable pointée par \argument{m} la mesure produite
+par le \argument{senseur} dans l'attitude courante \emph{sans prendre
+en compte les critères de contrôlabilité} ; ceci signifie qu'un
+senseur ayant un champ de vue de 15\degre peut tres bien fournir une
+mesure de 164\degre et pas de code d'erreur, les critères de
+contrôlabilité sont disponibles par une fonction séparée
+(\fonc{controlable})\\
+
+\signature{void \fonc{controlable}}
+          {(const string\& \argument{fichier},\\
+            const string\& \argument{senseur}, int *\argument{c})\\
+          \throw{ClubErreurs, MarmottesErreurs}}&
+
+retourne dans la variable pointée par \argument{c} un indicateur de
+contrôlabilité de l'attitude courante par le \argument{senseur} (c'est
+à dire est ce que l'astre cible est dans le champ de vue, n'est il pas
+masqué par la terre, le senseur est-il inhibé, ...)\\
+
+\hline
+
+\signature{void \fonc{unitesPositionVitesse}}
+          {(const string\& \argument{unitePos},\\
+            const string\& \argument{uniteVit})\\
+          \throw{MarmottesErreurs}}&
+
+cette méthode permet de modifier les unités de position et de vitesse
+dans les interfaces externes de la bibliothèque (qui en interne
+travaille toujours en kilomètres et kilomètres par seconde)\\
+
+\signature{void \fonc{respecterConsignes}}
+          {(const string\& \argument{fichier},\\
+            const string\& \argument{senseur})\\
+          \throw{ClubErreurs, MarmottesErreurs}}&
+
+Cette méthode permet de signaler à la bibliothèque que les consignes
+fournies par l'appelant sont déjà dans les unités internes et qu'il ne
+faut pas y toucher\\
+
+\signature{void \fonc{convertirConsignes}}
+          {(const string\& \argument{fichier},\\
+            const string\& \argument{senseur})\\
+          \throw{ClubErreurs, MarmottesErreurs}}&
+
+Cette méthode permet de signaler à la bibliothèque que les consignes
+fournies par l'appelant sont dans des unités externes et qu'il faut
+leur appliquer une conversion degrés vers radians pour pouvoir les
+utiliser (ceci fonctionne aussi avec des vitesses angulaires)\\
+
+\signature{void \fonc{respecterMesures}}
+          {(const string\& \argument{fichier},\\
+            const string\& \argument{senseur})\\
+          \throw{ClubErreurs, MarmottesErreurs}}&
+
+Cette méthode permet de signaler à la bibliothèque que l'appelant
+attend les mesures dans les unités internes et qu'il ne faut pas y
+toucher\\
+
+\signature{void \fonc{convertirMesures}}
+          {(const string\& \argument{fichier},\\
+            const string\& \argument{senseur})\\
+          \throw{ClubErreurs, MarmottesErreurs}}&
+
+Cette méthode permet de signaler à la bibliothèque que l'appelant
+attend les mesures dans des unités externes et qu'il faut leur
+appliquer une conversion radians vers degrés pour qu'il puisse les
+utiliser (ceci fonctionne aussi avec des vitesses angulaires)\\
+
+\hline
+
+\signature{const string\& \fonc{nomFichier}() const}
+          {}&
+
+retourne le nom du fichier de base des senseurs (ce fichier peut en
+inclure d'autres)\\
+
+\signature{bool \fonc{estInitialise} () const}
+          {}&
+
+indique si l'instance est initialisée, cette méthode est utilisée par
+l'interface fonctionnelle pour gérer le tableau des instances pour le
+\langage{c} et le \langage{fortran}, elle n'est pas d'une grande
+utilité pour le \langage{c++} qui a accès aux constructeurs,
+destructeur, et opérateur d'affectation\\
+
+\hline
+
+\signature{void \fonc{wMax} (double \argument{omega})}
+          {\throw{MarmottesErreurs}}&
+
+cette méthode permet de modifier la vitesse de rotation maximale du
+modèle analytique des senseurs cinématiques\\
+
+\signature{void \fonc{convergence} (double \argument{seuil})}
+          {\throw{MarmottesErreurs}}&
+
+cette méthode permet de modifier le critère de convergence de
+l'algorithme de résolution numérique\\
+
+\signature{void \fonc{dichotomie} (int \argument{tranches})}
+          {\throw{MarmottesErreurs}}&
+
+cette méthode permet de modifier le nombre de tranches de l'algorithme
+de séparation des zéros dans la résolution numérique\\
+
+\signature{void \fonc{autoriseExtrapolation} ()}
+          {\throw{MarmottesErreurs}}&
+
+cette méthode autorise la bibliothèque à accélérer ses résolutions en
+tentant une simple extrapolation de l'attitude à partir des états
+précédents et de ne lancer une résolution complète qu'en cas d'échec
+(il s'agit du comportement par défaut, aussi cette méthode n'est utile
+que pour annuler l'effet d'un appel préalable à
+\fonc{interditExtrapolation})\\
+
+\signature{void \fonc{interditExtrapolation} ()}
+          {\throw{MarmottesErreurs}}&
+
+cette méthode oblige la bibliothèque à refaire une résolution
+d'attitude complète et l'empêche de se contenter d'une simple
+extrapolation à partir des pas précédents\\
+
+\hline
+\signature{void \fonc{enregistreCorps}} {
+          (double \argument{equatorialRadius}, \\ 
+           double \argument{oblateness}, \\
+           double \argument{rotationVelocity},\\
+           double \argument{moonRadius},\\
+           double \argument{sunRadius},\\
+           BodyEphemC::TypeFuncTsid *\argument{tsidFunc},\\
+           BodyEphemC::TypeFuncPos *\argument{sunFunc},\\
+           BodyEphemC::TypeFuncPos *\argument{moonFunc}, \\
+           BodyEphemC::TypeFuncPos *\argument{earthFunc} )}
+           &
+cette méthode permet l'accès aux valeurs utilisateurs pour le rayon
+équatorial, l'aplatissement, et la vitesse de rotation du corps
+central, ainsi qu'aux fonctions utilisateurs, écrites en \langage{C},
+de calcul du temps sidéral et d'éphémérides par rapport au corps
+central.
+\\
+
+\signature{void \fonc{enregistreCorps}} {
+          (double \argument{equatorialRadius}, \\ 
+           double \argument{oblateness}, \\
+           double \argument{rotationVelocity},\\
+           double \argument{moonRadius},\\
+           double \argument{sunRadius},\\
+           BodyEphemF::TypeFuncTsid *\argument{tsidFunc},\\
+           BodyEphemF::TypeFuncPos *\argument{sunFunc},\\
+           BodyEphemF::TypeFuncPos *\argument{moonFunc}, \\
+           BodyEphemF::TypeFuncPos *\argument{earthFunc} )}
+           &
+cette méthode permet l'accès aux valeurs utilisateurs pour le rayon
+équatorial, l'aplatissement, et la vitesse de rotation du corps
+central, ainsi qu'aux fonctions utilisateurs, écrites en
+\langage{fortran}, de calcul du temps sidéral et d'éphémérides par
+rapport au corps central.
+\\
+
+\hline
+
+\signature{Senseur * \fonc{accesSenseur}}
+          {(const string\& \argument{fichier},\\
+            const string\& \argument{senseur})\\
+          \textbf{throw (ClubErreurs, CantorErreurs,}\\\textbf{MarmottesErreurs)}}&
+
+cette méthode permet de récupérer le pointeur sur un senseur
+à partir des arguments.\\
+
+\signature{const Etat \& \fonc{etat} ()}
+          {}&
+
+cette méthode retourne l'état de l'instance Marmottes.\\
+
+\hline
+\signature{void \fonc{lireParametres}}
+          {(double* \argument{ptrDate},\\
+            VecDBL* \argument{ptrPosition},\\
+            VecDBL* \argument{ptrVitesse},\\
+            RotDBL* \argument{ptrAttitude},\\
+            VecDBL* \argument{ptrSpin})\\
+          \throw{MarmottesErreurs}}
+&
+
+cette méthode permet de récupérer les valeurs courantes des paramètres
+internes à \bibliotheque{marmottes} : la date, la position, la vitesse, l'attitude et
+le spin.\\
+
+\end{tableFonctionsFixe}
+
+\subsubsection*{exemple d'utilisation}
+
+\begin{verbatim}
+#include "marmottes/Marmottes.h" ...
+
+// simulation d'un pointage en yaw-steering
+// l'axe Z est pointé terre, et l'orientation autour de la
+// direction terre est telle que le soleil soit dans le
+// plan XZ (les panneaux solailres tournent autour de l'axe Y)
+Marmottes simulateur (dateIni, positionIni, vitesseIni,
+                      attitude, spin,
+                      fichier,
+                      "roulis-terre",
+                      "tangage-terre",
+                      "lacet-soleil");
+
+// on tient compte d'un biais de pilotage
+simulateur.attitude (date, position, vitesse,
+                     biaisRoulis, biaisTangage, 0.0,
+                     &attitude, &spin);
+
+// recherche de la cible dans le repère satellite
+// (on à mis des pseudo senseurs spécifiques)
+double x, y, z;
+simulateur.mesure (simulateur.nomFichier (), "x-cible", &x);
+simulateur.mesure (simulateur.nomFichier (), "y-cible", &y);
+simulateur.mesure (simulateur.nomFichier (), "z-cible", &z);
+VecDBL cible (x, y, z);
+
+int    visible;
+simulateur.controlable (simulateur.nomFichier (), "instrument",
+                        &visible);
+if (visible)
+{ // la cible est dans le champ de l'instrument
+  ...
+}
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation spécifiques}
+\label{sec:Marmottes-conseils}
+Une bonne utilisation de la bibliothèque \bibliotheque{marmottes}
+passe par une modification assez profonde des habitudes de
+raisonnement et de modélisation. Il est important de raisonner en
+termes de \emph{senseurs} plutôt qu'en termes d'angles, de vecteurs ou
+de plans.
+
+On se rend ainsi compte avec l'expérience que l'on n'utilise quasiment
+jamais l'attitude ou le spin en sortie des méthodes de résolution, on
+se contente de faire confiance au simulateur qui les mémorise et on
+lui demande des informations de plus haut niveau par des
+pseudo-senseurs (l'exemple illustre cette démarche).
+
+Les pseudo-senseurs ne sont pas utilisés uniquement pour faire faire
+du post-traitement à la bibliothèque en plus des résolutions, ils sont
+également utilisés pour modéliser certaines attitude où ils
+interviennent en tant que senseurs de contrôle. On peut citer les
+pseudo-senseurs de Cardan bien adaptés au pointage terre, mais
+également les pseudo-senseurs d'ascension droite et de déclinaison qui
+permettent d'interfacer l'attitude avec l'optimisation des
+man\oe{}uvres inertielles (on modélise la direction de poussée par
+deux senseurs), et tous les senseurs optiques dont les cibles sont des
+directions \emph{a priori} non mesurables à bord d'un satellite
+(direction du moment orbital, direction de la vitesse, direction du
+soleil pendant l'éclipse, ...).
+
+Il arrive (trop souvent pour les utilisateurs) que la résolution
+d'attitude s'achève sur un message laconique du type~: pas de solution
+aux consignes d'attitude. Ce message indique un échec de la
+résolution, qui est généralement lié à une impossibilité physique de
+contrôle par les senseurs et les consignes fournis par l'utilisateur
+(utilisation d'un senseur solaire pendant l'éclipse, inhibition du
+senseur terre par la lune ou le soleil, incompatibilité entre les
+positions relatives terre, satellite, soleil, et les consignes ou les
+champs de vue sur certaines portions de l'orbite, ...). Il faut
+prendre garde à ces limitations\footnote{qui sont des limitations de
+la loi de pilotage, pas des limitations de la bibliothèque}, et
+éventuellement utiliser pour le contrôle des pseudo-senseurs
+fournissant des mesures compatibles avec les vrais senseurs montés sur
+le satellite, mais moins limités~: champs de vue couvrant toute la
+sphère unité, possibilité de pointer le soleil même à travers la
+terre, ...
+
+\subsubsection*{implantation}\label{sec:Marmottes-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:Marmottes-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe Marmottes}
+{\label{tab:Marmottes-att-priv}}
+{indicateur d'extrapolation d'attitude autorisée}
+
+initialise\_ & bool & indicateur d'instance initialisée\\
+
+extrapolationOk\_ & bool & indicateur d'extrapolation d'attitude
+autorisée pour accélérer les résolutions\\
+
+etat\_ & Etat  & dernier état calculé\\
+
+solveur\_ & ResolveurAttitude  & moteur de résolution d'attitude\\
+
+fichier\_ & FichierStructure & fichier de base des senseurs (ce
+fichier peut en inclure d'autres)\\
+
+senseurs\_ & Adressage<Senseur *>  & table des senseurs déjà utilisés \\
+\end{tableAttributsFixe}
+
+Les méthodes privées sont décrites dans la table~\ref{tab:Marmottes-met-priv}.
+\begin{tableFonctionsFixe}{Marmottes : méthodes privées}
+{\label{tab:Marmottes-met-priv}}
+{récupère un senseur par son \argument{nom}, soit dans la table}
+
+\signature{void \fonc{initialiseSenseurs}}
+          {(const string\& \argument{nomFichier})\\
+          \throw{ClubErreurs, MarmottesErreurs}}&
+
+initialise une table de senseurs vide et mémorise le fichier
+\argument{nomFichier}\\
+
+\signature{Senseur* \fonc{recupParNom}}
+          {(const string\& \argument{nom})\\
+          \throw{ClubErreurs, MarmottesErreurs}}&
+
+récupère un senseur par son \argument{nom}, soit dans la table
+interne, soit en le lisant dans le fichier (et en l'insérant dans la table)\\
+
+\signature{void \fonc{valideNouvelEtat}}
+          {(double \argument{date},\\
+            const VecDBL\& \argument{position}, const VecDBL\& \argument{vitesse},\\
+            const RotDBL\& \argument{attitude}, const VecDBL\& \argument{spin})
+          }&
+
+propage l'état résolu défini par les \argument{position},
+\argument{vitesse}, \argument{attitude} et \argument{spin} aux
+senseurs de la table (pour permettre par exemple aux gyromètres
+intégrateurs de se mettre à jour)\\
+
+\end{tableFonctionsFixe}

@@ -1,0 +1,230 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+% $Id: Traducteur.tex,v 1.9 2005/03/03 16:35:36 chope Exp $
+\subsection{classe Traducteur}\label{sec:Traducteur}
+
+\subsubsection*{description}\label{sec:Traducteur-desc}
+Cette classe permet d'obtenir le contenu d'une chaîne de caractère
+dans une langue utilisateur, à partir d'une clef indépendante de la
+langue utilisateur. L'ensemble des couples \emph{clef-chaîne de
+caractères} est lu dans un ou plusieurs fichiers de ressources (lus à
+travers une instance de TamponTexte). Les commentaires (qui
+vont du caractère \texttt{'\#'} à la fin de la ligne) sont
+ignorés. Les champs sont lus un par un et associés par paire, la
+clef pouvant être sur les champs pairs ou sur les champs impairs (un
+seul choix pour toutes les paires d'un même fichier). L'exemple
+suivant montre à quoi peut ressembler un fichier de domaine de
+traduction :
+\newlength{\largeurExempledomaine}
+\settowidth{\largeurExempledomaine}{\ttfamily
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+}
+\begin{center}\begin{minipage}{\largeurExempledomaine}\begin{verbatim}
+# domaine de traduction exemple
+
+# mots-clefs
+"un"
+  "one"
+
+"deux"
+  "two"
+
+# formats
+"format C avec une chaine \"%s\" et deux entiers %d %d\n"
+  "C format using one string and two integers : %s, %3d, %2.2d\n\n\n"
+\end{verbatim}\end{minipage}\end{center}
+
+Traducteur permet de gérer en bloc plusieurs domaines de
+traduction. chaque domaine est associé à un fichier de ressources, et
+l'utilisateur peut incrémentalement prendre en compte de nouveaux
+domaines. Ces fichiers de domaines sont regroupés dans des répertoires
+par langue, les noms des répertoires étant conformes à la norme
+(\emph{en} pour l'anglais, \emph{fr} pour le français, ...). Les
+répertoires sont recherchés en suivant une liste spécifiée par
+variable d'environnement (voir section~\ref{sec:environnement})
+la recherche dans un répertoire n'est entamée que si la recherche
+dans les répertoires précédents n'a pas abouti. La langue utilisateur
+est également spécifiée par variable d'environnement.
+
+Si une traduction est impossible, la clef est renvoyée, ceci permet
+d'utiliser ce système comme un \emph{plus} capable de réaliser des
+traductions lorsque les ressources sont disponibles, mais qui n'est
+pas désarmé si aucune ressource n'est disponible, dans ce cas il ne
+traduit pas ses résultats, mais il les produit tout de même. On peut
+donc sans risque utiliser cette classe pour traduire des chaînes de
+format \langage{c} ou \langage{fortran} de messages d'erreurs : les
+messages seront toujours formatés, qu'il y ait ou qu'il n'y ait pas de
+base de traduction.
+
+Enfin, des fonctions spécialisées peuvent vérifier dans le cas d'une
+traduction de format \langage{c} ou \langage{fortran} si le format
+traduit est compatible avec le format initial (en terme de nombre, de
+type et d'ordre des arguments attendus). Ceci permet d'assurer qu'une
+fois un logiciel validé, une erreur dans un fichier de traduction
+modifié après compilation et tests n'engendrera pas de problème
+d'exécution du type violation de la mémoire.
+
+\subsubsection*{interface publique}\label{sec:Traducteur-int}
+\begin{verbatim}
+#include "club/Traducteur.h"
+\end{verbatim}
+
+\begin{tableFonctionsFixe}{Traducteur : méthodes publiques}
+{\label{tab:Traducteur-met-pub}}
+{construit une instance de traducteur pour la langue}
+
+\signature{\fonc{Traducteur} ()}
+          {}&
+
+constructeur par défaut\\
+
+\signature{\fonc{Traducteur} (const char *\argument{langueUtilisateur})}
+          {}&
+
+construit une instance de traducteur pour la langue utilisateur
+spécifiée \\
+
+\hline
+
+\signature{\fonc{Traducteur} (const Traducteur\& \argument{t})}
+          {}&
+
+constructeur par copie \\
+
+\signature{Traducteur\& \fonc{operator =} (const Traducteur\& \argument{t})}
+          {}&
+
+affectation \\
+
+\hline
+
+\signature{\fonc{\~{}Traducteur} ()}
+          {}&
+
+destructeur, libère la mémoire allouée \\
+
+\hline
+
+\signature{void \fonc{ajouterDomaine}}
+          {(const char *\argument{domaine}, TamponTexte\& \argument{fichier},\\
+            int \argument{cleSurChampsImpairs})
+          }&
+
+ajoute dans l'instance le dictionnaire du \argument{domaine} spécifié
+tel qu'il est lu dans le \argument{fichier}, l'argument
+\argument{cleSurChampsImpairs} indique dans quel élément il faut
+prendre la clef et dans quel élément il faut prendre la traduction \\
+
+\signature{int \fonc{domaineMembre} (const char *\argument{domaine}) const}
+          {}&
+
+indique si \argument{domaine} est géré par l'instance \\
+
+\signature{const string\& \fonc{langueUtilisateur} () const}
+          {}&
+
+retourne la langue de l'utilisateur \\
+
+\hline
+
+\signature{const string\& \fonc{operator ()}}
+          {(const char *\argument{clef}) const}&
+
+retourne la traduction de la \argument{clef} (ou la \argument{clef}
+elle-même si la traduction n'est pas disponible) \\
+
+\signature{const string\& \fonc{traductionFormatC}}
+          {(const char *\argument{format}) const}&
+
+retourne la traduction du \argument{format} (ou le \argument{format}
+préfixé d'un message si la traduction n'est pas disponible ou est
+incompatible) \\
+
+\signature{int \fonc{traductionFormatFortran}}
+          {(const char *\argument{format},\\
+            FormatFortran *\argument{ptrTrad}) const
+          }&
+
+initialise l'instance pointée par \argument{ptrTrad} avec la
+traduction du \argument{format} (retourne un code non nul en cas de
+problème d'analyse du \argument{format} de base --- ce qui n'est pas
+un problème de traduction) \\
+
+\end{tableFonctionsFixe}
+
+\subsubsection*{exemple d'utilisation}\label{sec:Traducteur-expl}
+
+\begin{verbatim}
+#include "club/Traducteur.h"
+
+// définition des variables statiques utiles au système général
+// (seront construites dès qu'on en aura besoin)
+static Traducteur* ptrExterne = 0;
+static Traducteur* ptrInterne = 0;
+
+static void InitTraducteurs ()
+{ // allocation des objets statiques
+  if (ptrExterne == 0)
+    ptrExterne = new Traducteur;
+  if (ptrInterne == 0)
+    ptrInterne = new Traducteur;
+}
+
+const char* TraduitVersExterne (const char* interne)
+{ InitTraducteurs ();
+  return (*ptrExterne) (interne);
+}
+
+const char* TraduitVersInterne (const char* externe)
+{ InitTraducteurs ();
+  return (*ptrInterne) (externe);
+}
+
+const char* TraduitFormatCVersExterne (const char* format)
+{ InitTraducteurs ();
+  return ptrExterne->traductionFormatC (format);
+}
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation spécifiques}
+\label{sec:Traducteur-conseils}
+Les méthodes de traduction retournent des références constantes soit
+sur des éléments internes des dictionnaires de traduction, soit sur
+des variables statiques constituées au moment de l'appel (dans les
+divers cas d'échecs). Il est donc possible que d'un appel à l'autre
+les mêmes variables statiques soient réutilisées, il faut donc que
+l'appelant stocke lui-même la valeur retournée s'il en a besoin un
+certain temps. D'autre part, il se trouve que le système de gestion
+des erreurs basé sur la classe BaseErreurs (voir~\ref{sec:BaseErreurs}
+et~\ref{sec:ClubErreurs}) utilise Traducteur. Il faut donc faire très
+attention car la durée de validité de la référence retournée peut être
+extrèmement courte. Le code suivant est ainsi erroné :
+\newlength{\largeurConseilTraducteur}
+\settowidth{\largeurConseilTraducteur}{\ttfamily
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+}
+\begin{center}\begin{minipage}{\largeurConseilTraducteur}\begin{verbatim}
+Traducteur t (...);
+return MaClasseErreurs (MaClasseErreurs::pb_traduction,
+                        t (clef));
+\end{verbatim}\end{minipage}\end{center}
+le formatage de \texttt{MaClasseErreurs\char58\char58pb\_traduction} utilise en
+effet très vraisemblablement les méthodes de BaseErreurs, lesquelles
+écrasent la référence constante résultant de l'analyse du second
+argument ! Ce cas a été effectivement rencontré, il a été difficile à
+cerner. Il est important de noter qu'il respecte tout à fait les
+règles sur la durée de vie des temporaires de la version de travail du
+comité de normalisation du langage \langage{c++}.
+
+\subsubsection*{implantation}\label{sec:Traducteur-impl}
+Les attributs sont décrits sommairement dans la
+table~\ref{tab:Traducteur-att}, il n'y a pas de méthode privée.
+\begin{tableAttributsFixe}{attributs de la classe Traducteur}
+{\label{tab:Traducteur-att}}{nombre de domaines gérés par l'instance}
+tableCorrespondance\_ & \raisebox{-3ex}{\shortstack[r]{hash\_map <string, OptionBase *, \\
+                                                       club\_hash<string> >}} & dictionnaire \\
+nbDomaines\_          & int & nombre de domaines gérés par l'instance \\
+domaines\_            & string * & table des domaines gérés par
+l'instance \\
+langueUtilisateur\_   & string & langue utilisateur gérée par
+l'instance \\
+\end{tableAttributsFixe}

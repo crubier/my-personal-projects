@@ -1,0 +1,212 @@
+% -*- mode: latex; tex-main-file: "cantor.tex" -*-
+% $Id: Secteurs.tex,v 1.7 2003/07/09 08:55:11 cantor Exp $
+\subsection{classe Secteurs}\label{sec:Secteurs}
+
+\subsubsection*{description}\label{sec:Secteurs-desc}
+
+Cette classe est une surcouche à la classe Cone (cf~\ref{sec:Cone})
+permettant de filtrer des portions considérées comme visibles du
+cône. Elle est utilisée par exemple pour modéliser la visibilité du
+limbe d'un corps central à travers les champs de vue d'un senseur
+infrarouge dans la bibliothèque \bibliotheque{marmottes}.
+
+\subsubsection*{interface publique}\label{sec:Secteurs-int}
+\begin{verbatim}
+#include "cantor/Secteurs.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{Secteurs : méthodes publiques}
+{\label{tab:Secteurs-met-pub}}
+{construit un secteur constitué des portions angulaires
+\argument{visible}}
+
+\signature{\fonc{Secteurs} ()}
+          {}&
+
+construit un secteur constitué de la totalité du cône par défaut\\
+
+\signature{\fonc{Secteurs}}
+          {(const Cone\& \argument{base})}&
+
+construit un secteur constitué de la totalité du cône
+\argument{base}\\
+
+\signature{\fonc{Secteurs}}
+          {(const Cone\& \argument{base},\\
+            const VecDBL\& \argument{reference},\\
+            const Creneau\& \argument{visible})\\
+           \throw{CantorErreurs}}&
+
+construit un secteur constitué des portions angulaires
+\argument{visible} (comptées à partir du vecteur de
+\argument{reference}) autour du cône \argument{base}\\
+
+\hline
+
+\signature{\fonc{Secteurs} (const Secteurs\& \argument{s})}
+          {}&
+
+constructeur par copie\\
+
+\signature{Secteurs\& \fonc{operator =}}
+          {(const Secteurs\& \argument{s})}&
+
+affectation \\
+
+\hline
+
+\signature{\fonc{~Secteurs} ()} {} &
+destructeur
+\\
+
+\hline
+
+\signature{void \fonc{intersection} (const Cone\& \argument{c})}
+          {}&
+
+filtre dans le secteur courant les parties visibles à travers le cône
+\argument{c}\\
+
+\signature{bool \fonc{diedreContient}}
+          {(const VecDBL\& \argument{u}) const}&
+
+teste si le vecteur \argument{u} est dans l'un des dièdres du secteur\\
+
+\hline
+
+\signature{int \fonc{nombre} () const}
+          {}&
+
+retourne le nombre de tronçons dont est constitué le secteur\\
+
+\signature{bool \fonc{vide} () const}
+          {}&
+
+indique si le secteur est vide (c'est à dire ne contient aucun tronçon
+visible)\\
+
+\signature{bool \fonc{nonVide} () const}
+          {}&
+
+indique si le secteur n'est pas vide (c'est à dire contient au moins
+un tronçon visible)\\
+
+\hline
+
+\signature{const Cone\& \fonc{cone} () const}
+          {}&
+
+retourne une référence constante sur le cône de base sur lequel
+s'appuie le secteur\\
+
+\signature{double \fonc{angle} () const}
+          {}&
+
+retourne le demi angle d'ouverture du cône de base sur lequel s'appuie
+le secteur\\
+
+\signature{const VecDBL\& \fonc{reference} () const}
+          {}&
+
+retourne une référence constante sur le vecteur de référence à partir
+duquel sont comptés les angles décrivant les portions visibles\\
+
+\signature{const Creneau\& \fonc{creneau} () const}
+          {}&
+
+retourne une référence constante sur les portions angulaires
+visibles\\
+
+\hline
+
+\signature{void \fonc{diedre}}
+          {(int \argument{i}, VecDBL *\argument{ptrAxe},\\
+            VecDBL *\argument{ptrPlanDebut}, VecDBL *\argument{ptrPlanFin},\\
+            double *\argument{ptrBalayage}) const
+          }&
+
+initialise les variables pointées par les arguments \argument{ptrAxe},
+\argument{ptrPlanDebut}, \argument{ptrPlanFin}, et
+\argument{ptrBalayage} avec les paramètres du dièdre contenant le
+tronçon \argument{i}. Il faut noter ques les vecteurs
+\argument{ptrPlanDebut} et \argument{ptrPlanFin} sont des vecteurs
+appartenant aux plans limitant le dièdre de l'arc (ils sont
+orthogonaux à l'axe, quel que soit l'ouverture du cône), ce ne sont
+\emph{pas} les vecteurs de début et de fin de l'arc lui-même
+\\
+
+\hline
+
+\signature{void \fonc{modifieReference}}
+          {(const VecDBL\& \argument{reference})}&
+
+ramène la référence de l'instance dans le plan méridien défini par
+\argument{reference} et par l'axe du cône\\
+
+\signature{void \fonc{tourne} (const RotDBL\& \argument{r})}
+          {}&
+
+transforme l'instance par la rotation \argument{r}\\
+
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+
+\begin{verbatim}
+#include "marmottes/Secteurs.h"
+
+// constitution d'un limbe terre complet
+Secteurs limbe (Cone (directionTerre, rayonTerre));
+
+// élimination des portions invisibles
+for (int i = 0; i < n; i++)
+  limbe.intersection (coneFiltre [i]);
+
+// la direction du limbe observée est-elle visible ?
+int ok = 0;
+for (int i = 0; i < limbe.nombre (); i++)
+{ VecDBL axe, debut, fin;
+  double balayage;
+  limbe.vecteurs (i, &axe, &debut, &fin, &balayage);
+  Arc arc (axe, debut, fin);
+  if (arc.diedreContient (directionTest))
+    ok = 1;
+}
+
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation spécifiques}
+\label{sec:Secteurs-conseils} L'utilisation de cette
+classe suit généralement une démarche séquentielle. On commence par
+créer une instance à partir d'un cône complet, puis on filtre les
+portions visibles en faisant passer l'instance à travers des
+successions de cônes, et enfin on parcourt les portions restantes,
+soit sous forme de créneaux angulaires autour de l'axe du cône de
+base, soit sous forme d'arcs sur la sphère unité.
+
+Les autres classes permettant de travailler sur le sphère unité sont
+Arc (cf~\ref{sec:Arc}), ArcIterateur(cf~\ref{sec:ArcIterateur}), Cone
+(cf~\ref{sec:Cone}), Field (cf~\ref{sec:Field}), AnnotatedArc
+(cf~\ref{sec:AnnotatedArc}), Node (cf~\ref{sec:Node}) et AnnotatedArc
+(cf~\ref{sec:AnnotatedArc}).
+
+\subsubsection*{implantation}\label{sec:Secteurs-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:Secteurs-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe Secteurs}
+{\label{tab:Secteurs-att-priv}}
+{vecteur non normé parallèle à l'axe du cône de base}
+
+base\_ & Cone & cône de base sur lequel s'appuie le secteur\\
+
+x\_ & VecDBL & vecteur de référence (non normé) à partir duquel sont comptés les
+angles\\
+
+y\_ & VecDBL  & vecteur orthogonal à l'axe du cône de base et à x\_ et
+permettant de construire un repère de l'espace (non normé)\\
+
+zNonNorme\_ & VecDBL & vecteur non normé parallèle à l'axe du cône de
+base\\
+
+visible\_ & Creneau  & portions angulaires visibles, comptées à partir
+de x\_ positivement autour de zNonNorme\_ \\
+
+\end{tableAttributsFixe}

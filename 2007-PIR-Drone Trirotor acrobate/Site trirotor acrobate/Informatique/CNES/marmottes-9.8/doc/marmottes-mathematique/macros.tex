@@ -1,0 +1,50 @@
+% -*- mode: latex; tex-main-file: "marmottes-mathematique.tex" -*-
+% $Id: macros.tex,v 1.4 2002/09/09 12:36:40 marmottes Exp $
+\usepackage[dvips]{changebar}
+\setcounter{changebargrey}{40}
+\outerbarstrue
+\setlength{\changebarsep}{-10pt}
+
+\newlength{\retrait}
+\newenvironment{algorithme}[1][5mm]
+{\newcommand{\incr}{\addtolength{\retrait}{#1}}
+\newcommand{\decr}{\addtolength{\retrait}{-#1}}
+\newcommand{\tire}{{}\hspace{-#1}}
+\newcommand{\algnewline}{\par\noindent\hspace{\retrait}{}\ignorespaces}
+\setlength{\retrait}{0pt}\setlength{\retrait}{0pt}\obeycr\let\\=\algnewline\\}
+{}
+
+\newcommand{\si}{{}\textbf{Si}\ \incr}
+\newcommand{\sinon}{\tire\textbf{Sinon}}
+\newcommand{\finsi}{\tire\textbf{Fin si}\decr}
+\newcommand{\pour}{{}\textbf{Pour}\ \incr}
+\newcommand{\finpour}{\tire\textbf{Fin pour}\ \decr}
+\newcommand{\boucler}{{}\textbf{Boucler}\ \incr}
+\newcommand{\finboucle}{\tire\textbf{Fin boucle}\decr}
+\newcommand{\jusqua}{\tire\textbf{Jusqu'à}\ \decr}
+\newcommand{\tantque}{{}\textbf{Tant que}\ \incr}
+\newcommand{\fintantque}{\tire\textbf{Fin tant que}\decr}
+
+\newcommand{\langage}[1]{\textsc{#1}}
+\newcommand{\bibliotheque}[1]{\textsc{#1}}
+\newcommand{\cthe}{\cos\theta}\newcommand{\sthe}{\sin\theta}
+\newcommand{\cphi}{\cos\varphi}\newcommand{\sphi}{\sin\varphi}
+\newcommand{\cpsi}{\cos\psi}\newcommand{\spsi}{\sin\psi}
+\newcommand{\cmu}{\cos\mu_1}\newcommand{\smu}{\sin\mu_1}
+\newcommand{\cmd}{\cos\mu_2}\newcommand{\smd}{\sin\mu_2}
+\newcommand{\tmd}{\tan\mu_2}
+\newcommand{\cg}{\cos\gamma}\newcommand{\sg}{\sin\gamma}
+\newcommand{\tg}{\tan\gamma}
+\newcommand{\ct}{\cos\theta}\newcommand{\st}{\sin\theta}
+\newcommand{\ctd}{\cos\frac{\theta}{2}}
+\newcommand{\std}{\sin\frac{\theta}{2}}
+\newcommand{\ctdtd}{\cos^2\frac{\theta}{2}}
+\newcommand{\stdtd}{\sin^2\frac{\theta}{2}}
+\newcommand{\cpmtd}{\cos\frac{\pi-\theta}{2}}
+\newcommand{\spmtd}{\sin\frac{\pi-\theta}{2}}
+\newcommand{\ca}{\cos\alpha_{1,2}}\newcommand{\sa}{\sin\alpha_{1,2}}
+\newcommand{\cj}{\cos\varphi}\newcommand{\sj}{\sin\varphi}
+\newcommand{\vusad}{\vec{v}_1\cdot\vec{a}_2}
+\newcommand{\fraction}{\frac{\ca-\cmd\vusad}{\smd}}
+\newcommand{\cgmm}{\cos(\gamma-\mu_1)}\newcommand{\sgmm}{\sin(\gamma-\mu_1)}
+\newcommand{\cgpm}{\cos(\gamma+\mu_1)}\newcommand{\sgpm}{\sin(\gamma+\mu_1)}

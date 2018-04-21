@@ -1,0 +1,214 @@
+% -*- mode: latex; tex-main-file: "cantor.tex" -*-
+% $Id: Intervalle.tex,v 1.8 2003/07/09 08:55:11 cantor Exp $
+\subsection{classe Intervalle}\label{sec:Intervalle}
+
+\subsubsection*{description}\label{sec:Intervalle-desc}
+
+La classe Intervalle implante la notion d'intervalle sur
+$\mathrm{I\hspace{-0.23em}R}$. Les opérations les plus importantes
+qu'elle propose sont les opérations de réunion (par les opérateurs
+'\fonc{*=}' et '\fonc{*}'), d'intersection (par les opérateurs
+'\fonc{+=}' et '\fonc{+}'), et de test d'inclusion d'un scalaire (ou
+d'un intervalle).
+
+Les réels de l'informatique ayant une imprécision incontournable,
+aucune distinction entre intervalle ouvert, semi-ouvert, ou fermé
+n'est faite. Si l'utilisateur veut implanter ces notions, c'est à lui
+de gérer l'intervalle de confiance qu'il utilise pour l'égalité, une
+classe d'usage général ne peut pas faire d'hypothèse réaliste sur ce
+point.
+
+On peut noter que presque toutes les méthodes de la classe sont
+\texttt{inline}, c'est à dire peu coûteuses. En fait la seule méthode
+à ne pas être \texttt{inline} est l'opérateur d'affectation.
+
+\subsubsection*{interface publique}\label{sec:Intervalle-int}
+\begin{verbatim}
+#include "cantor/Intervalle.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{Intervalle : méthodes publiques}
+{\label{tab:Intervalle-met-pub}}
+{indique si tous les points de l'instance sont strictements
+supérieurs}
+
+\signature{\fonc{Intervalle} ()}
+          {}&
+
+construit l'intervalle $[0 ; 1]$\\
+
+\signature{\fonc{Intervalle} (double \argument{a}, double \argument{b})}
+          {}&
+
+construit l'intervalle de bornes \argument{a} et \argument{b} (l'ordre
+est indifférent) \\
+
+\hline
+
+\signature{\fonc{Intervalle} (const Intervalle\& \argument{i})}
+          {}&
+
+constructeur par copie \\
+
+\signature{Intervalle\& \fonc{operator =}}
+          {(const Intervalle\& \argument{i})}&
+
+affectation \\
+
+\hline
+
+\signature{\fonc{~Intervalle} ()} {} &
+destructeur
+\\
+
+\hline
+
+\signature{double \fonc{inf} () const}
+          {}&
+
+retourne une copie de la borne inférieure de l'intervalle \\
+
+\signature{double \fonc{sup} () const}
+          {}&
+
+retourne une copie de la borne supérieure de l'intervalle\\
+
+\signature{double \fonc{longueur} () const}
+          {}&
+
+retourne une copie de la longueur de l'intervalle\\
+
+\signature{bool \fonc{contient} (double \argument{x}) const}
+          {}&
+
+indique si l'instance contient le réel \argument{x} \\
+
+\signature{bool \fonc{contient} (const Intervalle\& \argument{i}) const}
+          {}&
+
+indique si l'instance contient tous les points de l'intervalle
+\argument{i} \\
+
+\signature{bool \fonc{rencontre}}
+          {(const Intervalle\& \argument{i}) const}&
+
+indique si l'instance rencontre l'intervalle \argument{i} (c'est à
+dire s'ils ont au moins un point commun) \\
+
+\signature{bool \fonc{disjoint} (const Intervalle\& \argument{i}) const}
+          {}&
+
+indique si l'instance et l'intervalle \argument{i} sont totalement
+disjoints \\
+
+\signature{void \fonc{decale} (double \argument{delta}) const}
+          {}&
+
+décale les deux bornes de l'intervalle de la valeur \argument{delta}\\
+
+\signature{bool \fonc{operator <\relax}}
+          {(const Intervalle\& \argument{i}) const}&
+
+indique si tous les points de l'instance sont strictements inférieurs
+à tous les points de \argument{i} \\
+
+\signature{bool \fonc{operator >\relax}}
+          {(const Intervalle\& \argument{i}) const}&
+
+indique si tous les points de l'instance sont strictements supérieurs
+à tous les points de \argument{i} \\
+
+\signature{Intervalle\& \fonc{operator +=}}
+          {(const Intervalle\& \argument{i})}&
+
+remplace l'instance par l'intervalle résultant de la réunion de
+l'instance et de \argument{i}. \emph{Attention}, si au départ les
+intervalles étaient disjoints, cette opération comble le trou qui
+existait originellement entre les intervalles ! \\
+
+\signature{Intervalle\& \fonc{operator *=}}
+          {(const Intervalle\& \argument{i})}&
+
+remplace l'instance par l'intervalle résultant de l'intersection de
+l'instance et de \argument{i}. Si les intervalles étaient disjoints au
+départ, l'intervalle résultant est de longueur nulle, et ses deux
+bornes sont égales à la plus grande des bornes inférieures des
+intervalles initiaux \\
+
+\end{tableFonctionsFixe}
+
+\begin{tableFonctionsFixe}{Intervalle : opérations non membres}
+{\label{tab:Intervalle-non-membres}}
+{formate une chaîne de caractères représentant l'intervalle
+\argument{i}}
+
+\signature{inline Intervalle \fonc{operator +}}
+          {(const Intervalle\& \argument{i}, const Intervalle\& \argument{j})}&
+
+retourne l'intervalle réunion des intervalles \argument{i} et
+\argument{j}. \emph{Attention}, si au départ les intervalles étaient
+disjoints, cette opération comble le trou qui existait originellement
+entre les intervalles ! \\
+
+\signature{inline Intervalle \fonc{operator *}}
+          {(const Intervalle\& \argument{i}, const Intervalle\& \argument{j})}&
+
+retourne l'intervalle intersection des intervalles \argument{i} et
+\argument{j}. Si les intervalles étaient disjoints au départ,
+l'intervalle résultant est de longueur nulle, et ses deux bornes sont
+égales à la plus grande des bornes inférieurs des intervalles
+initiaux. \\
+
+\hline
+
+\signature{inline ostream\& \fonc{operator <\relax<\relax}}
+          {(ostream\& \argument{s}, const Intervalle\& \argument{i})}&
+
+formate une chaîne de caractères représentant l'intervalle
+\argument{i} sur le flot \argument{s} \\
+
+\end{tableFonctionsFixe}
+
+\subsubsection*{exemple d'utilisation}
+
+\begin{verbatim}
+#include "cantor/Intervalle.h"
+...
+Intervalle i (-1.0, 2.0);
+Intervalle j (1.0, 3.5);
+Intervalle ij = i * j;
+cout << i
+     << (i.contient (1.2) ? " contient " : " ne contient pas ")
+     << 1.2 << endl;
+
+j = Intervalle (4.0, 5.0);
+if (i < j)
+  cout << i << '<' << j << endl;
+
+j = Intervalle (-0.5, 0.5);
+if (i.contient (j))
+  cout << i <<  " contient " << j << endl;
+...
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation spécifiques}
+\label{sec:Intervalle-conseils}
+La classe Intervalle est d'utilisation relativement simple, la seule
+opération pouvant poser problème est la réunion d'intervalle
+(opérateurs \fonc{+=} et \fonc{+}), qui comble le trou entre deux
+intervalles si ceux ci étaient disjoints au départ. Si l'on désire
+pouvoir gérer ce cas correctement d'un point de vue mathématique, il
+faut passer par la classe Creneau, qui est décrite à la
+section~\ref{sec:Creneau}.
+
+\subsubsection*{implantation}\label{sec:Intervalle-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:Intervalle-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe Intervalle}
+{\label{tab:Intervalle-att-priv}}
+{borne supérieure de l'intervalle}
+
+inf\_ & double  & borne inférieure de l'intervalle \\
+
+sup\_ & double  & borne supérieure de l'intervalle \\
+
+\end{tableAttributsFixe}

@@ -1,0 +1,470 @@
+% -*- mode: latex; tex-main-file: "marmottes-mathematique.tex" -*-
+% $Id: cones.tex,v 1.7 2001/04/05 10:11:50 luc Exp $
+\cleardoublepage\section{Intersection de cônes sur la sphère}
+\label{sec:intersection}
+Les champs de vue des capteurs géométriques sont définis comme des
+combinaisons plus ou moins complexes de cônes (réunions et
+intersections imbriquées). De plus, dans le cas des capteurs
+de limbe, le bord de l'astre observé est également vu par le capteur
+comme un cône. Enfin, les consignes géométriques sont modélisées par
+des cônes.
+
+On est donc souvent amené à rencontrer des intersections de cônes sur
+la sphère unité centrée sur le satellite.
+
+Soient deux cônes ($\vec{u}$,~$\alpha$) et ($\vec{v}$,~$\beta$) non
+coaxiaux (voir figure~\ref{fig:intersection}).
+\begin{figure}[htbp]\caption{\label{fig:intersection}intersection de cônes}
+\begin{center}\begin{minipage}{75.00mm}
+\setlength{\unitlength}{0.0160mm}\begin{picture}(4688,4688)
+
+  % courbe 1
+  \qbezier[0](4625,1798)(4836,2740)(4343,3571)
+  \qbezier[0](4342,3570)(3962,4181)(3308,4481)
+  \qbezier[0](3308,4481)(2830,4695)(2306,4688)
+  \qbezier[0](2306,4689)(1465,4666)(820,4126)
+  \qbezier[0](819,4127)(-28,3369)(0,2233)
+  \qbezier[0](2,2232)(24,1786)(208,1378)
+  \qbezier[0](208,1378)(269,1244)(346,1118)
+  \qbezier[0](346,1118)(726,507)(1380,207)
+  \qbezier[0](1380,207)(1858,-7)(2382,0)
+  \qbezier[0](2382,-1)(3223,22)(3868,562)
+  \qbezier[0](3868,562)(4441,1060)(4624,1798)
+
+  % courbe 2
+  \qbezier[0](2344,2344)(2063,3028)(1782,3713)
+
+  % courbe 3
+  \qbezier[0](2344,2344)(1611,2444)(878,2543)
+
+  % courbe 4
+  \qbezier[0](1449,3986)(1382,3998)(1310,3993)
+  \qbezier[0](1310,3993)(1248,3989)(1184,3972)
+  \qbezier[0](1184,3972)(1142,3960)(1100,3943)
+  \qbezier[0](1098,3945)(632,3731)(494,3222)
+  \qbezier[0](496,3220)(486,3175)(481,3130)
+  \qbezier[0](481,3130)(475,3074)(477,3020)
+  \qbezier[0](477,3020)(480,2955)(495,2896)
+  \qbezier[0](495,2896)(514,2817)(554,2751)
+  \qbezier[0](554,2751)(594,2687)(651,2640)
+  \qbezier[0](651,2640)(715,2587)(797,2561)
+  \qbezier[0](797,2561)(870,2538)(951,2538)
+  \qbezier[0](951,2538)(1012,2538)(1075,2551)
+  \qbezier[0](1075,2551)(1128,2562)(1181,2582)
+  \qbezier[0](1183,2580)(1678,2795)(1812,3333)
+  \qbezier[0](1810,3335)(1819,3381)(1822,3426)
+  \qbezier[0](1822,3426)(1827,3481)(1823,3535)
+  \qbezier[0](1823,3535)(1818,3598)(1801,3657)
+  \qbezier[0](1801,3657)(1782,3724)(1747,3782)
+  \qbezier[0](1747,3782)(1644,3947)(1449,3986)
+
+  % courbe 5
+  \qbezier[0](2344,2344)(1709,2835)(1074,3326)
+
+  % courbe 6
+  \qbezier[0](1836,2737)(1780,2588)(1758,2424)
+
+  % courbe 7
+  \qbezier[0](2344,2344)(2705,2919)(3066,3494)
+
+  % courbe 8
+  \qbezier[0](2344,2344)(1983,2919)(1622,3494)
+
+  % courbe 9
+  \qbezier[0](2968,3374)(3155,3555)(3145,3786)
+  \qbezier[0](3145,3786)(3140,3874)(3104,3956)
+  \qbezier[0](3104,3956)(3075,4021)(3030,4079)
+  \qbezier[0](3030,4079)(2990,4128)(2939,4171)
+  \qbezier[0](2939,4171)(2897,4207)(2848,4238)
+  \qbezier[0](2848,4240)(2394,4490)(1907,4278)
+  \qbezier[0](1907,4275)(1865,4254)(1826,4229)
+  \qbezier[0](1826,4229)(1788,4204)(1753,4175)
+  \qbezier[0](1753,4175)(1702,4133)(1662,4083)
+  \qbezier[0](1662,4083)(1609,4018)(1579,3943)
+  \qbezier[0](1579,3943)(1545,3860)(1542,3772)
+  \qbezier[0](1542,3772)(1540,3695)(1564,3619)
+  \qbezier[0](1564,3619)(1584,3553)(1622,3492)
+  \qbezier[0](1622,3492)(1656,3440)(1701,3393)
+  \qbezier[0](1701,3393)(1739,3354)(1783,3321)
+  \qbezier[0](1783,3321)(1820,3294)(1860,3270)
+  \qbezier[0](1860,3268)(2325,3029)(2802,3253)
+  \qbezier[0](2802,3256)(2843,3278)(2881,3304)
+  \qbezier[0](2881,3304)(2928,3336)(2967,3374)
+
+  % courbe 10
+  \qbezier[0](2344,2344)(2344,3097)(2344,3851)
+
+  % courbe 11
+  \qbezier[0](2344,2947)(2493,2892)(2633,2804)
+
+  \put(1000,3400){\mbox{$\vec{u}$}}
+  \put(1600,2600){\mbox{$\alpha$}}
+  \put(2400,3800){\mbox{$\vec{v}$}}
+  \put(2600,3000){\mbox{$\beta$}}
+\end{picture}\end{minipage}\end{center}
+\end{figure}
+On va chercher à exprimer les coordonnées des intersections dans le
+repère non orthonormé $\vec{u}$, $\vec{v}$, $\vec{u}\wedge\vec{v}$
+($\vec{u}\wedge\vec{v}$ existe dès lors que les cônes ne sont pas
+coaxiaux).
+\begin{displaymath}
+\vec{p} = a\vec{u} + b\vec{v} + c \vec{u} \wedge \vec{v}
+\end{displaymath}
+Les conditions
+\begin{eqnarray*}
+\vec{p}\cdot\vec{u} & = & \cos\alpha \\
+\vec{p}\cdot\vec{v} & = & \cos\beta \\
+\vec{p}\cdot\vec{p} & = & 1
+\end{eqnarray*}
+permettent d'exprimer les coordonnées :
+\begin{eqnarray*}
+a & = & \frac{\cos\alpha - \vec{u}\cdot\vec{v} \cos\beta}
+             {1-(\vec{u}\cdot\vec{v})^2} \\
+b & = & \frac{\cos\beta - \vec{u}\cdot\vec{v} \cos\alpha}
+             {1-(\vec{u}\cdot\vec{v})^2} \\
+c & = & \pm\sqrt{\frac{1-(a\vec{u} + b\vec{v})^2}
+                      {1-(\vec{u}\cdot\vec{v})^2}}
+\end{eqnarray*}
+La condition d'existence de $c$ ($(a\vec{u} + b\vec{v}) < 1$) est la
+condition d'existence des intersections.
+
+Les deux choix possibles de $c$ donnent les deux solutions quand elles
+existent, symétriques par rapport au plan $(\vec{u},~\vec{v})$. On
+notera les solutions $\vec{p}_+$ et $\vec{p}_-$ selon le signe de $c$
+dans la suite de cette annexe.
+\begin{figure}[htbp]\caption{\label{fig:variation}variation des intersections}
+\begin{center}\begin{minipage}{75.00mm}
+\setlength{\unitlength}{0.0160mm}\begin{picture}(4688,4688)
+
+  % courbe 1
+  \qbezier[0](4625,1798)(4836,2740)(4343,3571)
+  \qbezier[0](4342,3570)(3962,4181)(3308,4481)
+  \qbezier[0](3308,4481)(2830,4695)(2306,4688)
+  \qbezier[0](2306,4689)(1465,4666)(820,4126)
+  \qbezier[0](819,4127)(-28,3369)(0,2233)
+  \qbezier[0](2,2232)(24,1786)(208,1378)
+  \qbezier[0](208,1378)(269,1244)(346,1118)
+  \qbezier[0](346,1118)(726,507)(1380,207)
+  \qbezier[0](1380,207)(1858,-7)(2382,0)
+  \qbezier[0](2382,-1)(3223,22)(3868,562)
+  \qbezier[0](3868,562)(4441,1060)(4624,1798)
+
+  % courbe 2
+  \qbezier[0](2344,2344)(1709,2835)(1074,3326)
+
+  % courbe 3
+  \qbezier[0](2344,2344)(2063,3028)(1782,3713)
+
+  % courbe 4
+  \qbezier[0](2344,2344)(1611,2444)(878,2543)
+
+  % courbe 5
+  \qbezier[0](1449,3986)(1382,3998)(1310,3993)
+  \qbezier[0](1310,3993)(1248,3989)(1184,3972)
+  \qbezier[0](1184,3972)(1142,3960)(1100,3943)
+  \qbezier[0](1098,3945)(632,3731)(494,3222)
+  \qbezier[0](496,3220)(486,3175)(481,3130)
+  \qbezier[0](481,3130)(475,3074)(477,3020)
+  \qbezier[0](477,3020)(480,2955)(495,2896)
+  \qbezier[0](495,2896)(514,2817)(554,2751)
+  \qbezier[0](554,2751)(594,2687)(651,2640)
+  \qbezier[0](651,2640)(715,2587)(797,2561)
+  \qbezier[0](797,2561)(870,2538)(951,2538)
+  \qbezier[0](951,2538)(1012,2538)(1075,2551)
+  \qbezier[0](1075,2551)(1128,2562)(1181,2582)
+  \qbezier[0](1183,2580)(1678,2795)(1812,3333)
+  \qbezier[0](1810,3335)(1819,3381)(1822,3426)
+  \qbezier[0](1822,3426)(1827,3481)(1823,3535)
+  \qbezier[0](1823,3535)(1818,3598)(1801,3657)
+  \qbezier[0](1801,3657)(1782,3724)(1747,3782)
+  \qbezier[0](1747,3782)(1644,3947)(1449,3986)
+
+  % courbe 6
+  \qbezier[0](2344,2344)(2173,3019)(2003,3695)
+
+  % courbe 7
+  \qbezier[0](2344,2344)(1647,2339)(951,2334)
+
+  % courbe 8
+  \qbezier[0](1562,4122)(1479,4138)(1390,4132)
+  \qbezier[0](1390,4132)(1313,4126)(1235,4105)
+  \qbezier[0](1235,4105)(1182,4091)(1130,4070)
+  \qbezier[0](1127,4072)(552,3808)(382,3179)
+  \qbezier[0](384,3177)(372,3121)(366,3065)
+  \qbezier[0](366,3065)(358,2996)(361,2929)
+  \qbezier[0](361,2929)(365,2849)(383,2775)
+  \qbezier[0](383,2775)(407,2678)(456,2597)
+  \qbezier[0](456,2597)(511,2507)(593,2445)
+  \qbezier[0](593,2445)(676,2384)(778,2356)
+  \qbezier[0](778,2356)(859,2334)(946,2334)
+  \qbezier[0](946,2334)(1022,2334)(1099,2350)
+  \qbezier[0](1099,2350)(1165,2363)(1230,2387)
+  \qbezier[0](1230,2387)(1283,2407)(1334,2432)
+  \qbezier[0](1337,2431)(1920,2760)(2023,3400)
+  \qbezier[0](2021,3403)(2028,3472)(2025,3539)
+  \qbezier[0](2025,3539)(2022,3618)(2003,3692)
+  \qbezier[0](2003,3692)(1979,3789)(1930,3870)
+  \qbezier[0](1930,3870)(1803,4075)(1562,4123)
+
+  % courbe 9
+  \qbezier[0](878,2543)(911,2439)(951,2334)
+
+  % courbe 10
+  \qbezier[0](2344,2344)(2410,2931)(2475,3518)
+
+  % courbe 11
+  \qbezier[0](2344,2344)(2661,2503)(2979,2662)
+
+  % courbe 12
+  \qbezier[0](2344,2344)(2070,2569)(1795,2795)
+
+  % courbe 13
+  \qbezier[0](3177,2795)(3409,3001)(3447,3291)
+  \qbezier[0](3447,3291)(3463,3426)(3430,3559)
+  \qbezier[0](3430,3559)(3408,3653)(3362,3740)
+  \qbezier[0](3362,3740)(3323,3815)(3269,3882)
+  \qbezier[0](3269,3882)(3224,3939)(3169,3988)
+  \qbezier[0](3169,3988)(3126,4028)(3077,4063)
+  \qbezier[0](3077,4065)(2582,4390)(2023,4190)
+  \qbezier[0](2023,4188)(1967,4166)(1915,4137)
+  \qbezier[0](1915,4137)(1851,4102)(1793,4058)
+  \qbezier[0](1793,4058)(1724,4005)(1669,3941)
+  \qbezier[0](1669,3941)(1594,3856)(1547,3757)
+  \qbezier[0](1547,3757)(1494,3646)(1479,3525)
+  \qbezier[0](1479,3525)(1466,3418)(1485,3310)
+  \qbezier[0](1485,3310)(1501,3216)(1540,3127)
+  \qbezier[0](1540,3127)(1573,3050)(1623,2980)
+  \qbezier[0](1623,2980)(1664,2921)(1715,2869)
+  \qbezier[0](1715,2869)(1755,2827)(1802,2790)
+  \qbezier[0](1802,2790)(1848,2752)(1899,2720)
+  \qbezier[0](1899,2718)(2416,2420)(2958,2650)
+  \qbezier[0](2958,2652)(3012,2678)(3061,2709)
+  \qbezier[0](3061,2709)(3123,2748)(3177,2795)
+
+  % courbe 14
+  \qbezier[0](1999,4023)(1717,3849)(1671,3547)
+
+  % courbe 15
+  \qbezier[0](1672,3547)(1666,3630)(1660,3714)
+
+  % courbe 16
+  \qbezier[0](1660,3714)(1715,3706)(1771,3697)
+
+  % courbe 17
+  \qbezier[0](1789,3694)(1731,3621)(1672,3547)
+
+  % courbe 18
+  \qbezier[0](1721,3218)(1816,3008)(2029,2879)
+
+  % courbe 19
+  \qbezier[0](1721,3218)(1742,3124)(1764,3029)
+
+  % courbe 20
+  \qbezier[0](1764,3029)(1812,3067)(1860,3105)
+
+  % courbe 21
+  \qbezier[0](1860,3105)(1791,3162)(1721,3218)
+
+  \put(1000,3400){\mbox{$\vec{u}$}}
+  \put(600,2400){\mbox{$\delta\alpha$}}
+  \put(2500,3600){\mbox{$\vec{v}$}}
+  \put(2100,4000){\mbox{$\vec{p}_+$}}
+  \put(1950,2700){\mbox{$\vec{p}_-$}}
+
+\end{picture}\end{minipage}\end{center}
+\end{figure}
+
+On cherche maintenant à savoir quelle est la partie du cône
+($\vec{v}$,~$\beta$) qui est incluse dans le cône
+($\vec{u}$,~$\alpha$) et quelle est la partie qui est hors du cône. On
+fait donc varier l'angle d'ouverture $\alpha$ et on observe le sens de
+variation de $\vec{p}_+(\alpha)$ et $\vec{p}_-(\alpha)$ (voir
+figure~\ref{fig:variation}).
+
+Les dérivées des coordonnées sont :
+\begin{eqnarray*}
+\frac{\partial a}{\partial\alpha}
+  & = & \frac{-\sin\alpha}
+             {1-(\vec{u}\cdot\vec{v})^2} \\
+\frac{\partial b}{\partial\alpha}
+  & = & \frac{(\vec{u}\cdot\vec{v})\sin\alpha}
+             {1-(\vec{u}\cdot\vec{v})^2} \\
+\frac{\partial[\|a\vec{u}+b\vec{v}\|^2]}{\partial\alpha}
+  & = & \frac{2\sin\alpha}{1-(\vec{u}\cdot\vec{v})^2}
+        [a\vec{u}+b\vec{v}]\cdot[-\vec{u}+(\vec{u}\cdot\vec{v})\vec{v}]
+    = -2a\sin\alpha \\
+\frac{\partial c_+}{\partial\alpha}
+  & = & \frac{a\sin\alpha}{c_+\left(1-(\vec{u}\cdot\vec{v})^2\right)} \\
+\frac{\partial c_-}{\partial\alpha}
+  & = & \frac{a\sin\alpha}{c_-\left(1-(\vec{u}\cdot\vec{v})^2\right)} \\
+\end{eqnarray*}
+On en déduit :
+\begin{eqnarray*}
+\frac{\partial\vec{p}_+}{\partial\alpha}
+  & = & \frac{\sin\alpha}{1-(\vec{u}\cdot\vec{v})^2}
+        \left[-\vec{u}
+              +(\vec{u}\cdot\vec{v})\vec{v}
+              +\frac{a}{c_+}\vec{u}\wedge\vec{v}
+        \right] \\
+\frac{\partial\vec{p}_-}{\partial\alpha}
+  & = & \frac{\sin\alpha}{1-(\vec{u}\cdot\vec{v})^2}
+        \left[-\vec{u}
+              +(\vec{u}\cdot\vec{v})\vec{v}
+              +\frac{a}{c_-}\vec{u}\wedge\vec{v}
+        \right] \\
+\end{eqnarray*}
+À ce stade, on peut remarquer que :
+\begin{eqnarray*}
+\vec{v}\wedge\vec{p}_+
+ & = & a\vec{v}\wedge\vec{u}
+      +b\vec{v}\wedge\vec{v}
+      +c_+\vec{v}\wedge(\vec{u}\wedge\vec{v})\\
+ & = & c_+\left[\vec{u}-(\vec{u}\cdot\vec{v})\vec{v}\right]
+      -a\vec{u}\wedge\vec{v}
+\end{eqnarray*}
+(par application du double produit vectoriel : $\vec{a} \wedge
+(\vec{b} \wedge \vec{c}) = (\vec{a} \cdot \vec{c}) \vec{b} - (\vec{a}
+\cdot \vec{b}) \vec{c})$
+
+De même, on démontre :
+\begin{displaymath}
+\vec{v}\wedge\vec{p}_-
+ = c_-\left[\vec{u}-(\vec{u}\cdot\vec{v})\vec{v}\right]
+   -a\vec{u}\wedge\vec{v}
+\end{displaymath}
+Donc :
+\begin{eqnarray*}
+\frac{\partial\vec{p}_+}{\partial\alpha}
+  & = & \frac{-\sin\alpha}{c_+}
+        \frac{\vec{v}\wedge\vec{p}_+}
+             {1-(\vec{u}\cdot\vec{v})^2} \\
+\frac{\partial\vec{p}_-}{\partial\alpha}
+  & = & \frac{-\sin\alpha}{c_-}
+        \frac{\vec{v}\wedge\vec{p}_-}
+             {1-(\vec{u}\cdot\vec{v})^2} \\
+\end{eqnarray*}
+Comme $\sin(\alpha) > 0$, $c_+ > 0$, $c_- < 0$,
+$1-(\vec{u}\cdot\vec{v})^2 > 0$, une diminution de l'angle d'ouverture
+$\alpha$ engendre une rotation négative de $\vec{p}_-$ autour de
+$\vec{v}$, et une rotation positive de $\vec{p}_+$ autour de
+$\vec{v}$.
+
+La partie du cône ($\vec{v}$,~$\beta$) incluse dans le cône
+($\vec{u}$,~$\alpha$) est donc la partie qui va de $\vec{p}_+$ vers
+$\vec{p}_-$ en tournant positivement autour de $\vec{v}$ (voir
+figure~\ref{fig:inclusion}). Un raisonnement symétrique montre que la
+partie du cône ($\vec{u}$,~$\alpha$) incluse dans le cône
+($\vec{v}$,~$\beta$) est la partie qui va de $\vec{p}_-$ vers
+$\vec{p}_+$ en tournant positivement autour de $\vec{u}$.
+\begin{figure}[htbp]\caption{\label{fig:inclusion}parties incluses}
+\begin{center}\begin{minipage}{75.00mm}
+\setlength{\unitlength}{0.0160mm}\begin{picture}(4688,4688)
+
+  % courbe 1
+  \qbezier[0](4625,1798)(4836,2740)(4343,3571)
+  \qbezier[0](4342,3570)(3962,4181)(3308,4481)
+  \qbezier[0](3308,4481)(2830,4695)(2306,4688)
+  \qbezier[0](2306,4689)(1465,4666)(820,4126)
+  \qbezier[0](819,4127)(-28,3369)(0,2233)
+  \qbezier[0](2,2232)(24,1786)(208,1378)
+  \qbezier[0](208,1378)(269,1244)(346,1118)
+  \qbezier[0](346,1118)(726,507)(1380,207)
+  \qbezier[0](1380,207)(1858,-7)(2382,0)
+  \qbezier[0](2382,-1)(3223,22)(3868,562)
+  \qbezier[0](3868,562)(4441,1060)(4624,1798)
+
+  % courbe 2
+  \qbezier[0](2344,2344)(1869,3084)(1393,3823)
+
+  % courbe 3
+  \qbezier[0](2344,2344)(2325,3159)(2306,3974)
+
+  % courbe 4
+  \qbezier[0](2344,2344)(1610,2700)(877,3056)
+
+  % courbe 5
+  \qbezier[0](2214,3631)(2385,3962)(2239,4203)
+  \qbezier[0](2238,4203)(2186,4283)(2099,4335)
+  \qbezier[0](2099,4335)(2037,4372)(1963,4392)
+  \qbezier[0](1963,4392)(1899,4409)(1828,4414)
+  \qbezier[0](1828,4414)(1768,4418)(1705,4414)
+  \qbezier[0](1703,4416)(1135,4347)(777,3871)
+  \qbezier[0](778,3868)(748,3825)(724,3780)
+  \qbezier[0](724,3780)(694,3725)(673,3669)
+  \qbezier[0](673,3669)(649,3602)(638,3536)
+  \qbezier[0](638,3536)(625,3450)(638,3370)
+  \qbezier[0](638,3370)(652,3281)(699,3209)
+  \qbezier[0](699,3209)(736,3153)(790,3110)
+  \qbezier[0](790,3110)(837,3073)(894,3048)
+  \qbezier[0](894,3048)(952,3022)(1018,3009)
+  \qbezier[0](1018,3009)(1074,2998)(1134,2996)
+  \qbezier[0](1134,2996)(1183,2994)(1233,2998)
+  \qbezier[0](1234,2996)(1803,3065)(2161,3541)
+  \qbezier[0](2160,3543)(2189,3587)(2214,3631)
+
+  % courbe 6
+  \qbezier[0](1894,3124)(2411,3502)(2430,3964)
+  \qbezier[0](2429,3965)(2428,4013)(2420,4058)
+  \qbezier[0](2420,4058)(2412,4103)(2397,4144)
+  \qbezier[0](2397,4144)(2378,4194)(2348,4238)
+
+  % courbe 7
+  \qbezier[0](2348,4238)(2417,4138)(2485,4039)
+
+  % courbe 8
+  \qbezier[0](2485,4039)(2424,4037)(2363,4034)
+
+  % courbe 9
+  \qbezier[0](2363,4034)(2355,4136)(2348,4238)
+
+  % courbe 10
+  \qbezier[0](2344,2344)(2403,3017)(2461,3690)
+
+  % courbe 11
+  \qbezier[0](2344,2344)(2743,2708)(3142,3071)
+
+  % courbe 12
+  \qbezier[0](2344,2344)(2014,2771)(1684,3198)
+
+  % courbe 13
+  \qbezier[0](3136,3066)(3331,3243)(3363,3484)
+  \qbezier[0](3362,3484)(3376,3602)(3345,3719)
+  \qbezier[0](3345,3719)(3320,3812)(3268,3898)
+  \qbezier[0](3268,3898)(3229,3962)(3177,4020)
+  \qbezier[0](3177,4020)(3132,4068)(3080,4110)
+  \qbezier[0](3080,4113)(2592,4464)(2015,4257)
+  \qbezier[0](2014,4254)(1963,4233)(1917,4206)
+  \qbezier[0](1917,4206)(1858,4174)(1807,4134)
+  \qbezier[0](1807,4134)(1746,4086)(1697,4028)
+  \qbezier[0](1697,4028)(1640,3962)(1602,3886)
+  \qbezier[0](1602,3886)(1554,3788)(1541,3683)
+  \qbezier[0](1541,3683)(1530,3589)(1548,3495)
+  \qbezier[0](1548,3495)(1563,3412)(1600,3334)
+  \qbezier[0](1600,3334)(1632,3267)(1678,3206)
+  \qbezier[0](1678,3206)(1724,3145)(1783,3091)
+  \qbezier[0](1783,3091)(1822,3056)(1866,3024)
+  \qbezier[0](1867,3021)(2380,2695)(2939,2932)
+  \qbezier[0](2940,2935)(2988,2959)(3033,2988)
+  \qbezier[0](3033,2988)(3088,3023)(3136,3066)
+
+  % courbe 14
+  \qbezier[0](1921,4292)(1467,4066)(1423,3629)
+  \qbezier[0](1424,3628)(1410,3384)(1555,3167)
+
+  % courbe 15
+  \qbezier[0](1555,3167)(1485,3237)(1415,3307)
+
+  % courbe 16
+  \qbezier[0](1415,3307)(1469,3334)(1523,3361)
+
+  % courbe 17
+  \qbezier[0](1523,3361)(1539,3264)(1555,3167)
+
+  \put(1200,3900){\mbox{$\vec{u}$}}
+  \put(2600,3800){\mbox{$\vec{v}$}}
+  \put(2200,4400){\mbox{$\vec{p}_+$}}
+  \put(1600,2900){\mbox{$\vec{p}_-$}}
+\end{picture}\end{minipage}\end{center}
+\end{figure}
+Ce résultat est vrai dans toutes les configurations de $\vec{u}$,
+$\vec{v}$, $\alpha$, $\beta$.

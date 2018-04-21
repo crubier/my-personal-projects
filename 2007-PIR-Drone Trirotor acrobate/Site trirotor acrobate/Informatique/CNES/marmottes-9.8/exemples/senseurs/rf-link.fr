@@ -1,0 +1,38 @@
+# RCS identifier : "$Id: rf-link.fr,v 1.1 1997/12/01 13:50:11 luc Exp $"
+
+<stations.fr>
+
+AUS-RHCP
+{ type           { vecteur }
+  precision       { 0.001  }
+
+  repere          { v_base  { -0.2983745340 0.0 0.9544488658 }
+                   v_image { 0 0 1 }
+                 }
+
+  reference      { 0 0 1 }
+  champ_de_vue  { cone { axe { 0 0 1 } angle { 95 } } }
+
+  cible         { station }
+  station        { => { AUS-station } }
+
+}
+
+AUS-LHCP
+{   =>  { AUS-RHCP }
+  repere { v_base  { 0.2983745340 0.0 -0.9544488658 }
+          v_image { 0 0 1 }
+        }
+}
+
+KRU-RHCP { => { AUS-RHCP } station { => { KRU-station } } }
+KRU-LHCP { => { AUS-LHCP } station { => { KRU-station } } }
+
+HBK-RHCP { => { AUS-RHCP } station { => { HBK-station } } }
+HBK-LHCP { => { AUS-LHCP } station { => { HBK-station } } }
+
+CAN-RHCP { => { AUS-RHCP } station { => { CAN-station } } }
+CAN-LHCP { => { AUS-LHCP } station { => { CAN-station } } }
+
+KRN-RHCP { => { AUS-RHCP } station { => { KRN-station } } }
+KRN-LHCP { => { AUS-LHCP } station { => { KRN-station } } }

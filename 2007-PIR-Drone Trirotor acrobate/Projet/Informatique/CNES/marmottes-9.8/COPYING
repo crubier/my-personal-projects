@@ -1,0 +1,28 @@
+All files in this directory hierarchy except INSTALL, install-sh,
+missing and mkinstalldirs are subject to copyright (C) 2000 Centre
+National d'Études Spatiales. It is published under the licence terms
+explained in the file LICENCE.
+
+INSTALL
+Copyright (C) 1994, 1995, 1996, 1999, 2000, 2001, 2002, 2004, 2005 Free
+Software Foundation, Inc.
+
+install-sh
+  Copyright (C) 1994 X Consortium
+
+missing : 
+  Copyright (C) 1996, 1997, 1999, 2000, 2002, 2003, 2004, 2005
+  Free Software Foundation, Inc.
+  Originally by Franc,ois Pinard <pinard@iro.umontreal.ca>, 1996.
+
+mkinstalldirs
+  Author: Noah Friedman <friedman@prep.ai.mit.edu>
+  Public domain
+
+depcomp
+  Copyright 1999, 2000, 2003, 2004, 2005 Free Software Foundation, Inc.
+
+ltmain.sh
+  Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2003, 2004, 2005
+  Free Software Foundation, Inc.
+  Originally by Gordon Matzigkeit <gord@gnu.ai.mit.edu>, 1996

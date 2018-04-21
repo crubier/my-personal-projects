@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.44.1"
+   sodipodi:docbase="C:\Projets\CMD\Communication\Images"
+   sodipodi:docname="domaines.svg">
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient8329">
+      <stop
+         id="stop8331"
+         offset="0"
+         style="stop-color:#f80;stop-opacity:1;" />
+      <stop
+         style="stop-color:#ff9c0d;stop-opacity:1;"
+         offset="0.5"
+         id="stop8333" />
+      <stop
+         id="stop8335"
+         offset="1"
+         style="stop-color:#ff7d04;stop-opacity:0;" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient7424">
+      <stop
+         style="stop-color:#2183de;stop-opacity:1;"
+         offset="0"
+         id="stop7426" />
+      <stop
+         id="stop7428"
+         offset="0.5"
+         style="stop-color:#2d59df;stop-opacity:1;" />
+      <stop
+         style="stop-color:#0428ff;stop-opacity:0;"
+         offset="1"
+         id="stop7430" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient6523">
+      <stop
+         id="stop6525"
+         offset="0"
+         style="stop-color:#24de21;stop-opacity:1;" />
+      <stop
+         style="stop-color:#56df2d;stop-opacity:1;"
+         offset="0.5"
+         id="stop6527" />
+      <stop
+         id="stop6529"
+         offset="1"
+         style="stop-color:#4bff24;stop-opacity:0;" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3850">
+      <stop
+         style="stop-color:#de2121;stop-opacity:1;"
+         offset="0"
+         id="stop3852" />
+      <stop
+         id="stop5628"
+         offset="0.5"
+         style="stop-color:#df2d2d;stop-opacity:1;" />
+      <stop
+         style="stop-color:#ff0404;stop-opacity:0;"
+         offset="1"
+         id="stop3854" />
+    </linearGradient>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lstart"
+       style="overflow:visible">
+      <path
+         id="path3819"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none"
+         transform="scale(0.8) translate(12.5,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lend"
+       style="overflow:visible;">
+      <path
+         id="path3816"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none;"
+         transform="scale(0.8) rotate(180) translate(12.5,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.93146927"
+     inkscape:cx="412.52878"
+     inkscape:cy="332.86242"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:window-width="1440"
+     inkscape:window-height="814"
+     inkscape:window-x="-4"
+     inkscape:window-y="-4"
+     showguides="true"
+     inkscape:guide-bbox="true" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       sodipodi:type="arc"
+       style="fill:#10d0eb;fill-opacity:0.5927419;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path13677"
+       sodipodi:cx="687.08655"
+       sodipodi:cy="589.65234"
+       sodipodi:rx="115.94585"
+       sodipodi:ry="37.575047"
+       d="M 803.03239 589.65234 A 115.94585 37.575047 0 1 1  571.1407,589.65234 A 115.94585 37.575047 0 1 1  803.03239 589.65234 z"
+       transform="matrix(1.486111,0,0,1.585714,-415.0553,-371.6703)"
+       inkscape:export-filename="C:\Projets\CMD\Communication\Images\taillevitesse.png"
+       inkscape:export-xdpi="89"
+       inkscape:export-ydpi="89" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#fb0000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path13671"
+       sodipodi:cx="277.51855"
+       sodipodi:cy="955.20386"
+       sodipodi:rx="84.275459"
+       sodipodi:ry="78.907593"
+       d="M 361.79401 955.20386 A 84.275459 78.907593 0 1 1  193.2431,955.20386 A 84.275459 78.907593 0 1 1  361.79401 955.20386 z"
+       transform="matrix(1.121019,0,0,0.598639,-52.37257,373.1822)"
+       inkscape:export-filename="C:\Projets\CMD\Communication\Images\taillevitesse.png"
+       inkscape:export-xdpi="89"
+       inkscape:export-ydpi="89" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#fbaa00;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path13673"
+       sodipodi:cx="306.505"
+       sodipodi:cy="888.64233"
+       sodipodi:rx="74.613304"
+       sodipodi:ry="155.13126"
+       d="M 381.11831 888.64233 A 74.613304 155.13126 0 1 1  231.8917,888.64233 A 74.613304 155.13126 0 1 1  381.11831 888.64233 z"
+       transform="matrix(0.805755,0,0,0.83391,189.9761,121.8289)"
+       inkscape:export-filename="C:\Projets\CMD\Communication\Images\taillevitesse.png"
+       inkscape:export-xdpi="89"
+       inkscape:export-ydpi="89" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#72e20d;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path13675"
+       sodipodi:cx="326.36612"
+       sodipodi:cy="659.97137"
+       sodipodi:rx="93.400826"
+       sodipodi:ry="47.773987"
+       d="M 419.76694 659.97137 A 93.400826 47.773987 0 1 1  232.96529,659.97137 A 93.400826 47.773987 0 1 1  419.76694 659.97137 z"
+       transform="matrix(1.304598,0,0,1,-8.693529,-26.83932)"
+       inkscape:export-filename="C:\Projets\CMD\Communication\Images\taillevitesse.png"
+       inkscape:export-xdpi="89"
+       inkscape:export-ydpi="89" />
+    <rect
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:black;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1872"
+       width="799.39984"
+       height="599.3999"
+       x="0.29999992"
+       y="452.66229"
+       rx="50"
+       ry="50"
+       inkscape:export-filename="C:\Projets\CMD\Communication\Images\taillevitesse.png"
+       inkscape:export-xdpi="89"
+       inkscape:export-ydpi="89" />
+    <path
+       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:black;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend);stroke-opacity:1"
+       d="M 721.44087,991.16854 L 73.002945,991.16854 L 73.002945,520.94369"
+       id="path2759"
+       inkscape:export-filename="C:\Projets\CMD\Communication\Images\taillevitesse.png"
+       inkscape:export-xdpi="89"
+       inkscape:export-ydpi="89" />
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-weight:normal;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:BTSE +PS2 FONT"
+       x="30.060036"
+       y="506.98724"
+       id="text3828"
+       inkscape:export-filename="C:\Projets\CMD\Communication\Images\taillevitesse.png"
+       inkscape:export-xdpi="89"
+       inkscape:export-ydpi="89"><tspan
+         sodipodi:role="line"
+         id="tspan3830"
+         x="30.060036"
+         y="506.98724">Plage de vitesse</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-weight:normal;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:BTSE +PS2 FONT"
+       x="662.39435"
+       y="1024.4492"
+       id="text3832"
+       inkscape:export-filename="C:\Projets\CMD\Communication\Images\taillevitesse.png"
+       inkscape:export-xdpi="89"
+       inkscape:export-ydpi="89"><tspan
+         sodipodi:role="line"
+         id="tspan3834"
+         x="662.39435"
+         y="1024.4492">Taille</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:BTSE +PS2 FONT"
+       x="365.23294"
+       y="636.0462"
+       id="text7432"
+       inkscape:export-filename="C:\Projets\CMD\Communication\Images\taillevitesse.png"
+       inkscape:export-xdpi="89"
+       inkscape:export-ydpi="89"><tspan
+         sodipodi:role="line"
+         id="tspan7434"
+         x="365.23294"
+         y="636.0462">Micro Avions</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:BTSE +PS2 FONT"
+       x="558.21564"
+       y="571.2879"
+       id="text6531"
+       inkscape:export-filename="C:\Projets\CMD\Communication\Images\taillevitesse.png"
+       inkscape:export-xdpi="89"
+       inkscape:export-ydpi="89"><tspan
+         sodipodi:role="line"
+         id="tspan6533"
+         x="558.21564"
+         y="571.2879">Mini Avions</tspan></text>
+    <path
+       sodipodi:type="arc"
+       style="fill:#fbf300;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path13679"
+       sodipodi:cx="528.73456"
+       sodipodi:cy="804.36688"
+       sodipodi:rx="152.98412"
+       sodipodi:ry="88.032967"
+       d="M 681.71867 804.36688 A 152.98412 88.032967 0 1 1  375.75044,804.36688 A 152.98412 88.032967 0 1 1  681.71867 804.36688 z"
+       transform="matrix(0.473684,0,0,2.621952,9.888038,-1352.953)"
+       inkscape:export-filename="C:\Projets\CMD\Communication\Images\taillevitesse.png"
+       inkscape:export-xdpi="89"
+       inkscape:export-ydpi="89" />
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:BTSE +PS2 FONT"
+       x="217.48482"
+       y="734.90479"
+       id="text11897"
+       inkscape:export-filename="C:\Projets\CMD\Communication\Images\taillevitesse.png"
+       inkscape:export-xdpi="89"
+       inkscape:export-ydpi="89"><tspan
+         sodipodi:role="line"
+         id="tspan11899"
+         x="217.48482"
+         y="734.90479">Tri Rotor </tspan><tspan
+         sodipodi:role="line"
+         x="217.48482"
+         y="762.40479"
+         id="tspan13681">Acrobate</tspan></text>
+    <g
+       id="g19902"
+       transform="translate(-165.9611,-868.0472)">
+      <path
+         inkscape:export-ydpi="89"
+         inkscape:export-xdpi="89"
+         inkscape:export-filename="C:\Projets\CMD\Communication\Images\Rayonvitesse.png"
+         transform="matrix(1.486111,0,0,1.585714,-433.306,-360.9346)"
+         d="M 803.03239 589.65234 A 115.94585 37.575047 0 1 1  571.1407,589.65234 A 115.94585 37.575047 0 1 1  803.03239 589.65234 z"
+         sodipodi:ry="37.575047"
+         sodipodi:rx="115.94585"
+         sodipodi:cy="589.65234"
+         sodipodi:cx="687.08655"
+         id="path19904"
+         style="opacity:1;fill:#10d0eb;fill-opacity:0.5927419;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="89"
+         inkscape:export-xdpi="89"
+         inkscape:export-filename="C:\Projets\CMD\Communication\Images\Rayonvitesse.png"
+         transform="matrix(1.121019,0,0,0.598639,-43.78399,368.8879)"
+         d="M 361.79401 955.20386 A 84.275459 78.907593 0 1 1  193.2431,955.20386 A 84.275459 78.907593 0 1 1  361.79401 955.20386 z"
+         sodipodi:ry="78.907593"
+         sodipodi:rx="84.275459"
+         sodipodi:cy="955.20386"
+         sodipodi:cx="277.51855"
+         id="path19906"
+         style="opacity:1;fill:#fb0000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="89"
+         inkscape:export-xdpi="89"
+         inkscape:export-filename="C:\Projets\CMD\Communication\Images\Rayonvitesse.png"
+         transform="matrix(0.805755,0,0,0.83391,126.6353,121.8289)"
+         d="M 381.11831 888.64233 A 74.613304 155.13126 0 1 1  231.8917,888.64233 A 74.613304 155.13126 0 1 1  381.11831 888.64233 z"
+         sodipodi:ry="155.13126"
+         sodipodi:rx="74.613304"
+         sodipodi:cy="888.64233"
+         sodipodi:cx="306.505"
+         id="path19908"
+         style="opacity:1;fill:#fbaa00;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="89"
+         inkscape:export-xdpi="89"
+         inkscape:export-filename="C:\Projets\CMD\Communication\Images\Rayonvitesse.png"
+         transform="matrix(1.413793,0,0,1,-23.39651,-18.25074)"
+         d="M 419.76694 659.97137 A 93.400826 47.773987 0 1 1  232.96529,659.97137 A 93.400826 47.773987 0 1 1  419.76694 659.97137 z"
+         sodipodi:ry="47.773987"
+         sodipodi:rx="93.400826"
+         sodipodi:cy="659.97137"
+         sodipodi:cx="326.36612"
+         id="path19910"
+         style="opacity:1;fill:#72e20d;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         sodipodi:type="arc" />
+      <rect
+         inkscape:export-ydpi="89"
+         inkscape:export-xdpi="89"
+         inkscape:export-filename="C:\Projets\CMD\Communication\Images\Rayonvitesse.png"
+         ry="50"
+         rx="50"
+         y="452.66229"
+         x="0.29999992"
+         height="599.3999"
+         width="799.39984"
+         id="rect19912"
+         style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:black;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         inkscape:export-ydpi="89"
+         inkscape:export-xdpi="89"
+         inkscape:export-filename="C:\Projets\CMD\Communication\Images\Rayonvitesse.png"
+         id="path19914"
+         d="M 721.44087,991.16854 L 73.002945,991.16854 L 73.002945,520.94369"
+         style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:black;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend);stroke-opacity:1" />
+      <text
+         inkscape:export-ydpi="89"
+         inkscape:export-xdpi="89"
+         inkscape:export-filename="C:\Projets\CMD\Communication\Images\Rayonvitesse.png"
+         id="text19916"
+         y="506.98724"
+         x="30.060036"
+         style="font-size:28px;font-style:normal;font-weight:normal;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:BTSE +PS2 FONT"
+         xml:space="preserve"><tspan
+           y="506.98724"
+           x="30.060036"
+           id="tspan19918"
+           sodipodi:role="line">Plage de vitesse</tspan></text>
+      <text
+         inkscape:export-ydpi="89"
+         inkscape:export-xdpi="89"
+         inkscape:export-filename="C:\Projets\CMD\Communication\Images\Rayonvitesse.png"
+         id="text19920"
+         y="1025.5228"
+         x="577.58209"
+         style="font-size:28px;font-style:normal;font-weight:normal;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:BTSE +PS2 FONT"
+         xml:space="preserve"><tspan
+           y="1025.5228"
+           x="577.58209"
+           id="tspan19922"
+           sodipodi:role="line">Rayon d'action</tspan></text>
+      <text
+         inkscape:export-ydpi="89"
+         inkscape:export-xdpi="89"
+         inkscape:export-filename="C:\Projets\CMD\Communication\Images\Rayonvitesse.png"
+         id="text19928"
+         y="860.42273"
+         x="313.41821"
+         style="font-size:22px;font-style:normal;font-weight:normal;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:BTSE +PS2 FONT"
+         xml:space="preserve"><tspan
+           y="860.42273"
+           x="313.41821"
+           id="tspan19930"
+           sodipodi:role="line">Helicopteres</tspan></text>
+      <text
+         inkscape:export-ydpi="89"
+         inkscape:export-xdpi="89"
+         inkscape:export-filename="C:\Projets\CMD\Communication\Images\Rayonvitesse.png"
+         id="text19932"
+         y="946.07855"
+         x="193.2431"
+         style="font-size:22px;font-style:normal;font-weight:normal;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:BTSE +PS2 FONT"
+         xml:space="preserve"><tspan
+           y="946.07855"
+           x="193.2431"
+           id="tspan19934"
+           sodipodi:role="line">Quadrirotors</tspan></text>
+      <text
+         inkscape:export-ydpi="89"
+         inkscape:export-xdpi="89"
+         inkscape:export-filename="C:\Projets\CMD\Communication\Images\Rayonvitesse.png"
+         id="text19936"
+         y="575.58221"
+         x="574.31921"
+         style="font-size:22px;font-style:normal;font-weight:normal;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:BTSE +PS2 FONT"
+         xml:space="preserve"><tspan
+           y="575.58221"
+           x="574.31921"
+           id="tspan19938"
+           sodipodi:role="line">Mini Avions</tspan></text>
+      <path
+         inkscape:export-ydpi="89"
+         inkscape:export-xdpi="89"
+         inkscape:export-filename="C:\Projets\CMD\Communication\Images\Rayonvitesse.png"
+         transform="matrix(0.473684,0,0,2.621952,239.6326,-1350.806)"
+         d="M 681.71867 804.36688 A 152.98412 88.032967 0 1 1  375.75044,804.36688 A 152.98412 88.032967 0 1 1  681.71867 804.36688 z"
+         sodipodi:ry="88.032967"
+         sodipodi:rx="152.98412"
+         sodipodi:cy="804.36688"
+         sodipodi:cx="528.73456"
+         id="path19940"
+         style="opacity:1;fill:#fbf300;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         sodipodi:type="arc" />
+      <text
+         inkscape:export-ydpi="89"
+         inkscape:export-xdpi="89"
+         inkscape:export-filename="C:\Projets\CMD\Communication\Images\Rayonvitesse.png"
+         id="text19942"
+         y="758.52344"
+         x="442.93509"
+         style="font-size:22px;font-style:normal;font-weight:normal;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:BTSE +PS2 FONT"
+         xml:space="preserve"><tspan
+           y="758.52344"
+           x="442.93509"
+           id="tspan19944"
+           sodipodi:role="line">Tri Rotor </tspan><tspan
+           id="tspan19946"
+           y="786.02344"
+           x="442.93509"
+           sodipodi:role="line">Acrobate</tspan></text>
+      <text
+         inkscape:export-ydpi="89"
+         inkscape:export-xdpi="89"
+         inkscape:export-filename="C:\Projets\CMD\Communication\Images\Rayonvitesse.png"
+         id="text19924"
+         y="646.78192"
+         x="360.93863"
+         style="font-size:22px;font-style:normal;font-weight:normal;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:BTSE +PS2 FONT"
+         xml:space="preserve"><tspan
+           y="646.78192"
+           x="360.93863"
+           id="tspan19926"
+           sodipodi:role="line">Micro Avions</tspan></text>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:BTSE +PS2 FONT"
+       x="193.2431"
+       y="946.07855"
+       id="text3838"
+       inkscape:export-filename="C:\Projets\CMD\Communication\Images\taillevitesse.png"
+       inkscape:export-xdpi="89"
+       inkscape:export-ydpi="89"><tspan
+         sodipodi:role="line"
+         id="tspan3840"
+         x="193.2431"
+         y="946.07855">Quadrirotors</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:BTSE +PS2 FONT"
+       x="375.68542"
+       y="864.71704"
+       id="text8337"
+       inkscape:export-filename="C:\Projets\CMD\Communication\Images\taillevitesse.png"
+       inkscape:export-xdpi="89"
+       inkscape:export-ydpi="89"><tspan
+         sodipodi:role="line"
+         id="tspan8339"
+         x="375.68542"
+         y="864.71704">Helicopteres</tspan></text>
+  </g>
+</svg>

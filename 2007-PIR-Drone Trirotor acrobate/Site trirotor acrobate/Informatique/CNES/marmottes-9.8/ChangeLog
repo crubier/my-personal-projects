@@ -1,0 +1,633 @@
+2005-03-04  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* NEWS: annonce de la correction de la FA-ID 230
+
+	* ddc-marmottes.txt: mise à jour du DDC pour la version 9.8 (FA-ID 198)
+
+	* acinclude.m4: élimination de la macro AC_CXX_TEMPLATE_OBJS
+
+	* configure.ac: désactivation par défaut des bibliothèques
+	statiques sur toutes les plate-formes (madona n'étant jamais
+	disponible en statique), élimination de la macro
+	AC_CXX_TEMPLATE_OBJS, passage de la bibliothèque en version 9.8
+
+ 	* COPYING: mise à jour des copyrights des produits GNU
+
+ 	* INSTALL, config.guess, config.sub, depcomp, install-sh, missing,
+	mkinstalldirs: mise à jour des fichiers à partir de la
+	distribution automake 1.9.5
+ 
+	* ltmain.sh: mise à jour du fichier à partir de la
+ 	distribution libtool 1.5.14
+
+2004-06-23  projet CHOPE G. Prat/L. Maisonobe  <Guylaine.Prat@c-s.fr>
+
+	* NEWS: annonce de la correction des FA-ID 32, FA-ID 34, FA-ID 35 et DM-ID 33 
+
+	* configure.ac: passage de la bibliothèque en version 9.7
+
+	* ddc-marmottes.txt: mise à jour du DDC pour la version 9.7
+
+	* acinclude.m4: utilisation de [] dans la définition des macros
+	conformément aux nouvelles conventions d'automake 1.8.x (FA-ID 36)
+
+2003-12-10  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* ddc-marmottes.txt: mise à jour du DDC pour la version 9.6
+	
+2003-12-05  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* configure.ac : passage de la bibliothèque en version 9.6
+
+2003-10-16  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* NEWS: annonce de la correction des DM 0027, 0029
+
+2003-10-13  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* en/marmottes, fr/marmottes : ajout des mots cles "polaris-sans-eclipse" et
+	"canopus-sans-eclipse" dans le cadre de la DM 0026.
+
+2003-10-07  projet CHOPE O. Queyrut/L. Maisonobe/F. Auguie/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* NEWS: annonce des corrections de FA 0029, 0030, 0031 et des DM 0025,
+	0026 et 0028	
+	
+	* ddc-marmottes.txt: mise à jour du fichier DDC pour la nouvelle version de la
+	bibliothèque (9.6)
+		
+2003-08-19  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* ddc-marmottes.txt: mise à jour du DDC pour la version 9.5 
+
+2003-07-28  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* configure.ac: passage de la bibliothèque en version 9.5
+
+2003-07-09  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+	
+	* NEWS: Externalisation depuis l'interface fortran des fonctions de calcul 
+        par defaut du temps sideral et de la position des astres (Terre, Lune et
+        Soleil) pour appeler MarmottesEnregistreCorps sans utiliser les 
+        fonctions utilisateur (plus de notion de pointeur NULL pour utiliser 
+	ces fonctions) (FA 23)
+
+2003-06-24  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* NEWS: annonce de la mise à jour des scripts de configuration (DM 24)
+
+	* ddc-marmottes.txt: ajout d'une ligne pour le suffixe .ac (DM 24)
+
+	* configure.ac: renommage de configure.in en configure.ac (DM 24)
+
+	* configure.in: mise en conformité avec autoconf 2.57 et automake
+	1.7.5 (utilisation des arguments de AC_INIT, ajout de
+	AC_CONFIG_SRCDIR, changement des arguments de AM_INIT_AUTOMAKE,
+	remplacement de AM_CONFIG_HEADER par AC_CONFIG_HEADERS,
+	remplacement de AM_PROG_LIBTOOL par AC_PROG_LIBTOOL) (DM 24)
+
+	* acconfig.h: élimination du fichier rendu obsolète avec autoconf
+	2.57 (DM 24)
+
+	* Makefile.am: suppression de la référence à acconfig.h (DM 24)
+
+	* COPYING: mise à jour des copyrights des scripts de configuration
+	extraits des distributions automake et libtool (DM 24)
+
+	* INSTALL, config.guess, config.sub, depcomp, install-sh, missing,
+	mkinstalldirs: mise à jour des fichiers à partir de la
+	distribution automake 1.7.5 (DM 24)
+
+	* ltmain.sh: mise à jour des fichiers à partir de la distribution
+	libtool 1.5 (DM 24)
+
+2003-03-26  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* NEWS: finalisation de la version 9.4
+
+2003-03-20  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* Makefile.am (EXTRA_DIST): ajout du document descriptif de configuration dans
+	la distribution de Marmottes
+
+	* ddc-marmottes.txt: nouveau fichier contenant le DDC de marmottes
+
+2003-01-28 projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+	
+	* configure.in: mise à jour du numéro de version et mise à jour des
+	extensions de fichiers.
+
+2002-09-09  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* NEWS: finalisation de la version 9.3
+
+	* configure.in: finalisation de la version 9.3
+	
+	* AUTHORS: ajout de Guylaine Prat
+
+2002-08-29  projet CHOPE O. Queyrut/L.Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* configure.in: ajout des fichiers de test de la DM 0007
+	(paramétrages des modèles d'environnement spatial)
+
+2002-04-15  projet CHOPE O. Queyrut/S. Vresk  <Olivier.Queyrut@c-s.fr>
+
+	* configure.in: ajout de l'appel à la recherche de la fonction
+	dynamic_cast, ajout du nouveau test (DM 0004)
+
+	* acinclude.m4: ajout de la macro de recherche de la fonction
+	dynamic_cast
+
+2002-02-27  projet CHOPE O. Queyrut/S. Vresk  <Olivier.Queyrut@c-s.fr>
+
+	* fr/marmottes, en/marmottes: ajout de la traduction du message 
+	lié à l'intialisation impossible de la dérive pour un senseur 
+	non cinématique
+
+2002-02-20  projet CHOPE O.Queyrut/S. Vresk  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* NEWS: annonce de la réalisation de la DM 0002
+
+2002-02-01  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* NEWS: annonce de la correction de la FA 0008
+
+	* configure.in: finalisation de la version 9.1
+
+	* aclocale.m4: correction d'une macro entrainant une mauvaise
+	récupération de la langue dans Club
+
+2002-01-16  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* NEWS: annonce des corrections des FA 0001, 0003 et 0007
+
+	* configure.in: configuration du test pour les FA
+
+2001-09-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* NEWS: annonce de l'utilisation de nouvelles versions des outils
+	de développement GNU
+
+	* acinclude.m4: simplification à l'aide des macros de la version
+	2.52 d'autoconf
+
+	* configure.in: remplacement d'une variable suite à la mise à jour
+	de acinclude.m4
+
+	* ltmain.sh: importation du script distribué avec libtool 1.4.1
+
+	* depcomp: nouveau fichier, importé depuis la distribution
+	automake 1.5
+
+	* install-sh, missing, mkinstalldirs, config.sub, config.guess:
+	importation des scripts distribués avec automake 1.5
+
+
+2001-07-17  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* NEWS: finalisation de la version 9.0
+
+	* configure.in: finalisation version 9.0
+
+2001-06-22  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* NEWS: annonce de la modification du balayage, qui ne peut plus
+	être paramétré par une rotation quelconque, mais uniquement à
+	partir d'un axe et d'un angle, annonce de l'utilisation du type
+	bool pour les prédicats
+
+	* configure.in: passage en version 9.0beta
+
+2001-06-08  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* NEWS: annonce de l'installation de marmottesReplay
+
+2001-06-06  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* NEWS: réorganisation de classes entre club, cantor et marmottes,
+	remontée des exceptions de cantor
+
+	* configure.in: élimination du test de ctime et du test de Champ
+	(suite au transfert de classes vers cantor)
+
+	* TODO: suppression d'une action réalisée (transfert de classes
+	vers cantor)
+
+2001-04-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: ajout de test_Criteres, finalisation de la version
+	8.5
+
+2001-03-26  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* NEWS: annonce de la prise en compte des inhibitions par tous les
+	senseurs optiques
+
+2001-03-23  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: passage en version 8.5beta3
+
+	* NEWS: annonce de la correction des erreurs détectées par purify
+
+2001-02-27  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: ajout du test des fonctions de forçage d'attitude
+	et de spin
+
+	* NEWS: annonce de la mise en place de fonctions de forçage
+	d'attitude et de spin
+
+2001-02-16  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* acinclude.m4: amélioration du support des compilateurs SUN
+	lorsque libtool est utilisé pour produire des bibliothèques
+	STATIQUES
+
+	* NEWS: annonce de la correction du test d'inclusion de point dans
+	un champ de vue apportée par la version 8.5
+	annonce de l'amélioration du support des compilateurs SUN
+
+	* configure.in: passage en version 8.5beta suite à la correction
+	d'une erreur dans le test d'inclusion d'un point dans un champ de
+	vue et à l'amélioration du support des compilateurs SUN
+
+2001-02-07  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: passage en version 8.4
+
+	* NEWS: annonce des corrections réalisées pour la version 8.4
+
+2001-01-26  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: passage en version 8.3, ajout de la configuration
+	du test Essor
+
+	* NEWS: annonce des corrections réalisées pour la version 8.3
+
+2000-12-20  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: passage en version 8.2
+
+	* TODO: mise à jour des évolutions futures
+
+	* NEWS: annonce de la correction d'une initialisation oubliée
+
+2000-12-12  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: ajout explicite des options -I et -L correspondant
+	à l'installation pour éviter des erreurs dans le script
+	marmottes-config
+
+2000-12-11  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* LICENSE, LICENCE: mise à jour du numéro d'enregistrement à l'APP
+
+2000-12-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* acinclude.m4: prise en compte des scripts du type xxx-config
+	dans les tests de bibliothèques
+
+	* configure.in: ajout de marmottes-config, passage en version 8.1
+
+	* Makefile.am: ajout du répertoire utils, ajout de LICENSE,
+	élimination de traduitSenseurs désormais dans le sous-répertoire
+	utils
+
+	* NEWS: annonce de l'ajout de marmottes-config
+
+2000-11-24  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* acinclude.m4: correction d'une variable en cas d'utilisation de
+	--with-xxx=no
+
+2000-11-21  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* NEWS: ajout de la possibilité de générer la bibliothèque en
+	version partagée
+
+	* .cvsignore: ajout de libtool
+
+	* acinclude.m4: élimination des macros d'extraction de numéros de
+	version, ajout d'une macro de test de bibliothèque supportant les
+	dépendances
+
+	* configure.in: simplification de la numérotation des bibliothèques,
+	changement de la valeur par défaut sous solaris : on ne construit
+	les bibliothèques partagées que sur demande car elles semblent
+	poser des problèmes au programme appelants lorsqu'elles génèrent
+	des exceptions
+
+2000-11-16  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* config.sub, config.guess, ltconfig, ltmain.sh: nouveaux fichiers
+
+	* TODO: élimination de la nécessité de refonte des champs de vue :
+	c'est enfin fait !
+
+	* NEWS: annonce de la création des senseurs de fonctions échantillonnée
+
+	* configure.in, acinclude.m4: ajout de macros permettant de gérer
+	les dépendances aux bibliothèques partagées
+
+2000-10-16  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: passage en version 8.0
+
+	* NEWS: annonce de la refonte des champs de vue
+
+2000-10-09  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* NEWS, configure.in: ajout des tests issus de prems
+
+2000-10-06  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* NEWS: annonce de la correction de l'erreur d'estimation de spin
+	due aux états résolus et extrapolés
+
+2000-10-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* NEWS, configure.in: ajout des tests issus de simbad et presens
+
+2000-09-13  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* h2tex.sh: remplacement des \subsubsection par des \subsubsection*
+
+	* NEWS: annonce du remplacement des ChaineSimple par des string
+
+2000-09-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* NEWS: annonce du mécanisme de trace d'exécution
+
+	* configure.in: ajout d'un test pour l'inclusion de time.h,
+	passage en version 7.6
+
+2000-06-07  Geraldine FILAIRE  <Geraldine.Filaire@cnes.fr>
+
+	* NEWS: annonce de la correction des erreurs de la 7.3 et de
+	l'introduction des senseurs de bilans de liaison
+
+	* configure.in: passage en version 7.5
+
+2000-06-06  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* acinclude.m4: prise en compte du compilateur Sun WorkShop 5.0
+	dans le traitement des templates
+
+2000-04-17  Luc Maisonobe  <Luc.Maisonobe@free.fr>
+
+	* NEWS: annonce de la correction d'un message d'erreur, première
+	version en diffusion publique
+
+	* configure.in: passage en version 7.4
+
+2000-03-31  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* COPYING: modification des droits pour la diffusion publique
+
+2000-03-30  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* AUTHORS: ajout de Géraldine
+
+	* configure.in: passage en version 7.3
+
+	* Makefile.am: ajout des fichier LICENCE et acconfig.h dans la
+	distribution
+
+	* LICENCE: nouveau fichier
+
+2000-03-22  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: ajout du sous-répertoire exemples, pour la
+	distribution
+
+	* configure.in: création des fichiers Makefile dans le
+	sous-répertoire exemples
+
+	* NEWS: annonce de la distribution du sous-répertoire
+
+2000-03-14  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* NEWS: annonce de la correction du problème de modèle cinématique
+
+2000-01-07  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* NEWS: annonce de la correction de messages d'erreur
+
+2000-01-06  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* NEWS: annonce de la correction de la non reconnaissance des
+	genres LRT-lacet, LRT-roulis et LRT-tangage pour les senseurs de
+	Cardan
+
+	* configure.in: passage en version 7.2
+
+1999-12-13  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* NEWS: annonce de la correction des consignes à 180 degrés sur
+	les senseurs dièdres, annonce du passage de la documentation en
+	PDF
+
+	* TODO: nouveau fichier
+
+	* configure.in: passage en version 7.1
+
+1999-10-15  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* NEWS: annonce de la correction des fuites mémoire de Famille et
+	ModeleGeom
+
+	* configure.in: introduction d'un numéro de version spécifique au
+	développement (7.1.dev)
+
+1999-09-17  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: correction du numéro de version (7.0 et non 7.1)
+
+	* NEWS: finalisation des évolutions de la version 7.0
+
+1999-08-05  Geraldine FILAIRE  <Geraldine.Filaire@cnes.fr>
+
+	* NEWS: mention du nouveau modèle de résolution analytique sans
+	singularité, de la réduction par les champs de vue et de la
+	gestion des erreurs par les exceptions	
+
+1999-07-06  Geraldine FILAIRE  <filaire@cnes.fr>
+
+	* configure.in (ma_cv_var_tradpath): suppression du test
+	sur la Continuite
+
+1999-04-26  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: ajout d'un test fatal pour la STL
+
+	* acinclude.m4: définition de tests pour les namespaces et la STL
+
+	* acconfig.h: ajout de constantes symboliques pour les namespaces
+	et la STL
+
+1999-04-23  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: retrait de la combinaison d'options "-g -O2" pour
+	les versions de gcc jusqu'à 2.8.x, génération d'une erreur fatale
+	si le compilateur ne supporte pas les exceptions
+
+1999-04-16  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: installation de traduitSenseurs
+
+	* README: indications sur les personnalisations d'installation
+	courantes
+
+1999-04-09  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: remplacement de AM_PROG_INSTALL par
+	AC_PROG_INSTALL
+
+1998-10-19  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* acconfig.h: ajout de HAVE_INSTANTIATIONS
+
+	* README.dev: description des outils nécessaires aux développeurs,
+	prise en compte de l'évolution de configure (qui trouve désormais
+	seul les fichiers de club)
+
+	* acinclude.m4: ajout des macros CNES_CHECK_INCLUDE_DIR et
+	CNES_CHECK_LIBRARY_DIR pour gérer les options -I et -L des
+	bibliothèques sous-jacentes
+
+	* configure.in: utilisation de CNES_CHECK_INCLUDE_DIR et
+	CNES_CHECK_LIBRARY_DIR pour trouver les bibliothèques club et
+	cantor y compris en cas de compilation à distance (par exemple
+	dans le cas du make distcheck), protection de certaines variables
+	shell par des "", ajout de l'option -Wall en cas de compilation
+	par g++
+
+1998-09-17  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* NEWS: mention d'une correction de bug de MarmottesErreurs
+
+1998-09-14  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: transfert des fichiers de traduction dans des
+	sous-répertoires
+
+	* configure.in: test de l'existence du fichier checkvar.res avant
+	sa destruction (le fichier n'est pas généré par le test si le
+	cache contient déjà le résultat), génération des Makefiles des
+	sous-répertoires en et fr
+
+	* marmottes.fr: transfert du fichier dans un sous-répertoire
+
+	* marmottes.en: transfert du fichier dans un sous-répertoire
+
+1998-09-12  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* marmottes.fr: ajout du message d'erreur pour les consignes
+	dégénérées
+
+	* marmottes.en: ajout du message d'erreur pour les consignes
+	dégénérées
+
+1998-08-13  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* marmottes.en: reformulation de messages d'erreur
+
+	* marmottes.fr: reformulation de messages d'erreur
+
+	* configure.in: passage en version 7.1, utilisation des fonctions
+	de la bibliothèque CLUB pour trouver les noms des variables
+	d'environnement
+
+1998-07-31  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* traduitSenseurs.in: nouveau fichier
+
+	* traduitSenseurs: élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+1998-07-30  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* .cvsignore: nouveau fichier
+
+	* AUTHORS: nouveau fichier
+
+	* COPYING: nouveau fichier
+
+	* INSTALL: nouveau fichier
+
+	* Makefile.am: nouveau fichier
+
+	* NEWS: nouveau fichier
+
+	* README: nouveau fichier
+
+	* README.dev: nouveau fichier
+
+	* acconfig.h: nouveau fichier
+
+	* configure.in: nouveau fichier
+
+	* install-sh: nouveau fichier
+
+	* missing: nouveau fichier
+
+	* mkinstalldirs: nouveau fichier
+
+	* Makefile: élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+	* Make.spec.SG: élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+	* Make.spec.ODS: élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+	* Make.spec.DEV: élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+	* Make.spec.AM: élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+1998-07-20  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* marmottes.en: ajout du message de l'erreur de consignes
+	incompatibles
+
+	* marmottes.fr: ajout du message de l'erreur de consignes
+	incompatibles
+
+1998-07-15  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* traduitSenseurs.sh: ajout d'une protection si l'environnement
+	de traduction n'est pas en place
+
+1998-07-10  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile: ajout des fichiers des gyros intégrateurs
+
+	* marmottes.en: ajout des mots-clefs et messages d'erreurs
+	liés aux gyros intégrateurs, aux mises à jour de cibles de
+	senseurs optique, de repères de référence de senseurs de Cardan
+	et d'angle de références de gyros intégrateurs
+
+	* marmottes.fr: ajout des mots-clefs et messages d'erreurs
+	liés aux gyros intégrateurs, aux mises à jour de cibles de
+	senseurs optique, de repères de référence de senseurs de Cardan
+	et d'angle de références de gyros intégrateurs
+
+1998-07-09  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile: transfert des sources dans un sous-répertoire src,
+	élimination des commandes rcs
+
+	* Make.spec.SG: passage de -I. à -Isrc par suite du
+	déplacement des sources
+
+	* Make.spec.ODS: passage de -I. à -Isrc par suite du
+	déplacement des sources
+
+	* Make.spec.DEV: passage de -I. à -Isrc par suite du
+	déplacement des sources
+
+	* Make.spec.AM: passage de -I. à -Isrc par suite du
+	déplacement des sources

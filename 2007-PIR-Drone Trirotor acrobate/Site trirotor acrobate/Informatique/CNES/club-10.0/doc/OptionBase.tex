@@ -1,0 +1,297 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+% $Id: OptionBase.tex,v 1.10 2003/07/09 08:03:01 club Exp $
+\subsection{classe OptionBase}\label{sec:OptionBase}
+
+\subsubsection*{description}\label{sec:OptionBase-desc}
+Cette classe est une classe abstraite de description générique
+d'option pour la ligne de commande d'une application. Elle regroupe
+tous les attributs et toutes les opérations communes à tous les types
+d'options. Elle contient également toutes les fonctions virtuelles qui
+seront implantées dans les classes dérivées.
+
+\subsubsection*{interface publique}\label{sec:OptionBase-int}
+\begin{verbatim}
+#include "club/OptionBase.h"
+\end{verbatim}
+
+Le fichier de déclaration de la classe définit deux constantes
+entières destinées au paramétrage des constructeurs des classes
+dérivées, et un type énuméré anonyme interne destiné à reconnaître les
+divers types d'options :
+\newlength{\largeurConstOptionsBase}
+\settowidth{\largeurConstOptionsBase}{\ttfamily
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+}
+\begin{center}\begin{minipage}{\largeurConstOptionsBase}\begin{verbatim}
+const int avecValeurDefaut = 1;
+const int sansValeurDefaut = 0;
+
+class OptionBase
+{ ...
+  public :
+  enum {tableau_d_entiers, tableau_de_reels, tableau_de_chaines,
+        sans_valeur};
+  ...
+}
+\end{verbatim}\end{minipage}\end{center}
+
+\begin{tableFonctionsFixe}{OptionBase : méthodes publiques}
+{\label{tab:OptionBase-met-pub}}
+{lit la valeur de l'\argument{occurrence} spécifiée de l'option et la met}
+\signature{\fonc{OptionBase}}
+          {(const char *\argument{code},\\
+            int \argument{occurrencesMin}, int \argument{occurrencesMax},\\
+            int \argument{valueeParDefaut},\\
+            int \argument{type}, int \argument{valeursAttendues})
+          }&
+
+construit la partie générique d'une instance d'option
+
+\textbf{Exceptions :} nb\_arguments\_option\_vide,
+                      nombre\_ar\-guments\_negatif,
+                      nom\_option\_non\_lettre.
+
+\\
+
+\signature{\fonc{OptionBase}}
+          {(const string\& \argument{code},\\
+            int \argument{occurrencesMin}, int \argument{occurrencesMax},\\
+            int \argument{valueeParDefaut},\\
+            int \argument{type}, int \argument{valeursAttendues})
+          }&
+
+construit la partie générique d'une instance d'option
+
+\textbf{Exceptions :} nb\_arguments\_option\_vide,
+                      nombre\_ar\-guments\_negatif,
+                      nom\_option\_non\_lettre.
+\\
+
+\hline
+
+\signature{\fonc{OptionBase}}
+          {(const OptionBase\& \argument{opt})}&
+
+constructeur par copie \\
+
+\signature{OptionBase\& \fonc{operator =}}
+          {(const OptionBase\& \argument{opt})}&
+
+affectation \\
+
+\hline
+
+\signature{\fonc{\~{}OptionBase} ()}
+          {}&
+
+destructeur, libère la mémoire allouée \\
+
+\hline
+
+\signature{const string\& \fonc{code} () const}
+          {}&
+
+retourne le code de l'option \\
+
+\signature{int \fonc{occurrencesMin} () const}
+          {}&
+
+retourne le nombre minimal d'occurrences toléré pour l'option \\
+
+\signature{int \fonc{occurrencesMax} () const}
+          {}&
+
+retourne le nombre maximal d'occurrences toléré pour l'option \\
+
+\signature{int \fonc{occurrencesPassees} () const}
+          {}&
+
+retourne le nombre d'occurrences passées dans la ligne de commande \\
+
+\signature{int \fonc{estValueeParDefaut} () const}
+          {}&
+
+indique si l'option a une valeur par défaut \\
+
+\signature{int \fonc{type} () const}
+          {}&
+
+retourne le type de l'option (parmi les valeurs de l'énuméré anonyme
+de la classe). \\
+
+\signature{int \fonc{valeursAttendues} () const}
+          {}&
+
+retourne le nombre d'arguments attendus pour chaque occurrence de
+l'option \\
+
+\signature{int \fonc{valeursTrouvees} () const}
+          {}&
+
+retourne le nombre d'arguments trouvés pour la dernière occurrence de
+l'option \\
+
+\hline
+
+\signature{virtual int \fonc{verifier}}
+          {(string *\argument{ptrMessage}) const}&
+
+vérifie les contraintes de l'option (nombre d'occurrences, domaine de
+validité) et indique si elles sont violées, en retournant un message
+explicatif dans la variable pointée par \argument{ptrMessage} \\
+
+\hline
+
+\signature{void \fonc{lireValeur}}
+          {(int *\argument{dest}, int \argument{occurrence} = 1)\\
+                const
+          }&
+
+lit la valeur de l'\argument{occurrence} spécifiée de l'option et la
+met dans \argument{dest}. 
+
+\textbf{Exceptions :} lecture\_types\_incompatibles, 
+                      taille\_ta\-bleau\_arguments.
+\\
+
+\signature{void \fonc{lireValeur}}
+          {(double *\argument{dest}, int \argument{occurrence} = 1)\\
+                const
+          }&
+
+lit la valeur de l'\argument{occurrence} spécifiée de l'option et la
+met dans \argument{dest}. 
+
+\textbf{Exceptions :} lecture\_types\_incompatibles, 
+                      taille\_ta\-bleau\_arguments.
+\\
+
+\signature{void \fonc{lireValeur}}
+          {(char *\argument{dest}, int \argument{occurrence} = 1)\\
+                const
+          }&
+
+lit la valeur de l'\argument{occurrence} spécifiée de l'option et la
+met dans \argument{dest}. 
+
+\textbf{Exceptions :} lecture\_types\_incompatibles, 
+                      taille\_ta\-bleau\_arguments.
+\\
+
+\signature{void \fonc{lireValeur}}
+          {(string *\argument{dest},\\
+            int \argument{occurrence} = 1)\\
+                const
+          }&
+
+lit la valeur de l'\argument{occurrence} spécifiée de l'option et la
+met dans \argument{dest}.
+
+\textbf{Exceptions :} lecture\_types\_incompatibles, 
+                      taille\_ta\-bleau\_arguments.
+
+\\
+
+\hline
+
+\signature{virtual void \fonc{lireValeur}}
+          {(int \argument{nombre}, int *\argument{dest},\\
+            int \argument{occurrence} = 1) const
+          }&
+
+lit les valeurs de l'\argument{occurrence} spécifiée de l'option et
+les met dans \argument{dest}. 
+
+\textbf{Exceptions :} lecture\_types\_incompatibles. 
+\\
+
+\signature{virtual void \fonc{lireValeur}}
+          {(int \argument{nombre}, double *\argument{dest},\\
+            int \argument{occurrence} = 1) const }&
+
+lit les valeurs de l'\argument{occurrence} spécifiée de l'option et
+les met dans \argument{dest}. 
+
+\textbf{Exceptions :} lecture\_types\_incompatibles. 
+\\
+
+\signature{virtual void \fonc{lireValeur}}
+          {(int \argument{nombre}, char* *\argument{dest},\\
+            int \argument{occurrence} = 1) const }&
+
+lit les valeurs de l'\argument{occurrence} spécifiée de l'option et
+les met dans \argument{dest}. 
+
+\textbf{Exceptions :} lecture\_types\_incompatibles. 
+\\
+
+\signature{virtual void \fonc{lireValeur}}
+          {(int \argument{nombre}, string *\argument{dest},\\
+            int \argument{occurrence} = 1) const
+          }&
+
+lit les valeurs de l'\argument{occurrence} spécifiée de l'option et
+les met dans \argument{dest}. 
+
+\textbf{Exceptions :} lecture\_types\_incompatibles.
+\\
+
+\hline
+
+\signature{virtual void \fonc{ajouterOccurrence} ()}{} &
+
+ajoute une occurrence de l'option 
+
+\textbf{Exceptions :} nombres\_arguments\_incompatibles,
+
+                      occurrence\_hors\_limites.     
+\\
+
+\signature{virtual void \fonc{ajouterValeur}}
+          {(const char *\argument{chaine})
+          }&
+
+ajoute une valeur au tableau des valeurs de l'occurrence courante de
+l'option \\
+
+\end{tableFonctionsFixe}
+
+\begin{tableFonctionsFixe}{OptionBase : méthodes protégées}
+{\label{tab:OptionBase-met-prot}}
+{lit la valeur de l'\argument{occurrence} spécifiée de l'option et}
+
+\signature{\fonc{OptionBase} ()} {}&
+constructeur par défaut
+\\
+
+\end{tableFonctionsFixe}
+
+\subsubsection*{exemple d'utilisation}\label{sec:OptionBase-expl}
+Cette classe étant abstraite, elle ne peut être utilisée
+directement. Seules ses classes dérivées peuvent être instanciées.
+
+\subsubsection*{conseils d'utilisation spécifiques}
+\label{sec:OptionBase-conseils}
+Cette classe étant abstraite, elle ne peut être utilisée
+directement. Seules ses classes dérivées peuvent être instanciées.
+
+\subsubsection*{implantation}\label{sec:OptionBase-impl}
+Les attributs sont décrits sommairement dans la
+table~\ref{tab:OptionBase-att}, la seule méthode protégée est la méthode
+\mbox{incrementeValeursTrouvees ()} qui incrémente le nombre de
+valeurs trouvées pour l'occurrence courante de l'option.
+
+\begin{tableAttributsFixe}{attributs de la classe OptionBase}
+{\label{tab:OptionBase-att}}
+{nombre d'occurrences passées dans la ligne de commande}
+code\_ & string & code de l'option \\
+occurrencesMin\_ & int & nombre minimal toléré d'occurrences \\
+occurrencesMax\_ & int & nombre maximal toléré d'occurrences \\
+occurrences\_ & int & nombre d'occurrences passées dans la ligne de
+commande \\
+valueeParDefaut\_ & int & indicateur de valuation par défaut \\
+type\_ & int & typoe de l'option \\
+valeursAttendues\_ & int & nombre de valeurs attendues par occurrence \\
+valeursTrouvees\_ & int & nombre de valeurs trouvées pour la dernière
+occurrence \\
+\end{tableAttributsFixe}

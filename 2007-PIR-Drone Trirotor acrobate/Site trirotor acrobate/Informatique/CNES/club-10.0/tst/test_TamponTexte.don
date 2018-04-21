@@ -1,0 +1,14 @@
+#
+# Ceci est un fichier
+      	   	# de tests
+  # pour la classe FichierTexte
+
+# test des champs simples
+   111111 	22 3 \n\t\b\a dgdfgg # commentaire en fin de ligne
+
+# test des champs complexes
+"aaaa" "\x5b\x28\x29\x5D" "aa\tbbb\ncc\a\addd\b\43\173\175"
+   "\\\\" "\\\"xx\"\\"#commentaire colle a une fin de ligne
+
+# test de chaînes fortran et C
+xx xx' chaine fortran avec ", #, et '''" cha\356n\e\ C avec ', #, et \""yy yy

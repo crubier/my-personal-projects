@@ -1,0 +1,113 @@
+prgm_FonctionSenseur -f senseurs.en
+   -dc 22/10/93 -o 42164 0 0 0 0 116
+   -s1 DSS_1_PITCH   -m1  2.5
+   -s2 GEOIRS_1_ROLL -m2  2.7
+   -s3 DSS_1_YAW     -m3 -0.2
+   -p 20 -i1 3 -i2 10
+   -s USER-YAW -modifieCible -0.43 0.88 0
+16000.00023148 : "USER-YAW" sensor, uninitialized target
+16000.00046296 : "USER-YAW" sensor, uninitialized target
+16000.00069444 : "USER-YAW" sensor, uninitialized target
+
+appel de MarmottesModifieCible
+
+16000.00092593 : USER-YAW contrôlable,      92.518
+16000.00115741 : USER-YAW contrôlable,      92.518
+16000.00138889 : USER-YAW contrôlable,      92.518
+16000.00162037 : USER-YAW contrôlable,      92.518
+16000.00185185 : USER-YAW contrôlable,      92.517
+16000.00208333 : USER-YAW contrôlable,      92.517
+16000.00231481 : USER-YAW contrôlable,      92.517
+16000.00254630 : USER-YAW contrôlable,      92.517
+16000.00277778 : USER-YAW contrôlable,      92.517
+16000.00300926 : USER-YAW contrôlable,      92.517
+
+prgm_FonctionSenseur -f senseurs.en
+   -dc 22/10/93 -o 42164 0 0 0 0 116
+   -s1 YPR-YAW   -m1  2.5
+   -s2 YPR-PITCH -m2  2.7
+   -s3 YPR-ROLL  -m3 -0.2
+   -p 20 -i1 3 -i2 10
+   -s YPR-ROLL-USER
+   -modifieReference 0.157 -0.128 0.697 -0.687
+16000.00023148 : "YPR-ROLL-USER" sensor, uninitialized reference frame
+16000.00046296 : "YPR-ROLL-USER" sensor, uninitialized reference frame
+16000.00069444 : "YPR-ROLL-USER" sensor, uninitialized reference frame
+
+appel de MarmottesModifieReference
+
+16000.00092593 : YPR-ROLL-USER contrôlable,       0.054
+16000.00115741 : YPR-ROLL-USER contrôlable,       0.051
+16000.00138889 : YPR-ROLL-USER contrôlable,       0.047
+16000.00162037 : YPR-ROLL-USER contrôlable,       0.044
+16000.00185185 : YPR-ROLL-USER contrôlable,       0.040
+16000.00208333 : YPR-ROLL-USER contrôlable,       0.036
+16000.00231481 : YPR-ROLL-USER contrôlable,       0.033
+16000.00254630 : YPR-ROLL-USER contrôlable,       0.029
+16000.00277778 : YPR-ROLL-USER contrôlable,       0.025
+16000.00300926 : YPR-ROLL-USER contrôlable,       0.022
+
+prgm_FonctionSenseur -f senseurs.en
+   -dc 22/10/93 -o 42164 0 0 0 0 116
+   -s1 YPR-YAW   -m1  2.5
+   -s2 YPR-PITCH -m2  2.7
+   -s3 YPR-ROLL  -m3 -0.2
+   -p 20 -i1 3 -i2 10
+   -s INTEG+Y
+   -initialiseGyro 16000.0007 0.833
+16000.00023148 : INTEG+Y contrôlable,       0.000
+16000.00046296 : INTEG+Y contrôlable,      -0.083
+16000.00069444 : INTEG+Y contrôlable,      -0.167
+
+appel de MarmottesInitialiseGyro
+
+16000.00092593 : INTEG+Y contrôlable,       0.752
+16000.00115741 : INTEG+Y contrôlable,       0.668
+16000.00138889 : INTEG+Y contrôlable,       0.585
+16000.00162037 : INTEG+Y contrôlable,       0.501
+16000.00185185 : INTEG+Y contrôlable,       0.418
+16000.00208333 : INTEG+Y contrôlable,       0.334
+16000.00231481 : INTEG+Y contrôlable,       0.251
+16000.00254630 : INTEG+Y contrôlable,       0.167
+16000.00277778 : INTEG+Y contrôlable,       0.084
+16000.00300926 : INTEG+Y contrôlable,       0.000
+
+prgm_FonctionSenseur -f senseurs.en
+   -dc 22/10/93 -o 42164 0 0 0 0 116
+   -s1 YPR-YAW   -m1  2.5
+   -s2 YPR-PITCH -m2  2.7
+   -s3 YPR-ROLL  -m3 -0.2
+   -p 20 -i1 3 -i2 10
+   -s YPR-YAW
+   -initialiseDerive 0.00417
+16000.00023148 : YPR-YAW contrôlable,       2.500
+16000.00046296 : YPR-YAW contrôlable,       2.500
+16000.00069444 : YPR-YAW contrôlable,       2.500
+
+appel de MarmottesInitialiseDerive
+
+
+prgm_FonctionSenseur -f senseurs.en
+   -dc 22/10/93 -o 42164 0 0 0 0 116
+   -s1 YPR-YAW   -m1  2.5
+   -s2 YPR-PITCH -m2  2.7
+   -s3 YPR-ROLL  -m3 -0.2
+   -p 20 -i1 3 -i2 10
+   -s INTEG+Y
+   -initialiseDerive 0.00417
+16000.00023148 : INTEG+Y contrôlable,       0.000
+16000.00046296 : INTEG+Y contrôlable,      -0.083
+16000.00069444 : INTEG+Y contrôlable,      -0.167
+
+appel de MarmottesInitialiseDerive
+
+16000.00092593 : INTEG+Y contrôlable,      -0.167
+16000.00115741 : INTEG+Y contrôlable,      -0.167
+16000.00138889 : INTEG+Y contrôlable,      -0.167
+16000.00162037 : INTEG+Y contrôlable,      -0.167
+16000.00185185 : INTEG+Y contrôlable,      -0.167
+16000.00208333 : INTEG+Y contrôlable,      -0.167
+16000.00231481 : INTEG+Y contrôlable,      -0.168
+16000.00254630 : INTEG+Y contrôlable,      -0.168
+16000.00277778 : INTEG+Y contrôlable,      -0.168
+16000.00300926 : INTEG+Y contrôlable,      -0.168

@@ -1,0 +1,15 @@
+%implements cgirblk_s0_b60_Outputs "C"
+
+%function Outputs(block, system) Output
+%<SLibCGIRAccessLocalVar(38)> %% %<tLocalBlockIO>_Sum1_c
+
+%<tLocalBlockIO>_Sum1_c = (%<LibBlockInputSignal(0, "", "", 0)> + %<LibBlockInputSignal(1, "", "", 0)>) + %<LibBlockInputSignal(2, "", "", 0)>;
+
+%if !LibBlockOutputSignalIsExpr(0)
+%<LibBlockAssignOutputSignal(0, "", "", 0, "rt_SATURATE(%<tLocalBlockIO>_Sum1_c, -0.5, 0.5)")>\
+%endif
+
+%if !LibBlockOutputSignalIsExpr(1)
+%<LibBlockAssignOutputSignal(1, "", "", 0, "%<LibBlockInputSignal(3, "", "", 0)> * %<LibBlockInputSignal(3, "", "", 0)> + %<LibBlockInputSignal(4, "", "", 0)> * %<LibBlockInputSignal(4, "", "", 0)>")>\
+%endif
+%endfunction

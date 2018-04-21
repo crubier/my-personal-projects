@@ -1,0 +1,25 @@
+#<AM-acces-V2.0/fichier.dop.param-V3.3>
+
+ Table2 = [ 1, 2, 3 ] ~km
+
+ Structure1 = { 
+   Table1 = [ 
+     { 
+       integer = 1
+     }, 
+     { 
+       integer = 1
+     }
+   ]
+ }
+
+ #new Comment
+ #new Comment
+ Real1 = 5.5 ~m
+
+ #Comment
+ #Comment
+ Integer1 = 10
+
+ String1 = "Hello"
+

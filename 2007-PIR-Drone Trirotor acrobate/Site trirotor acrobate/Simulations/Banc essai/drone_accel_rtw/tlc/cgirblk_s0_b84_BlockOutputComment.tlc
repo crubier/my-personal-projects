@@ -1,0 +1,30 @@
+%implements cgirblk_s0_b84_BlockOutputComment "C"
+
+%function BlockOutputComment(block, portIdx) void 
+    %assign tmpBuf = ""
+    %switch portIdx
+      %case 0
+         %openfile tmpBuf
+         %closefile tmpBuf
+         %return tmpBuf
+      %case 1
+         %openfile tmpBuf
+         %closefile tmpBuf
+         %return tmpBuf
+      %case 2
+         %openfile tmpBuf
+         %closefile tmpBuf
+         %return tmpBuf
+      %case 3
+         %openfile tmpBuf
+         %closefile tmpBuf
+         %return tmpBuf
+      %case 4
+         %openfile tmpBuf
+         %closefile tmpBuf
+         %return tmpBuf
+    %default
+      %assign errTxt = "No expression comment on port %<portIdx>"
+      %<LibBlockReportError(block,errTxt)>
+  %endswitch
+%endfunction

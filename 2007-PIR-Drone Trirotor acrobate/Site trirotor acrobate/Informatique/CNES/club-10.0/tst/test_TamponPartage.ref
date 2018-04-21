@@ -1,0 +1,10 @@
+apres une creation et un copie constructeur:
+nombre de references = 2
+chaine partagee: "123456789"
+apres un ecrasement:
+nombre de references = 1
+avant une destruction:
+nombre de references = 2
+apres la destruction:
+nombre de references = 1
+chaine partagee: "123456789"

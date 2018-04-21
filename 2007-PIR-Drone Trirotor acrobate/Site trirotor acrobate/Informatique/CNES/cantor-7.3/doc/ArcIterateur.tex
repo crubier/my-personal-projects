@@ -1,0 +1,182 @@
+% -*- mode: latex; tex-main-file: "cantor.tex" -*-
+% $Id: ArcIterateur.tex,v 1.5 2003/07/09 08:55:11 cantor Exp $
+\subsection{classe ArcIterateur}\label{sec:ArcIterateur}
+
+\subsubsection*{description}\label{sec:ArcIterateur-desc}
+
+Cette classe permet de parcourir point par point un arc, la ligne
+polygonale obtenue en reliant ces points par des segments de droite
+étant assurée de ne pas s'écarter de l'arc courbe réel de plus de
+$\varepsilon$ (en distance), tolérance fixée à la
+construction. La tolérance est considérée par rapport à des segments
+de droite dont seuls les points extrèmes sont sur la sphère unité, les
+points intermédiaires sont sous la surface de la sphère.
+
+L'itérateur est séparé de la classe Arc afin de
+permettre d'avoir simultanément plusieurs itérateurs complètement
+indépendants parcourant le même arc.
+
+Le principe adopté est qu'un itérateur est dans un état indéfini juste
+après la construction (ou la réinitialisation), et qu'il devient
+valide après le premier appel à \fonc{suivant} () ou à \fonc{operator
+()} ().
+
+\subsubsection*{interface publique}\label{sec:ArcIterateur-int}
+\begin{verbatim}
+#include "cantor/ArcIterateur.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{ArcIterateur : méthodes publiques}
+{\label{tab:ArcIterateur-met-pub}}
+{remet l'itérateur en début de parcours. Après réinitialisation,}
+
+\signature{\fonc{ArcIterateur}}
+          {(const Arc\& \argument{a},\\
+            double \argument{tolerance} = 1.0e-4)
+          }&
+
+construit un itérateur sur l'arc \argument{a} tel que la plus grosse
+erreur réalisée en approximant l'arc par la succession de segments de
+droites soit inférieure à la \argument{tolerance} fixée, interprétée
+comme une norme euclidienne en dimension 3\\
+
+\hline
+
+\signature{\fonc{ArcIterateur} (const ArcIterateur\& \argument{i})}
+          {}&
+
+constructeur par copie\\
+
+\signature{ArcIterateur\& \fonc{operator =}}
+          {(const ArcIterateur\& \argument{i})}&
+
+affectation\\
+
+\hline
+
+\signature{\fonc{~ArcIterateur} ()}{} &
+destructeur
+\\
+
+\hline
+
+\signature{int \fonc{nbSegments} () const}
+          {}&
+
+retourne le nombre de segments de droites approximant l'arc\\
+
+\signature{int \fonc{nbPoints} () const}
+          {}&
+
+retourne le nombre de points approximant l'arc\\
+
+\hline
+
+\signature{void \fonc{reinitialise} ()}
+          {}&
+
+remet l'itérateur en début de parcours. Après réinitialisation,
+l'itérateur est dans un état indéfini, il faut appeler une première
+fois \fonc{suivant} () ou \fonc{operator ()} () avant de pouvoir
+récupérer le premier point.\\
+
+\signature{int \fonc{suivant} ()}
+          {}&
+
+avance l'itérateur d'un pas, et retourne un indicateur de validité\\
+
+\signature{int \fonc{operator ()} ()}
+          {}&
+
+avance l'itérateur d'un pas, et retourne un indicateur de validité\\
+
+\signature{VecDBL \fonc{point} () const}
+          {}&
+
+retourne une copie du point courant. Si l'itérateur est dans un état
+invalide (juste après construction ou réinitialisation), cette
+fonction retourne le premier point. Dans ce cas, après avoir mis
+l'itérateur dans un état valide (par appel à \fonc{suivant} () ou à
+\fonc{operator ()} (), le premier appel suivant à \fonc{point} ()
+redonnera une seconde fois ce premier point. Si l'itérateur est arrivé
+en fin de parcours, \fonc{point} () redonne toujours le dernier point,
+même si on s'obstine à appeler \fonc{suivant} () ou \fonc{operator ()}
+()\\
+
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+
+\begin{verbatim}
+#include "cantor/ArcIterateur.h"
+
+...
+
+Arc a (VecDBL (1.0, 1.0, 1.0),
+       VecDBL (1.0, 0.0, 0.0), VecDBL (0.0, 1.0, 0.0));
+
+ArcIterateur iter (a, 1.0e-6);
+
+while (iter ())
+  cout << iter.point ().x () << ` `
+       << iter.point ().y () << ` `
+       << iter.point ().z () << endl;
+
+...
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation spécifiques}
+\label{sec:ArcIterateur-conseils}
+
+Cette classe permet d'approximer des arcs par des lignes polygonales
+en dimension trois ; les points intérieurs de chaque segment
+n'appartiennent donc pas à la sphère unité, ils sont sous la
+surface. Il n'est donc pas conseillé d'interpoler dans les segments
+pour faire des calculs, à moins d'utiliser une tolérance très petite
+et donc un très grand nombre de points.
+
+Si l'utilisateur désire faire des calculs sur des arcs, il lui est
+conseillé de passer plutôt par les méthodes de la classe Arc
+(distance, longueur, ...) ou par les méthodes des classes associées
+Champ (cf~\ref{ref:marmottes-util}), Cone (cf~\ref{sec:Cone}), et
+Secteurs (cf~\ref{ref:marmottes-util}. Cette classe réalise une
+approximation qui ne peut être adaptée à des calculs précis qu'au prix
+d'une tolérance très petite et donc d'une grande quantité de calculs
+pour générer un nombre important de points.
+
+L'itérateur est basé sur un parcours par points de l'arc, les première
+et dernière itération donnant rigoureusement les points extrèmes de
+l'arc. Il faut conserver à l'esprit que si l'arc est approximé en $n$
+segments, alors il y aura $n+1$ points à récupérer.
+
+Il faut noter que l'itérateur ne mémorise jamais de points, il les
+crée un par un à la demande, il n'y a donc pas de surcoût en mémoire à
+utiliser une tolérance petite (à moins que l'appelant ne les mémorise
+lui-même), il y a par contre un surcoût en temps de calcul.
+
+\subsubsection*{implantation}\label{sec:ArcIterateur-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:ArcIterateur-att-priv}, il n'y a pas d'attribut
+protégé.
+
+\begin{tableFonctionsFixe}{méthodes privées de la classe ArcIterateur}
+{\label{tab:ArcIterateur-met-priv}}
+{nombre de segments approximant l'arc complet}
+
+\signature{\fonc{ArcIterateur} ()} {} &
+constructeur par défaut
+\\
+
+\end{tableFonctionsFixe}
+
+\begin{tableAttributsFixe}{attributs privés de la classe ArcIterateur}
+{\label{tab:ArcIterateur-att-priv}}
+{nombre de segments approximant l'arc complet}
+
+arc\_ & const Arc* & pointeur sur l'arc à parcourir\\
+
+pas\_ & double & pas angulaire de parcours \\
+
+indice\_ & int & indice courant du parcours \\
+
+segments\_ & int & nombre de segments approximant l'arc complet\\
+
+\end{tableAttributsFixe}

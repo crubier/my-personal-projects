@@ -1,0 +1,287 @@
+% -*- mode: latex; tex-main-file: "cantor.tex" -*-
+% $Id: MoindreCarreLineaire.tex,v 1.5 2002/09/13 09:48:19 cantor Exp $
+\subsection{classe MoindreCarreLineaire}\label{sec:MoindreCarreLineaire}
+
+\subsubsection*{description}\label{sec:MoindreCarreLineaire-desc}
+
+La classe MoindreCarreLineaire implante la notion d'ajustement au sens
+des moindres carrés d'un modèle linéaire de résidus de mesures d'un
+système.
+\begin{displaymath}
+r_k = m_k - m_k^{\mathrm{th}} = \sum_{i=1}^n \alpha_i\varphi_{k,i}
+\end{displaymath}
+Les $m_k$ étant les mesures réelles, les $m_k^{\mathrm{th}}$ étant les
+mesures théoriques, et les $\varphi_{k,i}$ étant les coefficients de
+linéarité connus\footnote{ce sont souvent les dérivées partielles des
+mesures par rapport au vecteur d'état pour une itération donnée de la
+résolution d'un problème de moindres carrés non linéaire}.
+
+L'ajustement est fait à partir d'un échantillon de résidus $r_1,
+\ldots, r_p$, des coefficients $\varphi_{k,i}$ et des poids $w_k$ que
+l'on attribue à chacun de ces points. Les coefficients $\alpha_i$
+déterminés au cours de l'ajustement minimisent l'erreur quadratique
+$\varepsilon$~:
+\begin{displaymath}
+\varepsilon = \sum_{k=1}^p w_k r_k^2
+\end{displaymath}
+
+La démarche de calcul consiste à créer une instance de la classe en
+lui donnant la dimension $p$ du modèle linéaire puis à constituer
+l'échantillon en accumulant dans l'instance les triplets $(r_k,
+\varphi_{k,i}, w_k)$, et enfin à faire l'ajustement (calcul des
+$\alpha_i$) minimisant l'erreur quadratique.
+
+Une fois l'ajustement réalisé on peut l'utiliser soit en demandant le
+tableau des coefficients $\alpha_i$ soit en chargeant l'instance
+elle-même de calculer la valeur du résidu linéarisé $r$ en
+n'importe quel point.
+
+Il est possible d'ajouter ou de retrancher des points de l'échantillon
+(triplets $(r_k, \varphi_{k,i}, w_k)$) à tout moment, même après
+ajustement, il faut bien sûr refaire l'ajustement après ces
+modifications.
+
+Si l'on considère que les résidus $r_k = m_k - m_k^{\mathrm{th}}$ sont dûs
+uniquement à un bruit aléatoire et si tous les poids sont identiques
+($\forall_{k,l} w_k = w_l$), alors on peut convertir l'erreur
+quadratique en écart type de ce bruit de mesure par la formule~:
+\begin{displaymath}
+\sigma = \sqrt{\frac{\sum_{k=1}^p r_k^2}{p-1}}
+\end{displaymath}
+
+\subsubsection*{interface publique}\label{sec:MoindreCarreLineaire-int}
+\begin{verbatim}
+#include "cantor/MoindreCarreLineaire.h"
+\end{verbatim}
+\enlargethispage{-2\baselineskip}
+\begin{tableFonctionsFixe}{MoindreCarreLineaire : méthodes publiques}
+{\label{tab:MoindreCarreLineaire-met-pub}}
+{mets les $\alpha_i$ résultant de l'ajustement dans le tableau
+\argument{ai},}
+
+\signature{\fonc{MoindreCarreLineaire} ()}
+          {}&
+
+prépare une instance non initialisée (nécessaire pour construire des
+tableaux de MoindreCarreLineaire, ces instance ne sont pas utilisables
+directement, elles doivent être initialisées par affectation)\\
+
+\signature{\fonc{MoindreCarreLineaire} (int \argument{dimension})}
+          {}&
+
+construit une instance permettant de modéliser des résidus dans un
+espace vectoriel de dimension \argument{dimension}\\
+
+\signature{\fonc{MoindreCarreLineaire}}
+          {(const MoindreCarreLineaire\& \argument{m})}&
+
+constructeur par copie\\
+
+\signature{MoindreCarreLineaire\& \fonc{operator =}}
+          {(const MoindreCarreLineaire\& \argument{m})}&
+
+affectation\\
+
+\signature{\fonc{\~{}MoindreCarreLineaire} ()}
+          {}&
+
+destructeur, libère la mémoire allouée\\
+
+\hline
+
+\signature{void \fonc{ajouteResidu}}
+          {(double \argument{rk}, double fki [], double \argument{wk} = 1.0)}&
+
+ajoute le triplet $(r_k, f_{k,i}, w_k)$ à l'échantillon courant\\
+
+\signature{void \fonc{oteResidu}}
+          {(double \argument{rk}, double fki [], double \argument{wk} = 1.0)}&
+
+élimine le triplet $(r_k, f_{k,i}, w_k)$ de l'échantillon courant\\
+
+\signature{void \fonc{oteTousResidus} ()}
+          {}&
+
+élimine tous les résidus de l'échantillon\\
+
+\signature{int \fonc{nbResidus} () const}
+          {}&
+
+retourne le nombre de résidus de l'échantillon\\
+
+\hline
+
+\signature{void \fonc{ajuste}}
+          {(double \argument{seuil} = 1.0e-10)\\
+           \throw{CantorErreurs}
+          }&
+
+réalise l'ajustement du modèle de résidus au sens des moindres carrés
+sur l'échantillon (le seuil est utilisé pour tester les termes
+diagonaux lors de l'inversion de la matrice des moindres carrés, il
+doit être positif), lance une exception en cas de problème\\
+
+\signature{bool \fonc{estAjuste} () const}
+          {}&
+
+indique si le modèle a été ajusté\\
+
+\signature{void \fonc{coefficients}}
+          {(double \argument{ai} []) const\\
+           \throw{CantorErreurs}
+          }&
+
+mets les $\alpha_i$ résultant de l'ajustement dans le tableau
+\argument{ai}, lance une exception si la fonction n'avait pas été
+ajustée au préalable\\
+
+\signature{double \fonc{erreurQuadratique} () const}
+          {\throw{CantorErreurs}}&
+
+met l'erreur d'ajustement $\varepsilon$ dans la variable pointée par
+\argument{ptrErrQuad}, lance une exception si la fonction n'avait pas
+été ajustée au préalable\\
+
+\signature{void \fonc{operator ()}}
+          {(double *\argument{ptrFk}, double fki []) const\\
+           \throw{CantorErreurs}
+          }&
+
+évalue le modèle linéaire des résidus en fonction des coefficients
+$f_{k,i}$ et met le résultat dans la variable pointée par
+\argument{ptrRk}, lance une exception si la fonction n'avait pas été
+ajustée au préalable\\
+
+\hline
+
+\signature{int \fonc{dimension} () const}
+          {}&
+
+retourne la dimension de l'espace d'ajustement\\
+
+\end{tableFonctionsFixe}
+
+\begin{tableFonctionsFixe}{MoindreCarreLineaire : fonctions globales associées}
+{\label{tab:MoindreCarreLineaire-fonc-glob}}
+{factorise sous forme $LDL^T$ et \emph{en place} la matrice symétrique}
+
+\signature{void \fonc{factLDLt}}
+          {(double *\argument{m}, int \argument{n}, double \argument{seuil})\\
+           \throw{CantorErreurs}}&
+
+factorise sous forme $LDL^T$ et \emph{en place} la matrice symétrique
+définie positive \argument{m} de dimension \argument{n}, en utilisant
+\argument{seuil} pour tester les pivots lors de l'inversion ; lance
+une exception en cas d'impossibilité\\
+
+\signature{void \fonc{resoudLDLt}}
+          {(const double *\argument{m}, int \argument{n}, double \argument{x} [])}&
+
+résoud \emph{en place} l'équation $y = m x$, où \argument{m} a déjà
+été factorisée sous forme $LDL^T$\\
+
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+
+\begin{verbatim}
+#include "cantor/MoindreCarreLineaire.h"
+
+static double x [] = { 1.0,  2.0,  3.0,  4.0, 5.0,   6.0,   7.0,  8.0  };
+static double y [] = { 0.97, 3.01, 2.93, 6.9, 8.99, 11.03, 13.0, 14.98 };
+
+// ajustement d'une droite sur l'échantillon
+// on a phi (k, 1) = 1 et phi (k, 2) = x (i)
+double fki [2];
+fki [0] = 1;
+MoindreCarreLineaire initial (2);
+for (int i = 0; i < sizeof (x) / sizeof (double); i++)
+{ fki [1] = x [i];
+  initial.ajouteResidu (y [i], fki);
+}
+
+initial.ajuste ();
+
+// on se donne pour l'exemple un seuil de rejet à 2 sigmas
+double seuil = initial.erreurQuadratique ();
+seuil = 2.0 * sqrt (seuil / (1.0 + initial.nbResidus ()));
+
+// on refait un échantillon sans les points aberrants
+MoindreCarreLineaire final (initial);
+for (int i = 0; i < initial.nbResidus (); i++)
+{ double estime;
+  fki [1] = x [i];
+  initial (&estime, fki);
+  if (abs (estime - y [i]) > seuil)
+    final.oteResidu (y [i], fki);
+}
+
+final.ajuste ();
+
+double coeffs [2];
+final.coefficients (coeffs);
+cout << coeffs [0] << " + " << coeffs [1] << " x" << endl;
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation spécifiques}
+\label{sec:MoindreCarreLineaire-conseils}
+
+La classe MoindreCarreLineaire utilise les deux fonctions globales
+\fonc{factLDLt} et \fonc{resoudLDLt} pour réaliser l'ajustement. Ces
+fonctions ont été rendues globales de façon à pouvoir être appelées
+directement par un utilisateur de \bibliotheque{cantor}.
+
+Dans la fonction \fonc{factLDLt}, la matrice initiale est symétrique
+définie positive, seule une moitié de cette matrice est donc
+nécessaire pour les calculs. Afin d'optimiser la place, le nombre de
+transferts mémoire et les calculs, la fonction \fonc{factLDLt}
+attend uniquement la moitié utile de la matrice, rangée dans un
+vecteur de dimension $n(n+1)/2$. Les $n$ premières composantes doivent
+contenir les éléments $m_{1,1}$ à $m_{1,n}$, les $n-1$ composantes
+suivantes doivent contenir les éléments $m_{2,2}$ à $m_{2,n}$,~... Ce
+type de rangement est traditionnel dans les codes d'algèbre linéaire.
+
+\subsubsection*{implantation}\label{sec:MoindreCarreLineaire-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:MoindreCarreLineaire-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe MoindreCarreLineaire}
+{\label{tab:MoindreCarreLineaire-att-priv}}
+{dimension de l'espace vectoriel fonctionnel}
+
+dimension\_ & int  & dimension de l'espace vectoriel d'ajustement\\
+
+\hline
+
+nbResidus\_ & int  & taille courante de l'échantillon\\
+
+sommeRk2\_ & double  & scalaire pour le calcul de l'erreur\\
+
+vecSommeRkFk\_ & double * & second membre des moindres carrés\\
+
+matSommeFkFk\_ & double * & matrice des moindres carrés\\
+
+\hline
+
+estAjuste\_ & bool  & indicateur d'ajustement\\
+
+ai\_ & double * & coefficients d'ajustement\\
+
+errQuad\_ & double  & erreur quadratique d'ajustement\\
+
+\end{tableAttributsFixe}
+Les méthodes privées sont décrites dans la table~\ref{tab:MoindreCarreLineaire-met-priv}.
+\begin{tableFonctionsFixe}{MoindreCarreLineaire : méthodes privées}
+{\label{tab:MoindreCarreLineaire-met-priv}}
+{alloue les tableaux adaptée à la \argument{dimension}}
+
+\signature{void \fonc{alloueTableaux} (int \argument{dimension})}
+          {}&
+
+alloue les tableaux adaptée à la \argument{dimension} de l'espace
+vectoriel dans une instance vide\\
+
+\signature{void \fonc{libereTableaux} ()}
+          {}&
+
+libère la mémoire allouée pour les tableaux internes\\
+
+\end{tableFonctionsFixe}

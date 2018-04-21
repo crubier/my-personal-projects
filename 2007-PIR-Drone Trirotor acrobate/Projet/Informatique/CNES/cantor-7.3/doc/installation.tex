@@ -1,0 +1,119 @@
+% -*- mode: latex; tex-main-file: "cantor.tex" -*-
+% $Id: installation.tex,v 1.6 2000/11/22 07:12:17 cantor Exp $
+La bibliothèque \bibliotheque{cantor} est livrée sous forme d'une
+archive compressée dont le nom est de la forme
+\texttt{cantor-\textsl{vv}.\textsl{rr}.tar.gz}, où \textsl{vv} est le
+numéro de version et \textsl{rr} est le numéro de révision.
+
+L'installation de la bibliothèque est similaire à l'installation des
+produits \textsc{gnu}. En premier lieu, il importe de
+décompresser\footnote{l'utilitaire de décompression \texttt{gunzip}
+est disponible librement sur tous les sites \texttt{ftp} miroirs du
+site \textsc{gnu}} l'archive et d'en extraire les fichiers, par une
+commande du type~:
+
+\centerline{\texttt{gunzip -c cantor-\textsl{vv}.\textsl{rr}.tar.gz |
+tar xvf -}}
+
+Cette commande crée un répertoire
+\texttt{cantor-\textsl{vv}.\textsl{rr}} à l'endroit d'où elle a été
+lancée. Il faut ensuite se placer dans ce répertoire, et configurer
+les makefiles par une commande du type~:
+
+\centerline{\texttt{./configure}}
+
+On peut modifier les choix du script de configuration par plusieurs
+moyens. Le cas de loin le plus courant est de vouloir installer la
+bibliothèque à un endroit spécifique (l'espace par défaut est
+\texttt{/usr/local}), on doit pour cela utiliser l'option
+\texttt{-{}-prefix} comme dans l'exemple suivant~:
+
+\centerline{\texttt{./configure -{}-prefix=/racine/espace/installation}}
+
+Il arrive beaucoup plus rarement que l'on désire modifier les options
+de compilation, il faut là encore passer par des variables
+d'environnement (\texttt{CXXCPP}, \texttt{CPPFLAGS}, \texttt{CXX},
+\texttt{CXXFLAGS}, \texttt{LDFLAGS} ou \texttt{LIBS}) avant de lancer
+le script.
+
+Par défaut, le script de configuration recherche la bibliothèque
+\bibliotheque{club} dans l'environnement par défaut de l'utilisateur
+et dans le préfixe choisi pour \bibliotheque{cantor}. L'option
+\texttt{-{}-with-club[=PATH]} permet d'aider le script à trouver
+la bibliothèque lorsqu'elle est installée dans des répertoires non
+standards. Lorque l'on spécifie un chemin du style
+\texttt{/racine/specifique}, les fichiers d'en-tête sont recherchés
+dans un premier temps sous \texttt{/racine/specifique/include} et
+ensuite sous \texttt{/racine/specifique/include/club} et la
+bibliothèque est recherchée sous \texttt{/racine/specifique/lib}.
+
+Si l'on désire partager les options ou les variables d'environnement
+entre plusieurs scripts \texttt{configure} (par exemple ceux des
+bibliothèques \bibliotheque{club}, \bibliotheque{interface},
+\bibliotheque{cantor} et \bibliotheque{marmottes}), il est possible
+d'initialiser les variables\footnote{l'option \texttt{-{}-prefix}
+s'initialise à l'aide d'une variable shell \texttt{prefix}} dans un ou
+plusieurs scripts Bourne-shell. La variable \texttt{CONFIG\_SITE} si
+elle existe donne une suite de noms de tels scripts séparés par des
+blancs, ceux qui existent sont chargés dans l'ordre. Si la variable
+n'existe pas on utilise la liste par défaut des fichiers
+\texttt{\$(prefix)/share/config.site} puis
+\texttt{\$(prefix)/etc/config.site} ; cette liste par défaut permet de
+gérer plusieurs configurations en spécifiant manuellement l'option
+\texttt{-{}-prefix} sans le risque de confusion inhérent aux variables
+d'environnement peu visibles.
+
+La compilation est ensuite réalisée par la commandes \texttt{make} et
+l'installation par la commande \texttt{make install}. La première
+commande compile localement tous les éléments de la bibliothèque et
+les programmes de tests, seule la seconde commande installe des
+fichiers hors de l'arborescence de compilation. Les fichiers installés
+sont l'archive \texttt{libcantor.la}, le répertoire de fichiers
+d'inclusion \texttt{cantor}, et les fichiers de traduction
+\texttt{en/cantor} et \texttt{fr/cantor} dans les sous-répertoires de
+la racine spécifiée par l'option \texttt{-{}-prefix} de
+\texttt{configure}, valant \texttt{/usr/local} par défaut.
+
+Si l'utilisateur le désire, il peut faire un \texttt{make check} après
+le \texttt{make} pour lancer localement les tests internes de la
+distribution.
+
+Il est possible de désinstaller complètement la bibliothèque par la
+commande \texttt{make uninstall}.
+
+Pour régénérer l'arborescence telle qu'issue de la distribution (en
+particulier pour éliminer les fichiers de cache de
+\texttt{configure}), il faut faire un \texttt{make distclean}.
+
+Une fois l'installation réalisée, le répertoire
+\texttt{cantor-\textsl{vv}.\textsl{rr}} ne sert plus (sauf si l'on a
+compilé avec une option de déboguage) et peut être supprimé.
+
+La démarche de compilation normale est de désarchiver, de configurer,
+de compiler, d'installer, puis de supprimer le répertoire des sources,
+pour ne conserver que l'archive compressée. Le répertoire des sources
+n'est pas un espace de stockage permanent, les directives du
+\texttt{Makefile} ne supportent en particulier pas les compilations
+simultanées sur un espace unique, et le \texttt{Makefile} lui-même
+dépend de la configuration (il n'est d'ailleurs pas livré pour cette
+raison). Si un utilisateur désire installer la bibliothèque sur
+plusieurs machines ayant chacune un espace privé pour les
+bibliothèques (typiquement \texttt{/usr/local}) mais se partageant le
+répertoire d'archivage par un montage de disque distant, il ne faut
+pas décompresser l'archive dans l'espace commun. On préfèrera dans ce
+cas une série de commandes du type :
+
+\newlength{\largeurCompilation}
+\settowidth{\largeurCompilation}{\ttfamily
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+}
+\begin{center}\begin{minipage}{\largeurCompilation}\begin{verbatim}
+cd /tmp
+gunzip -c /chemin/vers/l/espace/partage/cantor-vv.rr.tar.gz | tar xvf -
+cd cantor-vv.rr
+./configure --prefix=/chemin/vers/l/espace/prive
+make
+make install
+cd ..
+rm -fr cantor-vv.rr
+\end{verbatim}\end{minipage}\end{center}

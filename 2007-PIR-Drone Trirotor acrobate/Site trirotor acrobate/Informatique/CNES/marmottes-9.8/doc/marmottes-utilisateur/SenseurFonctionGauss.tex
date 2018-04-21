@@ -1,0 +1,114 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: SenseurFonctionGauss.tex,v 1.11 2004/06/21 14:43:15 marmottes Exp $
+\subsection{classe SenseurFonctionGauss}\label{sec:SenseurFonctionGauss}
+
+\subsubsection*{description}\label{sec:SenseurFonctionGauss-desc}
+
+Cette classe implante les pseudo-senseurs mesurant des gains
+d'antennes bord dans une direction particulière définie par la cible
+(typiquement une station sol). Ce type de senseur permet de calculer
+la part liée uniquement à l'attitude dans un bilan de liaison. La
+forme du gain modélisée par ce senseur est :
+\begin{displaymath}
+g = 10\times\frac{\log{K e^\frac{-x^2}{2}}}{\log{10}}
+\end{displaymath}
+où $\theta$ est le dépointage entre l'axe d'antenne et la cible. La
+valeur retournée est donc directement une valeur en dB.
+
+La fonction est inversible, mais sur un intervalle un peu étrange
+$[g_{\max} - \frac{5\pi^2}{\log{10}} ; g_{\max}]$,
+cette raison et un souci d'homogénéité avec la classe
+SenseurFonctionSinCard2 nous ont poussés à \emph{interdire l'utilisation
+de ces senseurs en consigne}, ils sont destinés à être utilisés en
+\emph{mesure uniquement}.
+
+\subsubsection*{interface publique}\label{sec:SenseurFonctionGauss-int}
+\begin{verbatim}
+#include "marmottes/SenseurFonctionGauss.h"
+\end{verbatim}
+
+\begin{tableFonctionsFixe}{SenseurFonctionGauss : méthodes publiques}
+{\label{tab:SenseurFonctionGauss-met-pub}}
+{construit une instance à partir des données technologiques}
+
+\signature{\fonc{SenseurFonctionGauss}}
+          {(const string\& \argument{nom},\\
+            const RotDBL\& \argument{repere},\\
+            const VecDBL\& \argument{axeCalage},\\
+            double \argument{precision},\\
+            codeCible \argument{code},\\
+            const StationCible *\argument{ptrStation},\\
+            const VecDBL\& \argument{observe},\\
+            Parcelle* \argument{ptrChampDeVue},\\
+            Parcelle* \argument{ptrChampInhibitionSoleil},\\
+            Parcelle* \argument{ptrChampInhibitionLune},\\
+            Parcelle* \argument{ptrChampInhibitionCentral},\\
+            double \argument{margeEclipseSoleil},\\
+            double \argument{margeEclipseLune},\\
+            double \argument{seuilPhaseLune},\\
+            const VecDBL\& \argument{axe},\\
+            const VecDBL\& \argument{origine},\\
+            double \argument{maximum},\\
+            double \argument{angle3dB})\\
+            \throw{CantorErreurs}
+           } &
+
+construit une instance à partir des données technologiques\\
+
+\hline
+
+\signature{\fonc{SenseurFonctionGauss}}
+          {(const SenseurFonctionGauss\& \argument{s})} &
+
+constructeur par copie\\
+
+\signature{SenseurFonctionGauss\& \fonc{operator =}}
+          {(const SenseurFonctionGauss\& \argument{s})} &
+
+affectation\\
+
+\hline
+
+\signature{\fonc{\~{}SenseurFonctionGauss} ()}{} & destructeur, ne
+fait rien dans cette classe\\
+
+\hline
+
+\signature{Senseur* \fonc{copie} () const}{} & opérateur de copie virtuel\\
+
+\signature{double \fonc{fonction}}
+          {(double \argument{azimut}, double \argument{depointage}) const\\
+           \throw{MarmottesErreurs}
+          } &
+cette méthode évalue la fonction de gain $$g = 10\times\frac{\log{K e^\frac{-x^2}{2}}}{\log{10}}
+$$ où $\theta$ est le \argument{depointage}\\
+\end{tableFonctionsFixe}
+
+\subsubsection*{implantation}\label{sec:SenseurFonctionGauss-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:SenseurFonctionGauss-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe SenseurFonctionGauss}
+{\label{tab:SenseurFonctionGauss-att-priv}}
+{valeur maximale du gain dans la direction de l'axe}
+
+maximum\_ & double & valeur maximale en dB du gain dans la direction
+de l'axe\\
+
+angle3dB\_ & double & angle de dépointage pour lequel le gain chute de
+3 dB (c'est à dire que la fonction dans le logarithme est divisée par deux)\\
+
+\end{tableAttributsFixe}
+
+Les méthodes protégées sont décrites dans la table~\ref{tab:SenseurFonctionGauss-met-prot}.
+\begin{tableFonctionsFixe}{SenseurFonctionGauss : méthodes protégées}
+{\label{tab:SenseurFonctionGauss-met-prot}}
+{constructeur par défaut. Il est défini explicitement uniquement pour }
+
+\signature{\fonc{SenseurFonctionGauss} ()}
+          {}&
+
+constructeur par défaut. Il est défini explicitement uniquement pour
+prévenir celui créé automatiquement par le compilateur et ne doit pas être
+utilisé.
+\\
+\end{tableFonctionsFixe}

@@ -1,0 +1,31 @@
+#! /bin/sh
+
+# $Id: test_Arc2.in,v 1.1 2002/02/04 13:09:19 cantor Exp $
+
+# using an english environment for the tests
+@ca_cv_var_lang@=en              ; export @ca_cv_var_lang@
+@ca_cv_var_tradpath@=@srcdir@/.. ; export @ca_cv_var_tradpath@
+
+# run the test program
+touch test_Arc2.res
+
+for spread1 in 0 0.001 89.99 89.9999 90 90.0001 90.01 180 360 ; do
+  echo "" >> test_Arc2.res 2>&1
+  echo "prgm_Arc2 -axis1 0 90 -angle1 60 -begin1 0 0 -spread1 $spread1 -v 90 0" >> test_Arc2.res 2>&1
+  prgm_Arc2  -axis1 0 90 -angle1 60 -begin1 0 0 -spread1 $spread1 -v 90 0 >> test_Arc2.res 2>&1
+done
+
+echo "" >> test_Arc2.res 2>&1
+echo "prgm_Arc2 -axis1 191.353554417966 -72.1726209524282 -angle1 90 -begin1 159.238374836026 15.2367256862230 -spread1 73.5780516526829 -axis2 90 0 -angle2 5.0 -begin2 0 90" >> test_Arc2.res 2>&1
+prgm_Arc2 -axis1 191.353554417966 -72.1726209524282 -angle1 90 -begin1 159.238374836026 15.2367256862230 -spread1 73.5780516526829 -axis2 90 0 -angle2 5.0 -begin2 0 90 >> test_Arc2.res 2>&1
+
+echo "" >> test_Arc2.res 2>&1
+echo "prgm_Arc2 -axis1 87.4950747800207 -4.32865957231988 -angle1 0.0997410151556135 -begin1 87.5821731995094 -4.37770896741354 -spread1 273.503885527633 -axis2 90 0 -angle2 5.0 -begin2 0 90" >> test_Arc2.res 2>&1
+prgm_Arc2 -axis1 87.4950747800207 -4.32865957231988 -angle1 0.0997410151556135 -begin1 87.5821731995094 -4.37770896741354 -spread1 273.503885527633 -axis2 90 0 -angle2 5.0 -begin2 0 90 >> test_Arc2.res 2>&1
+
+# file comparison
+echo "difference -p 1.0e-4 -ee 1 10 -res test_Arc2.res -ref @srcdir@/test_Arc2.ref -rfref 1"
+difference -p 1.0e-4 -ee 1 10 -res test_Arc2.res -ref @srcdir@/test_Arc2.ref -rfref 1
+r=$?
+rm -f test_Arc2.res
+exit $r

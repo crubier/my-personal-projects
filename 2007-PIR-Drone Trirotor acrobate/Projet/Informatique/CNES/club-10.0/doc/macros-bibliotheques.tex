@@ -1,0 +1,104 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+% $Id: macros-bibliotheques.tex,v 1.12 2005/03/03 16:29:29 chope Exp $
+\usepackage{longtable}
+
+\usepackage[dvips]{changebar}
+\setcounter{changebargrey}{40}
+\outerbarstrue
+\setlength{\changebarsep}{5pt}
+
+\makeatletter
+\renewcommand{\l@subsection}{\@dottedtocline{2}{1.5em}{2.7em}}
+\makeatother
+
+\newcommand{\fonc}[1]{\textbf{#1}}
+\newcommand{\throw}[1]{\textbf{throw}(#1)}
+\newcommand{\argument}[1]{\textsl{#1}}
+\newcommand{\langage}[1]{\textsc{#1}}
+\newcommand{\bibliotheque}[1]{\textsc{#1}}
+\newcommand{\outil}[1]{\texttt{#1}}
+
+\newlength{\hauteurPile}\newlength{\hauteurPar}
+\newcommand{\pileDescendante}[1]{\settoheight{\hauteurPile}{\shortstack[l]{#1}}
+\settoheight{\hauteurPar}{()}\addtolength{\hauteurPile}{-\hauteurPar}
+\raisebox{-\hauteurPile}{\shortstack[l]{#1}}}
+
+\newlength{\largeurPar}
+\newcommand{\signature}[2]{\settowidth{\largeurPar}{(}
+\pileDescendante{{#1}\\\hspace{2em}\shortstack[l]{\hspace{-\largeurPar}#2}}}
+
+\newlength{\largeurTableFonctions}
+
+\newenvironment{tableFonctionsLibre}[3]{\begin{table}[htbp]\caption{#1}#2
+\begin{center}\footnotesize\settowidth{\largeurTableFonctions}{#3}
+\renewcommand{\arraystretch}{1.5}\begin{tabular}{|l|p{\largeurTableFonctions}|}
+\hline \multicolumn{1}{|c|}{signature} & \multicolumn{1}{c|}{description}\\
+\hline\hline\\}
+{\hline\end{tabular}\end{center}\end{table}}
+
+\newenvironment{tableFonctionsFixe}[3]{\footnotesize
+\settowidth{\largeurTableFonctions}{#3}
+\renewcommand{\arraystretch}{1.5}
+\begin{longtable}{|l|p{\largeurTableFonctions}|}\caption{#1}#2\\
+\hline\multicolumn{1}{|c|}{signature} & \multicolumn{1}{c|}{description}\\
+\hline\hline\endfirsthead\caption[]{#1 (suite)}\\
+\hline\multicolumn{1}{|c|}{signature} & \multicolumn{1}{c|}{description}\\
+\hline\hline\endhead
+\hline\multicolumn{2}{|r|}{à suivre ...}\\\hline\endfoot
+\hline\endlastfoot}{\end{longtable}}
+
+\newlength{\largeurTableAttributs}
+
+\newenvironment{tableAttributsLibre}[3]{\begin{table}[htbp]\caption{#1}#2
+\begin{center}\settowidth{\largeurTableAttributs}{#3}
+\begin{tabular}[b]{|c|c|p{\largeurTableAttributs}|}
+\hline nom & type & \multicolumn{1}{c|}{description}\\
+\hline\hline}
+{\hline\end{tabular}\end{center}\end{table}}
+
+\newenvironment{tableAttributsFixe}[3]{\footnotesize
+\settowidth{\largeurTableAttributs}{#3}
+\renewcommand{\arraystretch}{1.5}
+\begin{longtable}{|c|c|p{\largeurTableAttributs}|}\caption{#1}#2\\
+\hline nom & type &\multicolumn{1}{c|}{description}\\\hline\hline\endfirsthead
+\caption[]{#1 (suite)}\\
+\hline nom & type &\multicolumn{1}{c|}{description}\\\hline\hline\endhead
+\hline\multicolumn{3}{|r|}{à suivre ...}\\\hline\endfoot
+\hline\endlastfoot}{\end{longtable}}
+
+
+\newlength{\largeurTableArgumentsLigneCmde}
+
+\newenvironment{tableArgumentsLigneCmde}[3]{\footnotesize
+\settowidth{\largeurTableArgumentsLigneCmde}{#3}
+\renewcommand{\arraystretch}{1.5}
+\begin{longtable}{|c|c|ccc|p{\largeurTableArgumentsLigneCmde}|}\caption{#1}#2\\
+\hline nom & type & \multicolumn{3}{c|}{valeurs} &
+\multicolumn{1}{c|}{description}\\
+ & & défaut & min & max & \\\hline\hline\endfirsthead 
+\caption[]{#1 (suite)}\\
+\hline nom & type & \multicolumn{3}{c|}{valeurs} &
+\multicolumn{1}{c|}{description}\\
+ & & défaut & min & max & \\\hline\hline\endhead
+\hline\multicolumn{3}{|r|}{à suivre ...}\\\hline\endfoot
+\hline\endlastfoot}{\end{longtable}}
+
+
+\newenvironment{tableSubstitution}[4]{\footnotesize
+\renewcommand{\arraystretch}{1.5}
+\begin{longtable}{|l|l|}\caption{#1}#2\\
+\hline \multicolumn{1}{|c|}{#3} &
+\multicolumn{1}{c|}{#4} \\
+\hline\hline\endfirsthead
+\caption[]{#1 (suite)}\\
+\hline \multicolumn{1}{|c|}{#3} & 
+\multicolumn{1}{c|}{#4}\\
+\hline\hline\endhead
+\hline\multicolumn{2}{|r|}{à suivre ...}\\\hline\endfoot
+\hline\endlastfoot}{\end{longtable}}
+
+\newcounter{exemple}\newlength{\largeurexemple}
+\newenvironment{exemple}[2]{\refstepcounter{exemple}\begin{center}
+\settowidth{\largeurexemple}{\ttfamily#2}\begin{minipage}{\largeurexemple}
+\centerline{Expl. \arabic{exemple} -- \textit{#1}}\ttfamily\raggedleft}
+{\end{minipage}\end{center}}

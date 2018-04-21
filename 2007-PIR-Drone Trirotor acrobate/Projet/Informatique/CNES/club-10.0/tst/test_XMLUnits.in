@@ -1,0 +1,26 @@
+#! /bin/sh
+
+# CVS identifier : "$Id: test_XMLUnits.in,v 1.1 2005/02/21 13:01:46 chope Exp $"
+
+# set up an english environment for tests
+@cl_cv_var_lang@=en                        ; export @cl_cv_var_lang@
+@cl_cv_var_tradpath@=@srcdir@/..           ; export @cl_cv_var_tradpath@
+@cl_cv_var_xmlpath@=@srcdir@/../resources  ; export @cl_cv_var_xmlpath@
+
+# run the test program
+cp /dev/null test_XMLUnits.res
+tail +2 @srcdir@/test_XMLUnits.ref \
+| while read value1 unit1 sep value2 unit2 rest ; do
+  if [ ! -z "$value1" ] ; then
+    ./prgm_XMLUnits @srcdir@/../resources/club-units.xml \
+                    "$value1" "$unit1" "$unit2" >> test_XMLUnits.res 2>&1
+  fi
+done
+
+# output files comparison
+echo "difference test_XMLUnits.res @srcdir@/test_XMLUnits.ref"
+./../utils/difference -rsynth -p 0.00001 -rfref 2 \
+   -res test_XMLUnits.res -ref @srcdir@/test_XMLUnits.ref
+r=$?
+rm -f test_XMLUnits.res
+exit $r

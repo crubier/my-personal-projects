@@ -1,0 +1,77 @@
+% -*- mode: latex; tex-main-file: "cantor.tex" -*-
+% $Id: Combinaisons.tex,v 1.2 1999/08/05 09:23:16 cantor Exp $
+\subsection{paquetages de combinaison d'opérandes}
+\label{sec:Combinaisons}
+
+La notion de paquetage de combinaison d'opérandes complète celle de
+paquetage de conversion pour offrir une grande souplesse dans
+l'utilisation combinée des différents types de scalaires proposés par
+la bibliothèque \bibliotheque{cantor}. De ce fait, il est fortement
+conseillé de ne lire cette section qu'après une lecture approfondie de
+la section qui se rapporte aux paquetages de conversion
+(\ref{sec:Conversions}).
+
+ La définition d'un paquetage de combinaison
+d'opérande est formalisée ainsi~:
+
+\begin{quote}
+on appelle paquetage de combinaison d'opérandes associé à la classe C
+pour les types T et T', un fichier contenant toutes les définitions
+qui permettent de combiner, lors de l'appel d'opérations arithmétiques
+et logiques de base, des opérandes des types \template{C}{T} et
+\template{C}{T'}. Cette définition est étendue aux scalaires par un
+abus de langage, puisque dans la réalité le type double n'est pas une
+classe, et que les scalaires sont représentés par les types T et T' et
+non par des types \template{double}{T} et \template{double}{T'}.
+\end{quote}
+
+On notera également que la définition précédente limite les
+combinaisons d'opérandes à deux types scalaires de base. Bien que la
+combinaison d'opérandes soit théoriquement possible pour plus de trois
+types de base, la complexité de telles pratiques risque fort d'être
+prohibitive. De fait, en utilisant de façon explicite les opérations
+des paquetages de conversion, on pourra toujours se ramener au cas des
+combinaisons d'opérandes à deux types de base.
+
+Le principe général de conversion est le suivant~: si le type B est
+une restriction du type A (par exemple A est un ValeurDerivee1 et B
+est un double), alors une opération entre un A et un B donnera un A,
+le B ayant été complété par des 0. Ceci n'est bien sûr pas vrai pour
+une opération du type B \fonc{+=} A~; dans ce cas on restreint le type
+A pour réaliser l'opération. Sous ces mêmes hypothèses, une
+comparaison entre un A et un B (\fonc{<}, \fonc{<=}, ...) sera
+réalisée entre une restriction du A et le B original. Dans la
+pratique, les calcul n'est pas fait en créant un A avec des 0, mais
+par des formules adaptées à chaque cas, pour des raisons
+d'efficacité. Ce principe est l'extension naturelle des formules
+donnant la dérivée d'une opération arithmétique entre une dérivée et
+un réel, obtenue en considérant le réel comme une fonction constante.
+
+Si un utilisateur désire introduire une classe de scalaires munis
+d'une valeur incertitude (appelons là ici ValeurIncertaine), il devra
+écrire trois paquetages de combinaison d'opérandes: DBLVIN
+(combinaisons entre double et ValeurIncertaine), VD1VIN (combinaisons
+entre ValeurDerivee1 et ValeurIncertaine) et VD2VIN (combinaisons
+entre ValeurDerivee2 et ValeurIncertaine). Cette action est formalisée
+par la procédure suivante~:
+
+\begin{quote}
+pour introduire un nouveau type de scalaire T dans la bibliothèque
+\bibliotheque{cantor}, l'utilisateur doit définir un paquetage de
+conversion selon la prcédure décrite à la
+section~\ref{sec:Conversions}, puis il doit définir des paquetages de
+combinaison d'opérandes associés à chacune des classes
+\texttt{template} pour le type T et chacun des types déjà présents
+dans bibliothèque \bibliotheque{cantor}
+\end{quote}
+
+La définition des paquetages de combinaison peut ainsi se faire de
+facon assez systématique, par exemple en copiant un paquetage de
+combinaison déjà existant, en y remplacant toutes les occurrences d'un
+type par un autre, en rajoutant celles qui manquent, et en écrivant le
+corps des fonctions du paquetage (qui sont en général limitées à
+quelques lignes).
+
+De par leur nature orthogonale au reste du code, tous les paquetages
+de combinaison sont regroupés dans le sous-répertoire
+\texttt{cantor/conversions} des fichiers d'en-tête.

@@ -1,0 +1,49 @@
+Bloc: nom_1, Fichier: @srcdir@/test_FichierStructure.don
+bloc non terminal
+nombre de champs du bloc (valide uniquement pour blocs terminaux): 0
+non terminal bloc "nom_1" in file "@srcdir@/test_FichierStructure.don"
+non terminal bloc "nom_1" in file "@srcdir@/test_FichierStructure.don"
+ "nom_11" "nom_12"
+
+Bloc: nom_1.nom_11, Fichier: @srcdir@/test_FichierStructure.don
+bloc terminal
+nombre de champs du bloc (valide uniquement pour blocs terminaux): 1
+no 0 field within bloc "nom_1.nom_11" (file "@srcdir@/test_FichierStructure.don")
+champ 1: "1.1"
+no 2 field within bloc "nom_1.nom_11" (file "@srcdir@/test_FichierStructure.don")
+
+
+Bloc: nom_1.nom_12, Fichier: @srcdir@/test_FichierStructure.don
+bloc terminal
+nombre de champs du bloc (valide uniquement pour blocs terminaux): 1
+no 0 field within bloc "nom_1.nom_12" (file "@srcdir@/test_FichierStructure.don")
+champ 1: "1.2"
+no 2 field within bloc "nom_1.nom_12" (file "@srcdir@/test_FichierStructure.don")
+
+
+Bloc: nom_2, Fichier: @srcdir@/test_FichierStructure.don
+bloc non terminal
+nombre de champs du bloc (valide uniquement pour blocs terminaux): 0
+non terminal bloc "nom_2" in file "@srcdir@/test_FichierStructure.don"
+non terminal bloc "nom_2" in file "@srcdir@/test_FichierStructure.don"
+ "nom_21" "nom_22"
+
+Bloc: nom_2.nom_21, Fichier: @srcdir@/test_FichierStructure.don
+bloc terminal
+nombre de champs du bloc (valide uniquement pour blocs terminaux): 1
+no 0 field within bloc "nom_2.nom_21" (file "@srcdir@/test_FichierStructure.don")
+champ 1: "2.1"
+no 2 field within bloc "nom_2.nom_21" (file "@srcdir@/test_FichierStructure.don")
+
+
+Bloc: .a.hhh.nom_22, Fichier: @srcdir@/test_FichierStructure.don
+bloc terminal
+nombre de champs du bloc (valide uniquement pour blocs terminaux): 2
+no 0 field within bloc ".a.hhh.nom_22" (file "@srcdir@/test_FichierStructure.don")
+champ 1: "2.2"
+champ 2: "-2.2"
+no 3 field within bloc ".a.hhh.nom_22" (file "@srcdir@/test_FichierStructure.don")
+
+
+nom_2 ne contient pas le sous-bloc xxx
+nom_2 contient le sous-bloc nom_21

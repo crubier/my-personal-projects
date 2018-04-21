@@ -1,0 +1,498 @@
+% -*- mode: latex; tex-main-file: "cantor.tex" -*-
+% $Id: fonctions-C++.tex,v 1.3 2001/06/05 16:13:47 cantor Exp $
+\subsection{fonction \langage{C++} de recherche de mimimum}
+\label{sec:SectionDoree}
+
+Le fichier \texttt{cantor/SectionDoree.h} déclare une fonction
+implantant l'algorithme de la section dorée pour la recherche d'un
+mimimum local de fonction à une variable.
+
+\subsubsection{interface}\label{sec:SectionDoree-int}
+\begin{verbatim}
+#include "cantor/SectionDoree.h"
+\end{verbatim}
+
+\begin{tableFonctionsFixe}{fonction de recherche de minimum par la
+section dorée}{\label{tab:SectionDoree}}
+{recherche le minimum de \argument{fonc} dans l'intervalle
+[\argument{xa} ; \argument{xb}],}
+
+\signature{void \fonc{SectionDoree}}{(double \argument{fonc} (double
+x, void *), void *\argument{arg},\\double \argument{eps}, double
+\argument{xa}, double \argument{xb},\\double *\argument{ptrXMin} = 0,
+double *\argument{ptrFMin} = 0)} & recherche le minimum de \argument{fonc}
+dans l'intervalle [\argument{xa} ; \argument{xb}], avec un critère de
+convergence en abscisse de \argument{eps}. Si les pointeurs
+\argument{ptrXMin} et \argument{ptrFMin} sont non nuls, l'abscisse et
+l'ordonnée du point minimum y sont copiées. Le pointeur anonyme
+\argument{arg} est passé à la fonction utilisateur à chaque appel,
+l'utilisateur peut s'en servir pour passer d'autres arguments ou
+récupérer des informations (la dernière évaluation de la fonction est
+garantie être faite au point de convergence).\\
+
+\end{tableFonctionsFixe}
+
+\subsection{fonctions \langage{C++} de résolution utilisant des dérivées premières}
+\label{sec:Resolution1}
+
+Le fichier \texttt{cantor/Resolution1.h} regroupe les algorithmes liés
+à la recherche des zéros et des extremums d'une fonction scalaire à
+une variable implantée sous forme de fonction renvoyant un objet de
+type ValeurDerivee1.
+
+\subsubsection{interface}\label{sec:Resolution1-int}
+\begin{verbatim}
+#include "cantor/Resolution1.h"
+\end{verbatim}
+
+Le fichier \texttt{cantor/Resolution1.h} définit les types~:
+\begin{verbatim}
+typedef ValeurDerivee1 (*TypeFoncVD1) (double t, void* donnee);
+
+enum CodeConvergence1 { CONV1_AUCUNE, CONV1_INF, CONV1_SUP };
+
+typedef CodeConvergence1 (*TypeFoncConv1) (const Variation1& inf,
+                                           const Variation1& sup,
+                                           void* donnee);
+\end{verbatim}
+\texttt{TypeFoncVD1} permet de déclarer des pointeurs sur des
+fonctions prenant un double et un void* en argument et retournant un
+ValeurDerivee1. On peut ainsi modéliser des fonctions mathématiques
+scalaires à une variable \texttt{t}, le pointeur anonyme
+\texttt{donnee} permettant de passer les arguments constants de la
+fonction dans une structure. La fonction informatique calcule
+simultanément la valeur et la dérivée de la fonction mathématique,
+qu'elle renvoie dans un ValeurDerivee1.
+
+\texttt{CodeConvergence1} énumère les cas de convergence possibles
+pour un intervalle lors d'une recherche de zéro ou
+d'extremum. \texttt{CONV1\_AUCUNE} signifie qu'aucune des bornes de
+l'intervalle ne vérifie les conditions de convergence,
+\texttt{CONV1\_INF} signifie que la borne inférieure de l'intervalle
+vérifie les conditions de convergence, \texttt{CONV1\_SUP} signifie
+que la borne supérieure vérifie les conditions de convergence.
+
+\texttt{TypeFoncVD1} permet de déclarer des pointeurs sur des
+fonctions prenant en arguments deux références constantes sur des
+Variation1 et un void* et retournant un CodeConvergence1. Ceci permet
+de modéliser des fonctions de test de convergence sur un intervalle de
+recherche, fonctions pouvant indiquer si la convergence est ou non
+atteinte sur l'une ou l'autre des bornes de l'intervalle.
+
+\begin{tableFonctionsFixe}{fonctions de résolution utilisant des
+dérivées premières}{\label{tab:resolution-1}}
+{retourne une copie de la variation de \argument{f}}
+
+\signature{Variation1 \fonc{NewtonSecante}}{(TypeFoncVD1 \argument{f},
+void* \argument{arg},\\TypeFoncConv1 \argument{convergence}, void*
+\argument{arg\_conv},\\const Variation1\& \argument{a}, const
+Variation1\& \argument{b})} & retourne une copie de la variation de
+\argument{f} pour le zéro compris dans l'intervalle [\argument{a}.x ()
+; \argument{b}.x ()] \\
+
+\signature{double \fonc{NewtonSecante}}{(TypeFoncVD1 \argument{f},
+void* \argument{arg},\\TypeFoncConv1 \argument{convergence}, void*
+\argument{arg\_conv},\\double \argument{a}, double \argument{b})} &
+retourne le zéro de \argument{f} dans l'intervalle [\argument{a} ;
+\argument{b}] \\
+
+\hline
+
+\signature{Variation1 \fonc{ExtremumNewSec}}{(TypeFoncVD1
+\argument{f}, void* \argument{arg},\\TypeFoncConv1
+\argument{convergence}, void* \argument{arg\_conv},\\const
+Variation1\& \argument{a}, const Variation1\& \argument{b})} &
+retourne une copie de la variation de \argument{f} pour l'extremum
+compris dans l'intervalle [\argument{a}.x () ; \argument{b}.x ()]\\
+
+\signature{double \fonc{ExtremumNewSec}}{(TypeFoncVD1 \argument{f},
+void* \argument{arg},\\TypeFoncConv1 \argument{convergence}, void*
+\argument{arg\_conv},\\double \argument{a}, double \argument{b})} &
+retourne l'abscisse de l'extremum de \argument{f} compris dans
+l'intervalle [\argument{a} ; \argument{b}]\\
+
+\end{tableFonctionsFixe}
+
+La fonction globale \fonc{NewtonSecante} recherche le zéro de la
+fonction \argument{f} dans l'intervalle [\argument{a} ; \argument{b}]
+par une méthode de Newton utilisant les dérivées premières calculées
+de façon automatique dans \argument{f} aux deux bornes de
+l'intervalle. La recherche d'un nouveau point entre les deux bornes
+s'appuie sur une approximation cubique inverse. Cet algorithme est
+sécurisé par un algorithme de sécante. Ceci permet de garantir que
+l'argument \argument{t} de la fonction \argument{f} (cf description de
+\texttt{TypeFoncVD1}) soit entre \argument{a} et \argument{b} (inclus)
+pour tous les appels. L'argument \argument{arg} peut être utilisé pour
+envoyer des paramètres constants à \argument{f} (\argument{arg} est
+passé à \argument{f} sans être touché par l'algorithme).
+
+La fonction globale \fonc{ExtremumNewSec} recherche un extremum de la
+fonction \argument{f} dans l'intervalle [\argument{a} ; \argument{b}]
+par la méthode de Brent (cf. \ref{ref:Brent}). ATTENTION,
+contrairement à ce que le nom de cette fonction pourrait faire croire,
+il n'y a pas d'algorithme de Newton dans cette fonction, le New
+apparaissant dans le nom est destiné à garantir la compatibilité avec
+la fonction équivalente declarée dans le fichier
+\texttt{cantor/resolution2.h}, et qui elle utilise un Newton en deux
+points sécurisé par une sécante. Cette compatibilité permet de passer
+d'une signature à l'autre en changeant uniquement les types des
+arguments et des fonctions dans son programme, ce qui peut être
+réalisé de façon automatique. L'argument \argument{t} de la fonction
+\argument{f} (cf description de \texttt{TypeFoncVD1}) est garanti être
+entre \argument{a} et \argument{b} (inclus) pour tous les
+appels. L'argument \argument{arg} peut être utilisé pour envoyer des
+paramètres constants à \argument{f} (\argument{arg} est passé à
+\argument{f} sans être touché par l'algorithme).
+
+Dans aucune des fonctions il n'est garanti que le point retourné soit
+le résultat du dernier appel à \argument{f}, si par exemple la
+fonction (resp. la dérivée) s'annule en $a + \varepsilon$, le meilleur
+point peut très bien être le \argument{f} (\argument{a}) calculé dès
+le début, la convergence n'étant détectée qu'après avoir appelé
+\argument{f} de très nombreuses fois, la borne \argument{b} étant la
+seule à évoluer au cours de la recherche, jusqu'à se rapprocher
+suffisamment de \argument{a}. Il est donc très dangereux de se servir
+de \argument{arg} pour que \argument{f} retourne des paramètres à la
+fonction appelante\footnote{il est bien sûr possible d'utiliser
+\argument{arg} pour retourner un compteur du nombre d'appels},
+\argument{arg} est destiné à être utilisé dans l'autre sens, pour que
+la fonction appelante envoie des paramètres à \argument{f}. Dans le
+cas où la première signature est utilisée, les arguments \argument{a}
+et \argument{b} doivent être les variations de \argument{f} aux bornes
+de l'intervalle de recherche (ce qui suppose que \argument{f} a déjà
+été appelée), la valeur de retour sera alors la variation de
+\argument{f} au meilleur point. Dans le cas où la seconde signature
+est utilisée, \argument{a} et \argument{b} sont les bornes de
+l'intervalle de recherche où il faut calculer la fonction, et la
+valeur de retour est l'abscisse du meilleur point.
+
+Les algorithmes s'arrêtent soit lorsque la fonction convergence
+signale que l'une des bornes de l'intervalle courant vérifie les
+critères de convergence, soit lorsque l'intervalle courant est du même
+ordre de grandeur que la précision de la machine (c'est à dire quand
+l'intervalle correspond à deux nombres modèles consécutifs --- ou
+plûtot très proches --- de la représentation machine des réels double
+précision). Il est donc possible (mais sûrement pas efficace en
+rapidité) d'utiliser une fonction convergence renvoyant
+systématiquement \texttt{CONV1\_AUCUNE}. L'argument \argument{arg\_conv}
+peut être utilisé pour envoyer des paramètres constants à convergence
+(\argument{arg\_conv} est passé à convergence sans être touché par
+l'algorithme).  Une copie du meilleur point trouvé par l'algorithme
+est retourné à l'appelant.
+
+\subsubsection{exemple d'utilisation}
+
+\begin{verbatim}
+#include "cantor/resolution1.h"
+#include "cantor/util.h"
+...
+ValeurDerivee1 SinusCroissant (double t, void* d)
+{ // fonction s'annulant 9 fois entre -11 et 11
+  // avec deux séries de zéros très proches (+/-10.907, +/-10.904)
+
+  // incrémentation du compteur d'appels
+  *((int *) d) += 1;
+  ValeurDerivee1 x (t, 1.0);
+  return sin (x) + x * 0.091325;
+}
+
+CodeConvergence1 ConvergenceMin (const Variation1& inf,
+                                 const Variation1& sup,
+                                 void* donnee)
+{ if (abs (inf.y ().f1 ()) < 1.0e-6)
+    return CONV1_INF;
+  else if (abs (sup.y ().f1 ()) < 1.0e-6)
+    return CONV1_SUP;
+  else
+    return CONV1_AUCUNE;
+}
+
+CodeConvergence1 Convergence0 (const Variation1& inf,
+                               const Variation1& sup,
+                               void* donnee)
+{ // on teste la convergence sur x!
+  if (sup.x () - inf.x () < 1.0e-6)
+  { if (abs (inf.y ().f0 ()) < abs (sup.y ().f0 ())
+      return CONV1_INF;
+    else
+      return CONV1_SUP;
+  }
+  else
+    return CONV1_AUCUNE;
+}
+...
+int compteur = 0;
+tmin = ExtremumNewSec (SinusCroissant, (void *) &compteur,
+                       ConvergenceMin, (void *) 0,
+                       -11.0, -10.0);
+cout << "tmin = " << tmin
+     <<  "trouvé en : " << compteur << " itérations\n";
+
+compteur = 0;
+t0 = NewtonSecante (SinusCroissant, (void *) &compteur,
+                    Convergence0, (void *) 0,
+                    -11.0, tmin);
+cout << "t0 = " << t0
+     <<  "trouvé en : " << compteur << " itérations\n";
+\end{verbatim}
+
+\subsection{fonctions \langage{C++} de résolution utilisant des dérivées secondes}
+\label{sec:Resolution2}
+
+Le fichier \texttt{cantor/resolution2.h} regroupe les algorithmes liés
+à la recherche des zéros et des extremums d'une fonction scalaire à
+une variable implantée sous forme de fonction renvoyant un objet de
+type ValeurDerivee2.
+
+\subsubsection{interface}\label{sec:Resolution2-int}
+\begin{verbatim}
+#include "cantor/resolution2.h"
+\end{verbatim}
+
+Le fichier \texttt{cantor/resolution2.h} définit les types~:
+\begin{verbatim}
+typedef ValeurDerivee2 (*TypeFoncVD2) (double t, void* donnee);
+
+enum CodeConvergence2 { CONV2_AUCUNE, CONV2_INF, CONV2_SUP };
+
+typedef CodeConvergence2 (*TypeFoncConv2) (const Variation2& inf,
+                                           const Variation2& sup,
+                                           void* donnee);
+\end{verbatim}
+\texttt{TypeFoncVD2} permet de déclarer des pointeurs sur des
+fonctions prenant un double et un void* en argument et retournant un
+ValeurDerivee2. On peut ainsi modéliser des fonctions mathématiques
+scalaires à une variable \texttt{t}, le pointeur anonyme
+\texttt{donnee} permettant de passer les arguments constants de la
+fonction dans une structure. La fonction informatique calcule
+simultanément la valeur et la dérivée de la fonction mathématique,
+qu'elle renvoie dans un ValeurDerivee2.
+
+\texttt{CodeConvergence2} énumère les cas de convergence possibles
+pour un intervalle lors d'une recherche de zéro ou
+d'extremum. \texttt{CONV2\_AUCUNE} signifie qu'aucune des bornes de
+l'intervalle ne vérifie les conditions de convergence,
+\texttt{CONV2\_INF} signifie que la borne inférieure de l'intervalle
+vérifie les conditions de convergence, \texttt{CONV2\_SUP} signifie
+que la borne supérieure vérifie les conditions de convergence.
+
+\texttt{TypeFoncVD2} permet de déclarer des pointeurs sur des
+fonctions prenant en arguments deux références constantes sur des
+Variation2 et un void* et retournant un CodeConvergence2. Ceci permet
+de modéliser des fonctions de test de convergence sur un intervalle de
+recherche, fonctions pouvant indiquer si la convergence est ou non
+atteinte sur l'une ou l'autre des bornes de l'intervalle.
+
+La fonction globale \fonc{NewtonSecante} recherche le zéro de la
+fonction \argument{f} dans l'intervalle [\argument{a} ; \argument{b}] par
+une méthode de Newton améliorée utilisant les dérivées première et
+seconde calculées de façon automatique dans \argument{f}, et sécurisée
+par un algorithme de sécante. Ceci permet de garantir que l'argument
+\argument{t} de la fonction \argument{f} (cf description de
+\texttt{TypeFoncVD2}) soit entre \argument{a} et \argument{b} (inclus)
+pour tous les appels. L'argument \argument{arg} peut être utilisé pour
+envoyer des paramètres constants à \argument{f} (\argument{arg} est passé
+à \argument{f} sans être touché par l'algorithme).
+
+La fonction globale \fonc{ExtremumNewSec} recherche un extremum de la
+fonction \argument{f} dans l'intervalle [\argument{a} ; \argument{b}]
+par une méthode de Newton utilisant les dérivées premières calculées
+de façon automatique dans \argument{f} aux deux bornes de
+l'intervalle. La recherche d'un nouveau point entre les deux bornes
+s'appuie sur une approximation cubique inverse. Cet algorithme est
+sécurisé par un algorithme de sécante. L'argument \argument{t} de la
+fonction \argument{f} (cf description de \texttt{TypeFoncVD2}) est
+garanti être entre \argument{a} et \argument{b} (inclus) pour tous les
+appels. L'argument \argument{arg} peut être utilisé pour envoyer des
+paramètres constants à \argument{f} (\argument{arg} est passé à
+\argument{f} sans être touché par l'algorithme).
+
+\begin{tableFonctionsFixe}{fonctions de résolution utilisant des
+dérivées secondes}{\label{tab:resolution-2}}
+{retourne une copie de la variation de \argument{f}}
+
+\signature{Variation2 \fonc{NewtonSecante}}{(TypeFoncVD2 \argument{f},
+void* \argument{arg},\\TypeFoncConv2 \argument{convergence}, void*
+\argument{arg\_conv},\\const Variation2\& \argument{a}, const
+Variation2\& \argument{b})} & retourne une copie de la variation de
+\argument{f} pour le zéro compris dans l'intervalle [\argument{a}.x ()
+; \argument{b}.x ()] \\
+
+\signature{double \fonc{NewtonSecante}}{(TypeFoncVD2 \argument{f},
+void* \argument{arg},\\TypeFoncConv2 \argument{convergence}, void*
+\argument{arg\_conv},\\double \argument{a}, double \argument{b})} &
+retourne le zéro de \argument{f} dans l'intervalle [\argument{a} ;
+\argument{b}] \\
+
+\hline
+
+\signature{Variation2 \fonc{ExtremumNewSec}}{(TypeFoncVD2
+\argument{f}, void* \argument{arg},\\TypeFoncConv2
+\argument{convergence}, void* \argument{arg\_conv},\\const
+Variation2\& \argument{a}, const Variation2\& \argument{b})} &
+retourne une copie de la variation de \argument{f} pour l'extremum
+compris dans l'intervalle [\argument{a}.x () ; \argument{b}.x ()]\\
+
+\signature{double \fonc{ExtremumNewSec}}{(TypeFoncVD2 \argument{f},
+void* \argument{arg},\\TypeFoncConv2 \argument{convergence}, void*
+\argument{arg\_conv},\\double \argument{a}, double \argument{b})} &
+retourne l'abscisse de l'extremum de \argument{f} compris dans
+l'intervalle [\argument{a} ; \argument{b}]\\
+
+\end{tableFonctionsFixe}
+
+Dans aucune des fonctions il n'est garanti que le point retourné soit
+le résultat du dernier appel à \argument{f}, si par exemple la
+fonction (resp. la dérivée) s'annule en $a + \varepsilon$, le meilleur
+point peut très bien être le \argument{f} (\argument{a}) calculé dès
+le début, la convergence n'étant détectée qu'après avoir appelé
+\argument{f} de très nombreuses fois, la borne \argument{b} étant la
+seule à évoluer au cours de la recherche, jusqu'à se rapprocher
+suffisamment de \argument{a}. Il est donc très dangereux de se servir
+de \argument{arg} pour que \argument{f} retourne des paramètres à la
+fonction appelante\footnote{il est bien sûr possible d'utiliser
+\argument{arg} pour retourner un compteur du nombre d'appels},
+\argument{arg} est destiné à être utilisé dans l'autre sens, pour que
+la fonction appelante envoie des paramètres à \argument{f}. Dans le
+cas où la première signature est utilisée, les arguments \argument{a}
+et \argument{b} doivent être les variations de \argument{f} aux bornes
+de l'intervalle de recherche (ce qui suppose que \argument{f} a déjà
+été appelée), la valeur de retour sera alors la variation de
+\argument{f} au meilleur point. Dans le cas où la seconde signature
+est utilisée, \argument{a} et \argument{b} sont les bornes de
+l'intervalle de recherche où il faut calculer la fonction, et la
+valeur de retour est l'abscisse du meilleur point.
+
+Les algorithmes s'arrêtent soit lorsque la fonction convergence
+signale que l'une des bornes de l'intervalle courant vérifie les
+critères de convergence, soit lorsque l'intervalle courant est du même
+ordre de grandeur que la précision de la machine (c'est à dire quand
+l'intervalle correspond à deux nombres modèles consécutifs --- ou
+plûtot très proches --- de la représentation machine des réels double
+précision). Il est donc possible (mais sûrement pas efficace en
+rapidité) d'utiliser une fonction convergence renvoyant
+systématiquement \texttt{CONV2\_AUCUNE}. L'argument \argument{arg\_conv}
+peut être utilisé pour envoyer des paramètres constants à convergence
+(\argument{arg\_conv} est passé à convergence sans être touché par
+l'algorithme).  Une copie du meilleur point trouvé par l'algorithme
+est retourné à l'appelant.
+
+\subsubsection{exemple d'utilisation}
+
+\begin{verbatim}
+#include "cantor/resolution2.h"
+#include "cantor/util.h"
+...
+ValeurDerivee2 SinusCroissant (double t, void* d)
+{ // fonction s'annulant 9 fois entre -11 et 11
+  // avec deux séries de zéros très proches (+/-10.907, +/-10.904)
+
+  // incrémentation du compteur d'appels
+  *((int *) d) += 1;
+  ValeurDerivee2 x (t, 1.0);
+  return sin (x) + x * 0.091325;
+}
+
+CodeConvergence2 ConvergenceMin (const Variation2& inf,
+                                 const Variation2& sup,
+                                 void* donnee)
+{ if (abs (inf.y ().f1 ()) < 1.0e-6)
+    return CONV2_INF;
+  else if (abs (sup.y ().f1 ()) < 1.0e-6)
+    return CONV2_SUP;
+  else
+    return CONV2_AUCUNE;
+}
+
+CodeConvergence2 Convergence0 (const Variation2& inf,
+                               const Variation2& sup,
+                               void* donnee)
+{ // on teste la convergence sur x!
+  if (sup.x () - inf.x () < 1.0e-6)
+  { if (abs (inf.y ().f0 ()) < abs (sup.y ().f0 ())
+      return CONV2_INF;
+    else
+      return CONV2_SUP;
+  }
+  else
+    return CONV2_AUCUNE;
+}
+...
+int compteur = 0;
+tmin = ExtremumNewSec (SinusCroissant, (void *) &compteur,
+                       ConvergenceMin, (void *) 0,
+                       -11.0, -10.0);
+cout << "tmin = " << tmin
+     <<  "trouvé en : " << compteur << " itérations\n";
+
+compteur = 0;
+t0 = NewtonSecante (SinusCroissant, (void *) &compteur,
+                    Convergence0, (void *) 0,
+                    -11.0, tmin);
+cout << "t0 = " << t0
+     <<  "trouvé en : " << compteur << " itérations\n";
+\end{verbatim}
+
+\subsection{autres fonctions \langage{C++}}
+\label{sec:autres-c++}
+
+Les fonctions décrites dans la
+table~\ref{tab:fonctions-c++} sont déclarées dans les fichiers
+suivants :
+\begin{itemize}
+\item\fonc{cantorVersion} :\texttt{cantor/CantorVersion.h} ;
+\item fonctions d'algèbre linéaire :
+\texttt{cantor/MoindreCarreLineaire.h} ;
+\item fonctions utilitaires : \texttt{cantor/Util.h}.
+\end{itemize}
+
+\begin{tableFonctionsFixe}{fonctions C++ diverses}
+{\label{tab:fonctions-c++}}
+{résoud le système linéaire $M.X=B$, où \argument{m} contient la}
+
+\signature{const char *\fonc{cantorVersion} ()}{} &
+retourne la version de la bibliothèque \\
+
+\hline
+
+\signature{void \fonc{factLDLt}}{(double *\argument{m}, int
+\argument{n}, double \argument{seuil})\\\throw{CantorErreurs}} &
+factorise sous forme $L.D.L^t$ la matrice symétrique définie positive
+\argument{m} de taille \argument{n}$\times$\argument{n} (dont seul le
+triangle supérieur est stocké dans le tableau), et remet le résultat
+dans \argument{m}, lance une exception si l'un des éléments de la
+diagonale est inférieur au \argument{seuil}\\
+
+\signature{void \fonc{resoudLDLt}}{(const double *\argument{m}, int
+\argument{n}, double \argument{x} [])} & résoud le système linéaire
+$M.X=B$, où \argument{m} contient la factorisation de $M$ par la
+fonction précédente, et où \argument{x} contient au départ le vecteur
+$B$ et au retour le vecteur $X$ solution\\
+
+\hline
+
+\signature{double \fonc{min} (double \argument{a}, double
+\argument{b})}{} & retourne le minimum de \argument{a} et de \argument{b}\\
+
+\signature{int \fonc{min} (int \argument{a}, int \argument{b})}{} &
+retourne le minimum de \argument{a} et de \argument{b}\\
+
+\signature{double \fonc{max} (double \argument{a}, double
+\argument{b})}{} & retourne le maximum de \argument{a} et de
+\argument{b}\\
+
+\signature{int \fonc{max} (int \argument{a}, int \argument{b})}{} &
+retourne le maximum de \argument{a} et de \argument{b}\\
+
+\signature{double \fonc{radians} (double \argument{a})}{} & convertit
+un angle de degrés en radians\\
+
+\signature{double \fonc{degres} (double \argument{a})}{} & convertit
+un angle de radians en degrés\\
+
+\signature{double \fonc{recaleAngle} (double \argument{a}, double
+\argument{ref})}{} & recale l'angle \argument{a} d'un nombre entier de
+tours de sorte qu'il soit entre \argument{ref}$-\pi$ et
+\argument{ref}$+\pi$\\
+
+\end{tableFonctionsFixe}

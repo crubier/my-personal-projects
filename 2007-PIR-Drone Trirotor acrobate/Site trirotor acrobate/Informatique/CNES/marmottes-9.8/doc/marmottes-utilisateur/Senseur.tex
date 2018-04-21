@@ -1,0 +1,416 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: Senseur.tex,v 1.15 2004/06/21 14:43:02 marmottes Exp $
+\subsection{classe Senseur}\label{sec:Senseur}
+
+\subsubsection*{description}\label{sec:Senseur-desc}
+Cette classe abstraite est l'interface d'accès aux senseurs
+d'attitude.  Elle est utilisée à de nombreux endroits dans
+\bibliotheque{marmottes} (modèles analytiques, résolution numérique,
+interface utilisateur).
+
+Cette classe est destinée à être dérivée pour implanter les fonctions
+de mesure, de modélisation de consigne, et de calcul d'écart à la
+consigne.
+
+\subsubsection*{interface publique}\label{sec:Senseur-int}
+\begin{verbatim}
+#include "marmottes/Senseur.h"
+\end{verbatim}
+
+Le fichier d'en-tête déclare les types énumérés suivants :
+\begin{verbatim}
+enum typeMethode { intersectionCones, integrationSpin, aucuneMethode };
+enum codeAstre   { nonSignificatif, soleil, lune, corpsCentral, aucunAstre };
+\end{verbatim}
+
+\begin{tableFonctionsFixe}{Senseur : méthodes publiques}
+{\label{tab:Senseur-met-pub}}
+{construit une instance à partir des composantes communes}
+
+\signature{\fonc{Senseur}}
+          {(const string \&\argument{nom},\\
+            const RotDBL\& \argument{repere},\\
+            const VecDBL\& \argument{axeCalage},\\
+            double \argument{precision})
+          }&
+
+construit une instance à partir des composantes communes à tous les
+types de senseurs (la classe étant abstraite ne peut être instanciée,
+ce constructeur est destiné à être appelé par les constructeurs des
+classes dérivées)\\
+
+\hline
+
+\signature{\fonc{Senseur} (const Senseur\& \argument{s})}
+          {}&
+
+constructeur par copie\\
+
+\signature{Senseur\& \fonc{operator =}}
+          {(const Senseur\& \argument{s})}&
+
+affectation\\
+
+\hline
+
+\signature{\fonc{\~{}Senseur} ()}
+          {}&
+
+destructeur virtuel (ne fait rien dans cette classe)\\
+
+\hline
+
+\signature{Senseur *\fonc{copie} () const = 0}
+          {}&
+
+opérateur de copie virtuel\\
+
+\hline
+
+\signature{const string\& \fonc{nom} () const}
+          {}&
+
+retourne le nom du senseur\\
+
+\signature{const RotDBL\& \fonc{repereBase} () const}
+          {}&
+
+retourne le repère de base du senseur (celui qui a été lu dans le
+fichier, indépendamment de toute rotation appliquée ultérieurement)\\
+
+\signature{const RotDBL\& \fonc{repere} () const}
+          {}&
+
+retourne le repère courant du senseur (cette rotation convertit les
+vecteurs exprimés en repère satellites en vecteurs exprimés en repère
+senseur)\\
+
+\signature{const VecDBL\& \fonc{axeCalage} () const}
+          {}&
+
+retourne l'axe de calage du senseur\\
+
+\signature{double \fonc{precision} () const}
+          {}&
+
+retourne la précision du senseur (pour pouvoir être comparée
+directement aux valeurs mesurées, la précision est mémorisée dans
+l'unité de \emph{mesure})\\
+
+\hline
+
+\signature{bool \fonc{conversionConsignes}() const}
+          {}&
+
+indique si le senseur doit convertir les consignes en entrée dans son
+unité interne\\
+
+\signature{bool \fonc{conversionMesures} () const}
+          {}&
+
+indique si le senseur doit convertir les mesures en sortie dans les
+unités externes\\
+
+\signature{double \fonc{valeurConsigne} () const}
+          {}&
+
+retourne la valeur courante de la consigne (pour pouvoir être comparée
+directement aux valeurs mesurées, la consigne courante est mémorisée
+dans l'unité de \emph{mesure})\\
+
+\signature{void \fonc{respecterConsignes} ()}
+          {}&
+
+force le senseur à respecter les unités de consignes fournies en
+entrée\\
+
+\signature{void \fonc{convertirConsignes} ()}
+          {}&
+
+force le senseur à convertir les unités de consignes fournies en
+entrée\\
+
+\signature{void \fonc{respecterMesures} () = 0}
+          {}&
+
+force le senseur à respecter les unités de mesures dans ses sorties\\
+
+\signature{void \fonc{convertirMesures} () = 0}
+          {}&
+
+force le senseur à convertir les unités de mesures dans ses sorties\\
+
+\hline
+
+\signature{void \fonc{nouveauRepere}}
+          {(const RotDBL\& \argument{nouveau})}&
+
+remplace le repère du senseur par le \argument{nouveau}\\
+
+\signature{void \fonc{calage} (double \argument{c})}
+          {\throw{MarmottesErreurs}}&
+
+applique l'angle de calage \argument{c} au senseur, retourne une
+erreur si le senseur n'a pas d'axe de calage prédéfini\\
+
+\hline
+
+\signature{VecDBL \fonc{satSens}}
+          {(const VecDBL\& \argument{sat}) const}&
+
+convertit le vecteur exprimé en repère satellite en vecteur exprimé en
+repère senseur\\
+
+\signature{VecDBL \fonc{sensSat}}
+          {(const VecDBL\& \argument{sens}) const}&
+
+convertit le vecteur exprimé en repère senseur en vecteur exprimé en
+repère satellite\\
+
+\hline
+
+\signature{double \fonc{mesure} (const Etat\& \argument{etat})}
+          {\throw{MarmottesErreurs} = 0}&
+
+retourne la mesure que produirait le senseur dans l'\argument{etat}
+fourni\\
+
+\signature{int \fonc{controlable} (const Etat\& \argument{etat})}
+          {\textbf{throw(}\textbf{MarmottesErreurs},\\\textbf{CantorErreurs)} = 0}&
+
+indique si le senseur serait capable de contrôler le satellite dans
+l'\argument{etat} fourni\\
+
+\signature{int \fonc{criteresControlabilite}}
+          {(const Etat\& \argument{etat},\\
+            codeAstre *\argument{ptrInhibant},\\
+            codeAstre *\argument{ptrEclipsant},\\
+            double    *\argument{ptrEcartFrontiere},\\
+            bool      *\argument{ptrAmplitudeSignificative})\\
+            \textbf{throw(}\textbf{MarmottesErreurs},\\\textbf{CantorErreurs)}}&
+
+indique si le senseur serait capable de contrôler le satellite dans
+l'\argument{etat} fourni en précisant les valeurs de chaque critère
+(présence d'un astre inhibant, éclipsant), écart par rapport à la
+frontière du champ de vue\\
+
+
+\hline
+
+\signature{int \fonc{methode} () const = 0}
+          {}&
+
+retourne la méthode à utiliser pour constituer le modèle analytique à
+un degré de liberté avec le senseur courant (la valeur est un énuméré
+typeMethode convertit en entier)\\
+
+\signature{void \fonc{modeliseConsigne}}
+          {(const Etat\& \argument{etat}, double \argument{valeur})\\
+          \textbf{throw(}\textbf{CantorErreurs},\\\textbf{MarmottesErreurs)} = 0}&
+
+modélise la consigne \argument{valeur} dans l'\argument{etat} fourni\\
+
+\signature{ValeurDerivee1 \fonc{foncEcart}}
+          {(const Etat\& \argument{etatPrecedent},\\
+            const Etat\& \argument{etatResolution},\\
+            const RotVD1\& \argument{attitude},\\
+            const VecVD1\& \argument{spin} ) = 0
+          }&
+retourne l'écart entre la consigne et la mesure que produirait le
+senseur dans l'\argument{attitude} et le \argument{spin} fournis,
+connaissant l'\argument{etatPrecedent} du satellite
+\\
+
+\hline
+
+\signature{void \fonc{modifieCible}}
+          {(const VecDBL\& \argument{cible})\\\throw{MarmottesErreurs}}&
+
+mémorise la \argument{cible} pour les senseurs optiques (les autres
+senseurs retournent une erreur)\\
+
+\signature{void \fonc{initialiseGyro}}
+          {(double \argument{date}, double \argument{angle})\\
+          \throw{MarmottesErreurs}}&
+
+initialise les gyromètres intégrateurs pour qu'ils produisent la
+mesure \argument{angle} à la \argument{date} spécifiée (les autres
+senseurs retournent une erreur)\\
+
+\signature{void \fonc{initialiseDerive}}
+          {(double \argument{derive})\\
+          \throw{MarmottesErreurs}}&
+
+initialise la dérive d'un senseur cinématique (les autres
+senseurs retournent une erreur)\\
+
+\signature{void \fonc{modifieReference}}
+          {(const RotDBL\& \argument{reference})\\
+          \throw{MarmottesErreurs}}&
+
+mémorise la \argument{reference} pour les senseurs de Cardan (les autres
+senseurs retournent une erreur)\\
+
+\hline
+
+\signature{void \fonc{prendEtatEnCompte}}
+          {(const Etat\& \argument{etat})}&
+
+prend l'\argument{etat} de résolution en compte dans le senseur (les
+gyromètres intégrateurs s'en servent pour modifier leur angle mesuré à
+chaque appel, les autres senseurs ne font rien)
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+
+\begin{verbatim}
+#include "marmottes/Senseur.h"
+
+void ResolveurAttitude::modeliseConsignes (const Etat& etatPrecedent,
+                                           const Etat& etatResolution,
+                                           double m1, double m2, double m3)
+  throw  (CantorErreurs, MarmottesErreurs)
+{ if ((sA1_ == 0) || (sA2_ == 0) || (sB_ == 0))
+    throw MarmottesErreurs (MarmottesErreurs::liste_non_initialisee);
+
+  senseursConsigne_ [0]->modeliseConsigne (etatResolution, m1);
+  senseursConsigne_ [1]->modeliseConsigne (etatResolution, m2);
+  senseursConsigne_ [2]->modeliseConsigne (etatResolution, m3);
+
+  // sauvegarde de l'état précédent complet
+  etatPrecedent_ = etatPrecedent;
+
+  // sauvegarde de l'état de résolution (l'attitude n'y est pas significative)
+  etatResolution_ = etatResolution;
+
+  // prise en compte des consignes dans le modèle
+  modeleCourant_->prendConsignesEnCompte ();
+}
+
+static ValeurDerivee1 fonc (double t, void* donnee)
+{ // récuperation de l'objet de résolution
+  ResolveurAttitude* ptr = (ResolveurAttitude *) donnee;
+
+  // calcul de l'attitude modélisée respectant les premières consignes
+  RotVD1 attitude;
+  VecVD1 spin;
+  ptr->modele ()->attitude (ptr->etatPrecedent (), ptr->date (),
+                            ValeurDerivee1 (t, 1.0), ptr->famille (),
+                            &attitude, &spin);
+
+  // calcul de l'écart par rapport à la troisième consigne
+  return ptr->sB ()->foncEcart (ptr->etatPrecedent (), ptr->date (),
+                                attitude, spin);
+
+}
+
+void ResolveurAttitude::trouveTout ()
+  throw (MarmottesErreurs)
+{ // vidage des solutions éventuellement trouvées précédemment
+  nbSol_ = 0;
+
+  // recherche des solutions dans toutes les familles d'attitudes modélisées
+  for (famille_ = 0; famille_ < modeleCourant_->familles (); famille_++)
+  { Resolution1Iterateur iter (fonc, (void *) this,
+                               -1.0, 1.0, tranches_, -1.0, seuil_);
+    double t0;
+
+    // recherche de toutes les solutions d'une famille
+    while ((t0 = iter.zeroSuivant ()) < 2.0)
+      ajouteSolution (t0);
+
+    ...
+
+  }
+
+  ...
+
+}
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation spécifiques}
+\label{sec:Senseur-conseils}
+Cette classe est abstraite, c'est à dire qu'aucune instance ne peut
+être créée directement. Tout pointeur sur un objet de ce type pointe
+en réalité sur un objet d'un des types dérivés. Les constructeurs ne
+servent donc qu'à compléter les constructions d'objets plus gros et ne
+peuvent être appelés que par les constructeurs des classes dérivées.
+
+Les fonctions de lecture des senseurs ont besoin de connaître les
+types de base, pour les construire. Les modèles analytiques doivent
+avoir une information un peu plus fine et différencient les senseurs
+géométriques des senseurs cinématiques grace à la méthode
+\fonc{methode}. Des logiciels de tracé de champ de vue s'appuyant sur
+\bibliotheque{marmottes} ont besoin d'une information encore plus fine
+et utilisent une méthode propre aux senseurs géométriques pour
+reconnaître les senseurs optiques, avec ou sans inhibitions.
+
+Hormis ces cas particuliers, les senseurs sont tous utilisés de la
+même façon. L'exemple précédent montre leur initialisation lors de
+l'exécution de ResolveurAttitude::\fonc{modeliseConsignes}, et l'appel
+à leur fonction \fonc{foncEcart} pour la résolution. Cette similitude
+rend inutiles des exemples et des conseils spécifiques à chaque
+senseur, les sections correspondantes sont donc omises dans les
+descriptions individuelles.
+
+Pour implanter un nouveau senseur, les fonctions virtuelles à
+implanter sont les suivantes : le destructeur, \fonc{copie},
+\fonc{respecterMesures}, \fonc{convertirMesures},
+\fonc{nouveauRepere}, \fonc{mesure}, \fonc{controlable},
+\fonc{methode}, \fonc{modeliseConsigne}, et
+\fonc{foncEcart}. Certaines des ces fonctions sont déjà définies dans
+les classes intermédiaires SenseurGeometrique, SenseurOptique, ... et
+n'ont pas besoin d'être spécialisées plus avant. Il faut regarder ce
+qui reste à implanter au niveau d'arborescence où se situe le nouveau
+senseur.
+
+\subsubsection*{implantation}\label{sec:Senseur-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:Senseur-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe Senseur}
+{\label{tab:Senseur-att-priv}}
+{indicateur de conversion des consignes en entrée}
+
+nom\_ & string & nom du senseur\\
+
+repereBase\_ & RotDBL & repère de base du senseur (lu dans le
+fichier)\\
+
+repere\_ & RotDBL & repère courant du senseur\\
+
+axeCalage\_ & VecDBL & axe de calage du senseur (nul s'il n'est pas
+défini dans le fichier)\\
+
+precision\_ & double & précision du senseur (en unités de mesure)\\
+
+convertirConsignes\_ & bool & indicateur de conversion des consignes en
+entrée\\
+
+convertirMesures\_ & bool & indicateur de consversion des mesures en
+sortie\\
+
+valeurConsigne\_ & double & valeur courante de la consigne (en unités
+de mesure)\\
+
+\end{tableAttributsFixe}
+Les méthodes protégées sont décrites dans la table~\ref{tab:Senseur-met-prot}.
+\begin{tableFonctionsFixe}{Senseur : méthodes protégées}
+{\label{tab:Senseur-met-prot}}
+{constructeur par défaut. Il est défini explicitement uniquement pour }
+
+\signature{\fonc{Senseur} ()}
+          {}&
+
+constructeur par défaut. Il est défini explicitement uniquement pour
+prévenir celui créé automatiquement par le compilateur et ne doit pas être
+utilisé.\\
+
+\
+\signature{void \fonc{reinitialisePrecision} (double \argument{precision})}
+          {}&
+
+réinitialise la précision du senseur (cette fonction est utilisée par
+les méthodes \fonc{respecterMesures} et \fonc{convertirMesures} de
+sorte que la précision soit toujours mémorisée dans les bonnes
+unités)\\
+
+\end{tableFonctionsFixe}

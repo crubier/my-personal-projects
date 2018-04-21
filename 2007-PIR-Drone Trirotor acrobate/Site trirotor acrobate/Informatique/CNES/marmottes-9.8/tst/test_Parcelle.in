@@ -1,0 +1,51 @@
+#! /bin/sh
+
+# identificateur RCS : "$Id: test_Parcelle.in,v 1.7 2001/02/27 13:27:27 luc Exp $"
+
+# mise en place d un environnement anglais pour vérifier les messages
+@ma_cv_var_lang@=en              ; export @ma_cv_var_lang@
+@ma_cv_var_tradpath@=@srcdir@/.. ; export @ma_cv_var_tradpath@
+
+# exécution du programme de test
+for m in -0.5 1 3 ; do
+  echo "" >> test_Parcelle.res
+  echo "prgm_Parcelle -axe 30 87.02 -angle 5 -m $m -p" >> test_Parcelle.res
+  prgm_Parcelle -axe 30 87.02 -angle 5 -m $m -p >> test_Parcelle.res 2>&1
+done
+
+# les limites de visibilité exactes du capteur tangage
+# arrondies à 10 chiffres significatifs sont 84.00177478 et 95.99822522
+# soit en autorisant une erreur maximale de une seconde d'arc,
+# on ne doit voir ni deça de 84.00149700 ni au delà de 95.99850300
+# et on doit voir entre 84.00205256 et 95.99794744
+for delta in 84.00149700 84.00205256 95.99794744 95.99850300; do
+  echo "" >> test_Parcelle.res
+  echo "prgm_Parcelle -axe 0 $delta" >> test_Parcelle.res
+  prgm_Parcelle -axe 0 $delta >> test_Parcelle.res 2>&1
+done
+
+# la limite de visibilité exacte du capteur roulis
+# arrondie à 10 chiffres significatifs est : 86.72792072
+# soit en autorisant une erreur maximale de une seconde d'arc,
+# on ne doit pas voir en deça de : 86.72764294
+# et on doit voir au delà de : 86.72819850
+for delta in 86.72764294 86.72819850 ; do
+  echo "" >> test_Parcelle.res
+  echo "prgm_Parcelle -axe 90 $delta" >> test_Parcelle.res
+  prgm_Parcelle -axe 90 $delta >> test_Parcelle.res 2>&1
+done
+
+for rayon in 5.1426 5.1427 6.7702 6.7703 ; do
+  echo "" >> test_Parcelle.res
+  echo "prgm_Parcelle -axe 30 87.02 -angle $rayon" >> test_Parcelle.res
+  prgm_Parcelle -axe 30 87.02 -angle $rayon >> test_Parcelle.res 2>&1
+done
+
+# comparaison des fichiers
+echo "difference -p 1.0e-4 -ee 1 10 -res test_Parcelle.res -ref @srcdir@/test_Parcelle.ref"
+difference -p 1.0e-4 -ee 1 10 -res test_Parcelle.res -ref @srcdir@/test_Parcelle.ref
+r=$?
+
+# nettoyage
+rm -f test_Parcelle.res
+exit $r

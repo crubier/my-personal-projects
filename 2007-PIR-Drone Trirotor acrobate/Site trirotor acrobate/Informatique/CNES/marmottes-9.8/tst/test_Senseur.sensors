@@ -1,0 +1,230 @@
+COMMON-PSEUDOS
+{ accuracy { 0.0001 }
+  frame    { 1 0 0 0 } # identity quaternion
+}
+
+ALPHA_X { type { right_ascension } observed { 1 0 0 } => {COMMON-PSEUDOS}}
+DELTA_X { type { declination }     observed { 1 0 0 } => {COMMON-PSEUDOS}}
+ALPHA_Y { type { right_ascension } observed { 0 1 0 } => {COMMON-PSEUDOS}}
+DELTA_Y { type { declination }     observed { 0 1 0 } => {COMMON-PSEUDOS}}
+ALPHA_Z { type { right_ascension } observed { 0 0 1 } => {COMMON-PSEUDOS}}
+DELTA_Z { type { declination }     observed { 0 0 1 } => {COMMON-PSEUDOS}}
+
+GYRO_X  { type { kinematic } sensitive_axis { 1 0 0 } => {COMMON-PSEUDOS}}
+GYRO_Y  { type { kinematic } sensitive_axis { 0 1 0 } => {COMMON-PSEUDOS}}
+GYRO_Z  { type { kinematic } sensitive_axis { 0 0 1 } => {COMMON-PSEUDOS}}
+
+YAW_MOMENTUM
+{  =>            { COMMON-PSEUDOS }
+  type           { dihedral }
+  target         { momentum }
+  zero_reference {  0 -1  0 }
+  sensitive_axis {  0  0 -1 }
+  field_of_view  { cone { axis { 0 -1 0 } angle { 180 } } }
+}
+
+GNA-RHCP
+{ type           { vector }
+  accuracy       { 0.001  }
+
+  frame          { v_base  { -0.2983745340 0.0 0.9544488658 }
+                   v_image { 0 0 1 }
+                 }
+  reference      { 0 1 0 }
+  field_of_view  { cone { axis { 0 0 1 } angle { 65 } } }
+
+  target         { station }
+  station        { longitude    { 115.88      }
+                   latitude     { 43.42869186 }
+                   altitude     { 261.58      }
+
+                   pressure     { 1000 }
+                   temperature  { 15   }
+                   hygrometry   { 80   }
+
+                   mask         { 0 5 }
+
+                 }
+}
+
+AUS-LHCP
+{   =>  { AUS-RHCP }
+  frame { v_base  { 0.2983745340 0.0 -0.9544488658 }
+          v_image { 0 0 1 }
+        }
+}
+
+pseudo-common
+{ accuracy        { 0.00001 }
+  frame           { i {1 0 0} j {0 1 0} k {0 0 1}}
+}
+
+AZ_SUN {
+ =>               { pseudo-common }
+ type             { dihedral }
+ target           { pseudo-sun }
+ sensitive_axis   { 0 1 0 }
+ zero_reference   { 0 0 1 }
+ field_of_view    { cone { axis { 1 0 0 } angle { 180 } } }
+}
+
+EL_SUN {
+ =>               { pseudo-common }
+ type             { plane_vector }
+ target           { pseudo-sun }
+ normal_reference { 0 -1 0 }
+ field_of_view    { cone { axis { 1 0 0 } angle { 180 } } }
+}
+
+GYRO+X { type           {kinematic}
+         accuracy       { 0.0002 }
+         frame          { v_base { 0.999986234  0.003367460  0.004023932 } v_image { 1 0 0 }}
+         sensitive_axis { 1  0. 0. }
+       }
+
+GYRO+Z { => {GYRO+X}
+         frame          { v_base { -0.001787382  0.001330360   0.999997518 } v_image { 0 0 1 }}
+         sensitive_axis { 0 0 1 }
+       }
+
+INTEG+Y
+{  =>            {  COMMON-PSEUDOS  }
+  type           { integrating_gyro }
+  sensitive_axis { 0 1 0 }
+}
+
+DSS_1_PITCH
+{ type               {dihedral}
+  target             {sun}
+  accuracy           { 0.01 }
+
+  # sensor axis definitions in satellite frame
+  frame { i { -1  0  0 } j { 0 0 1 } k { 0 1 0 }}
+
+  # specific sensor axis definitions in sensor frame
+  wedging_axis    { 0 1 0 }
+  sensitive_axis  { 0 0 1 }
+  zero_reference  { 1 0 0 }
+
+
+  # field of view definition in sensor frame
+  field_of_view  { { # j axis dihedra (+/- 26 degrees opening)
+                   { cone { axis {  0.438371 0.0  0.898794 } angle { 90 }}}
+                   inter
+                   { cone { axis {  0.438371 0.0 -0.898794 } angle { 90 }}}
+                 }
+                 inter
+                 { # k axis dihedra (+/- 26 degrees opening)
+                   { cone { axis { 0.438371  0.898794 0.0 } angle { 90 }}}
+                   inter
+                   { cone { axis { 0.438371 -0.898794 0.0 } angle { 90 }}}
+                 }
+               }
+}
+
+DSS_1_YAW
+{ => { DSS_1_PITCH}
+
+  # only measurements axis differ between DSS_1_PITCH and DSS_1_YAW
+  wedging_axis    { 0 0 1 }
+  sensitive_axis  { 0 1 0 }
+  zero_reference  { 1 0 0 }
+
+}
+
+GEOIRS_1_ROLL
+{ type           { limb }
+  accuracy       { 0.02 }
+
+  frame          { i {1 0 0}   j {0 1 0}   k {0 0 1}}
+  sensitive_axis { -1 0 0 }
+  zero_reference {  0 0 1 }
+
+  # field of view
+  y_dihedra      {       { cone { axis { -0.90631 0 0.42262 } angle { 90 }}}
+                   inter { cone { axis {  0.90631 0 0.42262 } angle { 90 }}}
+                 }
+  south_parallel {       { cone { axis { 0  1 0 } angle { 84.159 }}}
+                   inter { cone { axis { 0 -1 0 } angle { 96.491 }}}
+                 }
+  north_parallel {       { cone { axis { 0 -1 0 } angle { 84.159 }}}
+                   inter { cone { axis { 0  1 0 } angle { 96.491 }}}
+                 }
+  field_of_view  {    {       { => { GEOIRS_1_ROLL.y_dihedra      }}
+                        inter { => { GEOIRS_1_ROLL.south_parallel }}}
+                  and {       { => { GEOIRS_1_ROLL.y_dihedra      }}
+                        inter { => { GEOIRS_1_ROLL.north_parallel }}}
+                 }
+
+  # field of inhibition is FOV enlarged by 4 degrees
+  sun_field_of_inhibition
+  { margin { 4.0 } upon { => { GEOIRS_1_ROLL.field_of_view }}}
+  sun_eclipse_margin { 0 }
+  moon_field_of_inhibition
+  { => { GEOIRS_1_ROLL.sun_field_of_inhibition } }
+  moon_eclipse_margin { 0 }
+  moon_phase_threshold { 90 }
+
+}
+
+GEOIRS_1_PITCH { sensitive_axis { 0 1 0 }
+                 zero_reference { 0 0 1 }
+                      =>        { GEOIRS_1_ROLL }
+               }
+YPR-YAW
+{  =>            { COMMON-PSEUDOS }
+  type           {     cardan     }
+  kind           {     YPR-yaw    }
+  reference      {   geocentric   }
+}
+
+YPR-PITCH { => { YPR-YAW } kind { YPR-pitch } }
+
+YPR-ROLL  { => { YPR-YAW } kind { YPR-roll  } }
+
+YPR-ROLL-USER
+{  =>            { COMMON-PSEUDOS }
+  type           {     cardan     }
+  kind           {     YPR-roll   }
+  reference      {      user      }
+}
+
+
+USER-YAW
+{  =>            { COMMON-PSEUDOS }
+  type           {    dihedral    }
+  target         {    direction   }
+  zero_reference { 1 0 0 }
+  sensitive_axis { 0 1 0 }
+  field_of_view  { cone { axis { 0 -1 0 } angle { 180 } } }
+}
+
+ANTENNA
+{
+  precision    { 0.0001 }
+
+  repere       {
+                 i { 1 0 0 }
+                 j { 0 1 0 }
+                 k { 0 0 1 }
+               }
+
+  type         { cartesien }
+  reference    { 1 0 0 }
+  champ_de_vue { cone { axe { 1 0 0 } angle { 90 } } }
+
+  cible        { station }
+
+  station      { longitude    { 1.49939883  }
+                 latitude     { 43.42869186 }
+                 altitude     { 261.58      }
+
+                 pression     { 1000 }
+                 temperature  { 15   }
+                 hygrometrie  { 80   }
+
+                 masque       { 0 10 }
+
+               }
+
+}

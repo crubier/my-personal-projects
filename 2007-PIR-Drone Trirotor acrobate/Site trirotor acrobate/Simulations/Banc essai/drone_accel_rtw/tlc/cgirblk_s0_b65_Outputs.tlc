@@ -1,0 +1,21 @@
+%implements cgirblk_s0_b65_Outputs "C"
+
+%function Outputs(block, system) Output
+%<SLibCGIRAccessLocalVar(45)> %% %<tLocalBlockIO>_CosErreurAngle_l
+
+%if !LibBlockOutputSignalIsExpr(0)
+%<LibBlockAssignOutputSignal(0, "", "", 0, "rt_atan2(%<LibBlockInputSignal(0, "", "", 0)>, %<LibBlockInputSignal(1, "", "", 0)>) - %<LibBlockInputSignal(2, "", "", 0)>")>\
+%endif
+
+%<tLocalBlockIO>_CosErreurAngle_l = cos(%<SLibCGIRBlockOutputSignal(0, "", "", 0)>);
+
+if((%<tLocalBlockIO>_CosErreurAngle_l < 0.0) && (17.0 != floor(17.0))) {
+%<tLocalBlockIO>_CosErreurAngle_l = -pow(-%<tLocalBlockIO>_CosErreurAngle_l, 17.0);
+} else {
+%<tLocalBlockIO>_CosErreurAngle_l = pow(%<tLocalBlockIO>_CosErreurAngle_l, 17.0);
+}
+
+%if !LibBlockOutputSignalIsExpr(2)
+%<LibBlockAssignOutputSignal(2, "", "", 0, "%<LibBlockInputSignal(3, "", "", 0)> * %<tLocalBlockIO>_CosErreurAngle_l")>\
+%endif
+%endfunction

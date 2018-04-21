@@ -1,0 +1,156 @@
+% -*- mode: latex; tex-main-file: "marmottes-mathematique.tex" -*-
+% $Id: introduction.tex,v 1.6 2001/01/26 17:09:42 luc Exp $
+\section{Introduction}\label{sec:introduction}
+Dans toutes les phases de la mise à poste d'un satellite, de l'analyse
+de mission aux opérations, on est amené à tenir compte de l'orientation
+du satellite (pour la visibilité radio ou pour l'orientation d'un moteur
+d'apogée par exemple). La modélisation de l'orientation d'un satellite
+trois axes pose alors des problèmes nombreux, puisqu'un même satellite
+a plusieurs modes de pilotage que l'on modélise généralement par des
+algorithmes spécifiques.
+
+Cette note décrit une méthode très générale de modélisation utilisée
+opérationnellement avec succès depuis plusieurs années pour les mises
+à postes de satellites géostationnaires ainsi que pour des analyses de
+missions, en orbite basse aussi bien qu'en interplanétaire. Cette
+modélisation permet de simuler au sol l'évolution de l'orientation des
+satellites. Au-delà de la simulation, de nombreux aspects liés à
+l'orientation ne sont pas couverts par cette méthode. Ainsi la
+restitution d'attitude nécessite d'ajouter du filtrage et d'identifier
+les paramètres figés et les paramètres libres pour les lois
+d'évolution, l'étude du contrôle d'attitude en lui-même nécessite la
+modélisation des actuateurs, enfin de nombreuses analyses nécessitent
+de réaliser des simulations multiples pour en extraire des résultats
+statistiques. La méthode présentée n'a pour vocation que de servir de
+base à de telles études ou développements.
+
+Toutes les orientations pilotées par trois capteurs mesurant des angles
+ou des vitesses angulaires peuvent être modélisées, y compris dans les
+cas de contrôle hybride comme par exemple l'utilisation simultanée de
+deux gyromètres et d'un capteur optique. Ceci couvre directement tous
+les modes asservis de toutes les plateformes rencontrées par l'auteur
+sur de nombreux projets dans une large gamme d'orbites.
+
+Certaines lois d'orientation font intervenir des principes plus complexes
+comme des rendez-vous sur une plage temporelle étendue ou des
+contraintes de rattachement entre modes successifs, des modes pilotés
+en aveugle (c'est-à-dire sans retour d'information de capteurs sur
+certains axes), voire même des modes non pilotés (le mode
+\emph{caillou} de certaines plateformes). Ces lois ne sont pas
+modélisables d'une façon directe par les méthodes décrites ici. Ces
+méthodes peuvent cependant apporter une certaine aide en étant
+encapsulées au sein d'algorithmes plus spécifiques qui élaborent des
+consignes pour des pseudo-capteurs dédiés et leur délèguent ensuite le
+détail de la détermination d'orientation.
+
+La précision de la simulation n'est limitée que par la précision des
+paramètres d'entrée. Si les consignes correspondent à des valeurs
+théoriques, l'erreur de simulation correspond à la non modélisation de
+l'erreur de pilotage, qui dépend entièrement du système bord de
+contrôle d'orientation. Si les consignes correspondent à des valeurs
+mesurées, l'erreur de simulation correspond à l'erreur de mesure qui
+dépend entièrement des capteurs. Pour réduire ces erreurs, il est
+nécessaire d'améliorer les paramètres d'entrée, par exemple en
+modélisant la dynamique ou en réalisant un filtrage sur une plage de
+temps ou sur un grand nombre de capteurs.
+
+Outre leur large couverture, les algorithmes présentés apportent une
+très grande facilité de description des lois d'orientation à
+l'ingénieur. Ceci allège grandement le travail de modélisation et
+offre la possibilité de créer des logiciels réellement multi-missions
+ayant une représentation fidèle de l'orientation réelle. De nombreux
+avantages en résultent :
+
+\begin{description}
+
+\item[\textmd{-} fiabilité :]
+les logiciels validés pour une plateforme le sont pour toutes ;
+
+\item[\textmd{-} robustesse :]
+les cas dégradés imprévus peuvent être modélisés très rapidement
+pendant les opérations et sans modification de code ;
+
+\item[\textmd{-} rapidité :]
+aucun développement n'est nécessaire pour implanter une loi
+d'orientation spécifique ;
+
+\item[\textmd{-} représentativité :]
+le raffinage progressif des modèles sous-jacents permis par le
+potentiel de réutilisation a conduit à la prise en compte de
+nombreuses notions souvent négligées ;
+
+\item[\textmd{-} répartition des compétences :]
+il n'est plus nécessaire de maîtriser l'ensemble des techniques liées
+à l'orientation pour faire des simulations fines ;
+
+\item[\textmd{-} retour sur investissement :]
+les connaissances acquises portant sur des principes d'un assez haut
+niveau d'abstraction sont réutilisables d'un projet à l'autre.
+
+\end{description}
+
+En termes de compréhension, les principes de description d'orientation
+s'abstraient de la représentation mathématique. L'utilisateur final
+définit implicitement l'orientation par ses conséquences et n'a aucun
+besoin de comprendre les mécanismes sous-jacents qui vont élaborer
+automatiquement le modèle mathématique correspondant et le
+résoudre. Il ne voit que des \emph{variables d'ingénierie} qui
+correspondent à ses vraies préoccupations. Ces variables correspondent
+d'ailleurs très souvent aux télécommandes et aux télémesures de la
+plateforme.
+
+L'ensemble des algorithmes décrits dans cette note a été implémenté
+dans une bibliothèque qui a été validée opérationnellement depuis de
+nombreuses années : \bibliotheque{marmottes}. Cette bibliothèque est
+mise gratuitement à la disposition de quiconque par le \textsc{cnes}
+sur son serveur de logiciels
+libres\footnote{\texttt{http\char58//logiciels.cnes.fr}}, que ce soit
+pour une simple utilisation ou pour l'incorporer à des produits
+commerciaux (des centres de contrôle par exemple). Cette bibliothèque
+peut être appelée depuis des programmes en \langage{fortran 77},
+\langage{fortran 90}, \langage{c} (ou tout langage utilisant les mêmes
+règles d'édition de liens et de passages de paramètres) et
+\langage{c++}. Des interfaces \langage{java} et \langage{corba} sont
+envisagées. La bibliothèque est elle-même écrite en \langage{c++}.
+
+Cette note correspond à une refonte de l'ancienne documentation
+mathématique de la bibliothèque \bibliotheque{marmottes}. Elle est
+orienté vers les algorithmes et la méthode de résolution. Pour
+utiliser effectivement l'implémentation de cette méthode qui a été
+faite au \textsc{cnes}, le lecteur est invité à regarder en complément
+les manuels d'utilisation de la bibliothèque \bibliotheque{marmottes}
+et des bibliothèques sous-jacentes \bibliotheque{cantor} et
+\bibliotheque{club} (\ref{ref:marmottes-util}, \ref{ref:cantor} et
+\ref{ref:club}). Certains détails relatifs à cette implémentation
+tranparaîssent malgré tout ici et là. Ces détails ont pour seul
+objectif d'attirer l'attention sur des problèmes pratiques que les
+équations ne montrent pas toujours comme les problèmes de singularités
+numériques, de précision et de performances. Ces détails peuvent être
+omis par les lecteurs qui ne désirent ni réaliser leur propre
+implémentation ni modifier la bibliothèque publique.
+
+L'ensemble des algorithmes, la conception et la réalisation de la
+bibliothèque sont issus du travail de l'auteur. De nombreuses
+personnes ont également contribué à d'autres aspects de
+\bibliotheque{marmottes}. Geneviève \textsc{Campan} (\textsc{cnes}) a
+soutenu le projet dès son origine et lui a donné pendant de nombreuses
+années les moyens d'être mené à bien. Hélène \textsc{Cottet-Gautier}
+(\textsc{cnes}) a vérifié quasiment toutes les versions de toutes les
+démonstrations et a contribué à nombre de réflexions concernant
+l'implémentation, en particulier pour la modélisation des champs de
+vue. François \textsc{Desclaux} (\textsc{cnes}) a été le premier
+utilisateur, il a testé de nombreuses implémentations de ces
+algorithmes et a contribué à des choix stratégiques et a beaucoup
+collaboré à la spécification des besoins. Géraldine \textsc{Filaire}
+(\textsc{cnes}) a aidé à la validation des deux grandes refontes
+récentes concernant l'élimination des singularités des modèles
+géométriques et l'introduction des informations topologiques dans le
+calcul des frontières de champs de vue, elle est également intervenue
+sur la bibliothèque elle-même, en réalisant l'implémentation complète
+des modèles non singuliers et en participant à la maintenance
+évolutive. Enfin les équipes de mise à poste de satellites
+géostationnaires ont validé opérationnellement l'ensemble des
+algorithmes et du code et ont contribué à faire de
+\bibliotheque{marmottes} un produit opérationnel fiable, elles
+contribuent régulièrement à la détection des bogues et à la
+spécification de nouvelles fonctionnalités et de nouveaux capteurs.

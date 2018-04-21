@@ -1,0 +1,37 @@
+# RCS identifier : "$Id: senseurs.fr,v 1.1 1998/05/26 05:31:38 luc Exp $"
+
+# senseur solaire regardant vers +X et mesurant du tangage et du lacet
+tangage-soleil
+{ repere    { i { 1 0 0 } j { 0 1 0 } k { 0 0 1 } }
+  precision { 0.001 }
+  type      { diedre }
+  cible     { pseudo-soleil }
+
+  axe_sensible   { 0 -1 0 }
+  reference_zero { 1  0 0 }
+
+  champ_de_vue   { cone { axe { 1 0 0 } angle { 180 } } }
+
+}
+
+lacet-soleil { => { tangage-soleil } axe_sensible { 0 0 -1 } }
+
+
+# senseurs de Cardan pour le pilotage à partir du
+# repère orbital local
+RTL-roulis   { repere    { i { 1 0 0 } j { 0 1 0 } k { 0 0 1 } }
+               precision { 0.001 }
+               type      { RTL-roulis }
+             }
+RTL-tangage  { => { RTL-roulis } type { RTL-tangage } }
+RTL-lacet    { => { RTL-roulis } type { RTL-lacet   } }
+
+# gyros
+gyro+X
+{ repere       { i { 1 0 0 } j { 0 1 0 } k { 0 0 1 } }
+  precision    { 1.0e-8 }
+  type         { cinematique }
+  axe_sensible { 1 0 0 }
+}
+gyro+Y { => { gyro+X } axe_sensible { 0 1 0 } }
+gyro+Z { => { gyro+X } axe_sensible { 0 0 1 } }

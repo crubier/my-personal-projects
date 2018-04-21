@@ -1,0 +1,447 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+% $Id: AnalyseurLexical.tex,v 1.11 2003/07/09 07:56:56 club Exp $
+\subsection{classe AnalyseurLexical}\label{sec:AnalyseurLexical}
+
+\subsubsection*{description}\label{sec:AnalyseurLexical-desc}
+La classe AnalyseurLexical permet d'extraire les composants
+élémentaires d'une chaîne de caractères (entiers, réels, noms, chaînes
+littérales, opérateurs, séparateurs, parenthèses).
+
+Elle peut être utilisée par des analyseurs syntaxiques de plus haut
+niveau, qui eux gèreront l'interaction des lexèmes extraits, pour
+constituer par exemple des expressions à partir des noms, des nombres
+et des opérateurs pour une grammaire d'expressions, ou des dates
+sous des formats variables à partir d'entiers et de séparateurs.
+
+\subsubsection*{interface publique}\label{sec:AnalyseurLexical-int}
+\begin{verbatim}
+#include "club/AnalyseurLexical.h"
+\end{verbatim}
+
+La classe définit un type énuméré anonyme public pour représenter les
+différents types de lexèmes reconnus, les méthodes d'analyse
+retournent des valeurs choisies au sein de cette énumération.
+
+\newlength{\largeurEnumAnalyseur}
+\settowidth{\largeurEnumAnalyseur}{\ttfamily
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+}
+\begin{center}\begin{minipage}{\largeurEnumAnalyseur}\begin{verbatim}
+enum { codeFin,           codeSeparateur, codeOperateur, codeParenthese,
+       codeEntier,        codeReel,       codeNom,       codeChaineC,
+       codeChaineFortran, codeInconnu
+     };
+\end{verbatim}\end{minipage}\end{center}
+
+\begin{tableFonctionsFixe}{AnalyseurLexical : méthodes publiques}
+{\label{tab:AnalyseurLexical-met-pub}}
+{retourne le type du dernier lexème reconnu (sans reprendre
+l'analyse)}
+
+\signature{\fonc{AnalyseurLexical} (const string\&
+\argument{chaîne})}{} &
+
+construit un analyseur pour la \argument{chaîne}\\
+
+\signature{\fonc{AnalyseurLexical} (const char *\argument{chaîne} = 0)}{}&
+
+construit un analyseur pour la \argument{chaîne}\\
+
+\signature{\fonc{AnalyseurLexical}}
+          {(const char *\argument{chaîne}, int \argument{longueur})}&
+
+construit un analyseur pour les \argument{longueur} premiers
+caractères de la \argument{chaîne}\\
+
+\hline
+
+\signature{\fonc{AnalyseurLexical}}
+          {(const AnalyseurLexical\& \argument{a})}&
+
+constructeur par copie \\
+
+\signature{AnalyseurLexical\& \fonc{operator =}}
+          {(const AnalyseurLexical\& \argument{a})}&
+
+affectation \\
+
+\hline
+
+\signature{\fonc{~AnalyseurLexical ()}} {}&
+
+destructeur de la classe.
+\\
+
+\hline
+
+\signature{void \fonc{initBlancs}}
+          {(const string\& \argument{blancs})}&
+
+indique quels caractères doivent être reconnus comme blancs\\
+
+\signature{void \fonc{initBlancs}}
+          {(const char *\argument{blancs})}&
+
+indique quels caractères doivent être reconnus comme blancs\\
+
+\signature{void \fonc{initSeparateurs}}
+          {(const string\& \argument{separateurs})}&
+
+indique quels caractères doivent être reconnus comme séparateurs\\
+
+\signature{void \fonc{initSeparateurs}}
+          {(const char *\argument{separateurs})}&
+
+indique quels caractères doivent être reconnus comme séparateurs\\
+
+\signature{void \fonc{initOperateurs}}
+          {(const string\& \argument{operateurs})}&
+
+indique quels caractères doivent être reconnus comme opérateurs\\
+
+\signature{void \fonc{initOperateurs}}
+          {(const char *\argument{operateurs})}&
+
+indique quels caractères doivent être reconnus comme opérateurs\\
+
+\signature{void \fonc{autoriseReels} ()}
+          {}&
+
+autorise la reconnaissance des réels\\
+
+\signature{void \fonc{interditReels} ()}
+          {}&
+
+interdit la reconnaissance des réels\\
+
+\signature{void \fonc{autoriseReelsFortran} ()}
+          {}&
+
+autorise la reconnaissance des réels du langage \langage{fortran}\\
+
+\signature{void \fonc{interditReelsFortran} ()}
+          {}&
+
+interdit la reconnaissance des réels du langage \langage{fortran}\\
+
+\signature{void \fonc{autoriseChainesC} ()}
+          {}&
+
+autorise la reconnaissance des chaînes littérales du langage
+\langage{c}\\
+
+\signature{void \fonc{interditChainesC} ()}
+          {}&
+
+interdit la reconnaissance des chaînes littérales du langage
+\langage{c}\\
+
+\signature{void \fonc{autoriseChainesFortran} ()}
+          {}&
+
+autorise la reconnaissance des chaînes littérales du langage
+\langage{fortran}\\
+
+\signature{void \fonc{interditChainesFortran} ()}
+          {}&
+
+interdit la reconnaissance des chaînes littérales du langage
+\langage{fortran}\\
+
+\hline
+
+\signature{void \fonc{reinitialise} (const string\& \argument{c})}
+          {}&
+
+réinitialise l'instance comme si elle venait juste d'être construite
+avec le même argument\\
+
+\signature{void \fonc{reinitialise} (const char *\argument{c})}
+          {}&
+
+réinitialise l'instance comme si elle venait juste d'être construite
+avec le même argument\\
+
+\signature{void \fonc{reinitialise}}
+          {(const char *\argument{c}, int \argument{longueur})}&
+
+réinitialise l'instance comme si elle venait juste d'être construite
+avec les mêmes arguments\\
+
+\hline
+
+\signature{void \fonc{redemarre} ()}
+          {}&
+
+repositionne l'analyseur au début de la chaîne \\
+
+\signature{int \fonc{suivant} ()}
+          {}&
+
+analyse le lexème suivant et retourne son type \\
+
+\signature{int \fonc{precedent} ()}
+          {}&
+
+reprend l'analyse du lexème précédent et retourne son type (cette
+fonction peut être coûteuse, car elle reprend toute l'analyse au
+début)\\
+
+\signature{int \fonc{etatCourant} () const}
+          {}&
+
+retourne un index représentant l'état courant\\
+
+\signature{int \fonc{retourneAEtat} (int \argument{etat})}
+          {}&
+
+repositionne l'analyseur dans l'\argument{etat} récupéré par un appel
+préalable à etatCourant () et retourne le type du lexème
+correspondant\\
+
+\hline
+
+\signature{const string\& \fonc{chaine} ()}
+          {}&
+
+retourne la totalité de la chaîne analysée\\
+
+\signature{const string\& \fonc{lexeme} ()}
+          {}&
+
+retourne le texte du dernier lexème reconnu \\
+
+\signature{int \fonc{debutLexeme} ()}
+          {}&
+
+donne l'index dans la chaîne du début du dernier lexème reconnu\\
+
+\signature{int \fonc{apresLexeme} ()}
+          {}&
+
+donne l'index dans la chaîne du caractère suivant le dernier lexème
+reconnu\\
+
+\signature{int \fonc{type} ()}
+          {}&
+
+retourne le type du dernier lexème reconnu (sans reprendre
+l'analyse)\\
+
+\signature{int \fonc{entier} ()}
+          {}&
+
+retourne la valeur du dernier entier reconnu\\
+
+\signature{double \fonc{reel} ()}
+          {}&
+
+retourne la valeur du dernier réel reconnu\\
+
+\signature{const string\& \fonc{nom} ()}
+          {}&
+
+retourne le dernier nom reconnu\\
+
+\signature{const string\& \fonc{chaineC} ()}
+          {}&
+
+retourne la dernière chaîne \langage{c} reconnue\\
+
+\signature{const string\& \fonc{chaineFortran} ()}
+          {}&
+
+retourne la dernière chaîne \langage{fortran} reconnue\\
+
+\signature{char \fonc{separateur} ()}
+          {}&
+
+retourne le dernier séparateur reconnu\\
+
+\signature{char \fonc{parenthese} ()}
+          {}&
+
+retourne la dernière parenthèse reconnue\\
+
+\signature{char \fonc{operateur} ()}
+          {}&
+
+retourne le dernier opérateur reconnu \\
+
+\end{tableFonctionsFixe}
+
+\subsubsection*{exemple d'utilisation}\label{sec:AnalyseurLexical-expl}
+
+\begin{verbatim}
+#include "club/AnalyseurLexical.h"
+...
+
+// analyse d'une date en calendaire ou en jour julien
+AnalyseurLexical al (argv [i]);
+double t;
+
+// on commence par tenter un format calendaire
+al.initSeparateurs (":/-.");
+al.interditReels   ();
+int n [7];
+for (int j = 0; j < 7; j++)
+  n [j] = 0;
+int nbEntiers = 0;
+int ok = 1;
+
+(void) al.suivant ();
+while (ok && (al.type () == AnalyseurLexical::codeEntier))
+{ // boucle sur les entiers du format
+  n [nbEntiers++] = al.entier ();
+  ok = (nbEntiers <= 7);
+
+  if (al.suivant () != AnalyseurLexical::codeSeparateur)
+  { // les séparateurs sont optionnels entre année et heure ou à la fin
+    ok = ok
+      && (((nbEntiers == 3) && (al.type () == AnalyseurLexical::codeEntier))
+          || (al.type () == AnalyseurLexical::codeFin));
+  }
+  else
+    (void) al.suivant ();
+
+}
+ok = ok
+  && ((nbEntiers == 3) || (nbEntiers == 6) || (nbEntiers == 7))
+  && (al.type () == AnalyseurLexical::codeFin);
+
+if (ok)
+{ // correction de l'année si elle n'est que sur deux chiffres
+  if (n [2] < 50)
+    n [2] += 2000;   // années 2000 à 2049, notées 00 à 49
+  else if (n [2] < 100)
+    n [2] += 1900;   // années 1950 à 1999, notées 50 à 99
+
+  t = date2000 (n [0], n [1], n [2], n [3], n [4], n [5], n [6]);
+
+}
+else
+{ // le format calendaire ne convenait pas, on essaie un simple réel
+  al.initSeparateurs ("");
+  al.autoriseReels   ();
+  if ((al.suivant () == AnalyseurLexical::codeReel)
+      &&
+      (al.suivant () == AnalyseurLexical::codeFin))
+    t = al.reel ();
+  else
+    t = 9.9999e99;
+}
+\end{verbatim}
+
+D'autres exemples d'utilisation peuvent être trouvés dans le code des
+classes FormatFortran et TamponTexte, ainsi que dans l'utilitaire
+\outil{difference} décrit à la section \ref{sec:Difference-desc}.
+
+\subsubsection*{conseils d'utilisation spécifiques}
+\label{sec:AnalyseurLexical-conseils}
+La classe est relativement paramétrable de façon à couvrir plusieurs
+cas d'analyseurs lexicaux. Il est nécessaire pour l'utiliser
+correctement de bien prendre garde au comportement par défaut et de
+positionner les indicateurs selon ses besoins spécifiques avant de
+commencer l'analyse.
+
+Les comportements par défaut sont :
+\begin{itemize}
+\item la liste des blancs est "\verb=\t\n\v\f\r =" (c'est à dire
+les caractères reconnus par la macro-définition standard du langage
+\langage{c} \texttt{isspace}) ;
+\item la liste des séparateurs est vide ;
+\item la liste des opérateurs est vide ;
+\item les réels sont reconnus ;
+\item les réels du langage \langage{fortran} ne sont pas reconnus ;
+\item les chaînes du langage \langage{c} ne sont pas reconnues ;
+\item les chaînes du langage \langage{fortran} ne sont pas reconnues.
+\end{itemize}
+
+Lorsqu'un analyseur doit reconnaître des réels, il faut prendre garde
+que la chaîne \texttt{123} produira un lexème de type entier et non
+réel. Dans la plupart des cas l'utilisateur souhaitera que cette
+chaîne soit reconnue, il lui faudra alors prendre en compte la
+distinction entre réel et entier dans les codes de retour de
+l'analyseur et faire lui-même la coercition de type. Il faut également
+prendre garde au fait qu'interdire la reconnaissance des réels du
+fortran seul n'empêche pas la reconnaissance d'un réel du genre
+\texttt{1.23e+7}, elle n'empêche que la reconnaissance des exposants
+spécifiques au fortran, comme \texttt{1.23d+7}.
+
+\subsubsection*{implantation}\label{sec:AnalyseurLexical-impl}
+Les attributs sont décrits sommairement dans la
+table~\ref{tab:AnalyseurLexical-att}, les méthodes privées dans la
+table~\ref{tab:AnalyseurLexical-met-priv}
+\begin{tableAttributsFixe}{attributs de la classe
+AnalyseurLexical}{\label{tab:AnalyseurLexical-att}}
+{drapeau indiquant si les chaînes de caractères du langage \langage{c}}
+chaine\_                     &  string & chaîne à analyser\\
+debut\_                      &  const char * & pointeur sur le début
+du lexème en cours d'analyse\\
+mobile\_                     &  const char * & pointeur de parcours des
+lexèmes \\
+index\_                      &  int    & index du lexème dans la chaîne\\
+\hline
+blancs\_                     &  string & liste des caractères
+considérés comme des blancs \\
+separateurs\_                &  string & liste des caractères
+considérés comme des séparateurs \\
+operateurs\_                 &  string & liste des caractères
+considérés comme des opérateurs\\
+\hline
+reconnaitReels\_             &  bool   & drapeau indiquant si
+les réels doivent être reconnus \\
+reconnaitReelsFortran\_      &  bool   & drapeau indiquant si
+les réels de caractères du langage \langage{fortran} doivent être reconnus \\
+reconnaitChainesC\_          &  bool   & drapeau indiquant si
+les chaînes de caractères du langage \langage{c} doivent être reconnues \\
+reconnaitChainesFortran\_    &  bool   & drapeau indiquant si
+les chaînes de caractères du langage \langage{fortran} doivent être reconnues \\
+\hline
+dernierLexeme\_              &  string & copie du dernier lexème
+reconnu \\
+dernierType\_                &  int    & type du dernier lexème \\
+dernierEntier\_              &  int    & valeur du dernier
+entier reconnu \\
+dernierReel\_                &  double & valeur du dernier réel
+reconnu \\
+dernierNom\_                 &  string & copie du dernier nom
+reconnu \\
+derniereChaineC\_            &  string & copie de la dernière
+chaîne \langage{c} reconnue \\
+derniereChaineFortran\_      &  string & copie de la dernière
+chaîne \langage{fortran} reconnue \\
+dernierSeparateur\_          &  char   & copie du dernier
+séparateur reconnu \\
+derniereParenthese\_         &  char   & copie de la dernière
+parenthèse reconnue \\
+dernierOperateur\_           &  char   & copie du dernier
+opérateur reconnu \\
+\end{tableAttributsFixe}
+
+\begin{tableFonctionsFixe}{AnalyseurLexical : méthodes privées}
+{\label{tab:AnalyseurLexical-met-priv}}
+{fonction d'analyse reconnaissant les chaînes du langage
+\langage{fortran}}
+\signature{void \fonc{analyseReelOuEntier} ()}
+          {}&
+
+fonction d'analyse reconnaissant les réels et les entiers\\
+
+\signature{void \fonc{analyseEntier} ()}
+          {}&
+
+fonction d'analyse reconnaissant les entiers\\
+
+\signature{void \fonc{analyseChaineC} ()}
+          {}&
+
+fonction d'analyse reconnaissant les chaînes du langage \langage{c}\\
+
+\signature{void \fonc{analyseChaineFortran} ()}
+          {}&
+
+fonction d'analyse reconnaissant les chaînes du langage
+\langage{fortran}\\
+
+\end{tableFonctionsFixe}

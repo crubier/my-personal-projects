@@ -1,0 +1,45 @@
+31/12/1899/00/00/00/000 => -3155803200.000 (-18263.00000000)
+31/12/1899 12:00:00-000 => -3155760000.000 (-18262.50000000)
+01-01-1900 00-00-00 => -3155716800.000 (-18262.00000000)
+ 1 - 1 - 1900 12 : 0 : 0 => -3155673600.000 (-18261.50000000)
+31/12/1949 => -1577966400.000 (    -1.00000000)
+01/01/50 => -1577880000.000 (     0.00000000)
+31/12/99 23:59:59.999 =>      -43200.001 ( 18261.99999999)
+01/01/00 =>      -43200.000 ( 18262.00000000)
+01/01/00 12:00:00 =>           0.000 ( 18262.50000000)
+01/01/00 23:59:59:999 =>       43199.999 ( 18262.99999999)
+02/01/00 12:00:00 =>       86400.000 ( 18263.50000000)
+analyse de la chaîne "(toto 4*(2/5)=@3e6[])" :
+"(" : parenthèse '('
+"toto" : nom toto
+"4" : entier 4
+"*" : inconnu
+"(" : parenthèse '('
+"2" : entier 2
+"/" : inconnu
+"5" : entier 5
+")" : parenthèse ')'
+"=" : inconnu
+"@" : inconnu
+"3e6" : reel 3000000.000000
+"[" : parenthèse '['
+"]" : parenthèse ']'
+")" : parenthèse ')'
+analyse de la chaîne "/homek/luc/sources/c++/libclub-3.4/tst/prgm_AnalyseurLexical" :
+"/" : inconnu
+"homek" : nom homek
+"/" : inconnu
+"luc" : nom luc
+"/" : inconnu
+"sources" : nom sources
+"/" : inconnu
+"c" : nom c
+"+" : inconnu
+"+" : inconnu
+"/" : inconnu
+"libclub" : nom libclub
+"-3.4" : reel -3.400000
+"/" : inconnu
+"tst" : nom tst
+"/" : inconnu
+"prgm_AnalyseurLexical" : nom prgm_AnalyseurLexical

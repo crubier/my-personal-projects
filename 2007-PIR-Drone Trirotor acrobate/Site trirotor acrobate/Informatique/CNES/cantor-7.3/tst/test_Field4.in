@@ -1,0 +1,17 @@
+#! /bin/sh
+
+# "$Id: test_Field4.in,v 1.1 2005/03/04 07:40:54 chope Exp $"
+
+# using an english environment for the tests
+@ca_cv_var_lang@=en              ; export @ca_cv_var_lang@
+@ca_cv_var_tradpath@=@srcdir@/.. ; export @ca_cv_var_tradpath@
+
+# run the test program
+prgm_Field4 > test_Field4.res 2>&1
+
+# file comparison
+echo "difference -p 1.0e-4 -ee 1 10 -res test_Field4.res -ref @srcdir@/test_Field4.ref"
+difference -p 1.0e-4 -ee 1 10 -res test_Field4.res -ref @srcdir@/test_Field4.ref
+r=$?
+rm -f test_Field4.res
+exit $r

@@ -1,0 +1,517 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: Etat.tex,v 1.13 2003/07/09 09:24:57 marmottes Exp $
+\subsection{classe Etat}\label{sec:Etat}
+
+\subsubsection*{description}\label{sec:Etat-desc}
+
+Cette classe mémorise l'état du satellite (date, position, vitesse,
+attitude) ainsi que quelques données qui lui sont directement liées
+comme les directions de la lune avec parallaxe, du soleil avec
+parallaxe et du soleil sans parallaxe.
+\subsubsection*{interface publique}\label{sec:Etat-int}
+\begin{verbatim}
+#include "marmottes/Etat.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{Etat : méthodes publiques}
+{\label{tab:Etat-met-pub}}
+{construit une instance à partir des éléments donnés en argument,}
+
+\signature{\fonc{Etat} ()}
+          {}&
+
+construit une instance par défaut. La configuration par défaut est un
+état utilisable (le satellite est au dessus de la terre, et les astres
+sont cohérents avec la date), mais son utilisation est déconseillée,
+il faut passer par la méthode \fonc{reinitialise} pour avoir une
+instance correcte. Ce constructeur est conçu pour la table des
+simulateurs des interfaces \langage{fortran} et \langage{c} de la
+biliothèque, qui garantisse une réinitialisation correcte. Les
+utilisateurs \langage{c++} doivent plutôt passer par les autres
+constructeurs.\\
+
+
+\signature{\fonc{Etat}}
+          {(double \argument{date},\\
+            const VecDBL\& \argument{position},\\
+            const VecDBL\& \argument{vitesse},\\
+            const RotDBL\& \argument{attitude},\\
+            const VecDBL\& \argument{spin},\\
+            double \argument{coeffPosition},\\
+            double \argument{coeffVitesse})\\
+           \throw{CantorErreurs}
+          }&
+
+construit une instance à partir des éléments donnés en argument, les
+\argument{coeffPosition} et \argument{coeffVitesse} permettent de
+convertir les \argument{position} et \argument{vitesse} depuis les
+unités utilisateur vers les unités internes (kilomètres et kilomètres
+par secondes), ces coefficients sont appliqués aux arguments passés à
+la construction et également aux arguments passés par la méthode
+\fonc{reinitialise}.\\
+
+
+\signature{\fonc{Etat}}
+          {(double \argument{date},\\
+            const VecDBL\& \argument{position},\\
+            const VecDBL\& \argument{vitesse},\\
+            const RotDBL\& \argument{attitude},\\
+            double \argument{coeffPosition},\\
+            double \argument{coeffVitesse})\\
+           \throw{CantorErreurs}
+          }&
+
+construit une instance à partir des éléments donnés en argument (le
+spin est forcé à zéro dans ce constructeur), les
+\argument{coeffPosition} et \argument{coeffVitesse} permettent de
+convertir les \argument{position} et \argument{vitesse} depuis les
+unités utilisateur vers les unités internes (kilomètres et kilomètres
+par secondes), ces coefficients sont appliqués aux arguments passés à
+la construction et également aux arguments passés par la méthode
+\fonc{reinitialise}.\\
+
+
+\hline
+
+\signature{\fonc{Etat} (const Etat\& \argument{e})}
+          {}&
+
+constructeur par copie\\
+
+
+\signature{Etat\& \fonc{operator =} (const Etat\& \argument{e})}
+          {}&
+
+affectation\\
+
+
+\signature{\fonc{\~{}Etat()}}{}
+          {}&
+
+destructeur
+\\
+\hline
+
+\signature{void \fonc{desinitialise} ()}
+          {}&
+
+remet l'instance dans la configuration du constructeur par défaut\\
+
+
+\signature{void \fonc{reinitialise}}
+          {(double \argument{date},\\
+            const VecDBL\& \argument{position},\\
+            const VecDBL\& \argument{vitesse},\\
+            const RotDBL\& \argument{attitude})\\
+           \throw{CantorErreurs}
+          }&
+
+mémorise un nouvel état (sauf la partie spin, qui est recalculée par
+différences finies) et met à jour les données associées (temps
+sidéral, astres), les \argument{coeffPosition} et
+\argument{coeffVitesse} donnés à la construction (ou modifiés par
+\fonc{unitesPositionVitesse}) sont utilisés pour convertir les
+\argument{position} et \argument{vitesse} depuis les unités
+utilisateur vers les unités internes (kilomètres et kilomètres par
+secondes)\\
+
+
+\signature{void \fonc{reinitialise} (const VecDBL\& \argument{spin})}
+          {}&
+
+mémorise un nouveau spin\\
+
+
+\signature{void \fonc{unitesPositionVitesse}}
+          {(const string\& \argument{unitePos},\\
+            const string\& \argument{uniteVit})\\
+          \throw{MarmottesErreurs}}&
+
+prépare l'instance pour qu'elle considère des \argument{position} et
+\argument{vitesse} dans les unités utilisateur spécifiées (les unités
+reconnues sont : \texttt{km}, \texttt{m}, \texttt{km/s} et
+\texttt{m/s})\\
+
+
+\hline
+
+\signature{double \fonc{date} () const}
+          {}&
+
+retourne la date\\
+
+
+\signature{double \fonc{tempsSideral} () const}
+          {}&
+
+retourne le temps sidéral (entre $0$ et $2\pi$)\\
+
+
+\signature{const VecDBL\& \fonc{position} () const}
+          {}&
+
+retourne la position (dans les unités utilisateur)\\
+
+
+\signature{const VecDBL\& \fonc{vitesse} () const}
+          {}&
+
+retourne la vitesse (dans les unités utilisateur)\\
+
+
+\signature{const RotDBL\& \fonc{attitude} () const}
+          {}&
+
+retourne l'attitude\\
+
+
+\signature{const RotVD1\& \fonc{attitudeVD1} () const}
+          {}&
+
+retourne l'attitude (convertie sous forme d'un RotVD1)\\
+
+
+\signature{const VecDBL\& \fonc{spin} () const}
+          {}&
+
+retourne le spin\\
+
+
+\hline
+
+\signature{double \fonc{aplatissement} () const}
+          {}&
+
+retourne l'aplatissement du corps central\\
+
+
+\signature{double \fonc{rayonEquatorial} () const}
+          {}&
+
+retourne le rayon équatorial du corps central (dans les unités utilisateur)\\
+
+
+\signature{double \fonc{rayonCorpsCentral} () const}
+          {}&
+
+retourne le rayon \emph{angulaire} du corps central\\
+
+
+\signature{double \fonc{vitesseRotation} () const}
+          {}&
+
+retourne la vitesse angulaire de rotation du corps central\\
+
+
+\hline
+
+\signature{const VecDBL\& \fonc{satLune} () const}
+          {}&
+
+retourne la direction de la lune (vecteur normé) et tenant compte de
+la parallaxe\\
+
+
+\signature{double \fonc{distLune} () const}
+          {}&
+
+retourne la distance de la lune (dans les unités utilisateur)\\
+
+
+\signature{double \fonc{rayonLune} () const}
+          {}&
+
+retourne le rayon angulaire de la lune\\
+
+
+\signature{const VecDBL\& \fonc{satSoleil} () const}
+          {}&
+
+retourne la direction du soleil (vecteur normé) et tenant compte de la
+parallaxe\\
+
+
+\signature{double \fonc{distSoleil} () const}
+          {}&
+
+retourne la distance du soleil (dans les unités utilisateur)\\
+
+
+\signature{const VecDBL\& \fonc{terreSoleil} () const}
+          {}&
+
+retourne la direction du soleil (vecteur normé) sans tenir compte de
+la parallaxe\\
+
+
+\hline
+
+\signature{double \fonc{coeffPosition} () const}
+          {}&
+
+retourne le coefficient de conversion des unités de position
+utilisateur en kilomètres\\
+
+
+\signature{double \fonc{coeffVitesse} () const}
+          {}&
+
+retourne le coefficient de conversion des unités de vitesse
+utilisateur en kilomètres par seconde\\
+
+
+\signature{void \fonc{normesLitigieuses} () const}
+          {\throw{MarmottesErreurs}}&
+
+indique que les corrections de parallaxes ont été faites avec des
+vecteurs dont les normes sont litigieuses, puisque les valeurs
+numériques proviennent de la construction ou d'un appel à
+\fonc{reinitialise} alors que les coefficients de conversions ont été
+changés après coup\\
+
+
+\hline
+
+\signature{VecDBL \fonc{spinExtrapole}}
+          {(double \argument{date},\\
+            const RotDBL\& \argument{attitude}) const}&
+
+retourne le spin qu'il faudrait avoir pour qu'à la \argument{date}
+donnée on ait l'\argument{attitude} donnée\\
+
+
+\signature{VecVD1 \fonc{spinExtrapole}}
+          {(double \argument{date},\\
+            const RotVD1\& \argument{attitude}) const}&
+
+retourne le spin qu'il faudrait avoir pour qu'à la \argument{date}
+donnée on ait l'\argument{attitude} donnée\\
+
+
+\signature{RotDBL \fonc{attitudeExtrapolee}}
+          {(double \argument{date}) const}&
+
+extrapole l'attitude courante à l'aide du spin courant jusqu'à la
+\argument{date} fournie\\
+
+\hline
+\signature{void \fonc{enregistreCorps}}
+          {(
+            double \argument{equatorialRadius},\\
+            double \argument{oblateness},\\
+            double \argument{rotationVelocity},\\
+            double \argument{moonRadius},\\
+            double \argument{sunRadius},\\
+            BodyEphemC::TypeFuncTsid *\argument{tsidFunc},\\
+            BodyEphemC::TypeFuncPos  *\argument{sunFunc},\\
+            BodyEphemC::TypeFuncPos  *\argument{moonFunc},\\
+            BodyEphemC::TypeFuncPos  *\argument{earthFunc},\\
+            )}
+          &
+donne accès aux valeurs utilisateurs pour le rayon équatorial,
+l'aplatissement, et la vitesse de rotation du corps central, ainsi qu'aux
+fonctions utilisateurs, écrites en \langage{C}, de calcul du temps
+sidéral et d'éphémérides par rapport au corps central. Les unités sont
+obligatoirement des \texttt{km} pour les distances et des \texttt{rad}
+pour les angles. Le temps sidéral doit être donné entre $0$ et $2\pi$.
+\\
+
+\signature{void \fonc{enregistreCorps}}
+          {(
+            double \argument{equatorialRadius},\\
+            double \argument{oblateness},\\
+            double \argument{rotationVelocity},\\
+            double \argument{moonRadius},\\
+            double \argument{sunRadius},\\
+            BodyEphemF::TypeFuncTsid *\argument{tsidFunc},\\
+            BodyEphemF::TypeFuncPos  *\argument{sunFunc},\\
+            BodyEphemF::TypeFuncPos  *\argument{moonFunc},\\
+            BodyEphemF::TypeFuncPos  *\argument{earthFunc},\\
+            )}
+          &
+donne accès aux valeurs utilisateurs pour le rayon équatorial,
+l'aplatissement, et la vitesse de rotation du corps central, ainsi qu'aux
+fonctions utilisateurs, écrites en \langage{FORTRAN}, de calcul du temps
+sidéral et d'éphémérides par rapport au corps central. Les unités sont
+obligatoirement des \texttt{km} pour les distances et des \texttt{rad}
+pour les angles. Le temps sidéral doit être donné entre $0$ et $2\pi$.
+\\
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+
+\begin{verbatim}
+#include "marmottes/Etat.h"
+
+...
+
+void SenseurOptique::initialiseCible (const Etat& etat)
+   throw (MarmottesErreurs)
+{ // initialisation de la direction de la cible en repère inertiel
+
+  switch (code_)
+  { case codeSoleil       :
+      etat.normesLitigieuses ();
+      cible_ = etat.satSoleil ();
+      rapportDistCentral_ = etat.distSoleil () / etat.position ().norme ();
+      rapportDistLune_    = etat.distSoleil () / etat.distLune ();
+      break;
+
+    case codeSoleilSansEclipse :
+      etat.normesLitigieuses ();
+      cible_ = etat.satSoleil ();
+      rapportDistCentral_ = 0.0;
+      rapportDistLune_    = 0.0;
+      break;
+
+    ...
+
+    case codeVitesse :
+      cible_ = etat.vitesse () / etat.vitesse ().norme ();
+      rapportDistCentral_ = 0.0;
+      rapportDistLune_    = 0.0;
+      break;
+
+    case codeMoment :
+      cible_ = etat.position () ^ etat.vitesse ();
+      cible_.normalise ();
+      rapportDistCentral_ = 0.0;
+      rapportDistLune_    = 0.0;
+      break;
+
+    case codeDevant :
+      cible_ = (etat.position () ^ etat.vitesse ()) ^ etat.position ();
+      cible_.normalise ();
+      rapportDistCentral_ = 0.0;
+      rapportDistLune_    = 0.0;
+      break;
+
+    ...
+
+    default : // on ne peut passer ici qu'en cas d'incohérence dans le code
+      cible_ = VecDBL (1, 0, 0);
+      rapportDistCentral_ = 0.0;
+      rapportDistLune_    = 0.0;
+      throw MarmottesErreurs (MarmottesErreurs::cas_impossible,
+                              __LINE__, __FILE__);
+      break;
+  }
+
+  // on fait la conversion en développement limité une fois pour toutes
+  cibleVD1_ = VecDBLVD1 (cible_);
+
+}
+
+
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation spécifiques}
+\label{sec:Etat-conseils}
+La classe Etat est utilisée par la classe Marmottes pour mémoriser les
+résultats des diverses résolutions d'attitude et pour tester des
+solutions différentes lors de la recherche numérique. Selon le modèle
+de résolution analytique considéré (géométrique ou cinématique) le
+paramètre de base est soit l'attitude (on déduit alors le spin par
+différences finies) soit le spin (on déduit alors l'attitude par
+extrapolation). Ces deux possibilités expliquent les différentes
+méthodes de réinitialisation et d'extrapolation fournies par la
+classe.
+
+Il faut prendre garde au problème des unités. \bibliotheque{marmottes}
+\emph{travaille en kilomètres et kilomètres par secondes en interne},
+et la norme du vecteur position influe en particulier sur les
+corrections de parallaxe. Si l'appelant utilise des unités
+différentes, il doit le signaler à la bibliothèque. Ce problème ne
+s'étant posé qu'après plusieurs années, il n'est pas possible de
+configurer la classe dès la construction (changer la signature des
+constructeurs et des fonctions d'interface \langage{fortran} et
+\langage{c} a semblé disproportionné face au problème). Il s'ensuit
+que l'on doit appeler \fonc{unitesPositionVitesse} \emph{a posteriori}
+sur un état déjà calculé et avec des parallaxes corrigées. On devrait
+normalement réinitialiser l'état juste après une modification de ce
+type, et surtout ne pas utiliser les données de parallaxe avant cette
+réinitialisation. La méthode \fonc{normesLitigieuses} permet d'éviter
+ces erreurs, l'exemple d'utilisation ci-dessus montre dans quels cas
+la classe SenseurOptique le fait.
+
+\subsubsection*{implantation}\label{sec:Etat-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:Etat-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe Etat}
+{\label{tab:Etat-att-priv}}
+{direction du soleil sans correction de la parallaxe}
+
+date\_ & double & date en jours juliens \textsc{cnes}\\
+
+tempsSideral\_ & double & temps sidéral entre $0$ et $2\pi$\\
+
+\hline
+
+position\_ & VecDBL & position du satellite (en km)\\
+
+vitesse\_ & VecDBL & vitesse du satellite (en km/s)\\
+
+attitude\_ & RotDBL & attitude du satellite\\
+
+attitudeVD1\_ & RotVD1 & conversion de attitude\_ en RotVD1\\
+
+spin\_ & VecDBL & spin du satellite\\
+
+\hline
+
+rayonCorpsCentral\_ & double & rayon angulaire du corps central\\
+
+\hline
+
+satLune\_ & VecDBL & direction de la lune corrigée de la parallaxe\\
+
+distLune\_ & double & distance de la lune (en km)\\
+
+rayonLune\_ & double & rayon angulaire de la lune\\
+
+satSoleil\_ & VecDBL & direction du soleil corrigée de la parallaxe\\
+
+distSoleil\_ & double & distance du soleil (en km)\\
+
+terreSoleil\_ & VecDBL & direction du soleil sans correction de la
+parallaxe\\
+
+rayonSoleil\_
+& double & rayon angulaire du soleil\\
+
+\hline
+
+ptrBodyEphem\_ & BodyEphem * & pointeur sur un objet de type BodyEphem\\
+
+\hline
+
+coeffPosition\_ & double & coefficient de conversion des unités de
+position utilisateur en km\\
+
+coeffVitesse\_ & double & coefficient de conversion des unités de
+vitesse utilisateur en km/s\\
+
+normesLitigieuses\_ & int & indicateur de problèmes potentiels de
+parallaxe\\
+
+\end{tableAttributsFixe}
+Les méthodes privées sont décrites dans la table~\ref{tab:Etat-met-priv}.
+\begin{tableFonctionsFixe}{Etat : méthodes privées}
+{\label{tab:Etat-met-priv}}
+{mémorise le temps sidéral correspondant à la date courante}
+
+\signature{void \fonc{miseAJourTempsSideral}}
+          {(double \argument{decalage} = 0.0)}&
+
+mémorise le temps sidéral correspondant à la date courante pour un
+écart entre échelles de temps donné
+
+\\
+
+
+\signature{void \fonc{miseAJourAstres} ()}
+          {\throw{CantorErreurs}}&
+
+met à jour les directions et rayons des astres avec et sans correction
+de la parallaxe pour la date courante\\
+
+
+\end{tableFonctionsFixe}

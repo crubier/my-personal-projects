@@ -1,0 +1,43 @@
+# $Id: test_Arc2.ref,v 1.1 2002/02/04 13:09:19 cantor Exp $
+
+prgm_Arc2 -axis1 0 90 -angle1 60 -begin1 0 0 -spread1 0 -v 90 0
+distance of the test point to arc 1 : 90
+the test point is outside of the arc dihedra
+
+prgm_Arc2 -axis1 0 90 -angle1 60 -begin1 0 0 -spread1 0.001 -v 90 0
+distance of the test point to arc 1 : 89.9991
+the test point is outside of the arc dihedra
+
+prgm_Arc2 -axis1 0 90 -angle1 60 -begin1 0 0 -spread1 89.99 -v 90 0
+distance of the test point to arc 1 : 30
+the test point is outside of the arc dihedra
+
+prgm_Arc2 -axis1 0 90 -angle1 60 -begin1 0 0 -spread1 89.9999 -v 90 0
+distance of the test point to arc 1 : 30
+the test point is inside the arc dihedra
+
+prgm_Arc2 -axis1 0 90 -angle1 60 -begin1 0 0 -spread1 90 -v 90 0
+distance of the test point to arc 1 : 30
+the test point is inside the arc dihedra
+
+prgm_Arc2 -axis1 0 90 -angle1 60 -begin1 0 0 -spread1 90.0001 -v 90 0
+distance of the test point to arc 1 : 30
+the test point is inside the arc dihedra
+
+prgm_Arc2 -axis1 0 90 -angle1 60 -begin1 0 0 -spread1 90.01 -v 90 0
+distance of the test point to arc 1 : 30
+the test point is inside the arc dihedra
+
+prgm_Arc2 -axis1 0 90 -angle1 60 -begin1 0 0 -spread1 180 -v 90 0
+distance of the test point to arc 1 : 30
+the test point is inside the arc dihedra
+
+prgm_Arc2 -axis1 0 90 -angle1 60 -begin1 0 0 -spread1 360 -v 90 0
+distance of the test point to arc 1 : 30
+the test point is inside the arc dihedra
+
+prgm_Arc2 -axis1 191.353554417966 -72.1726209524282 -angle1 90 -begin1 159.238374836026 15.2367256862230 -spread1 73.5780516526829 -axis2 90 0 -angle2 5.0 -begin2 0 90
+two intersection points : [-0.0782407 0.996195 -0.0383993] [0.0420661 0.996195 -0.0763319]
+
+prgm_Arc2 -axis1 87.4950747800207 -4.32865957231988 -angle1 0.0997410151556135 -begin1 87.5821731995094 -4.37770896741354 -spread1 273.503885527633 -axis2 90 0 -angle2 5.0 -begin2 0 90
+two intersection points : [0.0450794 0.996195 -0.074592] [0.0420644 0.996195 -0.0763329]

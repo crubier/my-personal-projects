@@ -1,0 +1,133 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: SenseurDiedre.tex,v 1.13 2004/06/21 14:43:09 marmottes Exp $
+\subsection{classe SenseurDiedre}\label{sec:SenseurDiedre}
+
+\subsubsection*{description}\label{sec:SenseurDiedre-desc}
+
+Cette classe modélise les senseurs d'angles dièdres, qui représentent
+la plupart des senseurs réels embarqués.
+\subsubsection*{interface publique}\label{sec:SenseurDiedre-int}
+\begin{verbatim}
+#include "marmottes/SenseurDiedre.h"
+\end{verbatim}
+
+\begin{tableFonctionsFixe}{SenseurDiedre : méthodes publiques}
+{\label{tab:SenseurDiedre-met-pub}}
+{construit une instance à partir des données technologiques}
+
+\signature{\fonc{SenseurDiedre}}
+          {(const string\& \argument{nom},\\
+            const RotDBL\& \argument{repere},\\
+            const VecDBL\& \argument{axeCalage},\\
+            double \argument{precision}, codeCible \argument{code},\\
+            const StationCible *\argument{ptrStation},\\
+            const VecDBL\& \argument{observe},\\
+            Parcelle* \argument{ptrChampDeVue},\\
+            Parcelle* \argument{ptrChampInhibitionSoleil},\\
+            Parcelle* \argument{ptrChampInhibitionLune},\\
+            Parcelle* \argument{ptrChampInhibitionCentral},\\
+            double \argument{margeEclipseSoleil},\\
+            double \argument{margeEclipseLune},\\
+            double \argument{seuilPhaseLune},\\
+            const VecDBL\& \argument{referenceZero},\\
+            const VecDBL\& \argument{axeSensible})
+          }&
+
+construit une instance à partir des données technologiques\\
+
+\hline
+
+\signature{\fonc{SenseurDiedre} (const SenseurDiedre\& \argument{s})}
+          {}&
+
+constructeur par copie\\
+
+\signature{SenseurDiedre\& \fonc{operator =}}
+          {(const SenseurDiedre\& \argument{s})}&
+
+affectation\\
+
+\hline
+
+\signature{\fonc{\~{}SenseurDiedre} ()}
+          {}&
+
+destructeur, ne fait rien dans cette classe\\
+
+\hline
+
+\signature{void \fonc{respecterMesures} ()}
+          {}&
+
+force le senseur à respecter les unités de mesures dans ses sorties\\
+
+\signature{void \fonc{convertirMesures} ()}
+          {}&
+
+force le senseur à convertir les unités de mesures dans ses sorties\\
+
+\hline
+
+\signature{Senseur* \fonc{copie} () const}
+          {}&
+
+opérateur de copie virtuel\\
+
+\hline
+
+\signature{void \fonc{nouveauRepere}}
+          {(const RotDBL\& \argument{nouveau})}&
+
+remplace le repère du senseur par le \argument{nouveau}\\
+
+\signature{void \fonc{modeliseConsigne}}
+          {(const Etat\& \argument{etat},\\
+            double \argument{valeur})\\
+          \throw{CantorErreurs, MarmottesErreurs}}&
+
+modélise la consigne \argument{valeur} dans l'\argument{etat} fourni\\
+
+\signature{double \fonc{mesure} (const Etat\& \argument{etat})}
+          {\throw{MarmottesErreurs}}&
+
+retourne la mesure que produirait le senseur dans l'\argument{etat}
+fourni\\
+
+\signature{ValeurDerivee1 \fonc{foncEcart}}
+          {(const Etat\& \argument{etatPrecedent},\\
+            const Etat\& \argument{etatResolution},\\
+            const RotVD1\& \argument{attitude},\\
+            const VecVD1\& \argument{spin} )
+          }&
+retourne l'écart entre la consigne et la mesure que produirait le
+senseur dans l'\argument{attitude} et le \argument{spin} fournis,
+connaissant l'\argument{etatPrecedent} du satellite\\
+
+\end{tableFonctionsFixe}
+
+\subsubsection*{implantation}\label{sec:SenseurDiedre-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:SenseurDiedre-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe SenseurDiedre}
+{\label{tab:SenseurDiedre-att-priv}}
+{vecteur normal au plan des mesures nulles}
+
+dansPlan0\_ & VecDBL & vecteur situé le plan des mesures nulles\\
+
+normalPlan0\_ & VecDBL & vecteur normal au plan des mesures nulles\\
+
+\end{tableAttributsFixe}
+
+Les méthodes protégées sont décrites dans la table~\ref{tab:SenseurDiedre-met-prot}.
+\begin{tableFonctionsFixe}{SenseurDiedre : méthodes protégées}
+{\label{tab:SenseurDiedre-met-prot}}
+{constructeur par défaut. Il est défini explicitement uniquement pour }
+
+\signature{\fonc{SenseurDiedre} ()}
+          {}&
+
+constructeur par défaut. Il est défini explicitement uniquement pour
+prévenir celui créé automatiquement par le compilateur et ne doit pas être
+utilisé.
+\\
+\end{tableFonctionsFixe}

@@ -1,0 +1,26 @@
+Structure1
+{
+   Table1
+   { 
+      1
+      {
+         toto { 1 }
+      }
+      2
+      {
+         toto { 1 }
+      }
+   }
+}
+ 
+
+#Comment
+#Comment
+Integer1 { 10 }
+
+Real1 { 5.5 }
+
+String1 { Hello }
+
+Table2 
+{ 1.0 2.0 3.0 }

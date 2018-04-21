@@ -1,0 +1,995 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: environnement.tex,v 1.12 2003/02/13 09:50:56 marmottes Exp $
+
+Les données spécifiques aux senseurs sont des données relativement
+complexes comprenant parfois des structures récursives (pour définir
+les champs de vue). Ces données seraient assez difficiles à lire dans
+un programme principal et à transmettre à la bibliothèque. Il a donc
+été décidé que la bibliothèque serait seule responsable de ces
+lectures, l'appelant ne voyant plus que le nom du fichier des senseurs
+et les noms des senseurs eux-mêmes. Il est tolérable que des fonctions
+de bibliothèques -- rarement modifiées -- soient assez complexes,
+aussi a-t-il été possible d'utiliser une syntaxe de fichiers assez
+riche pour faciliter l'édition manuelle de ces fichiers (possibilités
+de commentaires, formats variables, ordre de certains éléments non
+significatif, possibilité d'utiliser plusieurs lignes, inclusions de
+fichiers, héritage de données entre structures proches, ...).
+
+Cette syntaxe est basée sur la notion de fichiers structurés par blocs
+telle qu'elle est implantée dans la bibliothèque \bibliotheque{club}
+(voir~\ref{ref:club}), la couche \bibliotheque{marmottes} spécialisant
+cette syntaxe générale en spécifiant les blocs utiles, leur nom et
+leur structuration.
+
+\subsection{Syntaxe générale}
+Le principe des fichiers structurés a été élaboré afin de permettre
+une représentation textuelle de structures de données imbriquées avec
+un nombre de niveaux quelconque non déterminé à l'avance, mais
+découvert au cours de la lecture du fichier. Ceci permet en
+particulier de décrire des structures récursives.
+
+L'analyse est contrôlée par le programme, qui va chercher les blocs
+dont il a besoin les uns après les autres, inspecte leur contenu, et
+éventuellement fonde ses choix sur les valeurs lues. Il ne s'agit
+absolument pas d'un \emph{langage}, pour lequel ce serait plutôt le
+texte du fichier qui contrôlerait le programme lecteur (traduction
+dirigée par la syntaxe).
+
+Les lexèmes des fichiers structurés sont le marqueur de commentaire
+\texttt{\#}, les délimiteurs \texttt{\{} et \texttt{\}}, les
+séparateurs (espace, tabulation, fin de ligne), et les champs (suite
+de caractères n'appartenant à aucune des catégories précédentes).
+
+Les commentaires s'étendent du marqueur \texttt{\#} à la fin de la
+ligne, il peut y avoir des données entre le début de ligne et les
+commentaires.
+
+Hormis leur rôle de séparation des champs, les séparateurs n'ont
+aucune fonction dans la syntaxe des fichiers structurés, l'utilisateur
+peut en user à loisir pour améliorer la lisibilité de son fichier en
+jouant sur les lignes vides et l'indentation.
+
+\subsubsection{Blocs}
+Toute donnée qu'elle soit élémentaire ou composée est définie dans un
+bloc entre accolades précédé par un nom, la donnée est repérée dans le
+fichier par le nom de son bloc. On peut ainsi définir un fichier de
+constantes par :
+
+\begin{exemple}{blocs de données}{pi \{3.14\}}\begin{verbatim}
+pi {3.14}
+e  {2.17}
+\end{verbatim}\end{exemple}
+
+Seul le nom est utilisé pour accéder à la donnée, l'ordre des blocs
+dans le fichier est indifférent. Les blocs sans nom sont autorisés (on
+utilise alors une chaîne vide en guise de nom dans les routines
+d'accès). Le bloc étant référencé par son nom, il ne faut pas que deux
+blocs différents portent le même nom à l'intérieur d'une zone de
+recherche unique. La casse utilisée pour les caractères du nom
+\emph{est} significative.
+
+\subsubsection{Données élémentaires}
+Une donnée élémentaire est une donnée ne contenant pas de sous-bloc
+(pas d'accolades imbriquées). Une donnée élémentaire peut contenir un
+ou plusieurs champs, alphabétiques et numériques, séparés par des
+blancs (espace, tabulation, fins de lignes). On accède à ces champs
+par leur numéro, l'ordre est donc important à l'intérieur d'un bloc
+élémentaire, comme le montre l'exemple~\ref{expl:elementaires} :
+
+\begin{exemple}{différents types de blocs élémentaires}
+{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\label{expl:elementaires}\begin{verbatim}
+cible      {Soleil}
+precision  {0.1}                 # unités : degrés
+axe        {0.707  0.707  0.0 }  #  <--  attention à l'ordre !!!
+\end{verbatim}\end{exemple}
+
+\subsubsection{Données composées}
+Une donnée composée est décrite par un bloc contenant des sous-blocs
+(accolades imbriquées). Chaque sous-bloc a un nom (qui peut être vide)
+et l'ordre des sous-blocs est indifférent. En fait l'accès à un
+sous-bloc à partir d'un bloc est similaire à l'accès à un
+bloc depuis le fichier, exactement comme si un bloc n'était qu'un
+sous-bloc du fichier\footnote{ce n'est pas un hasard, c'est implanté
+exactement de cette façon ...}. La recherche d'un sous-bloc étant
+limitée par le bloc englobant, deux blocs différents peuvent contenir
+un sous-bloc de même nom sans ambiguïté.
+
+\begin{exemple}{bloc composé}
+{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\label{expl:compose}\begin{verbatim}
+cone { # cône d'axe i et d'angle pi/2 : demi-espace x > 0
+       axe   {1.0  0.0  0.0}
+       angle {90.0}
+     }
+\end{verbatim}\end{exemple}
+
+
+Cette syntaxe permet de décrire une donnée structurée même à
+définition récursive (comme un arbre) mais pas de donnée engendrant
+une récursivité infinie (par exemple une liste dont la fin
+rebouclerait sur le début). Un programme prévu pour lire des données
+récursives recherche d'abord les blocs principaux, en extrait les
+sous-blocs, puis les sous-sous-blocs, jusqu'aux blocs élémentaires, à
+chaque fois par le nom. Selon la façon dont cette structure générale
+est spécialisée, on peut soit avoir des imbrications figées (un
+fichier est composé des blocs A, B et C, C étant décomposé en C1 et
+C2), soit avoir des imbrications variables (un fichier est composé
+d'un bloc état et d'un bloc liste, un bloc liste étant soit un bloc
+élémentaire - une tête de liste - soit composé d'un bloc tête
+élémentaire et d'un bloc queue, la queue étant une liste).
+
+\subsubsection{Inclusions}
+Il est souvent utile de séparer des données ayant trait à des domaines
+différents (par exemple les vrais senseurs d'un côté, les
+pseudo-senseurs de l'autre), la syntaxe des fichiers structurés
+propose donc un mécanisme d'inclusion de fichiers.
+
+Le principe est que seul le nom du fichier \emph{primaire} est fourni
+aux routines d'accès, mais que si ce fichier contient une chaîne du
+type : \texttt{<\relax autre>\relax}, l'ensemble de cette chaîne
+(caractères \texttt{<\relax} et \texttt{>\relax} compris) doit être
+remplaçé par le contenu du fichier \texttt{autre}. Si le nom
+\texttt{autre} commence par un caractère~\texttt{/} (par exemple
+\texttt{<\relax/usr/local/senseurs/ires.fr>\relax}), il est utilisé
+tel quel. Si le nom ne commence pas par \texttt{/}, il est ajouté à la
+fin du nom du répertoire dans lequel le fichier primaire a été ouvert,
+pour constituer le nom complet du fichier à ouvrir (avec un \texttt{/}
+entre le nom du répertoire et le nom \texttt{autre}).
+
+\subsubsection{Héritage}
+Il est fréquent de prévoir dans un fichier plusieurs configurations
+pour un même senseur (avec ou sans inhibition, selon plusieurs modes
+de fonctionnement, en considérant tous les exemplaires montés
+différemment, ...). Une grande partie des données de chaque
+configuration est alors similaire, et dupliquer les blocs qui les
+définissent conduit vite à de très gros fichiers.
+
+\begin{exemple}{duplication d'informations}
+{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\label{expl:duplication}\begin{verbatim}
+config_1  { structure_complexe {...}
+            valeur {1}
+          }
+config_2  { structure_complexe {...} # duplication des valeurs de config_1
+            valeur {2}
+          }
+
+  ...
+
+config_12 { structure_complexe {...} # duplication des valeurs de config_1
+            valeur {12}
+           }
+\end{verbatim}\end{exemple}
+
+
+Si le bloc \texttt{structure\_complexe} est difficile à décrire, le
+dupliquer dans le fichier est lourd, peu lisible, et peut conduire à
+des erreurs en cas de modification (il faut bien penser à mettre à
+jour toutes les occurences distinctes dans le fichier simultanément).
+
+Pour pallier à ce genre de problème, la syntaxe générale propose un
+mécanisme d'héritage : si au moment de la recherche d'un bloc (ou d'un
+sous-bloc) on ne trouve pas le nom désiré dans la zone de recherche
+(le bloc englobant ou le fichier complet), alors on regarde s'il n'y a
+pas un bloc élémentaire nommé \texttt{=>\relax}\footnote{on peut lire
+\texttt{=>\relax} comme : <<\emph{voir aussi}>>}, le contenu de ce
+bloc est interprété comme le nom d'un bloc dans lequel on peut puiser
+les sous-blocs manquants.
+
+L'exemple~\ref{expl:duplication} peut être reproduit en évitant la
+duplication à l'aide de ce mécanisme :
+
+\begin{exemple}{utilisation de l'héritage pour
+éviter la duplication}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\label{expl:heritage}\begin{verbatim}
+config_1  { structure_complexe { ... }
+           valeur { 1 }
+          }
+config_2  { valeur { 2 }  => { config_1 } }
+
+ ...
+
+config_12 { valeur { 12 } => { config_1 } }
+\end{verbatim}\end{exemple}
+
+Le nom du bloc référencé par le pointeur d'héritage \texttt{=>\relax}
+est interprété au niveau fichier, c'est à dire qu'il est recherché
+dans tout le fichier et non à l'intérieur d'un bloc particulier qui
+l'engloberait. Il est cependant possible d'hériter des données d'un
+sous-bloc si l'on précise son chemin d'accès complet, avec tous ses
+blocs ancêtres séparés par des points.
+
+\begin{exemple}{héritage de sous-blocs}
+{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\label{expl:heritage-sous-bloc}\begin{verbatim}
+primaire  { secondaire { tertiaire { i { 1 0 0 }
+                                     j { 0 1 0 }
+                                     k { 0 0 1 }
+                                   }
+                       }
+          }
+repere    { => { primaire.secondaire.tertiaire } } # on hérite de i, j, k
+\end{verbatim}\end{exemple}
+
+Il est important de remarquer que ce mécanisme d'héritage n'est
+utilisé que pour la recherche de blocs \emph{nommés}, on ne peut pas
+l'utiliser pour hériter un champ d'un bloc élémentaire\footnote{ce
+serait à la fois difficile à mettre en place, peu lisible, et peu
+utile}.
+
+Les mécanismes d'inclusion et d'héritage peuvent être utilisés
+conjointement pour mettre en place des senseurs complexes possédant
+des données ajustables profondément enfouies au sein des structures de
+données. La démarche recommandée est alors de décrire dans un fichier
+unique la structure complète, en héritant les parties variables d'un
+bloc de \emph{paramétrage} externe à ce fichier. L'utilisateur voulant
+utiliser un tel senseur doit alors inclure le fichier générique dans
+son fichier de senseurs et définir lui-même les données du bloc de
+paramétrage. Si de plus il décide d'isoler le bloc de paramétrage dans
+un fichier inclus, il limite considérablement les risques liés à
+l'édition manuelle de ce fichier pour ajuster le senseur (par exemple
+pour suivre les ajustements de paramètres selon les télécommandes).
+
+Les exemples~\ref{expl:complexe-1}, \ref{expl:complexe-2} et
+\ref{expl:complexe-3} montrent ainsi que dans le (très) complexe
+fichier \texttt{std15.fr} (situé dans le répertoire \texttt{exemples}
+de la distribution), des pointeurs vers des sous-blocs numérotés de
+\texttt{STD15\_PARAMETRES.ZPT1} à \texttt{STD15\_PARAMETRES.ZPT4} ont
+été prévus pour définir les angles de début des zones de présence
+terre, des pointeurs vers un sous-bloc \texttt{STD15\_PARAMETRES.LG}
+permettant de définir la longueur commune de toutes ces
+zones. L'utilisateur peut ainsi prendre en compte les capacités de
+programmation du champ de vue du senseur. D'autre part dès lors que le
+bloc \texttt{STD15\_PARAMETRES} est défini dans un fichier indépendant
+inclus par le fichier primaire, la modification des angles de
+programmation est simple et peu risquée.  \glossary{[IRES] : Infra Red
+Earth Sensor}
+
+\begin{exemple}{extrait de senseurs.fr}
+{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\label{expl:complexe-1}\begin{verbatim}
+<parametrage.fr>
+<std15.fr>
+IRES_ROULIS { repere { ... } => { STD15_BASE_ROULIS } }
+\end{verbatim}\end{exemple}
+
+\begin{exemple}{extrait de parametrage.fr}
+{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\label{expl:complexe-2}\begin{verbatim}
+STD15_PARAMETRES { ZPT1 { angle { 80.15 } }
+                   ZPT2 { angle {  0.00 } }
+                   ZPT3 { angle { 81.57 } }
+                   ZPT4 { angle {  1.41 } }
+                   LG   { angle {  9.84 } }
+                 }
+\end{verbatim}\end{exemple}
+
+\begin{exemple}{extrait de std15.fr}
+{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\label{expl:complexe-3}\begin{verbatim}
+STD15_BASE_ROULIS
+{ ...
+  zone_1
+  { { => { STD15_BASE_ROULIS.trace_1_sans_masque } }
+    inter
+    { { rotation { axe { 0 1 0 } => { STD15_PARAMETRES.ZPT1 } }
+        de       { cone { axe { 0 0 1 } angle { 90 }}}
+      }
+      inter
+      { rotation { rotation { axe { 0 1 0 } => { STD15_PARAMETRES.ZPT1 } }
+                   de       { axe { 0 1 0 } => { STD15_PARAMETRES.LG   } }
+                 }
+        de       { cone { axe { 0 0 -1 } angle { 90 } } }
+      }
+    }
+  }
+  ...
+}
+\end{verbatim}\end{exemple}
+
+\subsection{Application aux senseurs}
+\bibliotheque{marmottes} utilise les fichiers structurés pour
+représenter les senseurs. Les senseurs sont tous regroupés dans un
+même fichier, chaque senseur étant décrit dans un bloc de niveau
+fichier (c'est-à-dire sans bloc père) dont le nom est le nom du
+senseur.
+
+Les noms des sous-blocs sont des mots-clefs imposés par
+\bibliotheque{marmottes} et dépendent du type de senseur\footnote{ces
+mots-clefs sont utilisés à travers le système de traduction
+(voir~\ref{ref:traduction}) on peut donc les modifier en éditant le
+domaine de traduction \texttt{marmottes}}.
+
+Certaines caractéristiques que l'on retrouve dans plusieurs types de
+senseurs s'appuient sur des éléments de bas niveau, comme les vecteurs
+ou les champs de vue.
+
+\subsubsection{Vecteur}
+\bibliotheque{marmottes} utilise des vecteurs normés en dimension 3,
+ces vecteurs peuvent être représentés de plusieurs façon.
+\begin{description}
+\item[cartésiennes] : on décrit le vecteur par ses trois coordonnées
+cartésiennes dans un bloc élémentaire (\bibliotheque{marmottes} se
+charge de la normalisation) :
+
+\centerline{\texttt{i \{ 1 0 0 \}}}
+
+\item[sphériques] : on décrit le vecteur par ses deux coordonnées
+sphériques en degrés dans un bloc élémentaire :
+
+\centerline{\texttt{i \{ 0 0 \}}, \texttt{j \{ 90 0 \}}, \texttt{k \{ 0
+90 \}}}
+
+\item[rotation] : on décrit le vecteur comme étant l'image par une
+rotation (sous-bloc \texttt{rotation}) d'un autre vecteur (sous-bloc
+\texttt{de}) :
+
+\centerline{\texttt{u \{ rotation \{ ... \} de \{ ... \}\}} }
+
+\end{description}
+
+\subsubsection{Rotations}
+Comme pour les vecteurs, il existe plusieurs moyens de décrire des
+rotations en dimension 3, adaptées à des cas différents.
+\begin{description}
+\item[axe et angle] : on donne l'axe de la rotation (sous-bloc
+\texttt{axe}) et l'angle en degrés dont doivent tourner les
+\emph{vecteurs} à qui on applique la rotation (sous-bloc
+\texttt{angle}) :
+
+\centerline{\texttt{r \{ axe \{ 0 0 1 \} angle \{ 25 \} \}}}
+
+\item[couple et image] : on décrit implicitement la rotation par un
+couple de vecteurs (blocs \texttt{v\_base\_1} et \texttt{v\_base\_2})
+et par l'image de ce couple par la rotation (blocs
+\texttt{v\_image\_1} et \texttt{v\_image\_2}) :
+
+\centerline{\texttt{r \{ v\_base\_1 \{1 0 0\} v\_base\_2 \{0 1 0\}
+v\_image\_1 \{0 1 0\} v\_image\_2 \{0 0 1\}\}}}
+
+\item[vecteur et image] : on décrit implicitement la\footnote{il
+existe une infinité de rotations transformant \texttt{v\_base} en
+\texttt{v\_image}, \bibliotheque{marmottes} en choisit une
+arbitrairement} rotation par un vecteur (sous-bloc \texttt{v\_base})
+et son image (sous-bloc \texttt{v\_image}) :
+
+\centerline{\texttt{r \{ v\_base \{ 1 0 0 \} v\_image \{ 0 1 0 \}
+\}}}
+
+\item[composition] : on décrit la rotation par la composition d'une
+rotation initiale (sous-bloc \texttt{de})
+par une rotation opérateur (sous-bloc \texttt{rotation}) :
+
+\centerline{\texttt{r \{ rotation \{ ... \} de \{ ... \} \}}}
+
+\item[image d'un repère] : on décrit la rotation par l'image des
+vecteurs du repère canonique (sous-blocs \texttt{i}, \texttt{j}, et
+\texttt{k}) :
+
+\centerline{\texttt{r \{ i \{ 0 1 0 \} j \{ -1 0 0 \} k \{ 0 0 1 \}
+\}}}
+
+\item[quaternion] : on décrit la rotation par les quatre coordonnées
+de son quaternion dans un bloc élémentaire :
+
+\centerline{\texttt{r \{ 0.707 0.0 0.707 0.0 \}}}
+
+\end{description}
+
+\subsubsection{Champs}
+On peut définir des zones géométriques sur la sphère unité à partir de
+zones élémentaires et d'un ensemble d'opérations agissant sur des
+zones (élémentaires ou non) et produisant des zones plus complexes.
+
+La portion de sphère unitaire la plus simple à définir est la calotte
+résultant de l'intersection d'un cône dont le sommet est au centre
+d'une sphère unité avec cette sphère. Une telle zone est entièrement
+définie par le cône que l'on décrit par son axe et son demi-angle
+d'ouverture en degrés~: \texttt{cone \{ axe \{ 1 0 0 \} angle \{ 90.0
+\} \}}. L'exemple précédent définit ainsi le demi-espace vérifiant $x
+> 0$ sous forme d'un cône de demi-angle d'ouverture $\frac{\pi}{2}$.
+
+\begin{table}[htbp]
+\caption{\label{tab:champs}opérations sur les zones géométriques de
+la sphère unité}
+\begin{center}\begin{tabular}[b]{|c|c|c|c|}
+\hline
+nom & \multicolumn{2}{c|}{arguments} & syntaxe \\
+\hline
+intersection & champ (\textit{c1}) & champ (\textit{c2}) &
+          \texttt{zone \{ \{}\textit{c1}\texttt{\}
+                    inter \{}\textit{c2}\texttt{\} \}} \\
+  réunion    & champ (\textit{c1}) & champ (\textit{c2}) &
+          \texttt{zone \{ \{}\textit{c1}\texttt{\}
+                    union \{}\textit{c2}\texttt{\} \}} \\
+différence   & champ (\textit{c1}) & champ (\textit{c2}) &
+          \texttt{zone \{ \{}\textit{c1}\texttt{\}
+                     sauf \{}\textit{c2}\texttt{\} \}} \\
+   marge     & scalaire (\textit{x}) & champ (\textit{c}) &
+          \texttt{zone \{ marge \{}\textit{x}\texttt{\}
+                            sur \{}\textit{c}\texttt{\} \}} \\
+déplacement  & rotation (\textit{r})& champ (\textit{c}) &
+          \texttt{zone \{ rotation \{}\textit{r}\texttt{\}
+                                de \{}\textit{c}\texttt{\} \}} \\
+  balayage   & rotation (\textit{u} et \textit{a}) & champ (\textit{c}) &
+          \texttt{zone \{ balayage \{ axe \{}\textit{u} \texttt{\}
+                                      angle \{}\textit{a}\texttt{\} \}
+                                de \{}\textit{c}\texttt{\} \}} \\
+\hline
+\end{tabular}\end{center}\end{table}
+Les opérations de composition disponibles sont décrites dans la
+table~\ref{tab:champs}, elles permettent de générer toutes sortes de
+champs complexes, y compris des champs comportant des trous ou des
+champs constitués de plusieurs zones séparées les une des autres.
+
+Il est important de remarquer que l'opération de balayage n'accepte
+pas en argument les rotations générales, mais uniquement la donnée
+d'un axe et d'un angle. Ceci est dû au fait que si la rotation
+$(\vec{u}, \alpha)$ est en terme d'opérateur vectoriel indiscernable
+de la rotation $(-\vec{u}, 2\pi-\alpha)$, ces deux rotations
+n'engendrent pas les mêmes champs lorsqu'on les utilise dans un
+balayage\footnote{les versions de \bibliotheque{marmottes} antérieures
+à la version 9.0 utilisaient des rotations quelconques, ce qui
+conduisait à des erreurs dès que l'amplitude des rotations dépassait
+$\pi$}.
+
+Comme nous l'avons dit lors de la description de la syntaxe générale,
+l'ordre des sous-blocs dans un bloc composé est indifférent, on peut
+donc écrire \texttt{\{\{xxxx\}~inter~\{yyyy\}\}} comme cela est
+indiqué dans la table~\ref{tab:champs}, mais on peut également
+écrire \texttt{\{inter~\{yyyy\}~\{xxxx\}\}}. La première écriture
+semble cependant plus lisible.
+
+\begin{exemple}{double dièdre fixe}
+{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\label{expl:champ-fixe}\begin{verbatim}
+double_diedre_contenant_I
+{ { { cone { axe { 0  65 } angle { 90 } } }
+    inter
+    { cone { axe { 0 -65 } angle { 90 } } }
+  }
+  inter
+  { { cone { axe {  65 0 } angle { 90 } } }
+    inter
+    { cone { axe { -65 0 } angle { 90 } } }
+  }
+}
+\end{verbatim}\end{exemple}
+
+L'exemple~\ref{expl:champ-fixe} montre ainsi comment définir un
+champ de vue en forme de double dièdre de 50\degres\ d'ouverture,
+l'exemple~\ref{expl:champ-parametrable} montrant comment rendre ce
+même champ de vue paramétrable par un héritage de l'angle de demi-ouverture.
+
+\begin{exemple}{double dièdre paramétrable}
+{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\label{expl:champ-parametrable}\begin{verbatim}
+demi { angle { 25.0 } } # <-- demi-angle d'ouverture paramétrable
+
+double_diedre_contenant_I
+{ { { cone { axe   { rotation { axe { 0  1 0 } => { demi } } de { 0 0  1 } }
+             angle { 90 }
+           }
+    }
+    inter
+    { cone { axe   { rotation { axe { 0 -1 0 } => { demi } } de { 0 0 -1 } }
+             angle { 90 }
+           }
+    }
+  }
+  inter
+  { { cone { axe   { rotation { axe { 0 0 -1 } => { demi } } de { 0  1 0 } }
+             angle { 90 }
+           }
+    }
+    inter
+    { cone { axe   { rotation { axe { 0 0  1 } => { demi } } de { 0 -1 0 } }
+             angle { 90 }
+           }
+    }
+  }
+}
+\end{verbatim}\end{exemple}
+
+Le champ \texttt{double\_diedre\_contenant\_I} de
+l'exemple~\ref{expl:champ-fixe} est défini par intersection de deux
+champs. Le premier de ces sous-champs est dans un bloc sans nom et
+correspond à un dièdre de 50\degres\ d'ouverture ($\alpha=25$\degres)
+autour de l'arête $\vec{\jmath}$ et contenant $\vec{\imath}$, le
+second de ces sous-champs est dans le bloc de nom \texttt{inter} et
+correspond à un dièdre de 50\degres\ d'ouverture ($\alpha=25$\degres)
+autour de l'arête $\vec{k}$ et contenant également
+$\vec{\imath}$. L'intersection donne le double dièdre de la
+figure~\ref{fig:double-diedre-25}.
+\begin{figure}[htbp]\caption{\label{fig:double-diedre-25}champ de vue en
+double dièdre}
+\begin{center}\begin{minipage}{70.00mm}
+\setlength{\unitlength}{0.0250mm}\begin{picture}(2800,2800)
+
+  % courbe 1
+  \qbezier[0](1400,1400)(998,1252)(597,1103)
+
+  % courbe 2
+  \qbezier[0](597,1103)(677,1167)(758,1230)
+
+  % courbe 3
+  \qbezier[0](758,1230)(758,1196)(758,1163)
+
+  % courbe 4
+  \qbezier[0](758,1163)(786,1157)(815,1152)
+
+  % courbe 5
+  \qbezier[0](815,1152)(706,1128)(597,1103)
+
+  % courbe 6
+  \qbezier[0](597,1103)(998,1252)(1400,1400)
+
+  % courbe 7
+  \qbezier[0](1400,1400)(1973,1296)(2547,1192)
+
+  % courbe 8
+  \qbezier[0](2547,1192)(2412,1206)(2277,1219)
+
+  % courbe 9
+  \qbezier[0](2277,1219)(2297,1226)(2317,1234)
+
+  % courbe 10
+  \qbezier[0](2317,1234)(2317,1268)(2317,1301)
+
+  % courbe 11
+  \qbezier[0](2317,1301)(2432,1247)(2547,1192)
+
+  % courbe 12
+  \qbezier[0](2547,1192)(1973,1296)(1400,1400)
+
+  % courbe 13
+  \qbezier[0](1400,1400)(1400,2076)(1400,2752)
+
+  % courbe 14
+  \qbezier[0](1400,2752)(1429,2612)(1457,2471)
+
+  % courbe 15
+  \qbezier[0](1457,2471)(1429,2477)(1400,2482)
+
+  % courbe 16
+  \qbezier[0](1400,2482)(1380,2474)(1360,2467)
+
+  % courbe 17
+  \qbezier[0](1360,2467)(1380,2610)(1400,2752)
+
+  % courbe 18
+  \qbezier[0](2548,1192)(2825,1524)(2738,1813)
+
+  % courbe 19
+  \qbezier[0](62,987)(83,915)(137,842)
+  \qbezier[0](137,842)(193,769)(277,711)
+  \qbezier[0](277,711)(350,661)(440,625)
+  \qbezier[0](440,625)(516,594)(602,574)
+  \qbezier[0](602,574)(671,558)(746,548)
+  \qbezier[0](746,548)(821,538)(900,535)
+  \qbezier[0](901,533)(1776,533)(2419,1060)
+  \qbezier[0](2419,1063)(2489,1126)(2547,1192)
+
+  % courbe 20
+  \qbezier[0](2547,1192)(2765,1101)(2758,1059)
+
+  % courbe 21
+  \qbezier[0](42,1741)(44,1756)(84,1763)
+  \qbezier[0](84,1763)(124,1769)(190,1766)
+  \qbezier[0](190,1766)(250,1764)(327,1755)
+  \qbezier[0](328,1758)(1499,1580)(2547,1196)
+
+  % courbe 22
+  \qbezier[0](186,1218)(207,488)(749,160)
+  \qbezier[0](750,161)(799,135)(827,123)
+
+  % courbe 23
+  \qbezier[0](1973,2677)(1883,2718)(1775,2742)
+  \qbezier[0](1775,2742)(1665,2765)(1552,2764)
+  \qbezier[0](1552,2764)(1457,2764)(1362,2746)
+  \qbezier[0](1362,2746)(1266,2728)(1173,2694)
+  \qbezier[0](1173,2694)(1098,2667)(1025,2630)
+  \qbezier[0](1025,2630)(953,2593)(884,2547)
+  \qbezier[0](881,2548)(217,2061)(185,1221)
+
+  % courbe 24
+  \qbezier[0](1154,1042)(1177,16)(1337,2)
+
+  % courbe 25
+  \qbezier[0](1464,2798)(1445,2800)(1423,2780)
+  \qbezier[0](1423,2780)(1403,2761)(1385,2727)
+  \qbezier[0](1383,2727)(1182,2296)(1154,1044)
+
+  % courbe 26
+  \qbezier[0](985,2609)(1098,2560)(1317,2549)
+
+  % courbe 27
+  \qbezier[0](2228,1308)(2177,1093)(2228,917)
+
+  % courbe 28
+  \qbezier[0](2778,1150)(2855,1597)(2662,2008)
+  \qbezier[0](2662,2009)(2327,2658)(1607,2786)
+  \qbezier[0](1606,2786)(984,2866)(497,2471)
+  \qbezier[0](497,2471)(25,2058)(-1,1431)
+  \qbezier[0](0,1431)(-6,1118)(120,832)
+  \qbezier[0](119,830)(447,148)(1192,13)
+  \qbezier[0](1194,14)(1816,-66)(2303,329)
+  \qbezier[0](2303,329)(2683,657)(2778,1150)
+
+  \put (1900,1100){\mbox{50\degres}}
+  \put (950,2400){\mbox{50\degres}}
+\end{picture}\end{minipage}\end{center}
+\end{figure}
+
+Les champs sont donc des structures récursives pour lesquelles les
+fonctions de lecture découvrent petit à petit les imbrications, en
+testant l'existence de sous-bloc nommés \texttt{inter},
+\texttt{union}, \texttt{sauf}, \texttt{marge}, \texttt{balayage}, et
+\texttt{rotation}\footnote{les mots clefs \texttt{inter},
+\texttt{union}, \texttt{sauf}, \texttt{marge}, \texttt{balayage}, et
+\texttt{rotation}\ sont utilisés au travers du mécanisme de
+traduction, ils appartiennent au domaine \texttt{marmottes}}.
+
+\subsubsection{Parcelles}
+Les champs permettent de définir des zones géométriques suffisantes
+pour déterminer la visibilité d'astres ponctuels (lune ou soleil). Les
+senseurs de limbes observent quant à eux la totalité du limbe du
+corps central, et combinent plusieurs mesures élémentaires dans des
+zones séparées de leur champ de vue pour produire une mesure
+globale. Il faut alors définir des zones \emph{logiques} sur la sphère
+unité et des opérateurs entre ces zones, pour expliciter des
+comportements du type~: le senseur voit le corps central si le limbe
+est visible dans les zones~1 et 2, ou s'il est visible dans les
+zones~3 et 4.
+
+\bibliotheque{marmottes} introduit pour couvrir ces besoins la notion
+de \emph{parcelles}. Une parcelle peut être élémentaire (c'est alors
+un champ), ou être une combinaison logique de parcelles. Les
+opérations de composition disponibles sont décrites dans la
+table~\ref{tab:parcelles}.
+
+Lorsqu'une parcelle est utilisée pour tester la visibilité d'une cible
+considérés comme ponctuelle (le soleil, la lune ou le moment cinétique
+de l'orbite par exemple), la distinction entre les deux types de
+réunions s'évanouit. Cette interprétation permet de s'abstenir de
+distinguer champs et parcelles. Dans la pratique, toutes les zones sur
+la sphère décrites dans les fichiers de description des senseurs par
+\bibliotheque{marmottes} sont lues comme des parcelles, et seuls les
+senseurs terre utilisent toutes les possibilités qui leur sont
+offertes.
+
+\begin{table}[htbp]
+\caption{\label{tab:parcelles}opérations sur les zones logiques de
+la sphère unité}
+\begin{center}\begin{tabular}[b]{|c|c|c|c|}
+\hline
+nom & \multicolumn{2}{c|}{arguments} & syntaxe \\
+\hline
+réunion \emph{et} & parcelle (\textit{p1}) & parcelle (\textit{p2})
+                  & \texttt{zone \{ \{}\textit{p1}\texttt{\}
+                                 et \{}\textit{p2}\texttt{\} \}} \\
+réunion \emph{ou} & parcelle (\textit{p1}) & parcelle (\textit{p2})
+                  & \texttt{zone \{ \{}\textit{p1}\texttt{\}
+                                 ou \{}\textit{p2}\texttt{\} \}} \\
+marge             & scalaire (\textit{x}) & parcelle (\textit{p})
+                  & \texttt{zone \{ marge \{}\textit{x}\texttt{\}
+                                      sur \{}\textit{p}\texttt{\} \}} \\
+\hline
+\end{tabular}\end{center}\end{table}
+
+L'exemple~\ref{expl:parcelles} montre ainsi comment on peut décrire la
+logique d'un senseur de limbe et associer un champ de vue pour la mesure
+roulis et un champ de vue pour la mesure tangage, en supposant que les
+champs \texttt{scan\_1} à \texttt{scan\_4} sont numérotés
+conformément à la figure~\ref{fig:ires-4-scans}.
+
+\begin{exemple}{définition de parcelles}
+{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\label{expl:parcelles}\begin{verbatim}
+champ_de_vue_ROULIS
+{ { { => { scan_1 } } et { => { scan_2 } } }
+  ou
+  { { => { scan_3 } } et { => { scan_4 } } }
+}
+
+champ_de_vue_TANGAGE
+{ { { => { scan_1 } } et { => { scan_3 } } }
+  ou
+  { { => { scan_2 } } et { => { scan_4 } } }
+}
+\end{verbatim}\end{exemple}
+
+\begin{figure}[htbp]\caption{\label{fig:ires-4-scans}champ de vue d'un
+senseur de limbe à quatre scans}
+\begin{center}\begin{minipage}{65.00mm}
+\setlength{\unitlength}{0.13mm}\begin{picture}(500,435)
+  \linethickness{1\unitlength}
+
+  % courbe 1
+  \qbezier[0](469,028)(496,101)(500,179)
+  \qbezier[0](500,179)(503,264)(478,346)
+
+  % courbe 17
+  \qbezier[0](0,200)(64,230)(128,261)
+
+  % courbe 18
+  \qbezier[0](128,261)(128,262)(127,264)
+
+  % courbe 19
+  \qbezier[0](127,264)(137,267)(147,269)
+
+  % courbe 20
+  \qbezier[0](147,269)(138,263)(130,257)
+
+  % courbe 21
+  \qbezier[0](130,257)(129,259)(128,261)
+  \put(145,250){\mbox{$\vec{\imath}$}}
+
+  % courbe 22
+  \qbezier[0](0,200)(0,308)(0,415)
+
+  % courbe 23
+  \qbezier[0](0,415)(-2,415)(-4,415)
+
+  % courbe 24
+  \qbezier[0](-4,415)(-2,425)(0,435)
+
+  % courbe 25
+  \qbezier[0](0,435)(2,425)(4,415)
+
+  % courbe 26
+  \qbezier[0](4,415)(2,415)(0,415)
+  \put(12,415){\mbox{$\vec{\jmath}$}}
+
+  % courbe 27
+  \qbezier[0](0,200)(92,177)(183,155)
+
+  % courbe 28
+  \qbezier[0](183,155)(184,157)(184,159)
+
+  % courbe 29
+  \qbezier[0](184,159)(193,154)(203,150)
+
+  % courbe 30
+  \qbezier[0](203,150)(192,150)(182,151)
+
+  % courbe 31
+  \qbezier[0](182,151)(183,153)(183,155)
+  \put(186,166){\mbox{$\vec{k}$}}
+  \linethickness{1\unitlength}
+
+  % courbe 32
+  \qbezier[0](348,34)(337,26)(346,21)
+  \qbezier[0](346,21)(346,20)(347,21)
+  \qbezier[0](347,21)(348,21)(349,21)
+  \qbezier[0](349,21)(350,21)(351,22)
+  \qbezier[0](351,22)(352,22)(353,23)
+  \qbezier[0](353,23)(354,23)(356,23)
+  \qbezier[0](356,23)(357,24)(358,24)
+  \qbezier[0](358,24)(360,25)(361,26)
+  \qbezier[0](361,26)(363,26)(365,27)
+  \qbezier[0](365,27)(367,27)(368,28)
+  \qbezier[0](368,28)(370,29)(372,30)
+  \qbezier[0](372,30)(374,30)(376,31)
+  \qbezier[0](376,31)(379,32)(381,33)
+  \qbezier[0](381,33)(384,34)(386,35)
+  \qbezier[0](386,35)(389,37)(392,38)
+  \qbezier[0](392,38)(397,46)(398,47)
+  \qbezier[0](398,48)(396,49)(395,51)
+  \qbezier[0](395,51)(394,54)(392,52)
+  \qbezier[0](392,52)(370,42)(348,35)
+
+  % courbe 33
+  \qbezier[0](347,136)(337,127)(347,122)
+  \qbezier[0](347,122)(348,121)(348,122)
+  \qbezier[0](348,122)(349,122)(350,122)
+  \qbezier[0](350,122)(351,123)(352,123)
+  \qbezier[0](352,123)(353,123)(354,124)
+  \qbezier[0](354,124)(356,124)(357,125)
+  \qbezier[0](357,125)(358,125)(360,126)
+  \qbezier[0](360,126)(361,126)(363,127)
+  \qbezier[0](363,127)(364,127)(366,128)
+  \qbezier[0](366,128)(368,129)(370,129)
+  \qbezier[0](370,129)(372,130)(373,131)
+  \qbezier[0](373,131)(376,132)(378,132)
+  \qbezier[0](378,132)(380,133)(383,134)
+  \qbezier[0](383,134)(385,135)(388,136)
+  \qbezier[0](388,136)(390,138)(393,139)
+  \qbezier[0](394,139)(397,147)(398,149)
+  \qbezier[0](398,149)(393,155)(392,155)
+  \qbezier[0](392,154)(370,145)(347,137)
+
+  % courbe 34
+  \qbezier[0](415,63)(405,41)(426,55)
+  \qbezier[0](426,55)(427,55)(428,56)
+  \qbezier[0](428,56)(430,57)(431,58)
+  \qbezier[0](431,58)(432,59)(434,59)
+  \qbezier[0](434,59)(435,61)(437,62)
+  \qbezier[0](437,62)(439,63)(440,64)
+  \qbezier[0](440,64)(442,65)(444,66)
+  \qbezier[0](444,66)(446,68)(448,69)
+  \qbezier[0](448,69)(451,76)(452,79)
+  \qbezier[0](452,79)(452,81)(451,83)
+  \qbezier[0](450,82)(450,85)(448,83)
+  \qbezier[0](448,83)(433,72)(416,63)
+
+  % courbe 35
+  \qbezier[0](414,165)(406,142)(427,156)
+  \qbezier[0](427,156)(428,157)(430,157)
+  \qbezier[0](430,157)(431,158)(433,159)
+  \qbezier[0](433,159)(434,160)(435,161)
+  \qbezier[0](435,161)(437,162)(438,163)
+  \qbezier[0](438,163)(440,164)(442,165)
+  \qbezier[0](442,165)(444,166)(446,167)
+  \qbezier[0](446,167)(448,169)(450,170)
+  \qbezier[0](450,171)(452,177)(452,180)
+  \qbezier[0](452,181)(448,186)(448,186)
+  \qbezier[0](448,186)(432,174)(415,165)
+
+  \put(360,50){\mbox{1}}
+  \put(360,160){\mbox{2}}
+  \put(420,80){\mbox{3}}
+  \put(430,190){\mbox{4}}
+
+\end{picture}\end{minipage}\end{center}
+\end{figure}
+
+\subsubsection{Stations sol}
+Les stations sols peuvent être décrites dans une structure définie par
+l'exemple~\ref{expl:station}~:
+
+\begin{exemple}{structure station}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\label{expl:station}\begin{verbatim}
+station { longitude    {   1.49939883 }
+          latitude     {  43.42869186 }
+          altitude     { 261.58       }
+
+          pression     { 1000 }
+          temperature  { 15   }
+          hygrometrie  { 80   }
+
+          masque       { 0 10 }
+
+        }
+\end{verbatim}\end{exemple}
+
+La description des masques d'antenne des stations sols est constituée
+d'une simple série de couples azimut/site limite sans aucune
+structuration. Si la station a un masque constant (par exemple un site
+minimum d'observation de 10\degre), il suffit de donner un seul couple
+et la valeur de l'azimut n'a pas d'importance~:
+
+\centerline{\texttt{masque \{ 0 10 \}}}
+
+Si le masque dépend de l'azimut d'observation, il faut donner
+plusieurs points, \bibliotheque{marmottes} interpolera linéairement
+entre ces points en fermant la courbe elle-même~:
+
+\begin{exemple}{définition de masque}{xxxxxxxxxxxxxxxxxxxxxx}
+\label{expl:masque}\begin{verbatim}
+masque { # KRN ESX 76
+           0.00   0.20
+           5.00   0.00
+          10.00   0.10
+          15.00  18.50
+          20.00   0.00
+          25.00   0.00
+          28.00   2.00
+
+              ...
+
+         350.00   0.20
+         355.00   0.20
+       }
+\end{verbatim}\end{exemple}
+
+\subsubsection{Points d'échantillonnage des senseurs de gain d'antenne}
+
+La description des points d'échantillonnage utilisés pour les senseurs
+de gain d'antenne est constituée d'une simple série de couples
+angle/gain sans aucune structuration. Si l'antenne a un gain constant,
+il suffit de donner un seul couple et la valeur de l'angle n'a pas
+d'importance~:
+
+\centerline{\texttt{echantillon \{ 0 -3.0 \}}}
+
+Si le gain dépend de l'angle de dépointage, il faut donner
+plusieurs points, \bibliotheque{marmottes} interpolera linéairement
+entre ces points en considérant que le gain est constant entre $0$ et
+le premier angle ainsi qu'entre le dernier angle et $\pi$.
+
+\begin{exemple}{définition d'échantillon}{xxxxxxxxxxxxxxxxxxxxxx}
+\label{expl:echant-1d}\begin{verbatim}
+echantillon {
+              10   0.0
+              20  -1.0
+              25  -3.0
+              30 -10.0
+            }
+\end{verbatim}\end{exemple}
+
+\subsubsection{Hiérarchie de description des senseurs}
+Les senseurs sont implantés dans le code par une hiérarchie de classes
+\langage{c++} dont la racine est la classe senseur. D'un point de vue
+informatique, cette architecture permet de factoriser du code commun
+dans des classes de base, et de spécialiser certaines notions par du
+code propre aux classes dérivées\footnote{ainsi la notion de
+visibilité des senseurs de limbe considère un limbe et la structure
+logique des parcelles, alors que pour les autres senseurs optiques on
+se contente de vérifier la présence d'un point dans un champ}.
+\begin{figure}[htbp]\caption{\label{fig:hierarchie}Hiérarchie des senseurs}
+\begin{center}\begin{minipage}{162.96mm}
+\setlength{\unitlength}{14mm}\begin{picture}(11.64,7.7)
+\newsavebox{\classeBase}
+\savebox{\classeBase}{\put(0.67,-0.3){\line(1,0){0.3}}
+\put(0.82,0){\line(-1,-2){0.15}}\put(0.82,0){\line(1,-2){0.15}}
+\put(0.82,-0.3){\line(0,-1){0.2}}}
+\newsavebox{\classeDer}
+\savebox{\classeDer}{\put(0.82,0.7){\line(0,1){0.3}}}
+\newcommand{\db}[4][D]{\put(#2,#3){\dashbox{0.16}(1.64,0.7){#4}}
+\ifthenelse{\equal{#1}{B}\or\equal{#1}{I}}
+{\put(#2,#3){\usebox{\classeBase}}}{\relax}
+\ifthenelse{\equal{#1}{D}\or\equal{#1}{I}}
+{\put(#2,#3){\usebox{\classeDer}}}{\relax}}
+\newcommand{\fb}[4][D]{\put(#2,#3){\framebox(1.64,0.7){#4}}
+\ifthenelse{\equal{#1}{B}\or\equal{#1}{I}}
+{\put(#2,#3){\usebox{\classeBase}}}{\relax}
+\ifthenelse{\equal{#1}{D}\or\equal{#1}{I}}
+{\put(#2,#3){\usebox{\classeDer}}}{\relax}}
+\db[B]{6}{7}{senseur}
+\db[I]{4}{5.5}{géométrique}
+\fb[I]{9}{5.5}{cinématique}
+\fb{9}{4}{\shortstack{gyromètre\\intégrateur}}
+\fb{1}{4}{\shortstack{ascension\\droite}}
+\fb{3}{4}{déclinaison}
+\db[I]{5}{4}{optique}
+\fb{7}{4}{Cardan}
+\fb[I]{1}{2.5}{vecteur}
+\fb[I]{3.5}{2.5}{dièdre}
+\db[I]{7}{2.5}{fonction}
+\fb{0.5}{1}{\shortstack{plan\\vecteur}}
+\fb{1.5}{0}{cartésien}
+\fb{3.5}{1}{limbe}
+\fb{6}{1}{$\left(\frac{\sin \theta}{\theta}\right)^2$}
+\fb{7}{0}{$\frac{\sin \theta_{x}}{\theta_{x}}\frac{\sin \theta_{y}}{\theta_{y}}$}
+\fb{8}{1}{$e^{-\frac{\theta^2}{2}}$}
+\fb{9}{0}{échantillonné}
+\put(1.32,2){\line(1,0){1}}
+\put(6.82,2){\line(1,0){3}}
+\put(1.82,3.5){\line(1,0){6}}
+\put(1.82,5){\line(1,0){6}}
+\put(4.82,6.5){\line(1,0){5}}
+\put(2.32,0.7){\line(0,1){1.3}}
+\put(7.82,0.7){\line(0,1){1.3}}\put(9.82,0.7){\line(0,1){1.3}}
+\end{picture}\end{minipage}\end{center}
+\end{figure}
+
+Les sous-blocs du bloc senseur décrivant les propriétés de base sont
+lus de la même façon dans les classes dérivées que dans les classes de
+base. Par contre les spécificités des classes dérivées sont décrites
+dans les fichiers par des sous-blocs supplémentaires spécifiques à
+chaque classe. L'ordre des sous-blocs est non significatif, il
+s'ensuit donc que la structuration des données entre données générales
+intervenant au niveau de la classe de base et données spécifiques à un
+type particulier de senseur ne transparaît pas dans le fichier des
+senseurs (voir exemple~\ref{expl:independance}). Les tables qui
+suivent masquent cette structuration, au prix de la duplication dans
+toutes les tables des informations communes (par exemple le sous-bloc
+\texttt{repere}, qui est général).
+
+\begin{exemple}{indépendance de la syntaxe par rapport aux classes}
+{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\label{expl:independance}\begin{verbatim}
+BASS-2_PITCH
+{ type         { diedre }  # <-- bloc général hérité de la classe senseur
+  cible        { Soleil }  # <-- bloc intermédiaire hérité
+                           #     de la classe senseur géométrique
+  axe_sensible { 0  1  0 } # <-- bloc spécifique à la classe senseur Dièdre
+  precision    { 1.0 }     # <-- bloc général hérité de la classe senseur
+ ...
+}
+\end{verbatim}\end{exemple}
+\input{tables-senseurs}
+
+\input{schema-angle-soleil-satellite-lune}

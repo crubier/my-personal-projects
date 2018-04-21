@@ -1,0 +1,22 @@
+%implements cgirblk_s0_b84_BlockOutputSignal "C"
+
+%function BlockOutputSignal(block,system,portIdx,ucv,lcv,idx,retType) void
+  %if retType == "Signal"
+    %switch portIdx
+      %case 0
+         %return "(%<LibBlockInputSignal(1, "", "", 0)> - %<LibBlockInputSignal(0, "", "", 0)> * 0.05)"
+      %case 1
+         %return "(%<LibBlockInputSignal(2, "", "", 0)> * %<SLibCGIRBlockParameter(1, "", "", 2)>)"
+      %case 2
+         %return "(%<LibBlockInputSignal(4, "", "", 0)> - %<LibBlockInputSignal(3, "", "", 0)> * 0.05)"
+      %case 3
+         %return "(%<LibBlockInputSignal(5, "", "", 0)> * %<SLibCGIRBlockParameter(3, "", "", 2)>)"
+      %case 4
+         %return "(%<LibBlockInputSignal(7, "", "", 0)> - %<LibBlockInputSignal(6, "", "", 0)> * 0.05)"
+    %default
+      %assign errTxt = "No expression on port %<portIdx>"
+      %<LibBlockReportError(block,errTxt)>
+  %endswitch
+  %else
+  %endif
+%endfunction

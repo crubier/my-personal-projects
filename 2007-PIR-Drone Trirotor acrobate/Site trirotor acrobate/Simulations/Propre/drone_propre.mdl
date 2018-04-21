@@ -1,0 +1,3193 @@
+Model {
+  Name			  "drone_propre"
+  Version		  6.1
+  MdlSubVersion		  0
+  GraphicalInterface {
+    NumRootInports	    0
+    NumRootOutports	    0
+    ParameterArgumentNames  ""
+    ComputedModelVersion    "1.189"
+    NumModelReferences	    0
+    NumTestPointedSignals   0
+  }
+  SavedCharacterEncoding  "ibm-5348_P100-1997"
+  SaveDefaultBlockParams  on
+  SampleTimeColors	  off
+  LibraryLinkDisplay	  "none"
+  WideLines		  off
+  ShowLineDimensions	  off
+  ShowPortDataTypes	  off
+  ShowLoopsOnError	  on
+  IgnoreBidirectionalLines off
+  ShowStorageClass	  off
+  ShowTestPointIcons	  on
+  ShowViewerIcons	  on
+  SortedOrder		  off
+  ExecutionContextIcon	  off
+  ShowLinearizationAnnotations on
+  RecordCoverage	  off
+  CovPath		  "/"
+  CovSaveName		  "covdata"
+  CovMetricSettings	  "dw"
+  CovNameIncrementing	  off
+  CovHtmlReporting	  on
+  covSaveCumulativeToWorkspaceVar on
+  CovSaveSingleToWorkspaceVar on
+  CovCumulativeVarName	  "covCumulativeData"
+  CovCumulativeReport	  off
+  CovReportOnPause	  on
+  ScopeRefreshTime	  0.035000
+  OverrideScopeRefreshTime on
+  DisableAllScopes	  off
+  DataTypeOverride	  "UseLocalSettings"
+  MinMaxOverflowLogging	  "UseLocalSettings"
+  MinMaxOverflowArchiveMode "Overwrite"
+  BlockNameDataTip	  off
+  BlockParametersDataTip  off
+  BlockDescriptionStringDataTip	off
+  ToolBar		  on
+  StatusBar		  on
+  BrowserShowLibraryLinks off
+  BrowserLookUnderMasks	  off
+  Created		  "Tue Apr 17 13:13:49 2007"
+  UpdateHistory		  "UpdateHistoryNever"
+  ModifiedByFormat	  "%<Auto>"
+  LastModifiedBy	  "Vincent"
+  ModifiedDateFormat	  "%<Auto>"
+  LastModifiedDate	  "Tue Apr 17 21:57:58 2007"
+  ModelVersionFormat	  "1.%<AutoIncrement:189>"
+  ConfigurationManager	  "None"
+  LinearizationMsg	  "none"
+  Profile		  off
+  ParamWorkspaceSource	  "MATLABWorkspace"
+  AccelSystemTargetFile	  "accel.tlc"
+  AccelTemplateMakefile	  "accel_default_tmf"
+  AccelMakeCommand	  "make_rtw"
+  TryForcingSFcnDF	  off
+  ExtModeBatchMode	  off
+  ExtModeEnableFloating	  on
+  ExtModeTrigType	  "manual"
+  ExtModeTrigMode	  "normal"
+  ExtModeTrigPort	  "1"
+  ExtModeTrigElement	  "any"
+  ExtModeTrigDuration	  1000
+  ExtModeTrigDurationFloating "auto"
+  ExtModeTrigHoldOff	  0
+  ExtModeTrigDelay	  0
+  ExtModeTrigDirection	  "rising"
+  ExtModeTrigLevel	  0
+  ExtModeArchiveMode	  "off"
+  ExtModeAutoIncOneShot	  off
+  ExtModeIncDirWhenArm	  off
+  ExtModeAddSuffixToVar	  off
+  ExtModeWriteAllDataToWs off
+  ExtModeArmWhenConnect	  on
+  ExtModeSkipDownloadWhenConnect off
+  ExtModeLogAll		  on
+  ExtModeAutoUpdateStatusClock on
+  BufferReuse		  on
+  StrictBusMsg		  "None"
+  ProdHWDeviceType	  "32-bit Generic"
+  ShowModelReferenceBlockVersion off
+  ShowModelReferenceBlockIO off
+  Array {
+    Type		    "Handle"
+    Dimension		    1
+    Simulink.ConfigSet {
+      $ObjectID		      1
+      Version		      "1.0.4"
+      Array {
+	Type			"Handle"
+	Dimension		8
+	Simulink.SolverCC {
+	  $ObjectID		  2
+	  Version		  "1.0.4"
+	  StartTime		  "0.0"
+	  StopTime		  "10.0"
+	  AbsTol		  "auto"
+	  FixedStep		  "auto"
+	  InitialStep		  "auto"
+	  MaxNumMinSteps	  "-1"
+	  MaxOrder		  5
+	  ExtrapolationOrder	  4
+	  NumberNewtonIterations  1
+	  MaxStep		  "auto"
+	  MinStep		  "auto"
+	  RelTol		  "1e-3"
+	  SolverMode		  "Auto"
+	  Solver		  "ode45"
+	  SolverName		  "ode45"
+	  ZeroCrossControl	  "UseLocalSettings"
+	  PositivePriorityOrder	  off
+	  AutoInsertRateTranBlk	  off
+	  SampleTimeConstraint	  "Unconstrained"
+	  RateTranMode		  "Deterministic"
+	}
+	Simulink.DataIOCC {
+	  $ObjectID		  3
+	  Version		  "1.0.4"
+	  Decimation		  "1"
+	  ExternalInput		  "[t, u]"
+	  FinalStateName	  "xFinal"
+	  InitialState		  "xInitial"
+	  LimitDataPoints	  on
+	  MaxDataPoints		  "1000"
+	  LoadExternalInput	  off
+	  LoadInitialState	  off
+	  SaveFinalState	  off
+	  SaveFormat		  "Array"
+	  SaveOutput		  on
+	  SaveState		  off
+	  SignalLogging		  on
+	  SaveTime		  on
+	  StateSaveName		  "xout"
+	  TimeSaveName		  "tout"
+	  OutputSaveName	  "yout"
+	  SignalLoggingName	  "logsout"
+	  OutputOption		  "RefineOutputTimes"
+	  OutputTimes		  "[]"
+	  Refine		  "1"
+	}
+	Simulink.OptimizationCC {
+	  $ObjectID		  4
+	  Array {
+	    Type		    "Cell"
+	    Dimension		    5
+	    Cell		    "ZeroExternalMemoryAtStartup"
+	    Cell		    "ZeroInternalMemoryAtStartup"
+	    Cell		    "InitFltsAndDblsToZero"
+	    Cell		    "OptimizeModelRefInitCode"
+	    Cell		    "NoFixptDivByZeroProtection"
+	    PropName		    "DisabledProps"
+	  }
+	  Version		  "1.0.4"
+	  BlockReduction	  on
+	  BooleanDataType	  on
+	  ConditionallyExecuteInputs on
+	  ConditionalExecOptimization "on_for_testing"
+	  InlineParams		  off
+	  InlineInvariantSignals  on
+	  OptimizeBlockIOStorage  on
+	  BufferReuse		  on
+	  EnforceIntegerDowncast  on
+	  ExpressionFolding	  on
+	  FoldNonRolledExpr	  on
+	  LocalBlockOutputs	  on
+	  ParameterPooling	  on
+	  RollThreshold		  5
+	  SystemCodeInlineAuto	  off
+	  StateBitsets		  off
+	  DataBitsets		  off
+	  UseTempVars		  off
+	  ZeroExternalMemoryAtStartup on
+	  ZeroInternalMemoryAtStartup on
+	  InitFltsAndDblsToZero	  on
+	  NoFixptDivByZeroProtection off
+	  OptimizeModelRefInitCode off
+	  LifeSpan		  "inf"
+	}
+	Simulink.DebuggingCC {
+	  $ObjectID		  5
+	  Version		  "1.0.4"
+	  RTPrefix		  "error"
+	  ConsistencyChecking	  "none"
+	  ArrayBoundsChecking	  "none"
+	  AlgebraicLoopMsg	  "warning"
+	  ArtificialAlgebraicLoopMsg "warning"
+	  CheckSSInitialOutputMsg on
+	  CheckExecutionContextPreStartOutputMsg off
+	  CheckExecutionContextRuntimeOutputMsg	off
+	  SignalResolutionControl "TryResolveAllWithWarning"
+	  BlockPriorityViolationMsg "warning"
+	  MinStepSizeMsg	  "warning"
+	  SolverPrmCheckMsg	  "warning"
+	  InheritedTsInSrcMsg	  "warning"
+	  DiscreteInheritContinuousMsg "warning"
+	  MultiTaskDSMMsg	  "warning"
+	  MultiTaskRateTransMsg	  "error"
+	  SingleTaskRateTransMsg  "none"
+	  TasksWithSamePriorityMsg "warning"
+	  CheckMatrixSingularityMsg "none"
+	  IntegerOverflowMsg	  "warning"
+	  Int32ToFloatConvMsg	  "warning"
+	  ParameterDowncastMsg	  "error"
+	  ParameterOverflowMsg	  "error"
+	  ParameterPrecisionLossMsg "warning"
+	  UnderSpecifiedDataTypeMsg "none"
+	  UnnecessaryDatatypeConvMsg "none"
+	  VectorMatrixConversionMsg "none"
+	  InvalidFcnCallConnMsg	  "error"
+	  FcnCallInpInsideContextMsg "Use local settings"
+	  SignalLabelMismatchMsg  "none"
+	  UnconnectedInputMsg	  "warning"
+	  UnconnectedOutputMsg	  "warning"
+	  UnconnectedLineMsg	  "warning"
+	  SFcnCompatibilityMsg	  "none"
+	  UniqueDataStoreMsg	  "none"
+	  RootOutportRequireBusObject "warning"
+	  AssertControl		  "UseLocalSettings"
+	  EnableOverflowDetection off
+	  ModelReferenceIOMsg	  "none"
+	  ModelReferenceVersionMismatchMessage "none"
+	  ModelReferenceIOMismatchMessage "none"
+	  ModelReferenceCSMismatchMessage "none"
+	  ModelReferenceSimTargetVerbose off
+	  UnknownTsInhSupMsg	  "warning"
+	  ModelReferenceDataLoggingMessage "warning"
+	  ModelReferenceSymbolNameMessage "warning"
+	}
+	Simulink.HardwareCC {
+	  $ObjectID		  6
+	  Version		  "1.0.4"
+	  ProdBitPerChar	  8
+	  ProdBitPerShort	  16
+	  ProdBitPerInt		  32
+	  ProdBitPerLong	  32
+	  ProdIntDivRoundTo	  "Undefined"
+	  ProdEndianess		  "Unspecified"
+	  ProdWordSize		  32
+	  ProdShiftRightIntArith  on
+	  ProdHWDeviceType	  "32-bit Generic"
+	  TargetBitPerChar	  8
+	  TargetBitPerShort	  16
+	  TargetBitPerInt	  32
+	  TargetBitPerLong	  32
+	  TargetShiftRightIntArith on
+	  TargetIntDivRoundTo	  "Undefined"
+	  TargetEndianess	  "Unspecified"
+	  TargetWordSize	  32
+	  TargetTypeEmulationWarnSuppressLevel 0
+	  TargetPreprocMaxBitsSint 32
+	  TargetPreprocMaxBitsUint 32
+	  TargetHWDeviceType	  "Specified"
+	  TargetUnknown		  off
+	  ProdEqTarget		  on
+	}
+	Simulink.ModelReferenceCC {
+	  $ObjectID		  7
+	  Version		  "1.0.4"
+	  UpdateModelReferenceTargets "IfOutOfDateOrStructuralChange"
+	  CheckModelReferenceTargetMessage "error"
+	  ModelReferenceNumInstancesAllowed "Multi"
+	  ModelReferencePassRootInputsByReference on
+	  ModelReferenceMinAlgLoopOccurrences off
+	}
+	Simulink.RTWCC {
+	  $BackupClass		  "Simulink.RTWCC"
+	  $ObjectID		  8
+	  Array {
+	    Type		    "Cell"
+	    Dimension		    1
+	    Cell		    "IncludeHyperlinkInReport"
+	    PropName		    "DisabledProps"
+	  }
+	  Version		  "1.0.4"
+	  SystemTargetFile	  "grt.tlc"
+	  GenCodeOnly		  off
+	  MakeCommand		  "make_rtw"
+	  TemplateMakefile	  "grt_default_tmf"
+	  GenerateReport	  off
+	  SaveLog		  off
+	  RTWVerbose		  on
+	  RetainRTWFile		  off
+	  ProfileTLC		  off
+	  TLCDebug		  off
+	  TLCCoverage		  off
+	  TLCAssert		  off
+	  ProcessScriptMode	  "Default"
+	  ConfigurationMode	  "Optimized"
+	  ConfigAtBuild		  off
+	  IncludeHyperlinkInReport off
+	  LaunchReport		  off
+	  Array {
+	    Type		    "Handle"
+	    Dimension		    2
+	    Simulink.CodeAppCC {
+	      $ObjectID		      9
+	      Array {
+		Type			"Cell"
+		Dimension		9
+		Cell			"IgnoreCustomStorageClasses"
+		Cell			"InsertBlockDesc"
+		Cell			"SFDataObjDesc"
+		Cell			"SimulinkDataObjDesc"
+		Cell			"DefineNamingRule"
+		Cell			"SignalNamingRule"
+		Cell			"ParamNamingRule"
+		Cell			"InlinedPrmAccess"
+		Cell			"CustomSymbolStr"
+		PropName		"DisabledProps"
+	      }
+	      Version		      "1.0.4"
+	      ForceParamTrailComments off
+	      GenerateComments	      on
+	      IgnoreCustomStorageClasses on
+	      IncHierarchyInIds	      off
+	      MaxIdLength	      31
+	      PreserveName	      off
+	      PreserveNameWithParent  off
+	      ShowEliminatedStatement off
+	      IncAutoGenComments      off
+	      SimulinkDataObjDesc     off
+	      SFDataObjDesc	      off
+	      IncDataTypeInIds	      off
+	      PrefixModelToSubsysFcnNames on
+	      CustomSymbolStr	      "$R$N$M"
+	      MangleLength	      1
+	      DefineNamingRule	      "None"
+	      ParamNamingRule	      "None"
+	      SignalNamingRule	      "None"
+	      InsertBlockDesc	      off
+	      SimulinkBlockComments   on
+	      EnableCustomComments    off
+	      InlinedPrmAccess	      "Literals"
+	      ReqsInCode	      off
+	    }
+	    Simulink.GRTTargetCC {
+	      $BackupClass	      "Simulink.TargetCC"
+	      $ObjectID		      10
+	      Array {
+		Type			"Cell"
+		Dimension		12
+		Cell			"IncludeMdlTerminateFcn"
+		Cell			"CombineOutputUpdateFcns"
+		Cell			"SuppressErrorStatus"
+		Cell			"ERTCustomFileBanners"
+		Cell			"GenerateSampleERTMain"
+		Cell			"MultiInstanceERTCode"
+		Cell			"PurelyIntegerCode"
+		Cell			"SupportNonFinite"
+		Cell			"SupportComplex"
+		Cell			"SupportAbsoluteTime"
+		Cell			"SupportContinuousTime"
+		Cell			"SupportNonInlinedSFcns"
+		PropName		"DisabledProps"
+	      }
+	      Version		      "1.0.4"
+	      TargetFcnLib	      "ansi_tfl_tmw.mat"
+	      GenFloatMathFcnCalls    "ANSI_C"
+	      UtilityFuncGeneration   "Auto"
+	      GenerateFullHeader      on
+	      GenerateSampleERTMain   off
+	      IsPILTarget	      off
+	      ModelReferenceCompliant on
+	      IncludeMdlTerminateFcn  on
+	      CombineOutputUpdateFcns off
+	      SuppressErrorStatus     off
+	      IncludeFileDelimiter    "Auto"
+	      ERTCustomFileBanners    off
+	      SupportAbsoluteTime     on
+	      LogVarNameModifier      "rt_"
+	      MatFileLogging	      on
+	      MultiInstanceERTCode    off
+	      SupportNonFinite	      on
+	      SupportComplex	      on
+	      PurelyIntegerCode	      off
+	      SupportContinuousTime   on
+	      SupportNonInlinedSFcns  on
+	      ExtMode		      off
+	      ExtModeStaticAlloc      off
+	      ExtModeTesting	      off
+	      ExtModeStaticAllocSize  1000000
+	      ExtModeTransport	      0
+	      ExtModeMexFile	      "ext_comm"
+	      RTWCAPISignals	      off
+	      RTWCAPIParams	      off
+	      RTWCAPIStates	      off
+	      GenerateASAP2	      off
+	    }
+	    PropName		    "Components"
+	  }
+	}
+	MECH.SimMechanicsCC {
+	  $ObjectID		  11
+	  Version		  "1.0.4"
+	  Name			  "SimMechanics"
+	  WarnOnRedundantConstraints on
+	  WarnOnSingularInitialAssembly	off
+	  ShowCutJoints		  off
+	  VisOnUpdateDiagram	  off
+	  VisDuringSimulation	  off
+	}
+	PropName		"Components"
+      }
+      Name		      "Configuration"
+      SimulationMode	      "normal"
+      CurrentDlgPage	      "Solver"
+    }
+    PropName		    "ConfigurationSets"
+  }
+  Simulink.ConfigSet {
+    $PropName		    "ActiveConfigurationSet"
+    $ObjectID		    1
+  }
+  BlockDefaults {
+    Orientation		    "right"
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    NamePlacement	    "normal"
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+    ShowName		    on
+  }
+  BlockParameterDefaults {
+    Block {
+      BlockType		      Actuator
+      SubClassName	      "unknown"
+      PortType		      "blob"
+    }
+    Block {
+      BlockType		      BusCreator
+      Inputs		      "4"
+      DisplayOption	      "none"
+      BusObject		      "BusObject"
+      NonVirtualBus	      off
+    }
+    Block {
+      BlockType		      BusSelector
+      MuxedOutput	      off
+    }
+    Block {
+      BlockType		      Constant
+      Value		      "1"
+      VectorParams1D	      on
+      OutDataTypeMode	      "Inherit from 'Constant value'"
+      OutDataType	      "sfix(16)"
+      ConRadixGroup	      "Use specified scaling"
+      OutScaling	      "2^0"
+      SampleTime	      "inf"
+    }
+    Block {
+      BlockType		      DataTypeConversion
+      OutDataTypeMode	      "Inherit via back propagation"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+      LockScale		      off
+      ConvertRealWorld	      "Real World Value (RWV)"
+      RndMeth		      "Zero"
+      SaturateOnIntegerOverflow	on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      Demux
+      Outputs		      "4"
+      DisplayOption	      "none"
+      BusSelectionMode	      off
+    }
+    Block {
+      BlockType		      DiscreteIntegrator
+      IntegratorMethod	      "Integration: Forward Euler"
+      gainval		      "1.0"
+      ExternalReset	      "none"
+      InitialConditionSource  "internal"
+      InitialCondition	      "0"
+      InitialConditionMode    "State and output"
+      SampleTime	      "1"
+      OutDataTypeMode	      "Inherit via internal rule"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+      LockScale		      off
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	off
+      LimitOutput	      off
+      UpperSaturationLimit    "inf"
+      LowerSaturationLimit    "-inf"
+      ShowSaturationPort      off
+      ShowStatePort	      off
+      IgnoreLimit	      off
+      StateMustResolveToSignalObject off
+      RTWStateStorageClass    "Auto"
+    }
+    Block {
+      BlockType		      DiscreteTransferFcn
+      Numerator		      "[1]"
+      Denominator	      "[1 0.5]"
+      SampleTime	      "1"
+      StateMustResolveToSignalObject off
+      RTWStateStorageClass    "Auto"
+      Realization	      "auto"
+    }
+    Block {
+      BlockType		      ElementaryMath
+      Operator		      "sin"
+    }
+    Block {
+      BlockType		      EnablePort
+      StatesWhenEnabling      "held"
+      ShowOutputPort	      off
+      ZeroCross		      on
+    }
+    Block {
+      BlockType		      From
+      IconDisplay	      "Tag"
+    }
+    Block {
+      BlockType		      Fcn
+      Expr		      "sin(u[1])"
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      Gain
+      Gain		      "1"
+      Multiplication	      "Element-wise(K.*u)"
+      ParameterDataTypeMode   "Same as input"
+      ParameterDataType	      "sfix(16)"
+      ParameterScalingMode    "Best Precision: Matrix-wise"
+      ParameterScaling	      "2^0"
+      OutDataTypeMode	      "Same as input"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+      LockScale		      off
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      Goto
+      IconDisplay	      "Tag"
+    }
+    Block {
+      BlockType		      Ground
+    }
+    Block {
+      BlockType		      InitialCondition
+      Value		      "1"
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      Inport
+      BusObject		      "BusObject"
+      BusOutputAsStruct	      off
+      PortDimensions	      "-1"
+      SampleTime	      "-1"
+      DataType		      "auto"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+      SignalType	      "auto"
+      SamplingMode	      "auto"
+      Interpolate	      on
+    }
+    Block {
+      BlockType		      Integrator
+      ExternalReset	      "none"
+      InitialConditionSource  "internal"
+      InitialCondition	      "0"
+      LimitOutput	      off
+      UpperSaturationLimit    "inf"
+      LowerSaturationLimit    "-inf"
+      ShowSaturationPort      off
+      ShowStatePort	      off
+      AbsoluteTolerance	      "auto"
+      IgnoreLimit	      off
+      ZeroCross		      on
+    }
+    Block {
+      BlockType		      Logic
+      Operator		      "AND"
+      Inputs		      "2"
+      AllPortsSameDT	      on
+      OutDataTypeMode	      "Logical (see Configuration Parameters: Optimiza"
+"tion)"
+      LogicDataType	      "uint(8)"
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      MultiPortSwitch
+      Inputs		      "4"
+      zeroidx		      off
+      InputSameDT	      on
+      OutDataTypeMode	      "Inherit via internal rule"
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      Mux
+      Inputs		      "4"
+      DisplayOption	      "none"
+      BusObject		      "BusObject"
+      NonVirtualBus	      off
+    }
+    Block {
+      BlockType		      Outport
+      Port		      "1"
+      BusObject		      "BusObject"
+      BusOutputAsStruct	      off
+      PortDimensions	      "-1"
+      SampleTime	      "-1"
+      DataType		      "auto"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+      SignalType	      "auto"
+      SamplingMode	      "auto"
+      OutputWhenDisabled      "held"
+      InitialOutput	      "[]"
+    }
+    Block {
+      BlockType		      PMComponent
+      SubClassName	      "unknown"
+    }
+    Block {
+      BlockType		      PMIOPort
+    }
+    Block {
+      BlockType		      Product
+      Inputs		      "2"
+      Multiplication	      "Element-wise(.*)"
+      InputSameDT	      on
+      OutDataTypeMode	      "Same as first input"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+      LockScale		      off
+      RndMeth		      "Zero"
+      SaturateOnIntegerOverflow	on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      RateTransition
+      Integrity		      on
+      Deterministic	      on
+      X0		      "0"
+      OutPortSampleTime	      "-1"
+    }
+    Block {
+      BlockType		      RateLimiter
+      RisingSlewLimit	      "1"
+      FallingSlewLimit	      "-1"
+      SampleTimeMode	      "continuous"
+      InitialCondition	      "0"
+      LinearizeAsGain	      on
+    }
+    Block {
+      BlockType		      Relay
+      OnSwitchValue	      "eps"
+      OffSwitchValue	      "eps"
+      OnOutputValue	      "1"
+      OffOutputValue	      "0"
+      OutputDataTypeScalingMode	"All ports same datatype"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+      ConRadixGroup	      "Use specified scaling"
+      ZeroCross		      on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      RelationalOperator
+      Operator		      ">="
+      InputSameDT	      on
+      LogicOutDataTypeMode    "Logical (see Configuration Parameters: Optimiza"
+"tion)"
+      LogicDataType	      "uint(8)"
+      ZeroCross		      on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      Saturate
+      UpperLimit	      "0.5"
+      LowerLimit	      "-0.5"
+      LinearizeAsGain	      on
+      ZeroCross		      on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      Selector
+      InputType		      "Vector"
+      IndexMode		      "One-based"
+      ElementSrc	      "Internal"
+      Elements		      "1"
+      RowSrc		      "Internal"
+      Rows		      "1"
+      ColumnSrc		      "Internal"
+      Columns		      "1"
+      InputPortWidth	      "-1"
+      IndexIsStartValue	      off
+      OutputPortSize	      "1"
+    }
+    Block {
+      BlockType		      Sensor
+      SubClassName	      "unknown"
+      PortType		      "blob"
+    }
+    Block {
+      BlockType		      SubSystem
+      ShowPortLabels	      on
+      Permissions	      "ReadWrite"
+      PermitHierarchicalResolution "All"
+      SystemSampleTime	      "-1"
+      RTWFcnNameOpts	      "Auto"
+      RTWFileNameOpts	      "Auto"
+      SimViewingDevice	      off
+      DataTypeOverride	      "UseLocalSettings"
+      MinMaxOverflowLogging   "UseLocalSettings"
+    }
+    Block {
+      BlockType		      Sum
+      IconShape		      "rectangular"
+      Inputs		      "++"
+      InputSameDT	      on
+      OutDataTypeMode	      "Same as first input"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+      LockScale		      off
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      Terminator
+    }
+    Block {
+      BlockType		      TransportDelay
+      DelayTime		      "1"
+      InitialInput	      "0"
+      BufferSize	      "1024"
+      PadeOrder		      "0"
+      TransDelayFeedthrough   off
+    }
+    Block {
+      BlockType		      TriggerPort
+      TriggerType	      "rising"
+      StatesWhenEnabling      "inherit"
+      ShowOutputPort	      off
+      OutputDataType	      "auto"
+      SampleTimeType	      "triggered"
+      SampleTime	      "1"
+      ZeroCross		      on
+    }
+    Block {
+      BlockType		      UnitDelay
+      X0		      "0"
+      SampleTime	      "1"
+      StateMustResolveToSignalObject off
+      RTWStateStorageClass    "Auto"
+    }
+    Block {
+      BlockType		      ZeroOrderHold
+      SampleTime	      "1"
+    }
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    "center"
+    VerticalAlignment	    "middle"
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+  }
+  LineDefaults {
+    FontName		    "Helvetica"
+    FontSize		    9
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+  }
+  System {
+    Name		    "drone_propre"
+    Location		    [2, 82, 1430, 824]
+    Open		    on
+    ModelBrowserVisibility  off
+    ModelBrowserWidth	    200
+    ScreenColor		    "green"
+    PaperOrientation	    "landscape"
+    PaperPositionMode	    "auto"
+    PaperType		    "A4"
+    PaperUnits		    "centimeters"
+    ZoomFactor		    "100"
+    ReportName		    "simulink-default.rpt"
+    Block {
+      BlockType		      SubSystem
+      Name		      "Drone"
+      Ports		      [2, 1]
+      Position		      [741, 310, 1019, 520]
+      Orientation	      "down"
+      BackgroundColor	      "cyan"
+      DropShadow	      on
+      TreatAsAtomicUnit	      off
+      MinAlgLoopOccurrences   off
+      RTWSystemCode	      "Auto"
+      MaskDisplay	      "image(imread('C:\\Projets\\CMD\\Simulations\\Pr"
+"opre\\images\\drone.jpg'))"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "autoscale"
+      System {
+	Name			"Drone"
+	Location		[2, 82, 1430, 824]
+	Open			on
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "Signal reçu"
+	  Position		  [245, 73, 275, 87]
+	  Port			  "1"
+	  IconDisplay		  "Port number"
+	  LatchInput		  off
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "Exterieur"
+	  Position		  [130, 328, 160, 342]
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	  LatchInput		  off
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Bras 1"
+	  Ports			  [1, 0, 0, 0, 0, 1, 2]
+	  Position		  [813, 330, 977, 540]
+	  Orientation		  "down"
+	  BackgroundColor	  "red"
+	  DropShadow		  on
+	  NamePlacement		  "alternate"
+	  TreatAsAtomicUnit	  off
+	  MinAlgLoopOccurrences	  off
+	  RTWSystemCode		  "Auto"
+	  System {
+	    Name		    "Bras 1"
+	    Location		    [2, 82, 1430, 824]
+	    Open		    on
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Commande"
+	      Position		      [235, 93, 265, 107]
+	      Port		      "1"
+	      IconDisplay	      "Port number"
+	      LatchInput	      off
+	    }
+	    Block {
+	      BlockType		      SubSystem
+	      Name		      "Carcasse mécanique"
+	      Ports		      [3, 2, 0, 0, 0, 1]
+	      Position		      [1060, 127, 1330, 428]
+	      BackgroundColor	      "gray"
+	      DropShadow	      on
+	      FontSize		      10
+	      TreatAsAtomicUnit	      off
+	      MinAlgLoopOccurrences   off
+	      RTWSystemCode	      "Auto"
+	      System {
+		Name			"Carcasse mécanique"
+		Location		[2, 82, 1430, 824]
+		Open			off
+		ModelBrowserVisibility	off
+		ModelBrowserWidth	200
+		ScreenColor		"white"
+		PaperOrientation	"landscape"
+		PaperPositionMode	"auto"
+		PaperType		"A4"
+		PaperUnits		"centimeters"
+		ZoomFactor		"100"
+		Block {
+		  BlockType		  Inport
+		  Name			  "Perturbation"
+		  Position		  [865, 243, 895, 257]
+		  Port			  "1"
+		  IconDisplay		  "Port number"
+		  LatchInput		  off
+		}
+		Block {
+		  BlockType		  Inport
+		  Name			  "Couple orientation"
+		  Position		  [180, 148, 210, 162]
+		  Port			  "2"
+		  IconDisplay		  "Port number"
+		  LatchInput		  off
+		}
+		Block {
+		  BlockType		  Inport
+		  Name			  "Couple propulsion"
+		  Position		  [795, 138, 825, 152]
+		  Port			  "3"
+		  IconDisplay		  "Port number"
+		  LatchInput		  off
+		}
+		Block {
+		  BlockType		  Reference
+		  Name			  "Bras"
+		  Ports			  [0, 0, 0, 0, 0, 4]
+		  Position		  [1190, 59, 1295, 286]
+		  SourceBlock		  "mblibv1/Bodies/Body"
+		  SourceType		  "msb"
+		  PhysicalDomain	  "mechanical"
+		  SubClassName		  "Unknown"
+		  LeftPortType		  "workingframe"
+		  RightPortType		  "workingframe"
+		  LConnTagsString	  "CS1|CS2|CS3|CS4"
+		  ClassName		  "Body"
+		  DialogClass		  "MechanicalBodyBlock"
+		  Mass			  "Mecanique.Bras.Masse"
+		  MassUnits		  "kg"
+		  InertiaUnits		  "kg*m^2"
+		  Inertia		  "Mecanique.Bras.Inertie"
+		  Shape			  "Cylinder"
+		  ShapeDims		  "[1 1]"
+		  ShapeUnits		  "m"
+		  ShapeUse		  "false"
+		  Density		  "1"
+		  DensityUnits		  "kg/m^3"
+		  DensityUse		  "false"
+		  CG			  "Left$CG$Mecanique.Longeur*[1 0 0]$C"
+"S1$CS1$m$[0 0 0]$Euler X-Y-Z$deg$CS1$false"
+		  WorkingFrames		  "Left$CS1$[0 0 0]$ADJOINING$ADJOININ"
+"G$m$[0 0 0]$Euler X-Y-Z$deg$ADJOINING$true#Left$CS2$Mecanique.Longeur*[1 0 0]"
+"$CS1$CS1$m$[0 0 0]$Euler X-Y-Z$deg$CS1$true#Left$CS3$Mecanique.Longeur*[1 0 0"
+"]$CS1$CS1$m$[0 0 0]$Euler X-Y-Z$deg$CS1$true#Left$CS4$Mecanique.Longeur*[1 0 "
+"0]$CG$CG$m$[0 0 0]$Euler X-Y-Z$deg$WORLD$true"
+		}
+		Block {
+		  BlockType		  Reference
+		  Name			  "Capteur Orientation 1"
+		  Ports			  [0, 1, 0, 0, 0, 1]
+		  Position		  [580, 200, 620, 240]
+		  SourceBlock		  "mblibv1/Sensors & \nActuators/Joint"
+" Sensor"
+		  SourceType		  "msb"
+		  ShowPortLabels	  on
+		  Opaque		  on
+		  PhysicalDomain	  "Mechanical"
+		  PortType		  "blob"
+		  Muxed			  "on"
+		  Pose			  "off"
+		  Angle			  "on"
+		  AngleUnits		  "rad"
+		  ArcVelocity		  "off"
+		  ArcVelocityUnits	  "rad/s"
+		  ArcAcceleration	  "off"
+		  ArcAccelerationUnits	  "rad/s^2"
+		  CoordPosition		  "on"
+		  CoordPositionUnits	  "m"
+		  Velocity		  "off"
+		  VelocityUnits		  "m/s"
+		  Acceleration		  "off"
+		  AccelerationUnits	  "m/s^2"
+		  Quaternion		  "on"
+		  QuaternionDT		  "off"
+		  QuaternionDDT		  "off"
+		  QuaternionUnits	  "off"
+		  OutputVector		  "[ 1 ]"
+		  ActiveIO		  "off"
+		  Width			  "1"
+		  ClassName		  "JointSensor"
+		  DialogClass		  "MechanicalSensorBlock"
+		  Primitive		  "R1"
+		  Force			  "off"
+		  ForceUnits		  "N"
+		  Torque		  "off"
+		  TorqueUnits		  "N-m"
+		  ReferenceFrame	  "Absolute (INERTIAL)"
+		  ReactionSensedSide	  "Base"
+		  ReactionReferenceFrame  "Local (Body CS)"
+		  ReactionForce		  "off"
+		  ReactionForceUnits	  "N"
+		  ReactionMoment	  "off"
+		  ReactionMomentUnits	  "N-m"
+		}
+		Block {
+		  BlockType		  Reference
+		  Name			  "Effecteur Force Propulsion"
+		  Ports			  [1, 0, 0, 0, 0, 0, 1]
+		  Position		  [1025, 125, 1065, 165]
+		  SourceBlock		  "mblibv1/Sensors & \nActuators/Body "
+"Actuator"
+		  SourceType		  "msb"
+		  ShowPortLabels	  on
+		  Opaque		  on
+		  PhysicalDomain	  "Mechanical"
+		  PortType		  "blob"
+		  ActuationStyle	  "Force"
+		  AngleUnits		  "deg"
+		  ArcVelocityUnits	  "deg/s"
+		  ArcAccelerationUnits	  "deg/s^2"
+		  CoordPositionUnits	  "m"
+		  VelocityUnits		  "m/s"
+		  AccelerationUnits	  "m/s^2"
+		  ForceUnits		  "N"
+		  TorqueUnits		  "N-m"
+		  ActiveIO		  "off"
+		  Width			  "3"
+		  ClassName		  "BodyActuatorForceTorque"
+		  DialogClass		  "MechanicalActuatorBlock"
+		  ReferenceFrame	  "Local (Body CS)"
+		  Angle			  "off"
+		  CoordPosition		  "on"
+		  Force			  "on"
+		  Torque		  "off"
+		}
+		Block {
+		  BlockType		  Reference
+		  Name			  "Effecteur Perturbation Aerodynamiqu"
+"e "
+		  Ports			  [1, 0, 0, 0, 0, 0, 1]
+		  Position		  [1010, 235, 1050, 275]
+		  SourceBlock		  "mblibv1/Sensors & \nActuators/Body "
+"Actuator"
+		  SourceType		  "msb"
+		  ShowPortLabels	  on
+		  Opaque		  on
+		  PhysicalDomain	  "Mechanical"
+		  PortType		  "blob"
+		  ActuationStyle	  "Force"
+		  AngleUnits		  "deg"
+		  ArcVelocityUnits	  "deg/s"
+		  ArcAccelerationUnits	  "deg/s^2"
+		  CoordPositionUnits	  "m"
+		  VelocityUnits		  "m/s"
+		  AccelerationUnits	  "m/s^2"
+		  ForceUnits		  "N"
+		  TorqueUnits		  "N-m"
+		  ActiveIO		  "off"
+		  Width			  "6"
+		  ClassName		  "BodyActuatorForceTorque"
+		  DialogClass		  "MechanicalActuatorBlock"
+		  ReferenceFrame	  "Local (Body CS)"
+		  Angle			  "off"
+		  CoordPosition		  "on"
+		  Force			  "on"
+		  Torque		  "on"
+		}
+		Block {
+		  BlockType		  Reference
+		  Name			  "Effecteur1"
+		  Ports			  [1, 0, 0, 0, 0, 0, 1]
+		  Position		  [345, 135, 385, 175]
+		  SourceBlock		  "mblibv1/Sensors & \nActuators/Joint"
+" Actuator"
+		  SourceType		  "msb"
+		  ShowPortLabels	  on
+		  Opaque		  on
+		  PhysicalDomain	  "Mechanical"
+		  PortType		  "blob"
+		  ActuationStyle	  "Force"
+		  AngleUnits		  "deg"
+		  ArcVelocityUnits	  "deg/s"
+		  ArcAccelerationUnits	  "deg/s^2"
+		  CoordPositionUnits	  "m"
+		  VelocityUnits		  "m/s"
+		  AccelerationUnits	  "m/s^2"
+		  ForceUnits		  "N"
+		  TorqueUnits		  "N-m"
+		  ActiveIO		  "off"
+		  Width			  "1"
+		  ClassName		  "JointActuator"
+		  DialogClass		  "MechanicalActuatorBlock"
+		  Primitive		  "R1"
+		  ReferenceFrame	  "Absolute (INERTIAL)"
+		}
+		Block {
+		  BlockType		  Gain
+		  Name			  "Gain3"
+		  Position		  [905, 129, 970, 161]
+		  Gain			  "[0 0 1]"
+		  ParameterDataTypeMode	  "Inherit via internal rule"
+		  OutDataTypeMode	  "Inherit via internal rule"
+		  SaturateOnIntegerOverflow off
+		}
+		Block {
+		  BlockType		  Gain
+		  Name			  "Gain4"
+		  Position		  [275, 222, 305, 258]
+		  Orientation		  "left"
+		  Gain			  "Mecanique.Bras.CFrot"
+		  ParameterDataTypeMode	  "Inherit via internal rule"
+		  OutDataTypeMode	  "Inherit via internal rule"
+		}
+		Block {
+		  BlockType		  Reference
+		  Name			  "Pivot Orientation"
+		  Ports			  [0, 0, 0, 0, 0, 3, 2]
+		  Position		  [445, 25, 535, 285]
+		  SourceBlock		  "mblibv1/Joints/Revolute"
+		  SourceType		  "msb"
+		  PhysicalDomain	  "mechanical"
+		  SubClassName		  "Unknown"
+		  LeftPortType		  "blob"
+		  RightPortType		  "blob"
+		  LConnTagsString	  "__newl0|SA1|SA2"
+		  RConnTagsString	  "__newr0|SA1"
+		  NumSAPorts		  "3"
+		  CutJoint		  "off"
+		  MarkAsCut		  "off"
+		  Primitives		  "revolute"
+		  PrimitiveProps	  "R1$Base$[1 0 0]$revolute"
+		  ClassName		  "Joint"
+		  DialogClass		  "JointBlock"
+		}
+		Block {
+		  BlockType		  Reference
+		  Name			  "Resistance"
+		  Ports			  [0, 1, 0, 0, 0, 1]
+		  Position		  [345, 220, 385, 260]
+		  Orientation		  "left"
+		  SourceBlock		  "mblibv1/Sensors & \nActuators/Joint"
+" Sensor"
+		  SourceType		  "msb"
+		  ShowPortLabels	  on
+		  Opaque		  on
+		  PhysicalDomain	  "Mechanical"
+		  PortType		  "blob"
+		  Muxed			  "off"
+		  Pose			  "off"
+		  Angle			  "off"
+		  AngleUnits		  "rad"
+		  ArcVelocity		  "on"
+		  ArcVelocityUnits	  "rad/s"
+		  ArcAcceleration	  "off"
+		  ArcAccelerationUnits	  "rad/s^2"
+		  CoordPosition		  "on"
+		  CoordPositionUnits	  "m"
+		  Velocity		  "off"
+		  VelocityUnits		  "m/s"
+		  Acceleration		  "off"
+		  AccelerationUnits	  "m/s^2"
+		  Quaternion		  "on"
+		  QuaternionDT		  "off"
+		  QuaternionDDT		  "off"
+		  QuaternionUnits	  "off"
+		  OutputVector		  "[ 1 ]"
+		  ActiveIO		  "off"
+		  Width			  "1"
+		  ClassName		  "JointSensor"
+		  DialogClass		  "MechanicalSensorBlock"
+		  Primitive		  "R1"
+		  Force			  "off"
+		  ForceUnits		  "N"
+		  Torque		  "off"
+		  TorqueUnits		  "N-m"
+		  ReferenceFrame	  "Absolute (INERTIAL)"
+		  ReactionSensedSide	  "Base"
+		  ReactionReferenceFrame  "Local (Body CS)"
+		  ReactionForce		  "off"
+		  ReactionForceUnits	  "N"
+		  ReactionMoment	  "off"
+		  ReactionMomentUnits	  "N-m"
+		}
+		Block {
+		  BlockType		  PMIOPort
+		  Name			  "Liaison Mécanique Corps"
+		  Tag			  "PMCPort"
+		  Position		  [290, 61, 320, 79]
+		  Port			  "1"
+		  Side			  "Left"
+		}
+		Block {
+		  BlockType		  Outport
+		  Name			  "Orientation"
+		  Position		  [700, 213, 730, 227]
+		  IconDisplay		  "Port number"
+		  BusOutputAsStruct	  off
+		}
+		Block {
+		  BlockType		  Outport
+		  Name			  "Couple résistant orientation"
+		  Position		  [180, 233, 210, 247]
+		  Orientation		  "left"
+		  Port			  "2"
+		  IconDisplay		  "Port number"
+		  BusOutputAsStruct	  off
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "Resistance"
+		  SrcPort		  LConn1
+		  DstBlock		  "Pivot Orientation"
+		  DstPort		  LConn3
+		}
+		Line {
+		  SrcBlock		  "Resistance"
+		  SrcPort		  1
+		  DstBlock		  "Gain4"
+		  DstPort		  1
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "Pivot Orientation"
+		  SrcPort		  LConn2
+		  DstBlock		  "Effecteur1"
+		  DstPort		  RConn1
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "Pivot Orientation"
+		  SrcPort		  LConn1
+		  DstBlock		  "Liaison Mécanique Corps"
+		  DstPort		  RConn1
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "Pivot Orientation"
+		  SrcPort		  RConn1
+		  DstBlock		  "Bras"
+		  DstPort		  LConn1
+		}
+		Line {
+		  SrcBlock		  "Perturbation"
+		  SrcPort		  1
+		  Points		  [95, 0]
+		  DstBlock		  "Effecteur Perturbation Aerodynamiqu"
+"e "
+		  DstPort		  1
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "Pivot Orientation"
+		  SrcPort		  RConn2
+		  DstBlock		  "Capteur Orientation 1"
+		  DstPort		  LConn1
+		}
+		Line {
+		  SrcBlock		  "Capteur Orientation 1"
+		  SrcPort		  1
+		  DstBlock		  "Orientation"
+		  DstPort		  1
+		}
+		Line {
+		  SrcBlock		  "Gain3"
+		  SrcPort		  1
+		  DstBlock		  "Effecteur Force Propulsion"
+		  DstPort		  1
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "Effecteur Force Propulsion"
+		  SrcPort		  RConn1
+		  DstBlock		  "Bras"
+		  DstPort		  LConn2
+		}
+		Line {
+		  Labels		  [0, 0]
+		  SrcBlock		  "Couple orientation"
+		  SrcPort		  1
+		  DstBlock		  "Effecteur1"
+		  DstPort		  1
+		}
+		Line {
+		  SrcBlock		  "Gain4"
+		  SrcPort		  1
+		  DstBlock		  "Couple résistant orientation"
+		  DstPort		  1
+		}
+		Line {
+		  SrcBlock		  "Couple propulsion"
+		  SrcPort		  1
+		  DstBlock		  "Gain3"
+		  DstPort		  1
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "Effecteur Perturbation Aerodynamiqu"
+"e "
+		  SrcPort		  RConn1
+		  DstBlock		  "Bras"
+		  DstPort		  LConn4
+		}
+	      }
+	    }
+	    Block {
+	      BlockType		      SubSystem
+	      Name		      "Carte electronique"
+	      Ports		      [1, 2, 0, 0, 0, 2]
+	      Position		      [315, 82, 585, 198]
+	      BackgroundColor	      "green"
+	      DropShadow	      on
+	      FontSize		      10
+	      TreatAsAtomicUnit	      off
+	      MinAlgLoopOccurrences   off
+	      RTWSystemCode	      "Auto"
+	      System {
+		Name			"Carte electronique"
+		Location		[2, 82, 1430, 824]
+		Open			off
+		ModelBrowserVisibility	off
+		ModelBrowserWidth	200
+		ScreenColor		"white"
+		PaperOrientation	"landscape"
+		PaperPositionMode	"auto"
+		PaperType		"A4"
+		PaperUnits		"centimeters"
+		ZoomFactor		"100"
+		Block {
+		  BlockType		  Inport
+		  Name			  "Commande"
+		  Position		  [295, 163, 325, 177]
+		  Port			  "1"
+		  IconDisplay		  "Port number"
+		  LatchInput		  off
+		}
+		Block {
+		  BlockType		  PMIOPort
+		  Name			  "Alim +"
+		  Tag			  "PMCPort"
+		  Position		  [290, 236, 320, 254]
+		  Port			  "1"
+		  Side			  "Left"
+		}
+		Block {
+		  BlockType		  PMIOPort
+		  Name			  "Alim -"
+		  Tag			  "PMCPort"
+		  Position		  [290, 296, 320, 314]
+		  Port			  "2"
+		  Side			  "Left"
+		}
+		Block {
+		  BlockType		  Outport
+		  Name			  "Commande orientation"
+		  Position		  [1080, 178, 1110, 192]
+		  IconDisplay		  "Port number"
+		  BusOutputAsStruct	  off
+		}
+		Block {
+		  BlockType		  Outport
+		  Name			  "Commande propulsion"
+		  Position		  [1085, 223, 1115, 237]
+		  Port			  "2"
+		  IconDisplay		  "Port number"
+		  BusOutputAsStruct	  off
+		}
+	      }
+	    }
+	    Block {
+	      BlockType		      SubSystem
+	      Name		      "Moteur propulsion"
+	      Ports		      [1, 2, 0, 0, 0, 3]
+	      Position		      [670, 195, 940, 355]
+	      BackgroundColor	      "orange"
+	      DropShadow	      on
+	      FontSize		      10
+	      TreatAsAtomicUnit	      off
+	      MinAlgLoopOccurrences   off
+	      RTWSystemCode	      "Auto"
+	      System {
+		Name			"Moteur propulsion"
+		Location		[2, 82, 1430, 824]
+		Open			off
+		ModelBrowserVisibility	off
+		ModelBrowserWidth	200
+		ScreenColor		"white"
+		PaperOrientation	"landscape"
+		PaperPositionMode	"auto"
+		PaperType		"A4"
+		PaperUnits		"centimeters"
+		ZoomFactor		"100"
+		Block {
+		  BlockType		  Inport
+		  Name			  "Couple mécanique"
+		  Position		  [370, 178, 400, 192]
+		  Port			  "1"
+		  IconDisplay		  "Port number"
+		  LatchInput		  off
+		}
+		Block {
+		  BlockType		  BusSelector
+		  Name			  "Bus\nSelector"
+		  Ports			  [1, 2]
+		  Position		  [880, 187, 885, 358]
+		  ShowName		  off
+		  DialogController	  "Simulink.DDGSource_Bus"
+		  OutputSignals		  "Electromagnetic torque Te (N*m),Rot"
+"or speed wm (rad/s)"
+		  Port {
+		    PortNumber		    1
+		    Name		    "<Electromagnetic torque Te (N*m)>"
+		    RTWStorageClass	    "Auto"
+		    DataLoggingNameMode	    "SignalName"
+		    ShowSigGenPortName	    on
+		  }
+		  Port {
+		    PortNumber		    2
+		    Name		    "<Rotor speed wm (rad/s)>"
+		    RTWStorageClass	    "Auto"
+		    DataLoggingNameMode	    "SignalName"
+		    ShowSigGenPortName	    on
+		  }
+		}
+		Block {
+		  BlockType		  Reference
+		  Name			  "Permanent Magnet\nSynchronous Machi"
+"ne"
+		  Ports			  [1, 1, 0, 0, 0, 3]
+		  Position		  [535, 156, 800, 394]
+		  FontSize		  11
+		  SourceBlock		  "powerlib/Machines/Permanent Magnet"
+"\nSynchronous Machine"
+		  SourceType		  "Permanent Magnet Synchronous Machin"
+"e"
+		  ShowPortLabels	  on
+		  PresetModel		  "No"
+		  ShowDetailedParameters  on
+		  Resistance		  "2.8750 "
+		  Inductances		  "[8.5e-3, 8.5e-3]"
+		  Flux			  "0.175"
+		  Mechanical		  "[ 0.8e-3, 0,  4 ] "
+		}
+		Block {
+		  BlockType		  PMIOPort
+		  Name			  "A"
+		  Tag			  "PMCPort"
+		  Position		  [290, 236, 320, 254]
+		  Port			  "1"
+		  Side			  "Left"
+		}
+		Block {
+		  BlockType		  PMIOPort
+		  Name			  "B"
+		  Tag			  "PMCPort"
+		  Position		  [290, 296, 320, 314]
+		  Port			  "2"
+		  Side			  "Left"
+		}
+		Block {
+		  BlockType		  PMIOPort
+		  Name			  "C"
+		  Tag			  "PMCPort"
+		  Position		  [290, 356, 320, 374]
+		  Port			  "3"
+		  Side			  "Left"
+		}
+		Block {
+		  BlockType		  Outport
+		  Name			  "Vitesse rotor"
+		  Position		  [1090, 308, 1120, 322]
+		  IconDisplay		  "Port number"
+		  BusOutputAsStruct	  off
+		}
+		Block {
+		  BlockType		  Outport
+		  Name			  "Couple rotor"
+		  Position		  [1085, 223, 1115, 237]
+		  Port			  "2"
+		  IconDisplay		  "Port number"
+		  BusOutputAsStruct	  off
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "Permanent Magnet\nSynchronous Machi"
+"ne"
+		  SrcPort		  LConn3
+		  DstBlock		  "C"
+		  DstPort		  RConn1
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "B"
+		  SrcPort		  RConn1
+		  DstBlock		  "Permanent Magnet\nSynchronous Machi"
+"ne"
+		  DstPort		  LConn2
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "Permanent Magnet\nSynchronous Machi"
+"ne"
+		  SrcPort		  LConn1
+		  DstBlock		  "A"
+		  DstPort		  RConn1
+		}
+		Line {
+		  SrcBlock		  "Permanent Magnet\nSynchronous Machi"
+"ne"
+		  SrcPort		  1
+		  DstBlock		  "Bus\nSelector"
+		  DstPort		  1
+		}
+		Line {
+		  Name			  "<Electromagnetic torque Te (N*m)>"
+		  Labels		  [0, 0]
+		  SrcBlock		  "Bus\nSelector"
+		  SrcPort		  1
+		  DstBlock		  "Couple rotor"
+		  DstPort		  1
+		}
+		Line {
+		  Name			  "<Rotor speed wm (rad/s)>"
+		  Labels		  [0, 0]
+		  SrcBlock		  "Bus\nSelector"
+		  SrcPort		  2
+		  DstBlock		  "Vitesse rotor"
+		  DstPort		  1
+		}
+		Line {
+		  SrcBlock		  "Couple mécanique"
+		  SrcPort		  1
+		  DstBlock		  "Permanent Magnet\nSynchronous Machi"
+"ne"
+		  DstPort		  1
+		}
+	      }
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "PM Synchronous Motor Drive"
+	      Ports		      [2, 3, 0, 0, 0, 3]
+	      Position		      [470, 525, 590, 645]
+	      UserDataPersistent      on
+	      UserData		      "DataTag0"
+	      FontName		      "Arial"
+	      FontSize		      10
+	      SourceBlock	      "electricdrivelib/AC drives/PM Synchrono"
+"us Motor Drive"
+	      SourceType	      "PM Synchronous Motor Drive"
+	      ShowPortLabels	      on
+	    }
+	    Block {
+	      BlockType		      SubSystem
+	      Name		      "Variateur de vitesse propulsion"
+	      Ports		      [1, 0, 0, 0, 0, 2, 3]
+	      Position		      [315, 238, 585, 352]
+	      BackgroundColor	      "green"
+	      DropShadow	      on
+	      FontSize		      10
+	      TreatAsAtomicUnit	      off
+	      MinAlgLoopOccurrences   off
+	      RTWSystemCode	      "Auto"
+	      System {
+		Name			"Variateur de vitesse propulsion"
+		Location		[2, 82, 1430, 824]
+		Open			off
+		ModelBrowserVisibility	off
+		ModelBrowserWidth	200
+		ScreenColor		"white"
+		PaperOrientation	"landscape"
+		PaperPositionMode	"auto"
+		PaperType		"A4"
+		PaperUnits		"centimeters"
+		ZoomFactor		"100"
+		Block {
+		  BlockType		  Inport
+		  Name			  "Commande vitesse"
+		  Position		  [370, 178, 400, 192]
+		  Port			  "1"
+		  IconDisplay		  "Port number"
+		  LatchInput		  off
+		}
+		Block {
+		  BlockType		  PMIOPort
+		  Name			  "Alim +"
+		  Tag			  "PMCPort"
+		  Position		  [290, 236, 320, 254]
+		  Port			  "1"
+		  Side			  "Left"
+		}
+		Block {
+		  BlockType		  PMIOPort
+		  Name			  "Alim -"
+		  Tag			  "PMCPort"
+		  Position		  [290, 296, 320, 314]
+		  Port			  "2"
+		  Side			  "Left"
+		}
+		Block {
+		  BlockType		  PMIOPort
+		  Name			  "A"
+		  Tag			  "PMCPort"
+		  Position		  [730, 231, 760, 249]
+		  Orientation		  "left"
+		  Port			  "3"
+		  Side			  "Right"
+		}
+		Block {
+		  BlockType		  PMIOPort
+		  Name			  "B"
+		  Tag			  "PMCPort"
+		  Position		  [730, 296, 760, 314]
+		  Orientation		  "left"
+		  Port			  "4"
+		  Side			  "Right"
+		}
+		Block {
+		  BlockType		  PMIOPort
+		  Name			  "C"
+		  Tag			  "PMCPort"
+		  Position		  [730, 341, 760, 359]
+		  Orientation		  "left"
+		  Port			  "5"
+		  Side			  "Right"
+		}
+	      }
+	    }
+	    Block {
+	      BlockType		      PMIOPort
+	      Name		      "Corps"
+	      Tag		      "PMCPort"
+	      Position		      [980, 381, 1010, 399]
+	      Port		      "1"
+	      Side		      "Left"
+	    }
+	    Block {
+	      BlockType		      PMIOPort
+	      Name		      "Alim +"
+	      Tag		      "PMCPort"
+	      Position		      [56, 40, 74, 70]
+	      Orientation	      "down"
+	      Port		      "2"
+	      Side		      "Right"
+	    }
+	    Block {
+	      BlockType		      PMIOPort
+	      Name		      "Alim -"
+	      Tag		      "PMCPort"
+	      Position		      [166, 40, 184, 70]
+	      Orientation	      "down"
+	      Port		      "3"
+	      Side		      "Right"
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "Alim +"
+	      SrcPort		      RConn1
+	      Points		      [0, 55]
+	      Branch {
+		ConnectType		"DEST_SRC"
+		Points			[0, 155]
+		DstBlock		"Variateur de vitesse propulsion"
+		DstPort			LConn1
+	      }
+	      Branch {
+		ConnectType		"DEST_SRC"
+		DstBlock		"Carte electronique"
+		DstPort			LConn1
+	      }
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "Alim -"
+	      SrcPort		      RConn1
+	      Points		      [0, 95]
+	      Branch {
+		ConnectType		"DEST_SRC"
+		Points			[0, 155]
+		DstBlock		"Variateur de vitesse propulsion"
+		DstPort			LConn2
+	      }
+	      Branch {
+		ConnectType		"DEST_SRC"
+		DstBlock		"Carte electronique"
+		DstPort			LConn2
+	      }
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "Carcasse mécanique"
+	      SrcPort		      LConn1
+	      DstBlock		      "Corps"
+	      DstPort		      RConn1
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "Moteur propulsion"
+	      SrcPort		      LConn1
+	      DstBlock		      "Variateur de vitesse propulsion"
+	      DstPort		      RConn1
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "Variateur de vitesse propulsion"
+	      SrcPort		      RConn2
+	      DstBlock		      "Moteur propulsion"
+	      DstPort		      LConn2
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "Moteur propulsion"
+	      SrcPort		      LConn3
+	      DstBlock		      "Variateur de vitesse propulsion"
+	      DstPort		      RConn3
+	    }
+	    Line {
+	      SrcBlock		      "Moteur propulsion"
+	      SrcPort		      2
+	      DstBlock		      "Carcasse mécanique"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "Commande"
+	      SrcPort		      1
+	      DstBlock		      "Carte electronique"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Carte electronique"
+	      SrcPort		      2
+	      Points		      [5, 0; 0, 55; -295, 0]
+	      DstBlock		      "Variateur de vitesse propulsion"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Corps"
+	  Ports			  [1, 5, 0, 0, 0, 4, 3]
+	  Position		  [305, 44, 610, 331]
+	  BackgroundColor	  "red"
+	  DropShadow		  on
+	  TreatAsAtomicUnit	  off
+	  MinAlgLoopOccurrences	  off
+	  RTWSystemCode		  "Auto"
+	  System {
+	    Name		    "Corps"
+	    Location		    [2, 82, 1430, 824]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Signal reçu"
+	      Position		      [760, 43, 790, 57]
+	      Orientation	      "left"
+	      Port		      "1"
+	      IconDisplay	      "Port number"
+	      LatchInput	      off
+	    }
+	    Block {
+	      BlockType		      SubSystem
+	      Name		      "Accus"
+	      Ports		      [0, 0, 0, 0, 0, 1, 1]
+	      Position		      [88, 100, 162, 225]
+	      Orientation	      "down"
+	      BackgroundColor	      "orange"
+	      DropShadow	      on
+	      NamePlacement	      "alternate"
+	      FontSize		      10
+	      TreatAsAtomicUnit	      off
+	      MinAlgLoopOccurrences   off
+	      RTWSystemCode	      "Auto"
+	      System {
+		Name			"Accus"
+		Location		[2, 82, 1430, 824]
+		Open			off
+		ModelBrowserVisibility	off
+		ModelBrowserWidth	200
+		ScreenColor		"white"
+		PaperOrientation	"landscape"
+		PaperPositionMode	"auto"
+		PaperType		"A4"
+		PaperUnits		"centimeters"
+		ZoomFactor		"100"
+		Block {
+		  BlockType		  Reference
+		  Name			  "DC Voltage Source"
+		  Ports			  [0, 0, 0, 0, 0, 1, 1]
+		  Position		  [531, 340, 579, 400]
+		  Orientation		  "up"
+		  SourceBlock		  "powerlib/Electrical\nSources/DC Vol"
+"tage Source"
+		  SourceType		  "DC Voltage Source"
+		  ShowPortLabels	  on
+		  Amplitude		  "15"
+		  Measurements		  "None"
+		}
+		Block {
+		  BlockType		  PMIOPort
+		  Name			  "Alim +"
+		  Tag			  "PMCPort"
+		  Position		  [740, 301, 770, 319]
+		  Orientation		  "left"
+		  Port			  "1"
+		  Side			  "Left"
+		}
+		Block {
+		  BlockType		  PMIOPort
+		  Name			  "Alim -"
+		  Tag			  "PMCPort"
+		  Position		  [750, 436, 780, 454]
+		  Orientation		  "left"
+		  Port			  "2"
+		  Side			  "Right"
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "DC Voltage Source"
+		  SrcPort		  RConn1
+		  Points		  [0, -15]
+		  DstBlock		  "Alim +"
+		  DstPort		  RConn1
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "Alim -"
+		  SrcPort		  RConn1
+		  Points		  [-180, 0]
+		  DstBlock		  "DC Voltage Source"
+		  DstPort		  LConn1
+		}
+	      }
+	    }
+	    Block {
+	      BlockType		      SubSystem
+	      Name		      "Carcasse mécanique"
+	      Ports		      [0, 0, 0, 0, 0, 3, 3]
+	      Position		      [440, 411, 695, 709]
+	      Orientation	      "left"
+	      BackgroundColor	      "gray"
+	      DropShadow	      on
+	      FontSize		      10
+	      TreatAsAtomicUnit	      off
+	      MinAlgLoopOccurrences   off
+	      RTWSystemCode	      "Auto"
+	      System {
+		Name			"Carcasse mécanique"
+		Location		[2, 82, 1430, 824]
+		Open			off
+		ModelBrowserVisibility	off
+		ModelBrowserWidth	200
+		ScreenColor		"white"
+		PaperOrientation	"landscape"
+		PaperPositionMode	"auto"
+		PaperType		"A4"
+		PaperUnits		"centimeters"
+		ZoomFactor		"100"
+		Block {
+		  BlockType		  Reference
+		  Name			  "Corps"
+		  Ports			  [0, 0, 0, 0, 0, 3, 3]
+		  Position		  [445, 83, 550, 607]
+		  SourceBlock		  "mblibv1/Bodies/Body"
+		  SourceType		  "msb"
+		  PhysicalDomain	  "mechanical"
+		  SubClassName		  "Unknown"
+		  LeftPortType		  "workingframe"
+		  RightPortType		  "workingframe"
+		  LConnTagsString	  "CS4|CS7|CG"
+		  RConnTagsString	  "CS1|CS2|CS3"
+		  ClassName		  "Body"
+		  DialogClass		  "MechanicalBodyBlock"
+		  Mass			  "Mecanique.Corps.Masse"
+		  MassUnits		  "kg"
+		  InertiaUnits		  "kg*m^2"
+		  Inertia		  "Mecanique.Corps.Inertie"
+		  Shape			  "Cylinder"
+		  ShapeDims		  "[1 1]"
+		  ShapeUnits		  "m"
+		  ShapeUse		  "false"
+		  Density		  "1"
+		  DensityUnits		  "kg/m^3"
+		  DensityUse		  "false"
+		  CG			  "Left$CG$[0 0 0]$ADJOINING$ADJOINING"
+"$m$[0 0 0]$Euler X-Y-Z$deg$ADJOINING$true"
+		  WorkingFrames		  "Right$CS1$[0 0 0]$CG$CG$m$[0 0 0]$E"
+"uler Z-Y-X$deg$CG$true#Right$CS2$[0 0 0]$CG$CG$m$[120 0 0]$Euler Z-Y-X$deg$CG"
+"$true#Right$CS3$[0 0 0]$CG$CG$m$[240 0 0]$Euler Z-Y-X$deg$CG$true#Left$CS4$[0"
+" 0 0]$CG$CG$m$[0 0 0]$Euler X-Y-Z$deg$WORLD$true#Left$CS7$[0 0 0]$CG$CG$m$[0 "
+"0 0]$Euler X-Y-Z$deg$WORLD$true"
+		}
+		Block {
+		  BlockType		  PMIOPort
+		  Name			  "Bras1"
+		  Tag			  "PMCPort"
+		  Position		  [710, 161, 740, 179]
+		  Orientation		  "left"
+		  Port			  "1"
+		  Side			  "Left"
+		}
+		Block {
+		  BlockType		  PMIOPort
+		  Name			  "Air"
+		  Tag			  "PMCPort"
+		  Position		  [140, 341, 170, 359]
+		  Port			  "2"
+		  Side			  "Right"
+		}
+		Block {
+		  BlockType		  PMIOPort
+		  Name			  "Bras2"
+		  Tag			  "PMCPort"
+		  Position		  [705, 336, 735, 354]
+		  Orientation		  "left"
+		  Port			  "3"
+		  Side			  "Left"
+		}
+		Block {
+		  BlockType		  PMIOPort
+		  Name			  "Environnement"
+		  Tag			  "PMCPort"
+		  Position		  [280, 506, 310, 524]
+		  Port			  "4"
+		  Side			  "Right"
+		}
+		Block {
+		  BlockType		  PMIOPort
+		  Name			  "Bras3"
+		  Tag			  "PMCPort"
+		  Position		  [705, 511, 735, 529]
+		  Orientation		  "left"
+		  Port			  "5"
+		  Side			  "Left"
+		}
+		Block {
+		  BlockType		  PMIOPort
+		  Name			  "Centrale inertielle"
+		  Tag			  "PMCPort"
+		  Position		  [230, 161, 260, 179]
+		  Port			  "6"
+		  Side			  "Right"
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "Corps"
+		  SrcPort		  RConn1
+		  DstBlock		  "Bras1"
+		  DstPort		  RConn1
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "Bras2"
+		  SrcPort		  RConn1
+		  DstBlock		  "Corps"
+		  DstPort		  RConn2
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "Bras3"
+		  SrcPort		  RConn1
+		  DstBlock		  "Corps"
+		  DstPort		  RConn3
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "Environnement"
+		  SrcPort		  RConn1
+		  Points		  [105, 0]
+		  DstBlock		  "Corps"
+		  DstPort		  LConn3
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "Air"
+		  SrcPort		  RConn1
+		  Points		  [245, 0]
+		  DstBlock		  "Corps"
+		  DstPort		  LConn2
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "Corps"
+		  SrcPort		  LConn1
+		  DstBlock		  "Centrale inertielle"
+		  DstPort		  RConn1
+		}
+	      }
+	    }
+	    Block {
+	      BlockType		      SubSystem
+	      Name		      "Carte electronique"
+	      Ports		      [2, 4]
+	      Position		      [440, 164, 695, 376]
+	      BackgroundColor	      "green"
+	      DropShadow	      on
+	      FontSize		      10
+	      TreatAsAtomicUnit	      off
+	      MinAlgLoopOccurrences   off
+	      RTWSystemCode	      "Auto"
+	      System {
+		Name			"Carte electronique"
+		Location		[2, 82, 1430, 824]
+		Open			off
+		ModelBrowserVisibility	off
+		ModelBrowserWidth	200
+		ScreenColor		"white"
+		PaperOrientation	"landscape"
+		PaperPositionMode	"auto"
+		PaperType		"A4"
+		PaperUnits		"centimeters"
+		ZoomFactor		"100"
+		Block {
+		  BlockType		  Inport
+		  Name			  "Reception"
+		  Position		  [160, 188, 190, 202]
+		  Port			  "1"
+		  IconDisplay		  "Port number"
+		  LatchInput		  off
+		}
+		Block {
+		  BlockType		  Inport
+		  Name			  "Donnees inertielles"
+		  Position		  [155, 278, 185, 292]
+		  Port			  "2"
+		  IconDisplay		  "Port number"
+		  LatchInput		  off
+		}
+		Block {
+		  BlockType		  Outport
+		  Name			  "Emission"
+		  Position		  [870, 153, 900, 167]
+		  IconDisplay		  "Port number"
+		  BusOutputAsStruct	  off
+		}
+		Block {
+		  BlockType		  Outport
+		  Name			  "Bras1"
+		  Position		  [855, 233, 885, 247]
+		  Port			  "2"
+		  IconDisplay		  "Port number"
+		  BusOutputAsStruct	  off
+		}
+		Block {
+		  BlockType		  Outport
+		  Name			  "Bras2"
+		  Position		  [875, 393, 905, 407]
+		  Port			  "3"
+		  IconDisplay		  "Port number"
+		  BusOutputAsStruct	  off
+		}
+		Block {
+		  BlockType		  Outport
+		  Name			  "Bras3"
+		  Position		  [895, 493, 925, 507]
+		  Port			  "4"
+		  IconDisplay		  "Port number"
+		  BusOutputAsStruct	  off
+		}
+	      }
+	    }
+	    Block {
+	      BlockType		      SubSystem
+	      Name		      "Centrale inertielle"
+	      Ports		      [0, 1, 0, 0, 0, 1]
+	      Position		      [215, 640, 405, 680]
+	      Orientation	      "left"
+	      BackgroundColor	      "orange"
+	      DropShadow	      on
+	      FontSize		      10
+	      TreatAsAtomicUnit	      off
+	      MinAlgLoopOccurrences   off
+	      RTWSystemCode	      "Auto"
+	      System {
+		Name			"Centrale inertielle"
+		Location		[2, 82, 1430, 824]
+		Open			off
+		ModelBrowserVisibility	off
+		ModelBrowserWidth	200
+		ScreenColor		"white"
+		PaperOrientation	"landscape"
+		PaperPositionMode	"auto"
+		PaperType		"A4"
+		PaperUnits		"centimeters"
+		ZoomFactor		"100"
+		Block {
+		  BlockType		  Reference
+		  Name			  "Body Sensor"
+		  Ports			  [0, 2, 0, 0, 0, 1]
+		  Position		  [525, 324, 565, 411]
+		  SourceBlock		  "mblibv1/Sensors & \nActuators/Body "
+"Sensor"
+		  SourceType		  "msb"
+		  ShowPortLabels	  on
+		  Opaque		  on
+		  PhysicalDomain	  "Mechanical"
+		  PortType		  "blob"
+		  Muxed			  "off"
+		  Pose			  "off"
+		  Angle			  "on"
+		  AngleUnits		  "deg"
+		  ArcVelocity		  "off"
+		  ArcVelocityUnits	  "deg/s"
+		  ArcAcceleration	  "on"
+		  ArcAccelerationUnits	  "rad/s^2"
+		  CoordPosition		  "off"
+		  CoordPositionUnits	  "m"
+		  Velocity		  "off"
+		  VelocityUnits		  "m/s"
+		  Acceleration		  "on"
+		  AccelerationUnits	  "m/s^2"
+		  Quaternion		  "on"
+		  QuaternionDT		  "off"
+		  QuaternionDDT		  "off"
+		  QuaternionUnits	  "off"
+		  OutputVector		  "[ 3 3 ]"
+		  ActiveIO		  "off"
+		  Width			  "12"
+		  ClassName		  "BodySensor"
+		  DialogClass		  "MechanicalSensorBlock"
+		  ReferenceFrame	  "Absolute (World)"
+		  Port {
+		    PortNumber		    1
+		    Name		    "x\"y\"z\""
+		    RTWStorageClass	    "Auto"
+		    DataLoggingNameMode	    "SignalName"
+		    ShowSigGenPortName	    on
+		  }
+		  Port {
+		    PortNumber		    2
+		    Name		    "p'q'r'"
+		    RTWStorageClass	    "Auto"
+		    DataLoggingNameMode	    "SignalName"
+		    ShowSigGenPortName	    on
+		  }
+		}
+		Block {
+		  BlockType		  BusCreator
+		  Name			  "Bus\nCreator"
+		  Ports			  [6, 1]
+		  Position		  [855, 147, 860, 408]
+		  ShowName		  off
+		  DialogController	  "Simulink.DDGSource_Bus"
+		  Inputs		  "6"
+		  DisplayOption		  "bar"
+		}
+		Block {
+		  BlockType		  Reference
+		  Name			  "Position"
+		  Ports			  [0, 2, 0, 0, 0, 1]
+		  Position		  [700, 141, 740, 234]
+		  SourceBlock		  "mblibv1/Sensors & \nActuators/Body "
+"Sensor"
+		  SourceType		  "msb"
+		  ShowPortLabels	  on
+		  Opaque		  on
+		  PhysicalDomain	  "Mechanical"
+		  PortType		  "blob"
+		  Muxed			  "off"
+		  Pose			  "on"
+		  Angle			  "on"
+		  AngleUnits		  "deg"
+		  ArcVelocity		  "off"
+		  ArcVelocityUnits	  "deg/s"
+		  ArcAcceleration	  "off"
+		  ArcAccelerationUnits	  "deg/s^2"
+		  CoordPosition		  "on"
+		  CoordPositionUnits	  "m"
+		  Velocity		  "off"
+		  VelocityUnits		  "m/s"
+		  Acceleration		  "off"
+		  AccelerationUnits	  "m/s^2"
+		  Quaternion		  "on"
+		  QuaternionDT		  "off"
+		  QuaternionDDT		  "off"
+		  QuaternionUnits	  "off"
+		  OutputVector		  "[ 3 9 ]"
+		  ActiveIO		  "off"
+		  Width			  "12"
+		  ClassName		  "BodySensor"
+		  DialogClass		  "MechanicalSensorBlock"
+		  ReferenceFrame	  "Absolute (World)"
+		  Port {
+		    PortNumber		    1
+		    Name		    "xyz"
+		    RTWStorageClass	    "Auto"
+		    DataLoggingNameMode	    "SignalName"
+		    ShowSigGenPortName	    on
+		  }
+		  Port {
+		    PortNumber		    2
+		    Name		    "dcm"
+		    RTWStorageClass	    "Auto"
+		    DataLoggingNameMode	    "SignalName"
+		    ShowSigGenPortName	    on
+		  }
+		}
+		Block {
+		  BlockType		  Reference
+		  Name			  "Separation"
+		  Ports			  [0, 0, 0, 0, 0, 1, 3]
+		  Position		  [336, 115, 584, 125]
+		  Orientation		  "down"
+		  BackgroundColor	  "black"
+		  NamePlacement		  "alternate"
+		  FontSize		  10
+		  SourceBlock		  "mblibv1/Utilities/Mechanical\nBranc"
+"hing\nBar"
+		  SourceType		  "msb"
+		  PhysicalDomain	  "mechanical"
+		  SubClassName		  "Unknown"
+		  LeftPortType		  "blob"
+		  RightPortType		  "blob"
+		  LConnTagsString	  "_newl0"
+		  RConnTagsString	  "SA0|SA1|SA2"
+		  ClassName		  "BranchingBar"
+		  DialogClass		  "MechanicalBranchingBarBlock"
+		  NumSAPorts		  "3"
+		}
+		Block {
+		  BlockType		  Reference
+		  Name			  "Vitesse"
+		  Ports			  [0, 2, 0, 0, 0, 1]
+		  Position		  [610, 231, 650, 324]
+		  SourceBlock		  "mblibv1/Sensors & \nActuators/Body "
+"Sensor"
+		  SourceType		  "msb"
+		  ShowPortLabels	  on
+		  Opaque		  on
+		  PhysicalDomain	  "Mechanical"
+		  PortType		  "blob"
+		  Muxed			  "off"
+		  Pose			  "off"
+		  Angle			  "on"
+		  AngleUnits		  "deg"
+		  ArcVelocity		  "on"
+		  ArcVelocityUnits	  "rad/s"
+		  ArcAcceleration	  "off"
+		  ArcAccelerationUnits	  "deg/s^2"
+		  CoordPosition		  "off"
+		  CoordPositionUnits	  "m"
+		  Velocity		  "on"
+		  VelocityUnits		  "m/s"
+		  Acceleration		  "off"
+		  AccelerationUnits	  "m/s^2"
+		  Quaternion		  "on"
+		  QuaternionDT		  "off"
+		  QuaternionDDT		  "off"
+		  QuaternionUnits	  "off"
+		  OutputVector		  "[ 3 3 ]"
+		  ActiveIO		  "off"
+		  Width			  "12"
+		  ClassName		  "BodySensor"
+		  DialogClass		  "MechanicalSensorBlock"
+		  ReferenceFrame	  "Absolute (World)"
+		  Port {
+		    PortNumber		    1
+		    Name		    "x'y'z'"
+		    RTWStorageClass	    "Auto"
+		    DataLoggingNameMode	    "SignalName"
+		    ShowSigGenPortName	    on
+		  }
+		  Port {
+		    PortNumber		    2
+		    Name		    "pqr"
+		    RTWStorageClass	    "Auto"
+		    DataLoggingNameMode	    "SignalName"
+		    ShowSigGenPortName	    on
+		  }
+		}
+		Block {
+		  BlockType		  PMIOPort
+		  Name			  "Corps"
+		  Tag			  "PMCPort"
+		  Position		  [165, 31, 195, 49]
+		  Port			  "1"
+		  Side			  "Left"
+		}
+		Block {
+		  BlockType		  Outport
+		  Name			  "Position Vitesse Acceleration"
+		  Position		  [1040, 273, 1070, 287]
+		  IconDisplay		  "Port number"
+		  BusOutputAsStruct	  off
+		}
+		Line {
+		  Name			  "xyz"
+		  Labels		  [0, 0]
+		  SrcBlock		  "Position"
+		  SrcPort		  1
+		  DstBlock		  "Bus\nCreator"
+		  DstPort		  1
+		}
+		Line {
+		  SrcBlock		  "Bus\nCreator"
+		  SrcPort		  1
+		  DstBlock		  "Position Vitesse Acceleration"
+		  DstPort		  1
+		}
+		Line {
+		  Name			  "dcm"
+		  Labels		  [0, 0]
+		  SrcBlock		  "Position"
+		  SrcPort		  2
+		  DstBlock		  "Bus\nCreator"
+		  DstPort		  2
+		}
+		Line {
+		  Name			  "x'y'z'"
+		  Labels		  [0, 0]
+		  SrcBlock		  "Vitesse"
+		  SrcPort		  1
+		  DstBlock		  "Bus\nCreator"
+		  DstPort		  3
+		}
+		Line {
+		  Name			  "pqr"
+		  Labels		  [0, 0]
+		  SrcBlock		  "Vitesse"
+		  SrcPort		  2
+		  DstBlock		  "Bus\nCreator"
+		  DstPort		  4
+		}
+		Line {
+		  Name			  "x\"y\"z\""
+		  Labels		  [0, 0]
+		  SrcBlock		  "Body Sensor"
+		  SrcPort		  1
+		  DstBlock		  "Bus\nCreator"
+		  DstPort		  5
+		}
+		Line {
+		  Name			  "p'q'r'"
+		  Labels		  [0, 0]
+		  SrcBlock		  "Body Sensor"
+		  SrcPort		  2
+		  DstBlock		  "Bus\nCreator"
+		  DstPort		  6
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "Separation"
+		  SrcPort		  LConn1
+		  Points		  [0, -60]
+		  DstBlock		  "Corps"
+		  DstPort		  RConn1
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "Position"
+		  SrcPort		  LConn1
+		  Points		  [-145, 0]
+		  DstBlock		  "Separation"
+		  DstPort		  RConn3
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "Separation"
+		  SrcPort		  RConn2
+		  Points		  [0, 140]
+		  DstBlock		  "Vitesse"
+		  DstPort		  LConn1
+		}
+		Line {
+		  LineType		  "Connection"
+		  SrcBlock		  "Separation"
+		  SrcPort		  RConn1
+		  Points		  [0, 230]
+		  DstBlock		  "Body Sensor"
+		  DstPort		  LConn1
+		}
+	      }
+	    }
+	    Block {
+	      BlockType		      SubSystem
+	      Name		      "Modem"
+	      Ports		      [2, 2]
+	      Position		      [440, 22, 695, 133]
+	      Orientation	      "left"
+	      BackgroundColor	      "green"
+	      DropShadow	      on
+	      FontSize		      10
+	      TreatAsAtomicUnit	      off
+	      MinAlgLoopOccurrences   off
+	      RTWSystemCode	      "Auto"
+	      System {
+		Name			"Modem"
+		Location		[2, 82, 1430, 824]
+		Open			off
+		ModelBrowserVisibility	off
+		ModelBrowserWidth	200
+		ScreenColor		"white"
+		PaperOrientation	"landscape"
+		PaperPositionMode	"auto"
+		PaperType		"A4"
+		PaperUnits		"centimeters"
+		ZoomFactor		"100"
+		Block {
+		  BlockType		  Inport
+		  Name			  "Signal reçu"
+		  Position		  [105, 93, 135, 107]
+		  Port			  "1"
+		  IconDisplay		  "Port number"
+		  LatchInput		  off
+		}
+		Block {
+		  BlockType		  Inport
+		  Name			  "Emission "
+		  Position		  [105, 213, 135, 227]
+		  Port			  "2"
+		  IconDisplay		  "Port number"
+		  LatchInput		  off
+		}
+		Block {
+		  BlockType		  Outport
+		  Name			  "Signal emis"
+		  Position		  [275, 213, 305, 227]
+		  IconDisplay		  "Port number"
+		  BusOutputAsStruct	  off
+		}
+		Block {
+		  BlockType		  Outport
+		  Name			  "Reception"
+		  Position		  [270, 93, 300, 107]
+		  Port			  "2"
+		  IconDisplay		  "Port number"
+		  BusOutputAsStruct	  off
+		}
+		Line {
+		  SrcBlock		  "Emission "
+		  SrcPort		  1
+		  DstBlock		  "Signal emis"
+		  DstPort		  1
+		}
+		Line {
+		  SrcBlock		  "Signal reçu"
+		  SrcPort		  1
+		  DstBlock		  "Reception"
+		  DstPort		  1
+		}
+	      }
+	    }
+	    Block {
+	      BlockType		      PMIOPort
+	      Name		      "Bras1"
+	      Tag		      "PMCPort"
+	      Position		      [740, 451, 770, 469]
+	      Orientation	      "left"
+	      Port		      "1"
+	      Side		      "Right"
+	    }
+	    Block {
+	      BlockType		      PMIOPort
+	      Name		      "Bras2"
+	      Tag		      "PMCPort"
+	      Position		      [740, 551, 770, 569]
+	      Orientation	      "left"
+	      Port		      "2"
+	      Side		      "Right"
+	    }
+	    Block {
+	      BlockType		      PMIOPort
+	      Name		      "Environnement"
+	      Tag		      "PMCPort"
+	      Position		      [370, 551, 400, 569]
+	      Port		      "3"
+	      Side		      "Left"
+	    }
+	    Block {
+	      BlockType		      PMIOPort
+	      Name		      "Bras3"
+	      Tag		      "PMCPort"
+	      Position		      [745, 651, 775, 669]
+	      Orientation	      "left"
+	      Port		      "4"
+	      Side		      "Right"
+	    }
+	    Block {
+	      BlockType		      PMIOPort
+	      Name		      "Air"
+	      Tag		      "PMCPort"
+	      Position		      [375, 451, 405, 469]
+	      Port		      "5"
+	      Side		      "Left"
+	    }
+	    Block {
+	      BlockType		      PMIOPort
+	      Name		      "Alim +"
+	      Tag		      "PMCPort"
+	      Position		      [116, 50, 134, 80]
+	      Orientation	      "down"
+	      NamePlacement	      "alternate"
+	      Port		      "6"
+	      Side		      "Left"
+	    }
+	    Block {
+	      BlockType		      PMIOPort
+	      Name		      "Alim -"
+	      Tag		      "PMCPort"
+	      Position		      [116, 250, 134, 280]
+	      Orientation	      "up"
+	      NamePlacement	      "alternate"
+	      Port		      "7"
+	      Side		      "Left"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Signal emis"
+	      Position		      [360, 43, 390, 57]
+	      Orientation	      "left"
+	      IconDisplay	      "Port number"
+	      BusOutputAsStruct	      off
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Position Vitesse Acceleration"
+	      Position		      [80, 653, 110, 667]
+	      Orientation	      "left"
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	      BusOutputAsStruct	      off
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Bras 1"
+	      Position		      [760, 238, 790, 252]
+	      Port		      "3"
+	      IconDisplay	      "Port number"
+	      BusOutputAsStruct	      off
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Bras 2"
+	      Position		      [760, 288, 790, 302]
+	      Port		      "4"
+	      IconDisplay	      "Port number"
+	      BusOutputAsStruct	      off
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Bras 3"
+	      Position		      [760, 338, 790, 352]
+	      Port		      "5"
+	      IconDisplay	      "Port number"
+	      BusOutputAsStruct	      off
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "Carcasse mécanique"
+	      SrcPort		      LConn1
+	      DstBlock		      "Bras1"
+	      DstPort		      RConn1
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "Carcasse mécanique"
+	      SrcPort		      LConn2
+	      DstBlock		      "Bras2"
+	      DstPort		      RConn1
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "Carcasse mécanique"
+	      SrcPort		      LConn3
+	      DstBlock		      "Bras3"
+	      DstPort		      RConn1
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "Environnement"
+	      SrcPort		      RConn1
+	      DstBlock		      "Carcasse mécanique"
+	      DstPort		      RConn2
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "Centrale inertielle"
+	      SrcPort		      LConn1
+	      DstBlock		      "Carcasse mécanique"
+	      DstPort		      RConn3
+	    }
+	    Line {
+	      SrcBlock		      "Centrale inertielle"
+	      SrcPort		      1
+	      Points		      [-35, 0]
+	      Branch {
+		DstBlock		"Position Vitesse Acceleration"
+		DstPort			1
+	      }
+	      Branch {
+		Points			[0, -335]
+		DstBlock		"Carte electronique"
+		DstPort			2
+	      }
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "Air"
+	      SrcPort		      RConn1
+	      DstBlock		      "Carcasse mécanique"
+	      DstPort		      RConn1
+	    }
+	    Line {
+	      SrcBlock		      "Carte electronique"
+	      SrcPort		      2
+	      DstBlock		      "Bras 1"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Carte electronique"
+	      SrcPort		      3
+	      DstBlock		      "Bras 2"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Carte electronique"
+	      SrcPort		      4
+	      DstBlock		      "Bras 3"
+	      DstPort		      1
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "Alim +"
+	      SrcPort		      RConn1
+	      Points		      [0, -10]
+	      DstBlock		      "Accus"
+	      DstPort		      LConn1
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "Alim -"
+	      SrcPort		      RConn1
+	      Points		      [0, 5]
+	      DstBlock		      "Accus"
+	      DstPort		      RConn1
+	    }
+	    Line {
+	      SrcBlock		      "Modem"
+	      SrcPort		      1
+	      DstBlock		      "Signal emis"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Carte electronique"
+	      SrcPort		      1
+	      Points		      [55, 0; 0, -90]
+	      DstBlock		      "Modem"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Signal reçu"
+	      SrcPort		      1
+	      DstBlock		      "Modem"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Modem"
+	      SrcPort		      2
+	      Points		      [-50, 0; 0, 115]
+	      DstBlock		      "Carte electronique"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Environnement"
+	  Ports			  [0, 0, 0, 0, 0, 1]
+	  Position		  [55, 118, 210, 152]
+	  Orientation		  "left"
+	  BackgroundColor	  "green"
+	  DropShadow		  on
+	  FontSize		  10
+	  TreatAsAtomicUnit	  off
+	  MinAlgLoopOccurrences	  off
+	  RTWSystemCode		  "Auto"
+	  System {
+	    Name		    "Environnement"
+	    Location		    [433, 403, 931, 703]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Reference
+	      Name		      "Ground"
+	      Ports		      [0, 0, 0, 0, 0, 1, 1]
+	      Position		      [185, 65, 225, 105]
+	      UserDataPersistent      on
+	      UserData		      "DataTag1"
+	      SourceBlock	      "mblibv1/Bodies/Ground"
+	      SourceType	      "msb"
+	      ShowPortLabels	      on
+	      Opaque		      on
+	      LeftPortType	      "env"
+	      RightPortType	      "workingframe"
+	      PhysicalDomain	      "Mechanical"
+	      DialogClass	      "GroundBlock"
+	      ClassName		      "Ground"
+	      CoordPosition	      "[0 0 0]"
+	      CoordPositionUnits      "m"
+	      StateVectorMgrId	      "-1"
+	      MachineId		      "[0 0]"
+	      ShowEnvPort	      on
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "Machine\nEnvironment"
+	      Tag		      "Factory ground"
+	      Ports		      [0, 0, 0, 0, 0, 0, 1]
+	      Position		      [85, 75, 125, 95]
+	      DialogController	      "MECH.DialogSource"
+	      SourceBlock	      "mblibv1/Bodies/Machine\nEnvironment"
+	      SourceType	      "Mechanical"
+	      ShowPortLabels	      on
+	      Opaque		      on
+	      PortType		      "env"
+	      PhysicalDomain	      "Mechanical"
+	      ClassName		      "Environment"
+	      DialogTemplateClass     "MECH.MachineEnvironment"
+	      SyncWhenCopied	      "off"
+	      Gravity		      "Environnement.Gravite"
+	      GravityUnits	      "m/s^2"
+	      GravityAsSignal	      off
+	      Dimensionality	      "3D Only"
+	      AnalysisType	      "Forward dynamics"
+	      LinearAssemblyTolerance "1e-3"
+	      LinearAssemblyToleranceUnits "m"
+	      AngularAssemblyTolerance "1e-3"
+	      AngularAssemblyToleranceUnits "rad"
+	      ConstraintSolverType    "Stabilizing"
+	      ConstraintRelTolerance  "1e-4"
+	      ConstraintAbsTolerance  "1e-4"
+	      UseRobustSingularityHandling off
+	      StatePerturbationType   "Fixed"
+	      PerturbationSize	      "1e-5"
+	      VisualizeMachine	      on
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "Six-DoF"
+	      Ports		      [0, 0, 0, 0, 0, 1, 1]
+	      Position		      [280, 60, 330, 110]
+	      SourceBlock	      "mblibv1/Joints/Six-DoF"
+	      SourceType	      "msb"
+	      PhysicalDomain	      "mechanical"
+	      SubClassName	      "Unknown"
+	      LeftPortType	      "blob"
+	      RightPortType	      "blob"
+	      LConnTagsString	      "__newl0"
+	      RConnTagsString	      "__newr0"
+	      NumSAPorts	      "0"
+	      CutJoint		      "off"
+	      MarkAsCut		      "off"
+	      Primitives	      "prismatic_prismatic_prismatic_spherical"
+	      PrimitiveProps	      "P1$INERTIAL$[1 0 0]$prismatic#P2$INERTI"
+"AL$[0 1 0]$prismatic#P3$INERTIAL$[0 0 1]$prismatic#S$INERTIAL$[0 0 0]$spheric"
+"al"
+	      ClassName		      "Joint"
+	      DialogClass	      "JointBlock"
+	    }
+	    Block {
+	      BlockType		      PMIOPort
+	      Name		      "Corps"
+	      Tag		      "PMCPort"
+	      Position		      [390, 76, 420, 94]
+	      Orientation	      "left"
+	      Port		      "1"
+	      Side		      "Left"
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "Ground"
+	      SrcPort		      RConn1
+	      DstBlock		      "Six-DoF"
+	      DstPort		      LConn1
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "Machine\nEnvironment"
+	      SrcPort		      RConn1
+	      DstBlock		      "Ground"
+	      DstPort		      LConn1
+	    }
+	    Line {
+	      LineType		      "Connection"
+	      SrcBlock		      "Six-DoF"
+	      SrcPort		      RConn1
+	      DstBlock		      "Corps"
+	      DstPort		      RConn1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Signal emis"
+	  Position		  [645, 58, 675, 72]
+	  IconDisplay		  "Port number"
+	  BusOutputAsStruct	  off
+	}
+	Line {
+	  SrcBlock		  "Signal reçu"
+	  SrcPort		  1
+	  DstBlock		  "Corps"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Corps"
+	  SrcPort		  1
+	  DstBlock		  "Signal emis"
+	  DstPort		  1
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "Corps"
+	  SrcPort		  LConn1
+	  DstBlock		  "Environnement"
+	  DstPort		  LConn1
+	}
+	Line {
+	  LineType		  "Connection"
+	  Points		  [1250, 655; -395, 0]
+	  Branch {
+	    ConnectType		    "DEST_SRC"
+	    Points		    [-600, 0; 0, -410]
+	    DstBlock		    "Corps"
+	    DstPort		    LConn3
+	  }
+	  Branch {
+	    ConnectType		    "DEST_DEST"
+	    SrcBlock		    "Bras 1"
+	    SrcPort		    RConn1
+	    Points		    [0, 100]
+	  }
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "Bras 1"
+	  SrcPort		  RConn2
+	  Points		  [0, 75; -645, 0]
+	  DstBlock		  "Corps"
+	  DstPort		  LConn4
+	}
+	Line {
+	  SrcBlock		  "Corps"
+	  SrcPort		  3
+	  Points		  [240, 0]
+	  DstBlock		  "Bras 1"
+	  DstPort		  1
+	}
+	Line {
+	  LineType		  "Connection"
+	  SrcBlock		  "Bras 1"
+	  SrcPort		  LConn1
+	  Points		  [0, -75]
+	  DstBlock		  "Corps"
+	  DstPort		  RConn1
+	}
+	Line {
+	  SrcBlock		  "Corps"
+	  SrcPort		  2
+	  Points		  [330, 0]
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Exterieur"
+      Ports		      [0, 1]
+      Position		      [828, 35, 1072, 205]
+      Orientation	      "down"
+      BackgroundColor	      "cyan"
+      DropShadow	      on
+      NamePlacement	      "alternate"
+      TreatAsAtomicUnit	      off
+      MinAlgLoopOccurrences   off
+      RTWSystemCode	      "Auto"
+      MaskDisplay	      "image(imread('C:\\Projets\\CMD\\Simulations\\Pr"
+"opre\\images\\ciel.jpg'))"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "autoscale"
+      System {
+	Name			"Exterieur"
+	Location		[2, 82, 1430, 824]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Outport
+	  Name			  "Influence"
+	  Position		  [675, 218, 705, 232]
+	  IconDisplay		  "Port number"
+	  BusOutputAsStruct	  off
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Station sol"
+      Ports		      [1, 1]
+      Position		      [115, 295, 385, 515]
+      Orientation	      "up"
+      BackgroundColor	      "cyan"
+      DropShadow	      on
+      NamePlacement	      "alternate"
+      TreatAsAtomicUnit	      off
+      MinAlgLoopOccurrences   off
+      RTWSystemCode	      "Auto"
+      MaskDisplay	      "image(imread('C:\\Projets\\CMD\\Simulations\\Pr"
+"opre\\images\\stationsol.jpg'))"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "autoscale"
+      System {
+	Name			"Station sol"
+	Location		[433, 403, 931, 703]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "Reception"
+	  Position		  [110, 103, 140, 117]
+	  Port			  "1"
+	  IconDisplay		  "Port number"
+	  LatchInput		  off
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Emission"
+	  Position		  [360, 103, 390, 117]
+	  IconDisplay		  "Port number"
+	  BusOutputAsStruct	  off
+	}
+	Line {
+	  SrcBlock		  "Reception"
+	  SrcPort		  1
+	  DstBlock		  "Emission"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Transmission descendante"
+      Ports		      [1, 1]
+      Position		      [440, 590, 650, 640]
+      Orientation	      "left"
+      BackgroundColor	      "cyan"
+      DropShadow	      on
+      TreatAsAtomicUnit	      off
+      MinAlgLoopOccurrences   off
+      RTWSystemCode	      "Auto"
+      MaskDisplay	      "image(imread('C:\\Projets\\CMD\\Simulations\\Pr"
+"opre\\images\\ondes2.jpg'))"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "autoscale"
+      System {
+	Name			"Transmission descendante"
+	Location		[433, 403, 931, 703]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "Entrée"
+	  Position		  [110, 103, 140, 117]
+	  Port			  "1"
+	  IconDisplay		  "Port number"
+	  LatchInput		  off
+	}
+	Block {
+	  BlockType		  TransportDelay
+	  Name			  "Délai de transmission"
+	  Position		  [190, 77, 295, 143]
+	  DelayTime		  "1E-4"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Sortie"
+	  Position		  [360, 103, 390, 117]
+	  IconDisplay		  "Port number"
+	  BusOutputAsStruct	  off
+	}
+	Line {
+	  SrcBlock		  "Entrée"
+	  SrcPort		  1
+	  DstBlock		  "Délai de transmission"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Délai de transmission"
+	  SrcPort		  1
+	  DstBlock		  "Sortie"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Transmission montante"
+      Ports		      [1, 1]
+      Position		      [440, 205, 650, 255]
+      BackgroundColor	      "cyan"
+      DropShadow	      on
+      TreatAsAtomicUnit	      off
+      MinAlgLoopOccurrences   off
+      RTWSystemCode	      "Auto"
+      MaskDisplay	      "image(imread('C:\\Projets\\CMD\\Simulations\\Pr"
+"opre\\images\\ondes1.jpg'))"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "autoscale"
+      System {
+	Name			"Transmission montante"
+	Location		[2, 78, 1438, 820]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "Entrée"
+	  Position		  [110, 103, 140, 117]
+	  Port			  "1"
+	  IconDisplay		  "Port number"
+	  LatchInput		  off
+	}
+	Block {
+	  BlockType		  TransportDelay
+	  Name			  "Délai de transmission"
+	  Position		  [375, 77, 480, 143]
+	  DelayTime		  "1E-4"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Sortie"
+	  Position		  [735, 103, 765, 117]
+	  IconDisplay		  "Port number"
+	  BusOutputAsStruct	  off
+	}
+	Line {
+	  SrcBlock		  "Entrée"
+	  SrcPort		  1
+	  DstBlock		  "Délai de transmission"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Délai de transmission"
+	  SrcPort		  1
+	  DstBlock		  "Sortie"
+	  DstPort		  1
+	}
+      }
+    }
+    Line {
+      SrcBlock		      "Transmission descendante"
+      SrcPort		      1
+      Points		      [-185, 0]
+      DstBlock		      "Station sol"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Station sol"
+      SrcPort		      1
+      Points		      [0, -60]
+      DstBlock		      "Transmission montante"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Transmission montante"
+      SrcPort		      1
+      Points		      [155, 0]
+      DstBlock		      "Drone"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Drone"
+      SrcPort		      1
+      Points		      [0, 90]
+      DstBlock		      "Transmission descendante"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Exterieur"
+      SrcPort		      1
+      DstBlock		      "Drone"
+      DstPort		      2
+    }
+  }
+}
+MatData {
+  NumRecords		  2
+  DataRecord {
+    Tag			    DataTag1
+    Data		    "  %)30     .    6     8    (    !          %    "
+"\"     $    C     0         0    (P   &1R;VYE7W!R;W!R92]$<F]N92]3=6)S>7-T96TO"
+"1W)O=6YD       "
+  }
+  DataRecord {
+    Tag			    DataTag0
+    Data		    "  %)30     .    0 H   8    (     @         %    "
+"\"     $    !     0         %  0 \"0    $    )    <VEM=6QI;FL           X   #"
+"P\"0  !@    @    !          4    (     0    4    !          X   #8 0  !@    @"
+"    !          4    (     0    <    !          X    P    !@    @    $        "
+"  4    (     0    ,    !         !   P P+C( #@   #@    &    \"     0         "
+"!0    @    !    !@    $         $     8    X+C5E+3,   X    X    !@    @    $ "
+"         4    (     0    8    !         !     &    .\"XU92TS   .    .     8  "
+"  (    !          %    \"     $    %     0         0    !0   # N,3<U    #@   "
+"#@    &    \"     0         !0    @    !    !0    $         $     4    P+C X."
+"0    X    X    !@    @    $          4    (     0    4    !         !     %  "
+"  ,\"XP,#4    .    ,     8    (    !          %    \"     $    !     0       "
+"  0  $ -     X    0 0  !@    @    !          4    (     0    0    !          "
+"X    P    !@    @    $          4    (     0    0    !         !  !  Q,&4S#@ "
+"  #@    &    \"     0         !0    @    !    !0    $         $     4    R,&4"
+"M.0    X    P    !@    @    $          4    (     0    0    !         !  !  Q"
+"92TS#@   #     &    \"     0         !0    @    !     P    $         $  # #$N"
+",P .    2 $   8    (     0         %    \"     $    %     0         .    .   "
+"  8    (    !          %    \"     $    '     0         0    !P   #(P,#!E+38 "
+"#@   #     &    \"     0         !0    @    !     0    $         $  ! #@    ."
+"    ,     8    (    !          %    \"     $    $     0         0  0 -# P, X "
+"   P    !@    @    $          4    (     0    ,    !         !   P S,C  #@   "
+"#     &    \"     0         !0    @    !     P    $         $  # #,Q,  .    >"
+" (   8    (     0         %    \"     $    *     0         .    0     8    ( "
+"   !          %    \"     $    -     0         0    #0   $E'0E0@+R!$:6]D97,  "
+"  .    ,     8    (    !          %    \"     $    $     0         0  0 ,64M,"
+"PX    P    !@    @    $          4    (     0    ,    !         !   P P+C@ #@"
+"   #     &    \"     0         !0    @    !     P    $         $  # # N.  .  "
+"  .     8    (    !          %    \"     $    %     0         0    !0   #$P92"
+"TV    #@   #@    &    \"     0         !0    @    !    !0    $         $     "
+"4    R,&4M-@    X    P    !@    @    $          4    (     0    0    !       "
+"  !  !  Q92TV#@   #     &    \"     0         !0    @    !    !     $        "
+" $  $ #)E+38.    ,     8    (    !          %    \"     $    $     0         "
+"0  0 ,3 P, X    P    !@    @    $          4    (     0    ,    !         !  "
+" P!I;F8 #@   /@\"   &    \"     $         !0    @    !    #     $         #@ "
+"  #     &    \"     0         !0    @    !    !     $         $  $ #$P,# .   "
+" .     8    (    !          %    \"     $    %     0         0    !0   \"TQ,#"
+" P    #@   #     &    \"     0         !0    @    !     0    $         $  ! #"
+"4    .    ,     8    (    !          %    \"     $    #     0         0  , ,3"
+" P  X    P    !@    @    $          4    (     0    ,    !         !   P Q,# "
+" #@   #@    &    \"     0         !0    @    !    !@    $         $     8    "
+"Q-3 J5',   X    X    !@    @    $          4    (     0    4    !         !  "
+"   %    +3$W+C@    .    ,     8    (    !          %    \"     $    $     0  "
+"       0  0 ,3<N. X    P    !@    @    $          4    (     0    ,    !     "
+"    !   P P+C$ #@   #@    &    \"     0         !0    @    !    !0    $      "
+"   $     4    Q,\"I4<P    X    P    !@    @    $          4    (     0    0  "
+"  !         !  !  R,&4S#@   $     &    \"     0         !0    @    !    $    "
+" $         $    !    !3<&5E9\"!R96=U;&%T:6]N"
+  }
+}

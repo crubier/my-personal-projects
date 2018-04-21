@@ -1,0 +1,313 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: tables-senseurs.tex,v 1.15 2005/03/04 14:19:03 chope Exp $
+
+\subsubsection{Senseurs reconnus par Marmottes}
+Les tables suivantes décrivent tous les attributs qui doivent être
+définis pour chaque type de senseur. La signification de ces attributs
+est décrite dans le document~\ref{ref:marmottes-math}.
+
+\begin{center}\begin{longtable}{|c|p{130mm}|}\caption{liste des cibles
+reconnues pour les senseurs optiques\label{tab:cibles}}\\
+\hline
+mots-clef & \multicolumn{1}{c|}{description}\\
+\hline\hline\endfirsthead
+\caption[]{liste des cibles reconnues pour les senseurs optiques
+(suite)}\\
+\hline
+mots-clef & \multicolumn{1}{c|}{description}\\
+\hline\hline\endhead
+\hline\multicolumn{2}{|r|}{à suivre ...}\\\hline\endfoot
+\hline\endlastfoot
+\texttt{soleil} & direction du soleil vue du satellite. Cette cible
+est affectée par les éclipses engendrées par la lune ou la terre \\
+
+\texttt{soleil-sans-eclipse} & cible comparable à \texttt{soleil}, mais
+qui n'est pas affectée par les éclipses \\
+
+\texttt{corps-central-soleil} & direction du soleil vue du corps
+central (c'est à dire sans corriger la parallaxe liée à la position
+du satellite) \\
+
+\texttt{lune} & direction de la lune vue du satellite. Cette cible est
+affectée par les éclipses engendrées par la terre \\
+
+\texttt{lune-sans-eclipse} & cible comparable à \texttt{lune}, mais qui
+n'est pas affectée par les éclipses \\
+
+\texttt{corps-central} & direction du centre du corps central \\
+
+\texttt{terre} & direction du centre terre \\
+
+\texttt{nadir} & direction du point qui voit le satellite exactement à
+sa verticale, en tenant compte de l'ellipticité du corps central \\
+
+\texttt{vitesse-sol-apparente} & direction du déplacement apparent du
+point au sol situé dans la direction d'observation, en tenant compte
+de la vitesse de rotation du corps central et de la vitesse propre du
+satellite, la direction d'observation est elle-même décrite dans un
+bloc séparé \\
+
+\texttt{polaris} & direction de l'étoile polaire \\
+
+\texttt{canopus} & direction de l'étoile Canope \\
+
+\texttt{vitesse} & direction de la vitesse intantanée du satellite \\
+
+\texttt{moment} & direction du moment orbital du satellite
+($\vec{p}\wedge\vec{v}$) \\
+
+\texttt{devant} & direction perpendiculaire à la fois à la direction
+du centre attracteur et à la direction du moment (positive dans le
+sens de la vitesse) \\
+
+\texttt{position} & ce mot-clef indique que l'utilisateur donnera
+lui-même au cours de l'exécution la position de la cible par rapport
+au centre attracteur, et qu'il faudra lui appliquer une correction de
+parallaxe (il s'agit typiquement d'un point au sol variable ou d'un
+autre satellite). Se reporter au \S~\ref{sec:cible} pour des
+précisions sur le repère d'expression de la position de la cible. \\
+
+\texttt{position-sans-eclipse} & cible comparable à \texttt{position},
+mais qui n'est pas affectée par les éclipses \\
+
+\texttt{direction} & ce mot-clef indique que l'utilisateur donnera
+lui-même au cours de l'exécution la direction de la cible et qu'il
+faudra la prendre telle qu'elle (il s'agit typiquement d'une étoile
+pour un senseur stellaire pouvant gérer un nombre très important
+d'étoiles différentes). Se reporter au \S~\ref{sec:cible} pour des
+précisions sur le repère d'expression de la direction de la cible. \\
+
+\texttt{direction-sans-eclipse} & cible comparable à
+\texttt{direction}, mais qui n'est pas affectée par les éclipses \\
+
+\texttt{station} & direction d'une station sol, la station étant
+elle-même décrite dans un bloc séparé \\
+
+\texttt{polaris-sans-eclipse} 
+& cible comparable à \texttt{polaris}, mais qui n'est pas affectée 
+par les éclipses \\
+
+\texttt{canopus-sans-eclipse} 
+& cible comparable à \texttt{canopus}, mais qui n'est pas affectée 
+par les éclipses \\
+
+\end{longtable}\end{center}
+
+\begin{tableSenseur}{\label{tab:ascension-droite}senseur d'ascension droite}
+{\texttt{ascension\_droite}}{\hspace{125mm}}
+
+\nomBloc{observe} & vecteur & Coordonnées \emph{en repère senseur} du
+vecteur dont on calcule l'ascension droite \\
+
+\end{tableSenseur}
+\vfil
+
+\begin{tableSenseur}{\label{tab:declinaison}senseur de déclinaison}
+{\texttt{declinaison}}{\hspace{125mm}}
+
+\nomBloc{observe} & vecteur & Coordonnées \emph{en repère senseur} du
+vecteur dont on calcule la déclinaison. \\
+
+\end{tableSenseur}
+
+
+\begin{tableSenseur}{\label{tab:vecteur}senseur vecteur}
+{\texttt{vecteur}}{\hspace{105mm}}
+
+\entreesSenseurOptique \\
+
+\nomBloc{reference} & vecteur & Vecteur de référence des mesures. \\
+
+\end{tableSenseur}
+
+
+\begin{tableSenseur}{\label{tab:plan-vecteur}senseur plan-vecteur}
+{\texttt{plan\_vecteur}}{\hspace{105mm}}
+
+\entreesSenseurOptique \\
+
+\nomBloc{normale\_reference} & vecteur & Vecteur de référence des
+mesures (normale au plan des mesures nulles). \\
+
+\end{tableSenseur}
+
+
+\begin{tableSenseur}{\label{tab:cartesien}senseur cartésien}
+{\texttt{cartesien}}{\hspace{105mm}}
+
+\entreesSenseurOptique \\
+
+\nomBloc{reference} & vecteur & Coordonnées \emph{en repère senseur} du
+vecteur le long duquel on mesure la coordonnée. \\
+
+\end{tableSenseur}
+
+
+\begin{tableSenseur}{\label{tab:diedre}senseur dièdre}
+{\texttt{diedre}}{\hspace{105mm}}
+
+\entreesSenseurOptique \\
+
+\nomBloc{axe\_sensible} & vecteur & Coordonnées de l'axe sensible du
+senseur \emph{en repère senseur}. \\
+
+\nomBloc{reference\_zero} & vecteur & Coordonnées \emph{en repère
+senseur} d'un vecteur du plan des mesures nulles. \\
+
+\end{tableSenseur}
+
+
+\begin{tableSenseur}{\label{tab:limbe}senseur de limbe}
+{\texttt{limbe}}{\hspace{110mm}}
+
+\entreesChamps \\
+
+\nomBloc{axe\_sensible} & vecteur & Coordonnées de l'axe sensible du
+senseur \emph{en repère senseur}. \\
+
+\nomBloc{reference\_zero} & vecteur & Coordonnées \emph{en repère
+senseur} d'un vecteur du plan des mesures nulles. \\
+\end{tableSenseur}
+
+
+\begin{tableSenseur}{\label{tab:echant-1d}senseur échantillonné à une dimension}
+{\texttt{gain\_echantillonne\_1D}}{\hspace{105mm}}
+
+\entreesSenseurOptique \\
+
+\nomBloc{axe} & vecteur & Coordonnées \emph{en repère
+senseur} de la direction du centre de l'échantillonnage.\\
+
+\nomBloc{origine} & vecteur & Coordonnées \emph{en repère senseur} d'un
+vecteur définissant avec l'axe le plan d'azimut. La fonction
+n'étant échantillonnée que selon $\theta$, cet axe
+peut être n'importe quel vecteur non colinéaire à l'axe.\\
+
+\nomBloc{echantillon} & tableau & Points d'échantillonnage de la
+fonction (voir l'exemple~\ref{expl:echant-1d},
+page~\pageref{expl:echant-1d})\\
+
+\end{tableSenseur}
+
+
+\begin{tableSenseur}{\label{tab:sin-card-2}senseur sinus cardinal carré}
+{\texttt{gain\_sinus\_cardinal\_2}}{\hspace{105mm}}
+
+\entreesSenseurOptique \\
+
+\nomBloc{axe} & vecteur & Coordonnées \emph{en repère
+senseur} de la direction de gain maximal.\\
+
+\nomBloc{origine} & vecteur & Coordonnées \emph{en repère senseur}
+d'un vecteur définissant avec l'axe le plan d'azimut. La fonction
+$10\times\frac{\log{K \left(
+\frac{\sin(\theta/\theta_{0})}{(\theta/\theta_{0})}
+\right) ^2}}{\log{10}}$ ne dépendant que de $\theta$, cet axe peut
+être n'importe quel vecteur non colinéaire à l'axe.\\
+
+\nomBloc{maximum} & réel & valeur maximale en dB du gain
+(cette valeur est atteinte sur l'axe).\\
+
+\nomBloc{angle\_3dB} & réel & angle définissant la largeur de lobe à 3
+dB : lorsque $\theta$ prend cette valeur, le gain vaut la moitié de sa
+valeur maximale.\\
+
+\end{tableSenseur}
+
+
+\begin{tableSenseur}{\label{tab:sin-card-xy}senseur sinus cardinal bidimensionnel}
+{\texttt{gain\_sinus\_cardinal\_xy}}{\hspace{105mm}}
+
+\entreesSenseurOptique \\
+
+\nomBloc{axe} & vecteur & Coordonnées \emph{en repère
+senseur} de la direction de gain maximal.\\
+
+\nomBloc{origine} & vecteur & Coordonnées \emph{en repère senseur}
+d'un vecteur définissant avec l'axe le plan d'azimut. La fonction
+$10\times\frac{\log{K \left(
+\frac{\sin(\theta_{x}/\theta_{0,x})}{(\theta_{x}/\theta_{0,x})}\frac{\sin(\theta_{y}/\theta_{0,y})}{(\theta_{y}/\theta_{0,y})}
+\right)}}{\log{10}}$ ne dépendant indépendamment de $\theta_{x}$ et
+$\theta_{y}$, cet axe doit être calé correctement par rapport au lobe
+d'antenne (il donne la direction de l'axe $\vec{X}$).\\
+
+\nomBloc{maximum} & réel & valeur maximale en dB du gain
+(cette valeur est atteinte sur l'axe).\\
+
+\nomBloc{angle\_3dB\_x} & réel & angle définissant la largeur de lobe
+à 3 dB : lorsque $\theta_{x}$ prend cette valeur et que $\theta_{y}$
+est nul, le gain vaut la moitié de sa valeur maximale.\\
+
+\nomBloc{angle\_3dB\_y} & réel & angle définissant la largeur de lobe
+à 3 dB : lorsque $\theta_{y}$ prend cette valeur et que $\theta_{x}$
+est nul, le gain vaut la moitié de sa valeur maximale.\\
+
+\end{tableSenseur}
+
+
+\begin{tableSenseur}{\label{tab:gaussien}senseur gaussien}
+{\texttt{gain\_gauss}}{\hspace{105mm}}
+
+\entreesSenseurOptique \\
+
+\nomBloc{axe} & vecteur & Coordonnées \emph{en repère
+senseur} de la direction de gain maximal.\\
+
+\nomBloc{origine} & vecteur & Coordonnées \emph{en repère senseur} d'un
+vecteur d'éfinissant avec l'axe le plan d'azimut. La fonction
+$10\times\frac{\log{K e^\frac{-\theta^2}{2\theta_{0}^2}}}{\log{10}}$
+ne dépendant que de $\theta$, cet axe peut être n'importe quel vecteur
+non colinéaire à l'axe.\\
+
+\nomBloc{maximum} & réel & valeur maximale en dB du gain
+(cette valeur est atteinte dur l'axe)\\
+
+\nomBloc{angle\_3dB} & réel & angle correspondant définissant la
+largeur de lobe à 3 dB : lorsque $\theta$ prend cette valeur, le gain
+vaut exactement la moitié de sa valeur maximale.\\
+
+\end{tableSenseur}
+
+
+\begin{tableSenseur}{\label{tab:cardan}senseur de Cardan}
+{\texttt{cardan}}{\hspace{100mm}}
+
+\nomBloc{genre} & mot-clef & Identificateur définissant l'ordre
+d'application des rotations et la rotation considérée, vaut
+obligatoirement \texttt{LRT-lacet}, \texttt{LRT-roulis}, ou
+\texttt{LRT-tangage} pour l'ordre lacet puis roulis puis tangage,
+\texttt{LTR-lacet}, \texttt{LTR-tangage}, ou \texttt{LTR-roulis} pour
+l'ordre lacet puis tangage puis roulis, \texttt{RLT-roulis},
+\texttt{RLT-lacet}, ou \texttt{RLT-tangage} pour l'ordre roulis puis
+lacet puis tangage, \texttt{RTL-roulis}, \texttt{RTL-tangage}, ou
+\texttt{RTL-lacet} pour l'ordre roulis puis tangage puis lacet,
+\texttt{TLR-tangage}, \texttt{TLR-lacet}, ou \texttt{TLR-roulis} pour
+l'ordre tangage puis lacet puis roulis, \texttt{TRL-tangage},
+\texttt{TRL-roulis}, ou \texttt{TRL-lacet} pour l'ordre tangage puis
+roulis puis lacet.\\
+
+\nomBloc{reference} & mot-clef & Identificateur définissant le repère à
+partir duquel sont appliquées les rotations, vaut obligatoirement
+\texttt{geocentrique}, \texttt{orbital-TNW}, \texttt{orbital-QSW},
+\texttt{inertiel}, \texttt{topocentrique} ou \texttt{utilisateur}.\\
+
+\end{tableSenseur}
+
+\clearpage
+\begin{tableSenseur}{\label{tab:cinematique}senseur cinématique}
+{\texttt{cinematique}}{\hspace{105mm}}
+
+\nomBloc{axe\_sensible} & vecteur & Coordonnées \emph{en repère
+senseur} de l'axe sensible du senseur. \\
+
+\end{tableSenseur}
+\vfil
+
+\begin{tableSenseur}{\label{tab:gyro-integ}gyromètre intégrateur}
+{\texttt{gyro\_integrateur}}{\hspace{105mm}}
+
+\nomBloc{axe\_sensible} & vecteur & Coordonnées \emph{en repère
+senseur} de l'axe sensible du senseur. \\
+
+\end{tableSenseur}
+\clearpage

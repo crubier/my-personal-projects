@@ -1,0 +1,334 @@
+# RCS identifier : "$Id: pseudo-sensors.fr,v 1.1 1997/12/01 09:33:38 luc Exp $"
+
+# This file contains some additional sensors
+# designed for tests or special phases
+
+pseudo-common
+{ precision { 0.001 }
+  repere    { i { 1 0 0 } j { 0 1 0 } k { 0 0 1 } }
+}
+
+
+#--------------------- EARTH-SUN COLINEARITY SENSOR --------------------
+# COLINEARITY sensor should not be in visibility during
+# a station keeping manoeuvre (this is an AOCS constraint)
+# Z_SUN_ANGLE sensor always sees the sun and measures the angle between
+# -Z axis and sun, it can provide information about the available margins
+COLINEARITY
+{   =>           { pseudo-common }
+  type           { vecteur }
+  cible         { soleil }
+  reference      { 0 0 -1 }
+  champ_de_vue  { { cone { axe { 0 0 -1 } angle { 15 } } }
+                   union
+                   { cone { axe { 0 0  1 } angle { 15 } } }
+                 }
+
+}
+
+Z_SUN_ANGLE
+{   =>   { COLINEARITY }
+  champ_de_vue { cone { axe { 0 0 -1 } angle { 180 } } }
+
+}
+
+#--------------------- DIRECTIONS OF SPACECRAFT AXIS -------------------
+ALPHA_X { type { ascension_droite } observe { 1 0 0 } => { pseudo-common } }
+DELTA_X { type { declinaison }     observe { 1 0 0 } => { pseudo-common } }
+ALPHA_Y { type { ascension_droite } observe { 0 1 0 } => { pseudo-common } }
+DELTA_Y { type { declinaison }     observe { 0 1 0 } => { pseudo-common } }
+ALPHA_Z { type { ascension_droite } observe { 0 0 1 } => { pseudo-common } }
+DELTA_Z { type { declinaison }     observe { 0 0 1 } => { pseudo-common } }
+
+
+#--------------------------- CARTESIAN SENSORS -------------------------
+# Those sensors are primarily used for manual checks and for the
+# "senseurs" module drawings (mainly for moon monitoring during
+# IRES blindings)
+SUN_X       {   =>           { pseudo-common }
+               type          { cartesien }
+               cible        { soleil }
+               reference     { 1 0 0 }
+               champ_de_vue { cone { axe { 1 0 0 } angle { 180 } } }
+            }
+SUN_Y       { => { SUN_X } reference { 0 1 0 } }
+SUN_Z       { => { SUN_X } reference { 0 0 1 } }
+
+EARTH-SUN_X { => { SUN_X } cible { terre-soleil } }
+EARTH-SUN_Y { => { SUN_Y } cible { terre-soleil } }
+EARTH-SUN_Z { => { SUN_Z } cible { terre-soleil } }
+
+EARTH_X     { => { SUN_X } cible { terre } }
+EARTH_Y     { => { SUN_Y } cible { terre } }
+EARTH_Z     { => { SUN_Z } cible { terre } }
+
+MOON_X      { => { SUN_X } cible {  lune } }
+MOON_Y      { => { SUN_Y } cible {  lune } }
+MOON_Z      { => { SUN_Z } cible {  lune } }
+
+#------------------------- AZIMUTH - ELEVATION -----------------------
+# AZIMUTH and ELEVATION sensors give spherical coordinates for several
+# target. The AZIMUTH angle is counted around +Z axis, (0 in the +X
+# direction), the ELEVATION angle is above (XZ) plane.
+
+EARTH_AZIMUTH
+{  =>              { pseudo-common }
+  type             { diedre }
+  cible           { terre }
+  axe_sensible   { 0 0 1 }
+  reference_zero   { 1 0 0 }
+  champ_de_vue    { cone { axe { 1 0 0 } angle { 180 } } }
+}
+
+EARTH_ELEVATION
+{  =>              { pseudo-common }
+  type             { plan_vecteur }
+  cible           { terre }
+  normale_reference { 0 0 1 }
+  champ_de_vue    { cone { axe { 1 0 0 } angle { 180 } } }
+}
+
+SUN_AZIMUTH         { => { EARTH_AZIMUTH   } cible { soleil } }
+SUN_ELEVATION       { => { EARTH_ELEVATION } cible { soleil } }
+
+EARTH-SUN_AZIMUTH   { => { EARTH_AZIMUTH   } cible { terre-soleil } }
+EARTH-SUN_ELEVATION { => { EARTH_ELEVATION } cible { terre-soleil } }
+
+MOON_AZIMUTH        { => { EARTH_AZIMUTH   } cible { lune } }
+MOON_ELEVATION      { => { EARTH_ELEVATION } cible { lune } }
+
+
+#------------------------------ AMF ------------------------------
+AMF_Ascension
+{ precision { 0.001 }
+  repere    { # v_base  : nozzle direction in satellite frame
+             # v_image : nozzle direction in sensor frame
+             v_base  { -0.0000676645 0.0068615278 -0.9999764572 }
+             v_image {  0.0          0.0          -1.0          }
+           }
+  type     { ascension_droite }
+  observe { 0 0 1 }
+}
+
+AMF_Declinaison { => { AMF_Ascension } type { declinaison } }
+
+
+#------------------------------ Z SAT ------------------------------
+Z_Ascension
+{ => { pseudo-common } type { ascension_droite } observe { 0 0 1 } }
+
+Z_Declinaison
+{ => { pseudo-common } type { declinaison }     observe { 0 0 1 } }
+
+
+#------------------------------ SENS_VIT ------------------------------
+SENS_VIT
+{  =>            { pseudo-common }
+  type           { diedre }
+  cible         { vitesse }
+  champ_de_vue  { cone { axe  {  1 0 0 } angle { 90 } } }
+  axe_sensible { 0 0 1 }                      
+  reference_zero { 1 0 0 }                       
+}
+
+SENS_MOINS_VIT
+{  =>            { pseudo-common }
+  type           { diedre }
+  cible         { vitesse }
+  champ_de_vue  { cone { axe  {  0 0 -1 } angle { 90 } } }
+  axe_sensible { 0 0 -1 }                      
+  reference_zero { 1 0 0 }                       
+}
+
+
+#----------------------------- MOMENTUM -----------------------------
+ROLL_MOMENTUM
+{  =>            { pseudo-common }
+  type           { diedre }
+  cible         { moment }
+  reference_zero {  0 -1 0 }
+  axe_sensible { -1  0 0 }
+  champ_de_vue  { cone { axe { 0 -1 0 } angle { 180 } } }
+}
+
+YAW_MOMENTUM
+{ => { ROLL_MOMENTUM } axe_sensible { 0 0 -1 } }
+
+
+#--------------------------- CARDAN ANGLES --------------------------
+# The following sensors measure the angles of the successive rotations
+# that lead from local orbital frame to satellite frame.
+# The order of the rotations follows the three letters code at
+# the beginning of each name
+
+# Pitch/Roll/Yaw : order of the rotations to reach boost attitude
+PRY-PITCH {  type { TRL-tangage } => { pseudo-common } }
+PRY-ROLL  {  type { TRL-roulis  } => { pseudo-common } }
+PRY-YAW   {  type { TRL-lacet   } => { pseudo-common } }
+
+# Yaw/Pitch/Roll : order of the rotations in the AOCS telemetry
+YPR-YAW   {  type { LTR-lacet   } => { pseudo-common } }
+YPR-PITCH {  type { LTR-tangage } => { pseudo-common } }
+YPR-ROLL  {  type { LTR-roulis  } => { pseudo-common } }
+
+# Roll/Pitch/Yaw : order of the rotations in the simulator
+RPY-ROLL  {  type { RTL-roulis  } => { pseudo-common } }
+RPY-PITCH {  type { RTL-tangage } => { pseudo-common } }
+RPY-YAW   {  type { RTL-lacet   } => { pseudo-common } }
+
+
+#----------------------------  IRES   ------------------------------
+PSEUDO_IRES_ROLL
+{ precision       { 0.001 }
+  repere          { => { IRES_ROLL.repere } }
+  type           { diedre }
+  cible         { terre }
+  reference_zero {  0 0 1 }
+  axe_sensible { -1 0 0 }
+  champ_de_vue  { cone { axe { 0 0 1 } angle {90} } }
+}
+
+PSEUDO_IRES_PITCH
+{ => { PSEUDO_IRES_ROLL } axe_sensible { 0 -1 0 } }
+
+
+#--------------------  IRES FOR LAUNCH WINDOW ----------------------
+IRES_LAUNCH_ROLL
+{ => { IRES_ROLL } 
+  champ_d_inhibition_soleil { cone { axe { 0 0 1} angle { 0 } } }
+  champ_d_inhibition_lune
+  { { { { cone { axe {   0 16.5 } angle { 90 } } }
+        inter
+        { cone { axe { 180 16.5 } angle { 90 } } }
+      }
+      inter
+      { { cone { axe {  90 11.2 } angle { 90 } } }
+        inter
+        { cone { axe { 270 11.2 } angle { 90 } } }
+      }
+    }
+    sauf
+    { cone { axe { 0 0 1 } angle { 8.3 } } }
+  }
+  seuil_phase_lune { 90 }
+}
+
+IRES_LAUNCH_PITCH
+{ => { IRES_PITCH }
+  champ_d_inhibition_soleil  { => { IRES_LAUNCH_ROLL.champ_d_inhibition_soleil  } }
+  champ_d_inhibition_lune { => { IRES_LAUNCH_ROLL.champ_d_inhibition_lune } }
+  seuil_phase_lune           { 90 }
+}
+
+
+#-------------------------  IRES WITHOUT INHIBITION  ---------------------------
+IRES_ROLL_NH
+{ => { IRES_ROLL } 
+  champ_d_inhibition_soleil  {marge { -180 } sur {=>{IRES_ROLL.champ_de_vue}}}
+  champ_d_inhibition_lune {marge { -180 } sur {=>{IRES_ROLL.champ_de_vue}}} 
+}
+
+IRES_PITCH_NH
+{ => { IRES_PITCH } 
+  champ_d_inhibition_soleil  {marge { -180 } sur {=>{IRES_PITCH.champ_de_vue}}}
+  champ_d_inhibition_lune {marge { -180 } sur {=>{IRES_PITCH.champ_de_vue}}}
+}
+
+
+#------------------  IRES FOR BOLOMETERS INHIBITIONS   --------------------
+IRES_SCAN_1
+{ => { IRES_ROLL } 
+  champ_d_inhibition_soleil
+  { { marge { 3.0 } sur   { => { SPACEBUS_ROLL_IRES.scan_1 } } }
+    sauf
+    { cone { axe { 0 0 1 } angle { 8.2 } } }
+  }
+  champ_d_inhibition_lune { => { IRES_SCAN_1.champ_d_inhibition_soleil } }
+  seuil_phase_lune { 90 }
+}
+
+IRES_SCAN_2
+{ => { IRES_ROLL } 
+  champ_d_inhibition_soleil
+  { { marge { 3.0 } sur   { => { SPACEBUS_ROLL_IRES.scan_2 } } }
+    sauf
+    { cone { axe { 0 0 1 } angle { 8.2 } } }
+  }
+  champ_d_inhibition_lune { => { IRES_SCAN_2.champ_d_inhibition_soleil } }
+  seuil_phase_lune { 90 }
+}
+
+IRES_SCAN_3
+{ => { IRES_ROLL } 
+  champ_d_inhibition_soleil
+  { { marge { 3.0 } sur   { => { SPACEBUS_ROLL_IRES.scan_3 } } }
+    sauf
+    { cone { axe { 0 0 1 } angle { 8.2 } } }
+  }
+  champ_d_inhibition_lune { => { IRES_SCAN_3.champ_d_inhibition_soleil } }
+  seuil_phase_lune { 90 }
+}
+
+IRES_SCAN_4
+{ => { IRES_ROLL } 
+  champ_d_inhibition_soleil
+  { { marge { 3.0 } sur   { => { SPACEBUS_ROLL_IRES.scan_4 } } }
+    sauf
+    { cone { axe { 0 0 1 } angle { 8.2 } } }
+  }
+  champ_d_inhibition_lune { => { IRES_SCAN_4.champ_d_inhibition_soleil } }
+  seuil_phase_lune { 90 }
+}
+
+# extended field of inhibition (for roll earth acquisition)
+IRES_SCAN_1_EXT
+{ => { IRES_SCAN_1 } 
+  champ_d_inhibition_soleil
+  { { => { IRES_LAUNCH_ROLL.champ_d_inhibition_lune } }
+    inter
+    { { cone { axe {  0 -1 0 } angle { 90 } } }
+      inter
+      { cone { axe { -1  0 0 } angle { 90 } } }
+    }
+  }
+  champ_d_inhibition_lune { => { IRES_SCAN_1_EXT.champ_d_inhibition_soleil } }
+}
+
+IRES_SCAN_2_EXT
+{ => { IRES_SCAN_2 } 
+  champ_d_inhibition_soleil
+  { { => { IRES_LAUNCH_ROLL.champ_d_inhibition_lune } }
+    inter
+    { { cone { axe {  0  1 0 } angle { 90 } } }
+      inter
+      { cone { axe { -1  0 0 } angle { 90 } } }
+    }
+  }
+  champ_d_inhibition_lune { => { IRES_SCAN_2_EXT.champ_d_inhibition_soleil } }
+}
+
+IRES_SCAN_3_EXT
+{ => { IRES_SCAN_3 } 
+  champ_d_inhibition_soleil
+  { { => { IRES_LAUNCH_ROLL.champ_d_inhibition_lune } }
+    inter
+    { { cone { axe {  0 -1 0 } angle { 90 } } }
+      inter
+      { cone { axe {  1  0 0 } angle { 90 } } }
+    }
+  }
+  champ_d_inhibition_lune { => { IRES_SCAN_3_EXT.champ_d_inhibition_soleil } }
+}
+
+IRES_SCAN_4_EXT
+{ => { IRES_SCAN_4 } 
+  champ_d_inhibition_soleil
+  { { => { IRES_LAUNCH_ROLL.champ_d_inhibition_lune } }
+    inter
+    { { cone { axe {  0  1 0 } angle { 90 } } }
+      inter
+      { cone { axe {  1  0 0 } angle { 90 } } }
+    }
+  }
+  champ_d_inhibition_lune { => { IRES_SCAN_4_EXT.champ_d_inhibition_soleil } }
+}

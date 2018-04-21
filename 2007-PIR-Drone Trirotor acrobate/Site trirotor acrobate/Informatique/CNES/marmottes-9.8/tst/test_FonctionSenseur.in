@@ -1,0 +1,135 @@
+#! /bin/sh
+
+# identificateur RCS : "$Id: test_FonctionSenseur.in,v 1.10 2003/02/18 14:19:40 marmottes Exp $"
+
+# mise en place d un environnement anglais pour vérifier les messages
+@ma_cv_var_lang@=en              ; export @ma_cv_var_lang@
+@ma_cv_var_tradpath@=@srcdir@/.. ; export @ma_cv_var_tradpath@
+
+# exécution du programme de test (en langue anglaise pour vérifier les messages)
+
+# Le test suivant porte sur les senseurs de types diédre, limbe, diédre en
+# mesure et diédre en contrôle sur lequel est appliqué l'option modifieCible
+# permettant de valider la faculté de changement de cible de ce senseur.
+# --------------------------------------------------------------------------
+echo "prgm_FonctionSenseur -f senseurs.en"       >  test_FonctionSenseur.res
+echo "   -dc 22/10/93 -o 42164 0 0 0 0 116"      >> test_FonctionSenseur.res
+echo "   -s1 DSS_1_PITCH   -m1  2.5"             >> test_FonctionSenseur.res
+echo "   -s2 GEOIRS_1_ROLL -m2  2.7"             >> test_FonctionSenseur.res
+echo "   -s3 DSS_1_YAW     -m3 -0.2"             >> test_FonctionSenseur.res
+echo "   -p 20 -i1 3 -i2 10"                     >> test_FonctionSenseur.res
+echo "   -s USER-YAW -modifieCible -0.43 0.88 0" >> test_FonctionSenseur.res
+./prgm_FonctionSenseur -f @srcdir@/senseurs.en                \
+                       -dc 22/10/93 -o 42164 0 0 0 0 116      \
+                       -s1 DSS_1_PITCH   -m1  2.5             \
+                       -s2 GEOIRS_1_ROLL -m2  2.7             \
+                       -s3 DSS_1_YAW     -m3 -0.2             \
+                       -p 20 -i1 3 -i2 10                     \
+                       -s USER-YAW -modifieCible -0.43 0.88 0 \
+                       >> test_FonctionSenseur.res 2>&1
+
+# Le test suivant porte sur les senseurs de types cardan en mesure et cardan
+# en contrôle sur lequel est appliqué l'option modifieReference permettant
+# de valider la faculté de changement de réference de ce senseur.
+# --------------------------------------------------------------------------
+echo ""                                          >> test_FonctionSenseur.res
+echo "prgm_FonctionSenseur -f senseurs.en"       >> test_FonctionSenseur.res
+echo "   -dc 22/10/93 -o 42164 0 0 0 0 116"      >> test_FonctionSenseur.res
+echo "   -s1 YPR-YAW   -m1  2.5"                 >> test_FonctionSenseur.res
+echo "   -s2 YPR-PITCH -m2  2.7"                 >> test_FonctionSenseur.res
+echo "   -s3 YPR-ROLL  -m3 -0.2"                 >> test_FonctionSenseur.res
+echo "   -p 20 -i1 3 -i2 10"                     >> test_FonctionSenseur.res
+echo "   -s YPR-ROLL-USER"                       >> test_FonctionSenseur.res
+echo "   -modifieReference 0.157 -0.128 0.697 -0.687" >> test_FonctionSenseur.res
+./prgm_FonctionSenseur -f @srcdir@/senseurs.en                     \
+                       -dc 22/10/93 -o 42164 0 0 0 0 116           \
+                       -s1 YPR-YAW   -m1  2.5                      \
+                       -s2 YPR-PITCH -m2  2.7                      \
+                       -s3 YPR-ROLL  -m3 -0.2                      \
+                       -p 20 -i1 3 -i2 10                          \
+                       -s YPR-ROLL-USER                            \
+                       -modifieReference 0.157 -0.128 0.697 -0.687 \
+                       >> test_FonctionSenseur.res 2>&1
+
+# Le test suivant porte sur les senseurs de types cardan en mesure et gyro
+# intégrateur en contrôle sur lequel est appliqué l'option initialiseGyro
+# permettant de valider la faculté d'initialisation de ce senseur.
+# ------------------------------------------------------------------------
+echo ""                                          >> test_FonctionSenseur.res
+echo "prgm_FonctionSenseur -f senseurs.en"       >> test_FonctionSenseur.res
+echo "   -dc 22/10/93 -o 42164 0 0 0 0 116"      >> test_FonctionSenseur.res
+echo "   -s1 YPR-YAW   -m1  2.5"                 >> test_FonctionSenseur.res
+echo "   -s2 YPR-PITCH -m2  2.7"                 >> test_FonctionSenseur.res
+echo "   -s3 YPR-ROLL  -m3 -0.2"                 >> test_FonctionSenseur.res
+echo "   -p 20 -i1 3 -i2 10"                     >> test_FonctionSenseur.res
+echo "   -s INTEG+Y"                             >> test_FonctionSenseur.res
+echo "   -initialiseGyro 16000.0007 0.833"       >> test_FonctionSenseur.res
+./prgm_FonctionSenseur -f @srcdir@/senseurs.en                     \
+                       -dc 22/10/93 -o 42164 0 0 0 0 116           \
+                       -s1 YPR-YAW   -m1  2.5                      \
+                       -s2 YPR-PITCH -m2  2.7                      \
+                       -s3 YPR-ROLL  -m3 -0.2                      \
+                       -p 20 -i1 3 -i2 10                          \
+                       -s INTEG+Y                                  \
+                       -initialiseGyro 16000.0007 0.833            \
+                       >> test_FonctionSenseur.res 2>&1
+
+# Le test suivant porte sur les senseurs de types cardan en mesure et cardan
+# en contrôle sur lequel est appliqué l'option initialiseDerive permettant
+# de valider la faculté d'initialisation de la dérive de ce senseur.
+# --------------------------------------------------------------------------
+echo ""                                          >> test_FonctionSenseur.res
+echo "prgm_FonctionSenseur -f senseurs.en"       >> test_FonctionSenseur.res
+echo "   -dc 22/10/93 -o 42164 0 0 0 0 116"      >> test_FonctionSenseur.res
+echo "   -s1 YPR-YAW   -m1  2.5"                 >> test_FonctionSenseur.res
+echo "   -s2 YPR-PITCH -m2  2.7"                 >> test_FonctionSenseur.res
+echo "   -s3 YPR-ROLL  -m3 -0.2"                 >> test_FonctionSenseur.res
+echo "   -p 20 -i1 3 -i2 10"                     >> test_FonctionSenseur.res
+echo "   -s YPR-YAW"                             >> test_FonctionSenseur.res
+echo "   -initialiseDerive 0.00417"              >> test_FonctionSenseur.res
+./prgm_FonctionSenseur -f @srcdir@/senseurs.en                     \
+                       -dc 22/10/93 -o 42164 0 0 0 0 116           \
+                       -s1 YPR-YAW   -m1  2.5                      \
+                       -s2 YPR-PITCH -m2  2.7                      \
+                       -s3 YPR-ROLL  -m3 -0.2                      \
+                       -p 20 -i1 3 -i2 10                          \
+                       -s YPR-YAW                                  \
+                       -initialiseDerive 0.00417                   \
+                       >> test_FonctionSenseur.res 2>> test_FonctionSenseurErr.res
+
+# Le test suivant porte sur les senseurs de types cardan en mesure et gyro
+# intégrateur en contrôle sur lequel est appliqué l'option initialiseDerive
+# permettant de valider la faculté d'initialisation de la dérive de ce senseur.
+# -----------------------------------------------------------------------------
+echo ""                                          >> test_FonctionSenseur.res
+echo "prgm_FonctionSenseur -f senseurs.en"       >> test_FonctionSenseur.res
+echo "   -dc 22/10/93 -o 42164 0 0 0 0 116"      >> test_FonctionSenseur.res
+echo "   -s1 YPR-YAW   -m1  2.5"                 >> test_FonctionSenseur.res
+echo "   -s2 YPR-PITCH -m2  2.7"                 >> test_FonctionSenseur.res
+echo "   -s3 YPR-ROLL  -m3 -0.2"                 >> test_FonctionSenseur.res
+echo "   -p 20 -i1 3 -i2 10"                     >> test_FonctionSenseur.res
+echo "   -s INTEG+Y"                             >> test_FonctionSenseur.res
+echo "   -initialiseDerive 0.00417"              >> test_FonctionSenseur.res
+./prgm_FonctionSenseur -f @srcdir@/senseurs.en                     \
+                       -dc 22/10/93 -o 42164 0 0 0 0 116           \
+                       -s1 YPR-YAW   -m1  2.5                      \
+                       -s2 YPR-PITCH -m2  2.7                      \
+                       -s3 YPR-ROLL  -m3 -0.2                      \
+                       -p 20 -i1 3 -i2 10                          \
+                       -s INTEG+Y                                  \
+                       -initialiseDerive 0.00417                   \
+                       >> test_FonctionSenseur.res 2>> test_FonctionSenseurErr.res
+
+
+# comparaison des fichiers
+echo "difference -p 1.0e-4 -ee 1 10 -res test_FonctionSenseur.res -ref @srcdir@/test_FonctionSenseur.ref"
+difference -p 1.0e-4 -ee 1 10 -res test_FonctionSenseur.res -ref @srcdir@/test_FonctionSenseur.ref
+r=$?
+
+echo "difference -p 1.0e-4 -ee 1 10 -res test_FonctionSenseurErr.res -ref @srcdir@/test_FonctionSenseurErr.ref"
+difference -p 1.0e-4 -ee 1 10 -res test_FonctionSenseurErr.res -ref @srcdir@/test_FonctionSenseurErr.ref
+r=$?
+
+#nettoyage
+rm -f test_FonctionSenseur.res test_FonctionSenseurErr.res
+exit $r

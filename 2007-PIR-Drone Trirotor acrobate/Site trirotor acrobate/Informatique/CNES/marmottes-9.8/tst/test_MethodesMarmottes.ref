@@ -1,0 +1,288 @@
+
+prgm_MethodesMarmottes -f senseurs.en -r
+   -dc 22/10/93 -o 42164 0 0 0 0 116
+   -s1 DSS_1_PITCH   -m1  2.5
+   -s2 GEOIRS_1_ROLL -m2  2.7
+   -s3 DSS_1_YAW     -m3 -0.2
+   -p  20            -i 10
+Operation de copie
+L'identificateur Marmottes est       1
+L'identificateur Marmottes copie est 2
+
+
+Travail sur l original en autorisant l extrapolation
+
+attitude :   0.6554   0.7215   0.0824   0.2076
+mesure réalisée par le senseur "DSS_1_PITCH" :   2.5000
+mesure réalisée par le senseur "GEOIRS_1_ROLL" :   2.7000
+mesure réalisée par le senseur "DSS_1_YAW" :  -0.2000
+attitude :   0.6553   0.7216   0.0824   0.2076
+mesure réalisée par le senseur "DSS_1_PITCH" :   2.5000
+mesure réalisée par le senseur "GEOIRS_1_ROLL" :   2.7000
+mesure réalisée par le senseur "DSS_1_YAW" :  -0.2000
+attitude :   0.6552   0.7217   0.0824   0.2076
+mesure réalisée par le senseur "DSS_1_PITCH" :   2.5000
+mesure réalisée par le senseur "GEOIRS_1_ROLL" :   2.7000
+mesure réalisée par le senseur "DSS_1_YAW" :  -0.2000
+attitude :   0.6551   0.7218   0.0825   0.2076
+mesure réalisée par le senseur "DSS_1_PITCH" :   2.5000
+mesure réalisée par le senseur "GEOIRS_1_ROLL" :   2.7000
+mesure réalisée par le senseur "DSS_1_YAW" :  -0.2000
+attitude :   0.6550   0.7219   0.0825   0.2076
+mesure réalisée par le senseur "DSS_1_PITCH" :   2.5000
+mesure réalisée par le senseur "GEOIRS_1_ROLL" :   2.7000
+mesure réalisée par le senseur "DSS_1_YAW" :  -0.2000
+attitude :   0.6549   0.7220   0.0825   0.2076
+mesure réalisée par le senseur "DSS_1_PITCH" :   2.5000
+mesure réalisée par le senseur "GEOIRS_1_ROLL" :   2.7000
+mesure réalisée par le senseur "DSS_1_YAW" :  -0.2000
+attitude :   0.6548   0.7221   0.0826   0.2075
+mesure réalisée par le senseur "DSS_1_PITCH" :   2.5000
+mesure réalisée par le senseur "GEOIRS_1_ROLL" :   2.7000
+mesure réalisée par le senseur "DSS_1_YAW" :  -0.2000
+attitude :   0.6547   0.7222   0.0826   0.2075
+mesure réalisée par le senseur "DSS_1_PITCH" :   2.5000
+mesure réalisée par le senseur "GEOIRS_1_ROLL" :   2.7000
+mesure réalisée par le senseur "DSS_1_YAW" :  -0.2000
+attitude :   0.6546   0.7223   0.0827   0.2075
+mesure réalisée par le senseur "DSS_1_PITCH" :   2.5000
+mesure réalisée par le senseur "GEOIRS_1_ROLL" :   2.7000
+mesure réalisée par le senseur "DSS_1_YAW" :  -0.2000
+attitude :   0.6545   0.7223   0.0827   0.2075
+mesure réalisée par le senseur "DSS_1_PITCH" :   2.5000
+mesure réalisée par le senseur "GEOIRS_1_ROLL" :   2.7000
+mesure réalisée par le senseur "DSS_1_YAW" :  -0.2000
+
+
+Travail sur la copie en interdisant l extrapolation
+
+attitude :   0.6544   0.7224   0.0827   0.2075
+mesure réalisée par le senseur "DSS_1_PITCH" :   2.5000
+mesure réalisée par le senseur "GEOIRS_1_ROLL" :   2.7000
+mesure réalisée par le senseur "DSS_1_YAW" :  -0.2000
+attitude :   0.6543   0.7225   0.0828   0.2075
+mesure réalisée par le senseur "DSS_1_PITCH" :   2.5000
+mesure réalisée par le senseur "GEOIRS_1_ROLL" :   2.7000
+mesure réalisée par le senseur "DSS_1_YAW" :  -0.2000
+attitude :   0.6542   0.7226   0.0828   0.2075
+mesure réalisée par le senseur "DSS_1_PITCH" :   2.5000
+mesure réalisée par le senseur "GEOIRS_1_ROLL" :   2.7000
+mesure réalisée par le senseur "DSS_1_YAW" :  -0.2000
+attitude :   0.6541   0.7227   0.0828   0.2074
+mesure réalisée par le senseur "DSS_1_PITCH" :   2.5000
+mesure réalisée par le senseur "GEOIRS_1_ROLL" :   2.7000
+mesure réalisée par le senseur "DSS_1_YAW" :  -0.2000
+attitude :   0.6540   0.7228   0.0829   0.2074
+mesure réalisée par le senseur "DSS_1_PITCH" :   2.5000
+mesure réalisée par le senseur "GEOIRS_1_ROLL" :   2.7000
+mesure réalisée par le senseur "DSS_1_YAW" :  -0.2000
+attitude :   0.6539   0.7229   0.0829   0.2074
+mesure réalisée par le senseur "DSS_1_PITCH" :   2.5000
+mesure réalisée par le senseur "GEOIRS_1_ROLL" :   2.7000
+mesure réalisée par le senseur "DSS_1_YAW" :  -0.2000
+attitude :   0.6538   0.7230   0.0829   0.2074
+mesure réalisée par le senseur "DSS_1_PITCH" :   2.5000
+mesure réalisée par le senseur "GEOIRS_1_ROLL" :   2.7000
+mesure réalisée par le senseur "DSS_1_YAW" :  -0.2000
+attitude :   0.6537   0.7231   0.0830   0.2074
+mesure réalisée par le senseur "DSS_1_PITCH" :   2.5000
+mesure réalisée par le senseur "GEOIRS_1_ROLL" :   2.7000
+mesure réalisée par le senseur "DSS_1_YAW" :  -0.2000
+attitude :   0.6536   0.7232   0.0830   0.2074
+mesure réalisée par le senseur "DSS_1_PITCH" :   2.5000
+mesure réalisée par le senseur "GEOIRS_1_ROLL" :   2.7000
+mesure réalisée par le senseur "DSS_1_YAW" :  -0.2000
+attitude :   0.6535   0.7233   0.0830   0.2074
+mesure réalisée par le senseur "DSS_1_PITCH" :   2.5000
+mesure réalisée par le senseur "GEOIRS_1_ROLL" :   2.7000
+mesure réalisée par le senseur "DSS_1_YAW" :  -0.2000
+
+Date lue : 16000.004861
+Position lue :
+	 x = -19635.297878
+	 y = 37312.973257
+	 z = 0.000000
+Vitesse lue :
+	 x = -2.720922
+	 y = -1.431837
+	 z = -0.000000
+Attitude lue :
+	 q0 = 0.653364
+	 q1 = 0.723343
+	 q2 = 0.083057
+	 q3 = 0.207345
+Spin lu :
+	 x = 0.000014
+	 y = 0.000000
+	 z = -0.000001
+
+Date lue : 16000.005093
+Position lue :
+	 x = -19689.695409
+	 y = 37284.296838
+	 z = 0.000000
+Vitesse lue :
+	 x = -2.718831
+	 y = -1.435804
+	 z = -0.000000
+Attitude lue :
+	 q0 = 0.653264
+	 q1 = 0.723434
+	 q2 = 0.083091
+	 q3 = 0.207331
+Spin lu :
+	 x = 0.000014
+	 y = 0.000000
+	 z = -0.000001
+
+Date lue : 16000.005324
+Position lue :
+	 x = -19744.051059
+	 y = 37255.541115
+	 z = 0.000000
+Vitesse lue :
+	 x = -2.716734
+	 y = -1.439768
+	 z = -0.000000
+Attitude lue :
+	 q0 = 0.653164
+	 q1 = 0.723524
+	 q2 = 0.083125
+	 q3 = 0.207317
+Spin lu :
+	 x = 0.000014
+	 y = 0.000000
+	 z = -0.000001
+
+Date lue : 16000.005556
+Position lue :
+	 x = -19798.364714
+	 y = 37226.706148
+	 z = 0.000000
+Vitesse lue :
+	 x = -2.714631
+	 y = -1.443728
+	 z = -0.000000
+Attitude lue :
+	 q0 = 0.653064
+	 q1 = 0.723615
+	 q2 = 0.083158
+	 q3 = 0.207303
+Spin lu :
+	 x = 0.000014
+	 y = 0.000000
+	 z = -0.000001
+
+Date lue : 16000.005787
+Position lue :
+	 x = -19852.636257
+	 y = 37197.792000
+	 z = 0.000000
+Vitesse lue :
+	 x = -2.712522
+	 y = -1.447686
+	 z = -0.000000
+Attitude lue :
+	 q0 = 0.652963
+	 q1 = 0.723705
+	 q2 = 0.083192
+	 q3 = 0.207289
+Spin lu :
+	 x = 0.000014
+	 y = 0.000000
+	 z = -0.000001
+
+Date lue : 16000.006019
+Position lue :
+	 x = -19906.865573
+	 y = 37168.798730
+	 z = 0.000000
+Vitesse lue :
+	 x = -2.710408
+	 y = -1.451640
+	 z = -0.000000
+Attitude lue :
+	 q0 = 0.652863
+	 q1 = 0.723796
+	 q2 = 0.083226
+	 q3 = 0.207275
+Spin lu :
+	 x = 0.000014
+	 y = 0.000000
+	 z = -0.000001
+
+Date lue : 16000.006250
+Position lue :
+	 x = -19961.052547
+	 y = 37139.726402
+	 z = 0.000000
+Vitesse lue :
+	 x = -2.708288
+	 y = -1.455592
+	 z = -0.000000
+Attitude lue :
+	 q0 = 0.652763
+	 q1 = 0.723886
+	 q2 = 0.083260
+	 q3 = 0.207261
+Spin lu :
+	 x = 0.000014
+	 y = 0.000000
+	 z = -0.000001
+
+Date lue : 16000.006481
+Position lue :
+	 x = -20015.197063
+	 y = 37110.575077
+	 z = 0.000000
+Vitesse lue :
+	 x = -2.706162
+	 y = -1.459540
+	 z = -0.000000
+Attitude lue :
+	 q0 = 0.652663
+	 q1 = 0.723977
+	 q2 = 0.083294
+	 q3 = 0.207246
+Spin lu :
+	 x = 0.000014
+	 y = 0.000000
+	 z = -0.000001
+
+Date lue : 16000.006713
+Position lue :
+	 x = -20069.299006
+	 y = 37081.344817
+	 z = 0.000000
+Vitesse lue :
+	 x = -2.704031
+	 y = -1.463485
+	 z = -0.000000
+Attitude lue :
+	 q0 = 0.652563
+	 q1 = 0.724067
+	 q2 = 0.083328
+	 q3 = 0.207232
+Spin lu :
+	 x = 0.000014
+	 y = 0.000000
+	 z = -0.000001
+
+Date lue : 16000.006944
+Position lue :
+	 x = -20123.358261
+	 y = 37052.035683
+	 z = 0.000000
+Vitesse lue :
+	 x = -2.701894
+	 y = -1.467427
+	 z = -0.000000
+Attitude lue :
+	 q0 = 0.652462
+	 q1 = 0.724158
+	 q2 = 0.083361
+	 q3 = 0.207218
+Spin lu :
+	 x = 0.000014
+	 y = 0.000000
+	 z = -0.000001

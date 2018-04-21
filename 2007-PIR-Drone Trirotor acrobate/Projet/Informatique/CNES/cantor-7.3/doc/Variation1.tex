@@ -1,0 +1,225 @@
+% -*- mode: latex; tex-main-file: "cantor.tex" -*-
+% $Id: Variation1.tex,v 1.5 2003/07/09 08:55:11 cantor Exp $
+\subsection{classe Variation1}\label{sec:Variation1}
+
+\subsubsection*{description}\label{sec:Variation1-desc}
+
+La classe Variation1 modélise la variation d'une fonction scalaire en
+un point (au sens d'un élément de tableau de variation). Cette classe
+est utilisée de façon interne par la classe Resolution1Iterateur.
+
+\subsubsection*{interface publique}\label{sec:Variation1-int}
+\begin{verbatim}
+#include "cantor/Variation1.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{Variation1 : méthodes publiques}
+{\label{tab:Variation1-met-pub}}
+{construit la variation d'une fonction à valeur et dérivée nulle en 0}
+
+\signature{\fonc{Variation1} ()}
+          {}&
+
+construit la variation d'une fonction à valeur et dérivée nulle en 0
+\\
+
+\signature{\fonc{Variation1}}
+          {(double \argument{x}, const ValeurDerivee1\& \argument{y})}&
+
+construit la variation de la fonction valant \argument{y} en
+\argument{x} \\
+
+\hline
+
+\signature{\fonc{Variation1} (const Variation1\& \argument{v})}
+          {}&
+
+constructeur par copie \\
+
+\signature{Variation1\& \fonc{operator =}}
+          {(const Variation1\& \argument{v})}&
+
+affectation \\
+
+\hline
+
+\signature{\fonc{~Variation1} ()} {} &
+destructeur
+\\
+
+\hline
+
+\signature{int \fonc{sens} () const}
+          {}&
+
+retourne une copie du sens de variation (positif si la fonction est
+croissante, négatif sinon)\\
+
+\signature{int \fonc{croissante} () const}
+          {}&
+
+indique si la fonction est croissante \\
+
+\signature{int \fonc{decroissante} () const}
+          {}&
+
+indique si la fonction est décroissante \\
+
+\signature{int \fonc{sensValide} () const}
+          {}&
+
+indique si le sens de variation est cohérent avec le signe de la
+dérivée (le sens peut être simulé par les fonctions membres
+\fonc{simuleCroissante} et \fonc{simuleDecroissante}) \\
+
+\hline
+
+\signature{double \fonc{x} () const}
+          {}&
+
+retourne une copie du point de calcul de la fonction \\
+
+\signature{const ValeurDerivee1\& \fonc{y}() const}
+          {}&
+
+retourne une référence constante sur la valeur de la fonction au point
+de calcul \\
+
+\hline
+
+\signature{void \fonc{reinitialise}}
+          {(double \argument{x}, const ValeurDerivee1\& \argument{y})}&
+
+remplace l'instance par la variation de la fonction valant
+\argument{y} en \argument{x} \\
+
+\signature{void \fonc{simuleCroissante} ()}
+          {}&
+
+modifie le sens de la variation pour simuler une fonction croissante
+(on peut reconnaître une variation simulée à l'aide de la fonction
+\fonc{sensValide}). Cette fonction facilite l'utilisation des
+Variation1 dans des algorithmes utilisant des extremums, pour lesquels
+la convergence peut aboutir à un point croissant ou décroissant de
+façon aléatoire \\
+
+\signature{void \fonc{simuleDecroissante} ()}
+          {}&
+
+modifie le sens de la variation pour simuler une fonction décroissante
+(on peut reconnaître une variation simulée à l'aide de la fonction
+\fonc{sensValide}). Cette fonction facilite l'utilisation des
+Variation1 dans des algorithmes utilisant des extremums, pour lesquels
+la convergence peut aboutir à un point croissant ou décroissant de
+façon aléatoire \\
+
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+
+\begin{verbatim}
+#include "cantor/Variation1.h"
+
+Variation1 NewtonSecante (TypeFoncVD1   f,           void* arg,
+                          TypeFoncConv1 convergence, void* arg_conv,
+                          const Variation1& a, const Variation1& b)
+{ // remise en ordre des bornes
+  Variation1 inf = (a.x () < b.x ()) ? a : b;
+  Variation1 sup = (a.x () < b.x ()) ? b : a;
+  int        last_inf;
+
+  // correction du sens de variation donne par les derivees
+  // (si a et b sont des extremums, le signe des derivees n'est pas fiable)
+  if (inf.y () <= sup.y ())
+  { inf.simuleCroissante   ();
+    sup.simuleCroissante   ();
+  }
+  else
+  { inf.simuleDecroissante ();
+    sup.simuleDecroissante ();
+  }
+
+  ...
+
+  do
+  { double t;
+
+    ...
+
+    // recherche d'un nouveau t par la methode de Newton
+    if (abs (sup.y ().f0 ()) >= abs (inf.y ().f0 ()))
+    { // c'est la borne inf qui est la plus proche
+      double dt = - inf.y ().f0 () / inf.y ().f1 ();
+
+      ...
+
+      // calcul du nouveau point de test
+      t = inf.x () + dt;
+
+    }
+    else
+      ...
+
+    // calcul de la fonction pour le nouveau t
+    Variation1 b (t, (*f) (t, arg));
+
+    // mise a jour des bornes de l'intervalle encadrant la racine
+    if (inf.croissante ())
+      b.simuleCroissante   ();
+    else
+      b.simuleDecroissante ();
+    if (((b.y () <= 0.0) && (inf.croissante   ()))
+     || ((b.y () >  0.0) && (inf.decroissante ())))
+    { inf      = b;
+      last_inf = 1;
+    }
+    else
+    { sup      = b;
+      last_inf = 0;
+    }
+
+    // test de la convergence de l'algorithme
+    code = (*convergence) (inf, sup, arg_conv);
+
+  } while ((code == CONV1_AUCUNE)
+           &&
+           ((sup.x () - inf.x ()) > eps_inf + eps_sup));
+
+  // retour de la meilleure estimee du zero
+  ...
+
+}
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation
+spécifiques}\label{sec:Variation1-conseils} Cette classe est
+essentiellement destinée à être utilisée dans des algorithmes de
+recherche de zéros ou d'extremums de fonctions à une
+variable\footnote{elle a été créée pour les besoins internes de
+\bibliotheque{cantor}}. Il faut prendre garde dans ce type
+d'algorithme que les points de calculs résultent parfois de critères
+de convergence variés, il faut donc étudier minutieusement le
+comportement de l'algorithme dans les cas limites. À titre d'exemple,
+on peut citer le cas d'un partitionnement d'intervalle en un tronçon
+croissant et un tronçon décroissant~; ceci conduit à voir le point
+intermédiaire dans le premier sous-intervalle comme le dernier point
+décroissant et dans l'autre comme le premier point croissant. Les
+méthodes \fonc{simuleDecroissante} et \fonc{simuleDecroissante}
+peuvent être utilisées pour éviter les phénomènes de bord dans ce cas.
+
+\subsubsection*{implantation}\label{sec:Variation1-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:Variation1-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe Variation1}
+{\label{tab:Variation1-att-priv}}
+{indicateur de cohérence entre sens\_ et le signe de la dérivée}
+
+sens\_ & int & sens de variation : $+1 \Rightarrow$ croissante, $-1
+\Rightarrow$ décroissante \\
+
+sensValide\_ & int & indicateur de cohérence entre sens\_ et le signe
+de la dérivée \\
+
+x\_ & double & abscisse à laquelle est calculée la fonction \\
+
+y\_ & ValeurDerivee1 & valeur de la fonction en x\_ \\
+
+\end{tableAttributsFixe}

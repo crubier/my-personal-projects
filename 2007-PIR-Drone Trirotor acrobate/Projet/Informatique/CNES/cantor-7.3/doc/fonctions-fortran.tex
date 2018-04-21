@@ -1,0 +1,137 @@
+% -*- mode: latex; tex-main-file: "cantor.tex" -*-
+% $Id: fonctions-fortran.tex,v 1.2 2001/06/05 16:12:46 cantor Exp $
+\subsection{sous-routines \langage{fortran}}
+\label{sec:sous-routines-fortran}
+Seules les fonctions d'utilisation des rotations en dimension 3 sont
+disponibles à partir du langage \langage{fortran}. Ces fonctions
+nécessitent le passage d'un ou de plusieurs tableaux de quatre réels
+pour contenir les composantes du quaternion représentant la
+rotation. Ces composantes sont rarement utiles pour l'appelant, il se
+contente généralement de passer les tableaux à la bibliothèque
+\bibliotheque{cantor}, laquelle les initialise dans le cas de
+fonctions construisant des rotations, et les utilise dans les autres
+cas.
+
+\begin{tableFonctionsFixe}{fonctions FORTRAN}
+{\label{tab:fonctions-fortran}}
+{construit la rotation \argument{q} résultant de la composition
+\argument{q2} $\circ$ \argument{q1}}
+
+\signature{integer function \fonc{RotAxeAngle} (\argument{q},
+\argument{axe}, \argument{angle},
+\argument{message})}{\hspace{\largeurPar}double precision \argument{q}
+(4)\\double precision \argument{axe} (3), \argument{angle}\\character*(*)
+\argument{message}} & construit la rotation \argument{q} à partir de
+l'\argument{axe} et de l'\argument{angle}, retourne un code non nul en
+cas de problème, et initialise le \argument{message} d'erreur\\
+
+\signature{integer function
+\fonc{RotU1U2V1V2}}{\hspace{-\largeurPar}>\hspace{1cm}(\argument{q},
+\argument{u1}, \argument{u2}, \argument{v1}, \argument{v2},
+\argument{message})\\double precision \argument{q} (4)\\double
+precision \argument{u1} (3), \argument{u2} (3)\\double precision
+\argument{v1} (3), \argument{v2} (3)\\character*(*)
+\argument{message}} & construit la rotation \argument{q} à partir des
+deux vecteurs \argument{u1} et \argument{u2} et de leurs images
+\argument{v1} et \argument{v2}, retourne un code non nul en cas de
+problème, et initialise le \argument{message} d'erreur\\
+
+\signature{integer function \fonc{RotU1V1} (\argument{q},
+\argument{u1}, \argument{v1},
+\argument{message})}{\hspace{\largeurPar}double precision \argument{q}
+(4)\\double precision \argument{u1} (3),
+\argument{v1} (3)\\character*(*) \argument{message}} & construit la
+rotation \argument{q} à partir du vecteur \argument{u1} et de son
+image \argument{v1} (une solution est choisie arbitrairement dans
+l'infinité possible), retourne un code non nul en cas de problème, et
+initialise le \argument{message} d'erreur\\
+
+\signature{integer function \fonc{RotMatrice} (\argument{q},
+\argument{m}, \argument{seuil},
+\argument{message})}{\hspace{\largeurPar}double precision \argument{q}
+(4)\\double precision \argument{m} (3, 3),
+\argument{seuil}\\character*(*) \argument{message}} & construit la
+rotation \argument{q} à partir de la matrice \argument{m} en
+corrigeant éventuellement sa non-orthogonalité d'au plus
+\argument{seuil} (au sens de la norme de \textsc{Frobenius}), retourne
+un code non nul en cas de problème, et initialise le
+\argument{message} d'erreur\\
+
+\signature{integer function \fonc{RotTroisAngles}}{\hspace{-\largeurPar}>\hspace{1cm}(\argument{q},
+\argument{ordre}, \argument{alpha1}, \argument{alpha2},
+\argument{alpha3}, \argument{message})\\double
+precision \argument{q} (4)\\ double precision \argument{alpha1},
+\argument{alpha2}, \argument{alpha3}\\ character*(*)
+\argument{message}} & construit la rotation \argument{q} à partir de
+trois rotations élémentaires dans l'\argument{ordre} spécifié (qui
+doit être conforme à l'un des \texttt{PARAMETER} déclarés dans le
+fichier \texttt{cantor/cantdefs.f} que l'on peut inclure par
+\texttt{\#include} ou par \texttt{INCLUDE} au niveau du fichier
+appelant), retourne un code non nul en cas de problème, et initialise
+le \argument{message} d'erreur\\
+
+\signature{subroutine \fonc{RotInverse} (\argument{q},
+\argument{qInitiale})}{\hspace{\largeurPar}double precision
+\argument{q} (4), \argument{qInitiale} (4)} &
+construit la rotation \argument{q} inverse de \argument{qInitiale}, en
+se contentant d'inverser un élément du quaternion (cette opération est
+donc très peu coûteuse en temps de calcul)\\
+
+\signature{subroutine \fonc{RotComposee} (\argument{q}, \argument{q1},
+\argument{q2})}{\hspace{\largeurPar}double precision \argument{q}
+(4), \argument{q1} (4), \argument{q2} (4)} &
+construit la rotation \argument{q} résultant de la composition
+\argument{q2} $\circ$ \argument{q1}\\
+
+\hline
+
+\signature{subroutine \fonc{AxeRot} (\argument{q},
+\argument{axe})}{\hspace{\largeurPar}double precision \argument{q}
+(4), \argument{axe} (3)}& extrait l'\argument{axe} de la rotation
+\argument{q}\\
+
+\signature{subroutine \fonc{AngleRot} (\argument{q},
+\argument{angle})}{\hspace{\largeurPar}double precision \argument{q}
+(4), \argument{angle}} & extrait l'\argument{angle} de la rotation
+\argument{q}\\
+
+\signature{subroutine \fonc{AxeAngleRot} (\argument{q},
+\argument{axe}, \argument{angle})}{\hspace{\largeurPar}double
+precision \argument{q} (4), \argument{axe} (3), \argument{angle}} &
+extrait l'\argument{axe} et l'\argument{angle} de la rotation
+\argument{q}\\
+
+\signature{subroutine \fonc{MatriceRot} (\argument{q},
+\argument{m})}{\hspace{\largeurPar}double precision \argument{q} (4),
+\argument{m} (3, 3)} & extrait la matrice \argument{m} de la rotation
+\argument{q}\\
+
+\signature{integer function
+\fonc{TroisAnglesRot}}{\hspace{-\largeurPar}>\hspace{1cm}(\argument{q},
+\argument{ordre}, \argument{alpha1}, \argument{alpha2},
+\argument{alpha3}, \argument{message})\\double precision \argument{q}
+(4)\\ double precision \argument{alpha1}, \argument{alpha2},
+\argument{alpha3}\\ character*(*) \argument{message}} & extrait de la
+rotation \argument{q} les angles des rotations élémentaires dans
+l'\argument{ordre} spécifié (qui doit être conforme à l'un des
+\texttt{PARAMETER} déclarés dans le fichier \texttt{cantor/cantdefs.f}
+que l'on peut inclure par \texttt{\#include} ou par \texttt{INCLUDE}
+au niveau du fichier appelant), retourne un code non nul en cas de
+problème, et initialise le \argument{message} d'erreur\\
+
+\hline
+
+\signature{subroutine \fonc{AppliqueRot} (\argument{q}, \argument{u},
+\argument{uPrime})}{\hspace{\largeurPar}double precision \argument{q}
+(4)\\ double precision \argument{u} (3), \argument{uPrime} (3)} &
+applique la rotation \argument{q} au vecteur \argument{u} et met
+l'image dans le tableau \argument{uPrime}\\
+
+\signature{subroutine \fonc{AppliqueRotInverse} (\argument{q},
+\argument{uPrime}, \argument{u})}{\hspace{\largeurPar}double precision
+\argument{q} (4)\\double precision \argument{uPrime} (3), \argument{u}
+(3)} & applique l'inverse de la rotation \argument{q} au
+\argument{uPrime} et met l'image réciproque dans le tableau
+\argument{u}\\
+
+\end{tableFonctionsFixe}

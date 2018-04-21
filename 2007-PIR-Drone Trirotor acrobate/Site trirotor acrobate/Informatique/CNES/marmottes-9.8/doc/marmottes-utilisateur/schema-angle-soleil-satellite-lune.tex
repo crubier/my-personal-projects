@@ -1,0 +1,89 @@
+\subsubsection{Définition des paramètres d'inhibition des senseurs optiques}\label{sec:schemaInhibition}
+
+Les senseurs optiques observant des cibles particulières (terre, point
+au sol, autre satellite ...) peuvent être perturbés par la présence
+d'astres très lumineux comme la lune, le soleil ou un astre de type
+corps central (terre par exemple) dans le voisinage de leur champ de
+vue. 
+Ce phénomène est pris en compte dans Marmottes lorsque l'utilisateur 
+définit un champ d'inhibition pour la lune, le soleil, un astre de
+type corps central (ou une combinaison des trois). 
+Ces champs dénommés
+\texttt{champ\_d\_inhibition\_corps\_central}, 
+\texttt{champ\_d\_inhibition\_soleil} et
+\texttt{champ\_d\_inhibition\_lune} sont optionnels, par défaut il n'y
+a pas d'inhibition. Il y a inhibition lorsque l'astre incriminé est
+dans le champ d'inhibition et n'est pas en éclipse (pour la lune et le
+soleil). Outre les champs eux-mêmes, l'utilisateur peut définir une marge de sécurité angulaire
+pour le calcul des éclipses (\texttt{marge\_eclipse\_soleil} et
+\texttt{marge\_eclipse\_lune}), qui valent 0 degré par défaut. L'astre
+inhibant est considéré en éclipse si la distance angulaire entre le
+centre de l'astre occultant et le centre de l'astre inhibant plus la
+marge est inférieur au rayon de l'astre occultant. Dans la pratique,
+cela signifie qu'une marge de 1 degré conduira à considérer qu'il y a
+encore inhibition si l'astre inhibant est derrière la terre mais à
+moins de 1 degré du limbe.
+
+Enfin dans le cas de la lune, on peut tenir compte de son éclairement
+(les phases de la lune) et ne pas considérer d'inhibition lorque
+celui-ci est plus faible qu'un seuil spécifié par le bloc
+\texttt{seuil\_phase\_lune}. La valeur par défaut de ce seuil est 180
+degrés, ce qui signifie que la lune est toujours gênante, même en
+nouvelle lune.
+
+\begin{figure}[htbp]\caption{\label{fig:angle-lune-soleil}angle de
+    phase lune}
+\begin{center}\begin{minipage}{70.00mm}
+\setlength{\unitlength}{0.25mm}\begin{picture}(280,160)
+  \put(130,44){\circle{4}}
+  \put(130,46){\line(0,1){2}}
+  \put(128,48){\line(1,0){4}}
+  \put(128,63){\line(1,0){4}}
+  \put(128,48){\line(0,1){15}}
+  \put(132,48){\line(0,1){15}}
+  \put(130,42){\line(0,-1){2}}
+  \put(128,40){\line(1,0){4}}
+  \put(128,25){\line(1,0){4}}
+  \put(128,40){\line(0,-1){15}}
+  \put(132,40){\line(0,-1){15}}
+
+  \put(100,44){\line(1,0){110}}
+  \put(70,104){\line(1,-1){80}}
+  \qbezier(150,44)(150,35.72)(144.14,29.86)
+  \put(155,31){$\eta$}
+
+  \put(220,70){Soleil}
+  \put(232,44){\circle{10}}
+  \qbezier(224,60)(232,44)(231,64)
+  \qbezier(234,64)(232,44)(248,54)
+  \qbezier(250,42)(232,44)(233,28)
+  \qbezier(228,23)(232,44)(216,32)
+  \qbezier(212,39)(232,44)(222,54)
+
+  \put(75,110){Lune}
+  \qbezier(63,117)(69,117)(69,111)
+  \qbezier(69,111)(69,105)(63,105)
+  \qbezier(63,105)(68,111)(63,117)
+\end{picture}\end{minipage}\end{center}
+\end{figure}
+
+$\eta$ représente, sur ce schéma, l'angle de phase lune.
+
+0 degré : le satellite est entre le soleil et la lune et donc voit la
+face éclairée de la lune, nous sommes en configuration de pleine lune.
+180 degrés : lune et soleil sont du même côté, le satellite voit la face
+sombre de la lune, nous sommes en configuration de nouvelle lune.
+
+L'utilisateur peut spécifier un seuil angulaire indiquant à partir de quand
+la brillance de la lune gène le senseur. Lorsque l'angle $\eta$ est compris entre
+0 degré et ce seuil, la lune est considérée comme trop brillante, il y a inhibition.
+Lorsque l'angle $\eta$ est compris entre ce seuil et 180 degrés, la lune est assez
+sombre, il n'y a pas d'inhibition.
+
+Par conséquent si l'utilisateur met ce seuil à 0, il n'y a jamais inhibition
+quelle que soit la phase de la lune et si \emph{a contratio} il le positionne
+à 180 degrés il y a toujours inhibition quelle que soit la phase de la lune.
+
+Une valeur de $\eta$ couramment utilisée est 90 degrés.
+
+\clearpage

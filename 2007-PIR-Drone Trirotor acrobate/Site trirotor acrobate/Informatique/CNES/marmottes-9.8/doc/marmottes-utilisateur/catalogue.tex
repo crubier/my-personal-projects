@@ -1,0 +1,177 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: catalogue.tex,v 1.11 2003/03/26 18:14:39 marmottes Exp $
+\subsection{classes disponibles}\label{sec:classes-dispo}
+
+\begin{description}
+\item[BodyEphem] permet l'accès aux différentes implémentations
+utilisateurs du calcul du temps sidéral et des éphémérides du Soleil,
+de la Lune et de la Terre, par rapport au corps central.  Elle permet
+aussi l'accès à des grandeurs physiques du corps central (rayon
+équatorial, aplatissement et vitesse de rotation).
+
+\item[BodyEphemC] permet l'accès à l'implémentation en \langage{C} par
+l'utilisateur, du calcul du temps sidéral et des éphémérides du
+Soleil, de la Lune et de la Terre, par rapport au corps central.\\
+Elle permet aussi l'accès à des grandeurs physiques du corps central
+(rayon équatorial, aplatissement et vitesse de rotation).
+
+\item[BodyEphemF] permet l'accès à l'implémentation en \langage{fortran} par
+l'utilisateur, du calcul du temps sidéral et des éphémérides du
+Soleil, de la Lune et de la Terre, par rapport au corps central.\\
+Elle permet aussi l'accès à des grandeurs physiques du corps central
+(rayon équatorial, aplatissement et vitesse de rotation).
+
+\item[Etat] mémorise l'état du satellite (date, position, vitesse,
+attitude) ainsi que quelques données qui lui sont directement liées
+comme les directions de la lune et du soleil ;
+
+\item[Famille] est la classe qui sert d'interface à la classe
+FamilleAbstraite ;
+
+\item[FamilleAbstraite] est une classe abstraite de haut niveau
+permettant de gérer les différents types de solutions aux modèles
+analytiques de résolution ;
+
+\item[FamilleAlignementMoins] est une classe dérivée de la précédente,
+elle permet de traiter un cas particulier de singularité ;
+
+\item[FamilleAlignementPlus] est une classe dérivée de FamilleAbstraite,
+elle permet de traiter un cas particulier de singularité ;
+
+\item[FamilleFixe] est une classe dérivée de FamilleAbstraite,
+elle est chargée de la modélisation géométrique dans le cas où le
+vecteur cible est figé par les deux consignes ;
+
+\item[FamilleGenerale] est une classe dérivée de FamilleAbstraite,
+elle est chargée de la modélisation géométrique dans le cas général,
+pour un domaine angulaire particulier ;
+
+\item[FamilleProlongementPi] est une classe dérivée de FamilleAbstraite,
+elle permet de traiter un cas particulier de singularité ;
+
+\item[FamilleProlongementZero] est une classe dérivée de FamilleAbstraite,
+elle permet de traiter un cas particulier de singularité ;
+
+\item[Marmottes] est la classe de plus haut niveau de la bibliothèque,
+elle représente un simulateur d'attitude complet, avec son état
+courant et les moyens de le faire évoluer ;
+
+\item[MarmottesErreurs] gère toutes les erreurs internes de la
+bibliothèque dans la langue de l'utilisateur ;
+
+\item[Modele] est une classe abstraite servant d'interface à des
+modèles à un degré de liberté décrivant l'ensemble des attitudes
+respectant deux consignes sur les trois ;
+
+\item[ModeleCine] implante la classe Modele dans le cas de consignes
+portant sur des senseurs cinématiques ;
+
+\item[ModeleGeom] implante la classe Modele dans le cas de consignes
+portant sur des senseurs géométriques ;
+
+\item[Parcelle] est une classe abstraite servant d'interface aux
+descriptions de champs de vue ayant une notion de visibilité booléenne
+(le limbe doit être dans le scan Nord \emph{et} dans le scan Sud) en
+plus de la notion de visibilité géométrique ;
+
+\item[ParcelleElementaire] implante les Parcelles les plus simples qui
+soient : réduites à la notion de visibilité géométrique ;
+
+\item[ResolveurAttitude] est une classe recherchant numériquement les
+valeurs du degré de liberté permettant à la classe Modèle de générer
+une attitude respectant les trois consignes, et triant les vrais
+solutions des artefacts de modélisation mathématique ;
+
+\item[ReunionEtParcelles] implante les Parcelles ayant besoin de deux
+visibilités simultanées ;
+
+\item[ReunionOuParcelles] implante les Parcelles se contentant d'une
+visibilité parmi deux possibilités ;
+
+\item[Senseur] est une classe abstraite servant d'interface à tous les
+types de senseurs ou de pseudo-senseurs, il s'agit de la classe de
+base d'une hiérarchie d'héritage simple mais comportant de nombreuses
+classes (voir la figure~\ref{fig:hierarchie},
+page~\pageref{fig:hierarchie});
+
+\item[SenseurAlpha] implante un pseudo-senseur d'ascension droite,
+c'est à dire un senseur qui mesure la direction d'un vecteur satellite
+par rapport à un repère inertiel ;
+
+\item[SenseurCardan] implante tous les pseudo-senseurs de Cardan,
+c'est à dire les senseurs mesurant des rotations successives
+permettant de passer du repère orbital local au repère satellite, tous
+les ordres possibles pour les rotations sont supportés ;
+
+\item[SenseurCartesien] implante des senseurs optiques dont la mesure
+est directement une composante du vecteur cible en repère satellite
+(il s'agit généralement de mesures composites élaborées à bord par le
+\textsc{scao} à partir d'un ensemble de senseurs de base) ;
+
+\item[SenseurCinematique] implante les gyromètres et permet la
+construction des modèles analytiques ModeleCine ;
+
+\item[SenseurDelta] implante un pseudo-senseur de déclinaison, c'est à
+dire un senseur qui mesure la direction d'un vecteur satellite par
+rapport à un repère inertiel ;
+
+\item[SenseurDiedre] implante des senseurs optiques mesurant des
+angles entre plans autour d'un axe dièdre (la plupart des senseurs
+optiques sont de ce type) ;
+
+\item[SenseurElevation] implante des senseurs mesurant l'élévation
+d'un vecteur cible au dessus d'un plan de référence (ce type de
+senseur est essentiellement utilisé comme pseudo-senseur pour produire
+la seconde coordonnée sphérique d'une direction, en association avec
+un senseur dièdre qui donne un azimut) ;
+
+\item[SenseurFonction] est la classe de base de tous les senseurs
+représentant des fonctions quelconques sur la sphère unité ;
+
+\item[SenseurFonctionEchant1D] permet de modéliser des senseurs dont
+la mesure est une fonction sur la sphère unité échantillonnée
+radialement, ce type de senseur est principalement utilisé pour
+modéliser des gains d'antennes mesurés ;
+
+\item[SenseurFonctionGauss] permet de modéliser des senseurs dont la
+mesure est une fonction gausienne sur la sphère unité, ce type de
+senseur est principalement utilisé pour modéliser des gains d'antennes
+mesurés ;
+
+\item[SenseurFonctionSinCard2] permet de modéliser des senseurs dont
+la mesure est une fonction $\left(\sin\theta/\theta\right)^2$ sur la
+sphère unité, ce type de senseur est principalement utilisé pour
+modéliser des gains d'antennes mesurés ;
+
+\item[SenseurGeometrique] est une classe abstraite regroupant tous les
+senseurs géométriques et factorisant les données et méthodes
+nécessaires pour construire les modèles analytiques ModeleGeom ;
+
+\item[SenseurGyroInteg] implante les senseurs de type gyromètres
+intégrateurs ;
+
+\item[SenseurLimbe] est une spécialisation de SenseurDiedre pour le
+cas des senseurs infrarouge observant le limbe du corps central ;
+
+\item[SenseurOptique] est une classe abstraite regroupant tous les
+senseurs géométriques observant une cible en repère inertiel (terre,
+lune, étoiles, moment cinétique de l'orbite, ...) ;
+
+\item[SenseurVecteur] implante des senseurs optiques mesurant des
+angles entre deux vecteurs (la cible et une référence connue en repère
+satellite), ces senseurs permettent de modéliser les mesures réalisées
+à bord de satellites spinnés, mais ils servent surtout de
+pseudo-senseurs par exemple pour connaître le dépointage d'une antenne
+par rapport à une station sol ;
+
+\item[SpinAtt] permet de mémoriser une attitude et un spin, elle est
+utilisée comme intermédiaire entre le modèle analytique à un degré de
+liberté et la recherche numérique de la bonne valeur de ce degré de
+liberté pour respecter la dernière consigne ;
+
+\item[StationCible] permet de modéliser une station sol, qui peut être
+une cible observée par un senseur afin de savoir si un satellite qui
+pointe vers elle peut ou non la voir, les masques sols fonctions de
+l'azimut et la réfraction atmosphérique fonction des conditions
+météorologiques locales sont pris en compte.
+\end{description}

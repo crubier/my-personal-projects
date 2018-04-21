@@ -1,0 +1,230 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+% $Id: XMLFile.tex,v 1.10 2005/02/25 08:07:53 chope Exp $
+\subsection{classe XMLFile}\label{sec:XMLFile}
+\begin{changebar}
+
+\subsubsection{description}\label{sec:XMLFile-desc}
+
+Cette classe implémente les fonctions élémentaires nécessaires à
+l'utilisation de fichiers XML, à l'exception des fonctions dépendant
+de la DTD.
+
+\subsubsection{interface publique}\label{sec:XMLFile-int}
+Cette classe est destinée à être spécialisée par des classes propres à
+chaque DTD devant être supportée, elle n'offre donc aucun service
+public, toutes les méthodes étant protégées ou privées.
+
+\subsubsection{exemple d'utilisation}
+Cette classe est destinée à être spécialisée par des classes propres à
+chaque DTD devant être supportée, elle n'offre donc aucun service
+public, il n'y a donc aucun exemple d'utilisation.
+
+\subsubsection{conseils d'utilisation spécifiques}\label{sec:XMLFile-conseils}
+Cette classe est destinée à être spécialisée par des classes propres à
+chaque DTD devant être supportée, elle n'offre donc aucun service
+public, il n'y a donc aucun conseil d'utilisation spécifique.
+
+\subsubsection{implantation}\label{sec:XMLFile-impl}
+Les attributs protégés sont décrits sommairement dans la
+table~\ref{tab:XMLFile-att-prot}, les attributs privés étant quant à
+eux dans la table~\ref{tab:XMLFile-att-priv}.
+
+\begin{tableAttributsFixe}{attributs protégés de la classe XMLFile}
+{\label{tab:XMLFile-att-prot}}
+{pointeur vers le document XML}
+
+document\_ & DOMDocument*  & pointeur vers le document XML\\
+
+\end{tableAttributsFixe}
+
+\begin{tableAttributsFixe}{attributs privés de la classe XMLFile}
+{\label{tab:XMLFile-att-priv}}
+{indicateur général des types d'éléments qui doivent}
+
+showing\_ & unsigned long  & indicateur général des types d'éléments qui
+doivent être filtrés lors de l'écriture sur fichier\\
+
+\end{tableAttributsFixe}
+
+Les méthodes protégées sont décrites sommairement dans la
+table~\ref{tab:XMLFile-met-prot}, les méthodes privées étant quant à
+elles dans la table~\ref{tab:XMLFile-met-priv}.
+
+\begin{tableFonctionsFixe}{XMLFile : méthodes protégées}
+{\label{tab:XMLFile-met-prot}}
+{construit une instance avec un arbre DOM limité à l'élément}
+
+\signature{\fonc{XMLFile}}
+          {(const XMLCh* \argument{type},\\
+            const XMLCh* \argument{pubID}, const XMLCh* \argument{sysId})\\
+           \throw{ClubErreurs}}
+&
+construit une instance avec un arbre DOM limité à l'élément racine
+\\
+
+\signature{\fonc{XMLFile} (const string\& \argument{fileName})}
+          {\throw{ClubErreurs}}
+&
+construit une instance par lecture d'un fichier
+\\
+
+\signature{\fonc{\~{}XMLFile} ()}{}
+&
+détruit l'instance
+\\
+
+\signature{string \fonc{toString} (const XMLCh* \argument{s}) const}{}
+&
+convertit une chaîne de caractères XML en chaîne de la STL
+\\
+
+\signature{bool \fonc{hasChildElements}}
+          {(const DOMElement* \argument{element}) const}
+&
+indique si un élément possède des éléments fils
+\\
+
+\signature{DOMElement* \fonc{getChildElement}}
+          {(const XMLCh* \argument{elementName},\\
+            const DOMNode* \argument{node}) const}
+&
+retourne l'élément fils du n\oe{}ud spécifié dont le nom correspond à
+l'argument \argument{elementName}
+\\
+
+\signature{DOMElement* \fonc{getChildElement}}
+          {(const XMLCh* \argument{attributeName},\\
+            const XMLCh* \argument{attributeValue},\\
+           const DOMNode* \argument{node}) const}
+&
+retourne l'élément fils du n\oe{}ud spécifié pour lequel l'attribut
+\argument{attributeName} prend la valeur \argument{attributeValue}
+\\
+
+\signature{DOMElement*  \fonc{getChildElement}}
+          {(const XMLCh* \argument{attributeName},\\
+            const string\& \argument{attributeValue},\\
+           const DOMNode* \argument{node}) const}
+&
+retourne l'élément fils du n\oe{}ud spécifié pour lequel l'attribut
+\argument{attributeName} prend la valeur \argument{attributeValue}
+\\
+
+\signature{string \fonc{getString}}
+          {(const DOMElement* \argument{element},\\
+            const XMLCh* \argument{attributeName}) const\\
+           \throw{ClubErreurs}}
+&
+retourne la valeur d'un attribut d'élément sous forme d'une chaîne de
+caractères
+\\
+
+\signature{int \fonc{getInt}}
+          {(const DOMElement* \argument{element},\\
+            const XMLCh* \argument{attributeName}) const\\
+           \throw{ClubErreurs}}
+&
+retourne la valeur d'un attribut d'élément sous forme d'un entier
+\\
+ 
+\signature{double \fonc{getDouble}}
+          {(const DOMElement* \argument{element},\\
+            const XMLCh* \argument{attributeName}) const\\
+           \throw{ClubErreurs}}
+&
+retourne la valeur d'un attribut d'élément sous forme d'un réel
+\\
+
+\signature{static string \fonc{findFile}}
+          {(const string\& \argument{name}, const string\& \argument{baseURI})\\
+           \throw{ClubErreurs}}
+&
+
+retourne le nom complet d'un fichier dont on spécifie la partie finale
+du nom par l'argument \argument{name} et le chemin de base de
+recherche pour la résolution des chemins relatifs par l'argument
+\argument{baseURI}
+\\
+
+\signature{void \fonc{readFile} (const string\& \argument{fileName})}
+          {\throw{ClubErreurs}}
+&
+initialise l'arbre DOM par lecture d'un fichier
+\\
+
+\signature{void \fonc{write} (XMLFormatTarget *target)}
+          {\throw{ClubErreurs}}
+&
+écrit l'arbre DOM sur la cible spécifiée
+\\
+
+\signature{bool \fonc{ignoreNode}}
+          {(const DOMNode* \argument{node}) const}
+&
+indique si le n\oe{}ud spécifié doit être ignoré lors de l'écriture de
+l'arbre DOM dans un fichier
+\\
+
+\end{tableFonctionsFixe}
+
+\begin{tableFonctionsFixe}{XMLFile : méthodes privées}
+{\label{tab:XMLFile-met-priv}}
+{constructeur par copie, déclaré privé pour éviter tout appel}
+
+\signature{\fonc{XMLFile} (const XMLFile \& \argument{other})}
+          {}
+&
+constructeur par copie, déclaré privé pour éviter tout appel
+\\
+
+\signature{XMLFile \&  \fonc{operator =} (const XMLFile \& \argument{other})}
+          {}
+&
+affectation, déclarée privée pour éviter tout appel
+\\
+
+\hline
+\signature{void \fonc{handleError} (const DOMException\& \argument{domError})}
+          {\throw{ClubErreurs}}
+& 
+fonction appelée par l'analyseur XML lorsqu'il rencontre une erreur
+(fonction spécifiée par la classe de base DOMErrorHandler)
+\\
+
+\hline
+\signature{DOMInputSource* \fonc{resolveEntity}}
+          {(const XMLCh *const \argument{publicId},\\
+            const XMLCh *const \argument{systemId},\\
+            const XMLCh *const \argument{baseURI})}
+& 
+retourne un accès à une entité définie par ses identificateurs public
+et privé, en utilisant la liste de répertoires spécifiée par la
+variable d'environnement dédiée (dont le nom par défaut est
+\texttt{MRC\_USER\_XMLPATH})
+\\
+
+\hline
+\signature{short \fonc{acceptNode}
+           (const DOMNode* \argument{node}) const}{}
+& 
+indique si un n\oe{}ud doit être accepté ou refusé lors du filtrage
+des n\oe{}uds à écrire dans un fichier (fonction spécifiée par la
+classe de base DOMNodeFilter)
+\\
+
+\signature{unsigned long \fonc{getWhatToShow}
+           () const}{}
+& 
+retourne le code des n\oe{}uds à filtrer par défaut (fonction
+spécifiée par la classe de base DOMNodeFilter)
+\\
+
+\signature{void \fonc{setWhatToShow}
+           (unsigned long\argument{showing})}{}
+& 
+enregistre le code des n\oe{}uds à filtrer par défaut (fonction
+spécifiée par la classe de base DOMNodeFilter)
+\\
+
+\end{tableFonctionsFixe}
+\end{changebar}

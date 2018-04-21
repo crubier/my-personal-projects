@@ -1,0 +1,20 @@
+#! /bin/sh
+
+# $Id: test_TamponChampLigne.in,v 1.9 2000/07/31 08:35:35 club Exp $
+
+# mise en place d'un environnement francais pour vérifier les messages
+@cl_cv_var_lang@=fr              ; export @cl_cv_var_lang@
+@cl_cv_var_tradpath@=@srcdir@/.. ; export @cl_cv_var_tradpath@
+
+# exécution du programme de test
+./prgm_TamponChampLigne @srcdir@/test_TamponTexte.don > ./test_TamponChampLigne.res 2>&1
+
+# comparaison des fichiers
+echo "difference ./test_TamponChampLigne.res ./test_TamponChampLigne.ref"
+./../utils/difference -rsynth -p  0.00001 -res ./test_TamponChampLigne.res \
+                      -ref ./test_TamponChampLigne.ref
+r=$?
+
+# nettoyage
+rm ./test_TamponChampLigne.res
+exit $r

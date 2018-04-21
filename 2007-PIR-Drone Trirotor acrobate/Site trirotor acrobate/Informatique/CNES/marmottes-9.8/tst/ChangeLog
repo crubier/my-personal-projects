@@ -1,0 +1,750 @@
+2004-11-02  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* Makefile.am : ajout de fichiers de tests liés à FA-ID 230	
+
+	* test_BugsIds.0230.log, test_BugsIds.0230.sensors: nouveaux
+	fichiers (FA-ID 230)
+
+2004-06-10  projet CHOPE G. Prat/L. Maisonobe  <Guylaine.Prat@c-s.fr>
+
+	* Makefile.am : ajout de fichiers de tests liés aux FA-ID 32, FA-ID 34 et FA-ID 35	
+
+	* test_BugsIds.0032.log, test_BugsIds.0032.sensors: nouveaux
+	fichiers (FA-ID 32)
+
+	* test_BugsIds.0034.log, test_BugsIds.0034.sensors: nouveaux
+	fichiers (FA-ID 34)
+
+	* test_BugsIds.0035.log, test_BugsIds.0035.sensors: nouveaux
+	fichiers (FA-ID 35)
+
+	* prgm_MethodesMarmottes.cpp : correction du format d'écriture des
+	réels (FA-ID 33)
+
+2003-10-16  projet CHOPE O. Queyrut/L. Maisonobe/F. Auguie/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* prgm_MethodesMarmottes.cpp, prgm_BodyEphemF.f, test_BugsIds.0027.sensors, 
+	  test_BugsIds.0027.log : 
+	validation de la DM 0027
+
+	* test_BugsIds.0031.sensors, test_BugsIds.0031.log: nouveaux fichiers
+	permettant de reproduire le cas de la fiche d'anomalie 0031
+	 	
+	* test_BugsIds.0026.sensors, test_BugsIds.0026.log: nouveaux fichiers
+	pour valider la DM 0026
+	
+	* Makefile.am (EXTRA_DIST): FA 0031, DM 0026, DM0027  
+	ajout de fichiers de tests
+
+2003-08-20  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* Makefile.am: définition de la variable prgm_BodyEphemF_LDADD et ajout
+	de LitDate.cpp dans les sources du programme prgm_BodyEphem afin de permettre
+	l'édition de liens du programme de test en fortran avec le compilateur gcc.
+
+2003-08-19  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* test_BugsIds.0022.log, test_BugsIds.0022.sensors: FA-ID 22, nouveau test de haut niveau.
+	La correction de cette FA ayant été réalisée sur la classe Field de cantor, un test
+	unitaire a également été créé dans cantor (nommé test_Field3).
+
+2003-07-29  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* prgm_BodyEphemF.f, test_BodyEphem.in : lecture du nom du fichier
+	senseurs sur la ligne de commande pour permettre des
+	configurations hors de l'espace des sources
+
+2003-07-28  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* test_MethodesMarmottes.in, test_Senseur.in: correction de
+	chemins d'accès à des fichiers de référence
+
+2003-07-08  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+	
+	* prgm_BodyEphemF.f, test_BodyEphemF.ref, test_BodyEphem.in: 
+	creation d'un nouveau test pour l'appel a MarmottesEnregistreCorps
+	depuis le fortran (DM 23) .
+
+	* Makefile.am: ajout du test correspondant a la DM 23
+	
+2003-07-08  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* prgm_Parcelle.cpp (initChampsDeVue): ajout d'un clause throw
+	dans la déclaration
+
+	* Makefile.am: ajout du test correspondant à la FA 22 (corrigée dans cantor)
+
+2003-03-07  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* prgm_MethodesMarmottes.cpp: mise à jour de nom d'include
+	conformément à la norme C++.
+
+2003-03-04  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* prgm_Senseur.cpp, test_Senseur.in, test_Senseur.ref : 
+	ajout de nouveaux tests.
+
+2003-02-18  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* test_Etat.in, test_FonctionSenseur.in, test_Senseur.in:
+	ajout du point pour le lancement des programmes au cas ou
+	celui-ci ne serait pas dans le PATH.
+
+	* prgm_Senseur.cpp: correction d'une fuite mémoire.
+
+2003-02-12  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* prgm_MethodesMarmottes.cpp, test_MethodesMarmottes.in,
+	test_MethodesMarmottes.ref: création de nouveaux tests (DM 10).
+
+2003-02-07  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* prgm_BodyEphem.cpp: prise en compte de la personnalisation des
+	rayons lune et soleil.
+	* test_Presens.ires.log, test_Prems.ires.log: mise à jour des
+	tests suite aux modifications pour la prise en compte des rayons
+	des astres inhibants.
+
+2003-02-04  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* Makefile.am: mise à jour des extensions des fichiers (DM 17).
+
+2002-09-10  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* test_Parcelle.ref: mise à jour due à la correction de la FA 15
+
+2002-09-10  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* test_BodyEphem.in: correction du chemin d'accès au fichier de
+	référence
+
+2002-09-05  projet CHOPE O. Queyrut/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* prgm_BodyEphem.cc: correction de valeurs physiques erronées (DM7).
+
+2002-08-29  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* test_Criteres.aef.log: correction du nom du fichier senseur lu
+
+	* test_BugsIds.0015.log, test_BugsIds.0015.sensors: nouveaux
+	fichiers (FA 15)
+
+	* prgm_Parcelle.cc (TraceIntersection): renommage mineur de
+	paramètres
+
+2002-08-29  projet CHOPE O. Queyrut/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* Makefile.am: ajout du test de paramétrage des modèles
+	d'environnement spatial (DM7)
+
+	* test_BodyEphem.in: script de lancement du test prgm_BodyEphem
+	(DM7)
+
+	* test_BodyEphem.ref: résultats de réference du test
+	prgm_BodyEphem (DM7)
+
+	* prgm_BodyEphem.cc: création du test de paramétrage des modèles
+	d'environnement spatial (enregistrement des
+	fonctions utilisateurs de calcul de temps sidéral et de position
+	des astres DM7).
+
+2002-04-23  projet CHOPE O. Queyrut/S. Vresk  <Olivier.Queyrut@c-s.fr>
+
+	* test_Senseur.in: ajout de test de senseurs supplémentaires
+	(cardan, limbe, dièdre, vecteur, plan vecteur, cinématique,
+	gyro intégrateur, ascension droite et déclinaison)
+
+	* test_Senseur.ref: ajout de résultats complementaires sur les
+	senseurs testés
+
+	* Makefile.am: ajout du nouveau fichier de senseurs
+
+	* test_Senseur.sensors: nouveau fichier (DM 0004)
+
+2002-04-05  projet CHOPE O. Queyrut/S. Vresk  <Olivier.Queyrut@c-s.fr>
+
+	* Makefile.am: ajout du test des senseurs (DM 0004)
+
+	* test_SenseurErr.ref: nouveau fichier (DM 0004)
+
+	* test_Senseur.ref: nouveau fichier (DM 0004)
+
+	* test_Senseur.in: nouveau fichier (DM 0004)
+
+	* prgm_Senseur.cc: nouveau programme de test (DM 0004)
+
+2002-02-20  projet CHOPE O.Queyrut/S. Vresk  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* test_FonctionSenseurErr.ref: création d'une sortie erreur
+	séparé pour les tests (DM 0002)
+
+	* test_FonctionSenseur.ref: mise à jour des résultats (DM 0002)
+
+	* test_FonctionSenseur.in: modification pour lancer les tests
+	de la fonction initialiseDerive (DM 0002)
+
+	* prgm_FonctionSenseur.cc: ajout des tests de la fonction
+	initialiseDerive (DM 0002)
+
+2002-02-11  projet CHOPE O.Queyrut/S. Vresk  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* test_Parcelle.ref: prise en compte de cantor 6.3
+
+2002-01-14  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* test_BugsIds.0001.log, test_BugsIds.0001.sensors,
+	test_BugsIds.0001.out: nouveaux fichiers
+
+	* test_BugsIds.0002.log: mise à jour des résultats
+	du test
+
+	* test_BugsIds.0003.log, test_BugsIds.0003.sensors,
+	test_BugsIds.0003.out: nouveaux fichiers
+
+	* test_BugsIds.0007.log, test_BugsIds.0007.sensors:
+	nouveaux fichiers
+
+	* test_BugsIds.0008.log, test_BugsIds.0008.sensors,
+	test_BugsIds.0008.out: nouveaux fichiers
+
+	* test_BugsIds.in: nouveau fichier
+
+	* Makefile.am: ajout d'un test pour les bugs identifiés
+
+2001-09-19  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* test_Parcelle.ref: prise en compte de l'impact de cantor 6.2
+
+2001-07-19  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* test_Essor.in: modification de la précision de comparaison
+
+2001-07-17  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* test_Capteurs.in: ajout d'un test pour la cible vitesse-sol-apparente
+
+	* Makefile.am: ajout des test pour la cible vitesse-sol-apparente
+
+	* test_Capteurs.vApp.log, test_Capteurs.vApp.sensors: nouveaux fichiers
+
+2001-06-22  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* test_Parcelle.ref: validation de l'impact des changements
+	survenus dans la version 6.0 de cantor
+
+	* prgm_Parcelle.cc: prise en compte de l'obligation de spécifier
+	axe et angle dans l'intégration d'une rotation
+
+2001-06-11  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: distribution des fichiers du test du capteur alpha
+
+2001-06-08  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* test_Prems.ires.log: correction d'un cas test erroné
+
+	* test_Presens.ires.log: correction d'un cas test erroné
+
+2001-06-07  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* test_Capteurs.in: ajout du test pour le capteur alpha
+
+	* test_Capteurs.alpha.sensors, test_Capteurs.alpha.log: nouveaux fichiers
+
+	* visuChamp: transfert du fichier vers cantor
+
+2001-06-06  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* marmottesReplay.cc: déplacement du fichier vers ../utils
+
+	* prgm_Champ.cc, test_Champ.in, test_Champ.ref: déplacement des
+	fichiers vers cantor
+
+	* .cvsignore, Makefile.am: déplacement de marmottesReplay dans le
+	répertoire ../utils, transfert du test de Champ vers cantor
+
+	* test_Simbad.in, test_Presens.in, test_Prems.in, test_Forcage.in,
+	test_Essor.in, test_Criteres.in, test_Capteurs.in: prise en compte
+	du déplacement de marmottesReplay
+
+	* test_Marmottes.in, test_Marmottes.ref: correction d'un message
+	pour permettre le passage des tests lors d'une configuration dans
+	un répertoire séparé
+
+	* prgm_Parcelle.cc: prise en compte du déplacement de Field et
+	Secteurs vers cantor
+
+2001-04-04  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: ajout de test_Criteres
+
+	* test_Criteres.aef.log, test_Criteres.aef.sensors,
+	test_Criteres.in, test_Criteres.ires.log,
+	test_Criteres.ires.sensors: nouveaux fichiers
+	
+	* marmottesReplay.cc: ajout de Marmottes::criteresControlabilite
+
+2001-03-30  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* senseurs.en, test_Prems.ephem.sensors, test_Prems.gto.sensors,
+	test_Prems.gyr.sensors, test_Prems.stations.sensors,
+	test_Presens.ephem.sensors, test_Presens.inhib.sensors:
+	remplacement horizon -> limb
+
+	* senseurs.fr, test_Prems.aef.sensors, test_Prems.ires.sensors,
+	test_Presens.aef.sensors, test_Presens.ires.sensors: remplacement
+	horizon -> limbe
+
+2001-03-26  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* senseurs.en, test_Prems.ephem.sensors, test_Prems.gto.sensors,
+	test_Prems.gyr.sensors, test_Prems.stations.sensors,
+	test_Presens.ephem.sensors, test_Presens.inhib.sensors:
+	remplacement earth -> horizon
+
+	* senseurs.fr, test_Prems.aef.sensors, test_Prems.ires.sensors,
+	test_Presens.aef.sensors, test_Presens.ires.sensors: remplacement
+	terre -> horizon
+
+2001-03-23  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* prgm_Champ.cc (main): suppression de fuites mémoire
+
+	* prgm_Parcelle.cc (main): suppression de fuites mémoire
+
+2001-02-27  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* test_Simbad.in: modification des options d'appel à l'utilitaire difference
+
+	* test_Parcelle.in: modification des options d'appel à l'utilitaire difference
+
+	* test_FonctionSenseur.in: modification des options d'appel à l'utilitaire difference
+
+	* test_Etat.in: modification des options d'appel à l'utilitaire difference
+
+	* test_Champ.in: modification des options d'appel à l'utilitaire difference
+
+	* marmottesReplay.cc: prise en compte des méthodes
+	Marmottes::imposeAttitude et Marmottes::imposeSpin
+
+	* test_Forcage.in, test_Forcage.attitude.log,
+	test_Forcage.attitude.sensors, test_Forcage.spin.log,
+	test_Forcage.spin.sensors: nouveaux fichiers
+
+	* Makefile.am: ajout du test de forçage d'attitude et de spin
+
+2001-02-16  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* test_Presens.inhib.log: nouveau fichier
+
+	* test_Presens.inhib.sensors: nouveau fichier
+
+	* Makefile.am: ajout des fichiers test_Presens.inhib.log et
+	test_Presens.inhib.sensors
+
+	* test_Presens.in: ajout d'un test d'inhibition reproduisant un
+	problème de calcul d'inclusion de point dans un champ de vue
+	corrigé par la version 8.5 de la bibliothèque
+
+2001-02-07  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* marmottesReplay.cc: remplacement de la classe non standard
+	hash_map par map
+
+2001-01-25  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* test_Prems.stations.log: correction du test suite à la réduction
+	de la vitesse de rotation maximale des modèles cinématiques
+
+	* test_Marmottes.in: initialisation de l'attitude pour le test 9
+
+	* test_Marmottes.ref: correction du test suite à la réduction de
+	la vitesse de rotation maximale des modèles cinématiques
+
+	* Makefile.am: ajout du test issu de essor ayant révélé un bug sur
+	les senseurs de Cardan
+
+	* test_Essor.log: nouveau fichier
+
+	* test_Essor.in: nouveau fichier
+
+2000-11-22  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: ajout de test_Capteurs.ech1D.sensors
+
+2000-11-16  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* test_Capteurs.in, test_Capteurs.ech1D.log,
+	test_Capteurs.ech1D.sensors: nouveaux fichiers
+
+	* Makefile.am: utilisation de libtool, ajout d'un test pour les
+	capteurs
+
+	* visuChamp: mise à jour des noms des programmes de tracé
+
+	* test_Parcelle.in: ajustement des valeurs numériques de test,
+	après calcul numériques précis indépendant
+
+	* test_Champ.ref, test_Parcelle.ref: prise en compte du
+	remplacement de la classe Champ par la classe Field
+
+	* prgm_Marmottes.cc: correction d'un commentaire
+
+	* prgm_Champ.cc, prgm_Parcelle.cc: remplacement de la classe Champ
+	par la classe Field
+
+	* marmottesReplay.cc: utilisation des en-têtes standards du C++
+
+2000-10-10  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* test_Prems.aef.log, test_Prems.bug.log, test_Prems.ephem.log,
+	test_Prems.gto.log, test_Prems.gyr.log, test_Prems.ires.log,
+	test_Prems.stations.log, test_Presens.aef.log,
+	test_Presens.ephem.log, test_Presens.ires.log,
+	test_Simbad.extract: prise en compte d'une correction dans les
+	traces d'exécution de Marmottes::deuxConsignes et
+	Marmottes::attitude
+
+2000-10-09  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* test_Presens.ires.log, test_Presens.ephem.log,
+	test_Presens.aef.log, test_Marmottes.ref: prise en compte des
+	modifications induites par la correction de la gestion des états
+	dans la classe Marmottes
+
+	* test_Marmottes.in: modification des options d'appel à l'utilitaire difference
+
+	* .cvsignore: ajout de test_Prems
+
+	* marmottesReplay.cc: poursuite des traitements en cas d'exception
+
+	* Makefile.am: ajout des tests issus de prems
+
+	* test_Prems.in, test_Prems.aef.log, test_Prems.aef.sensors,
+	test_Prems.bug.log, test_Prems.bug.sensors, test_Prems.ephem.log,
+	test_Prems.ephem.sensors, test_Prems.gto.log,
+	test_Prems.gto.sensors, test_Prems.gyr.log,
+	test_Prems.gyr.sensors, test_Prems.ires.log,
+	test_Prems.ires.sensors, test_Prems.stations.log,
+	test_Prems.stations.sensors: nouveau fichier
+
+	* test_Presens.in: possibilité de sauter les tests quand les
+	fichiers manquent
+
+2000-10-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* sensors_used : nouveau fichier
+
+	* test_Presens.in, test_Presens.aef.log, test_Presens.aef.sensors,
+	test_Presens.ephem.log, test_Presens.ephem.sensors,
+	test_Presens.ires.log, test_Presens.ires.sensors: nouveaux
+	fichiers
+
+	* .cvsignore: ajout de test_Presens et test_Simbad
+
+	* Makefile.am: ajout des tests issus de simbad et de presens
+
+	* test_Simbad.in: prise en compte de l'exécution depuis un
+	répertoire distant, élimination du fichier test_Simbad.res
+
+2000-10-04  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* marmottesReplay.cc: ajout des options -v (verbose) et -d (directory)
+
+2000-10-03  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* test_Simbad.sensors: nouveau fichier
+
+	* test_Simbad.extract: nouveau fichier
+
+	* test_Simbad.in: nouveau fichier
+
+2000-10-02  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* marmottesReplay.cc: correction du traitement des lignes débutant
+	par "->"
+
+2000-09-19  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* marmottesReplay.cc: utilisation de la version 7.0 de club
+
+2000-09-13  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* prgm_Marmottes.cc, prgm_FonctionSenseur.cc: remplacement de tous
+	les ChaineSimple par des string
+
+	* prgm_Etat.cc: ajout de l'inclusion de <cstdio>
+
+2000-09-08  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* marmottesReplay.cc: prise en compte de l'existence des lignes de
+	résultats (qui sont ignorées), ajout d'une possibilité de stocker
+	la trace du rejeu (pour faire des comparaisons)
+
+2000-09-07  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* marmottesReplay.cc: nouveau fichier
+
+	* Makefile.am: ajout de marmottesReplay
+
+2000-06-14  Geraldine FILAIRE  <Geraldine.Filaire@cnes.fr>
+
+	* test_Marmottes.ref: prise en compte de la correction de bug
+	sur le signe du spin.
+
+2000-03-29  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* test_Marmottes.in: prise en compte de la correction de la
+	conversion keplériens -> cartésiens du programme de test
+	prgm_Marmottes
+
+	* test_Marmottes.ref: prise en compte de la correction de la
+	conversion keplériens -> cartésiens du programme de test
+	prgm_Marmottes
+
+	* senseurs.en: utilisation d'une version du fichier senseur STD15
+	récente
+
+	* prgm_Marmottes.cc (cartesiens): correction de la conversion des
+	paramètres keplériens en cartésiens
+
+2000-03-14  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* test_Marmottes.ref: ajout d'un cas testant un problème de
+	discontinuité dans le modèle cinématique (ce problème empêchait de
+	trouver les solutions à spin très faible mais non nul)
+
+	* test_Marmottes.in: ajout d'un cas testant un problème de
+	discontinuité dans le modèle cinématique (ce problème empêchait de
+	trouver les solutions à spin très faible mais non nul)
+
+	* senseurs.en: ajout de senseurs pour le test 9 de test_Marmottes
+
+	* prgm_Marmottes.cc: ajout d'une option -spin pour afficher le spin
+
+1999-12-13  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* test_Parcelle.in: remplacement de diff par difference
+
+	* test_FonctionSenseur.in: remplacement de diff par difference
+
+	* test_Etat.in: remplacement de diff par difference
+
+	* test_Champ.in: remplacement de diff par difference
+
+	* test_Marmottes.in: ajout du test 8 sur un cas limite avec une
+	consigne à 180 degrés, remplacement de prgm_Marmottes par
+	./prgm_Marmottes, remplacement de diff par difference
+
+	* test_Marmottes.ref: ajout des résultats du test 8
+
+	* senseurs.en: ajout des senseurs AZ_SUN, EL_SUN et PHASE pour le
+	test 8
+
+1999-10-15  Geraldine FILAIRE  <Geraldine.Filaire@cnes.fr>
+
+	* test_Marmottes.ref: mise à jour (à cause de la modification du
+	calcul de cosGamma dans ModeleGeom.cc)
+
+1999-09-21  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* prgm_Parcelle.cc: correction du typage de la fonction main
+
+	* prgm_Marmottes.cc: correction du typage de la fonction main
+
+	* prgm_FonctionSenseur.cc: correction du typage de la fonction main
+
+	* prgm_Etat.cc: correction du typage de la fonction main
+
+	* prgm_Champ.cc: correction du typage de la fonction main
+
+	* test_FonctionSenseur.in: ajout d'une indirection pour permettre
+	l'exécution des tests à distance (par exemple par un make
+	distcheck)
+
+	* test_Marmottes.in: ajout d'une indirection pour permettre
+	l'exécution des tests à distance (par exemple par un make
+	distcheck)
+
+1999-09-21  Geraldine FILAIRE  <Geraldine.Filaire@cnes.fr>
+
+	* test_Champ.ref: mise à jour (chamgement de l'ordre des points)
+
+	* test_Parcelle.ref: mise à jour (chamgement de l'ordre des
+	points)
+
+1999-09-14  Geraldine FILAIRE  <Geraldine.Filaire@cnes.fr>
+
+	* test_Marmottes.ref: mise à jour avec les nouveaux tests
+
+1999-08-16  Geraldine FILAIRE  <Geraldine.Filaire@cnes.fr>
+
+	* prgm_Parcelle.cc (initChampsDeVue): séparation en deux lignes
+	d'une initialisation trop complexe (nombres de parentheses) pour
+	le compilateur gcc 2.95
+
+1999-07-12  Geraldine FILAIRE  <filaire@cnes.fr>
+
+	* test_Marmottes.in : ajout de 5 tests supplémentaires
+
+1999-07-06  Geraldine FILAIRE  <filaire@cnes.fr>
+
+	* test_Continuite.ref: suppression de la distribution (cvs remove)
+
+	* test_Continuite.in: suppression de la distribution (cvs remove)
+
+	* prgm_Continuite.cc: suppression de la distribution (cvs remove)
+
+	* Makefile.am: suppression des tests sur la Continuite 
+
+1999-04-27  Geraldine FILAIRE  <filaire@cnes.fr>
+
+	* prgm_FonctionSenseur.cc (anoExc): remplacement de abs par fabs
+
+	* prgm_Marmottes.cc (anoExc): remplacement de abs par fabs
+
+1998-10-19  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* test_Champ.in: recherche des fichiers de traduction et de
+	référence dans le répertoire des sources en cas de compilation à
+	distance (par exemple dans le cas du make distcheck)
+
+	* test_Continuite.in: recherche des fichiers de traduction et de
+	référence dans le répertoire des sources en cas de compilation à
+	distance (par exemple dans le cas du make distcheck)
+
+	* test_Etat.in: recherche des fichiers de traduction et de
+	référence dans le répertoire des sources en cas de compilation à
+	distance (par exemple dans le cas du make distcheck)
+
+	* test_FonctionSenseur.in: recherche des fichiers de traduction et
+	de référence dans le répertoire des sources en cas de compilation
+	à distance (par exemple dans le cas du make distcheck)
+
+	* test_Marmottes.in: recherche des fichiers de traduction et de
+	référence dans le répertoire des sources en cas de compilation à
+	distance (par exemple dans le cas du make distcheck)
+
+	* test_Parcelle.in: recherche des fichiers de traduction et de
+	référence dans le répertoire des sources en cas de compilation à
+	distance (par exemple dans le cas du make distcheck)
+
+1998-10-16  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: ajout d'une option -I pour trouver les en-têtes en
+	cas de compilation à distance (par exemple dans le cas du make
+	distcheck), ajout des fichiers de donnée et de référence dans la
+	distribution
+
+1998-10-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* prgm_FonctionSenseur.cc: contournement d'une limitation du
+	compilateur Sun (portée des indices de boucles for)
+
+1998-09-14  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* test_Parcelle.in: prise en compte du déplacement des fichiers de
+	traduction
+
+	* test_Marmottes.in: prise en compte du déplacement des fichiers
+	de traduction
+
+	* test_FonctionSenseur.in: prise en compte du déplacement des
+	fichiers de traduction
+
+	* test_Etat.in: prise en compte du déplacement des fichiers de
+	traduction
+
+	* test_Continuite.in: prise en compte du déplacement des fichiers
+	de traduction
+
+	* test_Champ.in: prise en compte du déplacement des fichiers de
+	traduction
+
+1998-07-31  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* test_Parcelle.ref: suppression des caractères rcs
+
+	* test_Marmottes.ref: suppression des caractères rcs
+
+	* test_FonctionSenseur.ref: suppression des caractères rcs
+
+	* test_Etat.ref: suppression des caractères rcs
+
+	* test_Continuite.ref: suppression des caractères rcs
+
+	* test_Champ.ref: suppression des caractères rcs
+
+	* test_Champ.in: nouveau fichier
+
+	* test_Continuite.in: nouveau fichier
+
+	* test_Etat.in: nouveau fichier
+
+	* test_FonctionSenseur.in: nouveau fichier
+
+	* test_Marmottes.in: nouveau fichier
+
+	* test_Parcelle.in: nouveau fichier
+
+	* test_Champ: élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+	* test_Continuite: élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+	* test_Etat: élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+	* test_FonctionSenseur: élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+	* test_Marmottes: élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+	* test_Parcelle: élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+1998-07-30  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* .cvsignore: nouveau fichier
+
+	* Makefile.am: nouveau fichier
+
+1998-07-15  Luc MAISONOBE 82631  <Luc.Maisonobe@cnes.fr>
+
+	* test_FonctionSenseur.ref: nouveau fichier
+
+	* test_Marmottes.ref: prise en compte de la correction de
+	l'extrapolateur keplérien
+
+	* prgm_Marmottes.cc (extrapole): correction de l'extrapolateur
+
+1998-07-10  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* prgm_FonctionSenseur.cc: nouveau fichier
+
+	* test_FonctionSenseur: nouveau fichier
+
+1998-07-09  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* senseurs.fr: ajout de senseurs pour tester les modifications
+	de cibles, pour tester les modifications de références et pour
+	tester les réinitialisations de gyros intégrateurs
+
+	* senseurs.en: ajout de senseurs pour tester les modifications
+	de cibles, pour tester les modifications de références et pour
+	tester les réinitialisations de gyros intégrateurs
+
+	* LitDate.cc (LitDate): reconnaissance du format ISO 8601
+
+	* test_Parcelle: élimination des commandes rcs
+
+	* test_Marmottes: élimination des commandes rcs
+
+	* test_Etat: élimination des commandes rcs
+
+	* test_Continuite: élimination des commandes rcs
+
+	* test_Champ: élimination des commandes rcs
+

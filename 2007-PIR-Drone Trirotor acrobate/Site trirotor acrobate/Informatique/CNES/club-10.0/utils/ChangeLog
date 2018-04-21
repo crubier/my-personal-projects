@@ -1,0 +1,285 @@
+2003-01-24  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* difference.cpp, ComparateurFichier.cpp, ComparateurLigne.cpp:
+	mise à jour des noms des fichiers dans leur bandeau respectif.
+
+	* Makefile.am: mise à jour suite au changement des extensions
+	des fichiers (.cc est devenu .cpp).
+
+2001-06-22  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* ComparateurLigne.cc: inclusion de cmath
+
+2001-05-03  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* ComparateurLigne.cc: élimination d'une violation mémoire lors de
+	l'affichage des différences entres lignes très longues (merci à
+	Ole Kristian Kverneland)
+
+2001-04-04  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* ComparateurLigne.h: ajout de la reconnaissance des réels du
+	langage fortran
+
+2001-02-16  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* ComparateurFichier.cc: ajout d'un typedef pour aider le
+	compilateur SUN
+
+	* ComparateurLigne.h: remplacement de l'inclusion de map.h par
+	l'inclusion de map
+
+	* StatDifference.h: remplacement de l'inclusion de map.h par
+	l'inclusion de map
+
+2000-12-04  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* club-config.in: nouveau fichier
+
+	* .cvsignore: ajout de club-config
+
+	* Makefile.am (bin_PROGRAMS): ajout de club-config
+
+2000-10-24  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* *.h: utilisation de tests de configuration pour les includes 
+
+2000-10-18  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* difference.cc (analyserArguments): la borne inférieure de l'option
+	shift passe de 50 à 0.
+
+2000-09-20  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* Makefile.am: l'édition de liens est réalisée avec libclub.la. 
+	Ajout du LDFLAGS -static pour faire l'édition de liens avec la version 
+	statique de club (en effet il est impossible de réaliser l'édition de 
+	liens avec une bibliothèque partagée non installée).
+
+2000-09-11  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* ComparateurLigne.cc (initialiser): suppression des blancs au début
+	des chaînes à analyser.
+
+2000-09-07  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* ComparateurFichier.cc, ComparateurFichier.h
+	* ComparateurLigne.cc, ComparateurLigne.h
+	* StatDifference.cc, difference.cc
+	* difference.h: utilisation de string de la STL au lieu de 
+	ChaineSimple.
+
+2000-08-04  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* difference.cc (main): ajout de l'affichage du decalage maximal 
+	rencontré.
+
+	* StatDifference.cc (afficherSynthese): ajout de l'affichage 
+	du decalage maximal rencontré.
+
+	* StatDifference.h (class StatDifference): ajout de l'affichage 
+	du decalage maximal rencontré.
+
+	* ComparateurFichier.cc (analyserFichier): ajout du calcul du
+	décalage maximal rencontré 
+
+	* ComparateurFichier.h (class ComparateurFichier): ajout de 
+	l'attribut decalageRencontreMax_ et de son accesseur.
+
+2000-08-03  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* ComparateurFichier.cc (analyserFichier): suppression du catch
+	permettant de récupérer le message de différence (s'il y en a
+	une). Utilisation à la place d'un test sur la valeur de retour
+	de la fonction analyserLigne et affichage de la valeur de 
+	l'attribut messageDiff_. 
+
+	* ComparateurLigne.cc (analyserLigne): utilisation d'un code de
+	retour plutôt que de lever une exception.
+
+	* ComparateurLigne.h (class ComparateurLigne): modification
+	de la signature analyserLigne : utilisation d'un code de retour
+	au lieu de la levée d'une exception.
+	Création de l'accesseur à messageDiff_
+
+2000-08-02  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* difference.cc (analyserArguments): protection contre l'utilisation
+	de l'option -ee avec une première valeur supérieure à la seconde.
+
+	* StatDifference.h (class StatDifference): modification de la 
+	méthode majMessagesAffiches : dans le cas où nbMessagesMax = 0
+	affectation de 0 à messagesAffiches_ [0] et messagesAffiches_ [1].
+	Modification du constructeur : affectation de 0 à 
+	messagesAffiches_ [0].
+
+	* StatDifference.cc (afficherSynthese): modification des chaînes
+	max et min en maximum et minimum.
+
+2000-07-28  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* Makefile.am (noinst_HEADERS): ajout de cette variable précisant
+	les fichiers d'include à utiliser pour les compilations, mais à
+	ne pas installer.
+
+	* ComparateurFichier.cc (analyserFichier): saut des lignes à ignorer
+	dans le tampon référence.
+	(ComparateurFichier): modification du constructeur pour enregistrer
+	le nombre de lignes au début et à la fin du tampon ref qu'il
+	faut ignorer.
+
+	* difference.cc (main): modification de l'appel à analyserArguments
+	suite à la modification de sa signature.
+
+	* difference.h: modification de la signature de la fonction
+	analyserArguments
+
+	* difference.cc (analyserArguments): ajout d'une option permettant
+	d'ignorer des lignes du fichier ref et modification du nom
+	de ces options : -rfres, -rlres, -rfref, -rlref
+
+2000-07-27  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* ComparateurLigne.cc (analyserLigne): amélioration des
+	messages de différence.
+
+	* difference.cc (analyserArguments): modification des valeurs
+	des options shift et p.
+	(main): modification de l'appel à afficherSynthese.
+
+	* StatDifference.h (class StatDifference): modification de la 
+	signature de la méthode afficherSynthese. 
+
+	* StatDifference.cc (afficherSynthese): ajout de la valeur de 
+	la différence numérique relative maximale autorisée dans
+	la synthèse. 
+
+2000-07-26  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* StatDifference.cc (afficherSynthese): ajout d'une condition
+	au test permettant d'affecter une valeur à minMessage et maxMessage
+	pour éviter d'afficher minMessage = 1 lorsqu'il n'y a pas d'erreur.
+
+	* Makefile.am: suppression de SUBDIRS = club car ce répertoire
+	a été supprimé.
+
+	* répertoire club: suppression de ce répertoire car l'installation
+	des fichiers .h n'étant pas nécessaire, ce répertoire n'a
+	plus de raison d'être.
+
+	* difference.h: déplacement de ce fichier du répertoire
+	club/utils/club dans club/utils. Modification des #include
+	en conséquence
+
+	* StatDifference.h: déplacement de ce fichier du répertoire
+	club/utils/club dans club/utils. Modification des #include
+	en conséquence
+
+	* ComparateurLigne.h: déplacement de ce fichier du répertoire
+	club/utils/club dans club/utils. Modification des #include
+	en conséquence
+
+	* ComparateurFichier.h: déplacement de ce fichier du répertoire
+	club/utils/club dans club/utils. Modification des #include
+	en conséquence
+
+2000-07-25  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* difference.cc (analyserArguments): ajout d'options pour la
+	ligne de commande.
+	(main): modification du main suite aux changements d'interface
+	des classes ComparateurFichier et StatDifference
+
+	* StatDifference.cc: modification des méthodes de la classe pour
+	fournir de nouvelles options à l'utilisateur (ne pas afficher
+	les messages par exemple) et pour améliorer les informations
+	fournies dans la synthèse (numéros des messages affichés, 
+	moyenne des erreurs numériques ...). 
+	Première version stable et complète.
+
+	* ComparateurLigne.cc: modification importante de la classe pour
+	améliorer le recalage des analyseurs lexicaux lorsque certains
+	lexèmes sont propres à un seul d'entre eux. 
+	Première version stable et complète.
+
+	* ComparateurFichier.cc: modification profonde des méthodes de la classe
+	pour mettre en place l'algorithme de "Longest Common Subsequence".
+	Première version stable et complète.
+
+2000-07-07  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* ComparateurFichier.cc (repositionner): ajout du calcul du premier 
+	numéro de ligne tel que à ce numéro les deux tampons ont des lignes 
+	égales. Ajout de la comparaison des lignes entre la position 2 et la 
+	position increment pour améliorer l'algorithme de repositionnement.
+
+	* StatDifference.cc: création des méthodes permettant de calculer
+	des statistiques sur les différences numériques rencontrées.
+	(afficherSynthese): création de cette méthode permettant d'afficher
+	la synthèse statistique de la comparaison des fichiers
+
+	* difference.cc: suppression de l'affichage de la synthèse et utilisation
+	de la méthode afficherSynthese de la classe StatDifference
+
+2000-07-06  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* ComparateurLigne.cc (formaterMessage): nouvelle méthode permettant 
+	de formater le message de différence
+	(comparerLigne): suppression du formatage du message de cette fonction
+
+	* ComparateurFichier.cc (repositionner): modification de la fonction
+	permettant de se repositionner. Au lieu de tenter de décaler de n lignes
+	le tamponRes_ puis le tamponRef_, on essaie de décaler alternativement
+	le tamponRes_ et le tamponRef_.
+	Suppression de la fonction initialise ().
+
+	* StatDifference.cc (traiterDifference): modification de l'attribut
+	nbMessagesDiffMax_ (représentant le nombre maximal de messages de
+	différence à afficher) en un tableau à deux éléments qui indiquent 
+	respectivement le numéro du premier et le numéro du dernier message 
+	à afficher.
+
+	* difference.cc: ajout de l'option -ee indiquant l'intervalle de valeurs
+	que doivent respecter les numéros de messages de différence pour être 
+	affichés.
+
+2000-07-03  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* Makefile.am: modification du Makefile pour prendre en compte
+	les nouveaux fichiers
+
+	* StatDifference.cc: création de cette classe qui gère toutes les
+	statistiques de l'utilitaire difference
+
+	* ComparateurFichier.cc: création de cette classe permettant de
+	comparer deux fichiers tout en acceptant une imprécision numérique 
+	sur les réels. Cette classe utilise les services de ComparateurLigne
+
+	* ComparateurLigne.cc: création de cette classe permettant de
+	comparer deux lignes d'un fichier tout en acceptant une 
+	imprécision numérique sur les réels
+
+	* difference.cc: modification complète de l'utilitaire : 
+	suppression des appels aux fonctions système
+	utilisation des classes ComparateurFichier et StatDifference
+
+1999-10-13  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* Makefile.am: ajout de l'installation de difference lors du make 
+	install
+
+1999-10-12  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* difference.cc: inclusion de club/difference.h et amélioration de la 
+	syntaxe
+
+1999-10-08  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* Makefile.am: nouveau fichier.
+
+	* ChangeLog: nouveau fichier.
+
+	* difference.cc: nouveau fichier. Ce programme permet de retourner les
+	différences entre deux fichiers tout en acceptant une imprécision
+	numérique et  un nombre maximal d'erreurs.
+

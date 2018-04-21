@@ -1,0 +1,44 @@
+% -*- mode: latex; tex-main-file: "marmottes.tex" -*-
+\subsection{traduitSenseurs}\label{sec:TraduitSenseurs}
+
+\subsubsection*{description générale}\label{sec:TraduitSenseurs-desc}
+
+L'utilitaire \texttt{traduitSenseurs} permet de traduire des fichiers
+de capteurs de français à anglais et réciproquement.
+
+\subsubsection*{ligne de commande et options}\label{sec:TraduitSenseurs-lignecmde}
+
+La ligne de commande a la forme suivante~:
+
+\begin{verbatim}
+   traduitSenseurs fichier
+\end{verbatim}
+
+Le seul argument est le nom du fichier de base des capteurs (ce
+fichier peut en inclure d'autres). Tous les noms de fichiers doivent
+être de la forme \texttt{nom.en} ou \texttt{nom.fr}, le suffixe
+spécifiant la langue.
+
+\subsubsection*{descriptions des sorties}\label{sec:TraduitSenseurs-sorties}
+
+L'utilitaire n'affiche rien sur sa sortie standard, il crée
+directement les fichiers traduits dans le même répertoire que les
+fichiers d'origine, en se basant sur le suffixe pour déterminer si la
+traduction est du français vers l'anglais ou de l'anglais vers le français.
+
+Seuls les mot-clefs et les noms de fichiers inclus sont traduits, les
+commentaires sont préservés. Lorsqu'un fichier référence d'autres
+fichiers, ceux-ci sont traduits également.
+
+\subsubsection*{conseils d'utilisation}\label{sec:TraduitSenseurs-conseils}
+
+Les fichiers de capteurs sont souvent écrits à la main, et les
+rédacteurs apportent souvent une certain attention à l'indentation des
+structures pour améliorer la lisibilité. Lors de la traduction, tous les
+blancs sont préservés, mais comme la taille des mots-clefs varie entre
+anglais et français, ceci perturbe l'indentation. Si l'on a besoin de
+maintenir les fichiers dans les deux langues, il est recommandé de
+faire les mises à jour manuelles toujours à partir de la même langue
+et de générer automatiquement les fichiers de l'autre langue. En effet
+si l'on travaille alternativement sur les deux langues, on finit par
+obtenir des portions peu lisibles dans tous les fichiers.

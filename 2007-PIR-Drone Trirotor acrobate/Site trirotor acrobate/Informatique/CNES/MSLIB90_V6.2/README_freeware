@@ -1,0 +1,141 @@
+
+(c) Copyright CNES 
+
+#############################################################################
+
+Ce fichier contient des informations et precisions liees a la bibliotheque
+CNES de mecanique spatiale MSLIB Fortran 90 diffusee en freeware.
+
+
+Arborescence
+------------
+La distribution est constituee des repertoires et fichiers suivants:
+
+   * d'un repertoire de base indiquant la version de la bibliotheque
+
+     Exemple: 
+               MSLIB90_V6.1/ pour la version 6.1
+
+   Sous lequel, se trouvent:
+
+   * ce fichier README_freeware
+
+   * source/ 
+     contient tous les sources necessaires a la generation de la bibliotheque
+
+   * doc/
+     contient toute la documentation utilisateur de la bibliotheque
+     pour la version associee (sous format PDF, un fichier par volume)
+
+     Nota: le volume 2 de cette documentation n'est pas fourni dans cette
+           distribution, car son usage est specifique au CNES
+
+   * lib/
+     repertoire vide, mais qui contiendra apres generation (sur Sun)
+     les binaires generes
+     (cf plus bas les explications sur la generation)
+
+   * genere_libMSLIB90.csh
+     procedure de generation sur Sun donnee en exemple 
+     (voir le paragraphe "Generation de la bibliotheque MSLIB Fortran 90"
+     pour plus de details)
+
+
+Generation de la bibliotheque MSLIB Fortran 90
+----------------------------------------------
+Nous proposons dans la distribution une procedure genere_libMSLIB90.csh 
+adaptee aux machines Sun (pour une version Solaris donnee) 
+avec une version de Forte/Workshop donnee, et donc de compilateur f90 associe.
+
+Cette procedure ne constitue qu'un simple exemple, et en aucun cas il ne 
+s'agit d'une procedure generique pour toute machine et tout type de 
+compilateur. Il revient a l'utilisateur de s'inspirer de cette procedure, 
+s'il le souhaite, pour developper la procedure de generation adaptee a son 
+besoin propre (en particulier pour determiner l'enchainement des 
+compilations, compte tenu des specificites du langage fortran 90, avec la 
+notion de module).
+
+
+Standard de codage
+------------------
+La bibliotheque de mecanique spatiale MSLIB Fortran 90 est écrite en 
+respectant la norme : ANSI/ISO Fortran 90 (ISO/IEC 1539:1991). 
+
+Il est a noter que des fichiers d'includes sont utilises dans le code, alors
+que l'utilisation de la directive include n'est pas recommendee en general.
+
+Justification de l'utilisation de la directive include:
+avec les compilateurs actuels, il n'est pas possible de mettre des modules 
+procedures dans une bibliotheque (dans le but sur Sun de n'avoir qu'un seul 
+binaire ".a"); de plus, afin de garantir la qualite logicielle a la 
+bibliotheque, nous souhaitons disposer de modules interfaces. Aussi pour 
+eviter de dupliquer du code, et etre sur de la coherence des declarations 
+entre la routine et son module interface, nous utilisons un include pour la 
+declaration des arguments d'appel. Par ce moyen, et compte tenu de choix de 
+codage, il nous est possible d'obtenir deux (ou trois) binaires sur Sun.
+
+
+Role du CNES
+------------
+Dans le cadre de la diffusion freeware de la bibliotheque de mecanique 
+spatiale MSLIB Fortran 90, le CNES n'assure pas d'assistance utilisateur, 
+ni ne fournit de binaire. En particulier la generation de la librairie est 
+a l'entiere charge de l'utilisateur, et aucune demande d'aide ne pourra etre
+prise en compte dans ce cadre.
+
+
+Auteurs de la MSLIB Fortran 90
+------------------------------
+Les auteurs du code source de la MSLIB Fortran 90 sont :
+     - Guylaine Prat,
+     - Bruno Revelin,
+     - Veronique Lepine,
+     - Sylvain Vresk.
+
+Les auteurs de la documentation utilisateur de la MSLIB Fortran 90 sont :
+     - Guylaine Prat,
+     - Bruno Revelin,
+     - Veronique Lepine,
+     - Sylvain Vresk,
+     - Eric Le De.
+
+Les auteurs des specifications et des algorithmes de la MSLIB Fortran 90
+sont tres nombreux, et il est difficile de tous les identifier. 
+Voici une liste non exhaustive des principaux auteurs des specifications
+et des algorithmes :
+     - Guylaine Prat,
+     - Bruno Revelin,
+     - Eric Le De,
+     - Jean-Claude Berges,
+     - Richard Epenoy,
+     - Gerard Lassalle-Balier,
+     - Jacques Bernard.
+
+Par ailleurs, de nombreux sous-programmes de la MSLIB Fortran 90 ont
+ete realises a partir de publications ou de notes techniques.
+
+Nous pouvons citer notamment :
+
+[DR1] ECKSTEIN M.C., HECHLER F.
+ "A reliable derivation of the perturbation due to any zonal and tesseral
+  harmonics of the geo potential for nearly circular satellite".
+ Rapport ESRO/SR/13-juin 1970
+
+[DR2] BROUWER D. 
+ "Solution of a problem of artificial satellite theory without drag".
+ The astronomical journal. Vol 64 N 1274 pp. 378,397 - Novembre 1959.
+
+[DR3] U.S. Standard Atmosphere, 1976.
+ National Aeronautics and Space Administration NASA.
+ National Oceanic and Atmospheric Administration NOAA.
+ United States Air Force USAF.
+ Washington DC, October 1976
+ NASA-TM-X-74 335, NOAA-S/T-76-1562
+
+[DR4] Les systemes de reference utilises en astronomie.
+ Bureau Des Longitudes (BDL)
+ M. Chapront-Touze, G. Francou, B. Morando
+ ISSN 1243-4272
+ ISBN 2-910015-05-X
+
+#############################################################################

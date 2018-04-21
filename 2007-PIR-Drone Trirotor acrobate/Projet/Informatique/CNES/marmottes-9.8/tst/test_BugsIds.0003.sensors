@@ -1,0 +1,23 @@
+SUN_ELEV
+{
+  accuracy         { 0.001 }
+  frame            { 1 0 0 0 }
+  type             { plane_vector }
+  target           { pseudo-sun }
+  normal_reference { 0 -1 0 }
+  field_of_view    { cone { axis { -1 0 0 } angle { 90 } } }
+}
+
+AMF_Ascension
+{ 
+  type     { right_ascension }
+  accuracy { 0.001 }
+  frame    { 1 0 0 0 }
+  observed { 0 0 1 }
+}
+
+AMF_Declinaison 
+{ 
+   =>  { AMF_Ascension } 
+  type { declination } 
+}

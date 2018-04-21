@@ -1,0 +1,82 @@
+
+Try to instanciate
+OK : Test 1-
+
+Try to read a file
+OK : Test 1 must be ClubErreurs::file_error - unable to open file "unknowMadonaFile": No such file or directory
+OK : Test 2
+
+Try to test the existence of data
+OK : Test 1 - must be true : 1
+OK : Test 2 - must be true : 1
+OK : Test 3 - must be true : 1
+OK : Test 4 - must be false : 0
+
+
+Try to move down
+OK : Test 1
+OK : Test 2 - must be ClubErreurs::undefined_table_or_structure no structure or table named "Structure1.unknownStructure"
+OK : Test 3 - must be ClubErreurs::undefined_table_or_structure : no structure or table named "Structure1.0"
+OK : Test 4
+OK : Test 5 -  must be ClubErreurs::undefined_table_or_structure : no structure or table named "Structure1.Table1.0"
+OK : Test 6 -  must be ClubErreurs::undefined_table_or_structure : no structure or table named "Structure1.Table1.4"
+OK : Test 7
+
+Try to get the name of the current data
+OK : Test 1 - must be Structure1.table[1] : Structure1.Table1[1]
+
+Try to move up
+OK : Test 1
+OK : Test 2
+OK : Test 3
+OK : Test 4 -  must be ClubErreurs::move_up_forbidden : moving up from the root of document is impossible
+
+Try to move to
+OK : Test 1 
+OK : Test 2 
+OK : Test 3 - must be ClubErreurs::undefined_structure_or_table : no structure or table named "Structure1.Table1.4"
+OK : Test 4 
+
+Try to get the type of a of data
+OK : Test 1 - must be  0 : 0
+OK : Test 2 - must be  1 : 1
+OK : Test 3 - must be  2 : 2
+OK : Test 4 - must be ClubErreurs::undefined_data  no structure or table named "unknown_data"
+
+Try to get data
+OK : Test 1 - must be 10 : 10
+OK : Test 2 - must be ClubErreurs::undefined_parameter : no parameter named "Integer1"
+OK : Test 3 - must be ClubErreurs::bloc_champ_inexistant : no 10 field within bloc "Integer1" (file "@srcdir@/test_StructureFile.don")
+OK : Test 4 - must be 5.5 : 5.5
+OK : Test 5 - must be Hello : Hello
+OK : Test 6 - must be ClubErreurs::bloc_non_terminal : non terminal bloc "" in file "@srcdir@/test_StructureFile.don"
+OK : Test 7 - must be ClubErreurs::undefined_parameter : no parameter named "unknownData"
+
+Try to delete data
+OK : Test 1 - must be ClubErreurs::not_implemented : function "StructureFile::deleteData (int index)" not implemented
+OK : Test 2 - must be ClubErreurs::not_implemented : function "StructureFile::deleteData (const string& dataName)" not implemented
+OK : Test 3 - must be ClubErreurs::not_implemented : function "StructureFile::deleteData (int index)" not implemented
+OK : Test 4 - must be ClubErreurs::not_implemented : function "StructureFile::deleteData (const string& dataName)" not implemented
+OK : Test 5 - must be ClubErreurs::not_implemented : function "StructureFile::deleteData (const string& dataName)" not implemented
+OK : Test 6 - must be ClubErreurs::not_implemented : function "StructureFile::deleteData (const string& dataName)" not implemented
+OK : Test 7 - must be ClubErreurs::not_implemented : function "StructureFile::deleteData (const string& dataName)" not implemented
+OK : Test 8 - must be ClubErreurs::not_implemented : function "StructureFile::deleteData (const string& dataName)" not implemented
+
+Try to create data
+OK : Test 1 - must be ClubErreurs::not_implemented : function "StructureFile::createStructure (const string& structureName)" not implemented
+OK : Test 2 - must be ClubErreurs::not_implemented : function "StructureFile::createStructure (const string& structureName)" not implemented
+OK : Test 3 - must be ClubErreurs::not_implemented : function "StructureFile::createTable (const string& tableName, UniqDataFile::TableElementType tableType, const string& defaultUnit)" not implemented
+0K : Test 4 - must be ClubErreurs::not_implemented : function "StructureFile::createStructure ()" not implemented
+OK : Test 5 - must be ClubErreurs::not_implemented : function "StructureFile::createStructure ()" not implemented
+OK : Test 6 - must be ClubErreurs::not_implemented : function "StructureFile::createIntData (const string& childDataName, int value)" not implemented
+OK : Test 7 - must be ClubErreurs::not_implemented : function "StructureFile::createStructure ()" not implemented
+OK : Test 8 - must be ClubErreurs::not_implemented : function "StructureFile::createRealData (const string& childDataName, double value, const string& unit)" not implemented
+OK : Test 9 - must be ClubErreurs::not_implemented : function "StructureFile::createIntData (const string& childDataName, int value)" not implemented
+OK : Test 10 - must be ClubErreurs::not_implemented : function "StructureFile::createStringData (const string& childDataName, const string& value)" not implemented
+
+Try to write a file
+OK : Test 1 - must be ClubErreurs::not_implemented : function "StructureFile::writeFile (const string& fileName)" not implemented
+OK : Test 2 - must be ClubErreurs::not_implemented : function "StructureFile::writeFile (const string& fileName)" not implemented
+
+Try to destruct
+OK : Test 1

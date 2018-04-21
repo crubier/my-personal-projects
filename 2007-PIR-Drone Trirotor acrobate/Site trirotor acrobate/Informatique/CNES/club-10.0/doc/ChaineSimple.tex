@@ -1,0 +1,364 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+% $Id: ChaineSimple.tex,v 1.7 2000/09/04 08:39:19 club Exp $
+\subsection{classe ChaineSimple}\label{sec:ChaineSimple}
+
+\subsubsection*{description}\label{sec:ChaineSimple-desc}
+
+Cette classe présente à l'utilisateur une interface simple pour les
+opérations les plus courantes que l'on désire réaliser sur les chaînes
+de caractères. Les trois opérations principales sont l'initialisation
+(ou la réinitialisation ou l'affectation), l'extension et la
+comparaison. Elles peuvent être élaborées à partir d'opérandes de
+types divers comme des chaînes (ou des sous-chaînes) du langage
+\langage{c} (\texttt{const char *}), des couples caractère et facteur
+de répétition, ou encore d'autres instances de \texttt{ChaineSimple}.
+
+D'autres opérations de moindre importance sont également proposées par
+la classe, il s'agit de la modification de caractères individuels dans
+la chaîne (par exemple pour découper un chemin de la forme
+\texttt{"/:/tmp:/usr/local/bin:."} au niveau des séparateurs),
+l'élimination des blancs initiaux, des blancs finaux, l'écriture dans
+la chaîne à l'aide d'un format \langage{c}.
+
+Les chaînes repectent le format standard du langage \langage{c}, c'est
+à dire qu'elles sont obligatoirement terminées par le caractère
+\verb='\0'=. La classe s'en assure seule.
+
+\subsubsection*{interface publique}\label{sec:ChaineSimple-int}
+\begin{verbatim}
+#include "club/ChaineSimple.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{ChaineSimple : méthodes publiques}
+{\label{tab:ChaineSimple-met-pub}}
+{teste l'inégalité du contenu de l'instance et de la \argument{chaine}}
+\signature{\fonc{ChaineSimple} (int \argument{taille}~=~-1)}
+          {}&
+
+construit une instance vide, ayant au départ au moins
+\argument{taille} caractères \\
+
+\signature{\fonc{ChaineSimple} (const char *\argument{chaine})}
+          {}&
+
+construit une instance en copiant la \argument{chaine} (jusqu'au
+premier \verb='\0'=)\\
+
+\signature{\fonc{ChaineSimple} (const string\& \argument{chaine})}
+          {}&
+
+construit une instance en copiant la \argument{chaine} (jusqu'au
+premier \verb='\0'=)\\
+
+\signature{\fonc{ChaineSimple}}{(const char *\argument{chaine}, int \argument{longueur})}
+          &
+
+construit une instance en copiant les \argument{longueur} premiers
+caractères de la \argument{chaine} \\
+
+\signature{\fonc{ChaineSimple} (char \argument{caractere}, int \argument{repetition})}
+          {}&
+
+construit une instance, constituée de \argument{repetition}
+occurrences du \argument{caractere} \\
+
+\hline
+
+\signature{\fonc{ChaineSimple} (const ChaineSimple\& \argument{c})}
+          {}&
+
+constructeur par copie \\
+
+\signature{ChaineSimple\& \fonc{operator =}}{(const ChaineSimple\& \argument{c})}
+          &
+
+affectation \\
+
+\signature{ChaineSimple\& \fonc{operator =} (const char *\argument{chaine})}
+          {}&
+
+affectation \\
+
+\hline
+
+\signature{\fonc{\~{}ChaineSimple} ()}
+          {}&
+
+destructeur, libère la mémoire allouée \\
+
+\hline
+
+\signature{\fonc{operator const char *} ()}
+          {}&
+
+convertisseur en chaîne du langage \langage{c} \\
+
+\signature{\fonc{operator string} ()}
+          {}&
+
+convertisseur en string de la \bibliotheque{stl} \\
+
+\hline
+
+\signature{void \fonc{reinitialise} (const ChaineSimple\& \argument{c})}
+          {}&
+
+réinitialise l'instance à partir de \argument{c} \\
+
+\signature{void \fonc{reinitialise} (const char *\argument{chaine})}
+          {}&
+
+réinitialise l'instance à partir de \argument{chaine} \\
+
+\signature{void \fonc{reinitialise}}{(const char *\argument{chaine}, int \argument{longueur})}
+          &
+
+réinitialise l'instance à partir des \argument{longueur} premiers
+caractères de \argument{chaine} \\
+
+\signature{void \fonc{reinitialise} (char \argument{caractere}, int \argument{repetition})}
+          {}&
+
+réinitialise l'instance à partir de \argument{repetition} occurrences
+du \argument{caractere} \\
+
+\hline
+
+\signature{void \fonc{formate} (const char *\argument{format} ...)}
+          {}&
+
+remplace l'instance par la chaîne résultant de l'écriture des
+arguments variables selon le \argument{format} (équivalent d'un
+\texttt{sprintf} du langage \langage{c}) \\
+
+\signature{void \fonc{vFormate} (const char *\argument{format}, va\_list {ap})}
+          {}&
+
+remplace l'instance par la chaîne résultant de l'écriture des
+arguments variables selon le \argument{format} (équivalent d'un
+\texttt{vsprintf} du langage \langage{c}) \\
+
+\hline
+
+\signature{void \fonc{modifieCaractere} (int \argument{i}, char \argument{c})}
+          {}&
+
+remplace le caractère d'index \argument{i} par \argument{c}
+(\argument{i} peut varier de 0 à \fonc{taille} () - 1, \argument{c}
+peut être égal à \verb='\0'=) \\
+
+\hline
+
+\signature{void \fonc{elimineBlancsFinaux} ()}
+          {}&
+
+élimine les blancs au sens du \texttt{isspace} du langage \langage{c}
+\\
+
+\signature{void \fonc{elimineBlancsInitiaux} ()}
+          {}&
+
+élimine les blancs au sens du \texttt{isspace} du langage \langage{c}
+\\
+
+
+\signature{inline void \fonc{recadre} ()}
+          {}&
+
+appelle \fonc{elimineBlancsFinaux} () puis
+\fonc{elimineBlancsInitiaux} ()\\
+
+\hline
+
+\signature{ChaineSimple\& \fonc{operator +=}}{(const ChaineSimple\& \argument{c})}
+          &
+
+ajoute \argument{c} à la fin de l'instance\\
+
+\signature{ChaineSimple\& \fonc{operator +=}}{(const char *\argument{chaine})}
+          &
+
+ajoute \argument{chaine} à la fin de l'instance \\
+
+\signature{ChaineSimple\& \fonc{operator +=} (char \argument{c})}
+          {}&
+
+ajoute \argument{c} à la fin de l'instance \\
+
+\hline
+
+\signature{inline int \fonc{taille} ()}
+          {}&
+
+retourne la taille de la mémoire allouée \\
+
+\signature{inline int \fonc{longueur} ()}
+          {}&
+
+retourne la longueur courante de la chaîne \\
+
+\signature{inline const char *\fonc{premier} ()}
+          {}&
+
+retourne un pointeur sur le premier caractère de la chaîne \\
+
+\signature{inline const char *\fonc{dernier} ()}
+          {}&
+
+retourne un pointeur sur le dernier caractère de la chaîne
+(\emph{avant} le \verb='\0'= final) \\
+
+\hline
+
+\signature{ChaineSimple \fonc{operator ()}}
+          {(const char *\argument{debut}, const char *\argument{fin}) const}&
+
+retourne la sous-chaîne débutant au \argument{debut} et se terminant à
+la \argument{fin} \\
+
+\signature{ChaineSimple \fonc{operator ()}}
+          {(int \argument{debut}, int \argument{fin}) const}&
+
+retourne la sous-chaîne débutant au \argument{debut} et se terminant à
+la \argument{fin} (en comptant les caractères à partir de 0)\\
+
+\hline
+
+\signature{int \fonc{operator ==} (const char *\argument{chaîne})}
+          {}&
+
+teste l'égalité du contenu de l'instance et de la \argument{chaîne} \\
+
+\signature{int \fonc{operator ==} (const ChaineSimple\& \argument{chaine})}
+          {}&
+
+teste l'égalité du contenu de l'instance et de la \argument{chaine} \\
+
+\signature{int \fonc{operator !=} (const char *\argument{chaine})}
+          {}&
+
+teste l'inégalité du contenu de l'instance et de la \argument{chaine}
+\\
+
+\signature{int \fonc{operator !=} (const ChaineSimple\& \argument{chaine})}
+          {}&
+
+teste l'inégalité du contenu de l'instance et de la \argument{chaine}
+\\
+
+\end{tableFonctionsFixe}
+
+\begin{tableFonctionsFixe}{ChaineSimple : fonctions externes}
+{\label{tab:ChaineSimple-fonc-ext}}
+{concatène la chaîne \argument{c1} et le caractère \argument{c2}}
+\signature{ChaineSimple \fonc{operator +}}
+          {(const ChaineSimple\& \argument{c1}, const ChaineSimple\& \argument{c2})}&
+
+concatène les chaînes \argument{c1} et \argument{c2}
+\\
+
+\signature{ChaineSimple \fonc{operator +}}
+          {(const ChaineSimple\& \argument{c1}, const char *\argument{c2})}&
+
+concatène les chaînes \argument{c1} et \argument{c2}
+\\
+
+\signature{ChaineSimple \fonc{operator +}}
+          {(const ChaineSimple\& \argument{c1}, char \argument{c2})}&
+
+concatène la chaîne \argument{c1} et le caractère \argument{c2}
+\\
+
+\signature{ChaineSimple \fonc{operator +}}
+          {(const char *\argument{c1}, const ChaineSimple\& \argument{c2})}&
+
+concatène les chaînes \argument{c1} et \argument{c2}
+\\
+
+\signature{ChaineSimple \fonc{operator +}}
+          {(char \argument{c1}, const ChaineSimple\& \argument{c2})}&
+
+concatène le caractère \argument{c1} et la chaîne \argument{c2}
+\\
+
+\end{tableFonctionsFixe}
+
+\subsubsection*{exemple d'utilisation}
+
+\begin{verbatim}
+#include "club/ChaineSimple.h"
+...
+void nomFichier (const char *repertoire)
+{ // recherche du fichier "fic" dans un répertoire
+
+  // constitution du nom complet du fichier
+  ChaineSimple nomFichier (repertoire);
+  if (*nomFichier.dernier () != '/')
+    nomFichier += "/";
+  nomFichier += "fic";
+
+  if (access (nomFichier.premier (), R_OK) == 0)
+    ...
+}
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation
+spécifiques}\label{sec:ChaineSimple-conseils}
+La classe ChaineSimple pouvant être construite à partir d'un seul
+argument de type \texttt{const char*} et pouvant également être
+convertie en \texttt{const char *}, elle peut être utilisée
+directement à la place d'une chaîne du langage C dans les appels de
+fonctions les plus divers. Les règles de conversion automatique par le
+compilateur \langage{c++} ne sont cependant pas simples, et il peut
+être prudent d'utiliser des signatures non ambiguës.
+
+Il faut également prendre garde aux fonctions à argument variable
+(comme par exemple les \texttt{printf} ou les méthodes \texttt{erreur}
+des classes dérivées de BaseErreurs), qui ne peuvent pas accepter
+directement des objets de type ChaineSimple (le compilateur le
+signale). Il faut dans ce cas passer le pointeur vers la chaîne
+\langage{c} sous-jacente par la méthode premier ().
+
+Il est recommandé d'utiliser de préférence la classe string de la
+\bibliotheque{stl} qui fournit des services équivalents et qui fait
+partie de la norme du langage \langage{c++}. La
+section~\ref{subsec:util-stl} page~\pageref{subsec:util-stl} donne des
+précisions sur la manière de substituer ChaineSimple par string.
+
+\subsubsection*{implantation}\label{sec:ChaineSimple-impl}
+Les attributs sont décrits sommairement dans la
+table~\ref{tab:ChaineSimple-att}, les méthodes privées dans la
+table~\ref{tab:ChaineSimple-met-priv}
+\begin{tableAttributsFixe}{attributs de la classe ChaineSimple}
+{\label{tab:ChaineSimple-att}}{pointeur sur la mémoire allouée}
+taille\_ & int & taille de la mémoire allouée \\
+longueur\_ & int & longueur courante de la chaîne \\
+chaine\_ & char * & pointeur sur la mémoire allouée \\
+\end{tableAttributsFixe}
+
+\begin{tableFonctionsFixe}{ChaineSimple : méthodes privées}
+{\label{tab:ChaineSimple-met-priv}}
+{alloue une nouvelle chaîne comprenant au moins \argument{taille}
+caractères}
+\signature{void \fonc{alloueChaine} (int \argument{taille})}
+          {}&
+
+alloue une chaîne comprenant au moins \argument{taille} caractères\\
+
+\signature{void \fonc{etendChaine} (int \argument{taille})}
+          {}&
+
+alloue une nouvelle chaîne comprenant au moins \argument{taille}
+caractères et copie dedans les caractères de la chaîne existante\\
+
+\end{tableFonctionsFixe}
+
+Les chaînes sont constituées de paquets de tailles fixes (appellés
+cellules dans le code) prélevés dans des tableaux eux-mêmes alloués
+dynamiquement. Les cellules provenant des chaînes détruites (ou
+redimensionnées) sont simplement remises à disposition dans les
+tableaux, lesquels sont désalloués lorsqu'ils sont vides. Chaque
+tableau garde la même taille tout au long de sa vie.
+
+Ces deux principes de mémoire cache et de cellules de taille fixes ont
+été choisis spécifiquement pour les chaînes de caractères, qui sont
+souvent petites et volatiles.

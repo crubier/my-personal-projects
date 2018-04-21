@@ -1,0 +1,1728 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: routines.tex,v 1.33 2005/03/04 14:19:03 chope Exp $
+La bibliothèque \bibliotheque{marmottes} encapsule complètement les
+données utiles pour la résolution d'attitude (senseur, modèles à un
+degré de liberté, conservation des états précédents pour les calculs
+cinématiques). Elle gère des structures internes regroupant ces
+informations. Plusieurs instances complètement indépendantes de ces
+structures peuvent exister simultanément, on qualifie chacune de ces
+instances de \emph{simulateur marmottes}. Toutes ces instances sont
+regroupées dans une table. Un programme souhaitant utiliser
+\bibliotheque{marmottes} doit réserver les simulateurs dont il a
+besoin dans cette table (on peut imaginer qu'un programme ait besoin
+de plusieurs simulateurs, par exemple un représentant l'état courant
+du satellite et un autre représentant un état potentiel si d'autres
+senseurs étaient utilisés, pour tester quand on peut passer d'un jeu
+de consignes à un autre). Toutes les interfaces fonctionnelles avec
+\bibliotheque{marmottes} excepté la gestion des traces d'exécution
+utilisent un numéro identifiant le simulateur sur lequel l'appelant
+travaille (il s'agit tout simplement de l'indice dans la table,
+sachant que l'indice 0 n'est jamais utilisé). Il n'y a qu'une seule
+table pour tous les simulateurs, partagée par les interfaces
+\langage{c} et \langage{fortran}. En \langage{c++}, on gère
+directement des instances de la classe marmottes, il n'y a pas besoin
+de table.
+
+\subsection{Création}
+Pour réserver une entrée dans la table, on \emph{crée} un simulateur
+en donnant un état initial (date, position, attitude, ...) et
+\bibliotheque{marmottes} renvoie un identificateur entier\footnote{En
+\langage{c} et \langage{c++}, l'identificateur est un IdentMarmottes
+(qui est un typedef sur un int)} qui permettra par la suite au
+programme de rappeler à la bibliothèque sur quelle instance il demande
+des calculs. En cas d'erreur, l'identificateur retourné est nul.
+
+\begin{interface}{fortran}
+integer function \fonc{MarmottesCreer} (\=\argument{date},
+\argument{position}, \argument{vitesse}, \argument{attitude},
+\argument{spin}, \argument{fichier},\+\\
+\argument{senseur1}, \argument{senseur2}, \argument{senseur3},
+\argument{messageErreur})\-\\
+double precision \=\argument{date},
+\argument{position} (3), \argument{vitesse} (3), \argument{attitude} (4),
+\argument{spin} (3)\\
+character*(*) \>\argument{fichier},
+\argument{senseur1}, \argument{senseur2}, \argument{senseur3},
+\argument{messageErreur}
+\end{interface}
+
+\begin{interface}{c}
+\#include "marmottes/InterfaceC.h"\\
+IdentMarmottes \fonc{MarmottesCreer} (\=double \argument{date},\+\\
+const double   \argument{position} [3], const double \argument{vitesse} [3],\\
+const double   \argument{attitude} [4], const double \argument{spin} [3],\\
+const char *\argument{fichier}, const char *\argument{senseur1},\\
+const char *\argument{senseur2}, const char *\argument{senseur3},\\
+      char *\argument{messageErreur}, int \argument{lgMaxMessage})
+\end{interface}
+
+\begin{interface}{c++}
+\#include "marmottes/Marmottes.h"\\
+Marmottes\verb=::=\fonc{Marmottes}
+(\=double \argument{date},\+\\
+const VecDBL \&\argument{position}, const VecDBL \&\argument{vitesse},\\
+const RotDBL \&\argument{attitude}, const VecDBL \&\argument{spin},\\
+const string \&\argument{fichier},\\
+const string \&\argument{senseur1}, const string
+\&\argument{senseur2}, const string \&\argument{senseur3})
+\end{interface}
+
+\argument{date}, \argument{position}, \argument{vitesse},
+\argument{attitude}, et \argument{spin} permettent d'initialiser
+l'instance créée. Si on ignore l'attitude initiale, on peut utiliser
+la rotation identité (1, 0, 0, 0) et un spin nul (0, 0, 0).
+
+\argument{fichier} indique le nom du fichier des
+senseurs. \argument{senseur1}, \argument{senseur2},
+\argument{senseur3} décrivent la liste des senseurs utilisés pour
+contrôler l'attitude. Si une erreur se produit un message d'erreur est
+retourné à l'appelant.
+
+Il est également possible de \emph{copier} un simulateur. Ceci est en
+particulier utile pour éviter de réanalyser le fichier des senseurs
+(ce qui est long) lorsqu'un programme doit créer et détruire un grand
+nombre de simulateurs. Pour cela on commence par créer un simulateur
+de référence et on appelle les fonctions de test de contrôlabilité en
+ignorant leur résultat, uniquement pour leur effet de bord qui est de
+charger dans le simulateur le senseur s'il n'y est pas déjà. On
+dispose alors d'un simulateur disposant d'une base de senseurs
+riche. Il suffit alors de copier ce simulateur pour créer un
+simulateur de travail sans qu'il soit nécessaire à la bibliothèque de
+réanalyser le fichier pour trouver les senseurs utiles, ceux-ci seront
+déjà dans la copie.
+
+\begin{interface}{fortran}
+integer function \fonc{MarmottesCopie} (\argument{ident},
+\argument{messageErreur})\\
+character*(*) \=\argument{messageErreur}\kill integer \>\argument{ident}\\
+character*(*) \>\argument{messageErreur}
+\end{interface}
+
+\begin{interface}{c}
+\#include "marmottes/InterfaceC.h"\\
+IdentMarmottes \fonc{MarmottesCopie} (\=IdentMarmottes \argument{ident},\\
+\>char *\argument{messageErreur}, int \argument{lgMaxMessage})
+\end{interface}
+
+\begin{interface}{c++}
+\#include "marmottes/Marmottes.h"\\
+Marmottes\verb=::=\fonc{Marmottes} (const Marmottes \&m)\\
+Marmottes\& Marmottes\verb=::=\fonc{operator =} (const Marmottes \&m)
+\end{interface}
+
+\argument{ident} (ou \argument{m}) permet de décrire l'instance à copier.
+
+Si l'on utilise en boucle des séries de simulateurs s'appuyant sur les
+mêmes senseurs, on peut \emph{réinitialiser} un simulateur de travail
+plutôt que de le détruire et d'en recréer un à chaque itération. Là
+encore les informations déjà lues dans le fichier sont préservées ce
+qui évite de réanalyser le fichier pour trouver les senseurs utiles,
+ceux-ci seront déjà dans la copie.
+
+\begin{interface}{fortran}
+integer function \fonc{MarmottesReinitialisation} (
+\=\argument{ident}, \argument{date},\+\\
+\argument{position}, \argument{vitesse},\\
+\argument{attitude}, \argument{spin},\\
+\argument{senseur1}, \argument{senseur2}, \argument{senseur3},\\
+\argument{messageErreur})\-\\
+double precision \=\argument{date},
+\argument{position} (3), \argument{vitesse} (3), \argument{attitude} (4),
+\argument{spin} (3)\\
+character*(*) \>\argument{senseur1}, \argument{senseur2}, \argument{senseur3},
+\argument{messageErreur}
+\end{interface}
+
+\begin{interface}{c}
+\#include "marmottes/InterfaceC.h"\\
+int \fonc{MarmottesReinitialisation} (\=IdentMarmottes \argument{ident},\+\\
+double       \argument{date},\\
+const double \argument{position} [3], const double \argument{vitesse} [3],\\
+const double \argument{attitude} [4], const double \argument{spin} [3],\\
+const char  *\argument{senseur1}, const char *\argument{senseur2},\\
+const char  *\argument{senseur3},\\
+char        *\argument{messageErreur}, int \argument{lgMaxMessage})
+\end{interface}
+
+\begin{interface}{c++}
+\#include "marmottes/Marmottes.h"\\
+void Marmottes\verb=::=\fonc{reinitialise}
+(\=double \argument{date},\+\\
+const VecDBL \&\argument{position}, const VecDBL \&\argument{vitesse},\\
+const RotDBL \&\argument{attitude}, const VecDBL \&\argument{spin},\\
+const string \&\argument{fichier},\\
+const string \&\argument{senseur1}, const string
+\&\argument{senseur2}, const string \&\argument{senseur3})
+\end{interface}
+
+\argument{ident} permet de décrire l'instance à réinitialiser.
+
+\argument{date}, \argument{position}, \argument{vitesse},
+\argument{attitude}, et \argument{spin} permettent d'initialiser
+l'instance créée. Si on ignore l'attitude initiale, on peut utiliser
+la rotation identité (1, 0, 0, 0) et un spin nul (0, 0, 0).
+
+\argument{senseur1},
+\argument{senseur2}, \argument{senseur3} décrivent la liste des
+senseurs utilisés pour contrôler l'attitude.
+
+\argument{fichier} indique le nom du fichier des senseurs. Si ce nom
+est identique au nom précédent, le fichier n'est pas relu et la table
+des senseurs n'est pas réinitialisée (c'est ce qui se passe
+systématiquement pour les interfaces \langage{fortran} et \langage{c},
+le nom n'étant pas paramétrable à l'appel des fonctions).
+
+Si une erreur se produit un code de retour non nul et un message
+d'erreur sont retournés à l'appelant.
+
+\subsection{Destruction}
+Lorsqu'une instance devient inutile, on peut la \emph{détruire} pour
+que l'entrée correspondante de la table interne de la bibliothèque
+soit à nouveau disponible.
+
+\begin{interface}{fortran}
+subroutine \fonc{MarmottesDetruire} (\argument{ident})\\
+integer \argument{ident}
+\end{interface}
+
+\begin{interface}{c}
+\#include "marmottes/InterfaceC.h"\\
+void \fonc{MarmottesDetruire} (IdentMarmottes \argument{ident})
+\end{interface}
+
+\begin{interface}{c++}
+\#include "marmottes/Marmottes.h"\\
+Marmottes\verb=::=\verb|~|\fonc{Marmottes} ()
+\end{interface}
+
+\argument{ident} permet de décrire l'instance à détruire.
+
+\subsection{Senseurs de contrôle}
+Si l'on désire changer les senseurs de contrôle d'une instance de
+simulateur, on redonne les noms des trois senseurs désirés. Il faut
+redonner les noms des trois senseurs même si un seul change, et
+l'ordre est important (il est lié à l'ordre des mesures dans les
+fonctions de résolution d'attitude).
+
+\begin{interface}{fortran}
+integer function \fonc{MarmottesSenseurs} (\=\argument{ident},\+\\
+\argument{senseur1}, \argument{senseur2}, \argument{senseur3},\\
+\argument{messageErreur})\-\\
+character*(*) \=\argument{senseur1}\kill
+integer \>\argument{ident}\\
+character*(*) \>\argument{senseur1}, \argument{senseur2}, \argument{senseur3}, \argument{messageErreur}
+\end{interface}
+
+\begin{interface}{c}
+\#include "marmottes/InterfaceC.h"\\
+int \fonc{MarmottesSenseurs} (\=IdentMarmottes \argument{ident}, const char
+*\argument{senseur1},\+\\
+const char *\argument{senseur2}, const char *\argument{senseur3},\\
+char *\argument{messageErreur}, int \argument{lgMaxMessage})
+\end{interface}
+
+\begin{interface}{c++}
+\#include "marmottes/Marmottes.h"\\
+void Marmottes\verb=::=\=\fonc{senseurs} (\=const string
+\&\argument{fichier}, const string \&\argument{senseur1},\+\+\\
+const string \&\argument{senseur2}, const string \&\argument{senseur3})\-\\
+\throw{ClubErreurs, MarmottesErreurs}
+\end{interface}
+
+\argument{ident} permet de décrire l'instance à modifier.
+\argument{senseur1}, \argument{senseur2}, \argument{senseur3} décrivent la
+liste des senseurs à utiliser.  
+
+Si une erreur survient, les fonctions \langage{c} et \langage{fortran}
+retournent un code non nul et initialisent le message d'erreur. Dans
+la fonction \langage{c++}, la gestion des erreurs n'est pas faite par
+retour d'un code, mais par le mécanisme des exceptions.
+
+Dans la fonction \langage{c++}, on peut donner un nom de fichier
+différent de celui de la création. Si on veut réutiliser le même
+fichier, on peut le retrouver par la fonction :
+
+\begin{center}
+const string \&Marmottes\verb=::=\fonc{nomFichier} () const
+\end{center}
+
+\subsection{Résolution d'attitude}
+La fonction principale de la bibliothèque \bibliotheque{marmottes} est
+de résoudre une attitude en fonction des valeurs de consignes
+imposées. L'ordre dans lequel doivent être données les consignes est
+important, il correspond à l'ordre dans lequel ont été déclarés les
+senseurs de contrôle (lors de la création où à la suite d'une
+modification). Les fonctions suivantes implantent cette résolution.
+
+\begin{interface}{fortran}
+integer function \fonc{MarmottesAttitude} (\=\argument{ident},\+\\
+\argument{date}, \argument{position}, \argument{vitesse},\\
+\argument{mesure1}, \argument{mesure2}, \argument{mesure3},\\
+\argument{attitude}, \argument{spin},\\
+\argument{messageErreur})\-\\
+double precision \=\argument{date}\kill
+integer          \>\argument{ident}\\
+double precision \>\argument{date}, \argument{position} (3), \argument{vitesse} (3)\\
+double precision \>\argument{mesure1}, \argument{mesure2}, \argument{mesure3}\\
+double precision \>\argument{attitude} (4), \argument{spin} (3)\\
+character*(*)    \>\argument{messageErreur}
+\end{interface}
+
+\begin{interface}{c}
+\#include "marmottes/InterfaceC.h"\\
+int \fonc{MarmottesAttitude} (\=IdentMarmottes \argument{ident},\+\\
+double \argument{date}, const double \argument{position} [3], const double \argument{vitesse} [3],\\
+double \argument{mesure1}, double \argument{mesure2}, double \argument{mesure3},\\
+double \argument{attitude} [4], double \argument{spin} [3],\\
+char* \argument{messageErreur}, int \argument{lgMaxMessage})
+\end{interface}
+
+\begin{interface}{c++}
+\#include "marmottes/Marmottes.h"\\
+void Marmottes\verb=::=\=\fonc{attitude} (\=double \argument{date},\+\+\\
+const VecDBL \&\argument{position}, const VecDBL \&\argument{vitesse},\\
+double \argument{m1}, double \argument{m2}, double \argument{m3},\\
+RotDBL *\argument{attit}, VecDBL *\argument{spin})\-\\
+\throw{CantorErreurs, MarmottesErreurs}
+\end{interface}
+
+\argument{ident} permet de décrire l'instance sur laquelle porte le
+calcul.  \argument{date}, \argument{position}, \argument{vitesse} donnent
+l'état courant du satellite.  \argument{mesure1}, \argument{mesure2},
+\argument{mesure3} sont les consignes d'attitude pour les senseurs de
+contrôle en radians ou radians/seconde selon les senseurs.
+\argument{attitude} et \argument{spin} sont les résultats du calcul
+retournés par la bibliothèque.  
+
+Si une erreur survient, les fonctions \langage{c} et \langage{fortran}
+retournent un code non nul et initialisent le message d'erreur. Dans
+la fonction \langage{c++}, la gestion des erreurs n'est pas faite par
+retour d'un code, mais par le mécanisme des exceptions.
+
+\subsection{Résolution partielle d'attitude}
+Certains logiciels n'ont pas besoin d'une résolution complète de
+l'attitude du satellite, mais uniquement de la direction d'un axe
+particulier (par exemple la direction de poussée) ou la direction d'un
+astre unique connaissant deux mesures le concernant. Dans le cas où
+les deux consignes d'attitude sont du même type (soit géométrique soit
+cinématique), \bibliotheque{marmottes} peut réaliser une résolution
+partielle, beaucoup plus rapide que la résolution complète sur les
+trois degrés de liberté. Ce mode de fonctionnement est à utiliser avec
+précautions, car aucune garantie n'est fournie sur le degré de liberté
+non considéré, on ne peut raisonnablement profiter de cette
+accélération que si l'on sait exactement ce que sont les senseurs
+utilisés et ce que l'on fait de l'attitude fournie par la
+bibliothèque.
+
+\begin{interface}{fortran}
+integer function \fonc{MarmottesDeuxConsignes}
+(\=\argument{ident},\+\\
+\argument{date}, \argument{position}, \argument{vitesse}, \argument{mesure1}, \argument{mesure2},\\
+\argument{attitude}, \argument{spin}, \argument{messageErreur})\-\\
+double precision \=\argument{date}\kill integer \>\argument{ident}\\
+double precision \>\argument{date}, \argument{position} (3), \argument{vitesse} (3)\\
+double precision \>\argument{mesure1}, \argument{mesure2}\\
+double precision \>\argument{attitude} (4), argument{spin} (3)\\
+character*(*) \>\argument{messageErreur}
+\end{interface}
+
+\begin{interface}{c}
+\#include "marmottes/InterfaceC.h"\\
+int \fonc{MarmottesDeuxConsignes} (\=IdentMarmottes \argument{ident},\+\\
+double \argument{date},\\
+const double \argument{position} [3], const double \argument{vitesse} [3],\\
+double \argument{mesure1}, double \argument{mesure2},\\
+double \argument{attitude} [4], double \argument{spin} [3],\\
+char* \argument{messageErreur}, int \argument{lgMaxMessage})
+\end{interface}
+
+\begin{interface}{c++}
+\#include "marmottes/Marmottes.h"\\
+void
+Marmottes\verb=::=\=\fonc{deuxConsignes} (\=double \argument{date},\+\+\\
+const VecDBL \&\argument{position}, const VecDBL \&\argument{vitesse},\\
+double \argument{m1}, double \argument{m2},\\
+RotDBL *\argument{attit}, VecDBL *\argument{spin})\-\\
+\throw{MarmottesErreurs}
+\end{interface}
+
+\argument{ident} permet de décrire l'instance sur laquelle porte le
+calcul.  \argument{date}, \argument{position}, \argument{vitesse}
+donnent l'état courant du satellite.  \argument{mesure1} et
+\argument{mesure2} sont les consignes d'attitude pour les senseurs de
+contrôle en radians ou radians/seconde selon les senseurs.
+\argument{attitude} et \argument{spin} sont les résultats du calcul
+retournés par la bibliothèque.
+
+Si une erreur survient, les fonctions \langage{c} et \langage{fortran}
+retournent un code non nul et initialisent le message d'erreur. Dans
+la fonction \langage{c++}, la gestion des erreurs n'est pas faite par
+retour d'un code, mais par le mécanisme des exceptions.
+
+\subsection{Forçage d'attitude ou de spin}
+Lorsque l'évolution de l'attitude est calculée par des moyens externs
+à \bibliotheque{marmottes} (par exemple par une intégration de la
+dynamique) mais que l'on désire tout de même utiliser la bibliothèque
+pour estimer des mesures ou vérifier la contrôlabilité par exemple,
+alors il faut fournir à la bibliothèque ces valeurs externes pour
+qu'elle mette à jour ses variables internes.
+
+Si l'on impose l'attitude, le spin est déduit par
+différences finies depuis l'état précédent.
+
+\begin{interface}{fortran}
+integer function \fonc{MarmottesImposeAttitude} (\=\argument{ident},\+\\
+\argument{date}, \argument{position}, \argument{vitesse},\\
+\argument{attitude},\\
+\argument{messageErreur})\-\\
+double precision \=\argument{date}\kill
+integer          \>\argument{ident}\\
+double precision \>\argument{date}, \argument{position} (3), \argument{vitesse} (3)\\
+double precision \>\argument{attitude} (4)\\
+character*(*)    \>\argument{messageErreur}
+\end{interface}
+
+\begin{interface}{c}
+\#include "marmottes/InterfaceC.h"\\
+int \fonc{MarmottesImposeAttitude} (\=IdentMarmottes \argument{ident},\+\\
+double \argument{date}, const double \argument{position} [3], const double \argument{vitesse} [3],\\
+const double \argument{attitude} [4],\\
+char* \argument{messageErreur}, int \argument{lgMaxMessage})
+\end{interface}
+
+\begin{interface}{c++}
+\#include "marmottes/Marmottes.h"\\
+void Marmottes\verb=::=\=\fonc{attitude} (\=double \argument{date},\+\+\\
+const VecDBL \&\argument{position}, const VecDBL \&\argument{vitesse},\\
+const RotDBL \&\argument{attit})\-\\
+\throw{MarmottesErreurs}
+\end{interface}
+
+\argument{ident} permet de décrire l'instance sur laquelle porte le
+calcul.  \argument{date}, \argument{position}, \argument{vitesse}
+donnent l'état courant du satellite. \argument{attitude} représente la
+valeur que l'on souhaite fournir à la bibliothèque.
+
+Si l'on impose le spin, l'attitude est déduite par intégration depuis
+l'état précédent.
+
+\begin{interface}{fortran}
+integer function \fonc{MarmottesImposeSpin} (\=\argument{ident},\+\\
+\argument{date}, \argument{position}, \argument{vitesse},\\
+\argument{spin},\\
+\argument{messageErreur})\-\\
+double precision \=\argument{date}\kill
+integer          \>\argument{ident}\\
+double precision \>\argument{date}, \argument{position} (3), \argument{vitesse} (3)\\
+double precision \>\argument{spin} (3)\\
+character*(*)    \>\argument{messageErreur}
+\end{interface}
+
+\begin{interface}{c}
+\#include "marmottes/InterfaceC.h"\\
+int \fonc{MarmottesImposeSpin} (\=IdentMarmottes \argument{ident},\+\\
+double \argument{date}, const double \argument{position} [3], const double \argument{vitesse} [3],\\
+const double \argument{spin} [3],\\
+char* \argument{messageErreur}, int \argument{lgMaxMessage})
+\end{interface}
+
+\begin{interface}{c++}
+\#include "marmottes/Marmottes.h"\\
+void Marmottes\verb=::=\=\fonc{imposeSpin} (\=double \argument{date},\+\+\\
+const VecDBL \&\argument{position}, const VecDBL \&\argument{vitesse},\\
+const VecDBL \&\argument{spin})\-\\
+\throw{MarmottesErreurs}
+\end{interface}
+
+\argument{ident} permet de décrire l'instance sur laquelle porte le
+calcul.  \argument{date}, \argument{position}, \argument{vitesse}
+donnent l'état courant du satellite. \argument{spin} représente la
+valeur que l'on souhaite fournir à la bibliothèque.
+
+Si une erreur survient, les fonctions \langage{c} et \langage{fortran}
+retournent un code non nul et initialisent le message d'erreur. Dans
+la fonction \langage{c++}, la gestion des erreurs n'est pas faite par
+retour d'un code, mais par le mécanisme des exceptions.
+
+\subsection{Extraction de mesures}
+Dans un état donné d'une instance de simulateur, on peut calculer les
+mesures qui seraient produites par n'importe quel senseur (que ce soit
+un senseur de contrôle ou non).
+
+Remarque : Il n'est pas possible de créer une fonction de mesure
+prenant en entrée l'attitude et fournissant la mesure, car dans le cas
+des senseurs cinématiques il faut également l'attitude précédente, et
+dans le cas des senseurs optiques il faut également la date et la
+position. En fait toutes les informations qui sont stockées
+d'un appel à l'autre dans une instance de simulateur sont nécessaires
+pour ce calcul.
+
+\begin{interface}{fortran}
+integer function \fonc{MarmottesMesure} (\argument{ident}, \argument{senseur}, \argument{mesure}, \argument{messageErreur})\\
+double precision \=\argument{mesure}\kill
+integer          \>\argument{ident}\\
+character*(*)    \>\argument{senseur}, \argument{messageErreur}\\
+double precision \>\argument{mesure}
+\end{interface}
+
+\begin{interface}{c}
+\#include "marmottes/InterfaceC.h"\\
+int \fonc{MarmottesMesure} (\=IdentMarmottes \argument{ident}, const
+char *\argument{senseur},\+\\
+double *\argument{mesure}, char *\argument{messageErreur}, int \argument{lgMaxMessage})
+\end{interface}
+
+\begin{interface}{c++}
+\#include "marmottes/Marmottes.h"\\
+void Marmottes\verb=::=\=\fonc{mesure} (const string \&\argument{fichier}, const
+string \&\argument{senseur}, double *\argument{m})\+\\
+\throw{ClubErreurs, MarmottesErreurs}
+\end{interface}
+
+\argument{ident} permet de décrire l'instance sur laquelle porte le
+calcul. \argument{senseur} donne le nom du senseur dont on désire la
+mesure. \argument{mesure} est la valeur retournée par la bilbliothèque
+en radians ou radians par seconde selon le senseur. 
+
+Si une erreur survient, les fonctions \langage{c} et \langage{fortran}
+retournent un code non nul et initialisent le message d'erreur. Dans
+la fonction \langage{c++}, la gestion des erreurs n'est pas faite par
+retour d'un code, mais par le mécanisme des exceptions.
+
+Dans la fonction \langage{c++}, on peut donner un nom de fichier
+différent de celui de la création. Si on veut réutiliser le même
+fichier, on peut le retrouver par la fonction~:
+
+\begin{center}
+const string \&Marmottes\verb=::=\fonc{nomFichier} () const
+\end{center}
+
+\subsection{Contrôlabilité}
+Pour simuler les modes de pilotages successifs d'un satellite ou pour
+déterminer les créneaux pendant lesquels ces modes sont possibles, il
+est nécessaire de tester la possibilité de basculement du contrôle
+d'un senseur à un autre, sans réaliser ce basculement.
+
+\begin{interface}{fortran}
+integer function \fonc{MarmottesControlable} (\=\argument{ident}, \argument{senseur},\+\\
+\argument{controlable}, \argument{messageErreur})\-\\
+character*(*) \=\argument{senseur}\kill
+integer       \>\argument{ident}, \argument{controlable}\\
+character*(*) \>\argument{senseur}, \argument{messageErreur}
+\end{interface}
+
+\begin{interface}{c}
+\#include "marmottes/InterfaceC.h"\\
+int \fonc{MarmottesControlable} (\=IdentMarmottes \argument{ident},
+const char *\argument{senseur},\+\\
+int *\argument{controlable}, char *\argument{messageErreur}, int \argument{lgMaxMessage})
+\end{interface}
+
+\begin{interface}{c++}
+\#include "marmottes/Marmottes.h"\\
+void Marmottes\verb=::=\=\fonc{controlable} (const string \&\argument{fichier},
+const string \&\argument{senseur}, int *\argument{controlable})\+\\
+\throw{ClubErreurs, MarmottesErreurs}
+\end{interface}
+
+\argument{ident} permet de décrire l'instance sur laquelle porte le test.
+\argument{senseur} donne le nom du senseur que l'on désire tester.
+\argument{controlable} est un entier valant 0 si l'état n'est pas contrôlable
+par le senseur considéré.
+
+Il est possible d'obtenir des informations plus détaillées.
+
+\begin{interface}{fortran}
+integer function \fonc{MarmottesCriteresControlabilite} (\=\argument{ident}, \argument{senseur},\+\\
+\argument{inhibant}, \argument{eclipsant},\\
+\argument{ecartFrontiere}, \argument{amplitudeSignificative},\\
+\argument{messageErreur})\-\\
+double precision \=\argument{ecartFrontiere}\kill
+integer          \>\argument{ident}, \argument{inhibant},
+\argument{eclipsant}, \argument{amplitudeSignificative}\\
+double precision \>\argument{ecartFrontiere}\\
+character*(*)    \>\argument{senseur}, \argument{messageErreur}
+\end{interface}
+
+\begin{interface}{c}
+\#include "marmottes/InterfaceC.h"\\
+int \fonc{MarmottesCriteresControlabilite} (\=IdentMarmottes \argument{ident},
+const char *\argument{senseur},\+\\
+MarmottesAstre *\argument{inhibant}, MarmottesAstre *\argument{eclipsant},\\
+double *\argument{ecartFrontiere}, double *\argument{amplitudeSignificative},\\
+ char *\argument{messageErreur}, int \argument{lgMaxMessage})
+\end{interface}
+
+\begin{interface}{c++}
+\#include "marmottes/Marmottes.h"\\
+void Marmottes\verb=::=\=\fonc{criteresControlabilite} (const string \&\argument{fichier},
+const string \&\argument{senseur},\+\\
+Senseur\verb=::=codeAstre *\argument{inhibant},
+Senseur\verb=::=codeAstre *\argument{eclipsant},\\
+double *\argument{ecartFrontiere}, bool *\argument{amplitudeSignificative})\\
+\throw{ClubErreurs, MarmottesErreurs}
+\end{interface}
+
+\argument{ident} permet de décrire l'instance sur laquelle porte le
+test.  \argument{senseur} donne le nom du senseur que l'on désire
+tester.  \argument{inhibant} et \argument{eclipsant} indiquent le code
+de l'astre posant problème. En \langage{fortran} ces indicateurs sont
+des entiers que l'on peut comparer aux \texttt{PARAMETER} déclarés
+dans le fichier \texttt{marmottes/marmdefs.f} que l'on peut inclure
+par \texttt{\#include} ou par \texttt{INCLUDE} au niveau du fichier
+appelant. En langage \langage{c} ces indicateurs sont des variables du
+type énuméré \texttt{MarmottesAstre} déclaré dans le fichier d'en-tête
+\texttt{marmottes/InterfaceC.h}. Pour ces deux langages, les valeurs
+retournées peuvent être comparées aux constantes \texttt{MrmNonSig},
+\texttt{MrmSoleil}, \texttt{MrmLune}, \texttt{MrmCentral} et
+\texttt{MrmAucun}. En \langage{c++} ces indicateurs sont des
+variables du type énuméré \texttt{Senseur\char58\char58codeAstre}
+déclaré dans le fichier d'en-tête \texttt{marmottes/Senseurs.h}. Dans
+ce cas, les valeurs retournées peuvent être comparées aux constantes :
+\texttt{Senseur\char58\char58nonSignificatif},
+\texttt{Senseur\char58\char58soleil},
+\texttt{Senseur\char58\char58lune},
+\texttt{Senseur\char58\char58corpsCentral} et
+\texttt{Senseur\char58\char58aucunAstre}.
+\argument{ecartFrontiere} indique l'écart angulaire entre la cible et
+la frontière du champ de vue, la valeur est positive lorsque la cible
+est dans le champ, et négative hors du champ.
+\argument{amplitudeSignificative} indique si la valeur de
+\argument{ecartFrontiere} est significative ou si seul le signe est
+valide (par exemple pour les capteurs de limbe, on ne sait pas
+calculer une valeur angulaire, on sait juste dire si le limbe est
+visible ou non). En \langage{fortran} et en \langage{c} cette valeur
+est retournée sous forme d'un entier qui vaut 0 pour indiquer que
+l'amplitude n'est pas significative, et une valeur non nulle pour
+indiquer qu'elle est significative.
+
+Si une erreur survient, les fonctions \langage{c} et \langage{fortran}
+retournent un code non nul et initialisent le message d'erreur. Dans
+la fonction \langage{c++}, la gestion des erreurs n'est pas faite par
+retour d'un code, mais par le mécanisme des exceptions.
+
+Dans la fonction \langage{c++}, on peut donner un nom de fichier
+différent de celui de la création. Si on veut réutiliser le même
+fichier, on peut le retrouver par la fonction :
+
+\begin{center}
+const string \&Marmottes\verb=::=\fonc{nomFichier} () const
+\end{center}
+
+\subsection{Gestion de l'extrapolation dans la résolution d'attitude}
+La bibliothèque \bibliotheque{marmottes} a la possibilité de tenter de
+simples extrapolations de l'attitude à partir des états précédents
+pour accélérer ses résolutions d'attitude, dans ce cas la résolution
+complète n'est lancée qu'en cas d'échec de l'extrapolation. Il s'agit
+là du comportement par défaut, les deux routines suivantes permettent
+à l'application appelante d'activer ou d'inhiber ce mode de
+fonctionnement.
+
+\begin{interface}{fortran}
+integer function \fonc{MarmottesAutoriseExtrapolation}
+(\argument{ident}, \argument{messageErreur})\\
+character*(*) \=\argument{messageErreur}\kill
+integer \>\argument{ident}\\
+character*(*) \>\argument{messageErreur}\\\\
+integer function \fonc{MarmottesInterditExtrapolation}
+(\argument{ident}, \argument{messageErreur})\\
+integer \>\argument{ident}\\
+character*(*) \>\argument{messageErreur}
+\end{interface}
+
+\begin{interface}{c}
+\#include "marmottes/InterfaceC.h"\\
+int \fonc{MarmottesAutoriseExtrapolation} (\=IdentMarmottes \argument{ident},\+\\
+char* \argument{messageErreur}, int \argument{lgMaxMessage})\-\\\\
+int \fonc{MarmottesInterditExtrapolation} (\=IdentMarmottes \argument{ident},\+\\
+char* \argument{messageErreur}, int \argument{lgMaxMessage})
+\end{interface}
+
+\begin{interface}{c++}
+\#include "marmottes/Marmottes.h"\\
+void Marmottes\verb=::=\=\fonc{autoriseExtrapolation} ()\\
+void Marmottes\verb=::=\=\fonc{interditExtrapolation} ()
+\end{interface}
+
+\argument{ident} permet de décrire l'instance sur laquelle porte le calcul.
+
+Si une erreur survient, les fonctions \langage{c} et \langage{fortran}
+retournent un code non nul et initialisent le message d'erreur. Dans
+la fonction \langage{c++}, la gestion des erreurs n'est pas faite par
+retour d'un code, mais par le mécanisme des exceptions.
+
+\subsection{Récupération de l'orientation des senseurs}
+L'orientation de base d'un senseur par rapport au satellite peut être
+récupérée par les fonctions suivantes. Le repère de base est le repère
+défini dans le fichier des ressources, il ne varie pas lorsque
+l'appelant modifie l'orientation courante d'un senseur.
+
+\begin{interface}{fortran}
+integer function \fonc{MarmottesRepereBase} (\argument{ident},
+\argument{senseur}, \argument{r}, \argument{messageErreur})\\
+double precision \=\argument{r} (4)\kill integer \>\argument{ident}\\
+double precision \>\argument{r} (4)\\
+character*(*) \>\argument{senseur}, \argument{messageErreur}
+\end{interface}
+
+\begin{interface}{c}
+\#include "marmottes/InterfaceC.h"\\
+int \fonc{MarmottesRepereBase} (\=IdentMarmottes \argument{ident},
+const char *\argument{senseur},\+\\
+double \argument{r} [4], char *\argument{messageErreur}, int \argument{lgMaxMessage})
+\end{interface}
+
+\begin{interface}{c++}
+\#include "marmottes/Marmottes.h"\\
+void Marmottes\verb=::=\=\fonc{repereBase} (const string \&\argument{fichier},
+const string \&\argument{senseur}, RotDBL *\argument{r})\+\\
+\throw{ClubErreurs, MarmottesErreurs}
+\end{interface}
+
+\argument{ident} permet de décrire l'instance sur laquelle porte le calcul.
+\argument{senseur} donne le nom du senseur que l'on désire tester.
+\argument{r} donne la rotation définissant l'orientation du senseur.
+
+Si le senseur a été réorienté par rapport à son repère de base, on
+peut récupérer cette nouvelle orientation par les fonctions suivante.
+
+Si une erreur survient, les fonctions \langage{c} et \langage{fortran}
+retournent un code non nul et initialisent le message d'erreur. Dans
+la fonction \langage{c++}, la gestion des erreurs n'est pas faite par
+retour d'un code, mais par le mécanisme des exceptions.
+
+\begin{interface}{fortran}
+integer function \fonc{MarmottesRepere} (\argument{ident},
+\argument{senseur}, \argument{r}, \argument{messageErreur})\\
+double precision \=\argument{r} (4)\kill integer \>\argument{ident}\\
+double precision \>\argument{r} (4)\\
+character*(*)    \>\argument{senseur}, \argument{messageErreur}
+\end{interface}
+
+\begin{interface}{c}
+\#include "marmottes/InterfaceC.h"\\
+int \fonc{MarmottesRepere} (\=IdentMarmottes \argument{ident}, const
+char *\argument{senseur},\+\\
+double \argument{r} [4], char *\argument{messageErreur}, int \argument{lgMaxMessage})
+\end{interface}
+
+\begin{interface}{c++}
+\#include "marmottes/Marmottes.h"\\
+void Marmottes\verb=::=\=\fonc{repere} (const string \&\argument{fichier}, const
+string \&\argument{senseur}, RotDBL *\argument{r})\+\\
+\throw{ClubErreurs, MarmottesErreurs}
+\end{interface}
+
+\argument{ident} permet de décrire l'instance sur laquelle porte le test.
+\argument{senseur} donne le nom du senseur que l'on désire tester.
+\argument{r} donne la rotation définissant l'orientation du senseur.
+
+Si une erreur survient, les fonctions \langage{c} et \langage{fortran}
+retournent un code non nul et initialisent le message d'erreur. Dans
+la fonction \langage{c++}, la gestion des erreurs n'est pas faite par
+retour d'un code, mais par le mécanisme des exceptions.
+
+Dans les fonctions \langage{c++}, on peut donner un nom de fichier
+différent de celui de la création. Si on veut réutiliser le même
+fichier, on peut le retrouver par la fonction :
+
+\begin{center}
+const string \&Marmottes\verb=::=\fonc{nomFichier} () const
+\end{center}
+
+\subsection{Modification de l'orientation des senseurs}\label{sec:orientation}
+Le programme appelant peut modifier l'orientation d'un senseur par
+rapport à l'orientation définie dans le fichier de ressources. Cette
+modification peut être soit arbitraire (cela peut être utile pour des
+pseudo-senseurs) auquel cas l'appelant doit définir entièrement le
+repère, soit limitée à la prise en compte d'un calage autour d'un axe
+prédéfini (par exemple pour traiter les senseurs fixés sur des
+panneaux solaires ou sur des réflecteurs d'antennes). Le calage est
+toujours compté comme un angle absolu à partir du repère de base. Les
+fonctions de prise en compte de calage ne fonctionnent que si un axe
+de calage autour duquel tourner a été prédéfini dans le senseur au
+niveau du fichier de ressources.
+
+\begin{interface}{fortran}
+integer function \fonc{MarmottesNouveauRepere} (\argument{ident},
+\argument{senseur}, \argument{r}, \argument{messageErreur})\\
+double precision \=\argument{r} (4)\kill
+integer          \>\argument{ident}\\
+double precision \>\argument{r} (4)\\
+character*(*)    \>\argument{senseur}, \argument{messageErreur}\\
+\\
+integer function \fonc{MarmottesNouveauRepere} \=(\argument{ident},\kill
+integer function \fonc{MarmottesCalage} \>(\argument{ident}, \argument{senseur}, \argument{c}, \argument{messageErreur})\\
+double precision \=\argument{r} (4)\kill integer \>\argument{ident}\\
+double precision \>\argument{c}\\
+character*(*)    \>\argument{senseur}, \argument{messageErreur}\\
+\end{interface}
+
+\begin{interface}{c}
+\#include "marmottes/InterfaceC.h"\\
+int \fonc{MarmottesNouveauRepere} \=(\=IdentMarmottes
+\argument{ident}, const char *\argument{senseur},\+\+\\
+double \argument{nouveau} [4], char *\argument{messageErreur},\\
+int \argument{lgMaxMessage})\-\-\\
+\\
+int \fonc{MarmottesCalage} \>(\=IdentMarmottes \argument{ident}, const
+char *\argument{senseur},\+\+\\
+double \argument{c}, char *\argument{messageErreur}, int \argument{lgMaxMessage})
+\end{interface}
+
+\begin{interface}{c++}
+\#include "marmottes/Marmottes.h"\\
+void Marmottes\verb=::=\=\fonc{nouveauRepere} \=(\=const string
+\&\argument{fichier}, const string \&\argument{senseur},\+\+\+\\
+const RotDBL\& \argument{nouveau})\-\-\\
+\throw{ClubErreurs, MarmottesErreurs}\-\\
+void Marmottes\verb=::=\fonc{calage} \>\>(const string \&\argument{fichier}, const
+string \&\argument{senseur}, double \argument{c})\+\\
+\throw{ClubErreurs, MarmottesErreurs}
+\end{interface}
+
+\argument{ident} permet de décrire l'instance sur laquelle porte le
+calcul. \argument{senseur} donne le nom du senseur que l'on désire
+tester. \argument{nouveau} donne la rotation définissant l'orientation
+du senseur. \argument{c} donne la valeur du calage en radians.
+
+Si une erreur survient, les fonctions \langage{c} et \langage{fortran}
+retournent un code non nul et initialisent le message d'erreur. Dans
+la fonction \langage{c++}, la gestion des erreurs n'est pas faite par
+retour d'un code, mais par le mécanisme des exceptions.
+
+\subsection{Modification de la cible des senseurs optiques}\label{sec:cible}
+Le programme appelant peut modifier la cible d'un senseur dérivant
+d'un senseur optique lorsque celui-ci a été prévu en ce sens (c'est-à-dire 
+si la cible spécifiée dans le fichier de ressources est
+\texttt{position} ou \texttt{direction}).
+
+\begin{interface}{fortran}
+integer function \fonc{MarmottesModifieCible} (\argument{ident},
+\argument{senseur}, \argument{cible}, \argument{messageErreur})\\
+double precision \=\argument{cible} (3)\kill
+integer          \>\argument{ident}\\
+double precision \>\argument{cible} (3)\\
+character*(*)    \>\argument{senseur}, \argument{messageErreur}
+\end{interface}
+
+\begin{interface}{c}
+\#include "marmottes/InterfaceC.h"\\
+int \fonc{MarmottesModifieCible} \=(\=IdentMarmottes
+\argument{ident}, const char *\argument{senseur},\+\+\\
+double \argument{cible} [3], char *\argument{messageErreur},\\
+int \argument{lgMaxMessage})
+\end{interface}
+
+\begin{interface}{c++}
+\#include "marmottes/Marmottes.h"\\
+void Marmottes\verb=::=\=\fonc{modifieCible} \=(\=const string
+\&\argument{fichier}, const string \&\argument{senseur},\+\+\+\\
+const VecDBL\& \argument{cible})\-\-\\
+\throw{ClubErreurs, MarmottesErreurs}
+\end{interface}
+
+\argument{ident} permet de décrire l'instance sur laquelle porte le
+calcul. \argument{senseur} donne le nom du senseur dont on modifie la
+cible. \argument{cible} donne la nouvelle cible du senseur, dans
+l'unité de position courante. Si la cible attendue est une
+\texttt{direction}, les unités n'ont pas d'importance (le vecteur sera
+normalisé à l'utilisation), si la cible attendue est une
+\texttt{position} en revanche, il faut prendre garde que l'unité
+courante au moment de la mémorisation est utilisée pour convertir la
+cible en argument, et que l'unité courante au moment des résolutions
+d'attitude est utilisée pour convertir le position courante du
+satellite. Il est tout à fait possible de changer d'unités entre le
+moment où l'on initialise la cible et le moment où on l'utilise, mais
+il faut faire attention à la cohérence des arguments que l'on a envoyé
+aux diverses fonctions. Une erreur est retournée si le senseur ne
+dérive pas d'un senseur optique ou si sa cible n'est pas modifiable.
+
+Le repère d'expression de la cible doit être identique à celui utilisé pour les
+position-vitesse du satellite.
+
+Si une erreur survient, les fonctions \langage{c} et \langage{fortran}
+retournent un code non nul et initialisent le message d'erreur. Dans
+la fonction \langage{c++}, la gestion des erreurs n'est pas faite par
+retour d'un code, mais par le mécanisme des exceptions.
+
+\subsection{Initialisation des gyromètres intégrateurs}\label{sec:gyros-integ}
+Le programme appelant peut initialiser (ou réinitialiser) les
+gyromètres intégrateurs en donnant la mesure qu'ils devraient fournir
+à une date donnée, \bibliotheque{marmottes} se chargeant de faire
+évoluer le senseur de façon interne même s'il n'est pas utilisé en
+contrôle et que l'on n'extrait pas ses mesures pendant plusieurs pas.
+
+\begin{interface}{fortran}
+integer function \fonc{MarmottesInitialiseGyro} (\argument{ident},
+\argument{senseur}, \argument{date}, \argument{angle},
+\argument{messageErreur})\\
+double precision \=\argument{date}, \argument{angle}\kill
+integer \>\argument{ident}\\
+double precision\>\argument{date}, \argument{angle}\\
+character*(*) \>\argument{senseur}, \argument{messageErreur}
+\end{interface}
+
+\begin{interface}{c}
+\#include "marmottes/InterfaceC.h"\\
+int \fonc{MarmottesInitialiseGyro} \=(\=IdentMarmottes
+\argument{ident}, const char *\argument{senseur},\+\+\\
+double \argument{date}, double \argument{angle},\\
+char *\argument{messageErreur}, int \argument{lgMaxMessage})
+\end{interface}
+
+\begin{interface}{c++}
+\#include "marmottes/Marmottes.h"\\
+void Marmottes\verb=::=\=\fonc{initialiseGyro} \=(\=const string
+\&\argument{fichier}, const string \&\argument{senseur},\+\+\+\\
+double \argument{date}, double \argument{angle})\-\-\\
+\throw{ClubErreurs, MarmottesErreurs}
+\end{interface}
+
+\argument{ident} permet de décrire l'instance sur laquelle porte le
+calcul. \argument{senseur} donne le nom du gyromètre intégrateur que
+l'on désire initialiser. \argument{date} et \argument{angle} donnent
+la référence d'initialisation du gyromètre intégrateur. Si
+\argument{date} ne correspond pas à la date courante, il faut prendre
+garde que \bibliotheque{marmottes} extrapolera entre cette date et la
+date courante avec le spin courant lorsqu'il intègrera le mouvement du
+premier pas. Il est donc recommandé de limiter l'écart entre ces deux
+dates si l'on veut conserver une bonne précision. L'identité entre ces
+dates n'est pas imposée afin de permettre la prise en compte de dates
+de réinitialisation tombant entre les pas de calculs (cas typique
+d'une lecture d'écho de télémesure). Une erreur est retournée si le
+senseur n'est pas un gyromètre intégrateur.
+
+Si une erreur survient, les fonctions \langage{c} et \langage{fortran}
+retournent un code non nul et initialisent le message d'erreur. Dans
+la fonction \langage{c++}, la gestion des erreurs n'est pas faite par
+retour d'un code, mais par le mécanisme des exceptions.
+
+\subsection{Initialisation de la dérive d'un senseur cinématique}\label{sec:der-cine}
+Le programme appelant peut initialiser la dérive d'un senseur
+cinématique en donnant la valeur de celle-ci et le nom du senseur
+auquel elle s'applique.
+
+\begin{interface}{fortran}
+integer function \fonc{MarmottesInitialiseDerive} (\argument{ident},
+\argument{senseur}, \argument{derive},\argument{messageErreur})\\
+double precision \=\argument{derive}\kill
+integer \>\argument{ident}\\
+double precision \>\argument{derive}\\
+character*(*) \>\argument{senseur}, \argument{messageErreur}
+\end{interface}
+
+\begin{interface}{c}
+\#include "marmottes/InterfaceC.h"\\
+int \fonc{MarmottesInitialiseDerive} \=(\=IdentMarmottes
+\argument{ident}, const char *\argument{senseur},\+\+\\
+double \argument{derive},\\
+char *\argument{messageErreur}, int \argument{lgMaxMessage})
+\end{interface}
+
+\begin{interface}{c++}
+\#include "marmottes/Marmottes.h"\\
+void Marmottes\verb=::=\=\fonc{initialiseDerive} \=(\=const string
+\&\argument{fichier}, const string \&\argument{senseur},\+\+\+\\
+double \argument{derive}\-\-\\
+\throw{ClubErreurs, MarmottesErreurs}
+\end{interface}
+
+\argument{ident} permet de décrire l'instance sur laquelle porte le
+calcul. \argument{senseur} donne le nom du senseur cinématique auquel
+la dérive doit être appliquée. \argument{derive} est la valeur de la
+dérive à appliquer.
+Une erreur est retournée si le senseur n'est pas un senseur
+cinématique.
+
+Si une erreur survient, les fonctions \langage{c} et \langage{fortran}
+retournent un code non nul et initialisent le message d'erreur. Dans
+la fonction \langage{c++}, la gestion des erreurs n'est pas faite par
+retour d'un code, mais par le mécanisme des exceptions.
+
+\subsection{Modification du repère de référence des senseurs de
+Cardan}\label{sec:ref-cardan}
+Le programme appelant peut modifier le repère de référence d'un
+senseur de Cardan lorsque celui-ci a été prévu en ce sens (c'est à
+dire si la référence spécifiée dans le fichier de ressources est
+\texttt{utilisateur}).
+
+\begin{interface}{fortran}
+integer function \fonc{MarmottesModifieReference} (\argument{ident},
+\argument{senseur}, \argument{reference}, \argument{messageErreur})\\
+double precision \=\argument{reference} (4)\kill
+integer          \>\argument{ident}\\
+double precision \>\argument{reference} (4)\\
+character*(*)    \>\argument{senseur}, \argument{messageErreur}
+\end{interface}
+
+\begin{interface}{c}
+\#include "marmottes/InterfaceC.h"\\
+int \fonc{MarmottesModifieReference} \=(\=IdentMarmottes
+\argument{ident}, const char *\argument{senseur},\+\+\\
+double \argument{reference} [4], char *\argument{messageErreur},\\
+int \argument{lgMaxMessage})
+\end{interface}
+
+\begin{interface}{c++}
+\#include "marmottes/Marmottes.h"\\
+void Marmottes\verb=::=\=\fonc{modifieReference} \=(\=const string
+\&\argument{fichier}, const string \&\argument{senseur},\+\+\+\\
+const RotDBL\& \argument{reference})\-\-\\
+\throw{ClubErreurs, MarmottesErreurs}
+\end{interface}
+
+\argument{ident} permet de décrire l'instance sur laquelle porte le
+calcul. \argument{senseur} donne le nom du senseur dont on modifie le
+repère de référence. \argument{reference} donne le nouveau repère de
+référence du senseur. Le repère de référence est une rotation qui
+transforme un vecteur projeté en repère inertiel en lui-même projeté
+dans le repère de référence. Cette convention est similaire à la
+convention sur les attitudes (voir~\ref{sec:rotations}), ceci permet
+d'utiliser une attitude issue d'une résolution par un simulateur
+\bibliotheque{marmottes} pour initialiser les senseurs de Cardan d'un
+autre simulateur et faire des calculs sur les erreurs de pilotage
+autour de cette attitude considérée comme une référence théorique. Une
+erreur est retournée si le senseur n'est pas un senseur de Cardan ou
+si son repère de référence n'est pas modifiable.
+
+Si une erreur survient, les fonctions \langage{c} et \langage{fortran}
+retournent un code non nul et initialisent le message d'erreur. Dans
+la fonction \langage{c++}, la gestion des erreurs n'est pas faite par
+retour d'un code, mais par le mécanisme des exceptions.
+
+\subsection{Modification des modèles d'éphémérides des corps
+  célestes}\label{sec:mod-ephem}
+
+Par défaut, \bibliotheque{Marmottes} dispose de modèles internes pour
+le calcul du temps sidéral, des éphémérides (par rapport au corps
+central) du Soleil, de la Lune et de la Terre, ainsi que des
+caractéristiques du corps central (rayon équatorial, aplatissement,
+vitesse angulaire de rotation du corps sur lui-même) et des rayons
+des astres inhibants.\\
+Si ces modèles ne conviennent pas à l'utilisateur (par exemple: corps
+central différent de la Terre et autre référentiel dans un cadre
+interplanétaire, ...), alors ces modèles peuvent être personnalisés en
+fournissant des valeurs numériques et des fonctions de calcul
+appropriées.
+
+\noindent
+Les unités sont obligatoirement des kilomètres pour les distances,
+des radians pour les angles et des radians par seconde pour la vitesse
+angulaire de rotation. \\
+Le temps sidéral doit être donné entre $0$ et $2\pi$.\\
+Les éphémérides de la Lune n'ont de sens que dans le cas où le corps
+central est la Terre.\\
+Les éphémérides de la Terre n'ont de sens que dans le cas où le corps
+central n'est pas la Terre.
+
+\noindent
+Par défaut, les modèles et rayons des astres utilisés sont tels que:
+
+\begin{itemize}
+\item corps central = Terre
+\item rayon équatorial vaut $6378.14$ \texttt{km}
+\item aplatissement vaut $1.0 / 298.257$
+\item vitesse angulaire de rotation de la Terre vaut
+      $7.29211514670519379 \, 10^{-5}$ \texttt{rad/s}
+\item rayon de la Lune vaut $1737.4$ \texttt{km}
+\item rayon du Soleil vaut $695500$ \texttt{km}
+\item calcul du temps sidéral (en \texttt{rad}) dans le repère de Veis
+      ($\widehat{\gamma}_{50}$)
+\item théorie de Brown pour les éphémérides de la Lune
+\item théorie de Newcomb pour les éphémérides du Soleil
+\item position de la Terre vaut $0$ (car corps central = Terre)
+\end{itemize}
+
+Pour personnaliser ces modèles ou/et rayons des astres, l'utilisateur
+doit donner des valeurs numériques et des fonctions de calcul
+respectant une certaine convention d'appel. Les fonctions d'interface
+suivantes lui permettent d'enregistrer à la fois les valeurs et les
+fonctions de calcul souhaitées.
+
+Il n'est pas obligatoire de tout personnaliser. 
+
+
+\begin{interface}{fortran}
+integer function \fonc{MarmottesEnregistreCorps} \=(\=\argument{ident},
+\argument{rayonEquatorial}, \argument{aplatissement}, 
+\argument{vitesseRotation}, \+\\
+\argument{rayonLune}, \argument{rayonSoleil}, \+\\
+\argument{tsidFonc}, \argument{soleilFonc}, \argument{luneFonc}, 
+\argument{terreFonc},\\
+\argument{messageErreur})\-\\
+double precision \=\argument{xxxxxxxxxxxxxxxx} \kill
+integer          \>\argument{ident}\\
+double precision \>\argument{rayonEquatorial} \\
+double precision \>\argument{aplatissement} \\
+double precision \>\argument{vitesseRotation} \\
+double precision \>\argument{rayonLune} \\
+double precision \>\argument{rayonSoleil} \\
+double precision \>\argument{tsidFonc} \\
+external         \>\argument{soleilFonc} \\
+external         \>\argument{luneFonc}  \\
+external         \>\argument{terreFonc} \\
+character*(*)    \>\argument{messageErreur} \\
+\end{interface}
+
+\begin{interface}{c}
+\#include "marmottes/InterfaceC.h"\\
+int \fonc{MarmottesEnregistreCorps} \=(\=
+IdentMarmottes \argument{ident}, \+\\
+double \argument{rayonEquatorial}, 
+double \argument{aplatissement}, \\
+double \argument{vitesseRotation},
+double \argument{rayonLune}, 
+double \argument{rayonSoleil}, \\
+TypeFuncTsidC *\argument{tsidFonc}, 
+TypeFuncPosC *\argument{soleilFonc}, \\
+TypeFuncPosC *\argument{luneFonc}, 
+TypeFuncPosC *\argument{terreFonc},\\
+char *\argument{messageErreur},
+int \argument{lgMaxMessage})\\
+\-\\
+avec la définition des signatures des fonctions via les typedef suivants~:\\
+typedef double TypeFuncTsidC (double, double)\\
+typedef void   TypeFuncPosC (double, double [3])\\
+\end{interface}
+
+\begin{interface}{c++}
+\#include "marmottes/Marmottes.h"\\
+void Marmottes\verb=::=\=\fonc{EnregistreCorps} \=(\=
+double \argument{rayonEquatorial}, 
+double \argument{aplatissement}, \+\\
+double \argument{vitesseRotation},
+double \argument{rayonLune}, \\
+double \argument{rayonSoleil}, 
+BodyEphemC::TypeFuncTsid *\argument{tsidFonc}, \\
+BodyEphemC::TypeFuncPos  *\argument{soleilFonc}, 
+BodyEphemC::TypeFuncPos  *\argument{luneFonc}, \\
+BodyEphemC::TypeFuncPos  *\argument{terreFonc})\\
+\-\\
+avec la définition des signatures des fonctions via des typedef
+similaires à ceux définis pour l'interface \langage{C}\\
+\end{interface}
+
+
+\argument{ident} permet de décrire l'instance sur laquelle porte le
+calcul.
+
+\argument{rayonEquatorial}, \argument{aplatissement} et
+\argument{vitesseRotation} permettent d'initialiser les valeurs du
+rayon équatorial, de l'aplatissement et de la vitesse angulaire de
+rotation du corps central. Dans le cas où l'une des valeurs est 
+négative, alors la valeur par défaut est utilisée.
+
+\argument{rayonLune} et \argument{rayonSoleil} permettent
+d'initialiser les valeurs du rayon de la Lune et du Soleil.
+Ces données sont maintenant prise en compte dans le calcul de
+l'inhibition alors qu'avant n'était pris en compte que le centre de
+l'astre. Dans le cas où l'une des valeurs est négative, alors la
+valeur par défaut est utilisée.
+
+\argument{tsidFonc} donne accès à la fonction utilisateur ou celle par
+défaut, de calcul du temps sidéral.
+
+\argument{soleilFonc}, \argument{luneFonc} et \argument{terreFonc}
+donnent accès (respectivement) à la fonction utilisateur ou celle par
+défaut, de calcul de la position du Soleil, de la Lune et de la Terre 
+par rapport au corps central.
+\textsl{À noter}~:
+pour le \langage{fortran}, il s'agit de sous-routines.
+
+\textbf{Attention~: }à partir de l'interface \langage{C}, il suffit
+de passer des pointeurs nuls pour utiliser les fonctions par défaut. 
+
+Dans le cas de l'interface \langage{fortran}, par contre,
+l'utilisateur ne peut utiliser de pointeurs de fonction nuls et doit
+obligatoirement utiliser les méthodes par défaut (fonctions
+\fonc{MarmottesTempsSideralParDefaut},
+\fonc{MarmottesPositionSoleilParDefaut},
+\fonc{MarmottesPositionLuneParDefaut},
+\fonc{MarmottesPositionTerreParDefaut}).
+
+Si une erreur se produit un code retour non nul et un message d'erreur
+sont retournés à l'appelant.
+
+\vspace{5mm}
+\noindent
+La signature des fonctions est décrite ci-après en fonction du 
+langage utilisé.
+
+
+\noindent
+\underline{Signature des fonctions et routines utilisateurs pour le \langage{fortran}}
+
+\noindent
+\textsl{Calcul du temps sidéral}
+
+\begin{tabular}{lll}
+double precision & function &\fonc{tsidFonc} (\argument{t},\argument{decalage})\\
+double precision & \argument{t}\\
+double precision & \argument{decalage} \\
+\end{tabular}
+
+
+
+\vspace{5mm}
+\noindent
+\textsl{Calcul des éphémérides du Soleil par rapport au corps central}
+
+
+\begin{tabular}{ll}
+subroutine & \fonc{soleilFonc} (\argument{t}, \argument{corpsSoleil})\\
+double precision & \argument{t}\\
+double precision & \argument{corpsSoleil} (3)\\
+\end{tabular}
+
+
+
+\vspace{5mm}
+\noindent
+\textsl{Calcul des éphémérides de la Lune par rapport au corps central}
+
+
+\begin{tabular}{ll}
+subroutine & \fonc{luneFonc} (\argument{t}, \argument{corpsLune})\\
+double precision & \argument{t}\\
+double precision & \argument{corpsLune} (3)\\
+\end{tabular}
+
+
+\vspace{5mm}
+\noindent
+\textsl{Calcul des éphémérides de la Terre par rapport au corps central}
+
+
+\begin{tabular}{ll}
+subroutine & \fonc{terreFonc} (\argument{t}, \argument{corpsTerre})\\
+double precision & \argument{t}\\
+double precision & \argument{corpsTerre} (3)\\
+\end{tabular}
+
+
+\noindent
+\underline{Signature des fonctions utilisateurs pour le \langage{C}
+  et le \langage{C++}}
+
+\noindent
+\textsl{Calcul du temps sidéral}
+
+double \fonc{tsidFonc} (double \argument{t}, double \argument{decalage})\
+
+
+\vspace{5mm}
+\noindent
+\textsl{Calcul des éphémérides du Soleil par rapport au corps central}
+
+void \fonc{soleilFonc} (double \argument{t}, double \argument{corpsSoleil}[3])\
+
+\vspace{5mm}
+\noindent
+\textsl{Calcul des éphémérides de la Lune par rapport au corps central}
+
+void \fonc{luneFonc} (double \argument{t}, double \argument{corpsLune}[3])\
+
+
+\vspace{5mm}
+\noindent
+\textsl{Calcul des éphémérides de la Terre par rapport au corps central}
+
+void \fonc{terreFonc} (double \argument{t}, double \argument{corpsTerre}[3])\
+
+
+\noindent
+Avec les arguments~:\\
+\begin{tabular}{lcl}
+\argument{t}      & : & la date courante en \texttt{jour}, par rapport à une
+                        date de référence\\
+\argument{decalage} & : & écart de datation entre l'échelle 
+                        de temps utilisé pour la date \argument{t} et \\
+                  &   & l'échelle de temps utilisé par le modèle de calcul du
+                        temsp sidéral \\
+                  &   & (unité: en général en \texttt{s}).\\
+
+\argument{tsidFonc}       & : & le temps sidéral à la date \argument{t} (en
+                        \texttt{rad} et $\in [0, 2\pi]$) \\
+\argument{corpsSoleil}(3) & : & la position du Soleil à la
+                          date~\argument{t} par rapport au  corps
+                          central (en \texttt{km}).\\
+\argument{corpsLune}(3) & : & la position de la Lune à la
+                             date~\argument{t} par rapport au  corps
+                             central (en \texttt{km}).\\
+\argument{corpsTerre}(3) & : & la position de la Terre à la
+                              date~\argument{t} par rapport au  corps
+                              central (en \texttt{km}).\\
+\end{tabular}
+
+La notion de date dans \bibliotheque{Marmottes} n'impose que deux
+choses:
+l'unité est le jour,
+ et la date \argument{t}, utilisée au niveau des fonctions de calcul
+ utilisateur,  doit être cohérente avec les autres dates passées à 
+\bibliotheque{Marmottes}. \\
+Par ailleurs, les calculs dans \bibliotheque{Marmottes}
+ n'utilisent que des différences entre dates. Donc la date de
+ référence est sans importance au niveau de
+ \bibliotheque{Marmottes}, on peut utiliser des jours juliens, des
+ jours juliens modifiés, des jours juliens \textsc{cnes}, ... . Seuls les
+ modèles définis par l'utilisateur nécessitent une notion de date de référence.
+
+
+\noindent
+\underline{Exemple}~:
+
+
+Dans ce paragraphe, nous allons donner un exemple d'utilisation dans
+le cadre du \langage{fortran}.
+
+
+Cet exemple considère la Terre comme corps central, mais avec des
+grandeurs physiques différentes des valeurs par défaut.
+Dans notre exemple, nous proposons également une redéfinition du temps
+sidéral et du calcul des éphémérides du Soleil.
+
+
+\begin{exemple}{redéfinition de certaines valeurs physiques par l'utilisateur}
+{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\label{expl:ephemeride-val}\begin{verbatim}
+
+        ...
+       double precision r_terre, aplatissement, vit_bidon
+C rayon équatorial terrestre utilisateur
+       r_terre = 6378.39d0
+C aplatissement utilisateur
+       aplatissement = 1.d0/298.256d0
+C vitesse de rotation non définie par l'utilisateur
+       vit_bidon = -1.d0
+        ...
+\end{verbatim}\end{exemple}
+
+
+Dans cet exemple, l'utilisateur ne souhaite pas redéfinir la vitesse
+angulaire de rotation, donc il suffit de mettre une valeur négative.
+
+
+De plus il ne souhaite ni redéfinir les rayons de la Lune et du
+Soleil ni redéfinir les modèles pour le calcul de la Lune (et dans ce
+cas le modèle pour la Terre n'a pas de sens).
+
+\begin{exemple}{redéfinition de certaines fonctions par l'utilisateur}
+{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\label{expl:ephemeride-fonc}\begin{verbatim}
+
+C fonction de calcul du temps sidéral
+       double precision function monTsid ( t, decalage)
+       double precision t, decalage
+C calcul du temps sidéral selon le modède retenu par
+C l'utilisateur en fonction de la date t et de l'écart de datation
+C (la valeur du temps sidéral est recalée dans [0,2pi]) 
+        ...
+        monTsid = ...
+        end
+
+C fonction de calcul des éphémerides du Soleil 
+        subroutine monSun ( t, corpsSoleil )
+        double precision t, corpsSoleil(3)
+C calcul de la position du Soleil par rapport au corps central =
+C la Terre, selon le modèle retenu par l'utilisateur.
+C Les positions sont calculées en km, en fonction de la date t
+        ...
+        corpsSoleil(1) = ...
+        corpsSoleil(2) = ...
+        corpsSoleil(3) = ...
+        end 
+\end{verbatim}\end{exemple}
+
+
+
+Il est alors possible de prendre en compte ces nouvelles
+caractéristiques du corps  central et ces nouveaux modèles au niveau
+de \bibliotheque{Marmottes} de la façon suivante~: 
+
+
+\begin{exemple}{utilisation des valeurs et fonctions redéfinies par l'utilisateur}
+{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\label{expl:utilise-ephem}\begin{verbatim}
+    integer NULL
+    ...
+    double precision monTsid
+    external monSun
+    external MarmottesPositionLuneParDefaut
+    external MarmottesPositionTerreParDefaut
+    ...
+    if (MarmottesEnregistreCorps (ident, r_terre,
+   >     aplatissement, vit_bidon, -1, -1,
+   >     monTsid, monSun, 
+   >     MarmottesPositionLuneParDefaut, 
+   >     MarmottesPositionTerreParDefaut, 
+   >     messageErreur) .ne. 0 ) then
+
+          write (0, *) messageErreur (1:lnblnk (messageErreur))
+          stop
+    endif
+    
+\end{verbatim}\end{exemple}
+
+
+\subsection{Réglage des unités}
+Par défaut, les positions sont exprimées en kilomètres et les vitesse
+en kilomètres par seconde et les échanges avec les senseurs ont lieu
+dans leur unité interne (voir~\ref{sec:unites}). On peut changer ces
+conventions d'interface. L'exemple suivant montre comment utiliser les
+unités externes pour lire directement des consignes dans la télémesure
+en degrés ou degrés par seconde pour par exemple faire une calibration
+(fonction \fonc{MarmottesConvertirConsignes}) et pour afficher les
+résidus de calibration également en degrés ou degrés par seconde sur
+les mêmes senseurs (fonction \fonc{MarmottesConvertirMesures}), en
+laissant la bibliothèque \bibliotheque{marmottes} gérer seule les
+conversions~:
+\begin{exemple}{conversions d'unités}
+{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\label{expl:conversions}\begin{verbatim}
+      do 10 i = 1, n
+        if ((MarmottesConvertirConsignes (id, senseur (i), msg) .ne. 0)
+    >       .or.
+    >       (MarmottesConvertirMesures   (id, senseur (i), msg) .ne. 0)
+    >      ) then
+          write (0, *) msg (1:lnblnk (msg))
+          stop
+        endif
+  10  continue
+\end{verbatim}\end{exemple}
+
+\begin{interface}{fortran}
+integer function \fonc{MarmottesUnitesPositionVitesse}
+(\=\argument{ident}, \argument{unitePos},
+\argument{uniteVit},\+\\
+\argument{messageErreur})\-\\
+character*(*) \=\argument{messageErreur}\kill
+integer       \>\argument{ident}\\
+character*(*) \>\argument{unitePos}, \argument{uniteVit}\\
+character*(*) \>\argument{messageErreur}\\
+\\
+integer function \fonc{MarmottesRespecterConsignes}
+(\argument{ident}, \argument{senseur}, \argument{messageErreur})\\
+integer       \>\argument{ident}\\
+character*(*) \>\argument{senseur}\\
+character*(*) \>\argument{messageErreur}\\
+\\
+integer function \fonc{MarmottesConvertirConsignes}
+(\argument{ident}, \argument{senseur}, \argument{messageErreur})\\
+integer       \>\argument{ident}\\
+character*(*) \>\argument{senseur}\\
+character*(*) \>\argument{messageErreur}\\
+\\
+integer function \fonc{MarmottesRespecterMesures}
+(\argument{ident}, \argument{senseur}, \argument{messageErreur})\\
+integer       \>\argument{ident}\\
+character*(*) \>\argument{senseur}\\
+character*(*) \>\argument{messageErreur}\\
+\\
+integer function \fonc{MarmottesConvertirMesures}
+(\argument{ident}, \argument{senseur}, \argument{messageErreur})\\
+integer       \>\argument{ident}\\
+character*(*) \>\argument{senseur}\\
+character*(*) \>\argument{messageErreur}
+\end{interface}
+
+\begin{interface}{c}
+\#include "marmottes/InterfaceC.h"\\
+int \fonc{MarmottesUnitesPositionVitesse} \=(\=IdentMarmottes
+\argument{ident},\+\+\\
+const char *\argument{unitePos}, const char *\argument{uniteVit},\\
+char *\argument{messageErreur}, int \argument{lgMaxMessage})\-\-\\
+\\
+int \fonc{MarmottesRespecterConsignes} \>(IdentMarmottes
+\argument{ident},\+\+\\
+const char *\argument{senseur},\\
+char *\argument{messageErreur}, int \argument{lgMaxMessage})\-\-\\
+\\
+int \fonc{MarmottesConvertirConsignes} \>(IdentMarmottes
+\argument{ident},\+\+\\
+const char *\argument{senseur},\\
+char *\argument{messageErreur}, int \argument{lgMaxMessage})\-\-\\
+\\
+int \fonc{MarmottesRespecterMesures} \>(IdentMarmottes
+\argument{ident},\+\+\\
+const char *\argument{senseur},\\
+char *\argument{messageErreur}, int \argument{lgMaxMessage})\-\-\\
+\\
+int \fonc{MarmottesConvertirMesures} \>(IdentMarmottes
+\argument{ident},\+\+\\
+const char *\argument{senseur},\\
+char *\argument{messageErreur}, int \argument{lgMaxMessage})
+\end{interface}
+
+\begin{interface}{c++}
+\#include "marmottes/Marmottes.h"\\
+void Marmottes\verb=::=\=\fonc{unitesPositionVitesse} \=(\=const
+string\& \argument{unitePos},\+\+\+\\
+const string\& \argument{uniteVit})\-\-\\
+\throw{MarmottesErreurs}\-\\
+\\
+void Marmottes\verb=::=\fonc{respecterConsignes} \>\>(const string\& \argument{fichier},\+\+\+\\
+const string\& \argument{senseur})\-\-\\
+\throw{ClubErreurs, MarmottesErreurs}\-\\
+\\
+void Marmottes\verb=::=\fonc{convertirConsignes} \>\>(const string\& \argument{fichier},\+\+\+\\
+const string\& \argument{senseur})\-\-\\
+\throw{ClubErreurs, MarmottesErreurs}\-\\
+\\
+void Marmottes\verb=::=\fonc{respecterMesures} \>\>(const string\& \argument{fichier},\+\+\+\\
+const string\& \argument{senseur})\-\-\\
+\throw{ClubErreurs, MarmottesErreurs}\-\\
+\\
+void Marmottes\verb=::=\fonc{convertirMesures} \>\>(const string\& \argument{fichier},\+\+\+\\
+const string\& \argument{senseur})\-\-\\
+\throw{ClubErreurs, MarmottesErreurs}
+\end{interface}
+
+\argument{ident} permet de décrire l'instance à
+modifier. \argument{unitePos} est la nouvelle unité de position, et
+\argument{uniteVit} est la nouvelle unité de vitesse. Les unités
+supportées sont actuellement "km", "m", "km/s", et "m/s". 
+
+Si une erreur survient, les fonctions \langage{c} et \langage{fortran}
+retournent un code non nul et initialisent le message d'erreur. Dans
+la fonction \langage{c++}, la gestion des erreurs n'est pas faite par
+retour d'un code, mais par le mécanisme des exceptions.
+
+\argument{senseur} donne le nom du senseur à modifier.
+
+Dans les fonctions \langage{c++}, on peut donner un nom de fichier
+différent de celui de la création. Si on veut réutiliser le même
+fichier, on peut le retrouver par la fonction :
+
+\begin{center}
+const string \&Marmottes\verb=::=\fonc{nomFichier} () const
+\end{center}
+
+\subsection{Réglage de la vitesse maximale du modèle cinématique}
+Par défaut, la vitesse de rotation instantanée maximale du satellite
+utilisée dans la modélisation des attitudes contrôlées par deux
+senseurs cinématiques au moins est de $0,\!4$~radians par seconde
+(voir~\ref{ref:marmottes-math}), on peut changer cette valeur par
+défaut~:
+
+\begin{interface}{fortran}
+integer function \fonc{MarmottesWMax} (\argument{ident},
+\argument{omega}, \argument{messageErreur})\\
+double precision \=\argument{omega}\kill integer \>\argument{ident}\\
+double precision \>\argument{omega}\\
+character*(*)    \>\argument{messageErreur}
+\end{interface}
+
+\begin{interface}{c}
+\#include "marmottes/InterfaceC.h"\\
+int \fonc{MarmottesWMax} (\=IdentMarmottes \argument{ident}, double \argument{omega},\+\\char
+*\argument{messageErreur}, int \argument{lgMaxMessage})
+\end{interface}
+
+\begin{interface}{c++}
+\#include "marmottes/Marmottes.h"\\
+void Marmottes\verb=::=\=\fonc{wMax} (double \argument{omega})\+\\
+\throw{MarmottesErreurs}
+\end{interface}
+
+\argument{ident} permet de décrire l'instance à
+modifier. \argument{omega} est la nouvelle vitesse maximale en radians
+par seconde. 
+
+Si une erreur survient, les fonctions \langage{c} et \langage{fortran}
+retournent un code non nul et initialisent le message d'erreur. Dans
+la fonction \langage{c++}, la gestion des erreurs n'est pas faite par
+retour d'un code, mais par le mécanisme des exceptions.
+
+\subsection{Réglage du seuil de convergence}
+Par défaut, le seuil de convergence de la résolution vaut un dixième
+de la précision du troisième senseur (attention à l'éventuel
+réordonnancement selon les types de senseurs, voir
+section~\ref{sec:reordonnancement}). On peut changer cette valeur par
+défaut (attention, elle est réinitialisée à chaque changement des
+senseurs de contrôle) :
+
+\begin{interface}{fortran}
+integer function \fonc{MarmotteConvergence} (\argument{ident}, \argument{seuil}, \argument{messageErreur})\\
+double precision \=\argument{seuil}\kill integer \>\argument{ident}\\
+double precision \>\argument{seuil}\\
+character*(*)    \>\argument{messageErreur}
+\end{interface}
+
+\begin{interface}{c}
+\#include "marmottes/InterfaceC.h"\\
+int \fonc{MarmottesConvergence} (\=IdentMarmottes \argument{ident}, double \argument{seuil},\+\\
+char *\argument{messageErreur}, int \argument{lgMaxMessage})
+\end{interface}
+
+\begin{interface}{c++}
+\#include "marmottes/Marmottes.h"\\
+void Marmottes\verb=::=\=\fonc{convergence} (double \argument{seuil})\+\\
+\throw{MarmottesErreurs}
+\end{interface}
+
+\argument{ident} permet de décrire l'instance à
+modifier. \argument{seuil} est le nouveau seuil de convergence, en
+radians ou en radians par seconde selon le senseur.
+
+Si une erreur survient, les fonctions \langage{c} et \langage{fortran}
+retournent un code non nul et initialisent le message d'erreur. Dans
+la fonction \langage{c++}, la gestion des erreurs n'est pas faite par
+retour d'un code, mais par le mécanisme des exceptions.
+
+\subsection{Réglage de la dichotomie}
+Par défaut, le nombre de tranches de la recherche dichotomique
+d'intervalles monotones est de 50, Cette valeur peut être modifiée :
+
+\begin{interface}{fortran}
+integer function \fonc{MarmottesDichotomie} (\argument{ident},
+\argument{tranches}, \argument{messageErreur})\\
+character*(*) \=\argument{messageErreur}\kill
+integer       \>\argument{ident}, \argument{tranches}\\
+character*(*) \>\argument{messageErreur}
+\end{interface}
+
+\begin{interface}{c}
+\#include "marmottes/InterfaceC.h"\\
+int \fonc{MarmottesDichotomie} (\=IdentMarmottes \argument{ident}, int \argument{tranches},\+\\char
+*\argument{messageErreur}, int \argument{lgMaxMessage})
+\end{interface}
+
+\begin{interface}{c++}
+\#include "marmottes/Marmottes.h"\\
+void Marmottes\verb=::=\=\fonc{dichotomie} (int \argument{tranches})\+\\
+\throw{MarmottesErreurs}
+\end{interface}
+
+\argument{ident} permet de décrire l'instance à
+modifier. \argument{tranches} est le nouveau nombre de tranches de
+dichotomie.
+
+Si une erreur survient, les fonctions \langage{c} et \langage{fortran}
+retournent un code non nul et initialisent le message d'erreur. Dans
+la fonction \langage{c++}, la gestion des erreurs n'est pas faite par
+retour d'un code, mais par le mécanisme des exceptions.
+
+\subsection{Gestion des traces d'exécution}\label{sec:gestion-traces}
+La bibliothèque \bibliotheque{marmottes} étant par essence destinée à
+être appelée depuis des programmes extérieurs, il est difficile aux
+développeurs de reproduire des cas d'erreurs rencontrés par les
+utilisateurs finaux sans ces programmes.
+
+Pour compenser cette absence, un mécanisme de retranscription des
+appels aux routines de l'interface publique a été mis en plase. En
+activant ce mécanisme au début de leur programme, les utilisateurs
+finaux peuvent créer un fichier qu'ils enverront ensuite à la
+maintenance qui disposera ainsi de toutes les informations nécessaires
+pour reproduire ce qui concerne \bibliotheque{marmottes}.
+
+Ce mécanisme peut également être utilisé par les développeurs pour
+créer des cas tests de non-régression pour la bibliothèque elle-même.
+
+\begin{interface}{fortran}
+integer function \fonc{MarmottesActiveTrace} (\argument{fichier},
+\argument{messageErreur})\\
+character*(*) \argument{fichier}, \argument{messageErreur}\\
+\\
+integer function \fonc{MarmottesDesactiveTrace} ()
+\end{interface}
+
+\begin{interface}{c}
+\#include "marmottes/InterfaceC.h"\\
+int \fonc{MarmottesActiveTrace} (\=char *\argument{fichier},\+\\
+char *\argument{messageErreur}, int \argument{lgMaxMessage})\-\\
+\\
+int \fonc{MarmottesDesactiveTrace} (char *\argument{messageErreur},
+int \argument{lgMaxMessage})
+\end{interface}
+
+\begin{interface}{c++}
+\#include <string>\\
+\#include "marmottes/CallTrace.h"\\
+static CallTrace *\=CallTrace\verb=::=\=\fonc{getInstance} ()\\
+\>\>\throw{MarmottesErreurs}\\
+\\
+void \>CallTrace\verb=::=\fonc{activate} (string \argument{fichier})\\
+\>\>\throw{MarmottesErreurs}\\
+void \>CallTrace\verb=::=\fonc{deactivate} ()
+\end{interface}
+
+\argument{fichier} indique le nom du fichier dans lequel retranscrire
+les appels aux fonctions de l'interface publique.
+
+Le mécanisme de trace d'exécution est géré par un objet unique (un
+\emph{singleton} selon la terminologie des \emph{design patterns}),
+pour appeler les méthodes \fonc{activate} et \fonc{deactivate} de la
+classe CallTrace, il faut donc passer par une méthode préalable
+\fonc{getInstance} pour récupérer un pointeur sur le
+singleton. L'activation du mécanisme se fait donc par une séquence
+d'appel du genre :
+
+\begin{exemple}{activation des traces d'exécution}
+{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\label{expl:trace}\begin{verbatim}
+CallTrace::getInstance ()->activate (string ("marmottes.log"));
+\end{verbatim}\end{exemple}
+
+Si une erreur survient, les fonctions \langage{c} et \langage{fortran}
+retournent un code non nul et initialisent le message d'erreur. Dans
+la fonction \langage{c++}, la gestion des erreurs n'est pas faite par
+retour d'un code, mais par le mécanisme des exceptions.
+
+\subsection{Accés à des données}\label{sec:acces-donnees}
+L'accés à des données comme la récupération du pointeur sur un
+senseur où l'état peut s'avérer nécessaire, aussi ces possibilités
+sont-elles données par l'intermédiaire des méthodes décrites ci-après.
+
+Seule l'interface C++ peut acceder à ces méthodes (accés directe aux
+attributs de la classe Marmottes) et c'est donc la seule explicitée.
+
+\begin{interface}{c++}
+\#include "marmottes/Marmottes.h"\\
+Senseur * \fonc{accesSenseur} (\=const string\& \argument{fichier},\+\\
+const string\& \argument{senseur})\-\\
+\throw{ClubErreurs, CantorErreurs, MarmottesErreurs}
+\end{interface}
+
+\begin{interface}{c++}
+\#include "marmottes/Marmottes.h"\\
+const Etat\& \fonc{etat} () const\\
+\end{interface}
+
+\subsection{Récupération des valeurs des parametres courants}
+Il est possible a tout moment de récupérer les valeurs courantes des
+paramètres internes à \bibliotheque{marmottes} :  la date, la position,
+la vitesse, l'attitude et le spin.
+
+\begin{interface}{fortran}
+integer function \fonc{MarmottesLireParametres} ( 
+\=\argument{ident}, \argument{date},\+\\
+\argument{position}, \argument{vitesse},\\
+\argument{attitude}, \argument{spin},\\
+\argument{messageErreur})\-\\
+double precision \=\argument{date},
+\argument{position} (3), \argument{vitesse} (3), \argument{attitude} (4),
+\argument{spin} (3)\\
+\argument{messageErreur}
+\end{interface}
+
+\begin{interface}{c}
+\#include "marmottes/InterfaceC.h"\\
+int \fonc{MarmottesLireParametres} (\=IdentMarmottes \argument{ident},\+\\
+double       *\argument{date},\\
+const double \argument{position} [3], const double \argument{vitesse} [3],\\
+const double \argument{attitude} [4], const double \argument{spin} [3],\\
+char        *\argument{messageErreur}, int \argument{lgMaxMessage})
+\end{interface}
+
+\begin{interface}{c++}
+\#include "marmottes/Marmottes.h"\\
+void Marmottes\verb=::=\fonc{lireParametres}
+(\=double \argument{date},\+\\
+const VecDBL \&\argument{position}, const VecDBL \&\argument{vitesse},\\
+const RotDBL \&\argument{attitude}, const VecDBL \&\argument{spin})
+\end{interface}
+
+\argument{date}, \argument{position}, \argument{vitesse},
+\argument{attitude}, et \argument{spin} permettent de récupérer les 
+valeurs courantes des paramètres au moment de l'appel.

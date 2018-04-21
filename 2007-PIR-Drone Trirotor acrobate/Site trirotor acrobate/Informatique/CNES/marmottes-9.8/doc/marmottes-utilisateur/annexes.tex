@@ -1,0 +1,427 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: annexes.tex,v 1.5 2003/02/13 09:49:37 marmottes Exp $
+\clearpage\section{Réordonnancement des senseurs}\label{sec:reordonnancement}
+Pour résoudre l'attitude, Marmottes regroupe deux senseurs de même
+genre (cinématiques ou géométriques) et utilise le troisième senseur
+pour annuler une fonction (avec un seuil de convergence dépendant de
+la précision de ce troisième senseur).
+
+Afin de permettre à l'utilisateur de savoir quel senseur est isolé
+parmi les trois senseurs de consigne, voici l'algorithme utilisé par
+Marmottes.
+
+Soient s1, s2 et s3 les senseurs dans l'ordre utilisateur
+
+Soient sa1, sa2 et sb les senseurs dans l'ordre de résolution
+
+\begin{tabbing}
+Si \=(s1 et s2 sont de même type)\+\\
+sa1 = s1\\
+sa2 = s2\\
+sb = s3\-\\
+Sinon\+\\
+Si \=(s1 et s3 sont de même type)\+\\
+sa1 = s1\\
+sa2 = s3\\
+sb = s2\-\\
+Sinon\+\\
+sa1 = s2\\
+sa2 = s3\\
+sb = s1\-\\
+finsi\-\\
+finsi
+\end{tabbing}
+
+\clearpage\section{exemple de fichier senseurs en francais}
+\newlength{\largeurfrancais}
+\settowidth{\largeurfrancais}{\ttfamily
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+}\begin{center}\begin{minipage}{\largeurfrancais}\begin{verbatim}
+# Senseur solaire 1 (tangage)
+SOLAIRE_1_TANGAGE
+{ type                {diedre}
+  cible               {soleil}
+  precision           { 0.01 }
+
+  # définition des axes senseurs en repère satellite
+  repere { i { -1  0  0 } j { 0 0 1 } k { 0 1 0 }}
+
+  # définition des axes particuliers en repère senseur
+  axe_calage      { 0 1 0 }
+  axe_sensible    { 0 0 1 }
+  reference_zero  { 1 0 0 }
+
+
+  # définition du champ de vue (vecteurs notés angulairement)
+  champ_de_vue
+  { { # dièdre d'axe j senseur (ouverture +/- 32 degrés)
+      { cone { axe { 0.0  58.0 } angle { 90 }}}
+      inter
+      { cone { axe { 0.0 -58.0 } angle { 90 }}}
+    }
+    inter
+    { # dièdre d'axe k senseur (ouverture +/- 32 degrés)
+      { cone { axe {  58.0 0.0 } angle { 90 }}}
+      inter
+      { cone { axe { -58.0 0.0 } angle { 90 }}}
+    }
+  }
+}
+
+# Senseur solaire 1 (lacet)
+SOLAIRE_1_YAW
+{ => { SOLAIRE_1_TANGAGE}
+
+  # seuls les axes de mesure diffèrent entre SOLAIRE_1_TANGAGE SOLAIRE_1_YAW
+  axe_calage      { 0 0 1 }
+  axe_sensible    { 0 1 0 }
+  reference_zero  { 1 0 0 }
+
+}
+\end{verbatim}\end{minipage}\end{center}
+\begin{center}\begin{minipage}{\largeurfrancais}\begin{verbatim}
+IRES_ROLL
+{ type           { limbe }
+  precision      { 0.2 }
+
+  # le repère IRES s'obtient en tournant le repère satellite
+  # de -0.4702 degrés autour de l'axe Ysat
+  repere         { axe { 0 1 0 } angle { -0.4702} }
+
+  axe_sensible   { -1 0 0 }
+  reference_zero {  0 0 1 }
+
+  # l'élément de détection de l'IRES est un bolomètre carré de 1.3 degrés
+  # de largeur tourné de 45 degrés autour de Z : c'est un double dièdre
+  bolometre_fictif { { { cone { axe {  45 0.65 } angle { 90 } } }
+                       inter
+                       { cone { axe { 225 0.65 } angle { 90 } } }
+                     }
+                     inter
+                     { { cone { axe { 135 0.65 } angle { 90 } } }
+                       inter
+                       { cone { axe { 315 0.65 } angle { 90 } } }
+                     }
+                   }
+
+  # pour définir un scan, on place un bolomètre au milieu du scan
+  # on le déplace de -1/2 scan, puis on le traîne le long du scan
+  # l'angle total vaut 8 degrés en champ large, 5.3 degrés en champ étroit
+  centre_scan_1 { rotation { axe { 0 1 0 } angle { -6.2 } }
+                  de       { axe { 1 0 0 } angle {  6.2 } }
+                }
+  centre_scan_2 { rotation { axe { 0 1 0 } angle { -6.2 } }
+                  de       { axe { 1 0 0 } angle { -6.2 } }
+                }
+  centre_scan_3 { rotation { axe { 0 1 0 } angle {  6.2 } }
+                  de       { axe { 1 0 0 } angle {  6.2 } }
+                }
+  centre_scan_4 { rotation { axe { 0 1 0 } angle {  6.2 } }
+                  de       { axe { 1 0 0 } angle { -6.2 } }
+                }
+  scan          { axe { 0 1 0 } angle {  8.00 } }
+  demi_scan     { axe { 0 1 0 } angle { -4.00 } }
+\end{verbatim}\end{minipage}\end{center}
+\begin{center}\begin{minipage}{\largeurfrancais}\begin{verbatim}
+  # scans élémentaires du champ de vue
+  scan_1
+  { balayage { => { IRES_ROLL.scan } }
+    de       { rotation { => { IRES_ROLL.demi_scan } }
+               de       { rotation { => { IRES_ROLL.centre_scan_1 } }
+                          de       { => { IRES_ROLL.bolometre_fictif } }
+                        }
+             }
+  }
+
+  scan_2
+  { balayage { => { IRES_ROLL.scan } }
+    de       { rotation { => { IRES_ROLL.demi_scan } }
+               de       { rotation { => { IRES_ROLL.centre_scan_2 } }
+                          de       { => { IRES_ROLL.bolometre_fictif } }
+                        }
+             }
+  }
+
+  scan_3
+  { balayage { => { IRES_ROLL.scan } }
+    de       { rotation { => { IRES_ROLL.demi_scan } }
+               de       { rotation { => { IRES_ROLL.centre_scan_3 } }
+                          de       { => { IRES_ROLL.bolometre_fictif } }
+                        }
+             }
+  }
+
+  scan_4
+  { balayage { => { IRES_ROLL.scan } }
+    de       { rotation { => { IRES_ROLL.demi_scan } }
+               de       { rotation { => { IRES_ROLL.centre_scan_4 } }
+                          de       { => { IRES_ROLL.bolometre_fictif } }
+                        }
+             }
+  }
+\end{verbatim}\end{minipage}\end{center}
+\begin{center}\begin{minipage}{\largeurfrancais}\begin{verbatim}
+  champ_de_vue
+  { { { => { IRES_ROLL.scan_1 } } et { => { IRES_ROLL.scan_2 } } }
+    ou
+    { { => { IRES_ROLL.scan_3 } } et { => { IRES_ROLL.scan_4 } } }
+  }
+
+  champ_d_inhibition_soleil
+  { { marge { 3.0 }
+      sur   { { { => { IRES_ROLL.scan_1 } }
+                union
+                { => { IRES_ROLL.scan_2 } }
+              }
+              union
+              { { => { IRES_ROLL.scan_3 } }
+                union
+                { => { IRES_ROLL.scan_4 } }
+              }
+            }
+    }
+    sauf
+    { cone { axe { 0 0 1 } angle { 8.2 } } }
+  }
+
+  champ_d_inhibition_lune { => { IRES_ROLL.champ_d_inhibition_soleil } }
+
+}
+
+IRES_PITCH
+{ axe_sensible { 0 -1 0 }
+
+  champ_de_vue
+  { { { => { IRES_ROLL.scan_1 } } et { => { IRES_ROLL.scan_3 } } }
+    ou
+    { { => { IRES_ROLL.scan_2 } } et { => { IRES_ROLL.scan_4 } } }
+  }
+
+  => {IRES_ROLL}
+
+}
+\end{verbatim}\end{minipage}\end{center}
+\begin{center}\begin{minipage}{\largeurfrancais}\begin{verbatim}
+AEF_Ascension   { type      { ascension_droite }
+                  precision { 0.001 }
+                  repere    { i { 1 0 0 } j { 0 1 0 } k { 0 0 1 } }
+                  observe   { 0 0 1 }
+                }
+ 
+AEF_Declination { => {AEF_Ascension} type { declinaison }}
+
+COMMUNS-PSEUDOS
+{ precision { 0.0001 }
+  repere    { 1 0 0 0 } # quaternion identité
+}
+
+ALPHA_X { type { ascension_droite } observe { 1 0 0 } => {COMMUNS-PSEUDOS}}
+DELTA_X { type { declinaison }      observe { 1 0 0 } => {COMMUNS-PSEUDOS}}
+ALPHA_Y { type { ascension_droite } observe { 0 1 0 } => {COMMUNS-PSEUDOS}}
+DELTA_Y { type { declinaison }      observe { 0 1 0 } => {COMMUNS-PSEUDOS}}
+ALPHA_Z { type { ascension_droite } observe { 0 0 1 } => {COMMUNS-PSEUDOS}}
+DELTA_Z { type { declinaison }      observe { 0 0 1 } => {COMMUNS-PSEUDOS}}
+
+GYRO_X  { type { cinematique } axe_sensible { 1 0 0 } => {COMMUNS-PSEUDOS}}
+GYRO_Y  { type { cinematique } axe_sensible { 0 1 0 } => {COMMUNS-PSEUDOS}}
+GYRO_Z  { type { cinematique } axe_sensible { 0 0 1 } => {COMMUNS-PSEUDOS}}
+\end{verbatim}\end{minipage}\end{center}
+
+\clearpage\section{exemple de fichier senseurs en anglais}
+\newlength{\largeuranglais}
+\settowidth{\largeuranglais}{\ttfamily
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+}\begin{center}\begin{minipage}{\largeuranglais}\begin{verbatim}
+# Pitch sun sensor 1
+SUN_1_PITCH
+{ type                {dihedral}
+  target              {sun}
+  accuracy            { 0.01 }
+
+  # definition of sensor axis in satellite frame
+  frame { i { -1  0  0 } j { 0 0 1 } k { 0 1 0 }}
+
+  # definition of special vectors in sensor frame
+  wedging_axis      { 0 1 0 }
+  sensitive_axis    { 0 0 1 }
+  zero_reference    { 1 0 0 }
+
+
+  # field of view definition (vectors are described angularly)
+  field of view
+  { { # j sensor axis dihedra (opening +/- 32 degrees)
+      { cone { axis { 0.0  58.0 } angle { 90 }}}
+      inter
+      { cone { axis { 0.0 -58.0 } angle { 90 }}}
+    }
+    inter
+    { # k sensor axis dihedra (opening +/- 32 degrees)
+      { cone { axis {  58.0 0.0 } angle { 90 }}}
+      inter
+      { cone { axis { -58.0 0.0 } angle { 90 }}}
+    }
+  }
+}
+
+# Yaw sun sensor 1
+SUN_1_YAW
+{ => { SUN_1_PITCH}
+
+  # only measurements axis differ from SUN_1_PITCH
+  wedging_axis      { 0 0 1 }
+  sensitive_axis    { 0 1 0 }
+  zero_reference    { 1 0 0 }
+
+}
+\end{verbatim}\end{minipage}\end{center}
+\begin{center}\begin{minipage}{\largeuranglais}\begin{verbatim}
+IRES_ROLL
+{ type           { limb }
+  accuracy       { 0.2 }
+
+  # IRES frame is satellite frame rotated
+  # -0.4702 degrees around Ysat
+  frame            { axis { 0 1 0 } angle { -0.4702} }
+
+  sensitive_axis   { -1 0 0 }
+  zero_reference   {  0 0 1 }
+
+  # IRES detector is a 1.3 degrees square bolometer
+  # rotated by 45 degrees around Z : it is a double-dihedra
+  fictious_bolometer { { { cone { axis {  45 0.65 } angle { 90 } } }
+                         inter
+                         { cone { axis { 225 0.65 } angle { 90 } } }
+                       }
+                       inter
+                       { { cone { axis { 135 0.65 } angle { 90 } } }
+                         inter
+                         { cone { axis { 315 0.65 } angle { 90 } } }
+                       }
+                     }
+
+  # in order to define a scan, one places the bolometer at the middle
+  # of the scan, then shift it -1/2 scan, and then one spread it over
+  # all scan long. total angle is 8 degrees in wide scan mode and 5.3
+  # degrees in narrow scan mode
+  center_scan_1 { rotation { axis { 0 1 0 } angle { -6.2 } }
+                  of       { axis { 1 0 0 } angle {  6.2 } }
+                }
+  center_scan_2 { rotation { axis { 0 1 0 } angle { -6.2 } }
+                  of       { axis { 1 0 0 } angle { -6.2 } }
+                }
+  center_scan_3 { rotation { axis { 0 1 0 } angle {  6.2 } }
+                  of       { axis { 1 0 0 } angle {  6.2 } }
+                }
+  center_scan_4 { rotation { axis { 0 1 0 } angle {  6.2 } }
+                  of       { axis { 1 0 0 } angle { -6.2 } }
+                }
+  scan          { axis { 0 1 0 } angle {  8.00 } }
+  half_scan     { axis { 0 1 0 } angle { -4.00 } }
+\end{verbatim}\end{minipage}\end{center}
+\begin{center}\begin{minipage}{\largeuranglais}\begin{verbatim}
+  # elementary scans
+  scan_1
+  { spread { => { IRES_ROLL.scan } }
+    of       { rotation { => { IRES_ROLL.half_scan } }
+               of       { rotation { => { IRES_ROLL.center_scan_1 } }
+                          of       { => { IRES_ROLL.fictious_bolometer } }
+                        }
+             }
+  }
+
+  scan_2
+  { spread { => { IRES_ROLL.scan } }
+    of       { rotation { => { IRES_ROLL.half_scan } }
+               of       { rotation { => { IRES_ROLL.center_scan_2 } }
+                          of       { => { IRES_ROLL.fictious_bolometer } }
+                        }
+             }
+  }
+
+  scan_3
+  { spread { => { IRES_ROLL.scan } }
+    of       { rotation { => { IRES_ROLL.half_scan } }
+               of       { rotation { => { IRES_ROLL.center_scan_3 } }
+                          of       { => { IRES_ROLL.fictious_bolometer } }
+                        }
+             }
+  }
+
+  scan_4
+  { spread { => { IRES_ROLL.scan } }
+    of       { rotation { => { IRES_ROLL.half_scan } }
+               of       { rotation { => { IRES_ROLL.center_scan_4 } }
+                          of       { => { IRES_ROLL.fictious_bolometer } }
+                        }
+             }
+  }
+\end{verbatim}\end{minipage}\end{center}
+\begin{center}\begin{minipage}{\largeuranglais}\begin{verbatim}
+  field_of_view
+  { { { => { IRES_ROLL.scan_1 } } and { => { IRES_ROLL.scan_2 } } }
+    or
+    { { => { IRES_ROLL.scan_3 } } and { => { IRES_ROLL.scan_4 } } }
+  }
+
+  sun_field_of_inhibition
+  { { margin { 3.0 }
+      upon   { { { => { IRES_ROLL.scan_1 } }
+                 union
+                 { => { IRES_ROLL.scan_2 } }
+               }
+               union
+               { { => { IRES_ROLL.scan_3 } }
+                 union
+                 { => { IRES_ROLL.scan_4 } }
+               }
+             }
+     }
+     except
+     { cone { axis { 0 0 1 } angle { 8.2 } } }
+  }
+
+  moon_field_of_inhibition { => { IRES_ROLL.sun_field_of_inhibition } }
+
+}
+
+IRES_PITCH
+{ sensitive_axis { 0 -1 0 }
+
+  field_of_view
+  { { { => { IRES_ROLL.scan_1 } } and { => { IRES_ROLL.scan_3 } } }
+    or
+    { { => { IRES_ROLL.scan_2 } } and { => { IRES_ROLL.scan_4 } } }
+  }
+
+  => {IRES_ROLL}
+
+}
+\end{verbatim}\end{minipage}\end{center}
+\begin{center}\begin{minipage}{\largeuranglais}\begin{verbatim}
+AEF_Ascension   { type      { right_ascension }
+                  accuracy  { 0.001 }
+                  frame     { i { 1 0 0 } j { 0 1 0 } k { 0 0 1 } }
+                  observed  { 0 0 1 }
+                }
+ 
+AEF_Declination { => {AEF_Ascension} type { declination }}
+
+PSEUDOS-COMMONS
+{ accuracy { 0.0001 }
+  frame    { 1 0 0 0 } # identity quaternion
+}
+
+ALPHA_X { type { right_ascension } observed { 1 0 0 } => {PSEUDOS-COMMONS}}
+DELTA_X { type { declination }     observed { 1 0 0 } => {PSEUDOS-COMMONS}}
+ALPHA_Y { type { right_ascension } observed { 0 1 0 } => {PSEUDOS-COMMONS}}
+DELTA_Y { type { declination }     observed { 0 1 0 } => {PSEUDOS-COMMONS}}
+ALPHA_Z { type { right_ascension } observed { 0 0 1 } => {PSEUDOS-COMMONS}}
+DELTA_Z { type { declination }     observed { 0 0 1 } => {PSEUDOS-COMMONS}}
+
+GYRO_X  { type { kinematic } sensitive_axis { 1 0 0 } => {PSEUDOS-COMMONS}}
+GYRO_Y  { type { kinematic } sensitive_axis { 0 1 0 } => {PSEUDOS-COMMONS}}
+GYRO_Z  { type { kinematic } sensitive_axis { 0 0 1 } => {PSEUDOS-COMMONS}}
+\end{verbatim}\end{minipage}\end{center}
+
+\input{lexique}
+\input{definitions-reperes}

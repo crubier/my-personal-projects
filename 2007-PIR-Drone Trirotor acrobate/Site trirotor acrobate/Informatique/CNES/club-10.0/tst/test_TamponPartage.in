@@ -1,0 +1,19 @@
+#! /bin/sh
+
+# identificateur RCS : "$Id: test_TamponPartage.in,v 3.10 2000/07/31 08:35:35 club Exp $"
+
+# mise en place d'un environnement anglais pour vérifier les messages
+@cl_cv_var_lang@=en              ; export @cl_cv_var_lang@
+@cl_cv_var_tradpath@=@srcdir@/.. ; export @cl_cv_var_tradpath@
+
+# exécution du programme de tests
+./prgm_TamponPartage > ./test_TamponPartage.res 2>&1
+
+# comparaison des fichiers
+echo "difference ./test_TamponPartage.res @srcdir@/test_TamponPartage.ref"
+./../utils/difference -rsynth -p 0.00001 -res ./test_TamponPartage.res -ref @srcdir@/test_TamponPartage.ref
+r=$?
+
+# nettoyage
+rm ./test_TamponPartage.res
+exit $r

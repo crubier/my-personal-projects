@@ -1,0 +1,245 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+% $Id: FormatFortran.tex,v 1.9 2000/09/07 13:06:17 club Exp $
+\subsection{classe FormatFortran}\label{sec:FormatFortran}
+
+\subsubsection*{description}\label{sec:FormatFortran-desc}
+La classe FormatFortran permet de gérer des formats d'écriture du
+langage \langage{fortran}. Elle est utilisée de façon interne par la
+classe Traducteur (voir section~\ref{sec:Traducteur}), pour tester la
+compatibilité d'un format traduit par rapport à un format de référence
+et pour appliquer un format traduit.
+
+\subsubsection*{interface publique}\label{sec:FormatFortran-int}
+\begin{verbatim}
+#include "club/FormatFortran.h"
+\end{verbatim}
+
+La classe définit un type énuméré anonyme public pour représenter les
+différents arguments reconnus par le format.
+\newlength{\largeurEnumFormatFortran}
+\settowidth{\largeurEnumFormatFortran}{\ttfamily
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+}
+\begin{center}\begin{minipage}{\largeurEnumFormatFortran}\begin{verbatim}
+enum { ENTIER, REEL, CHAINE_ARG, BOOLEEN, CHAINE_FIXE, ERREUR };
+\end{verbatim}\end{minipage}\end{center}
+
+\begin{tableFonctionsFixe}{FormatFortran : méthodes publiques}
+{\label{tab:FormatFortran-met-pub}}
+{analyse le format pour contrôler sa validité et déterminer le }
+\signature{\fonc{FormatFortran} ()}
+          {}&
+
+constructeur par défaut\\
+
+\signature{\fonc{FormatFortran}}
+          {(const string\& \argument{format})
+          }&
+
+construit une instance à partir du \argument{format} et déclenche son
+analyse, lève une exception \texttt{format\_fortran} s'il y a des
+erreurs d'analyse 
+
+\textbf{Exceptions :} format\_fortran.
+\\
+
+\hline
+
+\signature{\fonc{FormatFortran} (const FormatFortran\& \argument{f})}
+          {}&
+
+constructeur par copie \\
+
+\signature{FormatFortran\& \fonc{operator =}}
+          {(const FormatFortran\& \argument{f})}&
+
+affectation \\
+
+\hline
+
+\signature{\fonc{\~{}FormatFortran} ()}
+          {}&
+
+destructeur, libère la mémoire allouée \\
+
+\hline
+
+\signature{void \fonc{analyse}}
+          {(const string\& \argument{format})
+          }&
+
+analyse le format pour contrôler sa validité et déterminer le nombre
+et le type des arguments qu'il attend 
+
+\textbf{Exceptions :} format\_fortran.
+\\
+
+\signature{va\_list \fonc{applique}}
+          {(va\_list \argument{ap},\\
+            int \argument{nbLong}, long int \argument{tablong} [],\\
+            string *\argument{ptrChaine}) const
+          }&
+
+applique le format déja analysé à la liste des arguments variables
+passées par l'intermédiaire de \argument{ap}. Les \argument{nbLong}
+longueurs de chaînes de caractères correspondant aux chaînes précédent
+\argument{ap} sont retournées dans le tableau \argument{tabLong}. Le
+pointeur d'argument variable \argument{ap} est retourné après
+analyse. \\
+
+\hline
+\signature{int \fonc{compatible} (const FormatFortran\& \argument{f})}
+          {}&
+
+indique si le format de l'instance est compatible avec \argument{f},
+c'est à dire s'il admet la même liste d'arguments \\
+
+\hline
+
+\signature{const string\& \fonc{chaine} () const}
+          {}&
+
+retourne la chaîne spécifiant le format \\
+
+\signature{int \fonc{nbArgs} () const}
+          {}&
+
+retourne le nombre d'arguments attendus par le format \\
+
+\signature{int \fonc{typeArg} (int \argument{i}) const}
+          {}&
+
+retourne le type de l'argument \argument{i} (c'est une valeur prise
+dans l'énuméré public anonyme de la classe) \\
+
+\end{tableFonctionsFixe}
+
+\subsubsection*{exemple d'utilisation}\label{sec:FormatFortran-expl}
+
+\begin{verbatim}
+#include "club/FormatFortran.h"
+...
+
+void tradecrch_  (char* chaine, int& lUtile, const char* format ...)
+{ 
+  // écriture dans une chaîne à partir d'un format fortran
+  InitTraducteurs ();
+
+  // traduction
+  FormatFortran traduit;
+  if (ptrExterne->traductionFormatF (format, &traduit) > 0)
+  { 
+    // il y a un problème d'analyse
+    ...
+    return;
+  }
+
+  // la fonction a deux arguments chaînes de caractères avant
+  // la partie variable : chaine et format, leur longueur va donc
+  // apparaitre entre les derniers arguments variables et les
+  // premières longueurs
+  
+  int nbLong = 2;
+  long int tabLg [2];
+  string sortie;
+
+  // écriture
+  va_list ap;
+  va_start(ap, format);
+  ap = traduit.applique (ap, nbLong, tabLg, &sortie);
+  va_end(ap);
+
+  // copie des résultats dans les variables fortran
+  
+  lUtile = (sortie.size () < (long unsigned int) tabLg [0])
+              ? sortie.size () : tabLg [0];
+  (void) strncpy (chaine, sortie.c_str (), lUtile);
+  if (tabLg [0] > lUtile)
+    (void) memset (chaine + lUtile, ' ', (unsigned int) (tabLg [0] - lUtile));
+}
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation spécifiques}
+\label{sec:FormatFortran-conseils}
+L'utilisation de la classe à partir de programmes en langage
+\langage{fortran} passe obligatoirement par des fonctions
+d'interface. La convention de passage des arguments reconnue est que
+les types de base (\texttt{integer}, \texttt{double precision}, ...)
+sont passés par pointeur et ont un type équivalent en langage
+\langage{c++}. Les chaînes de caractères sont passées sous forme d'un
+pointeur dans la liste normale des arguments, la longueur de la chaîne
+étant quant à elle rajoutée à la fin de la liste des arguments, sous
+la forme d'un entier long passé par copie.
+
+Ainsi une fonction appelée depuis le \langage{fortran} avec en
+arguments un entier, une chaîne de 10 caractères, un double précision,
+et une chaîne de 3 caractères sera vue côté \langage{c++} comme ayant
+un pointeur d'entier (\texttt{int *}), un pointeur de chaîne de
+caractères (\texttt{char *}), un pointeur de réel (\texttt{double *}),
+un entier long (\texttt{10l}), et un autre entier long (\texttt{3l}).
+
+Cette convention est assez classique, elle est suivie par les
+compilateurs fortran de Sun disponibles sur stations Sparc mais
+également par le compilateur \texttt{g77} disponible entre autres sur
+stations Sparc et sur architectures intel/linux.
+
+L'exemple~\ref{sec:FormatFortran-expl} est issu du code de la
+bibliothèque, il illustre les précautions à prendre pour réaliser
+correctement le passage de paramètres. La fonction dont il est issu
+fonctionne sur Sun et sur architecture intel.
+
+\subsubsection*{implantation}\label{sec:FormatFortran-impl}
+Les attributs sont décrits sommairement dans la
+table~\ref{tab:FormatFortran-att}, les méthodes privées dans la
+table~\ref{tab:FormatFortran-met-priv}
+\begin{tableAttributsFixe}{attributs de la classe FormatFortran}
+{\label{tab:FormatFortran-att}}
+{nombre de parts de formats dans les tables}
+tailleTableParts\_ & int & taille des tables des parts de formats \\
+nombreParts\_ & int & nombre de parts de formats dans les tables \\
+type\_ & int * & table des types de parts \\
+formatC\_ & string * &  tables des formats du langage
+\langage{C} permettant d'afficher les parts de formats
+\langage{fortran} \\
+chaine\_  & string & format \langage{fortran} de base \\
+\end{tableAttributsFixe}
+
+\begin{tableFonctionsFixe}{FormatFortran : méthodes privées}
+{\label{tab:FormatFortran-met-priv}}
+{ajoute un élément (fixe ou variable) aux tables d'analyse}
+\signature{void \fonc{ajoutePart}}
+          {(int \argument{type}, const string\& \argument{format})}&
+
+ajoute un élément (fixe ou variable) aux tables d'analyse de parts de
+format\\
+
+\signature{int \fonc{modificateurs}}
+          {(AnalyseurLexical *\argument{al},\\
+            int *\argument{ptrTaille}, int *\argument{ptrPrecision})
+          }&
+
+analyse de modificateurs de termes dans un spécificateur de format
+(par exemple le \texttt{6.3} du spécificateur \texttt{F6.3})\\
+
+\signature{int \fonc{terme} (AnalyseurLexical *\argument{al})}
+          {}&
+
+analyse un terme de spécificateur de format (par exemple le
+\texttt{F6.3} du spécificateur \texttt{12F6.3})\\
+
+\signature{int \fonc{specificateur} (AnalyseurLexical *\argument{al})}
+          {}&
+
+analyse un spécificateur de format (par exemple le \texttt{12F6.3} de
+la liste \texttt{(12F6.3, 5(3X, I2))})\\
+
+\signature{int \fonc{liste} (AnalyseurLexical *\argument{al})}
+          {}&
+
+analyse une liste de spécificateurs (le format \texttt{(12F6.3, 5(3X,
+I2))} est ainsi une liste de deux éléments, dont le deuxième est
+également une liste). Un format fortran complet est une liste
+(éventuellement réduite à un seul spécificateur, mais toujours entre
+parenthèses) \\
+
+\end{tableFonctionsFixe}

@@ -1,0 +1,214 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: maintenance.tex,v 1.7 2005/03/04 07:27:05 chope Exp $
+La maintenance de la bibliothèque \bibliotheque{marmottes} s'effectue
+selon quelques principes qui concernent la portabilité, les outils
+utilisés, les procédures de maintenance, les fichiers descriptifs et
+l'archivage sous \outil{cvs}.
+
+
+\subsection{portabilité}
+
+La bibliothèque a dépassé le stade de l'outil spécifique d'un
+département et est utilisée sur plusieurs sites dans des
+environnements différents. La portabilité est donc un point
+fondamental à garder en permanence à l'esprit.
+
+Le modèle suivi a donc naturellement été celui de la lignée de
+produits \textsc{gnu}. Le document "GNU coding standards" est très utile pour
+comprendre cette organisation (cf~\ref{ref:gnu-coding-standards}).
+Dans cet esprit, l'environnement de maintenance nécessite beaucoup
+d'outils mais les utilisateurs finaux n'ont guère besoin que de
+\outil{gunzip} pour décompresser la distribution et d'un compilateur
+\langage{c++}.
+
+\subsection{environnement de maintenance}
+
+Les produits suivants sont indispensables :
+
+\begin{itemize}
+\begin{changebar}
+\item \outil{libtool}~\ref{ref:libtool} (version 1.5.14 au moins)
+\item \outil{autoconf}~\ref{ref:autoconf} (version 2.59 au moins)
+\item \outil{automake}~\ref{ref:automake} (version 1.9.5 au moins)
+\end{changebar}
+\item \outil{cvs}~\ref{ref:cvs} et~\ref{ref:cvs-client-server}
+\begin{changebar}
+\item \outil{g++}~\ref{ref:g++} (version 3.3 au moins)
+\end{changebar}
+\item \outil{gzip}
+\item \textsc{gnu} \outil{m4}
+\item \textsc{gnu} \outil{make}
+\cbdelete
+\item \outil{perl}
+\item \TeX/\LaTeX/\outil{dvips} (de plus \outil{xdvi} est recommandé)
+\item la classe \LaTeX\ <<\outil{notecnes}>>
+\item les paquetages \LaTeX\ <<\outil{babel}>> et <<\outil{longtable}>>
+\end{itemize}
+
+\subsection{installation de l'environnement de maintenance}
+
+Le développeur récupère tout d'abord le module marmottes par une
+commande \texttt{cvs checkout marmottes}, il lui faut ensuite générer
+certains fichiers. Il suffit de passer quatre commandes pour obtenir
+un environnement complet :
+
+\settowidth{\largeurCompilation}{\ttfamily
+xxxxxxxxxx
+}
+\hspace{2cm}\begin{minipage}{\largeurCompilation}\begin{verbatim}
+aclocal
+autoheader
+autoconf
+automake
+\end{verbatim}\end{minipage}
+
+\begin{description}
+\item[aclocal] génère le fichier \texttt{aclocal.m4}
+\item[autoheader] génère le fichier \texttt{src/MarmottesConfig.h.in}
+\item[autoconf] génère le script \texttt{configure}
+\item[automake] génère tous les fichiers \texttt{Makefile.in}
+\end{description}
+
+\subsection{compilation}
+
+Une fois les fichiers indiqués au paragraphe précédent créés, on se
+retrouve dans une situation similaire à celle d'un utilisateur qui
+reçoit la distribution (on a même quelques fichiers en plus, par
+exemple ceux liés à la gestion \outil{cvs}). Il suffit alors de
+générer les fichiers \texttt{Makefile} par la commande :
+
+\centerline{\texttt{./configure}}
+
+ou bien
+
+\centerline{\texttt{./configure -{}-prefix={\$}HOME}}
+
+si l'on préfère travailler entièrement dans l'environnement de
+maintenance.
+
+Il faut noter que les \texttt{Makefile} générés savent non seulement
+compiler la bibliothèque, mais qu'ils savent également relancer les
+commandes initialisant le mécanisme, ceci signifie que d'éventuelles
+modifications des fichiers \texttt{configure.ac} ou
+\texttt{Makefile.am} utilisés par les commandes précédentes seront
+correctement répercutées partout.
+
+Par défaut, la bibliothèque \bibliotheque{marmottes} est générée sous forme
+partagée. Ceci comporte de nombreux avantages par rapport aux
+bibliothèques statiques mais impose également
+des contraintes aux développeurs~: le temps de compilation d'une
+bibliothèque partagée est deux fois plus long, le déboguage est plus
+difficile~... Il peut donc être intéressant de générer
+\bibliotheque{marmottes} en statique, et ceci peut être réalisé en passant
+l'option «--disable-shared» à \texttt{configure}.
+
+\subsection{procédures de maintenance}
+
+L'ensemble des sources (que ce soient les sources \langage{c++} ou les
+fichiers de configuration des outils de génération de scripts) sont
+gérés sous \outil{cvs} (cf.~\ref{ref:cvs}
+et~\ref{ref:cvs-client-server}). Les fichiers pouvant être générés
+automatiquement ne \emph{sont pas gérés sous \outil{cvs}}.
+
+Il ne faut bien sûr pas éditer les fichiers générés, mais éditer les
+fichiers sources correspondant. Ces fichiers sources sont de plus
+considérablement plus simples à comprendre. La difficulté est de
+savoir quels fichiers sont générés et à partir de quels fichiers
+sources. On ne peut pas toujours se fier au nom, ainsi
+\texttt{src/MarmottesConfig.h.in} et tous les fichiers
+\texttt{Makefile.in} sont générés, leur suffixe .in signifie
+simplement qu'une fois générés (par \texttt{autoheader} et par
+\outil{automake} respectivement) ils servent de sources à
+\outil{autoconf} (qui génère alors \texttt{src/MarmottesConfig.h} et
+\texttt{Makefile}). Les fichiers éditables sont donc :
+\texttt{configure.ac}, et tous les \texttt{Makefile.am}.
+
+D'autre part la bibliothèque est aussi maintenue à l'aide du mécanisme
+de \texttt{ChangeLog} qui présente un avantage majeur : les
+modifications sont présentées dans l'ordre historique des actions de
+maintenance, ce qui d'une part est en corrélation avec le processus de
+maintenance et d'autre part peut aider à déterminer par exemple à
+quels moments certains bugs ont pu être introduits.
+
+Pour tout changement de fichier, il est recommandé de mettre une
+entrée dans le fichier \texttt{ChangeLog} (il y a un fichier de ce
+type pour chaque sous-répertoire). Si l'on utilise l'éditeur
+\outil{emacs} il suffit d'utiliser la commande \texttt{M-x
+add-change-log-entry} en étant à l'endroit où l'on a fait la
+modification, \outil{emacs} remplissant seul la date, l'auteur, le nom
+de fichier, et le contexte (nom de fonction, de classe, ...). Pour
+savoir comment remplir ce fichier, il est recommandé de lire le
+document décrivant le standard~\ref{ref:gnu-coding-standards}. Ces
+modifications de niveau source ne doivent pas être mises dans le
+fichier \texttt{NEWS}, qui contient les nouveautés de niveau
+utilisateur, pas développeur.
+
+Pour savoir ce qui peut poser des problèmes de portabilité et comment
+résoudre ces problèmes, il est fortement recommandé de lire le manuel
+\outil{autoconf}~\ref{ref:autoconf} (à cette occasion, on pourra
+également se pencher sur le manuel \outil{automake}). On peut
+également utiliser \outil{autoscan} (qui fait partie de la
+distribution \outil{autoconf}) pour détecter automatiquement les
+problèmes communs et proposer des macros les prenant en compte pour
+\texttt{configure.ac}.
+
+Pour faire les tests, il faut utiliser la cible \texttt{check} du
+\texttt{Makefile}.
+
+La gestion des dépendances dans le \texttt{Makefile.in} de
+développement (créé par \outil{automake}) impose l'utilisation de
+\outil{g++} (ou \outil{egcs}) et du \outil{make} de \textsc{gnu}. Pour
+tester d'autres outils, le plus simple est de créer une distribution
+(par \texttt{make dist}), puis de tenter de l'installer comme un
+utilisateur standard en retirant les outils \textsc{gnu} de son
+\texttt{PATH} (après avoir décompressé l'archive). Les distributions
+n'ont en effet aucun besoin de dépendances fines, les
+\texttt{Makefile.in} créés sont donc simplifiés et portables.
+
+Les fichiers décrivant les spécificités de la bibliothèque
+\bibliotheque{marmottes}. Ces fichiers concernent soit l'utilisation soit
+la maintenance de la bibliothèque.
+
+\subsubsection{fichiers descriptifs destinés à l'utilisateur}
+\texttt{README} donne une définition globale de la bibliothèque et
+indique les particularités de l'installation pour certains
+environnements.
+
+\texttt{NEWS} décrit l'évolution de la bibliothèque, il indique les
+changements visibles par l'utilisateur.
+
+
+\subsubsection{fichiers descriptifs destinés au mainteneur}
+\texttt{README.dev} définit les principes de maintenance, décrit
+l'environnement nécessaire pour maintenir la bibliothèque, rappelle
+les commandes à exécuter à l'aide des produits \textsc{gnu} pour créer
+un espace de développement et compiler la bibliothèque.
+
+\subsection{archivage}
+La politique d'archivage dans le serveur \outil{cvs} est qu'il faut
+archiver à chaque nouvelle fonctionnalité ajoutée, ou à chaque bug
+corrigé. Ceci permet de cerner plus facilement les portions de code
+touchées (pour les \texttt{cvs diff} et autres \texttt{cvs update
+-j}). Il n'est pas recommandé d'archiver des versions intermédiaires
+non compilables (on peut cependant y être obligé si plusieurs
+développeurs doivent s'échanger les fichiers).
+
+\emph{A priori}, les incrémentations de versions ne se font qu'à
+l'occasion de distributions hors de l'équipe de développement et lors
+des créations de branches pour des corrections de bugs ou des
+évolutions susceptibles de durer. Pour les distributions, les tags
+doivent être de la forme : release-4-5.
+
+À chaque nouvelle distribution, le fichier \texttt{NEWS} doit être mis
+à jour avec toutes les informations pertinentes pour les utilisateurs
+(l'objectif est donc différent de celui des fichiers
+\texttt{ChangeLog}).
+
+Pour générer une distribution, utiliser la cible \texttt{dist} du
+\texttt{Makefile} (il existe également une cible \texttt{distcheck}
+qui permet de vérifier cette distribution). Le numéro de version de la
+distribution est paramétré par la macro \texttt{AC\_INIT}
+dans le fichier \texttt{configure.ac}, ce numéro est ensuite propagé
+sous forme d'un \texttt{\#define} dans le fichier
+\texttt{src/MarmottesConfig.h} généré par configure, et c'est ce
+\texttt{\#define} qui est utilisé par la fonction marmottesVersion.

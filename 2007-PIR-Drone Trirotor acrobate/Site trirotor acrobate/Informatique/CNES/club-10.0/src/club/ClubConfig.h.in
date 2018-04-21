@@ -1,0 +1,16 @@
+/* ClubConfig.h is generated automatically by configure */
+
+/* Version number of package */
+#define CLUB_VERSION @PACKAGE_VERSION@
+
+/* define if the compiler implements namespaces */
+#define CLUB_HAVE_NAMESPACES @cl_cv_namespaces@
+
+/* Name of the environment variable used for langage */
+#define CLUB_VAR_LANG "@cl_cv_var_lang@"
+
+/* Name of the environment variable used for path */
+#define CLUB_VAR_TRADPATH "@cl_cv_var_tradpath@"
+
+/* Name of the environment variable used for XML/DTD files path */
+#define CLUB_VAR_XMLPATH "@cl_cv_var_xmlpath@"

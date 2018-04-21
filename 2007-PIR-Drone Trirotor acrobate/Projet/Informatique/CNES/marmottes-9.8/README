@@ -1,0 +1,29 @@
+la bibliothèque MARMOTTES (Modélisation d'Attitude par Récupération
+des Mesures d'Orientation pour Tout Type d'Engin Spatial) est une
+bibliothèque regroupant des fonctions de simulation de contrôle
+d'attitude multimissions, c'est-à-dire dont le code n'est pas dédié à
+une plate-forme particulière de satellite.
+
+Cette bibliothèque regroupe des objets métier destinés à être utilisés
+dans des applications de mécanique spatiale qui peuvent soit être
+auto-suffisantes, soit être elles-mêmes des bibliothèques plus
+spécialisées ; il s'agit donc d'une bibliothèque de niveau
+intermédiaire.
+
+Cette bibliothèque utilise les services de CLUB et de CANTOR.
+
+Cette bibliothèque s'installe exactement comme les produits GNU :
+généralement ./configure, puis make, puis make install si l'on accepte
+les conventions par défaut (voir la documentation, disponible au
+format PDF dans le sous-répertoire doc).
+
+Une description complète se trouve dans le fichier INSTALL. Nous
+signalons cependant ici les personnalisations les plus courantes.
+
+Pour spécifier que l'installation de la bibliothèque sera faite à un
+endroit spécifique (l'espace par défaut est /usr/local), il faut
+utiliser l'option --prefix du script configure comme dans l'exemple
+suivant:
+
+        ./configure --prefix=/racine/espace/installation
+

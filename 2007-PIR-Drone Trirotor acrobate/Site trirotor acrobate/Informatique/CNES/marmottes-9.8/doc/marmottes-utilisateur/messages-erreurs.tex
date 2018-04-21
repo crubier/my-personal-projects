@@ -1,0 +1,444 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: messages-erreurs.tex,v 1.23 2004/06/21 14:43:32 marmottes Exp $
+La bibliothèque \bibliotheque{marmottes} peut générer des messages
+d'erreurs en fonction de la langue de l'utilisateur. La liste suivante
+est triée par ordre alphabétique du format d'écriture dans le fichier
+de traduction français d'origine\footnote{la langue interne est le
+français sans les accents et c'est le fichier de traduction français
+qui introduit les accents, le fichier de traduction anglais reste
+ainsi lisible par un utilisateur anglophone qui n'aurait pas configuré
+son éditeur de texte de sorte qu'il affiche correctement les
+caractères utilisant le codage iso-8859-1 (IsoLatin 1)}. Le format de
+la traduction anglaise d'origine est indiqué entre parenthèses. Si un
+utilisateur modifie les fichiers de traduction d'origine (ce qui est
+tout à fait raisonnable), la liste suivante devra être interprétée
+avec une certaine tolérance.
+
+\verb|"\"%s\" n'est pas un gyromètre intégrateur, initialisation impossible"|
+\\(\verb|"\"%s\" is not a rate integrated gyro, unable to initialize"|)
+Ce message est généré si l'utilisateur tente de réinitialiser un
+senseur qui n'est pas un gyromètre intégrateur. Il s'agit soit d'une
+erreur sur le nom du senseur, soit d'une incohérence entre les
+fichiers et le code.
+
+\verb|"%s n'est pas un senseur cinématique, initialisation de la dérive impossible"|
+\\(\verb|"%s is not a kinematic sensor, unable to initialize the drift"|)
+Ce message est généré (par la méthode
+\fonc{MarmottesInitialiseDerive}) lorsque l'utilisateur essaie
+d'appliquer une dérive à un senseur qui n'est pas un senseur
+cinématique.
+
+\verb|"\"%s\" n'est pas un senseur de Cardan, initialisation du repère de référence|
+\\\verb|impossible"| (\verb|"\"%s\" is not a Cardan sensor, unable to initialize reference frame"|)
+Ce message est généré lorsque l'utilisateur tente de modifier le
+repère de référence d'un senseur qui n'est pas un senseur de
+Cardan. Il s'agit soit d'une erreur sur le nom du senseur, soit d'une
+incohérence entre les fichiers et le code.
+
+\verb|"\"%s\" n'est pas un senseur optique, initialisation de la cible impossible"|
+\\(\verb|"\"%s\" is not an optical sensor, unable to initialize target"|)
+Ce message est généré lorsque l'utilisateur tente de modifier la cible
+d'un senseur qui n'a pas été prévu pour cela. Il s'agit soit d'une
+erreur sur le nom du senseur, soit d'une incohérence entre les
+fichiers et le code.
+
+\verb|"attitude solution théorique incontrôlable (senseur %s)"|
+\\(\verb|"solved theoretical attitude cannot be controlled (%s sensor)"|)
+Ce message est généré lorsque la résolution d'attitude et le filtrage
+ont sélectionné une attitude unique respectant les consignes, mais que
+l'un des senseurs ne peut la contrôler, les causes peuvent être
+diverses :
+\begin{description}
+\item[tout senseur optique] : la cible peut être hors du champ de vue
+;
+\item[senseur solaire] : il peut y avoir éclipse (on peut le vérifier
+en changeant la cible de \texttt{soleil} à \texttt{pseudo-soleil}) ;
+\item[senseur terre] : le senseur peut être inhibé par la lune ou le
+soleil (on peut le vérifier en réduisant les champs d'inhibition) ;
+\item[senseur station] : le satellite peut être sous le masque
+d'antenne, en tenant compte de l'effet troposphérique.
+\end{description}
+Ce message indique un vrai problème de contrôle d'attitude, il faut
+changer les consignes ou changer de senseurs de contrôle pour l'éliminer. 
+
+\verb|"axe de rotation nul dans le bloc \"%s\""|
+\\(\verb|"null rotation axis in bloc \"%s\""|) 
+Ce message est produit par une opération lors de la lecture du fichier
+de description des senseurs. C'est en fait une erreur de 
+\bibliotheque{cantor} qui survient pendant la construction d'une
+rotation. L'axe de la rotation est nul.
+
+\verb|"bloc \"%s\" non terminal"|
+\\(\verb|"bloc \"%s\" not terminal"|)
+Ce message indique une erreur dans les fichiers de description des
+senseurs, il peut être généré au moment où l'on lit un senseur
+particulier pour la première fois (si l'ensemble des fichiers sont lus
+dès la création du simulateur Marmottes, les descriptions de senseurs
+sont analysées à la demande). \bibliotheque{marmottes} attendait un
+bloc terminal et a trouvé un bloc ayant une structuration interne.
+
+\verb="bloc \"%s\" introuvable dans le fichier \"%s\""=
+\\(\verb="no bloc \"%s\" in file \"%s\""=)
+Ce message n'est pas généré par \bibliotheque{marmottes} mais par
+\bibliotheque{club} en cas d'échec d'une tentative d'extraction d'un
+bloc de haut niveau (c'est à dire d'un senseur ou d'un bloc servant à
+une indirection), il s'agit le plus souvent d'une erreur de nommage de
+ce bloc (soit dans l'appel soit dans le fichier).
+
+\verb|"cible d'un senseur inconnue : \"%s\"\ncibles connues :"|
+\\(\verb|"unknown sensor target : \"%s\"\nknown targets :"|)
+Ce message indique une erreur dans les fichiers de description des
+senseurs, la cible d'un senseur optique n'a pas été reconnue. Le
+message est suivi de la liste des cibles autorisées.
+
+\verb|cible du senseur \"%s\" non initialisée|
+\\(\verb|\"%s\" sensor, uninitialized target|)
+Ce message est généré lors de l'utilisation d'un senseur ayant une
+cible définie par l'utilisateur lorsque celui-ci utilise le senseur
+avant d'initialiser sa cible. Il s'agit vraisemblablement d'une erreur
+de codage.
+
+\verb|"consignes des senseurs \"%s\" et \"%s\" incompatibles"|
+\\(\verb|"inconsistent attitude constraints for sensors \"%s\" and \"%s\""|)
+Ce message est généré lors d'une tentative de résolution d'attitude si
+l'on se rend compte que deux consignes géométriques ne sont pas
+compatibles entre elles (par exemple parce qu'elles sont redondantes
+et ne permettent pas de construire des familles de modèles à un degré
+de liberte). Ce message indique généralement une erreur dans le choix
+des senseurs de consignes ou dans leurs caractéristiques (axes
+sensibles entre autres).
+
+\verb|"consignes des senseurs \"%s\" et \"%s\" incompatibles avec un omega maximal limité à %f|\\\verb|degrés par seconde"|
+\\(\verb|"attitude constraints for sensors \"%s\" et \"%s\" inconsistent with maximal %omega limited|\\ 
+\verb|to %f degrees per seconde"|)
+Ce message indique que la combinaison des consignes des deux premiers
+senseurs cinématiques dépasse la vitesse de rotation maximale du
+satellite. Il ne peut donc y avoir aucune solution, et ce quelle que
+soit la valeur de la troisième consigne. Il faut donc vérifier les
+consignes, ou bien le pas de temps alloué au satellite pour tourner
+dans le cas des gyromètres intégrateurs (un pas trop court revient à
+demander une vitesse trop élévée).
+
+\verb|"consigne du senseur \"%s\" dégénérée"|
+\\(\verb|"degenerated attitude constraint for sensor \"%s\""|)
+Ce message est généré lors d'une tentative de résolution d'attitude si
+l'on se rend compte que l'un des cônes de consigne géométrique est
+quasiment ponctuel. Ce message indique généralement une erreur dans le
+choix de la valeur de la consigne (par exemple $\pm90$\degre pour un
+senseur de déclinaison).
+
+\verb|"échantillon vide (bloc \"%s\")"|
+\\(\verb|"empty sample (bloc \"%s\")"|)
+Ce message est généré s'il n'y a pas de point dans l'échantillonnage
+d'un senseur de fonction échantillonnée. Ce message indique une erreur
+dans le fichier de description.
+
+\verb|"erreur d'allocation mémoire"|
+\\(\verb|"memory allocation error"|)
+Ce message indique qu'une tentative d'allocation mémoire s'est soldée
+par un échec, il s'agit généralement d'un dépassement des capacités de
+la machine. Il faut alors vérifier l'utilisation des ressources par le
+programme appelant (par exemple vérifier que l'on demande bien à la
+bibliothèque de libérer les simulateurs par des appels à
+\fonc{MarmottesDetruire}), ou par les autres programmes pouvant
+tourner en parallèle.
+
+\verb|"erreur interne de MARMOTTES, contactez la maintenance (ligne %d, fichier %s)"|
+\\(\verb|"MARMOTTES internal error, contact the support (line %d, file %s)"|)
+Ce message ne devrait normalement pas apparaître ... Il indique qu'un
+cas théoriquement impossible a été rencontré, ce qui temoigne d'une
+erreur de la bibliothèque. Dans une telle éventualité, il faut
+prévenir la maintenance.
+
+\verb|"erreur non reconnue"|
+\\(\verb|"unknown error"|)
+Ce message ne devrait normalement pas apparaître ... Il indique qu'une
+exception inattendue a été récupérée, ce qui temoigne d'une
+erreur de la bibliothèque. Dans une telle éventualité, il faut
+prévenir la maintenance.
+
+\verb|"genre non reconnu pour le senseur d'angle de Cardan \"%s\"\ngenres connus :"|
+\\(\verb|"unknown kind of Cardan angle sensor \"%s\"\nknown kinds :"|)
+Ce message est généré lors de la lecture d'un senseur de Cardan dont
+le genre n'est pas reconnu, il est suivi de la liste des genres
+reconnus. Ce message indique une erreur dans les fichiers.
+
+\verb|"gyromètres coaxiaux"|
+\\(\verb|"coaxials rate gyros"|)
+Ce message est généré lors de la prise en compte des consignes au
+début d'une résolution d'attitude par un modèle cinématique lorsque
+les deux senseurs ont des axes trop proches les uns des autres. Ceci
+indique vraisemblablement une erreur de paramétrage avec une recopie
+du même nom de senseur ou la définition du même senseur sous deux noms
+différents dans le fichier.
+
+\verb|"identificateur marmottes non initialisé : %d"|
+\\(\verb|"uninitialized marmottes id : %d"|) Ce message est généré par
+les interfaces fonctionnelles \langage{c} et \langage{fortran} lorsque
+le numéro utilisé comme identificateur est invalide, ceci indique une
+erreur de codage, l'identificateur utilisé n'ayant pas été retourné
+par un appel préalable à \fonc{MarmottesCreer} ou ayant été détruit
+par un appel précédent à \fonc{MarmottesDetruire}.
+
+\verb|"la cible du senseur \"%s\" n'est pas modifiable"|
+\\(\verb|"target modification is not allowed for sensor \"%s\""|)
+Ce message est généré lorsque l'utilisateur tente de modifier la cible
+d'un senseur qui n'a pas été prévu pour cela. Il s'agit soit d'une
+erreur sur le nom du senseur, soit d'une incohérence entre les
+fichiers et le code.
+
+\verb|"la norme des vecteurs position/vitesse est temporairement litigieuse et ne|
+\\\verb|doit pas être utilisée"|
+(\verb|"the size of position/speed vectors is temporarily|
+\\\verb|questionable and should not be used"|)
+Ce message apparaît lorsque l'utilisateur change les unités d'entrée
+d'un simulateur (fonction \fonc{MarmottesUnitesPositionVitesse} ou
+méthode \fonc{unitesPositionVitesse} de la classe Marmottes) et qu'il
+fait ensuite un appel nécessitant une position exacte (par exemple
+mesure d'un senseur solaire, qui passe par un calcul de parallaxe)
+avant d'avoir redonné de nouvelles position et vitesse dans les
+nouvelles unités. Il faut noter que toutes les utilisations de
+senseurs n'engendrent pas cette erreur, ainsi un senseur de Cardan
+basé sur le repère orbital local n'utilise que les directions des
+vecteurs, pas leur norme.
+
+\verb|"le bloc \"%s\" a %d champs (%d demandés)"|
+\\(\verb|"bloc \"%s\" has %d fields (%d asked for)"|)
+Ce message indique une erreur dans les fichiers de description des
+senseurs, il peut être généré au moment où l'on lit un senseur
+particulier pour la première fois (si l'ensemble des fichiers sont lus
+dès la création du simulateur Marmottes, les descriptions de senseurs
+sont analysées à la demande). \bibliotheque{marmottes} attendait un
+certain nombre de champs dans un bloc terminal et en a trouvé un autre.
+
+\verb|"le repère de référence du senseur \"%s\" n'est pas modifiable"|
+\\(\verb|"reference frame modification is not allowed for sensor \"%s\""|)
+Ce message apparaît lorsque l'utilisateur tente de modifier le repère
+de référence d'un senseur de Cardan qui n'a pas été prévu pour
+cela. Il s'agit soit d'une erreur sur le nom du senseur, soit d'une
+incohérence entre les fichiers et le code.
+
+\verb|"le senseur \"%s\" ne peut être utilisé qu'en mesure, pas en consigne"|
+\\(\verb|"\"%s\" sensor can be used only for measurements, not for attitude constraints"|)
+Ce message indique que l'utilisateur a tenté d'utiliser en consigne un
+senseur pour lequel seule la fonction de mesure a été implantée, pas
+la fonction inverse qui permet de créer un modèle d'attitude
+en partant d'une mesure. Il s'agit par exemple des pseudo-senseurs
+représentant des gains d'antennes (on ne peut donner le gain et en
+déduire l'attitude). Il s'agit soit d'une erreur sur le nom du
+senseur, soit d'une incohérence entre les fichiers et le code.
+
+\verb|"le senseur \"%s\" observe le corps central mais est inhibé par le corps central"|
+\\(\verb|"sensor \"%s\" observes the central body but is also inhibited by the central body"|)
+Ce message est affiché lors de la lecture d'un capteur si sa cible est
+liée au corps central mais si simultanément le capteur a un champ
+d'inhibition pour le corps central. Cette situation correspond
+généralement à une erreur de modélisation ou à un copier-coller
+malencontreux et est explicitement interdite dans la bibliothèque. Il
+faut corriger le fichier senseur et éliminer le champ d'inhibition.
+
+\verb|"le senseur \"%s\" observe le soleil mais est inhibé par le soleil"|
+\\(\verb|"sensor \"%s\" observes the sun but is also inhibited by the sun"|)
+Ce message est affiché lors de la lecture d'un capteur si sa cible est
+liée au soleil mais si simultanément le capteur a un champ
+d'inhibition pour le soleil. Cette situation correspond généralement à
+une erreur de modélisation ou à un copier-coller malencontreux et est
+explicitement interdite dans la bibliothèque. Il faut corriger le
+fichier senseur et éliminer le champ d'inhibition.
+
+\verb|""le senseur \"%s\" observe la lune mais est inhibé par la lune"|
+\\(\verb|"sensor \"%s\" observes the moon but is also inhibited by the moon"|)
+Ce message est affiché lors de la lecture d'un capteur si sa cible est
+liée à la lune mais si simultanément le capteur a un champ
+d'inhibition pour la lune. Cette situation correspond généralement à
+une erreur de modélisation ou à un copier-coller malencontreux et est
+explicitement interdite dans la bibliothèque. Il faut corriger le
+fichier senseur et éliminer le champ d'inhibition.
+
+\verb|"les senseurs \"%s\" et \"%s\" ne peuvent pas être utilisés en consigne|
+\\\verb|simultanément"| (\verb|"sensors \"%s\" and \"%s\" cannot be used simultaneously for|
+\\\verb|control"|)
+Ce message est généré lors du choix des senseurs utilisés pour le
+modèle analytique lorsqu'il reste une incompatibilité après le
+tri. Cette erreur ne devrait normalement pas se produire avec les
+versions de \bibliotheque{marmottes} actuelles (jusqu'à la 6.1 au
+moins) car il n'y a que deux types de senseurs et le choix est à
+effectuer entre trois senseurs, il y en a donc toujours deux de même
+type. Il est cependant possible que des versions futures introduisent
+de nouveaux types, éventuellement même des types qui ne soient jamais
+utilisables en consigne.
+
+\verb|"liste des senseurs de contrôle non initialisée"|
+\\(\verb|"list of control sensors not initialized"|)
+Cette erreur signale que l'on tente de résoudre une attitude sans
+avoir initialisé les senseurs de contrôle, normalement ceci ne devrait
+jamais se produire, car la construction des simulateurs aurait déjà
+signalé une erreur au préalable. Ceci indique donc une erreur de
+codage.
+
+\verb|"nombre de points d'échantillonnage incorrect (%d points, bloc \"%s\")"|
+\\(\verb|incorrect number of sample points (%d points, bloc \"%s\")|)
+Ce message est généré à la lecture d'une table d'échantillonnage lors
+de la description d'un senseur de fonction échantillonnée, le nombre
+doit obligatoirement être pair (et non nul). Ce message indique une
+erreur dans le fichier de description.
+
+\verb|"nombre de points de masque incorrect (%d points, bloc \"%s\")"|
+\\(\verb|"incorrect number of mask points (%d points, bloc \"%s\")"|)
+Ce message est généré à la lecture d'un masque d'antenne sol lors de
+la description d'une station, le nombre doit obligatoirement être pair
+(et non nul). Ce message indique une erreur dans le fichier de
+description.
+
+\verb|"nombre de tranches de dichotomie négatif ou nul : %d"|
+\\(\verb|"negative or null dichotomy samples number : %d"|)
+Ce message est généré lorsque l'utilisateur change le nombre de
+tranches de dichotomie de l'algorithme de résolution numérique (par la
+fonction \fonc{MarmottesDichotomie} ou par la méthode
+\fonc{dichotomie} de la classe Marmottes) et qu'il donne une valeur
+irréaliste. Il s'agit vraisemblablement d'une erreur de codage.
+
+\verb|"norme du quaternion \"%s\" trop petite"|
+\\(\verb|"too small norm for quaternion \"%s\""|)
+Ce message est généré lors de la lecture d'une rotation sous forme de
+quaternion dans les fichiers de description des senseurs si la norme
+est excessivement faible, ceci indique une erreur dans les fichiers.
+
+\verb|"norme du vecteur \"%s\" trop petite"|
+\\(\verb|"too small norm for vector \"%s\""|)
+Ce message est généré lors de la lecture d'un vecteur sous forme de
+coordonnées cartésiennes dans les fichiers de description des senseurs
+si la norme est excessivement faible, ceci indique une erreur dans les
+fichiers.
+
+\verb|"pas d'axe de calage de défini pour ce senseur"|
+\\(\verb|"no defined wedging axis for this sensor"|)
+Ce message est généré lors d'une tentative de recalage d'un senseur
+(par la fonction \fonc{MarmottesCalage} ou par la méthode
+\fonc{calage} de la classe Marmottes) lorsqu'aucun axe de calage n'a
+été défini pour ce senseur (l'axe de calage est une donnée optionnelle
+pour tout senseur). Ceci indique soit une erreur dans les fichiers de
+description des senseurs, soit une erreur de paramétrage.
+
+\verb|"pas de solution aux consignes d'attitude"|\\
+(\verb|"no solution to attitude constraints found"|)
+Ce message est de très loin celui qui apparaît le plus fréquemment !
+il indique que \bibliotheque{marmottes} n'a pas réussi à trouver
+d'attitude respectant à la fois les consignes et les contraintes des
+senseurs (champs de vue, inhibitions, masques, ...) et qu'il a été
+impossible de déterminer lors du rejet des solutions parasites
+lesquelles étaient de simples artefacts mathématiques et laquelle
+correspondait à la solution physique attendue mais rejetée par les
+contraintes technologiques. Dans la plupart des cas, cela indique que
+l'attitude n'est effectivement pas contrôlable de la façon souhaitée,
+on peut investiguer en suivant les conseils donnés dans la description
+du message \verb|attitude solution théorique incontrôlable ...|, avec
+la différence que l'on ne sait pas quel senseur a conduit au rejet
+(car on peut rejetter généralement les artefacts mathématiques sur un
+senseur et la solution physique sur un autre, les artefacts étant
+souvent des symétriques de la solution).
+
+\verb|"point d'échantillonnage (%f, %f) hors bornes (bloc \"%s\")"|
+\\(\verb|"sample point (%f, %f) out of bounds (bloc \"%s\")"|)
+Ce message apparaît lors de la lecture d'un senseur de fonction
+échantillonnée si l'angle d'échantillonnage est inférieur à $0$ ou
+supérieur à $\pi$. Ce message indique une erreur dans le fichier de
+description.
+
+\verb|"problème dans la mise à jour du repère de référence du senseur \"%s\""|
+\\(\verb|"problem in sensor \"%s\" reference frame update"|)
+Ce message est généré lors de la mise à jour du repère de référence
+d'un senseur de type Cardan. C'est en fait une erreur de
+\bibliotheque{cantor} qui survient lors de la construction du repère.
+
+\verb|"référence à un objet inconnu dans le tracé"|
+\\(\verb|"reference to an unknown object in the call trace"|)
+Ce message indique que lors de la retranscription des traces d'appels,
+une référence à un objet inconnu a été faite (par exemple lors d'un
+appel à une méthode). Ceci indique soit que l'activation du mécanisme
+de tracé a été faite trop tard et que la création de l'objet référence
+a été manquée (cela peut par exemple arriver si le mécanisme est lancé
+manuellement depuis un \emph{debugger} pendant une exécution), soit
+que l'objet a été détruit entre-temps. Il faut prendre garde à activer
+le mécanisme avant les constructions d'objets.
+
+\verb|"repère de référence du senseur \"%s\" non initialisé"|
+\\(\verb|"\"%s\" sensor, uninitialized reference frame"|)
+Ce message est généré lors de l'utilisation d'un senseur de Cardan
+ayant un repère de réference défini par l'utilisateur lorsque celui-ci
+utilise le senseur avant d'initialiser son repère. Il s'agit
+vraisemblablement d'une erreur de codage.
+
+\verb|"repère non reconnu pour le senseur d'angle de Cardan \"%s\"\nrepères connus :"|
+\\(\verb|"unknown frame for Cardan angle sensor \"%s\"\nknown frames :"|)
+Ce message est généré lors de la lecture d'un senseur de Cardan dont
+le repère de référence n'est pas reconnu, il est suivi de la liste des
+repères reconnus. Ce message indique une erreur dans les fichiers.
+
+\verb|"seuil de convergence négatif ou nul : %f"|
+\\(\verb|"negative or null convergence threshold : %f"|)
+Ce message est généré lorsque l'utilisateur change le seuil de
+convergence de l'algorithme de résolution numérique (par la fonction
+\fonc{MarmottesConvergence} ou par la méthode \fonc{convergence} de la
+classe Marmottes) et qu'il donne une valeur irréaliste. Il s'agit
+vraisemblablement d'une erreur de codage.
+
+\verb="sous-bloc \"%s\" introuvable dans le bloc \"%s\" du fichier \"%s\""=
+\\(\verb="no bloc \"%s\" inside bloc \"%s\" (file \"%s\")"=)
+Ce message n'est pas généré par \bibliotheque{marmottes} mais par
+\bibliotheque{club} lors de la recherche d'un sous-bloc dans un bloc
+non terminal des fichiers de description des senseurs, il s'agit soit
+d'une erreur de syntaxe dans les fichiers, soit d'un problème de
+langue, le fichier ayant des mots-clefs dans une langue qui ne
+correspond pas à la langue couramment utilisée par
+\bibliotheque{marmottes}. Ce dernier cas est directement visible par
+la langue utilisée pour afficher le message et par le nom du bloc
+recherché (le premier bloc recherché dans tous les senseurs est le
+bloc \texttt{repere} en français, traduit par \texttt{frame} dans la
+distribution standard de \bibliotheque{marmottes}).
+
+\verb|"type d'un senseur inconnu : \"%s\"\ntypes connus :"|
+\\(\verb|"unknown sensor type : \"%s\"\nknown types :"|)
+Ce message est généré lors de la lecture du type d'un senseur dans les
+fichiers de description des senseurs, il est suivi de la liste des
+senseurs connus. Ce message indique une erreur dans les fichiers.
+
+\verb|"types des senseurs \"%s\" et \"%s\" incompatibles"|
+\\(\verb|"incompatible types for sensors \"%s\" and \"%s\""|) Ce
+message est généré lors d'une résolution d'attitude partielle (par le
+fonction \fonc{MarmottesDeuxConsignes} ou par la méthode
+\fonc{deuxConsignes} de la classe Marmottes) si les deux premiers
+senseurs ne sont pas tous les deux géométriques ou tous les deux
+cinématiques. En effet dans le cas d'une résolution partielle, on ne
+peut plus réordonner les senseurs, et il faut que les senseurs
+permettent de construire le modèle analytique (il n'y a dans ce cas
+pas de résolution numérique). Il s'agit là d'une limitation de
+\bibliotheque{marmottes}.
+
+\verb|"unité de position inconnue : \"%s\"\nunités connues :"|
+\\(\verb|"unknown position unit : \"%s\"\nknown units :"|)
+Ce message apparaît lors du changement des unités d'entrée d'un
+simulateur (fonction \fonc{MarmottesUnitesPositionVitesse} ou méthode
+\fonc{unitesPositionVitesse} de la classe Marmottes) si l'unité donnée
+par l'utilisateur n'est pas valide, il est suivi de la liste des
+unités reconnues. Si ce message apparaît pour une unité utile, il faut
+demander une évolution de la bibliothèque (qui se limite à quelques
+lignes de code très simples).
+
+\verb|"unité de vitesse inconnue : \"%s\"\nunités connues :"|
+\\(\verb|"unknown speed unit : \"%s\"\nknown units :"|)
+Ce message apparaît lors du changement des unités d'entrée d'un
+simulateur (fonction \fonc{MarmottesUnitesPositionVitesse} ou méthode
+\fonc{unitesPositionVitesse} de la classe Marmottes) si l'unité donnée
+par l'utilisateur n'est pas valide, il est suivi de la liste des
+unités reconnues. Si ce message apparaît pour une unité utile, il faut
+demander une évolution de la bibliothèque (qui se limite à quelques
+lignes de code très simples).
+
+\verb|"vitesse de rotation max négative ou nulle : %f deg/s"|
+\\(\verb|"negative or null maximum angular rate : %f deg/s"|)
+Ce message est généré lorsque l'utilisateur change la limite de
+vitesse de rotation de l'algorithme de résolution numérique (par la
+fonction \fonc{MarmottesWMax} ou par la méthode \fonc{wMax} de la
+classe Marmottes) et qu'il donne une valeur irréaliste. Il s'agit
+vraisemblablement d'une erreur de codage.

@@ -1,0 +1,352 @@
+% -*- mode: latex; tex-main-file: "cantor.tex" -*-
+% $Id: Field.tex,v 1.12 2003/07/09 08:55:11 cantor Exp $
+\subsection{classe Field}\label{sec:Field}
+
+\subsubsection*{description}\label{sec:Field-desc}
+
+Cette classe implante la notion de champ sur la sphère unité, par
+exemple pour définir des champs de vue de senseurs optiques. Ces
+champs peuvent être définis de façon directe dans des cas simples
+(lorsqu'ils sont limités à des cônes), ou par étapes successives en
+modifiant ou combinant des champs plus simples à l'aide d'opérateurs
+ensemblistes~: réunion, intersection, inversion mais aussi différence,
+déplacement, étalement, dilatation ou contraction.
+
+Les champs modélisés ne sont limités ni à des zones convexes ni même à
+des zones connexes. Ils peuvent contenir des trous et être constitués
+de plusieurs morceaux indépendants dont la frontière peut être
+relativement complexe.
+
+\subsubsection*{interface publique}\label{sec:Field-int}
+\begin{verbatim}
+#include "cantor/Field.h"
+\end{verbatim}
+Les types publics sont décrits sommairement dans la
+table~\ref{tab:Field-typ-pub}.
+\begin{tableAttributsFixe}{types publics (typedef) de la classe Field}
+{\label{tab:Field-typ-pub}}
+{frontière globale, pouvant contenir plusieurs}
+
+Loop & vector<Arc>  & frontière d'une zone connexe \\
+
+Boundary & vector<Loop>  & frontière globale, pouvant
+contenir plusieurs zones connexes\\
+
+TypeFuncConstField & void f (const Field\&, void*) & fonction
+applicable à un champ constant\\
+
+TypeFuncField & void f (Field\&, void*) & fonction
+applicable à un champ\\
+
+\end{tableAttributsFixe}
+\begin{tableFonctionsFixe}{Field : méthodes publiques}
+{\label{tab:Field-met-pub}}
+{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+
+\signature{\fonc{Field} ()}
+          {}&
+
+construit un champ par défaut, vide\\
+
+\signature{\fonc{Field} (const Cone\& \argument{c})}
+          {}&
+
+construit un champ simple constitué par le cône \argument{c}\\
+
+\signature{\fonc{Field}}
+          {(const Arc\& \argument{a},\\
+            const VecDBL\& \argument{axis}, double \argument{spreading})\\
+           \throw{CantorErreurs}}&
+
+construit un champ résultant du balayage à l'aide de la rotation d'axe
+\argument{axis} et de d'amplitude \argument{spreading} de l'arc
+\argument{a} sur la sphère unité\\
+
+\hline
+
+\signature{\fonc{Field} (const Field\& \argument{f})}
+          {}&
+
+constructeur par copie\\
+
+\signature{Field\& \fonc{operator =}}
+          {(const Field\& \argument{f})}&
+
+affectation\\
+
+\hline
+
+\signature{\fonc{~Field} ()}{} &
+destructeur
+\\
+
+\hline
+
+\signature{bool \fonc{isEmpty}() const}
+          {}&
+
+indique si l'instance est vide\\
+
+\signature{bool \fonc{isFull}() const}
+          {}&
+
+indique si l'instance recouvre la totalité de la sphère\\
+
+\signature{bool \fonc{isInside}}
+          {(const VecDBL\& \argument{point},\\
+            bool *\argument{ptrDegenerated} = 0) const}&
+
+indique si le \argument{point} est inclus dans l'instance, si
+\argument{ptrDegenerated} est non nul une indication de calcul
+est fiable ou dégénéré est écrite dans la variable pointée\\
+
+\signature{double \fonc{offsetFromBoundary}}
+          {(const VecDBL\& \argument{point}) const\\
+           \throw{CantorErreurs}}&
+
+calcule l'écart angulaire signé entre le point et la frontière
+(positif si le point est à l'intérieur du champ, négatif sinon)\\
+
+\signature{Secteurs \fonc{selectInside} (const Secteurs\& \argument{s}) const}
+          {\throw{CantorErreurs}}&
+
+retourne les parties du secteur \argument{s} visibles à travers le
+champ courant\\
+
+\signature{Secteurs \fonc{selectInside} (const Cone\& \argument{c}) const}
+          {\throw{CantorErreurs}}&
+
+retourne les parties du cône \argument{c} visibles à travers le champ
+courant\\
+
+\hline
+
+\signature{Field \fonc{operator -} () const}
+          {}&
+
+retourne le champ opposé à l'instance, c'est à dire dont l'intérieur
+et l'extérieur sont permutés\\
+
+\signature{const Field\& \fonc{operator *=} (const Field\& \argument{f})}
+          {\throw{CantorErreurs}}&
+
+remplace l'instance par son intersection avec le champ \argument{f}\\
+
+\signature{const Field\& \fonc{operator +=} (const Field\& \argument{f})}
+          {\throw{CantorErreurs}}&
+
+remplace l'instance par sa réunion avec le champ \argument{f}\\
+
+\signature{const Field\& \fonc{operator -=} (const Field\& \argument{f})}
+          {\throw{CantorErreurs}}&
+
+remplace l'instance par sa différence avec le champ \argument{f}\\
+
+\hline
+
+\signature{void \fonc{rotate} (const RotDBL\& \argument{r})}
+          {}&
+
+remplace l'instance par son image à travers la rotation \argument{r}\\
+
+\signature{void \fonc{spread}}
+          {(const VecDBL\& \argument{axis}, double \argument{spreading})\\
+           \throw{CantorErreurs}}&
+
+remplace l'instance par son balayage à l'aide de la rotation d'axe
+\argument{axis} et d'amplitude \argument{spreading}\\
+
+\signature{void \fonc{applyMargin} (double \argument{m})}
+          {\throw{CantorErreurs}}&
+
+applique la marge angulaire \argument{m} à l'instance (ceci étend
+l'instance si \argument{m} est positif et la réduit si \argument{m}
+est négatif)\\
+
+\hline
+
+\signature{void \fonc{initWalk} (double \argument{tolerance} = 1.0e-4)}
+          {}&
+
+initialise un itérateur interne permettant de parcourir la frontière
+de l'instance\\
+
+\signature{bool \fonc{nextPoint}}
+          {(VecDBL *\argument{ptrPoint}, bool *\argument{ptrLast})}&
+
+calcule le point suivant lors du parcours de la frontière et retourne
+un indicateur de fin de parcours. Si la frontière est formée de
+plusieurs courbes fermées disjointes, la variable pointée par
+\argument{ptrLast} est initialisée à une valeur non nulle à chaque
+fois qu'un point est le dernier d'une courbe (ceci permet à un
+logiciel de tracé de « lever le crayon » entre les courbes)\\
+
+\signature{void \fonc{stopWalk} ()}
+          {}&
+
+arrête l'itérateur interne sur la frontière\\
+
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+
+\begin{verbatim}
+#include "marmottes/Field.h"
+
+...
+
+  VecDBL v1 (radians (180.0), radians (25.0));
+  Cone planLimitationScan1 (v1, radians (90.0));
+  VecDBL v2 (radians (0.0),   radians (25.0));
+  Cone planLimitationScan2 (v2, radians (90.0));
+  Field diedreOuvertureScan    (planLimitationScan1);
+  diedreOuvertureScan *= Field (planLimitationScan2);
+
+  Field scanSud (Cone (VecDBL (0.0, -1.0, 0.0), radians (96.491)));
+  scanSud  *= Field (Cone (VecDBL (0.0,  1.0, 0.0), radians (84.159)));
+  scanSud  *= diedreOuvertureScan;
+
+  scanSud.applyMargin (radians (0.3));
+
+  ...
+
+  VecDBL point;
+  bool   dernier;
+
+  scanSud.initWalk (1.0e-4);
+  while (scanSud.nextPoint (&point, &dernier))
+  {
+    cout << point.x () << ' ' << point.y () << ' ' << point.z () << endl;
+    if (dernier)
+      cout << "&\n";
+  }
+  scanSud.stopWalk ();
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation
+spécifiques}\label{sec:Field-conseils}
+Pour l'utilisateur, la classe Field est très simple car elle modélise
+des notions ensemblistes de relativement haut niveau. On peut
+modéliser facilement des champs complexes en les construisant petit à
+petit à l'aide des divers opérateurs. La plupart du temps il y a de
+nombreuses façons différentes de réaliser la construction.
+
+La classe Field est une refonte complète de l'ancienne classe Champ
+utilisées dans les versions de \bibliotheque{marmottes} antérieures à
+la 8.0. Elle corrige un problème grave mais à occurrence très rare.
+
+\subsubsection*{implantation}\label{sec:Field-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:Field-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe Field}
+{\label{tab:Field-att-priv}}
+{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+
+empty\_ & bool  & indicateur de vacuité du champ, utilisé lorsque le
+nombre d'arcs frontières est nul (dans ce cas soit le champ est vide,
+soit il recouvre toute la sphère unité)\\
+
+boundary\_ & Boundary  & frontière séparant l'intérieur de l'extérieur\\
+
+\hline
+
+rejectionCone\_ & Cone & cône permettant de rejeter par un test rapide
+une grande partie des points extérieurs au champ\\
+
+activeRejectionCone\_ & bool & indicateur de validité de l'attribut
+rejectionCone\_\\
+
+\hline
+
+targetPoint\_ & VecDBL & 
+point de la frontière permettant de tester
+si un point de la sphère appartient ou nom au champ
+\\
+
+activeTargetPoint\_ & bool & 
+indicateur de validité de l'attribut targetPoint\_
+\\
+
+\hline
+
+iter\_ & ArcIterateur * & itérateur sur l'arc frontière courant\\
+
+init\_ & bool  & indicateur d'initialisation de l'itérateur\\
+
+i\_ & Boundary\verb=::=const\_iterator  & itérateur sur la boucle courante\\
+
+j\_ & Loop\verb=::=const\_iterator & itérateur sur la frontière courante\\
+
+tolerance\_ & double & tolérance sur le parcours de la frontière\\
+
+\end{tableAttributsFixe}
+\enlargethispage{1\baselineskip}
+Les méthodes privées sont décrites dans la table~\ref{tab:Field-met-priv}.
+\begin{tableFonctionsFixe}{Field : méthodes privées}
+{\label{tab:Field-met-priv}}
+{filtre les arcs qui sont à l'intérieur du champ, en les}
+
+\signature{void \fonc{combine}}
+          {(const Field\& \argument{f},\\
+            bool \argument{intersection})\\\throw{CantorErreurs}}&
+
+combine la frontière de l'instance et celle de l'argument selon
+l'opération spécifiée (intersection ou réunion)\\
+
+\signature{void \fonc{simplifyBoundary} ()}
+          {}&
+
+simplifie la frontière en éliminant les arcs nuls\\
+
+\signature{void \fonc{select} (list<Arc> *\argument{ptrList}) const}
+          {\throw{CantorErreurs}}&
+
+filtre les arcs qui sont à l'intérieur du champ, en les redécoupant au
+besoin\\
+
+\signature{bool \fonc{selectClosest}}
+          {(VecDBL *\argument{ptrP}, const VecDBL\& \argument{p},\\
+            int \argument{nbPointsToAvoid},\\
+            const VecDBL **\argument{pointsToAvoid}) const}&
+
+sélectionne le point de la frontière le plus proche du point test
+\argument{p}, en évitant les points listés dans la table
+\argument{pointsToAvoid}, retourne une valeur vraie si un point a été
+trouvé.\\
+
+\signature{Cone \fonc{recursRejectionCone}}
+          {(const VecDBL\& \argument{p1},\\
+            const VecDBL\& \argument{p2},\\
+            const VecDBL\& \argument{p3},\\
+            int \argument{depth}) const\\
+           \throw{CantorErreurs}}&
+
+recherche récursivement un cône de rejet en partant des trois points
+de base spécifiés. La profondeur est mise à zéro par l'appelant de
+plus haut niveau et est incrémentée et testée au dessous de façon à
+limiter la recherche à quelques niveaux seulement.\\
+
+\signature{void \fonc{computeRejectionCone} ()}
+          {\throw{CantorErreurs}}&
+
+Calcule un cône de rejet permettant lorsqu'on en trouve un d'accélérer
+les tests d'appartenance.\\
+
+\signature{void \fonc{computeTargetPoint} (const VecDBL\& \argument{point})}
+          {\throw{CantorErreurs}}&
+
+Calcule un point cible optimisé pour le point test courant (ce point
+cible pourra cependant être réutilisé pour d'autres points tests)
+\\
+
+\signature{void \fonc{firstCrossing}}
+          {(Arc *\argument{ptrArc},
+            Loop\char58\char58const\_iterator *\argument{ptrCrossing})\\
+           \throw{CantorErreurs}}&
+
+tronque l'arc pointé par \argument{ptrArc} au niveau du premier
+franchissement de la frontière et retourne un itérateur sur l'arc
+frontière correspondant dans la variable pointée par
+\argument{ptrCrossing}
+\\
+
+\end{tableFonctionsFixe}

@@ -1,0 +1,314 @@
+2003-06-24  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* CantorConfig.h.in: remplacement de VERSION par PACKAGE_VERSION pour
+	compatibilité avec autoconf 2.57 (DM 24)
+
+2003-02-04  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* Polynome.h: mise en conformité avec la norme C++ (DM 18).
+
+	* Rotation.cpp, Polynome.cpp, Vecteurs3.cpp: mise à jour des noms des
+	fichiers dans les bandeaux suite à la modification des extensions (DM 17).
+
+2003-02-03  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* Makefile.am: mise à jour des extensions des fichiers CC en CPP (DM 17).
+
+2002-12-10  projet CHOPE O. Queyrut/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* AnnotatedArc.h, Arc.h, ArcIterateur.h, Braid.h, Cone.h, Field.h,
+	Intervalle.h, Node.h, Polynome.h, Resolution1Iterateur.h,
+	Resolution2Iterateur.h, Rotation.h, Secteurs.h, StatistiqueEchantillon.h,
+	ValeurDerivee1.h, ValeurDerivee2.h, Variation1.h, Variation2.h,
+	Vecteur3.h: création de destructeurs et/ou constructeurs additionnels
+	pour prévenir ceux qui sont créés automatiquement par le compilateur.
+
+2002-12-02  projet CHOPE O. Queyrut/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* Arc.h, ArcIterateur.h, Cone.h, Creneau.h, FonctionApprochee.h,
+	Intervalle.h, MoindreCarreLineaire.h, Polynome.h, Resolution1Iterateur.h,
+	Resolution2Iterateur.h, Rotation.h, Secteurs.h, StatistiqueEchantillon.h,
+	ValeurDerivee1.h, ValeurDerivee2.h,Variation1.h, Variation2.h, Vecteur3.h,
+	CantorErreurs.h: ré-agencement des déclarations dans l'ordre
+	public/protected/private
+	
+2002-09-06  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* AnnotatedArc.h: passage du type de l'origine de const Field* à
+	const void*
+
+2002-09-02  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* Secteurs.h: renommage de la méthode vecteurs en diedre, à la
+	suite du changement de signification des vecteurs debut et fin
+	retournés
+
+	* Field.h: élimination des attributs inside_ et outside_, ajout
+	des attributs targetPoint_ et activeTargetPoint_, correction de
+	directives throw
+
+	* Creneau.h: ajout de l'opérateur -=, ajout de l'opérateur -,
+	ajout d'un constructeur à partir de deux intervalles
+
+	* CantorErreurs.h: ajout de l'erreur alignement_axe_extremite
+
+	* Braid.h: correction d'une spécification throw, élimination de la
+	méthode isCovered
+
+	* Arc.h: transfert du constructeur à deux arguments (début, fin)
+	vers le .cc, correction des spécifications throw dans les
+	signatures, retypage des prédicats en bool plutôt qu'en int,
+	transfert de l'opérateur - vers le .cc, ajout de la méthode balaye
+
+2002-09-02  projet CHOPE O. Queyrut/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* AnnotatedArc.h: ajout de la méthode connect entre deux
+	arcs.
+
+	* Braid.h: réorganisation compléte pour utiliser des arcs
+	annotés.
+
+	* CantorErreurs.h: ajout de l'erreur desequilibre_connexions.
+
+	* Node.h: classe modifiée afin de pouvoir gérer un nombre
+	arbitraire (pair) d'arcs.
+
+2002-01-18  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+	
+	* Rotation.cc: ajout du controle des sinus ou cosinus des
+	angles de rotation de Cardan et d'Euler et ajout de l'erreur
+	singularite_angle
+	
+	* CantorErreurs.h: ajout de l'erreur singularite_angle
+
+	* Makefile.am: suppression de CantorConfig.h de la liste du
+	paquetage
+
+2001-11-19  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* Braid.h, Field.h, Node.h: correction de spécifications throw
+
+	* Node.h: correction d'une faute de frappe (absorbDonwstream ->
+	absorbDownstream)
+
+2001-09-18  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Arc.h: ajout de la méthode Arc::proche
+
+	* Cone.h: ajout d'un constructeur à partir de trois points,
+	ajout de l'opérateur « - » unaire pour la complémentation
+
+	* Field.h: ajout des attributs rejectionCone_ et
+	activeRejectionCone_ et des méthodes selectClosest,
+	recursRejectionCone et computeRejectionCone pour accélérer les
+	tests d'appartenance
+
+2001-06-22  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Braid.h: ajout des méthodes isCovered, coveringHeuristic et
+	closeParallelsHeuristic, les méthodes intersectionBoundary,
+	unionBoundary et boundary sont désormais const
+
+	* Arc.h: correction d'un bug dans l'opérateur - de la classe Arc
+
+	* Node.h: ajout d'un ensemble des arcs déjà sélectionnés dans la
+	signature de la méthode select
+
+2001-06-12  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Creneau.h: utilisation du type bool pour les valeurs de retour
+	des prédicats
+
+	* Braid.h: utilisation d'un axe et d'un angle au lieu d'une
+	rotation pour l'étalement
+
+	* Field.h: utilisation d'un axe et d'un angle au lieu d'une
+	rotation pour l'étalement
+
+	* Secteurs.h: utilisation du type bool pour les valeurs de retour
+	des prédicats
+
+2001-06-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: ajout des fichier AnnotatedArc.h, Braid.h, Field.h,
+	Node.h, Secteurs.h et cantdefs.f
+
+	* cantdefs.f: nouveau fichier
+
+	* InterfaceC.h: ajout des fonctions RotTroisAngles et
+	TroisAnglesRot, ajout de lgMaxMessage dans la signature des
+	fonctions
+
+	* InterfaceF.h: ajout des fonctions rottroisangles_ et
+	troisanglesrot_
+
+	* Intervalle.h: utilisation du type bool pour les prédicats
+
+	* Creneau.h: passage au mécanisme des exceptions pour la gestion
+	des erreurs, utilisation du type bool pour les prédicats
+
+	* Cone.h: passage au mécanisme des exceptions pour la gestion des
+	erreurs, utilisation du type bool pour les prédicats
+
+	* Resolution2Iterateur.h: suppression d'un argument inutilisé
+
+	* Resolution1Iterateur.h: suppression d'un argument inutilisé
+
+	* Polynome.cc: passage au mécanisme des exceptions pour la gestion
+	des erreurs
+
+	* Polynome.h: passage au mécanisme des exceptions pour la gestion
+	des erreurs
+
+	* Rotation.cc: passage au mécanisme des exceptions pour la gestion
+	des erreurs, ajout des angles de Cardan et d'Euler
+
+	* Rotation.h: passage au mécanisme des exceptions pour la gestion
+	des erreurs, ajout des angles de Cardan et d'Euler
+
+	* CantorErreurs.h: ajout des erreurs ordre_inconnu,
+	matrice_singuliere, echec_heuristique, frontiere_ouverte et
+	erreur_interne
+
+	* Arc.h: remontée d'exceptions lancées par les classes
+	sous-jacentes
+
+	* Secteurs.h: transfert du fichier (en provenance de la
+	bibliothèque marmottes)
+
+	* AnnotatedArc.h: transfert du fichier (en provenance de la
+	bibliothèque marmottes)
+
+	* Braid.h: transfert du fichier (en provenance de la bibliothèque
+	marmottes)
+
+	* Node.h: transfert du fichier (en provenance de la bibliothèque
+	marmottes)
+
+	* Field.h: transfert du fichier (en provenance de la bibliothèque
+	marmottes)
+
+	* FonctionApprochee.h: passage au mécanisme des exceptions pour la
+	gestion des erreurs (ceci induit des modifications de signatures)
+
+	* MoindreCarreLineaire.h: passage au mécanisme des exceptions pour
+	la gestion des erreurs (ceci induit des modifications de
+	signatures)
+
+	* Vecteur3.cc: passage au mécanisme des exceptions pour la gestion
+	des erreurs
+
+	* Vecteur3.h: passage au mécanisme des exceptions pour la gestion
+	des erreurs
+
+2001-02-16  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* MathPi.h: utilisation de l'espace lexical std
+
+	* ValeurDerivee1.h: recherche de ostream dans l'espace lexical std
+
+	* ValeurDerivee2.h: recherche de ostream dans l'espace lexical std
+
+2000-10-25  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* Makefile.am (pkginclude_HEADERS): ajout de CantorConfig.h
+
+2000-10-24  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* CantorConfig.h.in: nouveau fichier
+
+	* MathPi.h: modification de l'include math.h en cmath (pour permettre
+	la compilation avec le compilateur Sun Workshop 5.0)
+
+	* Util.h, CantorErreurs.h: utilisation du namespace std et ajout de 
+	l'include CantorConfig.h 
+
+2000-09-11  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* CantorErreurs.h (class CantorErreurs): modification de la signature
+	de la fonction virtuelle formate : elle retourne un string STL
+	au lieu d'une ChaineSimple.
+
+2000-03-30  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* *.h: ajout du copyright CNES
+
+1999-06-28  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* Vecteur3.h (Vecteur3): modification de l'opérateur * entre le patron
+	T et un vecteur3<T>. vecteur3<T> est passé par référence constante
+	plutôt que par valeur et n'est plus modifié par cette opérateur.
+
+1999-04-26  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Creneau.h (decale): nouvelle méthode
+
+	* Intervalle.h (decale): nouvelle méthode
+
+1999-04-24  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Cone.h (class Cone): ajout du sinus du demi-angle
+
+	* ValeurDerivee1.h: renommage de la fonction abs en fabs
+
+	* ValeurDerivee2.h: renommage de la fonction abs en fabs
+
+	* Polynome.cc: renommage de la fonction abs en fabs
+
+	* Rotation.cc: renommage de la fonction abs en fabs
+
+	* Vecteur3.cc: renommage de la fonction abs en fabs
+
+	* Util.h (abs): élimination de la fonction
+
+1999-02-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Rotation.cc, Rotation.h: élimination d'un const dans une
+	signature (pour contourner des problèmes d'instanciation par egcs)
+
+1998-10-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Util.h: ajout des constantes cantorEpsilon et cantorEnorme
+
+	* Polynome.cc: remplacement de DBL_EPSILON par cantorEpsilon pour
+	éviter les problèmes de non-portabilité
+
+	* Rotation.cc: remplacement de DBL_EPSILON par cantorEpsilon pour
+	éviter les problèmes de non-portabilité
+
+	* Vecteur3.cc: remplacement de DBL_EPSILON par cantorEpsilon pour
+	éviter les problèmes de non-portabilité
+
+1998-09-17  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* CantorErreurs.h: démarrage des erreurs à 1 pour éviter d'avoir
+	une erreur à code nul
+
+1998-07-29  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* FonctionApprochee.h: correction d'un oubli d'initialisation
+	d'attribut dans le constructeur par défaut
+
+	* Vecteur3.h: élimination de float.h
+
+	* Resolution1Iterateur.h: élimination de float.h
+
+	* Polynome.h: élimination de float.h
+
+	* InterfaceF.h: élimination de string.h
+
+	* InterfaceC.h: élimination de string.h
+
+	* Creneau.h: élimination de float.h
+
+	* Cone.h: élimination de float.h
+
+1998-07-20  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* CantorErreurs.h (class CantorErreurs): ajout de l'erreur
+	repere_indirect
+
+	* Rotation.cc (Rotation): ajout d'une vérification de
+	l'orientation de la matrice
+
+	* ChangeLog: nouveau fichier

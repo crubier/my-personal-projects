@@ -1,0 +1,99 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: SenseurLimbe.tex,v 1.8 2004/06/21 14:43:24 marmottes Exp $
+\subsection{classe SenseurLimbe}\label{sec:SenseurLimbe}
+
+\subsubsection*{description}\label{sec:SenseurLimbe-desc}
+
+Cette classe implante les senseurs de limbe, c'est à dire des senseurs
+d'angles dièdres classiques observant obligatoirement le bord d'un
+astre ayant un diamètre apparent suffisant.
+\subsubsection*{interface publique}\label{sec:SenseurLimbe-int}
+\begin{verbatim}
+#include "marmottes/SenseurLimbe.h"
+\end{verbatim}
+
+\begin{tableFonctionsFixe}{SenseurLimbe : méthodes publiques}
+{\label{tab:SenseurLimbe-met-pub}}
+{destructeur, libère la mémoire allouée aux champs d'inhibition}
+
+\signature{\fonc{SenseurLimbe}}
+          {(const string\& \argument{nom},\\
+            const RotDBL\& \argument{repere},\\
+            const VecDBL\& \argument{axeCalage},\\
+            double \argument{precision},\\
+            Parcelle *\argument{ptrChampDeVue},\\
+            Parcelle *\argument{ptrChampInhibitionSoleil},\\
+            Parcelle *\argument{ptrChampInhibitionLune},\\
+            Parcelle *\argument{ptrChampInhibitionCentral},\\
+            double \argument{margeEclipseSoleil},\\
+            double \argument{margeEclipseLune},\\
+             double \argument{seuilPhaseLune},\\
+            const VecDBL\& \argument{referenceZero},\\
+            const VecDBL\& \argument{axeSensible})
+          }&
+
+construit une instance à partir des données technologiques\\
+
+\hline
+
+\signature{\fonc{SenseurLimbe} (const SenseurLimbe\& \argument{s})}
+          {}&
+
+constructeur par copie\\
+
+\signature{SenseurLimbe\& \fonc{operator =} (const SenseurLimbe\& \argument{s})}
+          {}&
+
+affectation\\
+
+\hline
+
+\signature{\fonc{\~{}SenseurLimbe} ()}
+          {}&
+
+destructeur\\
+
+\hline
+
+\signature{Senseur* \fonc{copie} () const}
+          {}&
+
+opérateur de copie virtuel\\
+
+\hline
+
+\signature{int \fonc{controlable} (const Etat\& \argument{etat})}
+          {\throw{MarmottesErreurs}}&
+
+indique si le senseur serait capable de contrôler le satellite dans
+l'\argument{etat} fourni\\
+\end{tableFonctionsFixe}
+
+\subsubsection*{implantation}\label{sec:SenseurLimbe-impl}
+Il n'y a ni attribut protégé ni attribut privé. Les méthodes protégées
+sont décrites dans la table : \ref{tab:SenseurLimbe-met-prot}.
+\begin{tableFonctionsFixe}{SenseurLimbe : méthodes protégées}
+{\label{tab:SenseurLimbe-met-prot}}
+{pour les capteurs de limbe, on ne sait pas calculer l'écart angulaire}
+
+\signature{\fonc{SenseurLimbe} ()}
+          {}&
+constructeur par défaut. Il est défini explicitement uniquement pour
+prévenir celui créé automatiquement par le compilateur et ne doit pas être
+utilisé.
+\\
+
+\signature{void \fonc{ecartFrontiere}}
+          {(const Etat\& \argument{etat},\\
+            double *\argument{ptrEcartFrontiere},\\
+            bool *\argument{ptrAmplitudeSignificative}) const\\
+            \throw{CantorErreurs}}&
+
+pour les capteurs de limbe, on ne sait pas calculer l'écart angulaire
+entre la cible et la frontière. Cette méthode se contente donc de
+retourner $+1$ si le limbe est visible et $-1$ s'il ne l'est pas et
+d'indiquer par une valeur fausse dans la variable pointée par
+\argument{ptrAmplitudeSignificative} que la valeur numérique est non
+significative.\\
+\hline
+\end{tableFonctionsFixe}

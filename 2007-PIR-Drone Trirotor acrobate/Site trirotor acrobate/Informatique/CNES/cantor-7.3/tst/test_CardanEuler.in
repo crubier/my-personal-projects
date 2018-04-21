@@ -1,0 +1,37 @@
+#! /bin/sh
+
+# identificateur RCS : "$Id: test_CardanEuler.in,v 1.1 2001/06/06 07:17:13 cantor Exp $"
+
+# using an english environment for the tests
+@ca_cv_var_lang@=en              ; export @ca_cv_var_lang@
+@ca_cv_var_tradpath@=@srcdir@/.. ; export @ca_cv_var_tradpath@
+
+# run the test program
+if [ -f ./test_CardanEuler.res ] ; then
+  rm ./test_CardanEuler.res
+fi
+touch ./test_CardanEuler.res
+
+for ordre in xyz xzy yxz yzx zxy zyx xyx xzx yxy yzy zxz zyz ; do
+  for v in "1 0 0" "0 1 0" "0 0 1" ; do
+    echo "" >> ./test_CardanEuler.res
+    echo "prgm_CardanEuler -$ordre -n 10 -angles 10 20 30 -v $v" >> ./test_CardanEuler.res
+    ./prgm_CardanEuler -$ordre -n 10 -angles 10 20 30 -v $v >> ./test_CardanEuler.res 2>&1
+  done
+done
+
+for ordre in xyz xzy yxz yzx zxy zyx xyx xzx yxy yzy zxz zyz ; do
+  for v in "1 0 0" "0 1 0" "0 0 1" ; do
+    echo "" >> ./test_CardanEuler.res
+    echo "prgm_CardanEuler -$ordre -n 10 -angles 10 -20 -40 -v $v" >> ./test_CardanEuler.res
+    ./prgm_CardanEuler -$ordre -n 10 -angles 10 -20 -40 -v $v >> ./test_CardanEuler.res 2>&1
+  done
+done
+
+# file comparison
+echo "difference -p 1.0e-4 -ee 1 10 -res ./test_CardanEuler.res -ref @srcdir@/test_CardanEuler.ref -rfref 1"
+difference -p 1.0e-4 -ee 1 10 -res ./test_CardanEuler.res -ref @srcdir@/test_CardanEuler.ref -rfref 1
+r=$?
+
+rm -f ./test_CardanEuler.res
+exit $r

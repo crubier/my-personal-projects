@@ -1,0 +1,261 @@
+ Contenu du tampon : 
+#
+# Ceci est un fichier
+      	   	# de tests
+  # pour la classe FichierTexte
+
+# test des champs simples
+   111111 	22 3 \n\t\b\a dgdfgg # commentaire en fin de ligne
+
+# test des champs complexes
+"aaaa" "\x5b\x28\x29\x5D" "aa\tbbb\ncc\a\addd\b\43\173\175"
+   "\\\\" "\\\"xx\"\\"#commentaire colle a une fin de ligne
+
+# test de chaînes fortran et C
+xx xx' chaine fortran avec ", #, et '''" cha\356n\e\ C avec ', #, et \""yy yy
+
+#
+# Ceci est un fichier
+      	   	# de tests
+  # pour la classe FichierTexte
+
+# test des champs simples
+   111111 	22 3 \n\t\b\a dgdfgg # commentaire en fin de ligne
+
+# test des champs complexes
+"aaaa" "\x5b\x28\x29\x5D" "aa\tbbb\ncc\a\addd\b\43\173\175"
+   "\\\\" "\\\"xx\"\\"#commentaire colle a une fin de ligne
+
+# test de chaînes fortran et C
+xx xx' chaine fortran avec ", #, et '''" cha\356n\e\ C avec ', #, et \""yy yy
+
+
+
+
+	------------------------
+
+	TEST FONCTIONNEMENT NOMINAL
+
+	------------------------
+
+		PARCOURS
+
+	1- Parcours Incremental
+	   ~~~~~~~~~~~~~~~~~~~~
+mon tampon 
+#
+# Ceci est un fichier
+      	   	# de tests
+  # pour la classe FichierTexte
+
+# test des champs simples
+   111111 	22 3 \n\t\b\a dgdfgg # commentaire en fin de ligne
+
+# test des champs complexes
+"aaaa" "\x5b\x28\x29\x5D" "aa\tbbb\ncc\a\addd\b\43\173\175"
+   "\\\\" "\\\"xx\"\\"#commentaire colle a une fin de ligne
+
+# test de chaînes fortran et C
+xx xx' chaine fortran avec ", #, et '''" cha\356n\e\ C avec ', #, et \""yy yy
+
+apres itc.prem
+#: valeur de itc
+ nombre de lignes : 14
+nombre de champs : 1
+VAL :#,
+VAL :# Ceci est un fichier,
+VAL :# de tests,
+VAL :# pour la classe FichierTexte,
+VAL :# test des champs simples,
+VAL :111111,
+VAL :22,
+VAL :3,
+VAL :\n\t\b\a,
+VAL :dgdfgg,
+VAL :# commentaire en fin de ligne,
+VAL :# test des champs complexes,
+VAL :aaaa,
+VAL :[()],
+VAL :aa	bbb
+ccddd#{},
+VAL :\\,
+VAL :\"xx"\,
+VAL :#commentaire colle a une fin de ligne,
+VAL :# test de chaînes fortran et C,
+VAL :xx,
+VAL :xx chaine fortran avec ", #, et ' chaîne C avec ', #, et "yy,
+VAL :yy,
+
+	2- Parcours Decremental
+	   ~~~~~~~~~~~~~~~~~~~~
+yy
+xx chaine fortran avec ", #, et ' chaîne C avec ', #, et "yy
+xx
+# test de chaînes fortran et C
+#commentaire colle a une fin de ligne
+\"xx"\
+\\
+aa	bbb
+ccddd#{}
+[()]
+aaaa
+# test des champs complexes
+# commentaire en fin de ligne
+dgdfgg
+\n\t\b\a
+3
+22
+111111
+# test des champs simples
+# pour la classe FichierTexte
+# de tests
+# Ceci est un fichier
+#
+
+
+se positionner sur une ligne vide (champ 0, ligne 5)
+valeur : 
+apres incrementation du pointeur
+valeur : # test des champs simples
+
+	------------------------
+
+		INSERTIONS
+
+	1- Insertion en debut
+	   ~~~~~~~~~~~~~~~~~~
+
+insertion du numero de l'element au debut de chacun d'eux.
+
+Contenu du tampon : 
+#[1]1
+# Ceci est un fichier[2]1
+      	   	# de tests[3]1
+  # pour la classe FichierTexte[4]1
+
+# test des champs simples[5]1
+   111111[6]1 	222 33 \n\t\b\a4 dgdfgg5 # commentaire en fin de ligne6
+
+# test des champs complexes[7]1
+"aaaa"[8]1 "\x5b\x28\x29\x5D"2 "aa\tbbb\ncc\a\addd\b\43\173\175"3
+   "\\\\"[9]1 "\\\"xx\"\\"2#commentaire colle a une fin de ligne3
+
+# test de chaînes fortran et C[10]1
+xx[11]1 xx' chaine fortran avec ", #, et '''" cha\356n\e\ C avec ', #, et \""yy2 yy3
+
+
+	------------------------
+
+		REMPLACEMENTS
+
+
+	1- Remplacements simples
+	   ~~~~~~~~~~~~~~~~~~~~~
+
+Remplacer l'element 3,10  par "TOTO".
+
+	2- Remplacements multi-elements
+	   ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Remplacer les elements 2,7 a 4,7  par "UNE CHAINE".
+
+~~~~~~~ contenu du tampon apres remplacements ~~~~~~
+#[1]1
+# Ceci est un fichier[2]1
+      	   	# de tests[3]1
+  # pour la classe FichierTexte[4]1
+
+# test des champs simples[5]1
+   111111[6]1 	UNE CHAINE dgdfgg5 # commentaire en fin de ligne6
+
+# test des champs complexes[7]1
+"aaaa"[8]1 "\x5b\x28\x29\x5D"2 TOTO
+   "\\\\"[9]1 "\\\"xx\"\\"2#commentaire colle a une fin de ligne3
+
+# test de chaînes fortran et C[10]1
+xx[11]1 xx' chaine fortran avec ", #, et '''" cha\356n\e\ C avec ', #, et \""yy2 yy3
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	------------------------
+
+		SUPRESSIONS
+
+
+	1- Suppressions element simple
+	   ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Supprime l'element 3, 7.
+
+	2- Suppressions multi-elements
+	   ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Supprime les elements 1,10 a 2,10
+
+~~~~~~~ contenu du tampon apres suppressions ~~~~~~
+#[1]1
+# Ceci est un fichier[2]1
+      	   	# de tests[3]1
+  # pour la classe FichierTexte[4]1
+
+# test des champs simples[5]1
+   111111[6]1 	UNE  dgdfgg5 # commentaire en fin de ligne6
+
+# test des champs complexes[7]1
+ TOTO
+   "\\\\"[9]1 "\\\"xx\"\\"2#commentaire colle a une fin de ligne3
+
+# test de chaînes fortran et C[10]1
+xx[11]1 xx' chaine fortran avec ", #, et '''" cha\356n\e\ C avec ', #, et \""yy2 yy3
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	------------------------
+
+	TEST FONCTIONNEMENT DEGRADE
+
+	------------------------
+
+		PARCOURS
+
+	1- Parcours Incremental
+	   ~~~~~~~~~~~~~~~~~~~~
+
+valeur dernier element       :yy3
+apres operateur ++          :
+deuxieme appel a operateur++:
+
+	------------------------
+
+	2- Parcours Decremental
+	   ~~~~~~~~~~~~~~~~~~~~
+
+valeur premier element       :#[1]1
+totoe bo
+apres --
+apres operateur --          :#[1]1
+deuxieme appel a operateur--:#[1]1
+
+	------------------------
+
+	3- Acces direct
+	   ~~~~~~~~~~~~
+ Aller sur l'element 1, 1 
+contenu element 1,1  :#[1]1
+Se positionner sur l'element 0,1 
+affichage valeur
+
+Se positionner sur l'element 0,0 
+ Exception levee : ligne 0 hors limites [1 ; 14], tampon "@srcdir@/test_TamponTexte.don"
+Se positionner sur l'element -1 
+ Exception levee : champ -1 hors limites [1 ; 1], tampon "@srcdir@/test_TamponTexte.don"
+acces element 3,14 (dernier element):yy3
+Se positionner sur le dernier element +1
+ Exception levee : champ 4 hors limites [1 ; 3], tampon "@srcdir@/test_TamponTexte.don"
+
+------------------------
+		ITERATEURS INVALIDES
+
+
+supressions de l'element 3 (iterateur 1).
+ Exception levee : champ 3 hors limites [1 ; 1], tampon "@srcdir@/test_TamponTexte.don"
+
+fin du test.

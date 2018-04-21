@@ -1,0 +1,8 @@
+%implements cgirblk_s0_b18_Outputs "C"
+
+%function Outputs(block, system) Output
+
+%if !LibBlockOutputSignalIsExpr(0)
+%<LibBlockAssignOutputSignal(0, "", "", 0, "rt_atan2(%<LibBlockInputSignal(0, "", "", 0)>, %<LibBlockInputSignal(1, "", "", 0)>)")>\
+%endif
+%endfunction

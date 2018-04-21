@@ -1,0 +1,12 @@
+#<AM-acces-V2.0/fichier.dop.param-V3.3>
+
+Structure1  = {
+
+   Table1 = [
+   {
+      integer = 1
+   },
+   {
+      integer = 2
+   }]
+}

@@ -1,0 +1,143 @@
+% -*- mode: latex; tex-main-file: "cantor.tex" -*-
+% $Id: StatistiqueEchantillon.tex,v 1.5 2003/07/09 08:55:11 cantor Exp $
+\subsection{classe StatistiqueEchantillon}\label{sec:StatistiqueEchantillon}
+
+\subsubsection*{description}\label{sec:StatistiqueEchantillon-desc}
+
+Cette classe permet de constituer un échantillon statistique par
+enrichissement progressif (on peut ajouter des points individuellement
+ou d'autres échantillons), et d'extraire ses caractéristiques
+(nombre de points, moyenne, écart type, valeurs extrémales).
+\subsubsection*{interface publique}\label{sec:StatistiqueEchantillon-int}
+\begin{verbatim}
+#include "cantor/StatistiqueEchantillon.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{StatistiqueEchantillon : méthodes publiques}
+{\label{tab:StatistiqueEchantillon-met-pub}}
+{retourne la valeur maximale de l'échantillon}
+
+\signature{\fonc{StatistiqueEchantillon} ()}
+          {}&
+
+construit un échantillon vide\\
+
+\hline
+
+\signature{\fonc{StatistiqueEchantillon} (const StatistiqueEchantillon\& \argument{s})}
+          {}&
+
+constructeur par copie\\
+
+\signature{StatistiqueEchantillon\& \fonc{operator =}}
+          {(const StatistiqueEchantillon\& \argument{s})}&
+
+affectation\\
+
+\hline
+
+\signature{\fonc{~StatistiqueEchantillon} ()} {} &
+destructeur
+\\
+
+\hline
+
+\signature{const StatistiqueEchantillon\& \fonc{operator +=}}
+          {(double \argument{x})}&
+
+ajout d'un point dans l'échantillon\\
+
+\signature{const StatistiqueEchantillon\& \fonc{operator +=}}
+          {(const StatistiqueEchantillon\& \argument{s})}&
+
+combinaison de deux échantillons\\
+
+\hline
+
+\signature{int \fonc{nbPoints} () const}
+          {}&
+
+retourne le nombre de points de l'échantillon\\
+
+\signature{double \fonc{min} () const}
+          {}&
+
+retourne la valeur minimale de l'échantillon\\
+
+\signature{double \fonc{max} () const}
+          {}&
+
+retourne la valeur maximale de l'échantillon\\
+
+\signature{double \fonc{moyenne} () const}
+          {}&
+
+retourne la valeur moyenne de l'échantillon\\
+
+\signature{double \fonc{ecartType} () const}
+          {}&
+
+retourne l'écart type de la loi que suivent les points de
+l'échantillon\\
+
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+
+\begin{verbatim}
+#include "cantor/StatistiqueEchantillon.h" ...
+
+StatistiqueEchantillon se;
+
+for (int i = 0; i < n; i++)
+  se += essai [i];
+
+cout << "échantillon de " << se.nbPoints () << " points" << endl;
+cout << "  min        = " << se.min       () << endl;
+cout << "  max        = " << se.max       () << endl;
+cout << "  moyenne    = " << se.moyenne   () << endl;
+cout << "  écart type = " << se.ecartType () << endl;
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation spécifiques}
+\label{sec:StatistiqueEchantillon-conseils}
+Il faut prendre garde à l'extrapolation hâtive des formules
+statistiques. La variance d'une loi aléatoire $X$ vaut $v(X) = E(X^2)
+- E^2(X)$, et un estimateur non biaisé de l'espérance mathématique sur
+un échantillon est donné par la formule~: $E(X)=\frac{\sum_1^n
+x_i}{n}$. La combinaison directe de ces formules donne bien un
+estimateur de la variance, mais il est biaisé~: $\tilde
+v=\frac{n\sum x_i^2-\left(\sum x_i\right)^2}{n^2}$. Si l'on considère
+que tous les $x_i$ proviennent de tirages indépendants selon une loi
+unique, l'espérance de l'estimateur vaut en effet~: $E(\tilde v) =
+\frac{n-1}{n} v (X)$. L'erreur commise décroît lorsque la taille de
+l'échantillon croît~: elle passe au dessous de 2\% (soit 1\% sur
+l'écart type) pour des échantillons de plus de cinquante points. La
+fonction \fonc{ecartType} utilise donc la formulation sans biais (mais
+moins intuitive)~:
+\begin{displaymath}
+\sigma=\sqrt{\frac{n\sum x_i^2-\left(\sum x_i\right)^2}{n(n-1)}}
+\end{displaymath}
+
+Cette classe est très simple, et aucune gestion d'erreur sophistiquée
+n'a été implantée. Les seules circonstances particulières apparaissent
+lorsque l'on demande les caractéristiques d'un échantillon vide, les
+méthodes de la classe sont protégées contre ces cas et retournent
+arbitrairement 0.
+
+\subsubsection*{implantation}\label{sec:StatistiqueEchantillon-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:StatistiqueEchantillon-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe StatistiqueEchantillon}
+{\label{tab:StatistiqueEchantillon-att-priv}}
+{nombre de points de l'échantillon ($\sum_1^n 1$)}
+
+s1\_ & int & nombre de points de l'échantillon ($\sum_1^n 1$)\\
+
+min\_ & double & valeur minimum de l'échantillon\\
+
+max\_ & double & valeur maximum de l'échantillon\\
+
+sX\_ & double & $\sum_1^n x_i$\\
+
+sX2\_ & double & $\sum_1^n x_i^2$\\
+
+\end{tableAttributsFixe}

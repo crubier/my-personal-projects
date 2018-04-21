@@ -1,0 +1,392 @@
+% -*- mode: latex; tex-main-file: "marmottes-mathematique.tex" -*-
+% $Id: lois.tex,v 1.4 2001/01/26 17:13:53 luc Exp $
+\section{Lois de pilotage}\label{sec:lois}
+Une loi de pilotage est le rassemblement à une date donnée de trois
+consignes, ce qui permet de fixer les trois degrés de liberté d'un
+solide autour de son centre de gravité. Plusieurs types de
+rassemblement sont possibles :
+
+\subsection{contrôle par trois capteurs géométriques}
+\label{sec:geom-geom-geom}
+Ce mode de pilotage correspond par exemple à une man\oe{}uvre d'apogée
+géocentrique ou à un asservissement en lacet sur le Soleil. Dans ces
+deux cas une consigne en roulis est donnée au capteur Terre
+(souvent roulis = 0°), une consigne en tangage est donnée au
+capteur Terre, et une consigne en lacet est donnée au capteur solaire
+(voir figure~\ref{fig:trois-geom}).
+\begin{figure}[htbp]\caption{\label{fig:trois-geom}contrôle par trois
+capteurs géométriques}
+\begin{center}\begin{minipage}{75.00mm}
+\setlength{\unitlength}{0.0250mm}\begin{picture}(3000,2999)
+
+  % courbe 1
+  \qbezier[0](0,1500)(-2,1427)(65,1350)
+  \qbezier[0](65,1350)(115,1295)(196,1247)
+  \qbezier[0](196,1247)(267,1204)(358,1167)
+  \qbezier[0](358,1167)(435,1136)(524,1110)
+  \qbezier[0](524,1107)(1497,864)(2472,1106)
+  \qbezier[0](2472,1109)(2561,1135)(2639,1166)
+  \qbezier[0](2639,1166)(2730,1202)(2802,1245)
+  \qbezier[0](2802,1245)(2894,1300)(2946,1364)
+  \qbezier[0](2946,1364)(3001,1434)(3000,1500)
+
+  % courbe 2
+  \qbezier[0](2361,1079)(2930,1047)(2965,1176)
+
+  % courbe 3
+  \qbezier[0](35,1824)(28,1799)(52,1763)
+  \qbezier[0](52,1763)(75,1729)(120,1695)
+  \qbezier[0](120,1695)(168,1658)(237,1620)
+  \qbezier[0](237,1616)(1074,1212)(2359,1076)
+
+  % courbe 4
+  \qbezier[0](1903,1133)(1888,1068)(1888,1004)
+
+  % courbe 5
+  \qbezier[0](206,1639)(212,1700)(188,1704)
+  \qbezier[0](188,1704)(184,1704)(181,1703)
+  \qbezier[0](179,1702)(147,1670)(163,1611)
+  \qbezier[0](164,1610)(167,1606)(169,1604)
+  \qbezier[0](169,1604)(173,1601)(176,1600)
+  \qbezier[0](177,1600)(195,1600)(205,1638)
+
+  % courbe 6
+  \qbezier[0](310,1695)(304,1696)(298,1698)
+  \qbezier[0](297,1699)(226,1675)(255,1564)
+
+  % courbe 7
+  \qbezier[0](64,1511)(68,1510)(73,1510)
+  \qbezier[0](74,1510)(124,1567)(101,1702)
+
+  % courbe 8
+  \qbezier[0](199,1819)(196,1727)(246,1758)
+
+  % courbe 9
+  \qbezier[0](197,1410)(209,1553)(145,1561)
+  \qbezier[0](145,1561)(106,1538)(108,1456)
+
+  % courbe 10
+  \qbezier[0](2363,1078)(2341,264)(1916,61)
+  \qbezier[0](1915,62)(1879,48)(1849,41)
+
+  % courbe 11
+  \qbezier[0](1151,2959)(1208,2974)(1286,2970)
+  \qbezier[0](1286,2970)(1352,2965)(1419,2943)
+  \qbezier[0](1419,2943)(1487,2920)(1554,2880)
+  \qbezier[0](1554,2881)(1609,2848)(1661,2806)
+  \qbezier[0](1661,2806)(1715,2763)(1766,2711)
+  \qbezier[0](1766,2711)(1818,2658)(1866,2597)
+  \qbezier[0](1868,2597)(2339,1965)(2362,1081)
+
+  % courbe 12
+  \qbezier[0](1368,989)(1377,16)(1455,1)
+
+  % courbe 13
+  \qbezier[0](1545,2999)(1536,3001)(1524,2981)
+  \qbezier[0](1524,2980)(1398,2668)(1366,990)
+
+  % courbe 14
+  \qbezier[0](1455,2650)(1641,2645)(1794,2681)
+
+  % courbe 15
+  \qbezier[0](1597,988)(1597,1015)(1590,1041)
+  \qbezier[0](1590,1041)(1584,1061)(1575,1079)
+  \qbezier[0](1575,1079)(1568,1095)(1558,1109)
+  \qbezier[0](1557,1112)(1421,1266)(1240,1174)
+  \qbezier[0](1238,1171)(1218,1158)(1201,1141)
+  \qbezier[0](1201,1141)(1185,1124)(1173,1103)
+  \qbezier[0](1173,1103)(1157,1077)(1150,1048)
+  \qbezier[0](1150,1048)(1144,1022)(1145,995)
+  \qbezier[0](1145,995)(1146,968)(1154,942)
+  \qbezier[0](1154,942)(1160,922)(1169,904)
+  \qbezier[0](1169,904)(1177,889)(1188,875)
+  \qbezier[0](1188,872)(1317,731)(1491,809)
+  \qbezier[0](1492,811)(1507,820)(1520,830)
+  \qbezier[0](1520,830)(1539,845)(1554,864)
+  \qbezier[0](1554,864)(1596,919)(1597,988)
+
+  % courbe 16
+  \qbezier[0](2959,1849)(2842,2321)(2475,2640)
+  \qbezier[0](2475,2641)(2062,2986)(1524,3000)
+  \qbezier[0](1523,3002)(683,2988)(220,2287)
+  \qbezier[0](221,2285)(172,2204)(133,2118)
+  \qbezier[0](133,2118)(-104,1577)(80,1015)
+  \qbezier[0](80,1015)(215,628)(525,360)
+  \qbezier[0](525,359)(938,14)(1476,0)
+  \qbezier[0](1477,-2)(2317,12)(2780,713)
+  \qbezier[0](2779,715)(3094,1247)(2960,1850)
+
+  \put(1900,850){\mbox{lacet}}
+  \put(1500,2500){\mbox{tangage}}
+  \put(300,900){\mbox{roulis (0°)}}
+\end{picture}\end{minipage}\end{center}
+\end{figure}
+
+Avec le modèle que nous nous sommes donnés, trouver une orientation qui
+respecte les trois consignes revient à trouver le changement de
+repères qui permet de passer du repère inertiel au repère satellite de
+telle façon que les trois cibles (Terre, Terre et Soleil dans notre
+exemple) soient sur les trois cônes de consigne tels que définis au
+paragraphe~\ref{sec:capteurs-geometriques}.
+
+On peut exprimer mathématiquement ce changement de repères : soient
+$\vec{v}_1$ (Terre), $\vec{v}_2$ (Terre), $\vec{v}_3$ (Soleil) les
+vecteurs cibles connus en repère inertiel et $\vec{u}_1$, $\vec{u}_2$,
+$\vec{u}_3$ leurs projections en repère satellite. Le changement de
+repères désiré est celui qui permet de passer d'un triplet de vecteurs
+à l'autre. Pour pouvoir l'exprimer, il faut trouver les vecteurs
+$\vec{u}_i$ sachant que $\vec{u}_1$ doit appartenir au cône
+($\vec{a}_1, \mu_1$) d'axe $\vec{a}_1$ et de demi-angle au sommet
+$\mu_1$ défini par la mesure désirée pour le premier capteur, que
+$\vec{u}_2$ doit appartenir au cône ($\vec{a}_2, \mu_2$) d'axe
+$\vec{a}_2$ et de demi-angle au sommet $\mu_2$ défini par la mesure
+désirée pour le deuxième capteur, et que $\vec{u}_3$ doit appartenir
+au cône ($\vec{a}_3, \mu_3$) d'axe $\vec{a}_3$ et de demi-angle au
+sommet $\mu_3$ défini par la mesure désirée pour le troisième
+capteur. La méthode de résolution est décrite aux
+sections~\ref{sec:geom-geom} (page~\pageref{sec:geom-geom})
+et~\ref{sec:consigne-geom} (page~\pageref{sec:consigne-geom}).
+
+\subsection{contrôle par deux capteurs géométriques et un capteur
+cinématique}\label{sec:geom-geom-cine}
+Ce mode de pilotage se rencontre lors des man\oe{}uvres d'apogée
+géocentriques ou lors des recherches Terre préalables à une
+acquisition en roulis. Dans ces deux cas une consigne en roulis est
+donnée au capteur Terre (souvent roulis = 0°), une consigne en tangage
+est donnée au capteur Terre, et une consigne en lacet est donnée au
+gyromètre lacet (vitesse de rotation nulle autour de l'axe de lacet
+pour les man\oe{}uvres d'apogée, vitesse non nulle pour la recherche
+Terre).
+
+Dans les cas où la consigne de vitesse est nulle, $\dot{\theta}_L = 0$
+implique $\theta_L = \int\dot{\theta}_L dt + \theta_0 = \theta_0 =
+cte$. L'angle constant $\theta_0$ n'est cependant pas un angle
+physiquement mesurable par la séparation de deux points, on ne peut
+donc pas appliquer la méthode de la section précédente pour déterminer
+l'orientation. C'est un angle purement mathématique qui est constant, une
+sorte d'abscisse curviligne mesurée le long d'une courbe due au
+déplacement de l'axe sensible du gyromètre. Ceci est assez difficile à
+se représenter dans l'espace, surtout quand l'angle de tangage est non
+nul : il y a alors des effets de couplage entre le mouvement du
+satellite sur son orbite inclinée, le mouvement autour de l'axe de
+roulis pour conserver la Terre dans le plan (X,Z) (roulis = 0°), et le
+mouvement autour de l'axe de lacet qui doit rester nul malgré tous ces
+couplages. C'est ce type de modélisation qui a d'ailleurs motivé le
+développement d'une méthode de résolution générale. Dans les cas où la
+consigne de vitesse est non nulle, les couplages sont encore plus
+flagrants.
+
+Avec le modèle que nous nous sommes donné, trouver une orientation qui
+respecte les trois consignes revient à trouver le changement de
+repères qui permet de passer du repère inertiel au repère satellite de
+telle façon que les deux cibles (Terre et Terre dans notre exemple)
+soient sur les deux cônes de consigne tels que définis au
+paragraphe~\ref{sec:capteurs-geometriques}, et que la rotation subie
+par le satellite depuis le pas précédent conduise à une vitesse de
+rotation moyenne se projetant sur l'axe sensible du gyromètre
+conformément à la consigne de vitesse angulaire.
+
+On peut exprimer mathématiquement ce changement de repères : soient
+$\vec{v}_1$ (Terre) et $\vec{v}_2$ (Terre) les vecteurs cibles connus
+en repère inertiel et $\vec{u}_1$, $\vec{u}_2$ leurs projections en
+repère satellite. Soit $\vec{\Omega}$ le vecteur rotation instantanée
+correspondant à la rotation subie par le satellite depuis le pas
+précédent. Le changement de repères désiré est celui qui permet de
+passer d'un couple de vecteur à l'autre. Pour pouvoir l'exprimer, il
+faut trouver les vecteurs $\vec{u}_i$ et $\vec{\Omega}$ sachant que
+$\vec{u}_1$ doit appartenir au cône ($\vec{a}_1, \mu_1$) d'axe
+$\vec{a}_1$ et de demi-angle au sommet $\mu_1$ défini par la mesure
+désirée pour le premier capteur, que $\vec{u}_2$ doit appartenir au
+cône ($\vec{a}_2, \mu_2$) d'axe $\vec{a}_2$ et de demi-angle au sommet
+$\mu_2$ défini par la mesure désirée pour le deuxième capteur, et que
+la projection de $\vec{\Omega}$ sur l'axe sensible du gyromètre doit
+être égale à la mesure désirée pour le gyromètre ($\omega_3$). La
+méthode de résolution est décrite aux sections~\ref{sec:geom-geom}
+(page~\pageref{sec:geom-geom}) et~\ref{sec:consigne-cine}
+(page~\pageref{sec:consigne-cine}).
+
+Une particularité de ce type de pilotage est qu'il dépend de l'état
+précédent (le capteur cinématique contrôle les changements d'orientation
+entre deux états du satellite). On ne peut donc calculer une orientation
+de ce type qu'en intégrant depuis un état initial où l'orientation était
+connue par d'autres moyens : orientation géométrique avant le changement
+de mode, ou orientation de début de man\oe{}uvre optimisée dans le cas
+d'une intégration à rebours de la date de début de man\oe{}uvre à la
+date de réorientation, justement pour trouver l'orientation
+géométrique d'initialisation qui permettra au satellite d'évoluer
+\emph{naturellement} jusqu'à la bonne orientation de poussée.
+
+\subsection{contrôle par deux capteurs cinématiques et un capteur
+géométrique}\label{sec:cine-cine-geom}
+
+Ce mode de pilotage est typiquement utilisé à la fin des man\oe{}uvres
+de basculement entre deux orientations stables, les gyromètres gérant la
+rotation du satellite et le capteur géométrique (par exemple un
+capteur solaire) étant utilisé pour converger vers une direction
+particulière. Une utilisation un peu plus complexe concerne les phases
+de recherche Terre en roulis, certains satellites réglant l'ouverture
+du cône de recherche par la combinaison de deux vitesses angulaires
+plutôt que par un capteur géométrique.
+
+À titre d'exemple, une loi de ce type peut être pilotée par les
+consignes :
+\begin{itemize}
+\item lacet capteur solaire : $0\mbox{°}$;
+\item vitesse de roulis : $0,\!75\mbox{°}/s$ ;
+\item vitesse de tangage : $0,\!2\mbox{°}/s$.
+\end{itemize}
+Avec le modèle que nous nous sommes donnés, trouver une orientation qui
+respecte les trois consignes revient à trouver le changement de repère
+qui permet de passer du repère inertiel au repère satellite de telle
+façon que la rotation subie par le satellite depuis le pas précédent
+soit telle que le vecteur rotation instantanée ait pour projections
+sur les axes $\vec{a}_1$ et $\vec{a}_2$ les valeurs $\omega_1$ et
+$\omega_2$ ; simultanément, le vecteur $\vec{v}_3$ connu en repère
+inertiel, une fois projeté en repère satellite devra appartenir au
+cône d'axe $\vec{a}_3$ de demi-angle au sommet $\mu_3$.
+
+Là encore, l'orientation ne peut se calculer qu'en intégrant depuis une
+orientation initiale, puisque le capteur cinématique contrôle les
+changements d'orientation d'un état à un autre du satellite.
+
+\begin{figure}[htbp]\caption{\label{fig:geom-cine}contrôle par un
+capteur géométrique et deux capteurs cinématiques}
+\begin{center}\begin{minipage}{70.00mm}
+\setlength{\unitlength}{0.0250mm}\begin{picture}(2800,2800)
+
+  % courbe 1
+  \qbezier[0](1400,1400)(998,1204)(597,1008)
+
+  % courbe 2
+  \qbezier[0](597,1008)(677,1080)(758,1152)
+
+  % courbe 3
+  \qbezier[0](758,1152)(758,1119)(758,1086)
+
+  % courbe 4
+  \qbezier[0](758,1086)(786,1079)(815,1072)
+
+  % courbe 5
+  \qbezier[0](815,1072)(706,1040)(597,1008)
+
+  % courbe 6
+  \qbezier[0](597,1008)(998,1204)(1400,1400)
+
+  % courbe 7
+  \qbezier[0](1400,1400)(1973,1263)(2547,1125)
+
+  % courbe 8
+  \qbezier[0](2547,1125)(2412,1143)(2277,1161)
+
+  % courbe 9
+  \qbezier[0](2277,1161)(2297,1170)(2318,1180)
+
+  % courbe 10
+  \qbezier[0](2318,1180)(2318,1213)(2318,1246)
+
+  % courbe 11
+  \qbezier[0](2318,1246)(2432,1186)(2547,1125)
+
+  % courbe 12
+  \qbezier[0](2547,1125)(1973,1263)(1400,1400)
+
+  % courbe 13
+  \qbezier[0](1400,1400)(1400,2058)(1400,2716)
+
+  % courbe 14
+  \qbezier[0](1400,2716)(1429,2577)(1457,2439)
+
+  % courbe 15
+  \qbezier[0](1457,2439)(1429,2446)(1400,2453)
+
+  % courbe 16
+  \qbezier[0](1400,2453)(1380,2443)(1360,2433)
+
+  % courbe 17
+  \qbezier[0](1360,2433)(1380,2574)(1400,2716)
+
+  % courbe 18
+  \qbezier[0](1400,1400)(864,1246)(327,1092)
+
+  % courbe 19
+  \qbezier[0](360,1081)(350,1141)(317,1140)
+  \qbezier[0](316,1140)(311,1139)(307,1135)
+  \qbezier[0](305,1133)(281,1091)(323,1049)
+  \qbezier[0](326,1047)(330,1045)(334,1045)
+  \qbezier[0](334,1045)(338,1044)(342,1046)
+  \qbezier[0](342,1046)(359,1052)(360,1080)
+
+  % courbe 20
+  \qbezier[0](599,1010)(577,1315)(381,1437)
+  \qbezier[0](379,1437)(360,1446)(342,1451)
+  \qbezier[0](342,1451)(324,1456)(306,1456)
+  \qbezier[0](306,1456)(285,1457)(265,1451)
+  \qbezier[0](265,1451)(231,1442)(205,1416)
+  \qbezier[0](205,1416)(186,1398)(171,1373)
+  \qbezier[0](171,1373)(159,1351)(150,1325)
+  \qbezier[0](150,1325)(143,1303)(138,1279)
+  \qbezier[0](136,1278)(106,991)(297,802)
+  \qbezier[0](299,802)(320,785)(342,773)
+  \qbezier[0](342,773)(371,757)(400,751)
+  \qbezier[0](400,751)(433,746)(463,754)
+  \qbezier[0](464,754)(590,797)(598,1007)
+
+  % courbe 21
+  \qbezier[0](2302,1034)(2277,1858)(1785,2435)
+  \qbezier[0](1783,2434)(1732,2490)(1678,2538)
+  \qbezier[0](1678,2538)(1625,2585)(1569,2624)
+  \qbezier[0](1569,2624)(1513,2662)(1457,2690)
+  \qbezier[0](1457,2690)(1386,2725)(1315,2744)
+  \qbezier[0](1315,2744)(1231,2767)(1149,2766)
+  \qbezier[0](1149,2766)(1068,2763)(1014,2746)
+
+  % courbe 22
+  \qbezier[0](1789,53)(2273,221)(2303,1031)
+
+  % courbe 23
+  \qbezier[0](2550,1127)(2513,2032)(1950,2580)
+  \qbezier[0](1946,2579)(1895,2624)(1841,2662)
+  \qbezier[0](1841,2662)(1787,2698)(1732,2726)
+  \qbezier[0](1732,2726)(1664,2760)(1596,2778)
+  \qbezier[0](1596,2778)(1528,2796)(1472,2798)
+
+  % courbe 24
+  \qbezier[0](2203,253)(2532,490)(2549,1124)
+
+  % courbe 25
+  \qbezier[0](327,1092)(402,1062)(490,1036)
+  \qbezier[0](490,1033)(1331,819)(2224,1010)
+  \qbezier[0](2225,1013)(2308,1034)(2381,1058)
+  \qbezier[0](2381,1058)(2473,1089)(2547,1125)
+
+  % courbe 26
+  \qbezier[0](2762,1074)(2888,1637)(2594,2133)
+  \qbezier[0](2595,2134)(2162,2788)(1378,2802)
+  \qbezier[0](1377,2800)(875,2787)(490,2465)
+  \qbezier[0](489,2465)(-16,2012)(0,1334)
+  \qbezier[0](1,1333)(15,1067)(124,823)
+  \qbezier[0](124,823)(161,743)(207,668)
+  \qbezier[0](205,666)(638,12)(1422,-2)
+  \qbezier[0](1423,0)(1925,13)(2310,335)
+  \qbezier[0](2310,336)(2653,633)(2762,1074)
+
+  \put(800,1000){\mbox{$-\vec{\imath}$}}
+  \put(1200,2500){\mbox{$\vec{\jmath}$}}
+  \put(2600,1100){\mbox{$\vec{k}$}}
+\end{picture}\end{minipage}\end{center}
+\end{figure}
+
+\subsection{contrôle par trois capteurs cinématiques}
+\label{sec:cine-cine-cine}
+Ce mode de pilotage est utilisé en particulier dans les phases
+transitoires comme les basculements de mise en orientation de poussée, au
+cours desquels un gyromètre contrôle la rotation jusqu'à ce qu'un
+capteur géométrique reprenne le contrôle lorsque son astre cible entre
+dans son champ de vue.
+
+Avec le modèle que nous nous sommes donnés, trouver l'orientation qui
+respecte les trois consignes revient à faire tourner l'orientation du pas
+précédent autour du vecteur rotation instantanée dont les projections
+sur les axes $\vec{a}_1$, $\vec{a}_2$, $\vec{a}_3$ sont respectivement
+$\omega_1$, $\omega_2$, et $\omega_3$. L'orientation se calcule donc par
+intégration pas à pas depuis une orientation initiale.

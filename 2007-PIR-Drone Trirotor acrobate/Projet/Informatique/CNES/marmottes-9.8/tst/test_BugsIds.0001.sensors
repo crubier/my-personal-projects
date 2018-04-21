@@ -1,0 +1,17 @@
+MIMU-Th+X
+{
+  type           { kinematic }
+  accuracy       { 0.0002 }
+  frame          { 
+                   i {  0 -1  0 }                
+                   j {  0  0 -1 }                
+                   k {  1  0  0 }
+                 }
+  sensitive_axis { 1 0 0 }
+}
+
+MIMU-Th+Y    { => { MIMU-Th+X } sensitive_axis { 0 1 0 } }
+MIMU-Th+Z    { => { MIMU-Th+X } sensitive_axis { 0 0 1 } }
+MIMUINT-Th+X { => { MIMU-Th+X } type { integrating_gyro } }
+MIMUINT-Th+Y { => { MIMU-Th+Y } type { integrating_gyro } }
+MIMUINT-Th+Z { => { MIMU-Th+Z } type { integrating_gyro } }

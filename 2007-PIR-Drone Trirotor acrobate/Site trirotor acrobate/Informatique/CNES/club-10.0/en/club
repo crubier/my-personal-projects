@@ -1,0 +1,319 @@
+# fichier de traduction du domaine club
+# identificateur RCS : "$Id: club,v 1.12 2005/02/21 13:38:58 chope Exp $"
+
+# debut de message de description des options
+"usage : "
+   "usage : "
+
+# messages d'erreur
+"probleme d'allocation memoire"
+   "memory allocation problem"
+
+"probleme d'obtention de l'etat du fichier \"%s\""
+  "unable to get \"%s\" file state"
+
+"probleme d'ouverture du fichier \"%s\""
+   "unable to open file \"%s\""
+
+"types incompatibles a la lecture de l'option -%s : %s/%s"
+   "non matching types while reading -%s option : %s/%s"
+
+"arguments de l'option -%s accessibles uniquement par tableau de taille %d"
+   "access to arguments of -%s option allowed only through array of size %d"
+
+"nombre d'arguments de l'option -%s incompatibles : %d trouves, %d attendus"
+   "wrong arguments number for -%s option : %d found, %d expected"
+
+"nombre d'arguments de l'option -%s negatif : %d"
+   "negative arguments number for -%s option : %d"
+
+"l'option sans nom doit avoir un argument et un seul"
+   "the unnamed option should have one and only one argument"
+
+"nom d'option illegal (ne commence pas par une lettre) : -%s"
+   "illegal option name (should begin with a letter) : -%s"
+
+"pas d'argument pour l'option -%s"
+   "no argument for -%s option"
+
+"valeur par defaut manquante pour l'option -%s"
+   "missing default value for -%s option"
+
+"argument de l'option -%s trop long : \"%s\" (%d caracteres max)"
+   "too long argument for -%s option : \"%s\" (%d characters max)"
+
+"argument hors domaine pour l'option -%s : \"%s\", arguments autorises :"
+   "unauthorized argument for -%s option : \"%s\", authorized arguments :"
+
+"option -%s hors limites ]-infini ; %d] : %d"
+   "-%s option out of range ]-infinity ; %d] : %d"
+
+"option -%s hors limites [%d ; +infini[ : %d"
+   "-%s option out of range [%d ; +infinity[ : %d"
+
+"option -%s hors limites [%d ; %d] : %d"
+   "-%s option out of range [%d ; %d] : %d"
+
+"option -%s hors limites ]-infini ; %lf] : %lf"
+   "-%s option out of range ]-infinity ; %lf] : %lf"
+
+"option -%s hors limites [%lf ; +infini[ : %lf"
+   "-%s option out of range [%lf ; +infinity[ : %lf"
+
+"option -%s hors limites [%lf ; %lf] : %lf"
+   "-%s option out of range [%lf ; %lf] : %lf"
+
+"code d'option \"%s\" non reconnu"
+   "unknown option code \"%s\""
+
+"argument manquant pour l'option -%s"
+   "missing argument for -%s option"
+
+"option -%s definie deux fois"
+   "-%s option defined twice"
+
+"analyseur d'options de %s deja initialise"
+   "options analyser %s already initialized"
+
+"analyseur d'options de %s non initialise"
+   "options analyser %s not initialized"
+
+"arguments non reconnus par l'analyseur d'options de %s :"
+   "options analyser %s unable to recognize :"
+
+"occurrence %d de l'option -%s inexistante (%d occurrences passees)"
+   "instance %d of -%s option not available (%d instances available)"
+
+"option -%s absente"
+  "missing -%s option"
+
+"nombre d'occurrences de l'option -%s hors limites [%d ; %d] : %d"
+   "instance number of -%s option out of range [%d ; %d] : %d"
+
+"tampon \"%s\" vide"
+   "\"%s\" buffer empty"
+
+"caractere \" ou caractere \' manquant dans le tampon \"%s\""
+  "missing character \" or \' in buffer \"%s\""
+
+"ligne %d hors limites [%d ; %d], tampon \"%s\""
+   "line %d out of range [%d ; %d], buffer \"%s\""
+
+"champ %d hors limites [%d ; %d], ligne %d du tampon \"%s\""
+   "field %d out of range [%d ; %d], line %d, buffer \"%s\""
+
+"champ %d hors limites [%d ; %d], tampon \"%s\""
+   "field %d out of range [%d ; %d], buffer \"%s\""
+
+"accolades non equilibrees dans le fichier \"%s\""
+   "non matching braces in file \"%s\""
+
+"sous-bloc \"%s\" introuvable dans le bloc \"%s\" du fichier \"%s\""
+   "no bloc \"%s\" inside bloc \"%s\" (file \"%s\")"
+
+"bloc \"%s\" introuvable dans le fichier \"%s\""
+   "no bloc \"%s\" in file \"%s\""
+
+"pas de champ %d dans le bloc \"%s\" du fichier \"%s\""
+   "no %d field within bloc \"%s\" (file \"%s\")"
+
+"bloc \"%s\" non terminal dans le fichier \"%s\""
+   "non terminal bloc \"%s\" in file \"%s\""
+
+"'{' manquante (bloc \"%s\" du fichier \"%s\")"
+   "missing '{' in bloc \"%s\" (file \"%s\")"
+
+"'>' manquant apres \"%s\" (fichier \"%s\")"
+  "missing '>' after \"%s\" (file \"%s\")"
+
+"nom de fichier a inclure manquant (fichier \"%s\")"
+  "missing name of file to include (file \"%s\")"
+
+"erreur d'analyse du format fortran \"%s\""
+  "analysis error for fortran format \"%s\""
+
+"passage par la ligne %d du fichier \"%s\""
+   "passing through line %d (file \"%s\")"
+
+"erreur du domaine %s numero %d non reconnue"
+   "unknown domain %s error (number %d)"
+
+"incoherence entre un iterateur et le tampon \"%s\""
+   "iterator out of date towards buffer \"%s\""
+
+"caractere %d hors limites [%d ; %d], tampon \"%s\""
+   "character number %d out of range [%d ; %d], buffer \"%s\""
+
+"variable d'environnement \"%s\" manquante"
+  "missing environment variable \"%s\""
+
+"trace des executions desactivee"
+   "call trace not activated"
+
+"erreur a l'ouverture du fichier %s"
+  "error while opening file %s"
+
+"erreur interne de CLUB, veuillez contacter la maintenance (ligne %d, fichier %s)"
+   "CLUB internal error, please contact the support (line %d, file %s)"
+
+#erreurs MadonaFile - XMLFile - StructureFile
+
+"fonction \"%s\" non implementee"
+   "function \"%s\" not implemented"
+
+"designation \"%s\" non valide"
+   "invalid data name \"%s\""
+
+"impossible de convertir \"%s\" en entier"
+   "converting \"%s\" into an integer is impossible"
+
+"impossible de convertir \"%s\" en reel"
+   "converting \"%s\" into a real is impossible"
+
+"erreur fichier \"%s\": \"%s\""
+   "error in file \"%s\": \"%s\""
+
+"structure de donnees non valide : %s"
+   "invalid data structure : %s"
+
+"le tag %s manque"
+   "missing tag %s"
+
+"attribut %s manquant dans l'element %s"
+  "missing %s attribute in element %s"
+
+"reference xpointer \"%s\" incorrecte"
+   "invalid xpointer reference \"%s\""
+
+"redefinition de l'unite %s"
+  "unit %s redefined"
+
+"impossible d'effectuer une conversion entre les unites incompatibles %s et %s"
+  "forbidden conversion between incompatible units %s and %s"
+
+"erreur de syntaxe d'appel a une entite dans la chaine \"%s\""
+  "entity reference syntax error in string \"%s\""
+
+"entite generale %s inconnue dans la chaine \"%s\""
+  "unknown general entity %s in string \"%s\""
+
+"erreur de syntaxe dans l'unite %s"
+  "syntax error in unit %s"
+
+"donnee \"%s\" non definie"
+   "no data named \"%s\""
+
+"structure ou table \"%s\" non definie"
+   "no structure or table named \"%s\""
+
+"parametre \"%s\" non defini"
+   "no parameter named \"%s\""
+
+"index %d de la table \"%s\" non defini"
+   "no index number %d in table \"%s\""
+
+"unite \"%s\" non reconnue"
+   "unknown unit \"%s\""
+
+"noeud %s de type inconnu"
+   "unknown type for node %s"
+
+"donnee courante \"%s\" est un tableau"
+   "current data \"%s\" is a table"
+
+"donnee courante \"%s\" n'est pas un tableau"
+   "current data \"%s\" is not a table"
+
+"impossible de remonter d'un niveau depuis la racine du document"
+   "moving up from the root of document is impossible"
+
+"erreur Madona : \"%s\""
+   "Madona error : \"%s\""
+
+"erreur XML : \"%s\""
+   "XML error : \"%s\""
+
+"table \"%s\" de type \"%s\" ne peut contenir des elements de type \"%s\""
+    "table \"%s\" (type \"%s\") can not contain element of type \"%s\""
+
+"fonction non accessible : Madona n'est pas installee"
+   "as Madona is not installed, function named is not accessible"
+
+"fonction non accessible : Xerces n'est pas installee"
+   "as Xerces is not installed, function named \"%s\" is not accessible"
+
+"creation de l'index dans %s interdite"
+   "creation of index in %s is forbidden"
+
+"donnee \"%s\" deja definie"
+   "data \"%s\" is already defined"
+
+"le format du fichier est invalide"
+   "type of file is not valid"
+
+# messages des utilitaires
+"fichier %s inconnu"
+   "unknown file %s"
+
+"options -e et -ee incompatibles"
+   "options -e et -ee are incompatible"
+
+"Analyse impossible : la place memoire necessaire pour le calcul d'un decalage de %d lignes est trop importante"
+   "comparison impossible : memory space needed for calculing a %d lines gap is too high"
+
+"le nombre de lignes a ignorer (%d) est superieur au nombre total de lignes (%d) du fichier %s"
+   "number of lines to ignore (%d) is higher than the total number of lines (%d) in file %s"
+
+"les fichiers sont trop differents : plus de %d lignes separent deux lignes egales"
+   "files are too different : more than %d lines disjoin two identical lines"
+
+"les lignes suivantes sont en plus dans %s:"
+   "those lines are only in %s:"
+
+"les lignes suivantes manquent dans %s,%d:"
+   "missing lines in %s,%d:"
+
+"chaines \"%s\" et \"%s\" differentes dans les lignes :\n%s,%d : %s\n%s,%d : %s"
+   "different strings \"%s\" and \"%s\" in lines :\n%s,%d : %s\n%s,%d : %s"
+
+"entiers %d et %d differents dans les lignes :\n%s,%d : %s\n%s,%d : %s"
+   "different integers %d and %d in lines :\n%s,%d : %s\n%s,%d : %s"
+
+"difference relative (%12.6e) entre les reels %f et %f superieure au seuil (%12.6e):\n%s,%d : %s\n%s,%d : %s"
+   "relative difference (%12.6e) between %f and %f is too high (boundary = %12.6e):\n%s,%d : %s\n%s,%d : %s"
+
+"la chaine \"%s\" est en plus :\n%s,%d : %s\n%s,%d : %s"
+   "no matching string found for \"%s\" :\n%s,%d : %s\n%s,%d : %s"
+
+"la chaine \"%s\" manque :\n%s,%d : %s\n%s,%d : %s"
+   "string \"%s\" is missing :\n%s,%d : %s\n%s,%d : %s"
+
+"%d differences dans les lignes:\n%s,%d : %s\n%s,%d : %s"
+   "%d differences in lines:\n%s,%d : %s\n%s,%d : %s"
+
+"nombre de messages de difference      : %d"
+   "number of formated messages              : %d"
+
+"numeros des messages affiches         : %d a %d"
+   "numbers of printed messages              : %d - %d"
+
+"nombre d'erreurs non acceptees        : %d\n\t%d erreur(s) numerique(s)\n\t%d erreur(s) lexicale(s)"
+   "number of unacceptable errors            : %d\n\t%d numerical error(s)\n\t%d lexical error(s)"
+
+"nombre d'erreurs numeriques acceptees : %d"
+   "number of numerical accepted differences : %d"
+
+"decalage maximal rencontre            : %d"
+   "found maximal gap                        : %d"
+
+"seuil de tolerance numerique          : %12.6e"
+   "numerical tolerance boundary             : %12.6e"
+
+"erreur numerique minimale             : %12.6e"
+   "minimal numerical difference             : %12.6e"
+
+"erreur numerique maximale             : %12.6e"
+   "maximal numerical difference             : %12.6e"
+
+"moyenne des erreurs numeriques        : %12.6e"
+   "mean value of numerical differences      : %12.6e"

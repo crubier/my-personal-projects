@@ -1,0 +1,159 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: marmottes-utilisateur.tex,v 1.37 2005/03/04 14:13:35 chope Exp $
+\documentclass[francais,11pt]{article}
+\usepackage{notechope}
+\input{macros-bibliotheques}
+\input{pages-liminaires}
+
+\nochangebars
+
+\begin{document}
+\section{présentation}\label{sec:presentation}
+\bibliotheque{marmottes} (Modélisation d'Attitude par Récupération des
+Mesures d'Orientation pour Tout Type d'Engin
+Spatial)\glossary{[MARMOTTES] : Modélisation d'Attitude par Récupération
+des Mesures d'Orientation pour Tout Type d'Engin Spatial} est une
+bibliothèque regroupant des fonctions de simulation de contrôle
+d'attitude multimissions, c'est-à-dire dont le code n'est pas dédié à
+une plate-forme particulière de satellite.
+
+Cette bibliothèque regroupe des objets \emph{métier} destinés à être
+utilisés dans des applications de mécanique spatiale qui peuvent soit
+être auto-suffisantes, soit être elles-mêmes des bibliothèques plus
+spécialisées ; il s'agit donc d'une bibliothèque de niveau
+intermédiaire.
+
+\begin{changebar}
+Ce document décrit la version 9.8 de la bibliothèque.
+\end{changebar}
+
+\section{description du contexte}\label{sec:contexte}
+Cette bibliothèque récupère les descriptions complètes des senseurs
+dans des fichiers de ressources ; le paramétrage des fonctions de
+simulation est donc très simple, il suffit de passer le nom du fichier
+de ressources, les noms de senseurs, les valeurs des
+consignes.\glossary{[consigne] : ce terme est employé dans ce document
+avec deux sens différents selon le contexte~:
+\begin{itemize}
+\item attitude désirée pour le satellite (consigne d'attitude)
+\item valeur produite par un des senseurs utilisés pour le contrôle ;
+d'attitude, lorsque l'attitude désirée est atteinte (valeur de
+consigne du senseur).
+\end{itemize}}
+
+Les fonctions simulent un pilotage parfait respectant ces consignes et
+permettent entre autres de retourner l'attitude (sous forme de
+quaternion) et le spin. La bibliothèque \bibliotheque{cantor} (qui est
+d'ailleurs utilisée par \bibliotheque{marmottes}) fournit les
+fonctions de calcul liées aux quaternions dont peut avoir besoin le
+programme principal.
+
+La bibliothèque est écrite en \langage{c++} et dispose d'une interface
+\langage{c++}, d'une interface \langage{c}, et d'une interface
+\langage{fortran} (les fonctions de calcul de quaternions de
+\bibliotheque{cantor} disposent des mêmes interfaces).
+
+La liste ordonnée des bibliothèques à spécifier à l'éditeur de liens
+est la suivante :
+\begin{center}
+\texttt{-lmarmottes} \texttt{-lcantor} \texttt{-lclub}
+\end{center}
+
+Il est indispensable de faire l'édition de liens avec le compilateur
+\langage{c++} qui a été utilisé pour compiler la bibliothèque car
+celle-ci utilise le mécanisme des exceptions qui nécessite un support
+de la part de l'éditeur de liens. Si le programme appelant est en
+\langage{fortran} ou en \langage{fortran 90}, il faut spécifier
+explicitement les bibliothèques fortran (par exemple avec la version
+4.2 du compilateur fortran 77 SUN, il faut ajouter \texttt{-lF77}
+\texttt{-lM77} \texttt{-lsunmath}).
+
+Cette note décrit les fichiers de ressources des senseurs et toutes
+les routines de bibliothèque. Les routines liées aux quaternions sont
+décrites dans la documentation de \bibliotheque{cantor}
+\ref{ref:cantor}. Les principes de résolution et les algorithmes
+utilisés sont décrits en détail dans la documentation mathématique de
+\bibliotheque{marmottes}~\ref{ref:marmottes-math}.
+
+\section{conventions}\label{sec:conventions}
+\input{conventions}
+
+\section{catalogue}\label{sec:catalogue}
+\input{catalogue}
+
+\section{environnement}\label{sec:environnement}
+\input{environnement}
+
+\section{installation}\label{sec:installation}
+\input{installation}
+
+\section{messages d'avertissements et d'erreurs}\label{sec:messages-erreurs}
+\input{messages-erreurs}
+
+\section{tests}
+\input{tests}
+
+\section{maintenance}
+\input{maintenance}
+
+\section{évolutions}
+\input{evolutions}
+
+\section{description des routines}\label{sec:description-routines}
+\input{routines}
+
+\section{description des utilitaires}\label{sec:description-utils}
+Cette section décrit les utilitaires fournis par la bibliothèque
+\bibliotheque{marmottes}. Cette description concerne l'utilisation des
+utilitaires et les principes généraux auxquels ils répondent. 
+
+\input{TraduitSenseurs}
+\input{MarmottesReplay}
+\input{Marmottes-Config}
+
+\section{description des classes}\label{sec:description-classes}
+\input{BodyEphem}
+\input{BodyEphemC}
+\input{BodyEphemF}
+\input{Etat}
+\input{Famille}
+\input{FamilleAbstraite}
+\input{FamilleAlignementMoins}
+\input{FamilleAlignementPlus}
+\input{FamilleFixe}
+\input{FamilleGenerale}
+\input{FamilleProlongementPi}
+\input{FamilleProlongementZero}
+\input{Marmottes}
+\input{MarmottesErreurs}
+\input{Modele}
+\input{ModeleCine}
+\input{ModeleGeom}
+\input{Parcelle}
+\input{ParcelleElementaire}
+\input{ResolveurAttitude}
+\input{ReunionEtParcelles}
+\input{ReunionOuParcelles}
+\input{Senseur}
+\input{SenseurAlpha}
+\input{SenseurCardan}
+\input{SenseurCartesien}
+\input{SenseurCinematique}
+\input{SenseurDelta}
+\input{SenseurDiedre}
+\input{SenseurElevation}
+\input{SenseurFonction}
+\input{SenseurFonctionEchant1D}
+\input{SenseurFonctionGauss}
+\input{SenseurFonctionSinCard2}
+\input{SenseurGeometrique}
+\input{SenseurGyroInteg}
+\input{SenseurLimbe}
+\input{SenseurOptique}
+\input{SenseurVecteur}
+\input{SpinAtt}
+\input{StationCible}
+
+\appendix
+\input{annexes}
+\end{document}

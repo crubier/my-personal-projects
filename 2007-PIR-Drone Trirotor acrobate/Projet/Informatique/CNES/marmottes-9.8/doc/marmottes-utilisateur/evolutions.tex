@@ -1,0 +1,618 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: evolutions.tex,v 1.60 2005/03/04 14:14:26 chope Exp $
+\subsection{changements depuis les versions précédentes}
+
+\begin{changebar}
+\subsubsection{évolutions entre la version 9.7 et la version 9.8}
+Correction d'une erreur de recalage d'angle entre 0 et 2$\pi$ pour les
+senseurs de Cardan (FA~00230).
+\end{changebar}
+
+\subsubsection{évolutions entre la version 9.6 et la version 9.7}
+Correction d'une erreur d'interpolation pour les senseurs visant une
+station sol ayant un masque d'antenne non constant (FA~0034, FA~0032).
+
+Correction d'une erreur de changement de repère: la transformation des
+vecteurs du repère senseur dans le repère satellite n'était pas
+effectuée (FA~0035).
+
+Ajout d'explications sur le repère d'expression de la cible au niveau
+de la documentation utilisateur (DM~0033).
+
+\subsubsection{évolutions entre la version 9.5 et la version 9.6}
+
+Corrections pour améliorer la qualité : utilisation d' une méthode 
+statique et une méthode privée pour résoudre l'attitude.
+Élimination des méthodes publiques (sB, modele, date, position, famille, 
+seuil et tranches) dans la classe ResolveurAttitude (DM 0029).
+
+Un nouveau service de lecture des paramètres internes à
+\bibliotheque{marmottes} est disponible via les 3 interfaces (c++, c
+et fortran) (DM 0027).
+
+Ajout des mots-clefs permettant l'extension de la notion de cible
+sans éclipse à polaris et canopus (DM 0026).
+
+Ajout de la possibilité de définir une zone d'inhibition pour un astre
+de type corps central (FA 0030).
+
+Correction des cibles position-sans-eclipse et direction-sans-eclipse
+qui étaient impossibles à initialiser en raison d'une protection trop
+sévère générant un message d'erreur (FA 0031).
+ 
+Ajout de la possibilité de journaliser les appels au constructeur par
+copie de la classe Marmottes, afin d'autoriser la génération de
+journaux d'appels pour les applicatifs utilisant
+\bibliotheque{marmottes} à partir du langage C++ (DM 0028).
+ 
+Extension du domaine de validité de la cible vitesse-sol-apparente par
+continuité au delà du limbe du corps central, en considérant que les
+points visés ont une vitesse nulle. Ceci élimine complètement un cas
+d'erreur et permet d'utiliser cette cible dès l'initialisation du
+simulateur (DM 0025).
+
+\subsubsection{évolutions entre la version 9.4 et la version 9.5}
+Des erreurs d'initialisations introduites lors des interventions
+qualité du projet ATV ont été corrigées.
+
+Les fonctions de calcul par défaut du temps sidéral, de la position du
+Soleil, de la Terre et de la Lune sont externalisées pour permettre
+leur utilisation dans le cadre d'un appel à MarmottesEnregistreCorps
+depuis l'interface fortran.
+
+Les scripts de configuration ont été mis à niveau par rapport aux
+versions courantes des outils de développement GNU (\outil{autoconf}
+version 2.57, \outil{automake} version 1.7.5 et \outil{libtool}
+version 1.5). Cette modification n'a pas d'impact pour les
+utilisateurs.
+
+\subsubsection{évolutions entre la version 9.3 et la version 9.4}
+
+Une interface Fortran permettant de récupérer le numéro de
+version de la bibliothèque a été intégré (DM~0009).
+
+Les fonctions MarmottesAutoriseExtrapolation et MarmottesCopie
+sont dorénavant testées (DM~0010).
+
+Une revue de la bibliothèque a été effectuée pour harmoniser
+les classes entre elles afin qu'elles soient sur un modèle
+unique (DM~0012).
+
+L'utilitaire mamottesReplay est maintenant capable de reconnaitre
+l'utilisation de fonctions utilisateurs ou de fonctions par défaut
+pour les corps célestes et peut donc les prendre en compte dans
+son algorithme (DM~0013).
+
+La documentation a été agrémenté d'un schéma explicatif sur la
+définition de l'angle soleil-satellite-lune (DM~0014), d'une
+description des repères de référence des senseurs (DM~0015) et
+d'un lexique français-anglais des mots clés reconnus par
+marmottes (DM~0016).
+
+L'extension des fichiers a été changé de CC en CPP, cette
+dernière extension étant reconnue par un plus grand nombre
+de systèmes (DM~0017).
+
+La bibliothèque est maintenant compilable, jusqu'à la version
+GCC 3.2.1, de légéres modifications ayant été apporté aux
+fichiers (DM~0018).
+
+\subsubsection{évolutions entre la version 9.2 et la version 9.3}
+
+Par défaut, \bibliotheque{Marmottes} dispose de modèles internes pour
+le calcul du temps sidéral, des éphémérides du Soleil, de la Lune et
+de la Terre, ainsi que des caractéristiques du corps central.\\ 
+Si ces modèles ne conviennent pas à l'utilisateur (par
+exemple: dans un cadre interplanétaire), alors ces modèles peuvent
+être personnalisés en fournissant des valeurs numériques et des
+fonctions de calculs appropriées (DM~0007).
+
+La documentation (au format Postscript) présente désormais des
+barres de modification aux endroits modifiés par rapport à la
+version précédente.
+
+Quelques erreurs rares de configuration dans des cas inhabituels
+ont été corrigées. Il s'agit de corrections mineures n'affectant
+pas les utilisateurs habituels.
+
+Un test reproduisant les conditions de la FA 15 a été ajouté et
+le test du programme Parcelle a été mis à jour. La correction de
+cette anomalie est faite dans la bibliothéque cantor.
+
+\subsubsection{évolutions entre la version 9.1 et la version 9.2}
+La prise en compte de la dérive d'un senseur cinématique est
+maintenant possible.
+
+Deux nouvelles méthodes, appelables à partir de l'interface C++,
+permettent, pour l'une, d'accéder au pointeur d'un senseur, à
+partir de son nom et du fichier qui le décrit et pour l'autre
+d'accéder à l'état de l'instance Marmottes.
+
+Des directives throw oubliées dans des signatures de fonctions
+internes ont été corrigées.
+
+\subsubsection{évolutions entre la version 9.0 et la version 9.1}
+Une erreur sur les modèles géométriques à un vecteur fixe a été
+corrigée. Cette erreur grave empêchait de trouver les solutions ayant
+un vecteur fixe opposé à l'axe du cône de consigne.
+
+Une erreur de consignes dégénérées non détectée a été corrigée.
+L'utilisation d'une consigne à -90 degrés pour un capteur plan-vecteur
+ou d'une consigne à 180 degrés pour un capteur vecteur n'étaient pas
+détectées alors qu'elles sont dégénérées.
+
+L'utilisation de consignes cinématiques (gyromètres et gyromètres
+intégrateurs) conduisant à un modèle de vitesse supérieur au
+$\omega_{\max}$ génère désormais une erreur. Ce cas peut se rencontrer
+notamment lorsque l'on spécifie un pas de temps trop court pour qu'un
+gyromètre intégrateur atteigne une valeur angulaire donnée.
+
+Les capteurs optiques ayant une cible liée au soleil ne peuvent pas
+être inhibés par le soleil. Il en est de même pour la lune. Les champs
+d'inhibitions étaient simplement ignorés jusque là. Désormais, une
+erreur est générée lorsqu'un champ d'inhibition porte explicitement
+sur la cible du capteur (FA 0008).
+
+Prise en compte de versions récentes des outils de développement GNU.
+Les outils de développement de la suite GNU ont été mis à jour
+(autoconf 2.52, automake 1.5 et libtool 1.4.1). Ceci ne devrait avoir
+aucun impact sur les utilisateurs (qui se contentent de compiler la
+bibliothèque à partir des fichiers générés par ces outils et inclus
+dans la distribution). Seuls les développeurs de la bibliothèque qui
+sont amenés à y apporter des modification sont concernés.
+
+\subsubsection{évolutions entre la version 8.5 et la version 9.0}
+La syntaxe de l'opération de balayage dans les fichiers senseurs a
+été modifiée. Cette opération permet de créer un champ en
+\emph{étalant} un autre champ selon une rotation. Les versions
+précédentes acceptaient toutes les définitions de rotation pour cette
+opération, mais ceci conduisait à des résultats faux lorsque l'angle
+de la rotation dépassait 180 degrés, car les rotations $(\vec{u},
+\alpha)$ et $(-\vec{u}, 2\pi-\alpha)$ sont indiscernables lorsqu'on se
+contente de les voir comme opérateurs vectoriels. Désormais, il est
+\emph{indispensable} de donner un axe et un angle pour cette
+opération. Les anciens fichiers senseurs qui utilisaient des rotations
+quelconques doivent être corrigés pour pouvoir être lus par cette
+version de la bibliothèque (cette incompatibilité est la raison du
+saut de numérotation de 8.x à 9.y).
+
+Une cible vitesse-sol-apparente a été ajoutée. Cette cible représente
+la vitesse vue du satellite du point au sol situé dans la direction
+d'observation du capteur. Elle est typiquement utilisée pour contrôler
+le lacet d'un satellite d'observation de façon à compenser la vitesse
+de rotation du corps central et obliger les points observés à se
+déplacer dans une direction privilégiée au cours d'une prise de vue
+(perpendiculairement à la barrette \textsc{ccd}).
+
+Une cible \texttt{lune-sans-eclipse} a été ajoutée pour les senseurs
+optiques.
+
+Un capteur de gain d'antenne bidimensionnel en produit de sinus
+cardinaux a été ajouté. La forme en $\sin(x)/x$ utilisée dans les
+modélisations simples de gains d'antenne provient de la transformée de
+Fourier d'une ouverture rectangulaire. Il n'y a donc généralement pas
+de symétrie axiale pour ces formes, et il faut spécifier séparément la
+taille à 3 dB selon $\vec{X}$ de la taille selon $\vec{Y}$. L'ancien
+capteur en sinus cardinal carré, qui spécifiait un seul angle et
+présentait une symétrie est conservé pour des raisons de
+compatibilité, mais le nouveau capteur qui a été créé permet des
+modélisations plus réalistes.
+
+Une erreur dans la formule du temps sidéral a été corrigée. Cette
+erreur dans les constantes du temps sidéral a un impact numérique
+minime sur la position des cibles de type station
+
+Un problème potentiel dans la lecture des capteurs de limbe a été
+corrigé. La description des capteurs de limbe dans les fichiers ne
+nécessite pas de spécifier que la cible du capteur est le corps
+central. Le calcul du limbe impose en effet cette cible, de part la
+conception de l'algorithme. Avant la correction, l'utilisateur pouvait
+spécifier par erreur une cible qui n'était pas le corps central et qui
+était lue et utilisée dans certaines parties du code, indépendantes du
+calcul du limbe. Cela pouvait conduire à des résultats incohérents. La
+lecture des capteurs de limbe a été protégée, elle ne lit que les bloc
+explicitement utiles pour la modélisation du capteur.
+
+L'utilitaire \texttt{marmottesReplay} est désormais installé en même
+temps que la bibliothèque.
+
+Certaines méthodes des classes internes étant des prédicats retournent
+désormais des booléens au lieu d'entiers. Pour les utilisateurs des
+classes publiques de haut niveau, cette modification n'a d'impact que
+sur la méthode \texttt{Parcelle\char58\char58}\fonc{pointSuivant}.
+
+Les classes AnnotatedArc, Braid, Field, Node et Secteurs ont été
+transférées vers la bibliothèque \bibliotheque{cantor}. La classe
+CallTrace a été transférée vers la bibliothèque \bibliotheque{club}.
+
+La bibliothèque cantor génère maintenant des exceptions, qui sont
+remontées au niveau de certaines classes intermédiaires. Cette
+modification n'a pas d'impact pour les utilisateurs des classes
+publiques de haut niveau.
+
+\subsubsection{évolutions entre la version 8.4 et la version 8.5}
+des cibles \texttt{position-sans-eclipse} et
+\texttt{direction-sans-eclipse} ont été ajoutées pour les senseurs
+optiques. Le terme \texttt{pseudo-soleil} pour les cibles des senseurs
+optiques a été reformulé en \texttt{soleil-sans-eclipse}, plus
+explicite, de même le terme \texttt{terre-soleil} a été remplacé par
+\texttt{corps-central-soleil}, en prévision d'une évolution future
+vers l'interplanétaire. Les anciens termes sont toujours reconnus pour
+la compatibilité, mais ne sont plus documentés.
+
+Les inhibition des capteurs par la Lune ou le Soleil étaient
+jusqu'à présent pris en compte uniquement pour les capteurs
+de limbe Terre. Désormais, tous les capteurs optiques peuvent
+avoir des champs d'inhibitions et leur contrôlabilité dépend à la
+fois de la présence de leur cible dans leur champ de vue mais
+également de l'absence d'inhibition. Une conséquence de cette
+modification est que la classe SenseurOptique ne déclare plus le
+type énuméré typeOpt ni la fonction virtuelle typeOptique qui sont
+devenue inutiles (toutes les classes descendant de SenseurOptique
+appartenant désormais à l'ancienne catégorie avecInhibitions).
+
+La classe SenseurTerre a été remplacée par la classe SenseurLimbe.
+Ce remplacement a été fait à l'occasion de la simplification résultant
+de la factorisation des calculs d'inhibitions. La nouvelle classe est
+une version considérablement simplifiée de l'ancienne, elle a été
+renommée à la fois pour des raisons de compréhension (la différence
+entre un senseur d'angle dièdre visant la terre et un senseur terre
+n'était pas immédiate) et également en prévision d'évolutions futures
+permettant d'utiliser \bibliotheque{marmottes} dans le cadre de
+projets interplanétaires.
+
+De nouvelles fonctions ont été ajoutées à la bibliothèque. Elles
+permettent de bénéficier de toutes les fonctions de post-traitement
+telles que les calculs de mesures ou les vérifications de
+controlabilité, y compris lorsque l'attitude est calculée par des
+moyens externes (par exemple par intégration de la dynamique). Les
+fonctions ajoutées permettent d'imposer à \bibliotheque{marmottes}
+l'attitude (auquel cas le spin est déduit par différences finies
+depuis l'état précédent) ou le spin (auquel cas l'attitude est déduite
+par intégration depuis l'état précédent).
+
+Des fonctions permettant d'obtenir des détails sur les critères de
+controlabilité qui sont respectés et ceux qui sont violés ont été
+ajoutées. Ces fonctions peuvent s'utiliser conjointement ou à la place
+des fonctions synthétiques qui se contentaient d'un résultat binaire
+(orientation contrôlable ou non par un capteur donné).
+
+Une erreur dans l'algorithme de test de présence d'un point dans un
+champ de vue a été corrigée. Elle se manifestait de façon ponctuelle
+lorsque l'arc le plus court reliant le point à tester et un point
+intérieur de référence passait trop près d'un sommet de la frontière
+du champ. Ce cas était pris en compte mais le contournement n'était
+pas efficace dans tous les cas.
+
+Une double erreur dans les capteurs Terre a été corrigée.
+Lors des calculs de contrôlabilité par des capteurs Terre,
+l'équation comportait une arctangente au lieu d'un arcsinus, ce
+qui conduisait à des résultats d'autant plus faux que le satellite
+était bas, et la position était considérée comme exprimée en
+kilomètres, même si l'utilisateur avait opté pour des mètres.
+
+Des erreurs détectées par \outil{purify} ont été corrigées.
+Ces erreurs étaient des fuites de mémoire, et des boucles non
+protégées qui conduisaient à lire des zones mémoires qui avaient
+été libérées en cours de boucle
+
+Le support des compilateurs \textsc{sun} a été amélioré.  La
+bibliothèque semble compilable avec les compilateurs
+\textsc{sun}. \emph{Attention}, il semblerait cependant qu'il subsiste
+des erreurs graves d'implémentation de la \textsc{stl} par ces
+compilateurs (au moins jusqu'à la version 6.1). Si la bibliothèque est
+compilée avec ces versions, \emph{elle ne fonctionne absolument pas}
+et génère des violations de mémoires dès que l'on utilise des champs
+de vue. Ces problèmes ont été longuement analysés (entre autre avec
+\outil{purify}) et la bibliothèque elle-même ne semble pas en
+cause. L'utilisation de ces compilateurs est donc déconseillée. Les
+compilateurs \textsc{gnu} récents compilent cette bibliothèque sans
+aucun problème à la fois sur les plate-formes \textsc{gnu-linux} et
+solaris.
+
+\subsubsection{évolutions entre la version 8.3 et la version 8.4}
+Une erreur commune au constructeur par copie et à l'opérateur d'affectation
+de la classe Marmottes a été corrigée. Elle conduisait à une
+duplication de pointeurs dans les tables de senseurs des deux
+instances, ce qui pouvait engendrer des violations mémoire si l'une
+des instances avait été allouée dynamiquement puis libérée alors que
+l'autre était toujours utilisée.
+
+Toutes les utilisations des classes non standards hash\_map et
+hash\_set ont été remplacées par des classes standards de la
+\bibliotheque{stl}. Ces classes étaient des extensions de SGI qui
+n'étaient pas disponibles sur toutes les implémentations de la
+\bibliotheque{stl}.
+
+\subsubsection{évolutions entre la version 8.2 et la version 8.3}
+Une erreur dans la modélisation des senseurs de \textsc{Cardan} a été
+corrigée. Cette erreur ne se manifestait que pour des senseurs qui
+n'étaient pas alignés avec le repère satellite et conduisait à des
+résultats complètement erronés.
+
+La valeur par défaut de la vitesse maximale de rotation utilisée par
+le modèle cinématique a été abaissée de 2~radians par seconde à
+$0,\!4$~radians par seconde. La valeur précédente était vraiment trop
+élevée par rapport au satellites courants (les satellites stabilisés
+par effet gyroscopique sont de plus en plus rares et tournent à moins
+de 20 degrés par seconde). Des problèmes de résolution ont d'autre
+part été rencontrés avec l'ancienne valeur, pouvant aller jusqu'à
+manquer la solution à vitesse très faible attendue pour converger vers
+une solution faisant faire un tour complet au satellite entre chaque
+pas !
+
+\subsubsection{évolutions entre la version 8.1 et la version 8.2}
+Une initialisation oubliée a été corrigée dans la lecture des
+capteurs. Cet oubli induisait des violations mémoire en cas de
+lancement d'exception, si le fichier de description comportait
+certains types d'erreurs.
+
+\subsubsection{évolutions entre la version 8.0 et la version 8.1}
+
+Les seules modifications introduites dans la version 8.1 de la
+bibliothèque sont l'ajout du script de configuration
+\texttt{marmottes-config} destiné à faciliter la compilation
+d'applicatifs dépendant de \bibliotheque{marmottes}
+(cf~\ref{sec:MarmottesConfig}, page~\pageref{sec:MarmottesConfig}). La
+version anglaise du fichier de licence a également été ajoutée dans la
+distribution.
+
+\subsubsection{évolutions entre la version 7.5 et la version 8.0}
+Une erreur d'estimation de spin lors des changements de loi a été
+corrigée. Cette erreur était liée à l'utilisation abusive d'états
+résolus antérieurs au changement de loi d'attitude, bien que des états
+extrapolés valides à la date du changement d'attitude soient
+disponibles.
+
+Une mauvaise réinitialisation des senseurs de mesure lors de la
+réutilisation d'un simulateur désinitialisé au préalable a été
+corrigée. Si le senseur avait subi des modifications telles que
+changement du repère de base ou de la précision par exemple, le
+nouveau simulateur récupérait le senseur dans cet état modifié au lieu
+de l'état initial obtenu à la lecture du fichier.
+
+Un mécanisme permettant de retranscrire dans un fichier tous les
+appels aux fonctions de l'interface publique de la bibliothèque a été
+ajouté (cf~\ref{sec:gestion-traces},
+page~\pageref{sec:gestion-traces}). Ce mécanisme devrait faciliter la
+reproduction par les développeurs des problèmes rencontrés par les
+utilisateurs finaux.
+
+À l'aide du mécanisme précédent, la base des tests de non-régression a
+été fortement enrichie avec des cas provenant d'applicatifs utilisant
+la bibliothèque.
+
+La bibliothèque \bibliotheque{marmottes} peut désormais être générée
+sous forme de bibliothèque partagée. Il faut cependant prendre garde,
+un problème rencontré sous solaris lors des tests a montré que les
+exceptions générées dans \bibliotheque{club} ne sont pas récupérées
+par \bibliotheque{club} lorsque toutes les bibliothèques sont
+partagées. Le problème ne se pose ni avec des bibliothèques statiques
+ni sous GNU/linux. Dans l'attente d'une meilleure compréhension du
+phénomène, la configuration par défaut sous solaris consiste donc à ne
+construire que des bibliothèques statiques. L'utilisateur aventureux
+peut toujours construire des bibliothèques partagées en utilisant
+l'option \texttt{-{}-enable-shared} du script de configuration.
+
+Un changement profond mais qui ne devrait que peu affecter la majorité
+des utilisateurs est l'abandon de la classe ChaineSimple de la
+bibliothèque \bibliotheque{club} au profit de la classe string du
+standard \langage{c++}. Seules les interfaces \langage{c++} sont
+affectées. La classe Adressage a également été abandonnée au profit de
+la classe hash\_map, mais ceci n'a aucun impact visible par les
+utilisateurs.
+
+Quelques attributs internes utilisés comme indicateurs dans diverses
+classes ont été convertis du type entier vers le type booléen, qui
+reflète mieux leur usage réel.
+
+Les pseudo-senseurs de gains d'antennes ajoutés à la version
+précédente ont été documentés. Un nouveau type de pseudo-senseur de
+gain d'antenne a été ajouté, il permet de modéliser des gains
+échantillonnés uniquement en fonction de l'angle de dépointage.
+
+Cette version de la bibliothèque ne peut être compilée qu'avec les
+versions de \bibliotheque{club} 8.0 et ultérieures.
+
+\subsubsection{évolutions entre la version 7.4 et la version 7.5}
+La version 7.5 de la bibliothèque a vu la création de nouveaux types
+de senseurs : SenseurFonctionGauss et SenseurFonctionSinCard2 pour
+gérer les bilans de liaison d'antenne.
+
+Des erreurs introduites lors du passage en version 7.3 ont également
+été corrigées.
+
+Enfin, le support du compilateur Sun WorkShop 5.0 a été amélioré, il
+n'est cependant pas encore complet.
+
+\subsubsection{évolutions entre la version 7.3 et la version 7.4}
+La seule évolution de la version 7.4 est la correction d'un message
+d'erreur, qui pouvait conduire à des violations mémoire lors de son
+affichage. Quelques corrections mineures de la documentation ont
+également été apportées.
+
+Cette version est la première à être destinée à une diffusion
+publique.
+
+\subsubsection{évolutions entre la version 7.2 et la version 7.3}
+La version 7.3 de \bibliotheque{marmottes} utilise désormais 5
+tranches par défaut au lieu de 50 pour la phase de recherche des
+solutions, il n'est malheureusement pas sûr que cela suffise à
+accélérer les calculs ...
+
+Cette version corrige un problème du modèle cinématique qui empêchait
+de trouver des solutions à spin faible mais non nul. Le problème
+apparaissait par exemple si un axe restait pointé sur le soleil et si
+les rotations autour de cet axe était interdit, les vitesses de
+rotations résultantes étant de un tour par an.
+
+Une erreur dans l'extrapolation d'attitude a été corrigée. La
+contrôlabilité n'était pas testée, on pouvait donc calculer des
+attitudes correctes, puis les extrapoler au-delà de leur limite de
+validité. Un cas typique concerne le pointage terre où les consignes
+sont constamment nulles mais où le soleil ou la lune peuvent inhiber
+les senseurs.
+
+Un certain nombre de messages d'erreur d'affichage du nom des senseurs
+lors de la lecture du fichier les décrivant ont également été
+corrigés.
+
+Enfin, la documentation des routines de gestion de l'autorisation
+d'extrapoler a été ajoutée (les fonctions existaient depuis longtemps
+mais n'avaient pas été documentées) et la documentation des senseurs
+de Cardan a été améliorée.
+
+\subsubsection{évolutions entre la version 7.1 et la version 7.2}
+La version 7.2 de \bibliotheque{marmottes} n'apporte qu'une correction
+d'erreur. Les genres LRT-lacet, LRT-roulis et LRT-tangage des senseurs
+de Cardan étaient bien modélisés dans le code de la bibliothèque mais
+pas reconnus au niveau de la lecture du fichier des senseurs.
+
+\subsubsection{évolutions entre la version 7.0 et la version 7.1}
+La seule évolution apportée par la version 7.1 de
+\bibliotheque{marmottes} concerne la génération de la documentation
+qui est désormais livrée au format PDF au lieu du format PostScript.
+
+Outre cette évolution, deux erreurs ont été corrigées dans la
+bibliothèque. La première erreur concernait des fuites de mémoire
+importantes introduites lors du passage en version 7.0. À cette
+occasion, d'autres fuites ont été détectées dans la bibliothèque
+\bibliotheque{club} et corrigées.
+
+La seconde erreur était beaucoup plus ancienne mais n'avait jamais été
+rencontrée jusque là, elle correspondait à des échecs de résolution
+lors de l'utilisation de consignes à $180^\mathrm{o}$ avec des
+senseurs dièdres. Un test de non régression correspondant au cas
+détecté par les utilisateurs a été ajouté.
+
+\subsubsection{évolutions entre la version 6.3 et la version 7.0}
+De très nombreuses évolutions ont été réalisées dans
+\bibliotheque{marmottes} depuis la version 6.3.
+
+Du point de vue de l'utilisateur final, les changements principaux
+concernent l'introduction des gyromètres intégrateurs, l'introduction
+de la cible \texttt{nadir}, la possibilité de définir une cible
+programmable pour les senseurs optiques (par exemple pour pointer un
+satellite \textsc{gps}, un site d'observation sol ou une étoile à
+l'infini) et la possibilité de paramétrer le repère de base des
+senseurs de Cardan.
+
+Une refonte majeure des algorithmes de résolution des modèles
+géométriques a été menée à bien, ce qui devrait corriger des problèmes
+de résolution pour des configurations particulières. Les anciens
+algorithmes utilisaient une modélisation présentant des singularités
+les obligeant à prendre des points d'appuis de part et d'autre de
+certaines singularités et d'interpoler (et donc de commettre des
+erreurs d'approximation) entre ces points. Les nouveaux algorithmes
+utilisent une modélisation sans singularité.
+
+Une autre amélioration algorithmique concerne la limitation des
+domaines de recherche dès le démarrage de la résolution (c'est à dire
+avant la phase itérative numérique) en propageant certaines
+contraintes (par exemple les champs de vue lorsqu'il y en a). Ceci
+devrait éviter de perdre du temps à chercher des solutions qui seront
+rejetés à terme dans la phase de filtrage des artefacts
+mathématiques. Il n'est cependant pas toujours possible de limiter ce
+
+Des modifications qui ne concernent guère que les installateurs et les
+développeurs de la bibliothèque sont le passage aux outils de
+portabilité GNU (\outil{autoconf} et \outil{automake}), la
+réorganisation des répertoires de la distribution et le remplacement
+de la gestion de configuration sous \outil{rcs} par une gestion sous
+\outil{cvs}.
+
+\subsection{évolutions futures}
+Une évaluation des performances de \bibliotheque{marmottes} en terme
+de rapidité devrait être menée, et des actions correctives
+éventuellement réalisées.
+
+\bibliotheque{marmottes} utilise un critère de convergence par senseur
+lors de la résolution numérique. Ce critère n'est pas très pratique et
+devrait être remplacé par un critère général sur l'attitude et sur le
+spin (il faudrait du même coup éliminer l'attribut de précision des
+senseurs et les méthodes associées).
+
+Une lacune importante de \bibliotheque{marmottes} tient à son
+incapacité à intégrer la dynamique. Il serait bon de la combler,
+probablement par une autre bibliothèque utilisée en surcouche (la
+dynamique risque de se compliquer très vite, en particulier si l'on
+désire modéliser des modes souples).
+
+Une autre extension intéressante serait l'introduction d'une couche de
+filtrage permettant de combiner les mesures de nombreux capteurs sur
+une plage de temps paramétrable, avec minimisation d'un critère de
+moindres carrés par exemple.
+
+La notion de mode de pilotage serait un apport intéressant, soit dans
+\bibliotheque{marmottes} soit dans une bibliothèque associée, pour
+offrir une interface simplifiée dans certains cas comme le pointage
+terre, le \emph{yaw steering}, ...
+
+Pour accélérer la lecture des fichiers senseurs,
+\bibliotheque{marmottes} devrait gérer un fichier pré-interprété image
+des fichiers utilisateur, et ne lire ces derniers que lorsque la mise
+à jour du fichier image est nécessaire (c'est à dire quand il n'existe
+pas, quand l'un des fichiers utilisateur a changé, ou quand la version
+de la bibliothèque a changé). Ce fichier n'a pas à être vu par les
+utilisateurs (on pourrait le nommer \texttt{.senseurs.en} si le
+fichier de base s'appelait \texttt{senseurs.en} ; il pourrait même
+être binaire.
+
+Il faudrait utiliser la bibliothèque \bibliotheque{madona} pour lire
+le fichier des senseurs (ceci suppose une extension des possibilités
+de \bibliotheque{madona}, en particulier au niveau des inclusions de
+fichiers et des indirections de blocs). Une autre extension dans le
+même esprit serait la reconnaissance de fichiers \textsc{xml}. Des
+utilitaires de conversions de formats devraient également être crées.
+Des utilitaires d'aide à la modélisation de capteurs seraient
+également les bienvenus.
+
+Les champs de vue les plus classiques sont des double dièdres ; il
+serait pratique de disposer d'une méthode plus simple que
+l'intersection de deux dièdres pour les décrire. Les informations
+nécessaires sont le demi-angle d'ouverture, la direction de visée et
+l'orientation autour de cette direction.
+
+Certains senseurs présents sur les satellites ne diffèrent de senseurs
+modélisés que par une fonction de conversion de la mesure. Il faudrait
+permettre à l'utilisateur de spécifier de telles fonctions, à la fois
+en mesure et en consigne. Deux voies sont possibles pour cela, pas
+forcément incompatibles. Dans le premier cas l'utilisateur enregistre
+au niveau de son code la fonction associée à un senseur particulier,
+la bibliothèque appelant cette fonction en temps utile. Dans le second
+cas l'utilisateur exprime la fonction de transfert directement dans le
+fichier senseur, dans un bloc optionnel (sous forme d'une chaîne de
+caractères). La première méthode est plus facile à mettre en
+\oe{}uvre, plus souple, mais viole complètement le principe
+d'indépendance du code par rapport aux senseurs. La seconde méthode
+est plus complexe, mais respecte ce principe.
+
+Les senseurs modélisant un bilan de liaison en fonction de la position
+dans un lobe d'antenne sont actuellement limités à deux fonctions
+spécifiques : les lobes gaussiens ou en sinus cardinal carré et aux
+échantillonnages à symétrie axiale. Il serait intéressant de prendre
+en compte des lobes définis par la valeur du gain en divers points
+d'échantillonnages bidimensionnels. Ces points ne sont pas forcément
+régulièrement répartis mais peuvent très bien être dispersés. Une
+méthode classique (quoi que peu utilisée sur la sphère unité) pour
+évaluer le gain en un point quelconque passe par une triangulation de
+\textsc{Delaunay} sur les points d'échantillonnage puis à faire un
+calcul barycentrique sur les triangles.
+
+Certains instruments de la charge utile du satellite pourraient être
+modélisés sous forme de capteurs. Il serait souhaitable de pouvoir
+fournir à l'utilisateur une description de la fauchée de ces
+instruments sur le sol.
+
+Les modèles de position du soleil ou de corps central ne sont adaptés
+qu'à une utilisation autour de la terre, il faudrait permettre aux
+utilisateurs de spécifier leurs propres modèles.
+
+Les tests de non régression internes de la bibliothèque sont trop peu
+nombreux et de trop haut niveau. Il faudrait étoffer cette batterie et
+améliorer les tests existants. Un pas a déjà été fait dans le sens de
+l'enrichissement (mais pas du niveau) avec l'introduction de tests
+issus de programmes utilisateurs réels.
+
+Il serait souhaitable de traduire l'ensemble de la bibliothèque en
+anglais, pour faciliter son déploiement.

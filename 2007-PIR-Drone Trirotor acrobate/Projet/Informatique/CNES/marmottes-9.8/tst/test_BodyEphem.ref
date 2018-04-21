@@ -1,0 +1,93 @@
+
+prgm_BodyEphem -f senseurs.en -r
+   -dc 22/10/93 -o 42164 0 0 0 0 116
+   -s1 DSS_1_PITCH   -m1  2.5
+   -s2 GEOIRS_1_ROLL -m2  2.7
+   -s3 DSS_1_YAW     -m3 -0.2
+   -p  20
+   -i1 1 -i2 2 -i3 3 -i4 4
+Begin 1 iteration(s) with default functions
+mesure réalisée par le senseur "DSS_1_PITCH" :   2.5000
+mesure réalisée par le senseur "GEOIRS_1_ROLL" :   2.7000
+mesure réalisée par le senseur "DSS_1_YAW" :  -0.2000
+Begin 2 iteration(s) with user's functions
+user's function tsidrLocal C : function called
+user's function moonLocal C : function called
+user's function sunLocal C : function called
+user's function tsidrLocal C : function called
+user's function moonLocal C : function called
+user's function sunLocal C : function called
+user's function tsidrLocal C : function called
+user's function moonLocal C : function called
+user's function sunLocal C : function called
+user's function tsidrLocal C : function called
+user's function moonLocal C : function called
+user's function sunLocal C : function called
+user's function tsidrLocal C : function called
+user's function moonLocal C : function called
+user's function sunLocal C : function called
+user's function tsidrLocal C : function called
+user's function moonLocal C : function called
+user's function sunLocal C : function called
+user's function tsidrLocal C : function called
+user's function moonLocal C : function called
+user's function sunLocal C : function called
+mesure réalisée par le senseur "DSS_1_PITCH" :   2.5000
+mesure réalisée par le senseur "GEOIRS_1_ROLL" :   2.7000
+mesure réalisée par le senseur "DSS_1_YAW" :  -0.2000
+user's function tsidrLocal C : function called
+user's function moonLocal C : function called
+user's function sunLocal C : function called
+user's function tsidrLocal C : function called
+user's function moonLocal C : function called
+user's function sunLocal C : function called
+mesure réalisée par le senseur "DSS_1_PITCH" :   2.5000
+mesure réalisée par le senseur "GEOIRS_1_ROLL" :   2.7000
+mesure réalisée par le senseur "DSS_1_YAW" :  -0.2000
+Begin 3 iteration(s) with default functions
+mesure réalisée par le senseur "DSS_1_PITCH" :   2.5000
+mesure réalisée par le senseur "GEOIRS_1_ROLL" :   2.7000
+mesure réalisée par le senseur "DSS_1_YAW" :  -0.2000
+mesure réalisée par le senseur "DSS_1_PITCH" :   2.5000
+mesure réalisée par le senseur "GEOIRS_1_ROLL" :   2.7000
+mesure réalisée par le senseur "DSS_1_YAW" :  -0.2000
+mesure réalisée par le senseur "DSS_1_PITCH" :   2.5000
+mesure réalisée par le senseur "GEOIRS_1_ROLL" :   2.7000
+mesure réalisée par le senseur "DSS_1_YAW" :  -0.2000
+Begin 4 iteration(s) with user's functions
+user's function tsidrLocal Fortran : function called
+user's function moonLocal Fortran : function called
+user's function sunLocal Fortran : function called
+user's function tsidrLocal Fortran : function called
+user's function moonLocal Fortran : function called
+user's function sunLocal Fortran : function called
+mesure réalisée par le senseur "DSS_1_PITCH" :   2.5000
+mesure réalisée par le senseur "GEOIRS_1_ROLL" :   2.7000
+mesure réalisée par le senseur "DSS_1_YAW" :  -0.2000
+user's function tsidrLocal Fortran : function called
+user's function moonLocal Fortran : function called
+user's function sunLocal Fortran : function called
+user's function tsidrLocal Fortran : function called
+user's function moonLocal Fortran : function called
+user's function sunLocal Fortran : function called
+mesure réalisée par le senseur "DSS_1_PITCH" :   2.5000
+mesure réalisée par le senseur "GEOIRS_1_ROLL" :   2.7000
+mesure réalisée par le senseur "DSS_1_YAW" :  -0.2000
+user's function tsidrLocal Fortran : function called
+user's function moonLocal Fortran : function called
+user's function sunLocal Fortran : function called
+user's function tsidrLocal Fortran : function called
+user's function moonLocal Fortran : function called
+user's function sunLocal Fortran : function called
+mesure réalisée par le senseur "DSS_1_PITCH" :   2.5000
+mesure réalisée par le senseur "GEOIRS_1_ROLL" :   2.7000
+mesure réalisée par le senseur "DSS_1_YAW" :  -0.2000
+user's function tsidrLocal Fortran : function called
+user's function moonLocal Fortran : function called
+user's function sunLocal Fortran : function called
+user's function tsidrLocal Fortran : function called
+user's function moonLocal Fortran : function called
+user's function sunLocal Fortran : function called
+mesure réalisée par le senseur "DSS_1_PITCH" :   2.5000
+mesure réalisée par le senseur "GEOIRS_1_ROLL" :   2.7000
+mesure réalisée par le senseur "DSS_1_YAW" :  -0.2000

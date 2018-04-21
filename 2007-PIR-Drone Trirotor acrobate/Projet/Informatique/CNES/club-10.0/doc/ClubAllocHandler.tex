@@ -1,0 +1,65 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+% $Id: ClubAllocHandler.tex,v 1.6 2005/03/03 16:42:45 chope Exp $
+\subsection{classe ClubAllocHandler}\label{sec:ClubAllocHandler}
+
+\subsubsection*{description}\label{sec:ClubAllocHandler-desc}
+
+Cette classe permet d'enregistrer une fonction de réaction aux
+dépassements de capacité mémoire lors des \texttt{new}, fonction
+générant une exception de type ClubErreurs ayant pour code la valeur:
+ClubErreurs\char58\char58allocation\_memoire. Cette classe n'est utile
+que pour les effets de bord de son couple constructeur/destructeur, il
+suffit donc de définir au début du programme principal (ou du bloc que
+l'on veut protéger) une variable de ce type pour que les dépassements
+de capacité génèrent ce message. La protection s'arrête à la fin de la
+durée de vie de la variable définie.
+
+\subsubsection*{interface publique}\label{sec:ClubAllocHandler-int}
+\begin{verbatim}
+#include "club/ClubErreurs.h"
+\end{verbatim}
+
+Le constructeur ne servant qu'à mémoriser la valeur précédente de la
+routine de gestion des erreurs d'allocation retournée par
+\texttt{set\_new\_handler}, il ne prend aucun argument.
+
+L'appel au destructeur est quant à lui inséré directement par le
+compilateur à tous les endroits où le flot de contrôle quitte la
+portée de la variable locale déclarée, l'utilisateur n'a pas lieu de
+s'en préoccuper.
+
+\subsubsection*{exemple d'utilisation}\label{sec:ClubAllocHandler-expl}
+
+\begin{verbatim}
+#include "club/ClubErreurs.h"
+...
+
+inr main (int argc, char **argv)
+{ ClubAllocHandler alloc; // utilisé pour ses seuls constructeurs/destructeur
+  ...
+}
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation
+spécifiques}\label{sec:ClubAllocHandler-conseils}
+L'utilisation de cette classe se limite à la définition d'une
+instance, dont la portée règle la zone à protéger. Le plus simple est
+de protéger la totalité d'un programme en mettent cette définition
+au début du programme principal, ce qui permet de protéger également
+les allocations ayant lieu dans les constructeurs des autres variables
+du programme principal.
+
+\subsubsection*{implantation}\label{sec:ClubAllocHandler-impl}
+Le seul attribut de la classe est ancien\_, qui contient l'ancienne
+routine de gestion des erreurs qu'il faudra remettre en place en
+quittant la zone protégée, il est de type \texttt{void (*) ()}.
+
+La méthode de classe \texttt{handler ()} (de type \texttt{void (*)
+()}) est la routine de gestion mise en place pendant la durée de vie
+de la variable, elle génère une exception (ou un objet local) de type
+ClubErreurs et de code ClubErreurs\char58\char58allocation\_memoire.
+
+Cette méthode est déclarée \texttt{static} de façon à être de type
+\texttt{void()} et non 
+\texttt{UtilAllocHandler}\char58\char58\texttt{void ()}, afin de l'utiliser
+en argument de la fonction \texttt{set\_new\_handler}.

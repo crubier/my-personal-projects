@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+
+<!DOCTYPE club-data PUBLIC "-//CNES// DTD club-data XML V1.0//EN" "http://logiciels.cnes.fr/CLUB/club-data.dtd" >
+
+<club-data version="1.0" >
+
+  <structure name="Structure1">
+    <structure-table name="Table1">
+      <structure index="1">
+        <int-data name="integer" value="1"/>
+      </structure>
+      <structure index="2">
+        <int-data name="integer" value="1"/>
+      </structure>
+      <structure index="3"/>
+    </structure-table>
+  </structure>
+
+</club-data>

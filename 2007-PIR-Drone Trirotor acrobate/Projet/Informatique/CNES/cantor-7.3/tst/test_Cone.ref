@@ -1,0 +1,11 @@
+deb = {0.5 0.707107 -0.5}
+fin = {0.5 0.707107 0.5}
+axe:     {1 0 0}
+angle:   54.2704 degres
+cosinus: 0.58396
+u inclus dans c3
+v hors de c3
+p1 inclus dans c4 et c5
+p2 inclus dans c4 et c5
+p3 inclus dans c4 et c5
+axe de c5 opposé à l'axe de c4

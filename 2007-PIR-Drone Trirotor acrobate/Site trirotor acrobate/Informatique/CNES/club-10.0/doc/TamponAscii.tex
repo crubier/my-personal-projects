@@ -1,0 +1,216 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+% $Id: TamponAscii.tex,v 1.6 2005/03/03 16:37:51 chope Exp $
+\subsection{classe TamponAscii}\label{sec:TamponAscii}
+
+\subsubsection*{description}\label{sec:TamponAscii-desc}
+Cette classe gère un tampon de texte ASCII pouvant comporter des
+lignes blanches, des commentaires, des chaînes de caractères comportant
+des caractères blancs ou spéciaux du langage \langage{C}
+(\verb=\n=, \verb=\012=, ...). Les caractères ---ou le champ
+complet--- doivent alors être inclus entre '"'.
+
+Ce tampon peut être initialisé à partir d'un fichier. 
+
+Cette classe de type conteneur déclare IterateurAscii comme classe
+amie, ainsi tous les itérateurs de cette famille peuvent parcourir
+TamponAscii.
+
+\subsubsection*{interface publique}\label{sec:TamponAscii-int}
+\begin{verbatim}
+#include "club/TamponAscii.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{TamponAscii : méthodes publiques}
+{\label{tab:TamponAscii-met-pub}}
+{construit une instance à partir d'un nom de fichier blablabla}
+
+\signature{\fonc{TamponAscii} (int \argument{interprete} = 1)}{} & 
+construit une instance vide \\
+
+
+\signature{\fonc{TamponAscii}}{(FILE* \argument{ptrFic}, 
+        int \argument{interprete} = 1) } & 
+contruit une instance à partir d'un descripteur de fichier.
+
+\textbf{Exceptions :} -\\
+
+\signature{\fonc{TamponAscii}}{(const char* \argument{nom}, 
+int \argument{interprete} = 1) } & 
+construit une instance à partir d'un nom de fichier
+
+\textbf{Exceptions :} ouverture\_fichier \\
+
+\hline
+
+\signature{\fonc{TamponAscii}}{(const TamponAscii\& \argument{t})} & 
+constructeur par copie \\
+
+\signature{\fonc{TamponAscii}}{(const TamponAscii* \argument{t})} & 
+constructeur par copie\\
+
+\signature{TamponAscii\&  \fonc{operator =}}
+{(const TamponAscii\& \argument{t})} & 
+opérateur d'affectation. \\
+
+\hline
+
+\signature{\fonc{\~{}TamponAscii} ()}{} & 
+destructeur, libère la mémoire allouée\\
+
+\hline
+
+\signature{void  \fonc{positionneInterprete} (int \argument{interprete})}{} & 
+modification du drapeau d'interprétation des commentaires. \\
+
+\signature{int  \fonc{interprete} () const}{} & 
+retourne le drapeau d'interprétation des commentaires.\\
+
+\signature{void  \fonc{initCarCommentaires}}
+{(const char* \argument{chaine})} & 
+utilise les caractères de \argument{chaine} comme marqueurs de
+commentaires. Si \argument{chaine} est vide ou le pointeur nul, cette
+méthode réinitialise à la valeur par défaut (\#)\\
+
+\signature{void  \fonc{ajouteCarCommentaires}}
+{(const char* \argument{chaine})} & 
+ajoute les caractères de \argument{chaine} à la liste des caractères
+marqueurs de commentaires. \\
+
+\signature{const string\&  \fonc{carCommentaires}}{() const} &
+retourne la liste des caractères marqueurs de commentaires \\
+
+\signature{void \fonc{elimineCommentaires} ()}{} &
+élimine les caractères qui vont d'un caractère marqueur de commentaire
+à la fin de la ligne (sauf si le marqueur est dans une chaîne entre
+'"').
+
+\textbf{Exceptions :} manque\_guillemet.\\
+
+\hline
+
+\signature{void  \fonc{initSeparateurs}}{(const char*
+\argument{chaine})} & 
+utilise les caractères de \argument{chaine} comme caractères
+séparateurs de champs. Si \argument{chaine} est vide ou le pointeur
+nul, cette fonction réinitialise à la valeur par défaut qui est 
+"\verb=\t\n\v\f\r= " \\
+
+\signature{void  \fonc{ajouteSeparateurs}}{(const char*
+\argument{chaine})} &
+ajoute les caractères de \argument{chaine} à la liste des caractères
+séparateurs \\
+
+\signature{const string\&  \fonc{separateurs}}{() const} &
+retourne la liste des caractères séparateurs. \\
+
+\signature{void  \fonc{elimineBlancs} ()}{} & 
+élimine les caratères blancs de début et de fin de ligne. Pour une
+ligne entièrement blanche, le '\verb=\n=' est également éliminé. \\
+
+\hline
+
+\signature{void \fonc{insereDebut}} {(IterateurAscii\& \argument{pos},
+const char* \argument{valeur} )} &
+insère avant l'itérateur \argument{pos} la chaîne \argument{valeur}.
+
+\textbf{Exceptions :} iterateur\_invalide. \\
+
+\signature{void \fonc{insereFin}} {(IterateurAscii\& \argument{pos}, \\ 
+const char* \argument{valeur} )}&
+insère après l'itérateur \argument{pos} la chaîne \argument{valeur}.
+
+\textbf{Exceptions :} iterateur\_invalide. \\
+
+\hline
+
+\signature{void \fonc{supprime}} {(IterateurAscii\& \argument{pos} )} &
+supprime l'élement courant pointé par l'itérateur.
+
+\textbf{Exceptions :} iterateur\_invalide. \\
+
+\signature{void \fonc{supprime}} {(IterateurAscii\& \argument{debut}, \\
+IterateurAscii\& \argument{fin} )} &
+supprime la zone comprise entre les 2 itérateurs.
+
+\textbf{Exceptions :} iterateur\_invalide. \\
+
+\hline
+
+\signature{void \fonc{remplace}} {(IterateurAscii\& \argument{pos}, \\
+const char * \argument{valeur} )} &
+remplace l'élément pointé par l'itérateur par \argument{valeur}.
+
+\textbf{Exceptions :} iterateur\_invalide. \\
+
+\signature{void \fonc{remplace}} { (IterateurAscii\& \argument{debut}, \\
+IterateurAscii\& \argument{fin}, \\ const char* \argument{valeur} )} &
+remplace la zone comprise entre les 2 itérateurs par \argument{valeur}
+
+\textbf{Exceptions :} iterateur\_invalide. \\
+
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+
+\begin{verbatim}
+#include "club/TamponAscii.h"
+...
+
+try
+{
+  TamponAscii t(nomfichier);
+  cout << "contenu du tampon : "<<endl<<t.total();
+}
+catch(ClubErreurs ce)
+{
+  cout << "Erreur : "<<ce.why()<<endl;
+  ce.correction();
+}
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation
+spécifiques}\label{sec:TamponAscii-conseils}
+À moins d'avoir des besoins très
+spécifiques, il est plus intéressant d'utiliser la classe TamponTexte
+qui intègre TamponAscii et plusieurs types d'itérateurs, offrant ainsi
+plus de fonctionnalités.
+
+Après la modification du tampon, les itérateurs courants ne sont plus
+valides. Il faut les synchroniser par appel à \texttt{synchronize}.
+
+\subsubsection*{implantation}\label{sec:TamponAscii-impl}
+Les attributs protégés sont décrits sommairement dans la
+table~\ref{tab:TamponAscii-att-prot}, il n'y a pas d'attribut privé.
+\begin{tableAttributsFixe}{attributs protégés de la classe TamponAscii}
+{\label{tab:TamponAscii-att-prot}}
+{...drapeau d'interprétation des commentaires}
+
+carCommentaires\_ & string  & liste des caractères marqueurs de
+commentaires  \\
+
+separateurs\_ & string  & liste des caractères séparateurs \\
+
+interprete\_ & int  & drapeau d'interprétation des commentaires \\
+
+\end{tableAttributsFixe}
+Les méthodes protégées sont décrites dans la table~\ref{tab:TamponAscii-met-prot}.
+\begin{tableFonctionsFixe}{TamponAscii : méthodes protégées}
+{\label{tab:TamponAscii-met-prot}}
+{...retourne vrai si le caractère concerné est un commentaire}
+
+\signature{int  \fonc{estCarGuillemet}}{(char \argument{c}) const} & 
+retourne vrai si le caractère concerné est un guillemet \\
+
+\signature{int  \fonc{estCarCommentaire}}{(char \argument{c}) const} & 
+retourne vrai si le caractère concerné est un commentaire \\
+
+\signature{int  \fonc{estSeparateur}}{(char\& \argument{c}) const} & 
+retourne vrai si le caractère concerné est un séparateur \\
+
+\signature{int  \fonc{supprimeZone}}{(char* \argument{zdebut}, 
+char* \argument{zfin})} & 
+supprime la zone située entre les 2 pointeurs\\
+
+\signature{int  \fonc{insereZone}}{(char* \argument{pos}, 
+const char* \argument{valeur})} & 
+insère \argument{valeur} à l'endroit pointé par \argument{pos}\\
+
+\end{tableFonctionsFixe}

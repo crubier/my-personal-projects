@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE protocole SYSTEM "protocole.dtd">
+<protocole>
+	<requetes caractere="R">
+		<requete><!-- Commentaire -->
+			<nom_requete>Demande informations GPS</nom_requete>
+			<description_requete>Recupere toutes les informations utiles du GPS</description_requete>
+			<entete_requete>g</entete_requete>
+			<entete_reponse_requete>Eg</entete_reponse_requete>
+			<form_reponse_requete>				
+				<tableau_reponse type="entier">
+					<taille_tableau_reponse>5</taille_tableau_reponse>
+					<lignes_tableau_reponse>						
+						<libelle_ligne_reponse numero="0">Hauteur GPS</libelle_ligne_reponse>						
+						<libelle_ligne_reponse numero="1">Precision</libelle_ligne_reponse>						
+						<libelle_ligne_reponse numero="2">Vitesse sol GPS</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="3">Vitesse UD GPS</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="4">Route GPS</libelle_ligne_reponse>
+					</lignes_tableau_reponse>
+				</tableau_reponse>
+				<tableau_reponse type="reel">
+					<taille_tableau_reponse>2</taille_tableau_reponse>
+					<lignes_tableau_reponse>						
+						<libelle_ligne_reponse numero="0">Longitude</libelle_ligne_reponse>						
+						<libelle_ligne_reponse numero="1">Latitude</libelle_ligne_reponse>							
+					</lignes_tableau_reponse>
+				</tableau_reponse>
+				<tableau_reponse type="octet">
+					<taille_tableau_reponse>2</taille_tableau_reponse>
+					<lignes_tableau_reponse>						
+						<libelle_ligne_reponse numero="0">Nb satellites GPS</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="1">Flags sol GPS</libelle_ligne_reponse>						
+					</lignes_tableau_reponse>
+				</tableau_reponse>
+			</form_reponse_requete>		
+		</requete>
+		
+		<requete>
+			<nom_requete>Demande informations multiplexees GPS</nom_requete>
+			<description_requete>Recupere toutes les informations moins utiles du GPS</description_requete>
+			<entete_requete>mg</entete_requete>
+			<entete_reponse_requete>Emg</entete_reponse_requete>
+			<form_reponse_requete>				
+				<tableau_reponse type="entier">
+					<taille_tableau_reponse>12</taille_tableau_reponse>
+					<lignes_tableau_reponse>						
+						<libelle_ligne_reponse numero="0">info 0 page GPS Multiplexee</libelle_ligne_reponse>						
+						<libelle_ligne_reponse numero="1">info 1 page GPS Multiplexee</libelle_ligne_reponse>						
+						<libelle_ligne_reponse numero="2">info 2 page GPS Multiplexee</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="3">info 3 page GPS Multiplexee</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="4">info 4 page GPS Multiplexee</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="5">info 5 page GPS Multiplexee</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="6">info 6 page GPS Multiplexee</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="7">info 7 page GPS Multiplexee</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="8">info 8 page GPS Multiplexee</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="9">info 9 page GPS Multiplexee</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="10">info 10 page GPS Multiplexee</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="11">info 11 page GPS Multiplexee</libelle_ligne_reponse>
+					</lignes_tableau_reponse>
+				</tableau_reponse>				
+			</form_reponse_requete>		
+		</requete>
+		
+		<requete>
+			<nom_requete>Demande mode de pilotage</nom_requete>
+			<description_requete>Recupere le mode de pilotage du drone</description_requete>
+			<entete_requete>mp</entete_requete>
+			<entete_reponse_requete>Emp</entete_reponse_requete>
+			<form_reponse_requete>				
+				<tableau_reponse type="octet">
+					<taille_tableau_reponse>1</taille_tableau_reponse>
+					<lignes_tableau_reponse>						
+						<libelle_ligne_reponse numero="0">Mode pilotage</libelle_ligne_reponse>
+					</lignes_tableau_reponse>
+				</tableau_reponse>				
+			</form_reponse_requete>		
+		</requete>			
+		<requete>
+			<nom_requete>Demande attitudes données utiles en angle </nom_requete>
+			<description_requete>Demande attitudes données utiles en angle </description_requete>
+			<entete_requete>ar</entete_requete>
+			<entete_reponse_requete>Ear</entete_reponse_requete>
+			<form_reponse_requete>				
+				<tableau_reponse type="reel">
+					<taille_tableau_reponse>3</taille_tableau_reponse>
+					<lignes_tableau_reponse>						
+						<libelle_ligne_reponse numero="0">Phi (inclinaison)</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="1">Thêta (assiette longi)</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="2">Psi (cap magnétique)</libelle_ligne_reponse>						
+					</lignes_tableau_reponse>
+				</tableau_reponse>				
+			</form_reponse_requete>		
+		</requete>
+		<requete><!-- Commentaire -->
+			<nom_requete>Trame TM</nom_requete>
+			<description_requete>Recupere une trame TM</description_requete>
+			<entete_requete>tm</entete_requete>
+			<entete_reponse_requete>Etm</entete_reponse_requete>
+			<form_reponse_requete>				
+				<tableau_reponse type="entier">
+					<taille_tableau_reponse>64</taille_tableau_reponse>
+					<lignes_tableau_reponse>						
+						<libelle_ligne_reponse numero="0">Entree RC voie 1</libelle_ligne_reponse>						
+						<libelle_ligne_reponse numero="1">Entree RC voie 2</libelle_ligne_reponse>						
+						<libelle_ligne_reponse numero="2">Entree RC voie 3</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="3">Entree RC voie 4</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="4">Entree RC voie 5</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="5">Entree RC voie 6</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="6">Entree RC voie 7</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="7">Entree RC voie 8</libelle_ligne_reponse>						
+						<libelle_ligne_reponse numero="8">Entree RC voie 9</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="9">Sortie PWM 0</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="10">Sortie PWM 1</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="11">Sortie PWM 2</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="12">Sortie PWM 3</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="13">Sortie PWM 4</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="14">Sortie PWM 5</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="15">Sortie PWM 6</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="16">Sortie PWM 7</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="17">Nb TC recues</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="18">Code Pression statique</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="19">Vitesse sol GPS</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="20">Vitesse UD GPS</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="21">Route GPS</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="22">Hauteur GPS</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="23">Hauteur PS</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="24">Vz</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="25">Gamma (Pente)</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="26">Alpha (incidence)</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="27">Route consigne</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="28">Consigne hauteur</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="29">Consigne vitesse sol</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="30">Consigne cap</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="31">Distance au waypoint</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="32">Distance au bord de zoneR</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="33">Temps de calcul restituer etat</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="34">Temps de calcul Loi</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="35">Distance à la base</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="36">Tension Batterie</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="37">Vitesse air</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="38">Code voie analogique 0</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="39">Code voie analogique 1</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="40">Code voie analogique 2</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="41">Cap Compas</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="42">Vitesse odomètre</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="43">Distance capteur ultrason 1</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="44">Distance capteur ultrason 2</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="45">Variable de Debug</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="46">Variable de Debug</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="47">Variable de Debug</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="48">Variable de Debug</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="49">Variable de Debug</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="50">Variable de Debug</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="51">Info 0 page GPS Multiplexee</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="52">Info 1 page GPS Multiplexee</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="53">Info 2 page GPS Multiplexee</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="54">Info 3 page GPS Multiplexee</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="55">Info 4 page GPS Multiplexee</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="56">Info 5 page GPS Multiplexee</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="57">Info 6 page GPS Multiplexee</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="58">Info 7 page GPS Multiplexee</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="59">Info 8 page GPS Multiplexee</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="60">Info 9 page GPS Multiplexee</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="61">Info 10 page GPS Multiplexee</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="62">Info 11 page GPS Multiplexee</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="63">Info 12 page GPS Multiplexee</libelle_ligne_reponse>
+					</lignes_tableau_reponse>
+				</tableau_reponse>
+				<tableau_reponse type="reel">
+					<taille_tableau_reponse>25</taille_tableau_reponse>
+					<lignes_tableau_reponse>						
+						<libelle_ligne_reponse numero="0">Quaternion[0]</libelle_ligne_reponse>						
+						<libelle_ligne_reponse numero="1">Quaternion[1]</libelle_ligne_reponse>						
+						<libelle_ligne_reponse numero="2">Quaternion[2]</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="3">Quaternion[3]</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="4">Acc[0] accélerometre axe X</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="5">Acc[1] accélerometre axe X</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="6">Acc[2] accélerometre axe X</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="7">p vitesse angulaire roulis</libelle_ligne_reponse>						
+						<libelle_ligne_reponse numero="8">q vitesse angulaire tangage</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="9">r vitesse angulaire lacet</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="10">phi (inclinaison)</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="11">theta (assiette longi)</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="12">psi (cap magnétique)</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="13">u</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="14">v</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="15">w</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="16">longitude</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="17">latitude</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="18">Variable de Debug</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="19">Variable de Debug</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="20">Variable de Debug</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="21">Variable de Debug</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="22">Variable de Debug</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="23">Variable de Debug</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="24">Variable de Debug</libelle_ligne_reponse>						
+					</lignes_tableau_reponse>
+				</tableau_reponse>
+				<tableau_reponse type="octet">
+					<taille_tableau_reponse>15</taille_tableau_reponse>
+					<lignes_tableau_reponse>						
+						<libelle_ligne_reponse numero="0">Mode pilotage</libelle_ligne_reponse>						
+						<libelle_ligne_reponse numero="1">Flags sol GPS</libelle_ligne_reponse>						
+						<libelle_ligne_reponse numero="2">Nb Satellites GPS</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="3">N° waypoint</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="4">Status 1 calculateur</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="5">Status 2 calculateur</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="6">Nb TC Coeffs capteurs</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="7">Nb TC Coeffs capteurs</libelle_ligne_reponse>						
+						<libelle_ligne_reponse numero="8">Nb TC Coeffs lois</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="9">Nb TC route</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="10">Nb TC zone evolution</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="11">Numero de route</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="12">Variable de Debug</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="13">Variable de Debug</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="14">Variable de Debug</libelle_ligne_reponse>				
+					</lignes_tableau_reponse>
+				</tableau_reponse>
+			</form_reponse_requete>		
+		</requete>
+		
+		<requete>
+			<nom_requete>Demande informations supervision </nom_requete>
+			<description_requete>Recupere les informations utiles à la supervision</description_requete>
+			<entete_requete>is</entete_requete>
+			<entete_reponse_requete>Eis</entete_reponse_requete>
+			<form_reponse_requete>				
+				<tableau_reponse type="octet">
+					<taille_tableau_reponse>10</taille_tableau_reponse>
+					<lignes_tableau_reponse>						
+						<libelle_ligne_reponse numero="0">Etat GPS</libelle_ligne_reponse>						
+						<libelle_ligne_reponse numero="1">Etat Communication bord sol</libelle_ligne_reponse>						
+						<libelle_ligne_reponse numero="2">Etat Camera</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="3">Etat capteurs ultrason</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="4">Obstacle Gauche</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="5">Obstacle Droit</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="6">Etat Energie</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="7">Etat operateur</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="8">mode PA</libelle_ligne_reponse>
+						<libelle_ligne_reponse numero="9">mode de NAV</libelle_ligne_reponse>
+					</lignes_tableau_reponse>
+				</tableau_reponse>				
+			</form_reponse_requete>		
+		</requete>
+		
+	</requetes>
+	
+	<envois caractere="E">
+		<envoi>
+			<nom_envoi>Envoi Consigne TC</nom_envoi>
+			<description_envoi>Envoi Consigne TC</description_envoi>
+			<entete_envoi>c</entete_envoi>			
+			<form_data_envoi>			
+				<tableau_data type="entier">
+					<taille_tableau_data>8</taille_tableau_data>
+					<lignes_tableau_data>						
+						<libelle_ligne_data numero="0">Hauteur GPS</libelle_ligne_data>						
+						<libelle_ligne_data numero="1">Precision</libelle_ligne_data>						
+						<libelle_ligne_data numero="2">Vitesse sol GPS</libelle_ligne_data>
+						<libelle_ligne_data numero="3">Vitesse UD GPS</libelle_ligne_data>
+						<libelle_ligne_data numero="4">Route GPS</libelle_ligne_data>
+						<libelle_ligne_data numero="5">Route GPS</libelle_ligne_data>
+						<libelle_ligne_data numero="6">Route GPS</libelle_ligne_data>
+						<libelle_ligne_data numero="7">Route GPS</libelle_ligne_data>
+					</lignes_tableau_data>
+				</tableau_data>				
+			</form_data_envoi>		
+		</envoi>
+		
+		<envoi>
+			<nom_envoi>Envoi trajectoire</nom_envoi>
+			<description_envoi>Envoi des nouvelles trajectoire</description_envoi>
+			<entete_envoi>t</entete_envoi>			
+			<form_data_envoi>			
+				<tableau_data type="reel">
+					<taille_tableau_data>4</taille_tableau_data>
+					<lignes_tableau_data>						
+						<libelle_ligne_data numero="0">Latitude</libelle_ligne_data>						
+						<libelle_ligne_data numero="1">Longitude</libelle_ligne_data>						
+						<libelle_ligne_data numero="2">Vitesse</libelle_ligne_data>
+						<libelle_ligne_data numero="3">Altitude</libelle_ligne_data>						
+					</lignes_tableau_data>
+				</tableau_data>				
+			</form_data_envoi>		
+		</envoi>
+		
+		<envoi>
+			<nom_envoi>Envoi mode de pilotage</nom_envoi>
+			<description_envoi>Envoi un nouveau mode de pilotage du drone</description_envoi>
+			<entete_envoi>d</entete_envoi>			
+			<form_data_envoi>				
+				<tableau_data type="entier">
+					<taille_tableau_data>1</taille_tableau_data>
+					<lignes_tableau_data>						
+						<libelle_ligne_data numero="0">Mode Pilotage</libelle_ligne_data>							
+					</lignes_tableau_data>
+				</tableau_data>			
+			</form_data_envoi>		
+		</envoi>
+		
+		<envoi>
+			<nom_envoi>Envoi commande PROCOSA </nom_envoi>
+			<description_envoi>Envoi commande PROCOSA</description_envoi>
+			<entete_envoi>C</entete_envoi>			
+			<form_data_envoi>				
+				<tableau_data type="entier">
+					<taille_tableau_data>1</taille_tableau_data>
+					<lignes_tableau_data>						
+						<libelle_ligne_data numero="0">Commande PROCOSA</libelle_ligne_data>							
+					</lignes_tableau_data>
+				</tableau_data>			
+			</form_data_envoi>		
+		</envoi>
+		
+		<envoi>
+			<nom_envoi>Envoi point trajectoire PROCOSA </nom_envoi>
+			<description_envoi>Envoi point trajectoire PROCOSA</description_envoi>
+			<entete_envoi>T</entete_envoi>			
+			<form_data_envoi>				
+				<tableau_data type="reel">
+					<taille_tableau_data>2</taille_tableau_data>
+					<lignes_tableau_data>						
+						<libelle_ligne_data numero="0">latitude</libelle_ligne_data>							
+						<libelle_ligne_data numero="1">longitude</libelle_ligne_data>							
+					</lignes_tableau_data>
+				</tableau_data>			
+			</form_data_envoi>		
+		</envoi>
+		
+		
+		<envoi>
+			<nom_envoi>Envoi infos de localisation </nom_envoi>
+			<description_envoi>Envoi infos de localisation</description_envoi>
+			<entete_envoi>l</entete_envoi>			
+			<form_data_envoi>				
+				<tableau_data type="reel">
+					<taille_tableau_data>11</taille_tableau_data>
+					<lignes_tableau_data>						
+						<libelle_ligne_data numero="0">longitude</libelle_ligne_data>							
+						<libelle_ligne_data numero="1">latitude</libelle_ligne_data>							
+						<libelle_ligne_data numero="2">altitude</libelle_ligne_data>							
+						<libelle_ligne_data numero="3">vitesseNS</libelle_ligne_data>							
+						<libelle_ligne_data numero="4">vitesseEW</libelle_ligne_data>							
+						<libelle_ligne_data numero="5">vitesseUD</libelle_ligne_data>							
+						<libelle_ligne_data numero="6">angleRoute</libelle_ligne_data>							
+						<libelle_ligne_data numero="7">precisionPosHor</libelle_ligne_data>							
+						<libelle_ligne_data numero="8">precisionPosVert</libelle_ligne_data>							
+						<libelle_ligne_data numero="9">precisionVitesse</libelle_ligne_data>							
+						<libelle_ligne_data numero="10">precisionAngleRoute</libelle_ligne_data>							
+					</lignes_tableau_data>
+				</tableau_data>			
+			</form_data_envoi>		
+		</envoi>
+		
+	</envois>
+</protocole>

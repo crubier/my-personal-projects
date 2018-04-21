@@ -1,0 +1,191 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+% $Id: IterateurLigne.tex,v 1.7 2005/03/03 16:40:30 chope Exp $
+\subsection{classe IterateurLigne}\label{sec:IterateurLigne}
+
+\subsubsection*{description}\label{sec:IterateurLigne-desc}
+
+La classe IterateurLigne permet de parcourir un TamponAscii de ligne
+en ligne. Cet itérateur possède les propriétés suivantes :
+
+\begin{itemize}
+\item À un instant donné, l'itérateur possède une valeur qui désigne
+un élément du tampon. On accède à cette valeur par \texttt{valeur()} ;
+\item L'itérateur peut être incrémenté par l'opérateur ++ de manière à
+pointer sur l'élément suivant ;
+\item L'itérateur peut également être décrémenté par l'opérateur $--$ de
+manière à pointer sur l'élément précédent (itérateur bidirectionnel) ;
+\item L'itérateur permet d'accéder directement à un élément du tampon
+en utilisant la méthode \texttt{allerSur (int index)}.
+\end{itemize}
+
+\subsubsection*{interface publique}\label{sec:IterateurLigne-int}
+\begin{verbatim}
+#include "club/IterateurLigne.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{IterateurLigne : méthodes publiques}
+{\label{tab:IterateurLigne-met-pub}}
+{si direction=1, synchronise la position de l'itérateur sur la position}
+
+\signature{\fonc{IterateurLigne}}{( const TamponAscii\& \\
+ \argument{tampon}, int \argument{compterLignes} = 1 )} & 
+construit une instance parcourant \argument{tampon}
+
+\textbf{Exceptions :} iterateur\_invalide. \\
+
+\signature{\fonc{IterateurLigne}}{( TamponAscii* \argument{tampon},\\
+ int \argument{compterLignes} = 1 ) } & 
+construit une instance parcourant \argument{tampon}
+
+\textbf{Exceptions :} iterateur\_invalide.\\
+
+\signature{\fonc{~IterateurLigne} ()}{} &
+destructeur.
+\\
+
+\hline
+
+\signature{void \fonc{premier} ()}{}  & 
+positionne l'itérateur sur la première ligne du tampon. 
+
+\textbf{Exceptions :} iterateur\_invalide.\\
+
+\signature{void \fonc{dernier} ()}{}  & 
+positionne l'itérateur sur la dernière ligne du tampon. 
+
+\textbf{Exceptions :} ligne\_hors\_domaine, iterateur\_invalide.\\
+
+\signature{void \fonc{allerSur} (int \argument{index})}{} & 
+positionne l'itérateur sur la ligne \argument{index} du tampon.
+
+\textbf{Exceptions :} ligne\_hors\_domaine, iterateur\_invalide.\\
+
+\hline
+
+\signature{int  \fonc{termine} () const}{} & 
+indique que l'itérateur est à la fin du tampon.\\
+
+\hline
+
+\signature{int  \fonc{nombreIterations} () const}{} & 
+retourne le nombre de lignes du tampon.
+
+\textbf{Exceptions :} iterateur\_invalide.\\
+
+\signature{int  \fonc{operator++} (int)}{} &  
+positionne l'itérateur sur la ligne suivante du tampon.
+
+\textbf{Exceptions :} ligne\_hors\_domaine, iterateur\_invalide.\\
+
+\signature{int  \fonc{operator$--$} (int)}{} & 
+positionne l'itérateur sur la ligne précédente du tampon.
+
+\textbf{Exceptions :} ligne\_hors\_domaine, iterateur\_invalide.\\
+
+\hline
+
+\signature{int  \fonc{longueurElement}}{(int \argument{avecFin} = 0)
+const} &
+retourne la longueur de la ligne.
+
+\textbf{Exceptions :} iterateur\_invalide.\\
+
+\signature{const char*  \fonc{valeur} () const}{} & 
+
+retourne un pointeur sur la ligne courante.
+
+\textbf{Exceptions :} iterateur\_invalide.\\
+
+\signature{void \fonc{synchronize} (int \argument{direction} = 0)}{}&
+si direction=1, synchronise la position de l'itérateur sur la
+position réelle dans le tampon (itérateur altéré lors d'une
+modification du tampon).
+Si direction = 0 (par défaut), synchronise l'état du tampon (position
+courante du curseur) sur la position courante de l'itérateur
+(mémorisation avant altération du tampon)
+
+\textbf{Exceptions :} iterateur\_invalide.\\
+
+\signature{void  \fonc{actualise} ()}{} & 
+réinitialise l'itérateur sur le début du tampon.\\
+
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+
+\begin{verbatim}
+#include "club/IterateurLigne.h"
+#include "club/TamponAscii.h" 
+...
+
+TamponAscii t(nomfichier);
+IterateurLigne itl(t);
+cout << "nombre de lignes : "<< itl.nombreIterations()<<endl;
+
+// n'afficher que les lignes de plus de 5 caracteres
+itl.premier();
+do
+{
+  if(itl.longueurElement() >=5)
+    cout << itl.valeur()<<endl;
+}
+while (itl++);
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation
+spécifiques}\label{sec:IterateurLigne-conseils}
+Les opérateurs $++$ et $--$ retournent 0 lorsqu'ils sont arrivés à
+l'extrémité du tampon. Il est ainsi possible de tester leur code
+retour dans un while (cf exemple d'utilisation précédent).
+
+Les classes IterateurX développées pour la bibliothèque 
+\bibliotheque{Club} sont dédiées à la gestion d'objets TamponAscii. En
+conséquence, les interfaces de ces classes n'offrent que les méthodes
+utiles à cette gestion. Si les besoins de parcours d'un tampon sont
+des besoins classiques, la classe TamponTexte offre les
+fonctionnalités nécessaires, sans nécessiter la manipulation d'itérateurs.
+
+\subsubsection*{implantation}\label{sec:IterateurLigne-impl}
+Les attributs protégés sont décrits sommairement dans la
+table~\ref{tab:IterateurLigne-att-prot}, il n'y a pas d'attribut privé.
+\begin{tableAttributsFixe}{attributs protégés de la classe IterateurLigne}
+{\label{tab:IterateurLigne-att-prot}}
+{pointeur sur le début de la ligne courante}
+
+debutLigne\_ & char*  & pointeur sur le début de la ligne courante \\
+
+numLigne\_ & int  & numéro de la ligne courante \\
+
+nombreLignes\_ & int  & nombre total de lignes du tampon. \\
+
+\end{tableAttributsFixe}
+Les méthodes protégées sont décrites dans la table~\ref{tab:IterateurLigne-met-prot}.
+\begin{tableFonctionsFixe}{IterateurLigne : méthodes protégées}
+{\label{tab:IterateurLigne-met-prot}}
+{remet l'itérateur en conformité avec l'état courant du tampon.}
+
+\signature{void  \fonc{actualiseEtat} ()}{} & 
+remet l'itérateur en conformité avec l'état courant du tampon. \\
+
+\signature{void \fonc{rechercheLigne} (int \argument{l})}{} &
+recherche la ligne \argument{l} \quad \textbf{Exceptions :} ligne\_hors\_domaine. \\
+
+\signature{int  \fonc{compteLignes}}{(const char* \argument{mobile})
+const} &
+retourne le nombre de lignes de \argument{mobile} jusqu'à la fin du
+tampon. \\
+
+\signature{\fonc{IterateurLigne} ()} {} &
+constructeur par défaut.
+\\
+
+\signature{\fonc{IterateurLigne}} {(const IterateurLigne \&
+\argument{other})} &
+constructeur par copie.
+\\
+
+\signature{\fonc{IterateurLigne} \& \fonc{operator =}} {(const
+IterateurLigne \&
+\argument{other})} &
+affectation.
+\\
+
+\end{tableFonctionsFixe}

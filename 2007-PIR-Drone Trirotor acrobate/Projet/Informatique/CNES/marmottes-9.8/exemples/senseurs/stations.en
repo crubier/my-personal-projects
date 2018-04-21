@@ -1,0 +1,177 @@
+# RCS identifier : "$Id: stations.en,v 1.1 1997/12/01 09:35:22 luc Exp $"
+
+# This file contains the coordinates of some ground stations
+# for use as Marmottes sensors target. Here is an exemple of use :
+#
+# AUS-RHCP
+# { type           { vector }
+#
+#   # the frame describes an antenna whose axis coordinates are
+#   # about (-0.3 0 0.9) in spacecraft frame and (0 0 1) in sensor frame
+#   frame          { v_base  { -0.2983745340 0.0 0.9544488658 }
+#                    v_image { 0 0 1 }
+#                  }
+#
+#   reference_axis { 0 0 1 }
+#   field_of_view  { cone { axis { 0 0 1 } angle { 95 } } }
+#
+#   target         { station }
+#   station        { => {AUS-station } }
+#
+# }
+#
+# AUS-LHCP
+# {   =>  { AUS-RHCP }
+#   frame { v_base  { 0.2983745340 0.0 -0.9544488658 }
+#           v_image { 0 0 1 }
+#         }
+# }
+#
+
+AUS-station { longitude    {   1.49939883 }
+              latitude     {  43.42869186 }
+              altitude     { 261.58       }
+
+              pressure     { 1000 }
+              temperature  { 15   }
+              hygrometry   { 80   }
+
+              mask         { 0 10 }
+
+            }
+
+KRU-station { longitude    {  -52.6398767   }
+              latitude     {    5.098838055 }
+              altitude     {  111.95        }
+
+              pressure     { 1000 }
+              temperature  { 30   }
+              hygrometry   { 80   }
+
+              mask         { 0 10 }
+
+            }
+
+HBK-station { longitude    {   27.71001972  }
+             latitude      {  -25.8865815   }
+             altitude      { 1558.0         }
+
+             pressure      { 900 }
+             temperature   { 20  }
+             hygrometry    { 60  }
+
+              mask         { 0 10 }
+
+            }
+
+KER-station { longitude    {  70.2572825    }
+              latitude     { -49.3529056    }
+              altitude     {  83.46         }
+
+              pressure     { 1001.8 }
+              temperature  { 9      }
+              hygrometry   { 64     }
+
+              mask         { 0 10 }
+
+            }
+
+CAN-station { longitude    { 148.983075  }
+              latitude     { -35.4050111 }
+              altitude     { 677.010     }
+
+              pressure     { 1000 }
+              temperature  { 20   }
+              hygrometry   { 70   }
+
+              mask         { 0 10 }
+
+            }
+
+KRN-station { longitude    { 21.063398  }
+              latitude     { 67.878156  }
+              altitude     { 510.518500 }
+
+              pressure     { 1010 }
+              temperature  { 0    }
+              hygrometry   { 60   }
+
+              mask         { # KRN ESX 76
+                               0.00   0.20
+                               5.00   0.00
+                              10.00   0.10
+                              15.00  18.50
+                              20.00   0.00
+                              25.00   0.00
+                              28.00   2.00
+                              32.00   2.00
+                              35.00   0.00
+                              36.00   6.20
+                              40.00   0.00
+                              45.00   0.00
+                              50.00   0.10
+                              55.00   0.00
+                              60.00   0.20
+                              65.00   0.40
+                              70.00   0.60
+                              75.00   1.00
+                              80.00   1.10
+                              85.00   0.90
+                              90.00   0.80
+                              95.00   1.00
+                             100.00   1.20
+                             105.00   1.20
+                             110.00   1.20
+                             115.00   2.10
+                             120.00   1.50
+                             125.00   0.60
+                             130.00   0.30
+                             135.00   0.50
+                             140.00   0.60
+                             145.00   0.20
+                             150.00   0.00
+                             155.00   0.00
+                             160.00   0.00
+                             163.00   2.50
+                             167.00   2.50
+                             170.00   0.40
+                             175.00   1.00
+                             180.00   1.60
+                             185.00   1.50
+                             190.00   1.20
+                             195.00   0.50
+                             200.00   0.20
+                             205.00   0.50
+                             210.00   0.80
+                             215.00   0.20
+                             220.00   0.00
+                             225.00   0.30
+                             230.00   0.40
+                             235.00   0.30
+                             240.00   0.30
+                             245.00   0.20
+                             250.00   0.20
+                             254.99   0.20
+                             260.00   0.20
+                             265.00   0.20
+                             270.00   0.10
+                             275.00   0.00
+                             280.00   0.20
+                             285.00   0.00
+                             290.00   0.00
+                             295.00   0.00
+                             299.99   0.00
+                             305.00   0.00
+                             310.00   0.00
+                             315.00   0.00
+                             320.00   0.60
+                             325.00   0.00
+                             330.00   0.20
+                             335.00   0.50
+                             340.00   0.20
+                             345.00   0.20
+                             350.00   0.20
+                             355.00   0.20
+                           }
+
+            }

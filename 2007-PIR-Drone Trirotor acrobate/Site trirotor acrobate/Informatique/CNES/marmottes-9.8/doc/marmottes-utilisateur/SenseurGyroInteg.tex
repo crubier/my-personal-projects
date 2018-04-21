@@ -1,0 +1,134 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: SenseurGyroInteg.tex,v 1.11 2004/06/21 14:43:22 marmottes Exp $
+\subsection{classe SenseurGyroInteg}\label{sec:SenseurGyroInteg}
+
+\subsubsection*{description}\label{sec:SenseurGyroInteg-desc}
+
+Cette classe implante les gyromètres intégrateurs, c'est à dire les
+senseurs qui accumulent les rotations élémentaires autour d'un axe
+sensible depuis l'instant de leur remise à zéro.
+
+Bien que ces senseurs produisent des mesures angulaires il s'agit de
+senseurs cinématiques et non de senseurs géométriques : les mesures
+qu'ils produisent dépendent de tous les états intermédiaires entre le
+moment de la remise à zéro et les instants de mesures.
+
+Cette classe est la seule a implanter une version non triviale de la
+méthode \fonc{prendEtatEnCompte}, pour tenir compte du pilotage de
+l'attitude à chaque résolution.
+
+\subsubsection*{interface publique}\label{sec:SenseurGyroInteg-int}
+\begin{verbatim}
+#include "marmottes/SenseurGyroInteg.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{SenseurGyroInteg : méthodes publiques}
+{\label{tab:SenseurGyroInteg-met-pub}}
+{construit une instance à partir des données technologiques}
+
+\signature{\fonc{SenseurGyroInteg}}
+          {(const string\& \argument{nom},
+            const RotDBL\& \argument{repere},\\
+            const VecDBL\& \argument{axeCalage},
+            double \argument{precision},\\
+            const VecDBL\& \argument{axeSensible})
+          }&
+
+construit une instance à partir des données technologiques\\
+
+\hline
+
+\signature{\fonc{SenseurGyroInteg} (const SenseurGyroInteg\& \argument{s})}
+          {}&
+
+constructeur par copie\\
+
+\signature{SenseurGyroInteg\& \fonc{operator =}}
+          {(const SenseurGyroInteg\& \argument{s})}&
+
+affectation\\
+
+\hline
+
+\signature{\fonc{\~{}SenseurGyroInteg ()}}
+          {}&
+
+destructeur, ne fait rien dans cette classe\\
+
+\hline
+
+\signature{Senseur* \fonc{copie} () const}
+          {}&
+
+opérateur de copie virtuel\\
+
+\hline
+
+\signature{void \fonc{modeliseConsigne}}
+          {(const Etat\& \argument{etat}, double \argument{valeur})\\
+          \throw{CantorErreurs, MarmottesErreurs}}&
+
+modélise la consigne \argument{valeur} dans l'\argument{etat} fourni\\
+
+\hline
+
+\signature{double \fonc{mesure} (const Etat\& \argument{etat})}
+          {\throw{MarmottesErreurs}}&
+
+retourne la mesure que produirait le senseur dans l'\argument{etat}
+fourni\\
+
+\signature{ValeurDerivee1 \fonc{foncEcart}}
+          {(const Etat\& \argument{etatPrecedent},\\
+            const Etat\& \argument{etatResolution},\\
+            const RotVD1\& \argument{attitude},\\
+            const VecVD1\& \argument{spin})
+          }&
+retourne l'écart entre la consigne et la mesure que produirait le
+senseur dans l'\argument{attitude} et le \argument{spin} fournis,
+connaissant l'\argument{etatPrecedent} du satellite\\
+
+\hline
+
+\signature{void \fonc{initialiseGyro}}
+          {(double \argument{date}, double \argument{angle})\\
+          \throw{MarmottesErreurs}}&
+
+initialise le senseur pour qu'il produise la mesure \argument{angle} à
+la \argument{date} spécifiée\\
+
+\signature{void \fonc{prendEtatEnCompte}}
+          {(const Etat\& \argument{etat})
+          }&
+
+prend l'\argument{etat} de résolution en compte dans le senseur, pour
+mettre à jour la mesure en intégrant le spin depuis la dernière mise à
+jour
+\end{tableFonctionsFixe}
+\subsubsection*{implantation}\label{sec:SenseurGyroInteg-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:SenseurGyroInteg-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe SenseurGyroInteg}
+{\label{tab:SenseurGyroInteg-att-priv}}
+{date de la dernière mise à jour du senseur}
+
+t0\_ & double & date de la dernière mise à jour du senseur\\
+
+alpha0\_ & double & angle courant à la date t0\_\\
+
+initialise\_ & bool & indique si le senseur a été initialisé\\
+
+\end{tableAttributsFixe}
+
+Les méthodes protégées sont décrites dans la table~\ref{tab:SenseurGyroInteg-met-prot}.
+\begin{tableFonctionsFixe}{SenseurGyroInteg : méthodes protégées}
+{\label{tab:SenseurGyroInteg-met-prot}}
+{constructeur par défaut. Il est défini explicitement uniquement pour }
+
+\signature{\fonc{SenseurGyroInteg} ()}
+          {}&
+
+constructeur par défaut. Il est défini explicitement uniquement pour
+prévenir celui créé automatiquement par le compilateur et ne doit pas être
+utilisé.
+\\
+\end{tableFonctionsFixe}

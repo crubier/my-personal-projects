@@ -1,0 +1,323 @@
+ Contenu initial du tampon : 
+#
+# Ceci est un fichier
+      	   	# de tests
+  # pour la classe FichierTexte
+
+# test des champs simples
+   111111 	22 3 \n\t\b\a dgdfgg # commentaire en fin de ligne
+
+# test des champs complexes
+"aaaa" "\x5b\x28\x29\x5D" "aa\tbbb\ncc\a\addd\b\43\173\175"
+   "\\\\" "\\\"xx\"\\"#commentaire colle a une fin de ligne
+
+# test de chaînes fortran et C
+xx xx' chaine fortran avec ", #, et '''" cha\356n\e\ C avec ', #, et \""yy yy
+
+
+
+	------------------------
+
+	TEST FONCTIONNEMENT NOMINAL
+
+	------------------------
+
+		PARCOURS
+
+	1- Parcours Incremental
+	   ~~~~~~~~~~~~~~~~~~~~
+#,
+# Ceci est un fichier,
+      	   	# de tests,
+  # pour la classe FichierTexte,
+,
+# test des champs simples,
+   111111 	22 3 \n\t\b\a dgdfgg # commentaire en fin de ligne,
+,
+# test des champs complexes,
+"aaaa" "\x5b\x28\x29\x5D" "aa\tbbb\ncc\a\addd\b\43\173\175",
+   "\\\\" "\\\"xx\"\\"#commentaire colle a une fin de ligne,
+,
+# test de chaînes fortran et C,
+xx xx' chaine fortran avec ", #, et '''" cha\356n\e\ C avec ', #, et \""yy yy,
+
+	------------------------
+
+	2- Parcours Decremental
+	   ~~~~~~~~~~~~~~~~~~~~
+xx xx' chaine fortran avec ", #, et '''" cha\356n\e\ C avec ', #, et \""yy yy
+# test de chaînes fortran et C
+
+   "\\\\" "\\\"xx\"\\"#commentaire colle a une fin de ligne
+"aaaa" "\x5b\x28\x29\x5D" "aa\tbbb\ncc\a\addd\b\43\173\175"
+# test des champs complexes
+
+   111111 	22 3 \n\t\b\a dgdfgg # commentaire en fin de ligne
+# test des champs simples
+
+  # pour la classe FichierTexte
+      	   	# de tests
+# Ceci est un fichier
+#
+
+	------------------------
+
+	3- Acces direct
+	   ~~~~~~~~~~~~
+ valeur de la ligne 10 : "aaaa" "\x5b\x28\x29\x5D" "aa\tbbb\ncc\a\addd\b\43\173\175"
+
+	------------------------
+
+		INSERTIONS
+
+	1- Insertion en debut
+	   ~~~~~~~~~~~~~~~~~~
+
+insertion du numero de la ligne au debut de chaque ligne.
+
+	2- Insertion en fin
+	   ~~~~~~~~~~~~~~~~
+
+insertion de "HAPPY" a la fin de la ligne 12 : 
+
+~~~~~~~ contenu du tampon apres insertions ~~~~~~
+1#
+2# Ceci est un fichier
+3      	   	# de tests
+4  # pour la classe FichierTexte
+5
+6# test des champs simples
+7   111111 	22 3 \n\t\b\a dgdfgg # commentaire en fin de ligne
+8
+9# test des champs complexes
+10"aaaa" "\x5b\x28\x29\x5D" "aa\tbbb\ncc\a\addd\b\43\173\175"
+11   "\\\\" "\\\"xx\"\\"#commentaire colle a une fin de ligne
+12HAPPY
+13# test de chaînes fortran et C
+14xx xx' chaine fortran avec ", #, et '''" cha\356n\e\ C avec ', #, et \""yy yy
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	------------------------
+
+		REMPLACEMENTS
+
+
+	1- Remplacements simples
+	   ~~~~~~~~~~~~~~~~~~~~~
+
+Remplacer la ligne 11  par "TOTO".
+
+	2- Remplacements multi-lignes
+	   ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Remplacer les lignes 6 a 8  par "UNE CHAINE".
+
+~~~~~~~ contenu du tampon apres remplacements ~~~~~~
+1#
+2# Ceci est un fichier
+3      	   	# de tests
+4  # pour la classe FichierTexte
+5
+UNE CHAINE
+9# test des champs complexes
+10"aaaa" "\x5b\x28\x29\x5D" "aa\tbbb\ncc\a\addd\b\43\173\175"
+TOTO
+12HAPPY
+13# test de chaînes fortran et C
+14xx xx' chaine fortran avec ", #, et '''" cha\356n\e\ C avec ', #, et \""yy yy
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	------------------------
+
+		SUPPRESSIONS
+
+
+	1- Suppression ligne simple
+	   ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Supprime la ligne 4.
+
+	2- Suppression multi-lignes
+	   ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Supprime les lignes 5 a 7
+
+~~~~~~~ contenu du tampon apres suppressions ~~~~~~
+1#
+2# Ceci est un fichier
+3      	   	# de tests
+5
+TOTO
+12HAPPY
+13# test de chaînes fortran et C
+14xx xx' chaine fortran avec ", #, et '''" cha\356n\e\ C avec ', #, et \""yy yy
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	------------------------
+
+	TEST FONCTIONNEMENT DEGRADE
+
+	------------------------
+
+		PARCOURS
+
+	1- Parcours Incremental
+	   ~~~~~~~~~~~~~~~~~~~~
+
+valeur derniere ligne       :14xx xx' chaine fortran avec ", #, et '''" cha\356n\e\ C avec ', #, et \""yy yy
+apres operateur ++          :
+deuxieme appel a operateur++:
+
+	------------------------
+
+	2- Parcours Decremental
+	   ~~~~~~~~~~~~~~~~~~~~
+
+valeur premiere ligne       :1#
+apres operateur --          :1#
+deuxieme appel a operateur--:1#
+
+	------------------------
+
+	3- Acces direct
+	   ~~~~~~~~~~~~
+
+acces ligne 1  :1#
+Tentative acces ligne0 
+ Exception levee : ligne 0 hors limites [1 ; 8], tampon "@srcdir@/test_TamponTexte.don"
+Tentative acces ligne -1
+ Exception levee : ligne -1 hors limites [1 ; 8], tampon "@srcdir@/test_TamponTexte.don"
+acces ligne 8 (derniere ligne):14xx xx' chaine fortran avec ", #, et '''" cha\356n\e\ C avec ', #, et \""yy yy
+Tentative acces une ligne au dela de la fin du tampon
+ Exception levee : ligne 9 hors limites [1 ; 8], tampon "@srcdir@/test_TamponTexte.don"
+
+------------------------
+
+		INSERTIONS
+
+	1- Insertion en debut
+	   ~~~~~~~~~~~~~~~~~~
+
+valeur premiere ligne       :1#
+Insertion avant la ligne 0 de 'It's all rigth'.
+ Exception levee : ligne 0 hors limites [1 ; 8], tampon "@srcdir@/test_TamponTexte.don"
+
+	2- Insertion en fin
+	   ~~~~~~~~~~~~~~~~
+
+Insertion en fin de la ligne 0 de 'nevermind'.
+ Exception levee : ligne 0 hors limites [1 ; 8], tampon "@srcdir@/test_TamponTexte.don"
+Insertion en fin de la ligne 11 de 'That's all folks' (3 lignes apres la fin du tampon)
+ Exception levee : ligne 11 hors limites [1 ; 8], tampon "@srcdir@/test_TamponTexte.don"
+
+~~~~~~~ contenu du tampon apres insertions ~~~~~~
+1#
+2# Ceci est un fichier
+3      	   	# de tests
+5
+TOTO
+12HAPPY
+13# test de chaînes fortran et C
+14xx xx' chaine fortran avec ", #, et '''" cha\356n\e\ C avec ', #, et \""yy yy
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+------------------------
+
+		SUPPRESSIONS
+
+
+	1- Suppressions ligne simple
+	   ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+suppression de la ligne -1.
+ Exception levee : ligne -1 hors limites [1 ; 8], tampon "@srcdir@/test_TamponTexte.don"
+suppression de la ligne 13(5 lignes apres la fin du tampon).
+ Exception levee : ligne 13 hors limites [1 ; 8], tampon "@srcdir@/test_TamponTexte.don"
+
+~~~~~~~ contenu du tampon apres suppressions simples ~~~~~~
+1#
+2# Ceci est un fichier
+3      	   	# de tests
+5
+TOTO
+12HAPPY
+13# test de chaînes fortran et C
+14xx xx' chaine fortran avec ", #, et '''" cha\356n\e\ C avec ', #, et \""yy yy
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	2- Suppressions multi-lignes
+	   ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+suppression des lignes -1 a 2.
+ Exception levee : ligne -1 hors limites [1 ; 8], tampon "@srcdir@/test_TamponTexte.don"
+suppression des lignes 6 a 11(de 2 lignes avant a 3 apres la fin du tampon).
+ Exception levee : ligne 11 hors limites [1 ; 8], tampon "@srcdir@/test_TamponTexte.don"
+
+suppression des lignes 5 a 2 (zone invalide -> pas de suppression).
+
+~~~~~~~ contenu du tampon apres suppressions multi-lignes ~~~~~~
+1#
+2# Ceci est un fichier
+3      	   	# de tests
+5
+TOTO
+12HAPPY
+13# test de chaînes fortran et C
+14xx xx' chaine fortran avec ", #, et '''" cha\356n\e\ C avec ', #, et \""yy yy
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+------------------------
+
+		REMPLACEMENTS
+
+
+	1- Remplacements simples
+	   ~~~~~~~~~~~~~~~~~~~~~
+
+remplacer la ligne 0 par 'bug's spirit'.
+ Exception levee : ligne 0 hors limites [1 ; 8], tampon "@srcdir@/test_TamponTexte.don"
+
+remplacer la ligne 13 par 'no way' (5 lignes apres la fin du tampon).
+ Exception levee : ligne 13 hors limites [1 ; 8], tampon "@srcdir@/test_TamponTexte.don"
+
+~~~~~~~ contenu du tampon apres remplacement simples ~~~~~~
+1#
+2# Ceci est un fichier
+3      	   	# de tests
+5
+TOTO
+12HAPPY
+13# test de chaînes fortran et C
+14xx xx' chaine fortran avec ", #, et '''" cha\356n\e\ C avec ', #, et \""yy yy
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	2- Remplacements multi-lignes
+	   ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+remplacer les lignes -3 a 2 par 'un test de plus'.
+ Exception levee : ligne -3 hors limites [1 ; 8], tampon "@srcdir@/test_TamponTexte.don"
+remplacer les lignes 6 a 11 par 'hocus pocus' (de 2 lignes avant a 3 lignes apres la fin du tampon).
+ Exception levee : ligne 11 hors limites [1 ; 8], tampon "@srcdir@/test_TamponTexte.don"
+remplacer les lignes 5 a 2 par 'magic circus'. (zone de remplacement invalide -> pas de remplacement).
+
+~~~~~~~ contenu du tampon apres remplacements multi-lignes ~~~~~~
+1#
+2# Ceci est un fichier
+3      	   	# de tests
+5
+TOTO
+12HAPPY
+13# test de chaînes fortran et C
+14xx xx' chaine fortran avec ", #, et '''" cha\356n\e\ C avec ', #, et \""yy yy
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+------------------------
+		ITERATEURS INVALIDES
+
+
+suppressions de la ligne 3 (iterateur 1).
+tentative d'acces a l'element 6 ( iterateur 2 non valide)
+ Exception levee : iterateur inconsistant pour le tampon "@srcdir@/test_TamponTexte.don"
+
+fin du test.

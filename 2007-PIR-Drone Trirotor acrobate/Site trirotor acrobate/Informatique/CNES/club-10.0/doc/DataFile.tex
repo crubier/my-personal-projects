@@ -1,0 +1,224 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+% $Id: DataFile.tex,v 1.6 2005/03/03 16:43:12 chope Exp $
+\subsection{classe DataFile}\label{sec:DataFile}
+
+\subsubsection*{description}\label{sec:DataFile-desc}
+
+DataFile permet de gérer un pointeur partagé sur une instance de
+UniqDataFile. Elle offre alors dans son interface publique
+l'équivalent des méthodes de UniqDataFile. Un  membre statique protégé
+permet de paramétrer le type des fichiers manipulés (fichiers
+structurés, Madona ou XML via le type énuméré \texttt{FileType} déclaré dans
+le fichier header). Un autre permet de connaître le type de fichier
+manipulé par l'instance courante.
+
+L'attribut statique est initialisé en testant la présence des
+bibliothèques \bibliotheque{xerces} puis  \bibliotheque{madona}. Si
+aucune bibliothèque n'est installée, il est alors initialisé au type de
+fichier structuré.
+
+L'utilisateur dispose de 3 constructeurs. Celui par défaut utilise le
+membre statique pour connaître le type de fichier qui va être
+manipulé. Le second prend en paramètre le type de fichier
+correspondant à l'instance à créer. Le troisième utilise le nom du
+fichier qui lui est passé en paramètre et détermine le type du fichier.
+
+Cette classe est sous une forme canonique et offre donc également un
+constructeur par copie et l'opérateur d'affectation. Ainsi, plusieurs
+instances de DataFile peuvent être construites alors qu'elles gèrent
+toutes la même instance de UniqDataFile.
+
+La classe DataFile contient différents types de services~:
+
+\begin{itemize}
+\item Les services d'écriture et de lecture de fichier~:
+  \begin{description}
+  \item[readFile] charge en mémoire un fichier de données,
+  \item[writeFile] écrit les données dans un fichier.
+  \end{description}
+
+\item Les services de déplacement relatif et absolu à l'intérieur de
+  la structure de données. Les déplacements peuvent seulement être
+  réalisés sur des données non-terminales (c'est-à-dire seulement sur
+  des structures ou des tableaux). Seul le service \texttt{moveTo()}
+  est indépendant de la donnée courante.
+  \begin{description}
+  \item[moveDown] déplace le pointeur de la donnée courante sur
+  une donnée «fille» de cette dernière,  
+  \item[moveUp] déplace le pointeur de la donnée courante sur la
+  donnée «mère» de cette dernière,
+  \item[moveTo] déplace le pointeur de la donnée courante sur une
+  autre donnée de la structure, indépendamment du pointeur de la
+  donnée courante.
+  \end{description}
+
+\item Les services de création de données qui travaillent sur la
+  donnée courante~:
+  \begin{description}
+  \item[createIntData] crée un paramètre entier,
+  \item[createRealData] crée un paramètre réel,
+  \item[createStringData] crée un paramètre de type chaîne de
+  caractères,
+  \item[createTable] crée un tableau vide,
+  \item[createStructure] crée une structure vide.
+  \item[createReference] crée une référence.
+  \end{description}
+
+\item Les services de mise à jour de paramètre qui travaillent sur
+  la donnée courante~:
+  \begin{description}
+  \item[setIntData] met à jour un paramètre entier,
+  \item[setRealData] met à jour un paramètre réel,
+  \item[setStringData] met à jour un paramètre de type chaîne de caractères.
+  \end{description}
+
+\item Les services de récupération et de mise à jour d'information sur
+ une donnée qui travaillent sur la donnée courante~:
+  \begin{description}
+  \item[size] renvoie la taille d'un tableau,
+  \item[getDataType] renvoie le type de donnée,
+  \item[getComment] renvoie les commentaires associés à
+  une donnée.
+  \item[setComment] associe un commentaire à une donnée.
+  \end{description}
+
+\item Les services de récupération de paramètre qui travaillent sur
+  la donnée courante~:
+  \begin{description}
+  \item[getIntData] renvoie la valeur d'un paramètre entier,
+  \item[getRealData] renvoie la valeur d'un paramètre réel,
+  \item[getStringData] renvoie la valeur d'un paramètre de type chaîne
+  de caractères,
+\begin{changebar}
+\end{changebar}
+  \end{description}
+
+\item Les services de suppression de donnée qui travaillent sur la
+  donnée courante~:
+  \begin{description}
+  \item[deleteData] supprime une donnée.
+  \end{description}
+
+\item Autres services~:
+  \begin{description}
+\begin{changebar}
+\end{changebar}
+  \item[writeMemoryStructure] affiche sur la sortie standard la
+  structure de données.
+  \end{description}
+\end{itemize}
+
+L'utilisation de l'un de ses services fait appel au service de même
+nom de la classe UniqDataFile.  
+
+\subsubsection*{interface publique}\label{sec:DataFile-int}
+\begin{verbatim}
+#include "club/DataFile.h"
+\end{verbatim}
+
+% plus d'attributs publics pour la classe DataFile
+Il n'y a pas d'attributs publics pour la classe DataFile.
+La majorité des méthodes publiques de DataFile font simplement appel à
+leur homologue dans UniqDataFile appliqué sur l'instance partagée. Ces
+méthodes sont décrites dans la section~\ref{sec:UniqDataFile}.
+
+Le tableau suivant présente les autres méthodes publiques de l'interface.
+
+\begin{tableFonctionsFixe}{DataFile : méthodes publiques}
+{\label{tab:DataFile-met-pub}}
+{déplace le pointeur de la donnée courante sur une donnée fille }
+
+\signature{\fonc{DataFile} ()}{}
+&
+construit un DataFile correspondant au type de fichier désigné par le
+membre statique protégé currentFileType\_
+
+\textbf{Exceptions :} no\_xerces\_lib, no\_madona\_lib, unknown\_file\_type
+\\
+
+\signature{\fonc{DataFile} (FileType \argument{type})}{}
+&
+construit un DataFile de type \argument{type} 
+
+\textbf{Exceptions :} no\_xerces\_lib, no\_madona\_lib, unknown\_file\_type
+\\
+
+\signature{\fonc{DataFile} (const string\& \argument{fileName})}{}
+&
+construit un DataFile en déterminant le type du fichier désigné par
+\argument{fileName}
+
+\textbf{Exceptions :} no\_xerces\_lib, no\_madona\_lib,
+unknown\_file\_type, ouverture\_fichier
+\\
+
+\signature{\fonc{DataFile} (const DataFile\& \argument{other})}{}
+&
+constructeur de recopie \\
+
+\signature{DataFile\& \fonc{operator =} (const DataFile\& \argument{other})}{}
+& 
+opérateur d'affectation \\
+
+\hline
+
+\signature{\fonc{\~{}DataFile} ()}{} 
+& 
+détruit l'instance \\
+
+\hline
+
+\signature{UniqDataFile* \fonc{getUniqDataFile} ()}{}
+&
+retourne l'instance partagée par les DataFiles \\
+
+\signature{FileType \fonc{getCurrentFileType} ()}{}
+&
+retourne la valeur du membre statique protégé (currentFileType\_)
+désignant le type de fichier manipulé
+\\
+
+\signature{void \fonc{setCurrentFileType} (FileType \argument{type})}{}
+&
+positionne la valeur du membre statique protégé (currentFileType\_)
+désignant le type de fichier manipulé
+\\
+
+\signature{FileType \fonc{getFileType} ()}{}
+&
+retourne le type de fichier manipulé par l'instance
+\\
+
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+
+\begin{verbatim}
+#include "club/DataFile.h"
+...
+
+\end{verbatim}
+
+\subsubsection*{implantation}\label{sec:DataFile-impl}
+
+Les attributs protégés sont décrits sommairement dans la
+table~\ref{tab:DataFile-att-prot}, il n'y a pas d'attribut privé.
+\begin{tableAttributsFixe}{attributs protégés de la classe DataFile}
+{\label{tab:DataFile-att-prot}}
+{La désignation de la donnée courrament pointée }
+
+sharedUniqDataFile\_ & TamponPartage & tampon partagé contenant un
+pointeur sur une instance de UniqDataFile \\
+
+currentFileType\_
+& FileType & 
+membre statique désignant le type de fichier manipulé
+(fichier structuré, Madona, XML)
+\\
+
+fileType\_
+& FileType & 
+membre désignant le type de fichier manipulé
+(fichier structuré, Madona, XML) par l'instance
+\\
+
+\end{tableAttributsFixe}

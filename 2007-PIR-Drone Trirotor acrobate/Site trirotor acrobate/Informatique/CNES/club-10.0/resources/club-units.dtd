@@ -1,0 +1,32 @@
+<!-- $Id: club-units.dtd,v 1.2 2005/02/21 13:34:45 chope Exp $ -->
+
+<!ENTITY deg    "&#x00B0;">
+<!ENTITY micro  "&#x00B5;">
+<!ENTITY ohm    "&#x2126;">
+
+<!ELEMENT club-units (reference-unit*) >
+
+<!ELEMENT reference-unit (alternate-unit*) >
+<!ATTLIST reference-unit
+          description             CDATA   #REQUIRED
+          symbol                  CDATA   #REQUIRED
+          name                    CDATA   #REQUIRED
+          dim-length              CDATA   "0"
+          dim-mass                CDATA   "0"
+          dim-time                CDATA   "0"
+          dim-electric-current    CDATA   "0"
+          dim-temperature         CDATA   "0"
+          dim-amount-of-substance CDATA   "0"
+          dim-luminous-intensity  CDATA   "0"
+          dim-planar-angle        CDATA   "0"
+          dim-solid-angle         CDATA   "0"
+>
+
+<!-- value(reference unit) =  value(unit) * factor + offset -->
+<!ELEMENT alternate-unit EMPTY>
+<!ATTLIST alternate-unit
+          symbol          CDATA        #REQUIRED
+          name            CDATA        #REQUIRED
+          offset          CDATA        "0"
+          factor          CDATA        "1"
+>

@@ -1,0 +1,389 @@
+% -*- mode: latex; tex-main-file: "cantor.tex" -*-
+% $Id: Arc.tex,v 1.13 2003/07/09 08:55:11 cantor Exp $
+\subsection{classe Arc}\label{sec:Arc}
+
+\subsubsection*{description}\label{sec:Arc-desc}
+
+Cette classe modélise des arcs de cercles (arc de petit ou de grand cercle) sur
+la sphère unité dans un espace vectoriel de dimension 3. Ces arcs sont
+définis par l'intersection de cônes issus du centre de la sphère avec
+la sphère, les arcs sont des extraits de tels cônes.
+
+\subsubsection*{interface publique}\label{sec:Arc-int}
+\begin{verbatim}
+#include "cantor/Arc.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{Arc : méthodes publiques}
+{\label{tab:Arc-met-pub}}
+{construit l'arc de grand cercle joignant les deux points par le}
+
+\signature{\fonc{Arc} ()}
+          {}&
+
+construit un arc par défaut\\
+
+\signature{\fonc{Arc}}
+          {(const VecDBL\& \argument{axe},\\
+            double \argument{angle} = 0.5 * \texttt{M\_PI})
+           \throw{CantorErreurs}
+          }&
+
+construit un arc correspondant à la totalité du cône d'\argument{axe}
+et de demi-angle d'ouverture donné\\
+
+\signature{\fonc{Arc} (const Cone\& \argument{c})}
+          {\throw{CantorErreurs}}&
+
+construit un arc correspondant à la totalité du cône \argument{c}\\
+
+\hline
+
+\signature{\fonc{Arc}}
+          {(const VecDBL\& \argument{debut},\\
+            const VecDBL\& \argument{fin})
+           \throw{CantorErreurs}
+          }&
+
+construit l'arc de grand cercle joignant les deux points par le chemin
+le plus court\\
+
+\signature{\fonc{Arc}}
+          {(const VecDBL\& \argument{axe},\\
+            const VecDBL\& \argument{debut},\\
+            const VecDBL\& \argument{fin})
+           \throw{CantorErreurs}
+          }&
+
+construit un arc de grand cercle à partir de son \argument{axe} et de
+deux points définissant les plans méridiens limites (l'arc ne passera
+rigoureusement par ces points que s'ils sont orthogonaux à l'axe)\\
+
+\signature{\fonc{Arc}}
+          {(const VecDBL\& \argument{axe}, double \argument{angle},\\
+            const VecDBL\& \argument{debut},\\
+            const VecDBL\& \argument{fin})
+           \throw{CantorErreurs}
+          }&
+
+construit un arc de petit cercle à partir de son \argument{axe}, de
+son demi-angle d'ouverture et de deux points définissant les plans
+méridiens limites (l'arc ne passera rigoureusement par ces points que
+s'ils sont à la bonne distance de l'axe)\\
+
+\signature{\fonc{Arc}}
+          {(const VecDBL\& \argument{axe}, double \argument{angle},\\
+            const VecDBL\& \argument{debut},\\
+            double \argument{balayage})
+           \throw{CantorErreurs}
+          }&
+
+construit un arc de petit cercle à partir de son \argument{axe}, de
+son demi-angle d'ouverture, d'un point définissant le plan méridiens
+de départ et du \argument{balayage} angulaire (l'arc ne passera
+rigoureusement par le point début que s'il est à la bonne distance de
+l'axe)\\
+
+\hline
+
+\signature{\fonc{Arc} (const Arc\& \argument{a})}
+          {}&
+
+constructeur par copie\\
+
+\signature{Arc\& \fonc{operator =} (const Arc\& \argument{a})}
+          {}&
+
+affectation\\
+
+\hline
+
+\signature{\fonc{~Arc} ()}{} &
+destructeur.
+\\
+
+\hline
+
+\signature{const VecDBL\& \fonc{axe} () const}
+          {}&
+
+retourne une référence constante sur l'axe de l'arc\\
+
+\signature{const VecDBL\& \fonc{debut} () const}
+          {}&
+
+retourne une référence constante sur le point initial de l'arc \\
+
+\signature{const VecDBL\& \fonc{fin} () const}
+          {}&
+
+retourne une référence constante sur le point final de l'arc \\
+
+\hline
+
+\signature{VecDBL \fonc{intermediaire}}
+          {(double \argument{alpha}) const}&
+
+retourne le point intermédiaire d'azimut $\alpha$ de l'arc (ce point
+ne fait rigoureusement partie de l'arc que si $\alpha$ est compris
+entre $0$ et \fonc{balayage} ())\\
+
+\hline
+
+\signature{double \fonc{cosinus} () const}
+          {}&
+
+retourne le cosinus de \fonc{angle} ()\\
+
+\signature{double \fonc{sinus} () const}
+          {}&
+
+retourne le sinus de \fonc{angle} () \\
+
+\signature{double \fonc{angle} () const}
+          {}&
+
+retourne le demi-angle d'ouverture du cône dont l'arc est un extrait\\
+
+\hline
+
+\signature{const VecDBL\& \fonc{u} () const}
+          {}&
+
+retourne une référence constante sur le premier vecteur du repère
+orthogonal non normé permettant de décrire l'arc\\
+
+\signature{const VecDBL\& \fonc{v} () const}
+          {}&
+
+retourne une référence constante sur le deuxième vecteur du repère
+orthogonal non normé permettant de décrire l'arc \\
+
+\signature{const VecDBL\& \fonc{w} () const}
+          {}&
+
+retourne une référence constante sur le troisième vecteur du repère
+orthogonal non normé permettant de décrire l'arc \\
+
+\hline
+
+\signature{double \fonc{balayage} () const}
+          {}&
+
+retourne l'étendue de l'arc comptée sous forme de l'angle autour de
+l'axe du cône\\
+
+\signature{double \fonc{longueur} () const}
+          {}&
+
+retourne l'étendue de l'arc comptée sous forme d'intégrale curviligne
+; la valeur retournée est donc égale à \fonc{balayage} () $\times$
+\fonc{sinus} ()\\
+
+\hline
+
+\signature{VecDBL \fonc{proche}}
+          {(const VecDBL\& \argument{p}) const}&
+
+retourne le point de l'arc le plus proche de $\vec{p}$\\
+
+\signature{double \fonc{distance}}
+          {(const VecDBL\& \argument{p}) const}&
+
+retourne la distance angulaire entre $\vec{p}$ et le point de l'arc le
+plus proche (cette distance est donc nulle si $\vec{p}$ appartient à
+l'arc)\\
+
+\signature{bool \fonc{diedreContient}}
+          {(const VecDBL\& \argument{p}) const}&
+
+indique si $\vec{p}$ est inclus dans le dièdre délimité par les plans
+constitués par l'axe du cône et les points extrèmes de l'arc\\
+
+\signature{void \fonc{partage}}
+          {(const VecDBL\& \argument{p},\\
+            Arc *\argument{ptrAv}, Arc *\argument{ptrAp}) const
+          }&
+
+découpe l'arc en deux sous-arcs de part et d'autre du plan défini par
+l'axe et le vecteur $\vec{p}$ et met les résultats dans les variables
+pointées par \argument{ptrAv} et \argument{ptrAp} en respectant le
+sens de balayage de l'arc initial. Si $\vec{p}$ n'est pas dans le
+dièdre de l'arc initial, l'un des arcs créés aura un \fonc{balayage}
+() nul. Il est possible d'utiliser un pointeur sur l'arc courant pour
+\argument{ptrAv} ou pour \argument{ptrAp}\\
+
+\hline
+
+\signature{void \fonc{intersection}}
+          {(const VecDBL\& \argument{a}, double \argument{cosinus},\\
+            int *\argument{ptrNbInt},\\
+            VecDBL *\argument{ptrV1},\\
+            VecDBL *\argument{ptrV2} ) const
+          }&
+
+calcule les points d'intersection de l'arc courant et de l'arc défini
+par \argument{a} et \argument{cosinus}. Le nombre de points
+d'intersection (entre 0 et 2) est retourné dans la variable pointée
+par \argument{ptrNbInt}, les points étant retournés dans les variables
+pointées par \argument{ptrV1} (s'il y a au moins un point) et
+\argument{ptrV2} (s'il y a au moins deux points). S'il y a deux points
+d'intersection, *\argument{ptrV1} et *\argument{ptrV2} respectent le
+sens de balayage de l'arc initial.\\
+
+\signature{void \fonc{intersection}}
+          {(const Cone\& \argument{c},\\
+            int *\argument{ptrNbInt},\\
+            VecDBL *\argument{ptrV1},\\
+            VecDBL *\argument{ptrV2} ) const
+          }&
+
+méthode identique à la précedente pour un arc correspondant à la
+totalité du cône \argument{c}\\
+
+\signature{void \fonc{intersection}}
+          {(const Arc\& \argument{a},\\
+            int *\argument{ptrNbInt},\\
+            VecDBL *\argument{ptrV1},\\
+            VecDBL *\argument{ptrV2} ) const
+          }&
+
+méthode identique à la précedente pour l'arc \argument{a} \\
+
+\hline
+
+\signature{bool \fonc{recouvre}}
+          {(const Arc\& \argument{a}, double \argument{epsilon}) const}&
+
+indique si tous les points de \argument{a} sont à moins de
+$\varepsilon$ de l'instance (c'est à dire si l'instance recouvre
+complètement \argument{a})\\
+
+\signature{bool \fonc{balaye}}
+          {(const VecDBL\& \argument{point},\\
+            const VecDBL\& \argument{axe}, double \argument{balayage})}&
+vérifie l'arc recouvre le point spécifié lors d'un balayage
+\\
+
+\hline
+
+\signature{void \fonc{appliqueRotation}}
+          {(const RotDBL\& \argument{r})}&
+
+transforme l'arc courant par la rotation \argument{r}\\
+
+\hline
+
+\signature{Arc \fonc{operator -} () const}
+          {}&
+
+retourne un arc contenant les mêmes points que l'instance, mais
+parcouru en sens inverse\\
+
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+
+\begin{verbatim}
+#include "cantor/Arc.h"
+...
+
+// constitution d'un triangle sphérique
+Arc cote1 (pointA, pointB);
+Arc cote2 (pointB, pointC);
+Arc cote3 (pointC, pointA);
+
+cout << "périmètre : "
+     << (cote1.longueur () + cote2.longueur () + cote3.longueur ())
+     << endl;
+
+Arc moitieAv, moitieAp;
+cote1.partage (cote1.intermediaire (0.5 * cote1.balayage ()),
+               &motieAv, &motieAp);
+
+...
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation spécifiques}
+\label{sec:Arc-conseils}
+
+Les calculs sur les arcs ne sont réalisables que dans certaines plages
+(les cônes trop fins par exemples ne permettent pas des calculs
+précis). Il est donc nécessaire de gérer certains seuils. Ceci est
+également vrai pour les calculs sur les champs (voir la classe Champ,
+\ref{ref:marmottes-util}). La classe Champ s'appuyant sur la classe
+Arc, il est nécessaire que les $\varepsilon$ de Champ soient au moins
+légèrement supérieurs à ceux de Arc. Il a été décidé de prendre
+4.85e-6 pour Champ, ce qui représente une seconde d'arc (ou son sinus,
+à ce niveau la distinction n'est pas perceptible) et de prendre
+3.16e-6 pour Arc, ce qui représente la racine de 1.0e-11 (qui est
+utilisé dans des soustractions de nombres aux alentours de 1.0).
+
+Les autres classes permettant de travailler sur la sphère unité sont
+ArcIterateur(cf~\ref{sec:ArcIterateur}), Champ
+(cf~\ref{ref:marmottes-util}), Cone (cf~\ref{sec:Cone}), et Secteurs
+(cf~\ref{ref:marmottes-util}).
+
+\subsubsection*{implantation}\label{sec:Arc-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:Arc-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe Arc}
+{\label{tab:Arc-att-priv}}
+{amplitude de l'arc, comptée autour de l'axe du
+cône (entre $0$ et $2\pi$) }
+
+axe\_ & VecDBL  & axe du cône dont l'arc est un extrait\\
+
+\hline
+
+cos\_ & double & cosinus de angle\_ \\
+
+sin\_ & double & sinus de angle\_ \\
+
+angle\_ & double & demi-angle d'ouverture du cône dont l'arc est un
+extrait\\
+
+\hline
+
+deb\_ & VecDBL & début de l'arc sur le cône (l'arc est décrit en
+tournant dans le sens trigonométrique entre deb\_ et fin\_ autour de
+axe\_).\\
+
+fin\_ & VecDBL & fin de l'arc sur le cône (l'arc est décrit en
+tournant dans le sens trigonométrique entre deb\_ et fin\_ autour de
+axe\_)\\
+
+\hline
+
+u\_ & VecDBL & vecteur non normé dans le plan méridien du début de
+l'arc\\
+
+v\_ & VecDBL & vecteur non normé orthogonal à u\_ \\
+
+w\_ & VecDBL  & vecteur non normé colinéaire à l'axe du cône dont
+l'arc est un extrait\\
+
+\hline
+
+balayage\_ & double & amplitude de l'arc, comptée autour de l'axe du
+cône (entre $0$ et $2\pi$)\\
+
+\end{tableAttributsFixe}
+Les méthodes privées sont décrites dans la table~\ref{tab:Arc-met-priv}.
+\begin{tableFonctionsFixe}{Arc : méthodes privées}
+{\label{tab:Arc-met-priv}}
+{initialisation des attributs de la classe, appelée par presque}
+
+\signature{void \fonc{initVecteurs}}
+          {(const VecDBL\& \argument{axe}, double \argument{alpha},\\
+            const VecDBL\& \argument{debut},\\
+            const VecDBL\& \argument{fin})
+            \throw{CantorErreurs}
+          }&
+
+initialisation des attributs de la classe, appelée par presque tous
+les constructeurs. Cette fonction calcule les fonctions
+trigonométriques, copie et normalise l'axe, copie normalise et recale
+les vecteurs limites de sorte qu'ils soient bien séparés de l'axe par
+l'angle donné en argument (on considère qu'au départ ils ne font que
+délimiter le plan dans lequel se trouve la limite réelle).\\
+
+\end{tableFonctionsFixe}

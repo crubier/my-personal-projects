@@ -1,0 +1,1175 @@
+2005-03-04  projet CHOPE G. Prat/L. Maisonobe  <Guylaine.Prat@c-s.fr>
+
+	* maintenance.tex: mise à jour des numéros de version des outils
+	de développement
+
+	* evolutions.tex: annonce de la correction de la FA-ID 230
+
+	* marmottes-utilisateur.tex: passage à la version de bibliothèque 9.8
+
+	* pages-liminaires.tex: passage de la documentation en version 5.7
+	pour la distribution 9.8 de marmottes
+
+2004-06-24  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* Makefile.am (marmottes_utilisateur_TEX): correction d'une
+	faute de frappe dans une variable empêchant la regénération
+	automatique de la documentation (FA-ID 37)
+
+2004-06-23  projet CHOPE G. Prat/L. Maisonobe  <Guylaine.Prat@c-s.fr>
+
+	* evolutions.tex: annonce des corrections des FA-ID 32, FA-ID 34, FA-ID35, 
+	et de DM-ID 33
+
+	* pages-liminaires.tex: passage de la documentation en version 5.6
+	pour la distribution 9.7 de marmottes (avec suppression d'une
+	partie de l'historique des modifications)
+
+2004-06-21  projet CHOPE G. Prat/L. Maisonobe  <Guylaine.Prat@c-s.fr>
+
+	* routines.tex, tables-senseurs.tex: précision sur le repère
+	d'expression de la cible (DM-ID 33)
+
+	* lexique.tex: ajout de renvois pour précisions complémentaires
+	sur certains mot-clefs (DM-ID 33)
+
+	* schema-angle-soleil-satellite-lune.tex: ajout d'un label pour les renvois (DM-ID 33)
+
+2003-12-05  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* pages-liminaires.tex : passage de la documentation en version 5.5 pour la
+	distribution 9.6 de marmottes
+
+2003-10-21  projet CHOPE O. Queyrut/L. Maisonobe/F. Auguie/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* Marmottes.tex (subsubsection*{interface publique}\label{sec:Marmottes-int}),
+	  routines.tex (subsection{Récupération des valeurs des parametres courants}),
+	  evolutions.tex (subsubsection{évolutions entre la version 9.5 et la version 9.6}):
+	Ajout de la methode lireParametres() (DM 0027)
+
+2003-10-13  projet CHOPE O. Queyrut/L. Maisonobe/F. Auguie/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* tables-senseurs.tex (subsubsection{Senseurs reconnus par Marmottes}), 
+	  lexique.tex :
+	Ajout des mots cles "polaris-sans-eclipse" et "canopus-sans-eclipse" dans le cadre
+	de la DM 0026.
+
+2003-10-07  projet CHOPE O. Queyrut/L. Maisonobe/F. Auguie/G. Prat  <Olivier.Queyrut@c-s.fr>
+	
+	* lexique.tex, SenseurOptique.tex, SenseurCartesien.tex, SenseurDiedre.tex
+	  SenseurElevation.tex, SenseurFonction.tex, SenseurFonctionEchant1D.tex
+	  SenseurFonctionGauss.tex, SenseurFonctionSinCard2.tex, SenseurFonctionSinCardXY.tex
+	  SenseurLimbe.tex,SenseurVecteur.tex, schema-angle-soleil-satellite-lune.tex : 
+	Ajout des references a la possibilite de definir une zone d'inhibition pour 
+	un astre de type corps central (FA 0030)
+	
+	* ResolveurAttitude.tex: utilisation d'une méthode statique
+ 	et d'une méthode privée pour résoudre l'attitude sans violer
+ 	l'encapsulation objet, élimination des méthodes publiques sB,
+	modele, date, position, famille, seuil et tranches qui violaient
+ 	cette encapsulation (DM 0029)
+
+	* Senseur.tex, SenseurGyroInteg.tex, SenseurGeometrique.tex,
+	SenseurFonction.tex, SenseurDiedre.tex, SenseurCinematique.tex,
+ 	SenseurAlpha.tex: DM 0025 prise en compte de la position et
+ 	vitesse courante (dans l'état de résolution), élimination du
+ 	qualificateur const pour la méthode foncEcart
+
+	* SenseurOptique.tex: DM 0025 ajout de la méthode
+ 	reinitVitesseSolApparente
+
+	* evolutions.tex: annonce des corrections de FA 0029, 0030, 0031 et des
+	DM 0025, 0025, 0026, 0027, 0028, 0029
+
+	* MarmottesErreurs.tex, messages-erreurs.tex: DM 0025
+ 	élimination de l'erreur pas_de_point_sol
+ 
+
+2003-07-28  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* pages-liminaires.tex: passage de la documentation en version 5.4
+
+	* marmottes-utilisateur.tex: passage de la bibliothèque en version 9.5
+
+2003-07-15  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* evolutions.tex: FA-ID 27 annonce de la correction d'erreurs
+	d'initialisations
+
+2003-07-10  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* BodyEphem.tex, routines.tex, evolutions.tex: 
+	Declaration des methodes fortran de calcul par defaut du temps sideral, 
+	de la position du Soleil, de la Terre et de la Lune comme fonctions publiques (FA-ID 0023)
+
+2003-06-24  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* maintenance.tex: mise à jour des numéros de version des outils
+	de développement, suppression de la référence au fichier
+	acconfig.h, remplacement de la commande AM_INIT_AUTOMAKE par
+	AC_INIT, renommage de configure.in en configure.ac (DM 24)
+
+	* evolutions.tex: annonce de la mise à niveau des scripts de configuration (DM 24)
+
+	* definitions-reperes.tex, Etat.tex, evolutions.tex, lexique.tex,
+	MarmottesErreurs.tex, Marmottes.tex, marmottes-utilisateur.tex,
+	messages-erreurs.tex, ParcelleElementaire.tex,
+	ReunionEtParcelles.tex, ReunionOuParcelles.tex, routines.tex,
+	schema-angle-soleil-satellite-lune.tex, SenseurAlpha.tex,
+	SenseurCardan.tex, SenseurCartesien.tex, SenseurCinematique.tex,
+	SenseurDelta.tex, SenseurDiedre.tex, SenseurElevation.tex,
+	SenseurFonctionEchant1D.tex, SenseurFonctionGauss.tex,
+	SenseurFonctionSinCard2.tex, SenseurFonctionSinCardXY.tex,
+	SenseurFonction.tex, SenseurGeometrique.tex, SenseurGyroInteg.tex,
+	SenseurLimbe.tex, SenseurOptique.tex, Senseur.tex,
+	SenseurVecteur.tex, SpinAtt.tex: suppression des marques de
+	révision de la version 5.3 de la documentation
+
+2003-03-27  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* routines.tex: ajout d'une note importante sur les problèmes de l'interface
+	fortran de MarmottesEnregistreCorps.
+
+	* schema-angle-soleil-satellite-lune.tex: amélioration des explications 
+	sur les paramètres d'inhibition des senseurs optiques
+
+	* definitions-reperes.tex: amélioration des explications sur les repères
+
+	* lexique.tex: ajout de titres aux colonnes des tableaux
+
+	* definitions-reperes.tex: correction de fautes d'orthographe
+
+	* evolutions.tex: correction d'une faute d'orthographe 
+
+2003-03-26  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* routines.tex: changement de la signature Fortran de la fonction
+	MarmottesEnregistreCorps
+
+2003-03-26  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* Marmottes.tex: mise à jour des interfaces Fortran et C de la fonction
+	Marmottes::enregistreCorps (rayons Lune et Soleil).
+
+	* definitions-reperes.tex: modifications des paragraphes, distinction plus
+	claire entre les repères.
+
+2003-03-25  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* lexique.tex: création d'un lexique anglo-français et franco-anglais des
+	termes reconnus dans le fichier senseur (DM 0016). 
+
+	* routines.tex: ajout de la prise en compte des rayons des astres inhibants
+	(DM 0019).
+
+	* definitions-reperes.tex: définition des repères utilisés dans le fichier
+	senseur (DM 0015).
+
+	* pages-liminaires.tex: mise à  jour des numéros de version des documents de
+	référence.
+
+	* SpinAtt.tex: ajout de la description du destructeur dans les méthodes publiques
+
+	* Senseur.tex, Senseur*.tex:
+	ajout de la description du constructeur par défaut dans les méthodes protégées
+
+	* ReunionOuParcelles.tex, ReunionEtParcelles.tex, ParcelleElementaire.tex:
+	ajout de la description du constructeur par défaut dans les méthodes privées
+
+	* Makefile.am: ajout des nouveaux fichiers dans la compilation
+
+	* messages-erreurs.tex, MarmottesErreurs.tex: ajout de barres de modification
+
+	* evolutions.tex: correction de faute d'orthographe
+
+	* schema-angle-soleil-satellite-lune.tex: nouveau fichier définissant le seuil de 
+	phase de la lune (DM 0014).
+
+	* routines.tex, catalogue.tex, Marmottes.tex: suppression des barres de modification 
+	de la version précédente.
+
+	* pages-liminaires.tex: correction du numéro de version 5.2 en 5.3 dans le tableau
+	des modifications de la doc
+	
+2003-03-20  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* marmottes-utilisateur.tex: mise à jour du numéro de version
+	de la bibliothéque
+
+2003-02-11  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* MarmottesErreurs.tex, messages-erreurs.tex: ajout de l'erreur
+	champ_inhibition_cible_central
+
+	* Etat.tex: ajout de l'attribut rayonSoleil_, prise en compte des
+	rayons lune et soleil dans les arguments des méthodes
+	d'enregistrement des corps
+
+2002-09-13  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* routines.tex (Modification des modèles d'éphémérides des corps):
+	problème de mise en page dans la version postscript au niveau de
+	l'exemple d'utilisation
+
+2002-09-10  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* evolutions.tex: ajout de la trace de quelques évolutions
+
+2002-09-09  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* BodyEphem.tex, BodyEphemC.tex, BodyEphemF.tex: nouveaux fichiers
+	(DM 0007)
+
+	* routines.tex:  ajout de la description des interfaces et de la
+	fonction enregistreCorps (DM 0007)
+
+	* Etat.tex: évolution des attributs et ajout de méthodes dus à la
+	possibilité de configuration des modèles d'éphémérides pour les
+	corps (DM 0007)
+	
+	* catalogue.tex: ajout des classes BodyEphem, BodyEphemC et
+	BodyEphemF (DM 0007)
+
+	* Marmottes.tex: ajout de méthodes dues à la possibilité de
+	configuration des modèles d'éphémérides pour les corps (DM 0007)
+	
+	* evolutions.tex: annonce de l'introduction de la DM 0007
+
+	* marmottes-utilisateur.tex: ajout de la commande nochangebars
+	pour la generation du PDF (DM 0008); annonce de la version 9.3
+
+	* macros-bibliotheques.tex: ajout de l'environnement changebar (DM 0008)
+
+	* Makefile.am: prise en compte de barres de modification au niveau
+	du fichier postscript (DM 0008)
+	
+	* pages-liminaires.tex: passage à la version 9.3
+
+2002-04-16  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* Parcelle.tex, ParcelleElementaire.tex, ReunionEtParcelles.tex,
+	ReunionOuParcelles.tex: ajout de directives throw oubliées
+
+	* evolutions.tex: annonce de la correction de directives throw
+	oubliées
+
+2002-04-08  projet CHOPE O. Queyrut/S. Vresk  <Olivier.Queyrut@c-s.fr>
+
+	* pages-liminaires.tex: passage à la version 9.1
+
+	* routines.tex: description des interfaces C++ associées aux
+	nouvelles méthodes Marmottes::accesSenseur et Marmottes::etat
+
+	* Marmottes.tex: description des méthodes accesSenseur et etat
+	
+	* evolutions.tex: introduction de la DM 0004
+
+2002-02-27  projet CHOPE O. Queyrut/S. Vresk  <Olivier.Queyrut@c-s.fr>
+
+	* pages-liminaires.tex: réintroduction de tout l'historique du 
+	document lorsqu'il était au format CNES.
+
+	* SenseurFonction.tex: modification de la taille du tableau des 
+	méthodes publiques
+
+	* Senseur.tex: modification de la taille du tableau des 
+	méthodes publiques 
+
+	* SenseurCinematique.tex: correction d'une erreur dans la signature
+	de la fonction initialiseDerive
+
+	* Parcelle.tex: modification de la taille du tableau des 
+	méthodes publiques
+
+	* MarmottesErreurs.tex: ajout du code d'erreur pas_senseur_cinematique
+
+	* FamilleProlongementZero.tex, FamilleProlongementPi.tex, 
+	* FamilleGenerale.tex, FamilleFixe.tex, FamilleAlignementPlus.tex,
+	* FamilleAlignementMoins.tex: modification de la taille du tableau
+	des méthodes publiques
+
+	* routines.tex: suppression de "\#include "marmottes/InterfaceF.h"
+	devant la signature de l'interface fortran de 
+	MarmottesInitialiseDerive
+
+	* messages-erreurs.tex: déplacement du message d'erreur concernant
+	l'initialisation impossible de la dérive afin de préserver l'ordre
+	alphabétiaue dans les messages d'erreur
+
+	* SenseurOptique.tex: modification de la taille du tableau des
+	attributs protégés pour améliorer la mise en page
+
+	* tables-senseurs.tex: modification de la taille des tableaux pour
+	améliorer la mise en page
+
+2002-02-20  projet CHOPE O.Queyrut/S. Vresk  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* SenseurCinematique.tex: description des méthodes derive
+	et initialiseDerive
+
+	* Senseur.tex: description de la méthode initialiseDerive
+
+	* evolutions.tex: annonce de l'introduction de la DM 0002
+
+	* messages-erreurs.tex: ajout du message d'erreur lié à
+	l'introduction de la méthode initialiseDerive (DM 0002)
+	
+	* routines.tex: ajout de la description des interfaces et de la
+	fonction initialiseDerive (DM 0002)
+	
+
+2002-02-11  projet CHOPE O.Queyrut/S. Vresk  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* macros-bibliotheques.tex: correction de la macro throw
+
+	* messages-erreurs.tex, Senseur.tex: amélioration (mineure) du
+	formatage
+
+2002-02-01  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* marmottes-utilisateur.tex, pages-liminaires.tex: passage au
+	format CS
+
+	* marmottes-utilisateur.tex: annonce de la version 9.1
+
+	* evolutions.tex: annonce de la correction de la FA 0008
+
+	* MarmottesErreurs.tex, messages-erreurs.tex: ajout des erreurs
+	champ_inhibition_cible_soleil et champ_inhibition_cible_lune
+
+2002-01-16  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* FamilleFixe.tex: changement de la signature du constructeur et
+	des attributs liés à la correction de la FA 0007
+
+	* SenseurFonctionGauss.tex: correction de g_\mathrm{max} en g_{\max}
+
+	* ModeleCine.tex: correction de \omega_\mathrm{max} en \omega_{\max}
+
+	* evolutions.tex: annonce des corrections des FA 0001, 0003 et 0007
+
+	* Senseur.tex: documentation de la méthode criteresControlabilite
+
+	* SenseurLimbe.tex: documentation de la méthode ecartFrontiere
+
+	* MarmottesErreurs.tex: documentation de l'erreur
+	consignes_gyro_elevees
+
+	* Marmottes.tex, Parcelle.tex, ParcelleElementaire.tex,
+	ReunionEtParcelles.tex, ReunionOuParcelles.tex,
+	ResolveurAttitude.tex, Senseur.tex, SenseurAlpha.tex,
+	SenseurCardan.tex, SenseurCartesien.tex, SenseurCinematique.tex,
+	SenseurDelta.tex, SenseurDiedre.tex, SenseurElevation.tex,
+	SenseurFonction.tex, SenseurGyroInteg.tex, SenseurLimbe.tex,
+	SenseurOptique.tex, SenseurVecteur.tex: correction de
+	spécifications throw
+
+2001-07-17  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* SenseurFonctionSinCardXY.tex: nouveau fichier
+
+	* pages-liminaires.tex: passage en version 4.12 à l'occasion de la
+	finalisation de la version 9.0 de la bibliothèque
+
+	* tables-senseurs.tex: ajout de la cible vitesse-sol-apparente,
+	utilisation de la mcrao \nomBloc
+
+	* messages-erreurs.tex: description du message d'erreur
+	pas_de_point_sol
+
+	* macros-bibliotheques.tex: ajout du vecteur observé pour la cible
+	vitesse-sol-apparente, utilisation d'une macro \nomBloc
+
+	* evolutions.tex: annonce des évolutions apportées à la version
+	9.0
+
+	* environnement.tex: correction de la hiérarchie des capteurs
+
+	* SenseurOptique.tex: ajout du vecteur observé pour la cible
+	vitesse-sol-apparente, ajout de la cible lune-sans-eclipse,
+	changement des attributs privés en attributs protégés, ajout des
+	attributs visee_, secteursFiltrables_ et observe_, la méthode
+	filtreSecteurs n'est plus virtuelle
+
+	* SenseurLimbe.tex: élimination de la méthode filtreSecteurs
+
+	* SenseurFonctionGauss.tex, SenseurFonctionSinCard2.tex,
+	SenseurFonctionEchant1D.tex, SenseurFonction.tex: ajout du vecteur
+	observé pour la cible vitesse-sol-apparente, lancement d'une
+	exception par le constructeur
+
+	* SenseurVecteur.tex, SenseurElevation.tex, SenseurDiedre.tex,
+	SenseurCartesien.tex: ajout du vecteur observé pour la cible
+	vitesse-sol-apparente
+
+	* MarmottesErreurs.tex: mise à jour de la liste des erreurs
+
+	* Makefile.am: ajout de SenseurFonctionSinCardXY.tex
+
+	* Etat.tex: ajout de la méthode vitesseRotation
+
+2001-06-22  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* marmottes-utilisateur.tex: la version de la bibliothèque
+	documentée est la version 9.0
+
+	* pages-liminaires.tex: correction des documents de référence,
+	correction de la date
+
+	* evolutions.tex: utilisation du type bool
+	pour les prédicats, utilisation d'un axe et d'un angle pour
+	spécifier l'intégration le long d'une rotation
+
+	* environnement.tex: le balayage nécessite désormais la
+	spécification d'un axe et d'un angle, on ne peut plus utiliser une
+	rotation quelconque
+
+	* ReunionOuParcelles.tex, ReunionEtParcelles.tex,
+	ParcelleElementaire.tex, Parcelle.tex: utilisation du type bool
+	pour les prédicats, utilisation d'un axe et d'un angle pour
+	spécifier l'intégration le long d'une rotation
+
+	* MarmottesReplay.tex: correction d'un titre de section
+
+2001-06-08  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* evolutions.tex: L'utilitaire marmottesReplay est désormais
+	installé en même temps que la bibliothèque.
+
+	* MarmottesReplay.tex: nouveau fichier
+
+	* marmottes-utilisateur.tex: ajout de l'utilitaire MarmottesReplay
+
+2001-06-06  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* CallTrace.tex: transfert vers club
+
+	* AnnotatedArc.tex, Braid.tex, Field.tex, Node.tex, Secteurs.tex:
+	transfert vers cantor
+
+	* catalogue.tex: élimination des classes AnnotatedArc, Braid,
+	CallTrace, Field, Node et Secteurs
+
+	* evolutions.tex: élimination des classes AnnotatedArc, Braid,
+	CallTrace, Field, Node et Secteurs, annonce des exceptions de
+	cantor
+
+	* marmottes-utilisateur.tex: élimination des classes AnnotatedArc,
+	Braid, CallTrace, Field, Node et Secteurs
+
+	* messages-erreurs.tex: élimination des erreurs echec_heuristique,
+	ouverture_fichier, trace_inactif et frontiere_ouverte
+
+	* ResolveurAttitude.tex: simplification d'une signature
+
+	* SenseurCinematique.tex, Etat.tex: remontée des exceptions de
+	cantor
+
+2001-05-23  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* pages-liminaires.tex: passage en version 4.11 à l'occasion
+	de l'introduction des cibles *-sans-eclipse
+
+	* evolutions.tex: description des cibles *-sans-eclipse
+
+	* tables-senseurs.tex: description des cibles *-sans-eclipse
+
+2001-04-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Senseur.tex: ajout du type énuméré codeAstre
+
+	* Node.tex: amélioration de la description et de la mise en page
+
+	* Etat.tex: homogénéisation des entrées de la table des attributs
+
+	* ParcelleElementaire.tex, ReunionEtParcelles.tex,
+	ReunionOuParcelles.tex: remplacement des ChaineSimple des exemples
+	par des string
+
+	* evolutions.tex: correction de fautes d'orthographe
+
+	* maintenance.tex: correction de la mise en page
+
+	* tests.tex: mise à jour de la liste des tests disponibles
+
+	* routines.tex: correction de signatures erronées (suite à
+	l'utilisation de la classe string de la STL), correction des
+	fichiers d'en-têtes pour l'interface C, ajout des fonctions
+	d'obtention des critères de contrôlabilité
+
+	* SenseurOptique.tex: élimination des méthodes visible et inhibe,
+	ajout des méthodes criteresControlabilite et ecartFrontiere
+
+	* pages-liminaires.tex: description des évolutions entre les
+	versions 8.4 et 8.5, correction de la liste de diffusion, mise à
+	jour de la date et des documents de référence
+
+2001-04-04  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Parcelle.tex, ParcelleElementaire.tex, ReunionEtParcelles.tex,
+	ReunionOuParcelles.tex: ajout de la méthode ecartFrontiere
+
+	* tables-senseurs.tex: remplacement de SenseurHorizon par
+	SenseurLimbe
+
+	* marmottes-utilisateur.tex: remplacement de SenseurHorizon par
+	SenseurLimbe
+
+	* evolutions.tex: annonce du remplacement de la classe
+	SenseurTerre par la classe SenseurLimbe, annonce de l'ajout des
+	fonctions MarmottesCriteresControlabilite
+
+	* environnement.tex: remplacement de horizon par limbe
+
+	* catalogue.tex: remplacement de horizon par limbe
+
+	* annexes.tex: remplacement de horizon par limbe
+
+	* Makefile.am: remplacement de SenseurHorizon par SenseurLimbe
+
+	* Field.tex: ajout de la méthode offsetFromBoundary
+
+	* Secteurs.tex: remplacement de "horizon" par "limbe"
+
+	* SenseurLimbe.tex: renommage de SenseurHorizon en SenseurLimbe
+
+	* Etat.tex: ajout des distances lune et soleil
+
+2001-03-26  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Field.tex: remise en page d'une table
+
+	* Etat.tex: ajout des caractéristiques du corps central
+
+	* SenseurHorizon.tex: nouveau fichier
+
+	* SenseurTerre.tex: élimination du fichier au profit de
+	SenseurHorizon.tex
+
+	* SenseurOptique.tex: prise en charge du traitement des inhibitions
+	implanté auparavant dans l'ancienne classe SenseurTerre,
+	changement du nom de certains codes de cibles, en prévision
+	d'évolutions vers l'interplanétaire
+
+	* SenseurCartesien.tex: mise à jour résultant de la modélisation
+	des inhibitions dans la classe SenseurOptique
+
+	* SenseurDiedre.tex: mise à jour résultant de la modélisation
+	des inhibitions dans la classe SenseurOptique
+
+	* SenseurElevation.tex: mise à jour résultant de la modélisation
+	des inhibitions dans la classe SenseurOptique
+
+	* SenseurFonction.tex: mise à jour résultant de la modélisation
+	des inhibitions dans la classe SenseurOptique
+
+	* SenseurFonctionEchant1D.tex: mise à jour résultant de la
+	modélisation des inhibitions dans la classe SenseurOptique
+
+	* SenseurFonctionGauss.tex: mise à jour résultant de la
+	modélisation des inhibitions dans la classe SenseurOptique
+
+	* SenseurFonctionSinCard2.tex: mise à jour résultant de la
+	modélisation des inhibitions dans la classe SenseurOptique
+
+	* SenseurVecteur.tex: mise à jour résultant de la modélisation des
+	inhibitions dans la classe SenseurOptique
+
+	* marmottes-utilisateur.tex: remplacement de SenseurTerre par
+	SenseurHorizon
+
+	* evolutions.tex: annonce des évolutions liés aux champs
+	d'inhibition, aux erreurs de mémoire et aux compilateurs SUN.
+
+	* environnement.tex: remplacement du senseur terre par le senseur
+	horizon.
+
+	* tables-senseurs.tex: report des cibles de senseurs optiques dans
+	une table séparée.
+
+	* annexes.tex: utilisation du mot-clef horizon
+
+	* Makefile.am: remplacement de SenseurTerre par SenseurHorizon
+
+2001-02-27  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Marmottes.tex: documentation des méthodes imposeAttitude et
+	imposeSpin
+
+	* evolutions.tex: annonce de la mise en place de fonctions de
+	forçage d'attitude et de spin
+
+	* routines.tex: documentation des fonctions de forçage d'attitude
+	et de spin, amélioration du formatage des "::" dans les signatures
+
+2001-02-16  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* CallTrace.tex: modification d'une signature
+
+	* AnnotatedArc.tex: correction d'une erreur de nommage
+
+	* evolutions.tex: description de la correction de l'erreur de test
+	d'inclusion de point ayant conduit à la version 8.5 de la
+	bibliothèque
+
+	* marmottes-utilisateur.tex: passage en version 4.10 homogène avec
+	la version 8.5 de la bibliothèque
+
+	* pages-liminaires.tex: passage en version 4.10 homogène avec la
+	version 8.5 de la bibliothèque
+
+	* Field.tex: mention d'une évolution de la classe Field
+
+2001-02-07  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: élimination de PointerRegister.tex
+
+	* Marmottes.tex: changement des exceptions lancées par le
+	constructeur par copie et l'opérateur d'affectation suite à la
+	correction d'un bug
+
+	* Node.tex: remplacement de PointerRegister par set
+
+	* marmottes-utilisateur.tex: mention de la version 8.4 de la
+	bibliothèque, élimination de l'inclusion de la documentation de la
+	classe PointerRegister
+
+	* pages-liminaires.tex: passage en version 4.9 à l'occasion de la
+	version 8.4 de la bibliothèque
+
+	* evolutions.tex: description des évolutions entre les version 8.3
+	et 8.4 de la bibliothèque
+
+	* catalogue.tex: élimination de la classe PointerRegister
+
+	* CallTrace.tex: remplacement de hash_map par map
+
+	* PointerRegister.tex: élimination du fichier
+
+2001-01-25  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* SenseurCardan.tex: ajout de quelques éclaircissements,
+	changement du type d'un attribut
+
+	* routines.tex: prise en compte de la nouvelle valeur par défaut
+	du spin maximal
+
+	* marmottes-utilisateur.tex: mention de la version 8.3 de la
+	bibliothèque
+
+	* pages-liminaires.tex: passage en version 4.8 à l'occasion de la
+	diffusion de la version 8.3 de la bibliothèque
+
+	* evolutions.tex: description des évolutions entre les versions
+	8.2 et 8.3, correction de niveaux de titres erronés, correction de
+	mise en page
+
+2000-12-20  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* evolutions.tex: ajout des évolutions entre la version 8.1 et la
+	version 8.2, mise à jour des évolutions futures
+
+	* marmottes.tex, pages-liminaires.tex: révision 4.7 du document
+	cohérente avec la version 8.2 de la bibliothèque
+
+2000-12-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* TraduitSenseurs.tex: nouveau fichier
+
+	* Marmottes-Config.tex: nouveau fichier
+
+	* Makefile.am: ajout de Marmottes-Config.tex et TraduitSenseurs.tex
+
+	* maintenance.tex: correction de la présentation typographique
+
+	* evolutions.tex: ajout des évolutions entre la version 8.0 et la
+	version 8.1 de la bibliothèque
+
+	* marmottes.tex: inclusion des descriptions d'utilitaires
+
+	* pages-liminaires.tex: révision 4.6 du document; cohérente avec
+	la version 8.1 de la bibliothèque
+
+2000-11-22  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: ajout des fichiers de documentation de la refonte
+	des champs de vue
+
+	* conventions.tex: correction de fautes d'accents
+
+	* environnement.tex: ajout de la syntaxe des échantillons, mise à
+	jour de l'arbre d'héritage des capteurs
+
+	* installation.tex: reformulation d'une phrase pour éviter un
+	overfull hbox
+
+	* macros-bibliotheques.tex: remplacement de \textsc par \texttt
+	pour les outils
+
+	* maintenance.tex: correction d'une faute de présentation
+	typographique
+
+	* marmottes-utilisateur.tex: correction d'une faute de frappe
+
+	* messages-erreurs.tex: correction d'une faute d'accent
+
+	* evolutions.tex: mention des capteurs échantillonnés
+
+	* pages-liminaires.tex: passage de la documentation en version 4.5
+	cohérente avec marmottes 8.0
+
+	* routines.tex: ajout d'un label pour les références croisées
+
+	* tables-senseurs.tex: ajout des capteurs échantillonnés
+
+2000-11-21  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* evolutions.tex: mention de la possibilité de créer des
+	bibliothèques partagées
+
+	* installation.tex: description des options --with-club et
+	--with-cantor
+
+2000-11-16  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* catalogue.tex: ajout des senseurs de fonction, ajout des classe
+	issues de la refonte des champs de vue
+
+	* Makefile.am: ajout du fichier SenseurFonctionEchant1D.tex
+
+	* marmottes-utilisateur.tex: inclusion de SenseurFonctionEchant1D.tex
+
+	* messages-erreurs.tex: ajout des erreurs points_echantillon,
+	echantillon_vide et echantillon_rejete
+
+	* SenseurFonctionGauss.tex: correction de fautes de frappe
+
+2000-11-13  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Secteurs.tex: remplacement de la référence à Champ par des
+	références aux classes Field et autres
+
+	* marmottes-utilisateur.tex: passage en version 8.0, élimination
+	de l'inclusion de Champ.tex, ajout des inclusions de
+	AnnotatedArc.tex, Braid.tex, Field.tex, Node.tex et
+	PointerRegister.tex
+
+	* messages-erreurs.tex: ajout de l'erreur frontière ouverte
+
+	* AnnotatedArc.tex, Braid.tex, Field.tex, Node.tex: nouveaux fichiers
+
+2000-10-09  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* evolutions.tex: annonce de l'enrichissement de la base de tests,
+	élimination des évolutions futures déjà implémentées
+
+2000-10-06  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Marmottes.tex: remplacement des attributs etatResolu_ et
+	etatExtrapole_ par un seul attribut etat_
+
+	* evolutions.tex: annonce de la correction de l'erreur
+	d'estimation de spin
+
+2000-10-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: ajout des senseurs de fonction (gains d'antennes)
+
+2000-10-03  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: ajout des fichiers CallTrace.tex,
+	SenseurFonction.tex, SenseurFonctionGauss.tex et
+	SenseurFonctionSinCard2.tex
+
+	* .cvsignore: ajout des fichiers liés à la génération du PostScript
+
+	* marmottes-utilisateur.tex: élimination de l'option twoside (elle
+	est rajoutée automatiquement uniquement pour le PostScript)
+
+	* Makefile.am: remise en place d'une génération PostScript en
+	recto-verso
+
+2000-10-02  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* CallTrace.tex: nouveau fichier
+
+	* Marmottes.tex, Senseur.tex: remplacement du terme gyroscope par
+	gyromètre, remplacement d'attributs entiers en booléens
+
+	* evolutions.tex: annonce de la correction de l'erreur de
+	réinitialisation
+
+	* marmottes-utilisateur.tex: ajout de la classe CallTrace
+
+	* SenseurCinematique.tex, SenseurGyroInteg.tex, catalogue.tex,
+	conventions.tex, environnement.tex, messages-erreurs.tex,
+	routines.tex, pages-liminaires.tex, tables-senseurs.tex,
+	tests.tex: remplacement du terme gyroscope par gyromètre
+
+2000-09-18  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* evolutions.tex: documentation des pseudo-senseurs de gains
+	d'antenne
+
+	* pages-liminaires.tex: documentation des pseudo-senseurs de gains
+	d'antenne
+
+	* SenseurFonctionGauss.tex: nouveau fichier
+
+	* SenseurFonction.tex:  nouveau fichier
+
+2000-09-13  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* marmottes-utilisateur.tex: ajout des senseurs de gain en sinus
+	cardinal carré et de gain gaussien
+
+	* environnement.tex: ajout des senseurs de gain en sinus cardinal
+	carré et de gain gaussien
+
+	* tables-senseurs.tex: ajout des tables de description des
+	senseurs de gain en sinus cardinal carré et de gain gaussien
+
+	* SenseurGyroInteg.tex: remplacement des \subsubsection par des
+	\subsubsection*
+
+	* SenseurVecteur.tex, SenseurTerre.tex, SenseurOptique.tex,
+	SenseurGyroInteg.tex, SenseurGeometrique.tex,
+	SenseurElevation.tex, SenseurDiedre.tex, SenseurDelta.tex,
+	SenseurCinematique.tex, SenseurCartesien.tex, SenseurCardan.tex,
+	SenseurAlpha.tex, Senseur.tex, Etat.tex: remplacement de tous les
+	ChaineSimple par des string
+
+	* Marmottes.tex: remplacement de tous les ChaineSimple par des
+	string et de Adressage par hash_map
+
+2000-09-11  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Marmottes.tex: correction du tableau qui générait une erreur TeX
+
+2000-09-08  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* evolutions.tex: description des évolutions depuis la version 7.4
+
+	* Marmottes.tex: ajout d'exceptions dans les signatures des
+	méthodes interditExtrapolation et autoriseExtrapolation, à la
+	suite de la mise en place du mécanisme de trace d'exécution
+
+2000-09-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Marmottes.tex: mention de l'exception MarmottesErreurs dans
+	l'opérateur d'affectation
+
+	* marmottes-utilisateur.tex: mention de la version 7.6 de la
+	bibliothèque
+
+	* routines.tex: correction des codes de retour d'erreur ajout du
+	mécanisme de trace d'exécution
+
+	* pages-liminaires.tex: reformatage des pages liminaires
+
+	* messages-erreurs.tex: ajout des erreurs ouverture_fichier,
+	allocation_memoire, trace_inactif, objet_inconnu
+
+2000-04-16  Luc Maisonobe  <Luc.Maisonobe@free.fr>
+
+	* marmottes-utilisateur.tex: passage de la bibliothèque en version
+	7.4
+
+	* evolutions.tex: description des évolutions pour la version 7.4
+	(correction d'une erreur, retouche de documentation)
+
+	* environnement.tex: simplification des exemples
+
+	* annexes.tex: simplification des exemples
+
+	* Champ.tex: reformatage d'une table, simplification de l'exemple
+
+	* pages-liminaires.tex: passage de la documentation en version
+	4.4.
+
+2000-03-30  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* environnement.tex: passage à une notation UML pour la hiérarchie
+	des senseurs
+
+	* marmottes-utilisateur.tex: passage de la bibliothèque en version 7.3
+
+2000-03-29  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* evolutions.tex: description de la correction du problème de
+	non-vérification de la contrôlabilité lors des extrapolations
+
+	* routines.tex: description des routines de gestion de
+	l'autorisation d'extrapoler
+
+2000-03-14  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* evolutions.tex: description de la correction du problème du
+	modèle cinématique pour les spins faibles non nuls.
+
+2000-01-24  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* SenseurCardan.tex: description des repères de référence pour les
+	senseurs de Cardan
+
+2000-01-07  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* evolutions.tex: description de la correction du bug d'affichage
+	des noms de senseurs dans les messages d'erreur.
+
+2000-01-06  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* pages-liminaires.tex: passage en version 4.2 de la documentation
+
+	* evolutions.tex: description de la correction du bug des genres
+	LRT-lacet, LRT-roulis et LRT-tangage non reconnus en lecture
+	(évolutions entre les versions 7.1 et 7.2)
+
+	* marmottes-utilisateur.tex: ajout d'un paragraphe sur l'édition
+	de liens, passage en version 7.2 de la bibliothèque
+
+1999-12-13  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* pages-liminaires.tex: passage en version 4.1 de la documentation
+
+	* Makefile.am: ajout du fichier SenseurGyroInteg.tex, remplacement
+	de la génération du fichier PostScript par un fichier PDF.
+
+	* evolutions.tex: description des évolutions entre les versions
+	7.0 et 7.1
+
+	* marmottes-utilisateur.tex: passage en version 7.1 de la
+	bibliothèque
+
+1999-09-17  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* pages-liminaires.tex: attribution d'un numéro AM pour la version
+	4.0 de la documentation
+
+	* routines.tex: ajout des routines de réinitialisation
+
+	* marmottes-utilisateur.tex: correction du numéro de version
+
+	* maintenance.tex: remplacement de l'extension french par
+	l'extension babel
+
+	* evolutions.tex: description des évolutions depuis la 6.3
+
+	* MarmottesErreurs.tex: correction d'une faute de frappe
+
+	* FamilleProlongementZero.tex: modifications mineures du texte
+
+	* FamilleProlongementPi.tex: modifications mineures du texte
+
+	* FamilleGenerale.tex: modifications mineures du texte
+
+	* FamilleFixe.tex: modifications mineures du texte
+
+	* FamilleAlignementPlus.tex: modifications mineures du texte
+
+	* FamilleAlignementMoins.tex: modifications mineures du texte
+
+	* FamilleAbstraite.tex: modifications mineures du texte
+
+	* Famille.tex: modifications mineures du texte
+
+	* Champ.tex: introduction de types bool et de listes de la STL
+	dans la classe
+
+1999-09-14  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* routines.tex: description des routines de réinitialisation de
+	simulateurs Marmottes.
+
+1999-08-20  Geraldine FILAIRE  <Geraldine.Filaire@cnes.fr>
+
+	* messages-erreurs.tex: ajout des nouvelles erreurs
+
+	* ModeleGeomV1Fixe.tex: suppression de la distribution
+
+	* ModeleGeomDomaine.tex: suppression de la distribution
+
+	* FamilleProlongementZero.tex: correction d'une faute de frappe
+
+	* FamilleProlongementPi.tex: correction d'une faute de frappe
+
+1999-08-13  Geraldine FILAIRE  <Geraldine.Filaire@cnes.fr>
+
+	* StationCible.tex: Mise à jour de l'exemple (passage aux
+	exceptions)
+
+	* SpinAtt.tex: Mise à jour de l'exemple (passage aux exceptions)
+
+	* SenseurVecteur.tex: Changement des signatures de mesure et
+	modeliseConsigne (passage aux exceptions)
+
+	* SenseurTerre.tex: Changement des signatures de controlable et
+	inhibe (passage aux exceptions)
+
+	* SenseurOptique.tex: Changement des signatures de controlable,
+	modifieCible et initialiseCible (passage aux exceptions)
+
+	* SenseurGyroInteg.tex: Changement des signatures de mesure,
+	modeliseConsigne, initialiseGyro, modifieReference et
+	prendEtatEnCompte (passage aux exceptions)
+
+	* SenseurGeometrique.tex: Changement de la signature de
+	verifieConsigne (passage aux exceptions)
+
+	* SenseurElevation.tex: Changement des signatures de mesure et
+	modeliseConsigne (passage aux exceptions)
+
+	* SenseurDiedre.tex: Changement des signatures de mesure et
+	modeliseConsigne (passage aux exceptions)
+
+	* SenseurDelta.tex: Changement des signatures de mesure,
+	controlable et modeliseConsigne (passage aux exceptions)
+
+	* SenseurCinematique.tex: Changement des signatures de mesure,
+	controlable et modeliseConsigne (passage aux exceptions)
+
+	* SenseurCartesien.tex: Changement des signatures de mesure et
+	modeliseConsigne (passage aux exceptions)
+
+	* SenseurCardan.tex: Changement des signatures de mesure,
+	controlable et modeliseConsigne (passage aux exceptions)
+
+	* SenseurAlpha.tex: Changement des signatures de mesure,
+	controlable et modeliseConsigne (passage aux exceptions)
+
+	* Senseur.tex: Changement des signatures de calage, mesure,
+	controlable, modeliseConsigne, modifieCible, initialiseGyro,
+	modifieReference et prendEtatEnCompte et mise à jour de l'exemple
+	(passage aux exceptions)
+
+	* ReunionOuParcelles.tex: Mise à jour de l'exemple (passage aux
+	exceptions)
+
+	* ReunionEtParcelles.tex: Mise à jour de l'exemple (passage aux
+	exceptions)
+
+	* ResolveurAttitude.tex: Changement des signatures de l'ensemble des
+	fonctions et mise à jour de l'exemple (passage aux exceptions)
+
+	* ParcelleElementaire.tex: Mise à jour de l'exemple (passage aux
+	exceptions)
+
+	* ModeleCine.tex: Changement de la signature de miseAJourOmegaMax
+	et mise à jour de l'exemple (passage aux exceptions)
+
+	* MarmottesErreurs.tex: Mise à jour de l'exemple (passage aux
+	exceptions) + ajout des deux nouvelles erreurs
+
+	* Marmottes.tex: Changement des signatures de l'ensemble des
+	fonctions et mise à jour de l'exemple (passage aux exceptions)
+
+	* Etat.tex: Changement des signatures de unitesPositionVitesse et
+	de normesLitigieuses et mise à jour de l'exemple (passage aux
+	exceptions)
+
+	* pages-liminaires.tex: Ajout de la liste des modifications
+
+	* routines.tex: Changement des signatures des fonctions pour
+	l'interface C++ (passage aux exceptions)
+
+	* tests.tex: Suppression du test sur la Continuité
+
+	* catalogue.tex: Ajout des classes nouvelles (ensemble des classes
+	de type Famille) + suppression des classes Continuite,
+	ModeleGeomDomaine et ModeleGeomV1Fixe
+
+1999-08-09  Geraldine FILAIRE  <Geraldine.Filaire@cnes.fr>
+
+	* Makefile.am (marmottes_utilisateurs_TEX): ajout des nouveaux
+	fichiers *.tex
+
+1999-07-29  Geraldine FILAIRE  <filaire@cnes.fr>
+
+	* macros-bibliotheques.tex: ajout de la macro \throw pour
+	les méthodes qui sont gérées par exceptions
+
+1999-07-26  Geraldine FILAIRE  <filaire@cnes.fr>
+
+	* pages-liminaires.tex: ajout de l'auteur Geraldine Filaire
+	et ajout dans la liste de modification
+
+	* marmottes-utilisateur.tex: ajout des nouveaux fichiers + 
+	suppression des fichiers ModeleGeomDomaine et ModeleGeomV1Fixe
+
+	* ModeleGeom.tex: modification de la description de la 
+	méthode prendConsignesEnCompte et des attributs de la classe
+
+	* ModeleCine.tex: modification de la description de la 
+	méthode prendConsignesEnCompte
+
+	* Modele.tex: modification de la description de la 
+	méthode prendConsignesEnCompte
+
+	* FamilleProlongementZero.tex: nouveau fichier
+
+	* FamilleProlongementPi.tex: nouveau fichier
+
+	* FamilleGenerale.tex: nouveau fichier 
+
+	* FamilleFixe.tex: nouveau fichier
+
+	* FamilleAlignementPlus.tex: nouveau fichier
+
+	* FamilleAlignementMoins.tex: nouveau fichier 
+
+	* FamilleAbstraite.tex: nouveau fichier
+
+	* Famille.tex: nouveau fichier
+
+1999-04-27  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* SenseurElevation.tex: modification d'une hauteur de table
+
+	* SenseurGeometrique.tex: description de la méthode
+	nouvelleReferenceSecteurs
+
+	* Secteurs.tex: description de la méthode diedreContient
+
+1999-04-26  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* pages-liminaires.tex: modification de la liste de diffusion et
+	de la structure hiérarchique, ajout des références aux outils de
+	développement
+
+	* Secteurs.tex: description de la méthode modifieReference
+
+	* marmottes-utilisateur.tex: ajout d'une section maintenance
+
+	* macros-bibliotheques.tex: ajout d'une macro \outil
+
+	* maintenance.tex: nouveau fichier
+
+1999-04-23  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* messages-erreurs.tex: ajout de l'explication de
+	erreur_non_reconnue
+
+1999-04-20  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* SenseurTerre.tex: remplacement de la spécialisation de la
+	fonction modeliseConsigne par une spécialisation de filtreSecteurs
+
+	* SenseurOptique.tex: la méthode filtreSecteurs est désormais
+	virtuelle
+
+	* SenseurDiedre.tex: élimination de la table des méthodes
+	protégées (suite à l'élimination de la méthode
+	modeliseConsigneSansFiltre)
+
+1998-07-30  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* .cvsignore: nouveau fichier
+
+	* Makefile.am: nouveau fichier
+
+	* Makefile: élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+1998-07-09  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile: élimination des commandes rcs

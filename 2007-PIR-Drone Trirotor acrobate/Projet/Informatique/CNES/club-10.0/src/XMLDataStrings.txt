@@ -1,0 +1,30 @@
+#
+# process this file with create-xml-strings to produce a header file
+# defining the specified constants as static XMLCh arrays
+#
+# $Id: XMLDataStrings.txt,v 1.1 2005/02/04 10:19:17 chope Exp $
+
+CLUB_DATA_TAG           "club-data"
+VERSION_ATTRIBUTE       "version"
+VERSION_VALUE           "1.0"
+STRUCTURE_TAG           "structure"
+INT_TABLE_TAG           "int-table"
+REAL_TABLE_TAG          "real-table"
+STRING_TABLE_TAG        "string-table"
+STRUCTURE_TABLE_TAG     "structure-table"
+TABLE_TABLE_TAG         "table-table"
+REFERENCE_TAG           "reference"
+INCLUDE_TAG             "include"
+REAL_DATA_TAG           "real-data"
+INT_DATA_TAG            "int-data"
+STRING_DATA_TAG         "string-data"
+UNITS_FILE_ATTRIBUTE    "units-file"
+VALUE_ATTRIBUTE         "value"
+NAME_ATTRIBUTE          "name"
+INDEX_ATTRIBUTE         "index"
+COMMENT_ATTRIBUTE       "comment"
+REFERENCE_ATTRIBUTE     "reference"
+INCLUDED_FILE_ATTRIBUTE "included-file"
+INCLUDED_FROM_ATTRIBUTE "included-from"
+DEFAULT_UNIT_ATTRIBUTE  "default-unit"
+UNIT_ATTRIBUTE          "unit"

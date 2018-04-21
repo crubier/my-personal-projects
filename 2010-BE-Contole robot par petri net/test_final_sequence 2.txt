@@ -1,0 +1,12 @@
+tr {capt_contact/vitesse0} [0,w[ avance -> Arret1
+tr {capt_ultrason_inf10/ouvre} [0,w[ Attente -> ouvre_pince
+tr {capt_son/vitesse+} [0,w[ ouvre_pince -> avance
+tr {capt_son/demi_tour} [0,w[ Arret2 -> {Demi-tour}
+tr {capt_noir/vitesse0} [0,w[ Avance -> Attente
+tr {capt_ultrason_inf10/ferme} [0,w[ Arret1 -> ferme_pince
+tr {capt_son/vitesse-} [0,w[ ferme_pince -> recule
+tr {capt_ultrason_sup30/vitesse0} [0,w[ recule -> Arret2
+tr {capt_ultrason_inf10/vitesse+} [0,w[ {Demi-tour} -> Avance
+pl Attente (1)
+net petri_test_final
+

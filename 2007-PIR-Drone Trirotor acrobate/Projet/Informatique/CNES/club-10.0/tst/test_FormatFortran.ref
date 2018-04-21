@@ -1,0 +1,86 @@
+format : "('erreur ', i2, ' fonction ', a6, ' (MSLIB)')"
+  2 arguments :  i c
+erreur  4 fonction   aaaa (MSLIB)
+format : "(i2, ' error in function ', a6, ' (MSLIB)')"
+  2 arguments :  i c
+ 4 error in function   aaaa (MSLIB)
+('erreur ', i2, ' fonction ', a6, ' (MSLIB)') compatible avec (i2, ' error in function ', a6, ' (MSLIB)')
+
+format : "('pas d''integration trop faible: ', e9.2)"
+  1 arguments :  f
+pas d'integration trop faible:  1.10e-11
+format : "('too small integration step: ', e9.2)"
+  1 arguments :  f
+too small integration step:  1.10e-11
+('pas d''integration trop faible: ', e9.2) compatible avec ('too small integration step: ', e9.2)
+
+format : "('convergence du Cowell impossible en ', i2, ' iterations')"
+  1 arguments :  i
+convergence du Cowell impossible en 11 iterations
+format : "('Cowell unable to converge in ', i2, ' iterations')"
+  1 arguments :  i
+Cowell unable to converge in 11 iterations
+('convergence du Cowell impossible en ', i2, ' iterations') compatible avec ('Cowell unable to converge in ', i2, ' iterations')
+
+format : "(//,2x,'final date :',f12.5,5x,i2.2,'/',i2.2,'/',i4.4,'/',i2.2,'/',i2.2,'/',i2.2,'/',i3.3,/,2x,'step for the numerical integration: ',f5.1,' h',/,2x,'cpssm : ',f7.4,'m**2/kg',/,2x,'number of impulsions : ',i3)"
+  11 arguments :  f i i i i i i i f f i
+
+
+  final date : 22222.22220      4/11/2010/ 5/19/58/ 80
+  step for the numerical integration:   0.0 h
+  cpssm : -0.0330m**2/kg
+  number of impulsions :  88
+format : "(//,2x,'date finale:',f12.5,5x,i2.2,'/',i2.2,'/',i4.4,'/',i2.2,'/',i2.2,'/',i2.2,'/',i3.3,/,2x,'pas pour l''integration numerique : ',f5.1,' h',/,2x,'cpssm : ',f7.4,'m**2/kg',/,2x,'nombre d''impulsions : ',i3)"
+  11 arguments :  f i i i i i i i f f i
+
+
+  date finale: 22222.22220      4/11/2010/ 5/19/58/ 80
+  pas pour l'integration numerique :   0.0 h
+  cpssm : -0.0330m**2/kg
+  nombre d'impulsions :  88
+(//,2x,'final date :',f12.5,5x,i2.2,'/',i2.2,'/',i4.4,'/',i2.2,'/',i2.2,'/',i2.2,'/',i3.3,/,2x,'step for the numerical integration: ',f5.1,' h',/,2x,'cpssm : ',f7.4,'m**2/kg',/,2x,'number of impulsions : ',i3) compatible avec (//,2x,'date finale:',f12.5,5x,i2.2,'/',i2.2,'/',i4.4,'/',i2.2,'/',i2.2,'/',i2.2,'/',i3.3,/,2x,'pas pour l''integration numerique : ',f5.1,' h',/,2x,'cpssm : ',f7.4,'m**2/kg',/,2x,'nombre d''impulsions : ',i3)
+
+format : "('mode :',A20,' - code :',I4)"
+  2 arguments :  c i
+mode :                aaaa - code :   4
+format : "(' mode :',A20,' - A098L telemetry value :',I4)"
+  2 arguments :  c i
+ mode :                aaaa - A098L telemetry value :   4
+('mode :',A20,' - code :',I4) compatible avec (' mode :',A20,' - A098L telemetry value :',I4)
+
+format : "(' Donnees:',/,' --------',/,'Mode traite :',a11)"
+  1 arguments :  c
+ Donnees:
+ --------
+Mode traite :        bbb
+format : "(' Data:',/,' -----',/,'    Computed mode           :',a11)"
+  1 arguments :  c
+ Data:
+ -----
+    Computed mode           :        bbb
+(' Donnees:',/,' --------',/,'Mode traite :',a11) compatible avec (' Data:',/,' -----',/,'    Computed mode           :',a11)
+
+format : "(126('-'))"
+  0 arguments : 
+------------------------------------------------------------------------------------------------------------------------------
+format : "(1x,126('-'))"
+  0 arguments : 
+ ------------------------------------------------------------------------------------------------------------------------------
+(126('-')) compatible avec (1x,126('-'))
+
+format : "('| Tuyere     ',7('|',7x,i1,7x),'|',/,126('-'))"
+  7 arguments :  i i i i i i i
+| Tuyere     |       4       |       11       |       2010       |       5       |       19       |       58       |       80       |
+------------------------------------------------------------------------------------------------------------------------------
+format : "(' | Thruster   ',7('|',7x,i1,7x),'|',/,1x,126('-'))"
+  7 arguments :  i i i i i i i
+ | Thruster   |       4       |       11       |       2010       |       5       |       19       |       58       |       80       |
+ ------------------------------------------------------------------------------------------------------------------------------
+('| Tuyere     ',7('|',7x,i1,7x),'|',/,126('-')) compatible avec (' | Thruster   ',7('|',7x,i1,7x),'|',/,1x,126('-'))
+
+('convergence du Cowell impossible en ', i2, ' iterations') incompatible avec ('| Tuyere     ',7('|',7x,i1,7x),'|',/,126('-'))
+
+('erreur ', i2, ' fonction ', a6, ' (MSLIB)') incompatible avec ('Cowell unable to converge in ', i2, ' iterations')
+
+('mode :',A20,' - code :',I4) incompatible avec (' Data:',/,' -----',/,'    Computed mode           :',a11)
+

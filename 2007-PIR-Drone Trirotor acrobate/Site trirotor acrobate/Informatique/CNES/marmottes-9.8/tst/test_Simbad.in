@@ -1,0 +1,53 @@
+#! /bin/sh
+
+# $Id: test_Simbad.in,v 1.5 2001/06/06 09:27:50 luc Exp $
+
+# cleaning stuff
+clean()
+{ for locale1 in "$sed" "$res" "$patched" "$tmp1" "$tmp2" ; do
+    if [ ! -z "$locale1" -a -f "$locale1" ] ; then
+       rm "$locale1"
+    fi
+  done
+}
+
+trap clean 0
+trap 'exit 1' 1 2 3
+
+# temporary files
+sed=test_Simbad.sed.$$
+res=test_Simbad.res.$$
+patched=test_Simbad.patched.$$
+tmp1=test_Simbad.tmp1.$$
+tmp2=test_Simbad.tmp2.$$
+
+# we use a french environment to read the sensors
+@ma_cv_var_lang@=fr              ; export @ma_cv_var_lang@
+@ma_cv_var_tradpath@=@srcdir@/.. ; export @ma_cv_var_tradpath@
+
+# run the test program
+../utils/marmottesReplay -d @srcdir@ @srcdir@/test_Simbad.extract -o $res
+
+# patch the pointer values before comparison
+f="  *\([^ ][^ ]*\)"
+sed -n "s,Marmottes::reinitialise *\(0x[^ ]*\) .*$f$f$f$f"' *$,\1 \2,p' \
+    < @srcdir@/test_Simbad.extract | tr ' ' '\012' > $tmp1
+sed -n "s,Marmottes::reinitialise *\(0x[^ ]*\) .*$f$f$f$f"' *$,\1 \2,p' \
+    < $res | tr ' ' '\012' > $tmp2
+if [ `wc -l < $tmp1` -ne `wc -l < $tmp2` ] ; then
+  echo "result file and reference files do not use the same number of instances" 1>&2
+  exit 1
+fi
+paste -d ' ' $tmp1 $tmp2 \
+ | sed 's, *\([^ ]*\) *\([^ ]*\),s;\2;\1;,' \
+ | sort \
+ | uniq \
+ > $sed
+sed -f $sed < $res > $patched
+
+# compare files
+echo "difference -p 1.0e-16 -ee 1 10 -res $patched -rfres 2 -ref @srcdir@/test_Simbad.extract -rfref 3"
+difference -p 1.0e-16 -ee 1 10 -res $patched -rfres 2 -ref @srcdir@/test_Simbad.extract -rfref 3
+r=$?
+
+exit $r

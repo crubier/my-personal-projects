@@ -1,0 +1,57 @@
+# Marmottes trace
+# date : 2003-03-11T10:38:59
+# $Id: test_BugsIds.0022.log,v 1.1 2003/07/09 13:13:49 marmottes Exp $
+
+Marmottes::reinitialise 0x2ff200 0.00000000000000000e+00 0.00000000000000000e+00 0.00000000000000000e+00 0.00000000000000000e+00 0.00000000000000000e+00 0.00000000000000000e+00 0.00000000000000000e+00 1.00000000000000000e+00 0.00000000000000000e+00 0.00000000000000000e+00 0.00000000000000000e+00 0.00000000000000000e+00 0.00000000000000000e+00 0.00000000000000000e+00 ./test_BugsIds.0022.sensors YPR-ROLL YPR-PITCH YPR-YAW
+Marmottes::convertirConsignes 0x2ff200 ./test_BugsIds.0022.sensors YPR-ROLL
+Marmottes::convertirMesures 0x2ff200 ./test_BugsIds.0022.sensors YPR-ROLL
+Marmottes::convertirConsignes 0x2ff200 ./test_BugsIds.0022.sensors YPR-PITCH
+Marmottes::convertirMesures 0x2ff200 ./test_BugsIds.0022.sensors YPR-PITCH
+Marmottes::convertirConsignes 0x2ff200 ./test_BugsIds.0022.sensors YPR-YAW
+Marmottes::convertirMesures 0x2ff200 ./test_BugsIds.0022.sensors YPR-YAW
+Marmottes::convertirMesures 0x2ff200 ./test_BugsIds.0022.sensors PSSH3/7_RY-M1
+Marmottes::convertirMesures 0x2ff200 ./test_BugsIds.0022.sensors PSSH3_RY
+Marmottes::convertirMesures 0x2ff200 ./test_BugsIds.0022.sensors SUN_X
+Marmottes::convertirMesures 0x2ff200 ./test_BugsIds.0022.sensors SUN_Y
+Marmottes::convertirMesures 0x2ff200 ./test_BugsIds.0022.sensors SUN_Z
+Marmottes::attitude 0x2ff200 1.93801458333333321e+04 -9.73396262704034962e+03 -3.44684732722844274e+04 5.65487294943070719e+03 1.92753809862552328e+00 -1.91149915260337067e+00 -4.39115937964555891e-01 0.00000000000000000e+00 0.00000000000000000e+00 0.00000000000000000e+00
+  ->  6.49621090449585048e-01 -7.32897691398101792e-01 2.02082275669782901e-01 -4.02077685884077995e-03 -9.94511095117732543e-10 2.74217080554389402e-10 -5.45602373160939215e-12
+Marmottes::controlable 0x2ff200 ./test_BugsIds.0022.sensors PSSH3/7_RY-M1
+  ->  1
+Marmottes::controlable 0x2ff200 ./test_BugsIds.0022.sensors PSSH3_RY
+  ->  1
+Marmottes::mesure 0x2ff200 ./test_BugsIds.0022.sensors PSSH3_RY
+  ->  -1.36492728850528824e+01
+Marmottes::controlable 0x2ff200 ./test_BugsIds.0022.sensors SUN_X
+  ->  1
+Marmottes::mesure 0x2ff200 ./test_BugsIds.0022.sensors SUN_X
+  ->  8.08328760599992369e-01
+Marmottes::controlable 0x2ff200 ./test_BugsIds.0022.sensors SUN_Y
+  ->  1
+Marmottes::mesure 0x2ff200 ./test_BugsIds.0022.sensors SUN_Y
+  ->  2.22617069555190755e-01
+Marmottes::controlable 0x2ff200 ./test_BugsIds.0022.sensors SUN_Z
+  ->  1
+Marmottes::mesure 0x2ff200 ./test_BugsIds.0022.sensors SUN_Z
+  ->  -5.45019499769998861e-01
+Marmottes::attitude 0x2ff200 1.93801465277777752e+04 -9.61816468791326952e+03 -3.45826449674792384e+04 5.62844115875234729e+03 1.93237756200469524e+00 -1.89423140133290002e+00 -4.41937874007565124e-01 0.00000000000000000e+00 0.00000000000000000e+00 0.00000000000000000e+00
+  ->  6.50030036626040308e-01 -7.32904332961470395e-01 2.00762983218958357e-01 -2.53274145448090238e-03 6.95861882518611101e-12 -6.76762263385321118e-05 1.83098802375420902e-09
+Marmottes::controlable 0x2ff200 ./test_BugsIds.0022.sensors PSSH3/7_RY-M1
+  ->  1
+Marmottes::controlable 0x2ff200 ./test_BugsIds.0022.sensors PSSH3_RY
+  ->  1
+Marmottes::mesure 0x2ff200 ./test_BugsIds.0022.sensors PSSH3_RY
+  ->  -1.36296537899627790e+01
+Marmottes::controlable 0x2ff200 ./test_BugsIds.0022.sensors SUN_X
+  ->  1
+Marmottes::mesure 0x2ff200 ./test_BugsIds.0022.sensors SUN_X
+  ->  8.06116046975375977e-01
+Marmottes::controlable 0x2ff200 ./test_BugsIds.0022.sensors SUN_Y
+  ->  1
+Marmottes::mesure 0x2ff200 ./test_BugsIds.0022.sensors SUN_Y
+  ->  2.22611208410611772e-01
+Marmottes::controlable 0x2ff200 ./test_BugsIds.0022.sensors SUN_Z
+  ->  1
+Marmottes::mesure 0x2ff200 ./test_BugsIds.0022.sensors SUN_Z
+  ->  -5.48289311129407597e-01
+Marmottes::desinitialise 0x2ff200

@@ -1,0 +1,253 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: conventions.tex,v 1.3 2000/11/22 16:40:26 luc Exp $
+\subsection{rotations}\label{sec:rotations}
+La représentation des rotations dans l'espace présente souvent des
+ambiguïtés selon que l'on considère des vecteurs tournant dans un
+repère fixe ou un repère tournant au milieu de vecteurs
+inertiels. Afin d'éviter des interprétations erronées, nous allons
+expliciter les conventions de \bibliotheque{marmottes} de façon
+fonctionnelle, c'est-à-dire en définissant implicitement les rotations
+par les vecteurs qu'elles consomment et ceux qu'elles
+produisent\footnote{L'auteur s'avoue incapable de dire ce que fait
+\bibliotheque{marmottes} en termes de \emph{matrices de passage}}.
+
+Soit $\mathit{Att}$ l'attitude produite par \bibliotheque{marmottes} à
+la suite d'un calcul. Soit $\vec{u}_\mathrm{in}$ les coordonnées en
+repère inertiel d'un vecteur défini de façon absolue dans l'espace
+(par exemple la direction du Soleil). Soit $\vec{u}_\mathrm{sat}$ les
+coordonnées en repère satellite de ce même vecteur. Ces trois éléments
+sont liés par :
+\begin{displaymath}
+\vec{u}_\mathrm{sat} = \mathit{Att} (\vec{u}_\mathrm{in})
+\end{displaymath}
+
+Cette convention peut être illustrée par les exemples suivants :
+\begin{itemize}
+\item calcul d'une direction de poussée par lecture des télémesures
+senseurs ;
+\item recherche des consignes permettant d'aboutir naturellement à
+l'attitude optimale de poussée ;
+\item initialisation d'une attitude à partir des données \textsc{cvi}.
+\end{itemize}
+
+\subsubsection{Calcul d'une direction de poussée}
+Supposons que l'on désire intégrer numériquement la poussée réalisée
+par un satellite en lisant la télémesure. À chaque ligne de
+télémesure, on extrait les mesures m1, m2, m3 réalisées par trois
+senseurs en visibilité, et on les utilise comme consignes pour
+\bibliotheque{marmottes} qui renvoie le tableau \textit{att}. On
+connait la direction de poussée en repère satellite : \textit{Psat}.
+
+Pour intégrer cette poussée numériquement, on la convertit en repère
+intertiel par un appel du type (en \langage{fortran}) :
+\begin{center}\texttt
+call AppliqueRotInverse (att, Psat, Pin)
+\end{center}
+
+\subsubsection{Recherche des consignes pour une poussée optimale}
+Les logiciels d'optimisation donnent l'attitude au début de
+poussée. Supposons que la procédure opérationnelle impose que cette
+attitude soit contrôlée par des consignes géométriques et une consigne
+cinématique figées depuis au moins 45 minutes (pour la tranquilisation
+des ergols), et qu'il faille donc extrapoler cette attitude à rebours
+avec le gyromètre pour trouver les trois consignes géométriques
+d'initialisation pour la mise en attitude avant le basculement sur
+gyromètre.
+
+On connait la direction de poussée en repère inertiel
+\textit{pousseein}, et la direction satellite/terre (et donc l'angle
+poussée/direction terre $\theta$). Si on suppose que le roulis est nul
+et que la poussée est sur +Xsat, on en déduit la direction terre en
+repère satellite :
+\begin{displaymath}
+\vec{terre}_{sat}
+\left\{\begin{array}{l}\cos(\theta)\\0\\\sin(\theta)\end{array}\right.
+\end{displaymath}
+
+L'attitude en début de poussée se calcule par :
+\begin{center}\texttt
+call RotU1U2V1V2 (att, pousseein, terrein, Xsat, terresat)
+\end{center}
+
+(Cette attitude vérifie $\mathit{att} (\vec{poussee}_\mathrm{in}) =
+\vec{X}_{sat}, \mathit{att} (\vec{terre}_\mathrm{in}) =
+\vec{terre}_\mathrm{sat}$).
+
+On utilise cette attitude pour initialiser \bibliotheque{marmottes},
+et on extrapole à rebours pendant 45 minutes. On obtient l'attitude
+initiale att0.
+
+Les mesures fournies par les senseurs géométriques dans cette attitude
+sont obtenues par des appels du type :
+
+\newlength{\largeurcode}
+\settowidth{\largeurcode}{\ttfamily
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+}\begin{center}\begin{minipage}{\largeurcode}\begin{verbatim}
+if ((MarmottesMesure (id, 'IRES_ROLL', roulis, message) .eq. 0)
+    .or. 
+    (MarmottesMesure (id, 'IRES_PITCH', tangage, message) .eq. 0) 
+    .or. 
+    (MarmottesMesure (id, 'SSH_YAW', lacet, message) .eq. 0)) then 
+  write (iaffi, message) 
+  stop 
+endif
+\end{verbatim}
+\centerline{affichage des valeurs roulis, tangage, lacet recherchées}
+\end{minipage}\end{center}
+
+Dans le sens normal du temps, on utiliserait ces valeurs comme
+consignes, ce qui permettrait d'aboutir à att0, puis en passant sur
+gyromètre l'attitude évoluerait naturellement jusqu'à l'attitude
+optimale pour la poussée.
+
+\subsubsection{Initialisation d'une attitude à partir des données CVI}
+Les \textsc{cvi} Ariane donnent l'évolution de l'attitude du lanceur
+sous forme de trois angles mesurés depuis l'initialisation de la
+centrale, 9~secondes avant la mise en feu.
+
+Pour déduire l'attitude du satellite à chaque instant, il faut d'une
+part connaître l'orientation du satellite par rapport au lanceur, et
+d'autre part connaître l'orientation du lanceur par rapport au
+référentiel inertiel à l'initialisation de la centrale.
+
+On définit pour cela toute une série de repères intermédiaires.
+
+Repère satellite : on connait les coordonnées de ses axes
+$\vec{X}_\mathrm{sat}$, $\vec{Y}_\mathrm{sat}$, $\vec{Z}_\mathrm{sat}$
+dans le repère lanceur.
+
+Repère lanceur : $\vec{X}_\mathrm{lanceur}$ est l'axe de roulis
+(longitudinal, positif dans le sens de l'avancement),
+$\vec{Y}_\mathrm{lanceur}$ est l'axe de lacet,
+$\vec{Z}_\mathrm{lanceur}$ est l'axe de tangage.
+
+À l'initialisation, l'axe $+\vec{X}_\mathrm{lanceur}$ est aligné avec
+le $+\vec{Zenith}_\mathrm{rampe}$, l'axe $+\vec{Y}_\mathrm{lanceur}$
+est décalé de $\mathit{azimut}_\mathrm{plateforme}$" vers l'Est, à
+partir du $+\vec{Nord}_\mathrm{rampe}$.
+
+Repère rampe  : C'est le repère (Zenith, Est, Nord) du pas de tir.
+
+Repère trajectoire  : C'est un repère équatorial situé dans le
+méridien du pas de tir (il en est donc décalé du repère rampe de la
+latitude de tir).
+
+Repère inertiel  : L'écart entre le repère trajectoire et le repère
+inertiel est lié à la longitude du repère trajectoire (c'est-à-dire la
+longitude du pas de tir puisqu'ils sont dans le même méridien) et à la
+position de la terre, c'est-à-dire au temps sidéral à $H_0 - 9$~s.
+
+Les angles de roulis, tangage et lacet diffusés dans les \textsc{cvi}
+peuvent être interprétés comme suit :
+
+Pour passer du repère lanceur à $H_0 - 9$ au repère lanceur à la date
+courante, on tourne le lanceur de $-$tangage autour de Z, puis de
+$-$lacet autour de Y', puis de $-$roulis autour de X" (dans les
+\textsc{cvi}, les angles sont donnés dans l'ordre lacet, roulis,
+tangage).
+
+On peut calculer au préalable la rotation qui appliquée à un vecteur
+en repère lanceur à $H_0 - 9$~s donne les coordonnées de ce même
+vecteur en repère inertiel.
+
+Pour des raisons de concision\footnote{et parce que le module
+opérationel qui réalise ce calcul est écrit de cette façon}, cet
+exemple est donné en \langage{c++}.
+\begin{verbatim}
+//vecteurs canoniques
+VecDBL i (1, 0, 0);
+VecDBL j (0, 1, 0);
+VecDBL k (0, 0, 1);
+
+//conversion de vecteur satellite en vecteur lanceur
+VecDBL xSat (x1, x2, x3); //coordonnées en repère lanceur
+VecDBL ySat (y1, y2, y3); //coordonnées en repère lanceur
+RotDBL satLanceur (i, j, Xsat, Ysat);
+
+//conversion de vecteur lanceur en vecteur rampe
+VecDBL xLanceur = i; //aligné avec Zénith rampe
+VecDBL yLanceur (0, sin (azimut), cos (azimut)); //décalé par rapport au Nord
+RotDBL lanceurRampe (i, j, Xlanceur, Ylanceur);
+
+//conversion de vecteur rampe en vecteur trajectoire
+VecDBL = j; //aligné avec l'est trajectoire
+VecDBL zenith (cos (lat), 0, sin (lat)); //décalé par rapport à l'équateur
+RotDBL rampeTraj (j, i, est, zenith);
+
+//conversion de vecteur trajectoire en vecteur inertiel
+// tsidr : temps sidéral à H0 - 9s
+VecDBL pole = k; //aligné avec le pole trajectoire
+VecDBL meridien (cos (tsidr + longi), sin (tsidr + longi), 0);
+RotDBL trajInert (k, i, pole, meridien);
+
+//combinaison des trois dernières rotations
+RotDBL lanceurInert = trajInert (rampeTraj (lanceurRampe));
+\end{verbatim}
+
+À chaque lecture des angles d'attitude, on calcule l'évolution, en
+sachant que si le lanceur (c'est-à-dire le repère) à tourné d'abord de
+$-\theta$ autour de Z, puis de $-\psi$ autour de Y, puis de $-\phi$
+autour de X, alors pour convertir un vecteur du repère lanceur courant
+dans le repère lanceur à H0 - 9s, il faut d'abord le tourner de
+$+\theta$ autour de X, puis de $+\psi$ autour de Y, puis de $+\phi$
+autour de Z.
+
+On calcule donc :
+
+\begin{verbatim}
+RotDBL roulis  (VecDBL (1, 0, 0), phi);
+RotDBL lacet   (VecDBL (0, 1, 0), psi);
+RotDBL tangage (VecDBL (0, 0, 1), theta);
+RotDBL lanceurTlanceurH09 = tangage (lacet (roulis));
+\end{verbatim}
+
+Enfin l'attitude compatible avec la convention
+\bibliotheque{marmottes} se calcule par :
+
+\begin{verbatim}
+RotDBL satInert = lanceurInert (lanceurTlanceurH09 (satLanceur));
+RotDBL attitude = -satInert;
+\end{verbatim}
+
+On peut utiliser directement cette rotation pour initialiser
+\bibliotheque{marmottes}.
+
+Remarque : On peut faire bien plus court ! Mais optimiser ce calcul
+impose de savoir reconnaître les rotations de vecteurs des rotations
+de repère (en construisant certaines rotations directement par un axe
+et un angle avec le bon signe, comme nous avons dû le faire pour
+roulis/tangage/lacet), de plus faire plus court serait nettement plus
+obscur. On pourrait ainsi calculer directement les rotations inverses
+de ce que l'on a fait, pour aboutir d'emblée à l'attitude plutôt que
+d'inverser la dernière rotation. Il faut cependant se rappeler qu'avec
+les quaternions, inverser une rotation ne coûte guère que le temps du
+changement de signe d'un unique réel.
+
+\subsection{unités}\label{sec:unites}
+Il faut prendre garde au problème des unités. \bibliotheque{marmottes}
+travaille en kilomètres et kilomètres par secondes en interne, et la
+norme du vecteur position influe en particulier sur les corrections de
+parallaxe. Si l'appelant utilise des unités différentes, il doit le
+signaler à la bibliothèque.
+
+Les senseurs posent un problème un peu plus compliqué car l'un des
+fondements de \bibliotheque{marmottes} est de masquer le type des
+senseurs au maximum. Ne connaissant pas le genre de la mesure (angle,
+vitesse, coordonnée cartésienne) on ne peut la convertir. La
+conversion est donc du ressort de chaque senseur individuellement, et
+\bibliotheque{marmottes} introduit uniquement une notion d'unité
+interne (pour les calculs) et d'unité externe. Certains senseurs comme
+les senseurs cartésiens ignorent ces notions, d'autres les utilisent
+par exemple en prenant des radians en unité interne et des degrés en
+unité externe. L'appelant paradoxalement a plus d'informations que la
+bibliothèque sur les unités (même s'il n'en a pas sur les senseurs) !
+Le développeur sait en effet si les données qu'il manipule sont issues
+ou destinées à des routines de calcul ou à des routines
+d'entrées-sorties. Dans un cas il pourra signaler à
+\bibliotheque{marmottes} qu'il s'agit d'unités internes (cela
+sous-entend qu'en fait il sait très bien ce que repésente chaque
+mesure et chaque senseur) et dans l'autre cas il signalera qu'il
+s'agit d'unités externes (par exemple une lecture de fichier ou de
+télémesure). Par défaut, les échanges ont lieu dans les unités
+internes (c'est à dire que personne ne fait de conversion).

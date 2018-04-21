@@ -1,0 +1,106 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: SenseurFonctionSinCard2.tex,v 1.9 2004/06/21 14:43:17 marmottes Exp $
+\subsection{classe SenseurFonctionSinCard2}\label{sec:SenseurFonctionSinCard2}
+
+\subsubsection*{description}\label{sec:SenseurFonctionSinCard2-desc}
+
+Cette classe implante les pseudo-senseurs mesurant des gains
+d'antennes bord dans une direction particulière définie par la cible
+(typiquement une station sol). Ce type de senseur permet de calculer
+la part liée uniquement à l'attitude dans un bilan de liaison. La
+forme du gain modélisée par ce senseur est :
+\begin{displaymath}
+g = 10\times\frac{\log{K \left( \frac{\sin\theta}{\theta} \right) ^2}}
+                 {\log{10}}
+\end{displaymath}
+où $\theta$ est le dépointage entre l'axe d'antenne et la cible. La
+valeur retournée est donc directement une valeur en dB.
+
+La fonction n'étant pas inversible (à moins de se restreindre au lobe
+primaire), on ne \emph{peut pas utiliser ces senseurs en consigne},
+ils sont destinés à être utilisés en \emph{mesure uniquement}.
+
+\subsubsection*{interface publique}\label{sec:SenseurFonctionSinCard2-int}
+\begin{verbatim}
+#include "marmottes/SenseurFonctionSinCard2.h"
+\end{verbatim}
+
+\begin{tableFonctionsFixe}{SenseurFonctionSinCard2 : méthodes publiques}
+{\label{tab:SenseurFonctionSinCard2-met-pub}}
+{construit une instance à partir des données technologiques}
+
+\signature{\fonc{SenseurFonctionSinCard2}}
+          {(const string\& \argument{nom},\\
+            const RotDBL\& \argument{repere},\\
+            const VecDBL\& \argument{axeCalage},\\
+            double \argument{precision},\\
+            codeCible \argument{code},\\
+            const StationCible *\argument{ptrStation},\\
+            const VecDBL\& \argument{observe},\\
+            Parcelle* \argument{ptrChampDeVue},\\
+            Parcelle* \argument{ptrChampInhibitionSoleil},\\
+            Parcelle* \argument{ptrChampInhibitionLune},\\
+            Parcelle* \argument{ptrChampInhibitionCentral},\\
+            double \argument{margeEclipseSoleil},\\
+            double \argument{margeEclipseLune},\\
+            double \argument{seuilPhaseLune},\\
+            const VecDBL\& \argument{axe},\\
+            const VecDBL\& \argument{origine},\\
+            double \argument{maximum},\\
+            double \argument{angle3dB})\\
+            \throw{CantorErreurs}} &
+construit une instance à partir des données technologiques\\
+
+\hline
+
+\signature{\fonc{SenseurFonctionSinCard2}}{(const SenseurFonctionSinCard2\& \argument{s})} & constructeur par copie\\
+
+\signature{SenseurFonctionSinCard2\&  \fonc{operator =}}{(const SenseurFonctionSinCard2\& \argument{s})} & affectation\\
+
+\hline
+
+\signature{\fonc{\~{}SenseurFonctionSinCard2} ()}{} & destructeur, ne
+fait rien dans cette classe\\
+
+\hline
+
+\signature{Senseur*  \fonc{copie} () const}{} & opérateur de copie virtuel\\
+
+\signature{double \fonc{fonction}}
+          {(double \argument{azimut}, double \argument{depointage}) const\\
+           \throw{MarmottesErreurs}
+          } &
+
+cette méthode évalue la fonction de gain $$g = 10\times\frac{\log{K
+\left( \frac{\sin\theta}{\theta} \right) ^2}}{\log{10}}$$ où $\theta$
+est le \argument{depointage}\\
+\end{tableFonctionsFixe}
+
+\subsubsection*{implantation}\label{sec:SenseurFonctionSinCard2-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:SenseurFonctionSinCard2-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe SenseurFonctionSinCard2}
+{\label{tab:SenseurFonctionSinCard2-att-priv}}
+{valeur maximale du gain dans la direction de l'axe}
+
+maximum\_ & double & valeur maximale en dB du gain dans la direction
+de l'axe\\
+
+angle3dB\_ & double & angle de dépointage pour lequel le gain chute de
+3 dB (c'est à dire que la fonction dans le logarithme est divisée par deux)\\
+
+\end{tableAttributsFixe}
+
+Les méthodes protégées sont décrites dans la table~\ref{tab:SenseurFonctionSinCard2-met-prot}.
+\begin{tableFonctionsFixe}{SenseurFonctionSinCard2 : méthodes protégées}
+{\label{tab:SenseurFonctionSinCard2-met-prot}}
+{constructeur par défaut. Il est défini explicitement uniquement pour }
+
+\signature{\fonc{SenseurFonctionSinCard2} ()}
+          {}&
+
+constructeur par défaut. Il est défini explicitement uniquement pour
+prévenir celui créé automatiquement par le compilateur et ne doit pas être
+utilisé.
+\\
+\end{tableFonctionsFixe}

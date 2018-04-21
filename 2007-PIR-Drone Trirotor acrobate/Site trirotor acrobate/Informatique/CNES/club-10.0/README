@@ -1,0 +1,55 @@
+La bibliothèque CLUB regroupe des classes implantant des utilitaires
+C++ de bas niveau. Elle offre principalement des services liés aux
+entrées-sorties (fichiers et arguments de la ligne de commande,
+erreurs) et au texte (chaînes de caractères, traduction de messages et
+mots-clefs, analyse lexicale).
+
+Cette bibliothèque est utilisée par les bibliothèques CANTOR et
+MARMOTTES.
+
+La bibliothèque CLUB contient deux classes de gestion des formats de fichier 
+XML et Madona nommées respectivement XMLData et MadonaFile. Ces classes 
+s'appuient respectivement sur les bilbiothèques XERCES et MADONA qui
+doivent donc impérativement être installées pour pouvoir utiliser
+leurs services. L'absence de ces bibliothèques n'empêchent pas la
+génération et l'installation de CLUB. En revanche, si XERCES (respectivement 
+MADONA) n'est pas installée, XMLData (respectivement MadonaFile) n'est 
+ni compilée ni installée.  
+
+La bibliothèque CLUB s'installe exactement comme les produits GNU :
+généralement ./configure, puis make, puis make install si l'on accepte
+les conventions par défaut (voir la documentation, disponible en
+PDF dans le sous-répertoire doc pour plus de détails).
+
+Une description complète de la procédure d'installation se trouve dans
+le fichier INSTALL. Nous signalons cependant ici les personnalisations
+les plus courantes.
+
+On peut choisir les noms des variables d'environnement à utiliser pour
+le système de traduction en les spécifiant dans deux autres variables
+d'environnement qui ne seront utilisées que le temps d'exécution du
+script configure, avant de le lancer. CL_VAR_LANG permet de nommer la
+variable décrivant la langue (avec une valeur par défaut de CLUB_LANG
+si la variable n'existe pas) et CL_VAR_TRADPATH permet de nommer la
+variable décrivant la liste des chemins de traduction (avec une valeur
+par défaut de CLUB_TRADPATH si la variable n'existe pas). De même
+CL_VAR_XMLPATH permet de spécifier le nom de la variable
+d'environnement permettant de trouver les DTD et le fichier d'unités
+pour le support XML (avec une valeur par défaut de CLUB_XMLPATH si la
+variable n'existe pas).
+
+Pour spécifier que l'installation de la bibliothèque sera faite à un
+endroit spécifique (l'espace par défaut est /usr/local), il faut
+utiliser l'option --prefix du script configure comme dans l'exemple
+suivant:
+
+        ./configure --prefix=/racine/espace/installation
+
+Avec ce choix, les utilisateurs de programmes utilisant CLUB autont
+intérêt à mettre /racine/espace/installation/share parmi les
+répertoires de leur variable d'environnement CLUB_TRADPATH, et
+/racine/espace/installation/share/club parmi les répertoires de leur
+variable d'environnement CLUB_XMLPATH.
+
+
+Copyright (C) 2000-2005 CNES

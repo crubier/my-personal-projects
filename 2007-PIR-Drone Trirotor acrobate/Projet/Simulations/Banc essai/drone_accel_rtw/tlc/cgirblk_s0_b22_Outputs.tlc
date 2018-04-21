@@ -1,0 +1,21 @@
+%implements cgirblk_s0_b22_Outputs "C"
+
+%function Outputs(block, system) Output
+%<SLibCGIRAccessLocalVar(11)> %% %<tLocalBlockIO>_CosErreurAngle
+
+%if !LibBlockOutputSignalIsExpr(0)
+%<LibBlockAssignOutputSignal(0, "", "", 0, "%<LibBlockInputSignal(0, "", "", 0)> - %<LibBlockInputSignal(1, "", "", 0)>")>\
+%endif
+
+%<tLocalBlockIO>_CosErreurAngle = cos(%<SLibCGIRBlockOutputSignal(0, "", "", 0)>);
+
+if((%<tLocalBlockIO>_CosErreurAngle < 0.0) && (17.0 != floor(17.0))) {
+%<tLocalBlockIO>_CosErreurAngle = -pow(-%<tLocalBlockIO>_CosErreurAngle, 17.0);
+} else {
+%<tLocalBlockIO>_CosErreurAngle = pow(%<tLocalBlockIO>_CosErreurAngle, 17.0);
+}
+
+%if !LibBlockOutputSignalIsExpr(2)
+%<LibBlockAssignOutputSignal(2, "", "", 0, "%<LibBlockInputSignal(2, "", "", 0)> * %<tLocalBlockIO>_CosErreurAngle")>\
+%endif
+%endfunction

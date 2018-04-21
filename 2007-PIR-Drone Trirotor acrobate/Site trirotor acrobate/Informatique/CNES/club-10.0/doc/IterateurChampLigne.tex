@@ -1,0 +1,243 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+% $Id: IterateurChampLigne.tex,v 1.8 2005/03/03 16:41:40 chope Exp $
+\subsection{classe IterateurChampLigne}\label{sec:IterateurChampLigne}
+
+\subsubsection*{description}\label{sec:IterateurChampLigne-desc}
+
+La classe IterateurChampLigne permet de parcourir un TamponAscii par
+ligne et par champ. Cette classe hérite de IterateurChamp et
+IterateurLigne. Les champs sont délimités par les séparateurs (la
+liste des séparateurs peut être modifiée par appel de méthode de
+TamponAscii). Si le tampon est interprété, un commentaire entier est
+considéré comme un champ. Cet itérateur possède les propriétés
+suivantes :
+
+\begin{itemize}
+\item L'itérateur peut être incrémenté par l'opérateur ++ de manière à
+pointer sur l'élément suivant ;
+\item L'itérateur peut également être décrémenté par l'opérateur $--$ de
+manière à pointer sur l'élément précédent (itérateur bidirectionnel) ;
+\item L'itérateur permet d'accéder directement à un élément du tampon
+en utilisant la méthode \texttt{allerSur (int index)} ;
+\item Il est possible d'accéder à une ligne ne contenant pas de champ
+(ligne vide) en mettant 0 comme numéro de champ à \texttt{allerSur}. 
+Dans ce cas l'itérateur ne pointe pas sur un champ et
+l'appel à \texttt{valeur()} déclenchera une exception.
+\end{itemize}
+
+
+\subsubsection*{interface publique}\label{sec:IterateurChampLigne-int}
+\begin{verbatim}
+#include "club/IterateurChampLigne.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{IterateurChampLigne : méthodes publiques}
+{\label{tab:IterateurChampLigne-met-pub}}
+{positionne l'itérateur sur le premier champ de la première ligne xxx}
+
+\signature{\fonc{IterateurChampLigne}}{( const TamponAscii
+\&\argument{tampon},\\
+ int \argument{compterChampsLignes} = 1)} & 
+construit une instance parcourant \argument{tampon}.
+
+\textbf{Exceptions :} iterateur\_invalide.
+\\
+
+\signature{\fonc{IterateurChampLigne}}{( const TamponAscii*
+\argument{tampon},\\
+ int \argument{compterChampsLignes} = 1)} & 
+construit une instance parcourant \argument{tampon}.
+
+\textbf{Exceptions :} iterateur\_invalide.
+ \\
+
+\signature{\fonc{~IterateurChampLigne} ()}{} &
+destructeur de la classe.
+\\
+
+\hline
+
+\signature{void \fonc{premier} ()}{} &
+positionne l'itérateur sur le premier champ de la première ligne
+
+\textbf{Exceptions :} iterateur\_invalide.
+ \\
+
+\signature{void \fonc{dernier} ()}{} &
+positionne l'itérateur sur le dernier champ de la dernière ligne
+
+\textbf{Exceptions :} tampon\_vide, ligne\_hors\_domaine,
+iterateur\_inva\-lide, champ\_hors\_domaine.\\
+
+\signature{void \fonc{allerSur} (int \argument{champ}, int
+\argument{ligne})}{} &
+positionne l'itérateur sur le champ numéro \argument{champ} de la
+ligne numéro \argument{ligne}.
+
+\textbf{Exceptions :} tampon\_vide, ligne\_hors\_domaine,
+iterateur\_inva\-lide, champ\_hors\_domaine,
+champ\_ligne\_hors\_domaine.\\
+
+
+\signature{void \fonc{allerSur} (int \argument{index})}{} &
+positionne l'itérateur sur le champ numéro \argument{index} de la
+ligne courante.
+
+\textbf{Exceptions :} tampon\_vide, iterateur\_invalide,
+champ\_hors\_do\-maine.\\
+
+\hline
+
+\signature{int  \fonc{termine} () const}{} & 
+indique que l'itérateur est à la fin du tampon\\
+
+\hline
+
+\signature{int  \fonc{nombreIterations} () const}{} & 
+retourne le nombre de lignes du Tampon
+
+\textbf{Exceptions :} iterateur\_invalide. \\
+
+\signature{int \fonc{nombreIterationsChamps}} 
+{(int \argument{l} = 0)} &
+retourne le nombre de champs dans la ligne \argument{l} ou dans la
+ligne courante si \argument{l} = 0 (défaut)
+
+\textbf{Exceptions :} ligne\_hors\_domaine, iterateur\_invalide.\\
+
+
+\signature{int  \fonc{operator++} (int)}{} & 
+positionne l'itérateur sur le champ suivant dans le tampon.
+
+\textbf{Exceptions :} tampon\_vide, iterateur\_invalide,
+champ\_hors\_do\-maine, ligne\_hors\_domaine. \\
+
+\signature{int  \fonc{operator$--$} (int)}{} & 
+positionne l'itérateur sur le champ précédent dans le tampon.
+
+\textbf{Exceptions :} tampon\_vide, iterateur\_invalide,
+champ\_hors\_do\-maine, ligne\_hors\_domaine. \\
+
+\hline
+
+\signature{int  \fonc{longueurElement}} 
+{(int \argument{avecFin} = 0) const} & 
+retourne la longueur de l'élément courant.
+
+\textbf{Exceptions :} manque\_guillemet, iterateur\_invalide.\\
+
+\signature{const char*  \fonc{valeur} () const}{} &
+retourne la valeur du champ courant
+
+\textbf{Exceptions :} iterateur\_invalide. \\
+
+\signature{void \fonc{synchronize}} {(int \argument{direction} = 0)} &
+Si direction = 1, synchronise la position de l'itérateur sur la
+position réelle dans le tampon (itérateur altéré lors d'une
+modification du tampon). Si direction = 0 (par défaut), synchronise
+l'état du tampon (position courante du curseur) sur la position
+courante de l'itérateur (mémorisation avant altération du tampon)
+
+\textbf{Exceptions :} iterateur\_invalide. \\
+
+\signature{void \fonc{actualise} ()}{} &
+réinitialise l'itérateur sur le début du tampon.
+
+\textbf{Exceptions :} iterateur\_invalide. \\
+
+\end{tableFonctionsFixe}
+
+\subsubsection*{exemple d'utilisation}
+
+\begin{verbatim}
+#include <iostream.h>
+#include <strstream.h>
+#include "club/IterateurChampLigne.h"
+#include "club/TamponAscii.h"
+...
+try
+{
+  TamponAscii t(nom_fichier);
+  IterateurChampLigne itcl( t );
+  cout << endl << "\t1- Insertion en debut" << endl;
+  cout <<endl <<"insertion du numero de l'element au debut de chacun d'eux.";
+  cout << endl;
+  char numLig[10]="\0";
+  int i=0;
+    int maxI=0;
+    int j=0;
+      for( itcl.premier(); !itcl.termine(); itcl++ )
+      {
+        strstream numToChaine;
+        if( i >= maxI ){
+          i = 0;
+          maxI = itcl.nombreIterationsChamps();
+          numToChaine << "[" << ++j << "]";
+        }
+        i++;
+   
+        numToChaine << i;
+        numToChaine >> numLig;
+        t.insereFin( itcl, numLig );
+      }
+  cout <<endl<< "Contenu du tampon : "<<endl<<t.total()<<endl;
+}
+catch (ClubErreurs ce)
+{
+  ...
+}
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation
+spécifiques}\label{sec:IterateurChampLigne-conseils}
+Les opérateurs $++$ et $--$ retournent 0 lorsqu'ils sont arrivés à
+l'extrémité du tampon. Il est ainsi possible de tester leur code
+retour dans un while pour parcourir l'ensemble du tampon.
+
+Les classes IterateurX développées pour la bibliothèque 
+\bibliotheque{Club} sont dédiées à la gestion d'objets TamponAscii. En
+conséquence, les interfaces de ces classes n'offrent que les méthodes
+utiles à cette gestion. Si les besoins de parcours d'un tampon sont
+des besoins classiques, la classe TamponTexte offre les
+fonctionnalités nécessaires, sans nécessiter la manipulation d'itérateurs.
+
+\begin{tableFonctionsFixe}{IterateurChampLigne : méthodes protégées}
+{\label{tab:IterateurChampLigne-met-prot}}
+{met à jour les différents compteurs ainsi que le pointeur courant}
+
+\signature{\fonc{IterateurChampLigne} ()} {} &
+constructeur par défaut.
+\\
+
+\end{tableFonctionsFixe}
+
+\subsubsection*{implantation}\label{sec:IterateurChampLigne-impl}
+Il n'y a ni attribut privé, ni attribut protégé.
+Les méthodes privées sont décrites dans la table~\ref{tab:IterateurChampLigne-met-priv}.
+\begin{tableFonctionsFixe}{IterateurChampLigne : méthodes privées}
+{\label{tab:IterateurChampLigne-met-priv}}
+{met à jour les différents compteurs ainsi que le pointeur courant}
+
+\signature{void  \fonc{actualiseEtat} ()}{} & 
+met à jour les différents compteurs ainsi que le pointeur courant\\
+
+\signature{void \fonc{rechercheChampLigne} (int \argument{c})}{} &
+recherche le champ numéro \argument{c} dans la ligne courante.
+
+\textbf{Exceptions :} tampon\_vide, champ\_hors\_domaine.\\
+
+\signature{void  \fonc{debutDeChampLigne}}
+{(const char* \argument{mobile})} & 
+repositionne sur le début du champ qui contient mobile pour la ligne
+courante.\\
+
+\signature{\fonc{IterateurChampLigne}}{(const IterateurChampLigne \&
+\argument{other})} &
+constructeur par copie.
+\\
+
+\signature{\fonc{IterateurChampLigne} \& \fonc{operator =}} {(const
+IterateurChampLigne \& \argument{other})} &
+affectation.
+\\
+
+\end{tableFonctionsFixe}

@@ -1,0 +1,153 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: Modele.tex,v 1.4 2002/01/17 13:29:57 marmottes Exp $
+\subsection{classe Modele}\label{sec:Modele}
+
+\subsubsection*{description}\label{sec:Modele-desc}
+
+Cette classe abstraite est l'interface d'accès aux modèles analytiques
+à un degré de liberté respectant deux consignes d'attitude. Elle est
+utilisée directement par la résolution numérique qui propose des
+valeurs tests pour le degré de liberté et attend l'attitude
+correspondante, ce qui lui permet de trouver la valeur test respectant
+également la troisième consigne.
+
+Cette classe est destinée à être dérivée en deux classes, une
+implantant le modèle correspondant à deux consignes géométriques,
+l'autre implantant le modèle correspondant à deux consignes
+cinématiques.
+
+\subsubsection*{interface publique}\label{sec:Modele-int}
+\begin{verbatim}
+#include "marmottes/Modele.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{Modele : méthodes publiques}
+{\label{tab:Modele-met-pub}}
+{initialise une instance par défaut inutilisable}
+
+\signature{\fonc{Modele} ()}
+          {}&
+
+initialise une instance par défaut inutilisable sans réaffectation\\
+
+\hline
+
+\signature{\fonc{Modele} (const Modele\& \argument{m})}
+          {}&
+
+constructeur par copie\\
+
+\signature{Modele\& \fonc{operator =} (const Modele\& \argument{m})}
+          {}&
+
+affectation\\
+
+\signature{\fonc{\~{}Modele} ()}
+          {}&
+
+destructeur virtuel, ne fait rien dans la classe de base\\
+
+\hline
+
+\signature{const Senseur* \fonc{senseur1} () const}
+          {}&
+
+retourne un pointeur sur le premier senseur concerné par le modèle\\
+
+\signature{const Senseur* \fonc{senseur2} () const}
+          {}&
+
+retourne un pointeur sur le second senseur concerné par le modèle\\
+
+
+\signature{void \fonc{miseAJourSenseurs}}
+          {(Senseur* \argument{s1}, Senseur* \argument{s2})}&
+
+change les senseurs concernés par le modèle\\
+
+\hline
+
+\signature{void \fonc{prendConsignesEnCompte}()}
+          {\throw{MarmottesErreurs} = 0}&
+
+méthode virtuelle pure d'initialisation du modèle à partir des
+consignes courantes des senseurs concernés, cette méthode est
+spécifique au type de modèle (géométrique ou cinématique et est donc
+implantée uniquement dans les classe dérivées)\\
+
+\hline
+
+\signature{int \fonc{familles} () const = 0}
+          {}&
+
+méthode virtuelle pure retournant le nombre de famillles d'attitude
+disjointes\\
+
+\signature{void \fonc{attitude}}
+          {(const Etat\& \argument{etatPrecedent}, double \argument{date},\\
+            const ValeurDerivee1\& \argument{t}, int \argument{famille},\\
+            RotVD1* \argument{ptrAttitude},\\
+            VecVD1* \argument{ptrSpin}) const = 0
+          }&
+
+méthode virtuelle pure utilisée par la résolution numérique et
+retournant une attitude et un spin à la \argument{date} courante dans
+les variables pointées par \argument{ptrAttitude} et
+\argument{ptrSpin} pour une valeur test du degré de liberté
+\argument{t} (compris entre $-1$ et $+1$) de la \argument{famille} en
+cours d'analyse, connaissant l'\argument{etatPrecedent}\\
+
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+L'exemple suivant, directement extrait du code de la bibliothèque
+montre la fonction numérique annulée par la résolution de la troisième
+consigne. La méthode \fonc{modele} de la classe ResolveurAttitude
+retourne un pointeur sur un Modele qui correspond au modèle courant
+(géométrique ou cinématique).
+
+\begin{verbatim}
+static ValeurDerivee1 fonc (double t, void* donnee)
+{ // récuperation de l'objet de résolution
+  ResolveurAttitude* ptr = (ResolveurAttitude *) donnee;
+
+  // calcul de l'attitude modélisée respectant les premières consignes
+  RotVD1 attitude;
+  VecVD1 spin;
+  ptr->modele ()->attitude (ptr->etatPrecedent (), ptr->date (),
+                            ValeurDerivee1 (t, 1.0), ptr->famille (),
+                            &attitude, &spin);
+
+  // calcul de l'écart par rapport à la troisième consigne
+  return ptr->sB ()->foncEcart (ptr->etatPrecedent (), ptr->date (),
+                                attitude, spin);
+
+}
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation spécifiques}
+\label{sec:Modele-conseils}
+Cette classe est abstraite, c'est à dire qu'aucune instance ne peut
+être créée directement. Tout pointeur sur un objet de ce type pointe
+en réalité sur un objet d'un des types dérivés~: ModeleGeom ou
+ModeleCine. Les constructeurs ne servent donc qu'à compléter les
+constructions d'objets plus gros et ne peuvent être appelés que par
+les constructeurs des classes dérivées.
+
+À la création et à chaque changement de senseur de consigne, le
+triplet de senseurs est analysé de sorte que le modèle courant soit du
+bon type (géométrique ou cinématique), mais après cette mise en place
+il n'y a plus lieu de différencier les deux types de modèles. Toutes
+les fonctions de résolution de \bibliotheque{marmottes} passent donc
+par l'interface de la classe abstraite.
+
+\subsubsection*{implantation}\label{sec:Modele-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:Modele-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe Modele}
+{\label{tab:Modele-att-priv}}
+{pointeur sur le premier senseur du modèle}
+
+senseur1\_ & Senseur* & pointeur sur le premier senseur du modèle\\
+
+senseur2\_ & Senseur* & pointeur sur le second senseur du modèle\\
+
+\end{tableAttributsFixe}

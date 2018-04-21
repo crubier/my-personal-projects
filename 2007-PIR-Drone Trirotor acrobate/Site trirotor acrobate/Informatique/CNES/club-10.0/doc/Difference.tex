@@ -1,0 +1,402 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+\subsection{difference}\label{sec:Difference}
+
+\subsubsection*{description générale}\label{sec:Difference-desc}
+
+L'utilitaire \texttt{difference} permet de comparer deux fichiers (un
+fichier par rapport à sa référence) et d'afficher leurs
+différences. 
+
+La notion de différence utilisée par cet utilitaire est plus large que
+celle du diff Unix en ce sens que deux valeurs numériques sont
+considérées égales ou différentes en fonction d'un critère numérique
+basé sur un seuil paramétrable dans la ligne de commande.
+
+Afin de permettre l'utilisation de l'outil sans qu'il connaisse
+\emph{a priori} les ordres de grandeurs des nombres utilisés, un
+compromis a été adopté pour la définition du critère
+numérique. Utiliser des écarts absolus
+$|x_{\mathrm{res}}-x_{\mathrm{ref}}|$ n'est valable que pour des
+nombres proches de zéro (ou pire, exactement nuls) et pour lesquels le
+seuil a une signification physique précise, et dépendante de l'unité
+des nombres comparés, ce qui n'est pas tolérable pour un outil qui
+doit être capable de traiter des fichiers comportant des milliers de
+nombres ayant des significations complètement différentes les unes des
+autres. Utiliser des écarts relatifs
+$|x_{\mathrm{res}}-x_{\mathrm{ref}}|/|x_{\mathrm{ref}}|$ n'est valable
+que lorsque le dernier chiffre significatif de ces nombres commence à
+grandir sérieusement.
+
+Le compromis utilisé est assez classique et consiste à utiliser une
+formule hybride :
+\begin{displaymath}
+    \varepsilon = \frac{|x_{\mathrm{res}} - x_{\mathrm{ref}}|}
+                       {1 + |x_{\mathrm{ref}}|}
+\end{displaymath}
+
+Cette formule se comporte comme une différence absolue lorsque
+$x_{\mathrm{ref}}$ est négligeable devant 1, et comme une différence
+relative quand 1 est négligeable devant $x_{\mathrm{ref}}$ tout en
+offrant un comportement continu. Cette formule a un comportement qui
+peut surprendre lorsque ni 1 ni $x_{\mathrm{ref}}$ ne peuvent être
+considérés comme négligeables devant l'autre. Ainsi, si l'on compare
+un nombre $x_{\mathrm{res}}=0.008895705529$ à une valeur de référence
+$x_{\mathrm{ref}}=0.008895705468$, on obtient une erreur
+$\varepsilon=6.046\times 10^{-11}$ légèrement inférieure à la
+différence absolue $6.1\times 10^{-11}$ et inférieure de deux ordres
+de grandeur par rapport à la différence relative
+$6.857\times10^{-9}$. Ce comportement est connu et considéré comme
+normal : l'outil a pour vocation d'être une aide à la comparaison et à
+la détection d'écarts importants. S'il détecte des écarts inattendus,
+ceux-ci doivent être analysés finement et individuellement. La valeur
+produite par l'outil doit donc plus être considérée comme un
+indicateur de type \emph{trop grand} ou \emph{suffisamment petit}.
+
+\texttt{Difference} fournit des statistiques sur les différences
+numériques rencontrées et offre des options d'utilisation qui se
+veulent plus proches des besoins exprimés par les utilisateurs.
+
+L'utilitaire \texttt{difference} offre des fonctionnalités d'analyse
+fortement inspirées du \texttt{diff unix}. Notamment, l'utilitaire est
+capable d'identifier les lignes propres à un seul des deux fichiers puis
+de les sauter pour recaler l'analyse sur des lignes
+communes. L'algorithme utilisé pour réaliser cette fonctionnalité est
+nommé \textsl{Longest Common Subsequence} disponible au 24/07/2000 à
+l'adresse~:
+
+\begin{verbatim}
+            http://www.ics.uci.edu/~eppstein/161/960229.html
+\end{verbatim}
+
+Néanmoins une limitation a été introduite qui concerne le nombre
+maximal de lignes que l'on peut sauter pour se recaler. En théorie, ce
+nombre peut être infini mais en pratique, ceci impose, pour de très
+grands fichiers, une place mémoire trop importante et un temps
+d'exécution trop long (voir remarque sur l'option \texttt{-shift} dans la
+section~\ref{sec:Difference-conseils}
+page~\pageref{sec:Difference-conseils}). Ce nombre a donc une borne
+supérieure finie.
+
+Il est, enfin, important de noter que l'utilitaire est capable de
+comparer \emph{intelligemment} deux lignes différentes par la présence d'un
+lexème en plus dans une des deux lignes. C'est à dire que le lexème en
+plus sera remarqué par l'analyseur et les autres lexèmes seront
+analysés deux à deux comme il faut. Ceci permet notamment de ne pas
+altérer les statistiques dans ce cas-là. 
+
+Par exemple, la comparaison de « \texttt{3 30.2 45.3 4054.122} » et de
+« \texttt{30.2 45.3 4054.122} » entraînera simplement la formation
+d'un message précisant que « 3 » est en plus dans la première chaîne
+et aucune différence numérique ne sera relevée.
+
+Néanmoins, l'algorithme qui permet de se recaler à l'intérieur d'une
+ligne ne garantit pas que l'analyse trouve la plus longue sous chaîne
+commune pour des cas complexes\footnote{on appelle \emph{cas
+complexe}, un cas pour lequel plusieurs repositionnements sont
+possibles et où le choix ne peut donc être effectué qu'en connaissant
+auparavant la plus longue sous chaîne commune} même s'il est toujours
+capable de trouver une sous chaîne commune. En pratique, cette
+restriction ne devrait pas être contraignante car pour des cas
+simples\footnote{on appelle \emph{cas simple}, un cas où une seule
+possibilité de repositionnement existe}, la plus longue sous chaîne
+commune sera toujours identifiée.
+
+\subsubsection*{ligne de commande et options}\label{sec:Difference-lignecmde}
+
+La ligne de commande de l'utilitaire \texttt{difference} comporte un
+certain nombre d'arguments obligatoires et d'autres optionnels. Cette
+partie s'attache à décrire ces arguments et leurs éventuels effets sur
+l'analyse.
+
+La ligne de commande a la forme suivante\footnote{les arguments entre
+crochets sont optionnels}~:
+
+\begin{verbatim}
+   difference [-shift n] [-rfres n] [-rlres n] [-rfref n] [-rlref n]
+              [-rsynth] [-rmess] [-p f.ff] [-e n] [-ee n n] 
+              -ref xxxx -res xxxx
+\end{verbatim}
+
+La table \ref{tab:difference-arg} décrit plus précisément ces arguments~:
+
+\begin{tableArgumentsLigneCmde}{difference : arguments de la ligne de
+           commande}{\label{tab:difference-arg}}
+{nombre de lignes à la fin du fichier résultat à ignorer dans l'analyse}
+
+\argument{res} & chaine & & & & nom du premier fichier\\
+
+\hline
+
+\argument{ref} & chaine & & & & nom du deuxième fichier utilisé comme
+référence\\
+
+\hline
+
+\argument{shift} & entier & 1000 & 50 & 5000 & nombre maximal de
+lignes pouvant être sautées pour se recaler sur deux lignes identiques\\
+
+\hline
+
+\argument{rfres}\footnote{Remove First lines of file RES} & entier & 0 & & & nombre de lignes au début du fichier
+donné par l'option -res à ignorer dans l'analyse\\
+
+\hline
+
+\argument{rlres}\footnote{Remove Last lines of file RES} & entier & 0 & & &  nombre de lignes à la fin du fichier
+donné par l'option -res à ignorer dans l'analyse\\
+
+\hline
+
+\argument{rfref}\footnote{Remove First lines of file REF} & entier & 0 & & & nombre de lignes au début du fichier
+donné par l'option -ref à ignorer dans l'analyse\\
+
+\hline
+
+\argument{rlref}\footnote{Remove Last lines of file REF} & entier & 0 & & &  nombre de lignes à la fin du fichier
+donné par l'option -ref à ignorer dans l'analyse\\
+
+\hline
+
+\argument{rsynth}\footnote{Remove SYNTHesis} & & & & & suppression de l'affichage de la
+synthèse\\
+
+\hline
+
+\argument{rmess}\footnote{Remove MESSages} & & & & & suppression de l'affichage des messages\\
+
+\hline
+
+
+\argument{p}\footnote{Precision} & réel & 1e-5 & 0 & &
+valeur maximale autorisée pour la différence relative entre deux
+valeurs (cette différence est calculée par la formule
+$|x_{\mathrm{res}}-x_{\mathrm{ref}}|/(1+x_{\mathrm{ref}})$)
+\\
+
+\hline
+
+\argument{e} & entier & & & & nombre maximal de messages de différence
+à afficher (les messages de 1 à la valeur fournie sont affichés)\\
+
+\hline
+
+\argument{ee} & entiers & & & & intervalle de valeurs des numéros de
+messages affichés\\
+
+\end{tableArgumentsLigneCmde}
+
+
+\subsubsection*{descriptions des sorties}\label{sec:Difference-sorties}
+
+L'utilitaire fournit trois types de sortie : les messages de différence,
+la synthèse et le code de retour. Les messages de différence sont
+affichés sur la sortie en erreur alors que la synthèse est affichée
+sur la sortie standard. L'utilisateur peut supprimer l'affichage de
+l'un ou l'autre à l'aide des options de la ligne de commande
+\texttt{-rsynth} et \texttt{-rmess}. 
+
+Ces trois types de sortie ont des utilités différentes et permettent à
+l'utilisateur de se plonger plus ou moins profondément dans l'analyse
+des différences des deux fichiers. Le code de retour permet de savoir
+si oui ou non, les fichiers sont identiques. La synthèse permet de
+connaître le nombre de différences numériques et lexicales et
+d'obtenir quelques statistiques sur les différences numériques. Les
+messages décrivent les erreurs rencontrées tout en indiquant où se
+trouvent ces erreurs dans les fichiers.
+
+Les valeurs du code de retour de l'utilitaire \texttt{difference} suit
+la convention du \texttt{diff unix} et prend donc une
+des valeurs suivantes~:
+
+\begin{itemize}
+
+\item 0 : aucune différence entre les deux fichiers,
+\item 1 : les deux fichiers ont au moins une différence entre eux,
+\item 2 : un problème est survenu lors de l'analyse des fichiers (par
+exemple : les fichiers fournis dans la ligne de commande sont
+inexistants).
+
+\end{itemize}
+
+La synthèse permet à l'utilisateur d'obtenir toutes les informations
+pertinentes sur l'analyse des deux fichiers. Elle lui fournit les
+informations suivantes~:
+
+\begin{itemize}
+
+\item le nombre total de messages de différence que l'utilitaire a
+formaté lors de la comparaison des deux fichiers,
+
+\item les numéros des messages qui ont été affichés sur la sortie en
+erreur,
+
+\item le nombre de différences entre les deux fichiers en précisant le
+nombre d'erreurs d'ordre numérique et le nombre d'erreurs d'ordre
+lexical,
+
+\item le nombre de différences numériques qui sont inférieures au
+seuil,
+
+\item des statistiques sur les différences numériques (minimum,
+maximum, moyenne).
+
+\end{itemize}
+
+Exemple ~:
+
+\begin{verbatim}
+nombre de messages de difference      : 4
+numeros des messages affiches         : 1 a 4
+nombre d'erreurs non acceptees        : 4
+        2 erreur(s) numerique(s)
+        2 erreur(s) lexicale(s)
+nombre d'erreurs numeriques acceptees : 3
+seuil de tolerance numerique          : 1.000000e-05
+erreur numerique min                  : 1.485399e-08
+erreur numerique max                  : 4.805970e-03
+moyenne des erreurs numeriques        : 1.030984e-03
+\end{verbatim}
+
+Les messages de différence ont été formatés dans le but de fournir une
+information synthétique et complète. À cet effet, ont été définies les
+règles suivantes pour la formation des messages~:
+
+\begin{itemize}
+
+\item si deux lignes contiennent plusieurs différences, un seul
+message est formaté et il indiquera le nombre d'erreurs rencontrées,
+
+\item s'il y a un décalage de plusieurs lignes entre le fichier
+résultat et le fichier référence, un seul message sera formaté et il
+indiquera le groupe de lignes en plus ou qui manquent dans le fichier
+résultat. Une seule erreur sera comptabilisée pour l'ensemble des
+lignes en plus.
+
+\end{itemize} 
+
+Exemples~:
+
+\begin{verbatim}
+
+les lignes suivantes manquent dans res,1:
+ref,1 : solution 1: 0.0000
+ref,2 : solution 2: 3.4634
+ref,3 : solution 3: 5.7322
+ref,4 : 
+
+la chaine "et 1 bis " manque :
+res,1 : solution 1: -5.7322
+ref,5 : solution 1 et 1bis: -5.7322
+
+les lignes suivantes contiennent 2 differences :
+res,12 : nombre d'appels a la fonction f: 347
+ref,16 : nombre d'appels a la fonction f: 342, g: 321
+
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation}\label{sec:Difference-conseils}
+
+Avant tout, il est important de préciser que l'utilitaire
+\texttt{difference} a des objectifs certes proches de ceux du
+\texttt{diff unix} mais qui ne peuvent pas être réellement comparés. En effet,
+le \texttt{diff unix} ne se plongeant pas dans l'analyse lexicale des
+lignes, est plus performant sur le temps d'exécution et sur la place
+mémoire utilisée et il permet de reconnaître la plus longue séquence
+de lignes communes quels que soient les fichiers. En revanche, parce
+qu'il rentre dans l'analyse des lexèmes d'une ligne,
+\texttt{difference} permet d'autoriser des imprécisions numériques et
+peut gérer des statistiques sur les différences. Mais cette faculté a
+un coût qui est surtout un temps d'exécution plus important. Ainsi l'analyse
+de la plus longue séquence de lignes communes qui est coûteuse en
+temps a dû être simplifiée pour préserver des performances intéressantes. 
+
+L'utilitaire \texttt{difference} ne doit donc pas être utilisé dans la
+même optique que le \texttt{diff unix} (auquel cas l'utilisateur sera
+quelque peu dé\c{c}u par les performances). Son utilisation doit être
+orientée vers l'analyse plus profonde des différences entre les deux
+fichiers afin notamment d'identifier et éventuellement d'ignorer les
+différences numériques négligeables.
+
+Plusieurs contextes d'utilisation sont possibles~:
+
+\begin{itemize}
+
+\item utilisation de \texttt{difference} dans un script shell,
+\item utilisation de \texttt{difference} pour des tests automatiques
+de bibliothèques pouvant être installées sur plusieurs plates-formes,
+\item toute autre utilisation.
+
+\end{itemize}
+
+Suivant l'utilisation de \texttt{difference}, certaines sorties de
+l'utilitaire devront être ignorées. Par exemple, pour une utilisation
+dans un script shell, on peut n'être intéressé que par le code de
+retour. Les options \texttt{-rmess} et \texttt{-rsynth} permettent de
+supprimer respectivement les messages et la synthèse.
+
+Les options \texttt{-rfres}, \texttt{-rfref}, \texttt{-rlres} et
+\texttt{-rlref} permettent de filtrer les premières et dernières
+lignes du fichier résultat ou de référence (ces lignes ne
+seront donc pas analysées et aucun homologue ne leur sera
+cherché). Ceci est intéressant pour sauter un en-tête ou un pied de
+fichier.
+
+Pour analyser efficacement les différences entre
+deux fichiers, il est important, en premier lieu, d'affecter (par l'option
+\texttt{-p}) une valeur significative
+au seuil maximal accepté pour les différences numériques relatives\footnote{cette valeur
+dépendant fortement du contexte d'utilisation, la valeur par défaut
+(1e-5) ne peut pas convenir à tous les contextes}.
+Ensuite, il peut être intéressant de réaliser l'analyse en plusieurs étapes~:
+
+\begin{enumerate}
+
+\item analyse avec l'option \texttt{-rmess} afin de n'obtenir que la
+synthèse qui fournit notamment le nombre de différences numériques et
+lexicales, le nombre de messages formatés par l'analyse ainsi que
+les statistiques sur les différences numériques qui permettront
+éventuellement de modifier la valeur du seuil par l'option \texttt{-p},
+
+\item s'il y a des erreurs à inspecter plus profondément et si elles sont
+nombreuses, l'affichage des messages fournit un complément
+d'information intéressant et l'option \texttt{-e} ou \texttt{-ee} permet
+de sélectionner les numéros des messages affichés afin de ne pas avoir
+un flot immense à l'écran.
+
+\end{enumerate}
+
+Enfin, le dernier conseil d'utilisation concerne l'option
+\texttt{-shift} qui permet de définir le nombre maximal de lignes que
+l'on s'autorise à
+sauter pour repositionner l'analyseur sur  deux lignes égales. 
+Lorsqu'au cours de l'analyse, la valeur du décalage dépasse le
+seuil toléré, l'analyse s'interrompt après l'affichage d'un message
+d'explication.
+
+La recherche des lignes communes se réalise par l'algorithme nommé
+\textsl{Longest Common Subsequence} qui nécessite d'analyser l'ensemble des
+lignes pour trouver la meilleure solution. La complexité de
+l'algorithme est en O(m*n) et il nécessite une place mémoire égale à
+n*m entiers (n~=~nombre de lignes dans le premier fichier et
+m~=~nombre de lignes dans le second). En pratique, dans le cas de fichiers
+assez longs, cet algorithme n'est pas réalisable pour des raisons
+évidentes de performances. Un compromis doit donc être fait entre les
+performances et la pertinence du résultat de la recherche (qui dépend
+directement du nombre de lignes analysés ensemble).
+
+Ainsi~:
+
+\begin{itemize}
+
+\item si la valeur fournie par l'option est petite, l'analyse sera rapide
+et peu coûteuse en place mémoire mais la plus longue sous-séquence
+commune aura moins de chance d'être trouvée,
+
+\item à l'inverse, si elle est grande, l'analyse sera longue et
+coûteuse en place mémoire mais l'utilisateur aura plus de chance de
+trouver la plus longue sous-séquence commune. 
+
+\end{itemize}
+
+La valeur par défaut de l'option (1000) est un bon compromis entre ces
+deux aspects.

@@ -1,0 +1,159 @@
+% -*- mode: latex; tex-main-file: "cantor.tex" -*-
+% $Id: catalogue.tex,v 1.4 2001/06/05 16:14:40 cantor Exp $
+\subsection{classes disponibles}\label{sec:classes-dispo}
+
+\begin{description}
+\item[AnnotatedArc] permet de marquer des arcs frontières lors de la
+combinaison de champs de vue, les marques permettant ensuite de
+sélectionner les arcs selon l'opération réalisée (réunion ou
+intersection) ;
+\item[Arc] permet de représenter des arcs de grands ou de petits
+cercles sur la sphère unité ;
+\item[ArcIterateur] permet d'itérer sur les points d'un Arc avec une
+précision donnée ;
+\item[Braid] est une classe utilitaire réalisant l'entrelacement de
+deux frontières et gérant le marquage des arcs frontières ;
+\item[CantorErreurs] est une classe de gestion des erreurs internes de
+la bibliothèque s'appuyant sur la gestion des erreurs de la
+bibliothèque \texttt{club} ;
+\item[Cone] est une classe gérant la zone la plus simple que l'on
+puisse définir sur la sphère unité : la calotte sphérique issue de
+l'intersection de la sphère et d'un cône issu de son centre ;
+\item[Creneau] gère des ensembles d'intervalles de
+$\mathrm{I\hspace{-0.23em}R}$ disjoints ;
+\item[Field] modélise les champs de vue sur la sphère unité, ces
+champs pouvant être non connexes ;
+\item[FonctionApprochee] est quant à elle une classe d'approximation
+fonctionnelle dans un espace vectoriel de fonctions s'appuyant sur
+MoindreCarreLineaire ;
+\item[Intervalle] implante la notion d'intervalle dans
+$\mathrm{I\hspace{-0.23em}R}$ ;
+\item[MoindreCarreLineaire] est une classe élémentaire pour les
+moindres carrés linéaires ;
+\item[Node] est utilisée conjointement avec AnnotatedArc pour réaliser
+la propagation des marques selon la topologie de l'entrelacement des
+arcs frontières ;
+\item[Polynome] implante la notion de polynôme à une variable, dont les
+cooefficients et les monômes peuvent être exprimés par des nombres
+réels ou bien par des valeurs de fonctions\footnotemark
+(et celles de leurs dérivées premières et éventuellement secondes) ;
+\item[Resolution1Iterateur et Resolution2Iterateur] permettent de
+parcourir l'ensemble des zéros d'une fonction retournant un
+ValeurDerivee1 (respectivement un ValeurDerivee2) sur un intervalle
+spécifié à la construction de l'instance ;
+\item[Rotation] implante la notion de rotations (dans un espace de
+dimension 3), dont les coordonnées peuvent être exprimées par des
+nombres réels ou bien par des valeurs de
+fonctions\addtocounter{footnote}{-1}\footnotemark (et celles de leurs dérivées premières et
+éventuellement secondes) ;
+\item[Secteurs] permet de découper un Cone en tronçons, et de
+modéliser les portions d'un cône visibles à travers un objet de type
+Field ;
+\item[StatistiqueEchantillon] permet de constituer et d'analyser des
+échantillons statistiques (valeurs extrêmes, moyenne, écart type) ;
+\item[ValeurDerivee1 et ValeurDerivee2] permettent de calculer
+simultanément les valeurs et les dérivées (première et éventuellement
+deuxième) d'une fonction sans approximation ;
+\item[Variation1 et Variation2] sont des classes gérant des tableaux
+de variations de fonctions, elles sont surtout destinées à répondre à
+des besoins internes des algorithmes de recherche de zéros ;
+\item[Vecteur3] implante la notion de vecteurs (dans un espace de dimension
+3), dont les coordonnées peuvent être exprimées par des nombres réels
+ou bien par des valeurs de
+fonctions\addtocounter{footnote}{-1}\footnotemark (et celles de leurs dérivées premières et
+éventuellement secondes).
+\end{description}\footnotetext{classe \texttt{template}}
+
+Outre ces classes, \textsc{cantor} fournit également des paquetages de
+convertisseurs permettant la conversion entre
+les différents scalaires utilisables (réels, valeurs de fonctions avec
+dérivées premières et secondes) ainsi que des paquetages de
+combinaisons d'opérandes permettant d'utiliser les principales
+opérations arithmétiques et géométriques avec des opérandes de types
+différents.
+
+Des algorithmes de recherche de zéros et d'extremums de fonctions sont
+disponibles sous forme de fonctions, de même qu'une fonction de
+factorisation de matrice symétrique définie positive sous forme
+$L.D.L^t$ et une fonction de résolution de système linéaire utilisable
+après une telle factorisation.
+
+Enfin quelques fonctions utilitaires simples (conversions d'angles en
+degrés et en radians, recalage d'un angle entre $\alpha-\pi$ et
+$\alpha+\pi$, fonctions minimum et maximum) sont définies sous forme
+\emph{inline} dans un fichier d'interface de la classe.
+
+\subsection{routines d'interfaçage}\label{sec:routines-interfacage}
+Seuls les calculs de rotation en dimension 3 disposent d'une interface
+avec les langages \langage{c} et \langage{fortran}.
+
+\subsubsection{interface \langage{c}}\label{sec:interface-c}
+\begin{description}
+\item[RotAxeAngle] permet de construire une rotation à partir d'un axe
+et d'un angle ;
+\item[RotU1U2V1V2] permet de construire une rotation à partir de deux
+vecteurs $\vec{u_1}$ et  $\vec{u_2}$ et de leurs images $\vec{v_1}$ et
+$\vec{v_2}$ ;
+\item[RotU1V1] permet de construire une rotation à partir d'un vecteur
+$\vec{u_1}$ et de son image $\vec{v_1}$ (un choix arbitraire est fait
+au sein de l'ensemble infini des solutions) ;
+\item[RotMatrice] permet de construire une rotation à partir d'une
+matrice $3\times3$ (en corrigeant son éventuelle non-orthogonalité) ;
+\item[RotTroisAngles] permet de construire une rotation à partir de
+trois rotations élémentaires (toutes les conventions classiques de
+\textsc{Cardan} et d'\textsc{Euler} sont supportées) ;
+\item[RotInverse] permet de construire la rotation inverse d'une
+rotation donnée\footnotemark ;
+\item[RotComposee] permet de construire une rotation par composition
+de deux autres rotations ;
+\item[AxeRot] extrait l'axe de la rotation fournie en argument ;
+\item[AngleRot] extrait l'angle de la rotation fournie en argument ;
+\item[AxeAngleRot] extrait simultanément l'axe et l'angle de la
+rotation fournie en argument ;
+\item[MatriceRot] construit la matrice de la rotation fournie en
+argument ;
+\item[TroisAnglesRot] extrait les trois angles des rotations
+élémentaires qui donnent la rotation fournie en argument une fois
+combinés (toutes les conventions classiques de \textsc{Cardan} et
+d'\textsc{Euler} sont supportées) ;
+\item[AppliqueRot] calcule l'image d'un vecteur par une rotation ;
+\item[AppliqueRotInverse] calcule l'image réciproque d'un vecteur par
+une rotation.
+\end{description}\footnotetext{il faut préciser que
+les rotations étant représentées en internes par des quaternions,
+l'opération d'inversion est extrèmement peu coûteuse : elle se borne à
+changer le signe d'un réel !}
+
+\subsubsection{interface \langage{fortran}}\label{sec:interface-fortran}
+\begin{description}
+\item[RotAxeAngle] permet de construire une rotation à partir d'un axe
+et d'un angle ;
+\item[RotU1U2V1V2] permet de construire une rotation à partir de deux
+vecteurs $\vec{u_1}$ et  $\vec{u_2}$ et de leurs images $\vec{v_1}$ et
+$\vec{v_2}$ ;
+\item[RotU1V1] permet de construire une rotation à partir d'un vecteur
+$\vec{u_1}$ et de son image $\vec{v_1}$ (un choix arbitraire est fait
+au sein de l'ensemble infini des solutions) ;
+\item[RotMatrice] permet de construire une rotation à partir d'une
+matrice $3\times3$ (en corrigeant son éventuelle non-orthogonalité) ;
+\item[RotTroisAngles] permet de construire une rotation à partir de
+trois rotations élémentaires (toutes les conventions classiques de
+\textsc{Cardan} et d'\textsc{Euler} sont supportées) ;
+\item[RotInverse] permet de construire la rotation inverse d'une
+rotation donnée\addtocounter{footnote}{-1}\footnotemark ;
+\item[RotComposee] permet de construire une rotation par composition
+de deux autres rotations ;
+\item[AxeRot] extrait l'axe de la rotation fournie en argument ;
+\item[AngleRot] extrait l'angle de la rotation fournie en argument ;
+\item[AxeAngleRot] extrait simultanément l'axe et l'angle de la
+rotation fournie en argument ;
+\item[MatriceRot] construit la matrice de la rotation fournie en
+argument ;
+\item[TroisAnglesRot] extrait les trois angles des rotations
+élémentaires qui donnent la rotation fournie en argument une fois
+combinés (toutes les conventions classiques de \textsc{Cardan} et
+d'\textsc{Euler} sont supportées) ;
+\item[AppliqueRot] calcule l'image d'un vecteur par une rotation ;
+\item[AppliqueRotInverse] calcule l'image réciproque d'un vecteur par
+une rotation.
+\end{description}

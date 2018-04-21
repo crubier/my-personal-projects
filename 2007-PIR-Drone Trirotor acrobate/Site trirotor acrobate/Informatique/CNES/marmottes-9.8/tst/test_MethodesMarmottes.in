@@ -1,0 +1,28 @@
+#! /bin/sh
+
+# mise en place d un environnement anglais pour vérifier les messages
+@ma_cv_var_lang@=en              ; export @ma_cv_var_lang@
+@ma_cv_var_tradpath@=@srcdir@/.. ; export @ma_cv_var_tradpath@
+
+echo "" > test_MethodesMarmottes.res
+echo "prgm_MethodesMarmottes -f senseurs.en -r"     >> test_MethodesMarmottes.res
+echo "   -dc 22/10/93 -o 42164 0 0 0 0 116"         >> test_MethodesMarmottes.res
+echo "   -s1 DSS_1_PITCH   -m1  2.5"                >> test_MethodesMarmottes.res
+echo "   -s2 GEOIRS_1_ROLL -m2  2.7"                >> test_MethodesMarmottes.res
+echo "   -s3 DSS_1_YAW     -m3 -0.2"                >> test_MethodesMarmottes.res
+echo "   -p  20            -i 10"                   >> test_MethodesMarmottes.res
+./prgm_MethodesMarmottes -f @srcdir@/senseurs.en -r        \
+                         -dc 22/10/93 -o 42164 0 0 0 0 116 \
+                         -s1 DSS_1_PITCH   -m1 2.5         \
+                         -s2 GEOIRS_1_ROLL -m2 2.7         \
+                         -s3 DSS_1_YAW     -m3 -0.2        \
+                         -p  20            -i  10  >> test_MethodesMarmottes.res 2>&1
+
+# comparaison des fichiers
+echo "difference -p 1.0e-4 -ee 1 10 -shift 50 -res test_MethodesMarmottes.res -ref test_MethodesMarmottes.ref"
+difference -p 1.0e-4 -ee 1 10 -shift 50 -res test_MethodesMarmottes.res -ref @srcdir@/test_MethodesMarmottes.ref
+r=$?
+
+# nettoyage
+rm -f test_MethodesMarmottes.res
+exit $r

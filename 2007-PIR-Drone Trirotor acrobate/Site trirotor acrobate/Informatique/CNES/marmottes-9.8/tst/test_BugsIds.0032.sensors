@@ -1,0 +1,38 @@
+# $Id: test_BugsIds.0032.sensors,v 1.1 2004/06/23 15:31:40 marmottes Exp $
+
+RPY-YAW   { 
+  type      { cardan }
+  reference { geocentric }
+  accuracy  { 0.001 }
+  frame     { i {  1  0  0  } j {  0  1  0  } k {  0  0  1  } }
+  kind      { RPY-yaw } 
+}
+RPY-PITCH {  => { RPY-YAW  } kind { RPY-pitch } }
+RPY-ROLL  {  => { RPY-YAW }  kind { RPY-roll  } }
+
+PAT+-Z  { 
+ type          { vector }
+ accuracy      { 0.001 }
+ target        { station }
+ reference     { 1 0 0 }
+ frame         { i { 1 0 0 } j { 0 1 0 } k { 0 0 1 } }
+ field_of_view {
+                 { cone { axis { 180 45 } angle { 75 } } } 
+                 union
+                 { cone { axis { 0 -45 } angle { 75 } } } 
+               }
+ station       {
+                 longitude    { 201.965957   }
+                 latitude     { 21.671289    }
+                 altitude     { 164.16    }
+                 pressure     { 1013.0    }
+                 temperature  { 15.0 }
+                 hygrometry   { 80.0  }
+                 mask         {    0.0  6.0
+                                 163.0  6.0
+                                 163.1 11.5
+                                 172.0 11.5
+                                 172.1  6.0
+                                 359.9  6.0 }
+               } 
+}

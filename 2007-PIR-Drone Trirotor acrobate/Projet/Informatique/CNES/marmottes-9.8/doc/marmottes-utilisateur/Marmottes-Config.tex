@@ -1,0 +1,92 @@
+% -*- mode: latex; tex-main-file: "marmottes.tex" -*-
+\subsection{marmottes-config}\label{sec:MarmottesConfig}
+
+\subsubsection*{description générale}\label{sec:MarmottesConfig-desc}
+
+L'utilitaire \texttt{marmottes-config} permet de déterminer les options
+nécessaires à la compilation d'applicatifs ou de bibliothèques
+s'appuyant sur \bibliotheque{marmottes}. Il est principalement destiné à
+être utilisé dans les règles des fichiers de directives du type
+\texttt{Makefile}.
+
+\subsubsection*{ligne de commande et options}\label{sec:MarmottesConfig-lignecmde}
+
+La ligne de commande a la forme suivante~:
+
+\begin{verbatim}
+   marmottes-config [--cppflags | --ldflags | --libs | --version]
+\end{verbatim}
+
+Si aucune des options \texttt{-{}-cppflags}, \texttt{-{}-ldflags},
+\texttt{-{}-libs} ou \texttt{-{}-version} n'est utilisée, l'utilitaire
+indique les options disponibles et s'arrête avec un code d'erreur.
+
+\subsubsection*{descriptions des sorties}\label{sec:MarmottesConfig-sorties}
+
+Les sorties de l'utilitaire dépendent des options sélectionnées dans
+la ligne de commande.
+
+L'option \texttt{-{}-cppflags} permet d'obtenir sur la sortie standard les
+options de compilation, comme dans l'exemple suivant~:
+\begin{verbatim}
+  (lehrin) luc% marmottes-config --cppflags
+   -I/home/luc/include
+  (lehrin) luc%
+\end{verbatim}
+
+L'option \texttt{-{}-ldflags} permet d'obtenir sur la sortie standard les
+options d'édition de liens, comme dans l'exemple suivant~:
+\begin{verbatim}
+  (lehrin) luc% marmottes-config --ldflags
+   -L/home/luc/lib
+  (lehrin) luc%
+\end{verbatim}
+
+L'option \texttt{-{}-libs} permet d'obtenir sur la sortie standard les
+bibliothèques nécessaires à l'édition de liens, comme dans l'exemple
+suivant~:
+\begin{verbatim}
+  (lehrin) luc% marmottes-config --libs
+   -lmarmottes -lcantor -lclub -lxerces 
+  (lehrin) luc%
+\end{verbatim}
+
+L'option \texttt{-{}-version} permet d'obtenir sur la sortie standard
+le numéro de version de la bibliothèque, comme dans l'exemple
+suivant~:
+\begin{verbatim}
+  (lehrin) luc% marmottes-config --version
+   5.5
+  (lehrin) luc%
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation}\label{sec:MarmottesConfig-conseils}
+
+L'utilisation classique de \texttt{-{}-cppflags} est dans une règle de
+compilation de fichier \texttt{Makefile} du type~:
+
+\begin{verbatim}
+  client.o : client.cc
+       $(CXX) `marmottes-config --cppflags` $(CPPFLAGS) $(CXXFLAGS) -c client.cc
+\end{verbatim}
+
+L'utilisation classique de \texttt{-{}-ldflags} et \texttt{-{}-libs}
+est dans une règle d'édition de liens de fichier \texttt{Makefile} du
+type~:
+
+\begin{verbatim}
+  client : client.o
+       $(CXX) -o $@ client.o \
+              `marmottes-config --ldflags` $(LDFLAGS) \
+              `marmottes-config --libs`    $(LIBS)
+\end{verbatim}
+
+Il est possible de combiner les options \texttt{-{}-cppflags},
+\texttt{-{}-ldflags} et \texttt{-{}-libs} dans une règle de fichier
+\texttt{Makefile} du type~:
+
+\begin{verbatim}
+  client : client.cc
+       $(CXX) -o $@ `marmottes-config --cppflags --ldflags --libs` \
+              $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS) $(LIBS) client.cc
+\end{verbatim}

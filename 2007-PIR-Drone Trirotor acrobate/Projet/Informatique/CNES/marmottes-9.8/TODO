@@ -1,0 +1,90 @@
+Une évaluation des performances de marmottes en terme de rapidité
+devrait être menée, et des actions correctives éventuellement
+réalisées.
+
+Marmottes utilise un critère de convergence par senseur lors de la
+résolution numérique. Ce critère n'est pas très pratique et devrait
+être remplacé par un critère général sur l'attitude et sur le spin (il
+faudrait du même coup éliminer l'attribut de précision des senseurs et
+les méthodes associées).
+
+Une lacune importante de marmottes tient à son incapacité à intégrer
+la dynamique. Il serait bon de la combler, probablement par une autre
+bibliothèque utilisée en surcouche (la dynamique risque de se
+compliquer très vite, en particulier si l'on désire modéliser des
+modes souples).
+
+Une autre extension intéressante serait l'introduction d'une couche de
+filtrage permettant de combiner les mesures de nombreux capteurs sur
+une plage de temps paramétrable, avec minimisation d'un critère de
+moindres carrés par exemple.
+
+La notion de mode de pilotage serait un apport intéressant, soit dans
+marmottes soit dans une bibliothèque associée, pour offrir une
+interface simplifiée dans certains cas comme le pointage terre, le yaw
+steering, ...
+
+Pour accélérer la lecture des fichiers senseurs, marmottes devrait
+gérer un fichier pré-interprété image des fichiers utilisateur, et ne
+lire ces derniers que lorsque la mise à jour du fichier image est
+nécessaire (c'est à dire quand il n'existe pas, quand l'un des
+fichiers utilisateur a changé, ou quand la version de la bibliothèque
+a changé). Ce fichier n'a pas à être vu par les utilisateurs (on
+pourrait le nommer .senseurs.en si le fichier de base s'appelait
+senseurs.en ; il pourrait même être binaire.
+
+Il faudrait supporter les formats madona (interne CNES) et XML
+(standard international) pour lire le fichier des senseurs en plus du
+format historique de marmottes. Des utilitaires de conversions de
+formats devraient également être crées. Des utilitaires d'aide à la
+modélisation de capteurs seraient également les bienvenus.
+
+Les champs de vue les plus classiques sont des double dièdres ; il
+serait pratique de disposer d'une méthode plus simple que
+l'intersection de deux dièdres pour les décrire. Les informations
+nécessaires sont le demi-angle d'ouverture, la direction de visée et
+l'orientation autour de cette direction.
+
+Certains senseurs présents sur les satellites ne diffèrent de senseurs
+modélisés que par une fonction de conversion de la mesure. Il faudrait
+permettre à l'utilisateur de spécifier de telles fonctions, à la fois
+en mesure et en consigne. Deux voies sont possibles pour cela, pas
+forcément incompatibles. Dans le premier cas l'utilisateur enregistre
+au niveau de son code la fonction associée à un senseur particulier,
+la bibliothèque appelant cette fonction en temps utile. Dans le second
+cas l'utilisateur exprime la fonction de transfert directement dans le
+fichier senseur, dans un bloc optionnel (sous forme d'une chaîne de
+caractères). La première méthode est plus facile à mettre en oeuvre,
+plus souple, mais viole complètement le principe d'indépendance du
+code par rapport aux senseurs. La seconde méthode est plus complexe,
+mais respecte ce principe.
+
+Les senseurs modélisant un bilan de liaison en fonction de la position
+dans un lobe d'antenne sont actuellement limités à deux fonctions
+spécifiques : les lobes gaussiens ou en sinus cardinal carré et aux
+échantillonnages à symétrie axiale. Il serait intéressant de prendre
+en compte des lobes définis par la valeur du gain en divers points
+d'échantillonnages bidimensionnels. Ces points ne sont pas forcément
+régulièrement répartis mais peuvent très bien être dispersés. Une
+méthode classique (quoi que peu utilisée sur la sphère unité) pour
+évaluer le gain en un point quelconque passe par une triangulation de
+Delaunay sur les points d'échantillonnage puis à faire un calcul
+barycentrique sur les triangles.
+
+Certains instruments de la charge utile du satellite pourraient être
+modélisés sous forme de capteurs. Il serait souhaitable de pouvoir
+fournir à l'utilisateur une description de la fauchée de ces
+instruments sur le sol.
+
+Les modèles de position du soleil ou de corps central ne sont adaptés
+qu'à une utilisation autour de la terre, il faudrait permettre aux
+utilisateurs de spécifier leurs propres modèles.
+
+Les tests de non régression internes de la bibliothèque sont trop peu
+nombreux et de trop haut niveau. Il faudrait étoffer cette batterie et
+améliorer les tests existants. Un pas a déjà été fait dans le sens de
+l'enrichissement (mais pas du niveau) avec l'introduction de tests
+issus de programmes utilisateurs réels.
+
+Il serait enfin souhaitable de traduire l'ensemble de la bibliothèque
+en anglais, pour faciliter son déploiement.

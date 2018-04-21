@@ -1,0 +1,67 @@
+#! /bin/sh
+
+# identificateur RCS : "$Id: test_Rotation.in,v 1.8 2001/06/06 07:04:54 cantor Exp $"
+
+# using an english environment for the tests
+@ca_cv_var_lang@=en              ; export @ca_cv_var_lang@
+@ca_cv_var_tradpath@=@srcdir@/.. ; export @ca_cv_var_tradpath@
+
+# run the test program
+if [ -f ./test_Rotation.res ] ; then
+  rm ./test_Rotation.res
+fi
+touch ./test_Rotation.res
+
+for alpha in -45 0 45 90 135 180 225 270 315 360 ; do
+  echo "" >> ./test_Rotation.res
+  echo "prgm_Rotation -axe 0 0 1 -angle $alpha" >> ./test_Rotation.res
+  ./prgm_Rotation -axe 0 0 1 -angle $alpha >> ./test_Rotation.res 2>&1
+done
+
+echo "" >> ./test_Rotation.res
+echo "prgm_Rotation -u1 0 0 1 -v1 1 0 0" >> ./test_Rotation.res
+./prgm_Rotation -u1 0 0 1 -v1 1 0 0 >> ./test_Rotation.res 2>&1
+
+echo "" >> ./test_Rotation.res
+echo "prgm_Rotation -u1 0 0 1 -v1 -1 0 0" >> ./test_Rotation.res
+./prgm_Rotation -u1 0 0 1 -v1 -1 0 0 >> ./test_Rotation.res 2>&1
+
+echo "" >> ./test_Rotation.res
+echo "prgm_Rotation -u1 0 0 1 -v1 0 0 1" >> ./test_Rotation.res
+./prgm_Rotation -u1 0 0 1 -v1 0 0 1 >> ./test_Rotation.res 2>&1
+
+echo "" >> ./test_Rotation.res
+echo "prgm_Rotation -u1 0 0 1 -v1 0 0 -1" >> ./test_Rotation.res
+./prgm_Rotation -u1 0 0 1 -v1 0 0 -1 >> ./test_Rotation.res 2>&1
+
+echo "" >> ./test_Rotation.res
+echo "prgm_Rotation -u1 0 0 1 -v1 1 0 0 -u2 1 0 0 -v2 0 1 0" \
+        >> ./test_Rotation.res
+./prgm_Rotation -u1 0 0 1 -v1 1 0 0 -u2 1 0 0 -v2 0 1 0 \
+        >> ./test_Rotation.res 2>&1
+
+echo "" >> ./test_Rotation.res
+echo "prgm_Rotation -u1 0 0 1 -v1 1 0 0 -u2 1 0 0 -v2 0 0 1" \
+        >> ./test_Rotation.res
+./prgm_Rotation -u1 0 0 1 -v1 1 0 0 -u2 1 0 0 -v2 0 0 1 \
+        >> ./test_Rotation.res 2>&1
+
+echo "" >> ./test_Rotation.res
+echo "prgm_Rotation -u1 0 0 1 -v1 1 0 0 -u2 1 0 0 -v2 1 1 0" \
+        >> ./test_Rotation.res
+./prgm_Rotation -u1 0 0 1 -v1 1 0 0 -u2 1 0 0 -v2 1 1 0 \
+        >> ./test_Rotation.res 2>&1
+
+echo "" >> ./test_Rotation.res
+echo "prgm_Rotation -u1 0 0 1 -v1 0 0 1 -u2 0 1 0 -v2 1 0 0" \
+        >> ./test_Rotation.res
+./prgm_Rotation -u1 0 0 1 -v1 0 0 1 -u2 0 1 0 -v2 1 0 0 \
+        >> ./test_Rotation.res 2>&1
+
+# file comparison
+echo "difference -p 1.0e-4 -ee 1 10 -res ./test_Rotation.res -ref @srcdir@/test_Rotation.ref"
+difference -p 1.0e-4 -ee 1 10 -res ./test_Rotation.res -ref @srcdir@/test_Rotation.ref
+r=$?
+
+rm -f ./test_Rotation.res
+exit $r

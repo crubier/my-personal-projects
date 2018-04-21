@@ -1,0 +1,509 @@
+2005-02-18  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* prgm_XMLUnits.cpp, test_XMLUnits.in, test_XMLUnits.ref: nouveaux
+	fichiers (DM-ID 242)
+
+	* Makefile.am: ajout du test pour XMLUnits (DM-ID 242)
+
+2005-02-03  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* Makefile.am, prgm_DataFile.cpp, test_DataFile.ref.in,
+	prgm_XMLData.cpp, test_XMLData.in, test_XMLData.don1,
+	test_XMLData.don2,test_XMLData.ref1, test_XMLData.ref2.in,
+	test_XMLData.ref3: renommage des fichiers XMLFile en XMLData
+	(DM-ID 242)
+
+2005-01-31  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* test_MadonaFile.ref2, prgm_MadonaFile.cpp: élimination de
+	l'appel à loadUnitFile (DM-ID 242)
+
+2005-01-28  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* test_XMLFile.ref2.in: prise en compte du résultat d'un nouveau
+	test (DM-ID 242)
+
+	* test_XMLFile.ref1, test_XMLFile.ref2: nouveaux fichiers
+	(DM-ID 242)
+
+	* test_XMLFile.ref1.in: élimination du fichier (il n'est plus
+	configuré) (DM-ID 242)
+
+	* test_XMLFile.don1, test_XMLFile.don2: mise en conformité du
+	fichier avec la nouvelle DTD (DM-ID 242)
+
+	* test_DataFile.in, test_XMLFile.in: prise en compte de la
+	nouvelle variable d'environnement pour les chemins DTD/XML (DM-ID
+	242)
+
+	* test_DataFile_BadXmlF: mise en conformité du fichier avec la
+	nouvelle DTD (à l'erreur volontaire de syntaxe objet du test près)
+	(DM-ID 242)
+
+	* DataFile.dtd, units.xml : élimination des fichiers (DM-ID 242)
+
+	* prgm_XMLFile.cpp : prise en compte des modications induites par
+	la refonte de la classe XMLFile, ajout d'un test sur la
+	destruction de données à travers une référence (DM-ID 242)
+
+	* Makefile.am, DataFile.dtd, units.xml: réorganisation des
+	resources xml vers le répertoire ../resources (DM-ID 242)
+
+2005-01-12  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* prgm_MadonaFile.cpp, prgm_StructureFile.cpp, prgm_XMLFile.cpp:
+	remplacement des getData utilisant des classes proxy par
+	getIntData, getRealData et getStringData (DM-ID 241)
+
+2004-06-23  projet CHOPE G. Prat/L. Maisonobe  <Guylaine.Prat@c-s.fr>
+
+	* test_DataFile.ref.in: création (FA-ID 36)
+
+	* test_DataFile.ref: suppression (FA-ID 36)
+
+	* prgm_DataFile.cpp: ajout d'un argument dans le main donnant le
+	chemin d'accès aux fichiers (FA-ID 36)
+
+	* test_DataFile.in, test_XMLFile.in: correction du chemin d'accès
+	au fichier de ref (FA-ID 36)
+
+	* test_XMLFile.ref2.in: correction de la variable définissant le
+	chemin d'accès au répertoire de tests (FA-ID 36)
+
+2003-12-05  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* DataFile.dtd: correction d'erreurs dans la DTD détectées par
+	Xerces 2.x (DM-ID 32).
+
+	* Makefile.am: élimination de la distribution du fichier
+	test_XMLFile.ref2 qui est désormais généré à la configuration
+
+	* test_XMLFile.ref1.in, test_XMLFile.ref2: modification des fichiers
+	de référence en conformité avec Xerces 2.x qui boucle sur les
+	attributs par ordre alphabétique (DM-ID 32).
+
+2003-11-26  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* Makefile.am, test_DataFile.in: Nouveau test (DM-ID 31).
+
+2003-06-24  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* Makefile.am (AM_LDFLAGS): DM-ID 24 remplacement de LDFLAGS par
+	AM_LDFLAGS pour compatibilité avec automake 1.7.5
+
+2003-01-28  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* prgm_FichierStructure.cpp: utilisation de la sortie standard pour
+	l'affichage des erreurs (cerr <- cout) pour éviter des problèmes
+	de gestion de ces fluxs.
+
+	* Makefile.am: mise à jour des extensions de fichiers.
+
+	* prgm_TamponCaractere.cpp, prgm_TamponChamp.cpp, prgm_TamponChampLigne.cpp,
+	prgm_TamponLigne.cpp: mise à jour d'un include selon la norme C++ et
+	mise à jour du code en conséquence.
+
+2002-06-27  projet CHOPE O. Queyrut/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* test_FichierStructure.ref.in: prise en compte du test de la
+	méthode listeSousBlocs
+
+	* prgm_FichierStructure.cc: ajout du test de la méthode listeSousBlocs
+
+	* Makefile.am (EXTRA_DIST): FA-ID 13 élimination de
+	test_TamponChamp.ref, test_TamponChampLigne.ref et
+	test_TamponLigne.ref de la distribution (ils sont générés par le
+	script configure)
+
+2001-06-21  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* prgm_OptionsAppli.cc, prgm_FichierStructure.cc,
+	prgm_TamponCaractere.cc, prgm_TamponChampLigne.cc,
+	prgm_TamponChamp.cc, prgm_TamponPartage.cc, prgm_TamponTexte.cc,
+	prgm_Traducteur.cc: correction de signatures de directives catch
+
+2001-03-22  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* prgm_OptionsAppli.cc (main): suppression d'une fuite mémoire
+
+2001-02-16  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* test_OptionsAppli.ref: prise en compte du changement de l'ordre
+	d'affichage des options résultant du passage à la classe map
+
+2000-11-21  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: ajout des fichiers optionnels dans la distribution
+
+	* test_MadonaFile.ref2: utilisation d'une configuration anglaise
+	également pour madona
+
+	* test_MadonaFile.in: vérification de l'environnement madona avant
+	exécution du test
+
+	* .cvsignore: ajout de test_StructureFile.ref et test_XMLFile.ref1
+
+2000-11-07  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* test_XMLFile.don1, test_XMLFile.ref1.in: remplacement des ','
+	par des '.'
+
+	* test_StructureFile.don: remplacement des ',' par des '.',
+	élimination d'un commentaire d'en-tête trompeur
+
+	* DataFile.dtd: traduction
+
+	* units.xml: remplacement des ',' par des '.'
+
+	* Makefile.am: élimination des variables LDADD spécifiques, le
+	fichier libclub.la contenant toute l'information dont libtool a
+	besoin
+
+2000-10-24  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* *.cc: ajout de l'include ClubConfigNoInstall.h et des tests 
+	de configuration
+
+2000-10-18  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* Makefile.am: mise à jour du Makefile pour pouvoir générer et lancer
+	les tests sur les classes XMLFile, StructureFile et MadonaFile.
+	Utilisation des variables HAVE_MADONA et HAVE_XERCES pour générer et
+	lancer les tests des classes MadonaFile et XMLFile uniquement si les
+	bibliothèques correspondantes sont installées.
+
+	* units.xml: fichier d'unités pour le test de XMLFile.
+
+	* DataFile.dtd: fichier fournissant une DTD pour le test de XMLFile.
+
+	* test_*File.ref*: création des fichiers de référence pour les 
+	nouveaux tests
+
+	* test_*File.don*: création des fichiers de données pour les 
+	nouveaux tests
+
+	* test_*File.in: création des scripts shell pour tester les classes
+	XMLFile, StructureFile et MadonaFile.
+
+	* prgm_*File.cc: création des programmes de test des classes XMLFile,
+	StructureFile et MadonaFile.
+
+2000-09-20  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* Makefile.am: l'édition de liens est réalisée avec libclub.la. 
+	Ajout du LDFLAGS -static pour faire l'édition de liens avec la version 
+	statique de club (en effet il est impossible de réaliser l'édition de 
+	liens avec une bibliothèque partagée non installée).
+
+2000-09-13  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* prgm_FormatC.cc (appliqueFormat): modification de la fonction
+	pour qu'elle utilise la méthode applique de la classe FormatC.
+
+2000-09-07  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* prgm_*.cc: mise à jour des cartouches.
+
+2000-09-06  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* *_OBSOLETE*: suppression des tests des classes _OBSOLETE
+	
+	* Makefile.am: suppression des classes _OBSOLETE
+
+2000-09-05  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* prgm_Traducteur.cc: 
+	* prgm_TamponTexte.cc: 
+	* prgm_TamponCaractere.cc: 
+	* prgm_OptionsAppli.cc: 
+	* prgm_FormatFortran.cc: 
+	* prgm_FormatC.cc: 
+	* prgm_FichierStructure.cc:
+	* prgm_AnalyseurLexical.cc: utilisation de string de la STL au lieu
+	de ChaineSimple.
+
+	* test_FormatFortran.ref: modification de la référence suite à la 
+	correction d'un bug.
+
+2000-08-28  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* test_OptionsAppli.ref (usage): modification de la ligne décrivant
+	l'usage de nom_de_l_analyseur : hash_map et Adressage ne trie en effet
+	pas les éléments de leur table de la même facon. Le passage de Adressage
+	vers hash_map dans l'implémentation de OptionsAppli modifie donc 
+	l'ordre d'affichage des options.
+
+2000-08-25  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* Makefile.am: ajout de la compilation du test de FormatC.
+
+	* test_FormatC.ref: nouveau fichier.
+
+	* test_FormatC.in: nouveau fichier permettant de lancer le test
+	de la classe FormatC.
+
+	* prgm_FormatC.cc: création d'un programme de test pour la classe
+	FormatC.
+
+2000-07-31  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* test_*.in: modification des lignes permettant la mise en place
+	de l'environnement linguistique pour vérifier les messages.
+
+2000-07-28  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* test_*.in: utilisation de l'option -rsynth dans l'appel à
+	difference pour supprimer l'affichage de la synthèse.
+
+	* test_TamponLigne.in: mise en place d'un environnement francais 
+	pour vérifier les messages.
+
+	* test_TamponChampLigne.in: mise en place d'un environnement francais 
+	pour vérifier les messages.
+
+	* test_TamponChamp.in: mise en place d'un environnement francais 
+	pour vérifier les messages.
+
+	* test_OptionsAppli.ref: ajout de ./ devant prgm_OptionsAppli 
+	à la ligne 89.  
+
+	* test_OptionsAppli_OBSOLETE.ref: ajout de ./ devant 
+	prgm_OptionsAppli_OBSOLETE à la ligne 89.  
+
+	* test_*.in: précision du chemin des exécutables et des fichiers
+	dans les scripts de test.
+
+	* test_*.in: mise en place d'un environnement anglais pour vérifier
+	les messages.
+
+1999-10-13  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* test_AnalyseurLexical.in à test_Traducteur.in: modification du
+	chemin pour accéder au binaire shell (suppression de @srcdir@)
+
+1999-08-26  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* prgm_FormatFortran.cc:
+	* prgm_FormatFortran_OBSOLETE.cc:
+	* prgm_AnalyseurLexical.cc: ajout du type de retour int pour les 
+	fonctions main.
+
+	* test_AnalyseurLexical.in à test_Traducteur.in: utilisation du shell
+	difference à la place de la fonction système diff, pour accepter des
+	différences numériques entre le .res et le .ref, différences dûes au
+	changement de plateforme.
+
+	* Makefile.am: inclusion de la compilation de diff.cc et de la 
+	génération de l'exécutable differe.
+	
+1999-06-28  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* prgm_TamponChamp.cc: 
+	* prgm_TamponChampLigne.cc: 
+	* prgm_TamponLigne.cc: nouveaux programmes pour tester les Iterateurs
+	sur un TamponAscii.
+
+	* prgm_FichierStructure_OBSOLETE.cc: 
+	* prgm_FormatFortran_OBSOLETE.cc: 
+	* prgm_OptionsAppli_OBSOLETE.cc: 
+	* prgm_TamponTexte_OBSOLETE.cc: Anciens fichiers suffixes par _OBSOLETE
+	pour garder une compatibilite. Ces classes utilisent une gestion 
+	d'erreur par code retour et pointeur sur ClubErreurs. Ce sont les 
+	memes fichiers (aux noms de classe pres) que ceux de la version 5.4.
+
+	* prgm_FichierStructure.cc: 
+	* prgm_FormatFortran.cc: 
+	* prgm_OptionsAppli.cc: 
+	* prgm_TamponCaractere.cc: 
+	* prgm_TamponTexte.cc: adaptation a la gestion des erreurs par
+	mecanisme d'exception.
+
+1999-06-01  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* prgm_TamponTexte.cc (main): ajout d'un test sur la construction
+	d'un TamponTexte vide
+
+1999-04-11  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* prgm_TamponPartage.cc (AlloueChaine): nouvelle fonction
+	(LibereChaine): nouvelle fonction
+	(main): utilisation de la fonction utilisateur pour libérer la
+	mémoire allouée
+
+1999-03-18  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* prgm_OptionsAppli.cc (main): normalisation des déclarations 
+	de chaînes littérales par l'utilisation de const char* au lieu de char* 
+	pour compatibilité avec SUN Workshop 5.0
+
+	* prgm_FormatFortran.cc (main): normalisation des déclarations 
+	de chaînes littérales par l'utilisation de const char* au lieu de char* 
+	pour compatibilité avec SUN Workshop 5.0 
+
+1999-03-10  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* test_TamponCaractere.don: nouveau fichier
+
+	* test_TamponCaractere.ref.in: nouveau fichier
+	
+	* prgm_TamponCaractere.cc: nouveau fichier
+
+	* test_TamponCaractere.in:  nouveau fichier
+
+1999-02-10  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* .cvsignore: ajout du fichier test_TamponTexte.sortie dans la
+	liste des fichiers a ignorer
+
+1998-10-19  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: élimination des fichiers test_TamponTexte.ref et
+	test_FichierStructure.ref de la distribution (automake incluant
+	lui-même les fichiers .in correspondant)
+
+	* test_Traducteur.in: recherche des fichiers de donnée et de
+	traduction dans le répertoire des sources en cas de compilation à
+	distance (par exemple dans le cas du make distcheck)
+
+	* prgm_Traducteur.cc: recherche des fichiers de donnée dans un
+	répertoire passé en argument, [HAVE_EXCEPTIONS]: utilisation de la
+	macro définition de configuration
+
+	* test_TamponTexte.in: recherche des fichiers de donnée et de
+	traduction dans le répertoire des sources en cas de compilation à
+	distance (par exemple dans le cas du make distcheck)
+
+	* prgm_TamponTexte.cc: recherche des fichiers de donnée dans un
+	répertoire passé en argument
+
+	* test_TamponTexte.ref: élimination du fichier
+
+	* test_TamponTexte.ref.in: nouveau fichier, permettant de générer
+	un fichier de référence dans lequel figureront les répertoires
+	réellement utilisés
+
+	* test_TamponPartage.in: recherche des fichiers de traduction et
+	de référence dans le répertoire des sources en cas de compilation
+	à distance (par exemple dans le cas du make distcheck)
+
+	* prgm_TamponPartage.cc [HAVE_EXCEPTIONS]: utilisation de la macro
+	définition de configuration
+
+	* test_OptionsAppli.in: recherche des fichiers de traduction et de
+	référence dans le répertoire des sources en cas de compilation à
+	distance (par exemple dans le cas du make distcheck)
+
+	* prgm_OptionsAppli.cc [HAVE_EXCEPTIONS] (AfficheOptions):
+	utilisation de la macro définition de configuration, correction du
+	nom obsolète de la classe d'erreurs
+
+	* test_FormatFortran.in: recherche du fichier de référence dans le
+	répertoire des sources en cas de compilation à distance (par
+	exemple dans le cas du make distcheck)
+
+	* test_FichierStructure.in: recherche des fichiers de donnée, de
+	traduction et de référence dans le répertoire des sources en cas
+	de compilation à distance (par exemple dans le cas du make
+	distcheck)
+
+	* test_FichierStructure.ref: élimination du fichier
+
+	* test_FichierStructure.ref.in: nouveau fichier, permettant de
+	générer un fichier de référence dans lequel figureront les
+	répertoires réellement utilisés
+
+	* prgm_FichierStructure.cc: recherche des fichiers de donnée dans
+	un répertoire passé en argument
+
+	* test_AnalyseurLexical.in: recherche du fichier de référence dans
+	le répertoire des sources en cas de compilation à distance (par
+	exemple dans le cas du make distcheck)
+
+1998-10-16  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: ajout d'une option -I pour trouver les en-têtes en
+	cas de compilation à distance (par exemple dans le cas du make
+	distcheck), ajout des fichiers de donnée et de référence dans la
+	distribution 
+
+1998-09-14  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* test_TamponTexte.in: prise en compte du déplacement des fichiers
+	de traduction
+
+	* test_TamponPartage.in: prise en compte du déplacement des
+	fichiers de traduction
+
+	* test_FichierStructure.in: prise en compte du déplacement des
+	fichiers de traduction
+
+	* test_OptionsAppli.in: prise en compte du déplacement des
+	fichiers de traduction
+
+1998-07-26  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* test_Traducteur.ref: élimination des chaînes rcs
+
+	* test_TamponTexte.don: élimination des chaînes rcs
+
+	* test_TamponTexte.ref: élimination des chaînes rcs
+
+	* test_TamponPartage.ref: élimination des chaînes rcs
+
+	* test_OptionsAppli.ref: élimination des chaînes rcs
+
+	* test_FormatFortran.ref: élimination des chaînes rcs
+
+	* test_FichierStructure.ref: élimination des chaînes rcs
+
+	* test_AnalyseurLexical.ref: élimination des chaînes rcs
+
+1998-07-25  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* test_Traducteur.in: nouveau fichier
+
+	* test_TamponTexte.in: nouveau fichier
+
+	* test_TamponPartage.in: nouveau fichier
+
+	* test_OptionsAppli.in: nouveau fichier
+
+	* test_FormatFortran.in: nouveau fichier
+
+	* test_FichierStructure.in: nouveau fichier
+
+	* test_AnalyseurLexical.in: nouveau fichier
+
+	* test_Traducteur: élimination au profit d'un fichier généré
+
+	* test_TamponTexte: élimination au profit d'un fichier généré
+
+	* test_TamponPartage: élimination au profit d'un fichier généré
+
+	* test_OptionsAppli: élimination au profit d'un fichier généré
+
+	* test_FormatFortran: élimination au profit d'un fichier généré
+
+	* test_FichierStructure: élimination au profit d'un fichier généré
+
+	* test_AnalyseurLexical: élimination au profit d'un fichier généré
+
+	* Makefile.am: nouveau fichier
+
+1998-07-24  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* test_Traducteur: élimination des commandes rcs
+
+	* test_TamponTexte: élimination des commandes rcs
+
+	* test_TamponPartage: élimination des commandes rcs
+
+	* test_OptionsAppli: élimination des commandes rcs
+
+	* test_FormatFortran: élimination des commandes rcs
+
+	* test_FichierStructure: élimination des commandes rcs
+
+	* test_AnalyseurLexical: élimination des commandes rcs
+
+	* ChangeLog: nouveau fichier

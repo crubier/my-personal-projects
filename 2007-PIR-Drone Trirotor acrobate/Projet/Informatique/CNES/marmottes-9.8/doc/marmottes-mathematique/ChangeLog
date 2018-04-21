@@ -1,0 +1,339 @@
+2004-06-24  projet CHOPE G. Prat/L. Maisonobe  <Guylaine.Prat@c-s.fr>
+
+	* Makefile.am (marmottes_mathematique_TEX): correction d'une
+	faute de frappe dans une variable empêchant la regénération
+	automatique de la documentation (FA-ID 37)
+
+2002-09-09  projet CHOPE O. Queyrut/L.Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* marmottes-mathematique.tex: ajout de la commande nochangebars
+	pour la generation du PDF (DM 0008)
+
+	* macros.tex: ajout de l'environnement changebar (DM 0008)
+
+	* Makefile.am: prise en compte de barres de modification au niveau
+	du fichier postscript (DM 0008)
+
+2002-04-24  projet CHOPE O. Queyrut/S. Vresk  <Olivier.Queyrut@c-s.fr>
+
+	* pages-liminaires.tex: réintroduction de l'historique issu du
+	document au format CNES.
+
+2002-02-01  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* marmottes-mathematique.tex, pages-liminaires.tex: passage au
+	format CS
+
+2002-01-14  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* demonstrations.tex, zeros.tex: correction de xxx_{max} en xxx_{\max}
+
+	* pages-liminaires.tex: annonce des corrections mineurs sur xxx_{max}
+
+2001-07-17  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* pages-liminaires.tex: annonce des corrections
+
+	* modelisation.tex: correction de la hiérarchie des capteurs
+
+	* description.tex: correction d'une coquille
+
+2001-06-22  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* pages-liminaires.tex: correction des documents de référence
+
+2001-04-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* pages-liminaires.tex: correction de la liste de diffusion, mise à
+	jour de la date et des documents de référence
+
+	* modelisation.tex, description.tex, cones.tex: remplacement de
+	"horizon" par "limbe"
+
+2001-01-29  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* cardan.tex, cones.tex, derivation.tex, rotations.tex, zeros.tex:
+	remplacement de la macro \changepage par \cleardoublepage
+
+	* macros.tex: suppression de la macro \changepage
+
+	* note-marmottes.tex: correction de la date finale de publication
+
+2001-01-26  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: ajout de conclusion.tex
+
+	* marmottes-mathematique.tex: ajout d'une conclusion
+
+	* capteurs.tex: prise en compte de commentaires de relecture
+
+	* description.tex: prise en compte de commentaires de relecture
+
+	* zeros.tex: prise en compte de commentaires de relecture
+
+	* glossaire.tex: prise en compte de commentaires de relecture
+
+	* pages-liminaires.tex: prise en compte de commentaires de relecture
+
+	* lois.tex: prise en compte de commentaires de relecture
+
+	* derivation.tex: prise en compte de commentaires de relecture
+
+	* modelisation.tex: prise en compte de commentaires de relecture
+
+	* cardan.tex: prise en compte de commentaires de relecture
+
+	* demonstrations.tex: prise en compte de commentaires de relecture
+
+	* rotations.tex: prise en compte de commentaires de relecture
+
+	* introduction.tex: prise en compte de commentaires de relecture
+
+	* note-marmottes.tex: prise en compte de commentaires de relecture
+
+2000-12-12  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* introduction.tex: élimination d'une auto-référence
+
+	* pages-liminaires.tex: ajout de documents de référence
+
+2000-12-01  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* genere-ascension-droite, genere-declinaison, genere-vecteur2:
+	nouveaux fichiers
+
+	* ChangeLog, cardan.tex, cones.tex, demonstrations.tex,
+	derivation.tex, genere-base-canonique, introduction.tex, lois.tex,
+	macros.tex, modelisation.tex, note-marmottes.tex, rotations.tex,
+	zeros.tex: introduction de corrections de relecteurs
+
+2000-11-29  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* note-marmottes.tex: attribution du numéro de note technique
+	(note 142)
+
+2000-11-28  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* genere-senseur-solaire: passage en Bourne-shell, réduction d'un
+	des angles pour rendre la figure moins ambigüe
+
+	* capteurs.tex, cones.tex, demonstrations.tex, description.tex,
+	introduction.tex, lois.tex, modelisation.tex, note-marmottes.tex,
+	rotations.tex : prise en compte de remarques d'un relecteur
+	
+2000-11-22  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* pages-liminaires.tex: correction de la date et du numéro de
+	révision
+
+	* modelisation.tex: mise à jour de l'arbre d'héritage des capteurs
+
+2000-11-13  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* .cvsignore: ajout de marmottes-mathematique.out
+
+	* demonstrations.tex: encapsulation de liens hypertextes dans des
+	\mbox, pdflatex ne supportant leur utilisation qu'en mode
+	horizontal
+
+2000-10-03  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* .cvsignore: ajout des fichiers liés à la génération du PostScript
+
+	* Makefile.am: remise en place d'une génération PostScript en
+	recto-verso
+
+	* marmottes-mathematique.tex: élimination de l'option twoside
+	(elle est rajoutée automatiquement uniquement pour le PostScript)
+
+	* genere-base-canonique: ajout de l'arc définissant l'angle gamma
+
+	* demonstrations.tex, description.tex, modelisation.tex: prise en
+	compte de remarques de relectures (éclaircissements et
+	présentation)
+
+	* glossaire.tex, rotations.tex: correction de fautes de frappes
+
+2000-10-02  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* lois.tex, modelisation.tex, introduction.tex, description.tex,
+	capteurs.tex: remplacement du terme gyroscope par gyromètre
+
+2000-09-19  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* note-marmottes.tex: nouveau fichier
+
+	* pages-liminaires.tex: ajout des capteurs de gain d'antenne,
+	reformulation générale pour la publication d'une note technique
+
+	* marmottes-mathematique.tex: découpage du fichier principes,
+	description.tex, capteurs.tex et lois.tex
+
+	* glossaire.tex: ajout des angles de Cardan et d'Euler
+
+	* demonstrations.tex: incorporation de la section : « Démarche de
+	la résolution »
+
+	* cones.tex: correction d'une faute d'accent
+
+	* cardan.tex: remplacement des termes senseurs en capteurs mise en
+	forme
+
+	* modelisation.tex: ajout des description des senseurs de gain
+	d'antenne, ajout de l'arbre d'héritage
+
+	* description.tex, capteurs.tex, lois.tex: nouveau fichier
+
+	* principe.tex: découpage du fichier en trois, description.tex,
+	capteurs.tex et lois.tex
+
+	* cardan.tex, cones.tex, demonstrations.tex, derivation.tex,
+	modelisation.tex, zeros.tex: remplacement du terme « senseur » par
+	« capteur »
+
+	* Makefile.am: renommage du fichier objet.tex en introduction.tex,
+	ajout des fichiers glossaire.tex et macros.tex
+
+	* macros.tex: nouveau fichier
+
+	* marmottes-mathematique.tex: report des macros dans un fichier inclus
+
+	* glossaire.tex: nouveau fichier
+
+	* pages-liminaires.tex: report du glossaire dans un fichier inclus
+
+	* introduction.tex: renommage du fichier objet.tex
+
+2000-09-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* marmottes-mathematique.tex: prise en compte de la transformation
+	de notecnes de classe en simple extension
+
+	* pages-liminaires.tex: reformatage des pages liminaires
+
+	* objet.tex: correction d'un terme
+
+2000-07-20  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* marmottes-mathematique.tex, pages-liminaires.tex: prise en
+	compte de la transformation de la classe notecnes en simple
+	extension
+
+2000-06-07  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* pages-liminaires.tex, modelisation.tex, objet.tex:
+	simplification des exemples
+
+1999-12-13  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: remplacement de la génération du fichier PostScript
+	par un fichier PDF
+
+1999-10-15  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* pages-liminaires.tex: correction des numéros de pages modifiées
+
+	* principes.tex: amélioration des explications sur les différents
+	types de résolution
+
+	* modelisation.tex: déplacement d'une table pour améliorer la mise
+	en page à la suite de modifications dans les chapitres précédents
+
+1999-10-13  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* pages-liminaires.tex: modification de la liste de diffusion
+
+1999-10-11  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* zeros.tex: correction de fautes de frappe
+
+	* principes.tex: correction de fautes de frappe
+
+	* demonstrations.tex: correction de fautes de frappe
+
+	* cardan.tex: correction de fautes de frappe
+
+1999-09-21  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* demonstrations.tex: indication de la version de bibliothèque à
+	partir de laquelle les nouveaux algorithmes ont été implantés
+
+	* pages-liminaires.tex: finalisation de la version 3.1 cohérente
+	avec la version 7.0 de la bibliothèque
+
+	* modelisation.tex: introduction des cibles nadir, position,
+	direction et station pour les senseurs optiques, introduction des
+	différents repères de base pour les senseurs de Cardan
+
+	* principes.tex: déplacement de figures pour la mise en page,
+	correction de fautes de frappes.
+
+	* objet.tex: élimination de l'utilisation de la macro \numero à la
+	suite du passage de l'extension french à babel, prise en compte du
+	fait que les algorithmes de cette documentation ne sont implantés
+	qu'à partir de Marmottes 7.0
+
+	* modelisation.tex: correction de la figure du senseur dièdre
+
+1999-07-26  Geraldine FILAIRE  <filaire@cnes.fr>
+
+	* demonstrations.tex: modification du tableau de domaine de
+	validité de théta + ajout de la description de alpha12
+
+	* pages-liminaires.tex: ajout de l'auteur Geraldine Filaire
+	et ajout dans la liste de modification
+
+1999-05-12  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* genere-alignement-v1-a2: suppression du fichier
+
+	* genere-cone-contenu: suppression du fichier
+
+	* genere-cones-confondus: suppression du fichier
+
+	* genere-grand-angle: suppression du fichier
+
+	* genere-modele-geom: suppression du fichier
+
+	* genere-plan-vecteur: suppression du fichier
+
+	* genere-theta-phi: suppression du fichier
+
+	* genere-trajectoires: suppression du fichier
+
+	* genere-base-canonique: modification de la base de résolution
+
+	* demonstrations.tex: refonte des modèles géométriques pour
+	traiter complètement les singularités
+
+	* principes.tex: changement des références aux démonstrations
+
+	* marmottes-mathematique.tex: ajout d'un environnement pour les
+	algorithmes
+
+	* zeros.tex: utilisation de l'environnement algorithme
+
+1999-04-27  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* zeros.tex: description des méthodes de résolution introduites
+	par la version 5.1 de cantor
+
+	* pages-liminaires.tex: ajout de la note de J.-C. Bergès en référence
+
+1999-04-26  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* pages-liminaires.tex: modification de la liste de diffusion et
+	de la structure hiérarchique
+
+1998-07-30  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* .cvsignore: nouveau fichier
+
+	* Makefile.am: nouveau fichier
+
+	* Makefile: élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+1998-07-09  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile: élimination des commandes rcs

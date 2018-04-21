@@ -1,0 +1,187 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      4154,        129]*)
+(*NotebookOutlinePosition[      4797,        151]*)
+(*  CellTagsIndexPosition[      4753,        147]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+    \(J = {{1, \ Sin[\[Phi]]*Tan[\[Theta]], Cos[\[Phi]] Tan[\[Theta]]}, {0, 
+          Cos[\[Phi]], \(-Sin[\[Phi]]\)}, {0, Sin[\[Phi]]/Cos[\[Theta]], 
+          Cos[\[Phi]]/Cos[\[Theta]]}}\)], "Input"],
+
+Cell[BoxData[
+    \({{1, Sin[\[Phi]]\ Tan[\[Theta]], Cos[\[Phi]]\ Tan[\[Theta]]}, {0, 
+        Cos[\[Phi]], \(-Sin[\[Phi]]\)}, {0, Sec[\[Theta]]\ Sin[\[Phi]], 
+        Cos[\[Phi]]\ Sec[\[Theta]]}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(MatrixForm[J]\)], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {
+              "1", \(Sin[\[Phi]]\ Tan[\[Theta]]\), \(Cos[\[Phi]]\ \
+Tan[\[Theta]]\)},
+            {"0", \(Cos[\[Phi]]\), \(-Sin[\[Phi]]\)},
+            {
+              "0", \(Sec[\[Theta]]\ Sin[\[Phi]]\), \(Cos[\[Phi]]\ \
+Sec[\[Theta]]\)}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Inverse[J]\)], "Input"],
+
+Cell[BoxData[
+    \({{1, 
+        0, \(\(-Cos[\[Phi]]\^2\)\ Tan[\[Theta]] - Sin[\[Phi]]\^2\ \
+Tan[\[Theta]]\)\/\(Cos[\[Phi]]\^2\ Sec[\[Theta]] + Sec[\[Theta]]\ Sin[\[Phi]]\
+\^2\)}, {0, \(Cos[\[Phi]]\ Sec[\[Theta]]\)\/\(Cos[\[Phi]]\^2\ Sec[\[Theta]] + \
+Sec[\[Theta]]\ Sin[\[Phi]]\^2\), 
+        Sin[\[Phi]]\/\(Cos[\[Phi]]\^2\ Sec[\[Theta]] + Sec[\[Theta]]\ Sin[\
+\[Phi]]\^2\)}, {0, \(-\(\(Sec[\[Theta]]\ Sin[\[Phi]]\)\/\(Cos[\[Phi]]\^2\ \
+Sec[\[Theta]] + Sec[\[Theta]]\ Sin[\[Phi]]\^2\)\)\), 
+        Cos[\[Phi]]\/\(Cos[\[Phi]]\^2\ Sec[\[Theta]] + Sec[\[Theta]]\ Sin[\
+\[Phi]]\^2\)}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Simplify[Inverse[J]]\)], "Input"],
+
+Cell[BoxData[
+    \({{1, 0, \(-Sin[\[Theta]]\)}, {0, Cos[\[Phi]], 
+        Cos[\[Theta]]\ Sin[\[Phi]]}, {0, \(-Sin[\[Phi]]\), 
+        Cos[\[Theta]]\ Cos[\[Phi]]}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(MatrixForm[Simplify[Inverse[J]]]\)], "Input"],
+
+Cell[BoxData[
+    TagBox[
+      RowBox[{"(", "\[NoBreak]", GridBox[{
+            {"1", "0", \(-Sin[\[Theta]]\)},
+            {"0", \(Cos[\[Phi]]\), \(Cos[\[Theta]]\ Sin[\[Phi]]\)},
+            {"0", \(-Sin[\[Phi]]\), \(Cos[\[Theta]]\ Cos[\[Phi]]\)}
+            }], "\[NoBreak]", ")"}],
+      Function[ BoxForm`e$, 
+        MatrixForm[ BoxForm`e$]]]], "Output"]
+}, Open  ]]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1440}, {0, 787}},
+WindowSize->{693, 543},
+WindowMargins->{{0, Automatic}, {Automatic, 0}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 215, 3, 50, "Input"],
+Cell[1994, 58, 210, 3, 48, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2241, 66, 46, 1, 30, "Input"],
+Cell[2290, 69, 433, 12, 71, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2760, 86, 43, 1, 30, "Input"],
+Cell[2806, 89, 597, 10, 120, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3440, 104, 53, 1, 30, "Input"],
+Cell[3496, 107, 177, 3, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3710, 115, 65, 1, 30, "Input"],
+Cell[3778, 118, 360, 8, 71, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

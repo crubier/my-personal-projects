@@ -1,0 +1,408 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+% $Id: BaseErreurs.tex,v 1.11 2000/09/14 07:40:59 club Exp $
+\subsection{classe BaseErreurs}\label{sec:BaseErreurs}
+
+\subsubsection*{description}\label{sec:BaseErreurs-desc}
+
+Cette classe est une classe de base permettant de formater et traduire
+dans la langue de l'utilisateur des messages d'erreur, les classes
+dérivées devant spécialiser la classe de base pour tel ou tel domaine
+(ou bibliothèque). La bibliothèque \bibliotheque{club} par exemple
+utilise ce mécanisme pour gérer ses propres erreurs, par
+l'intermédiaire de la classe ClubErreurs, dérivée de
+BaseErreurs. Cette classe est articulée autour du principe de
+séparation entre le formatage d'un message d'erreur, qui doit être
+fait au plus bas niveau (à l'intérieur de la bibliothèque), là où on
+dispose des éléments pour constituer le message (noms des fichiers que
+l'on ne peut pas ouvrir, type de l'opération générant un problème,
+...), et la diffusion de ce message (sur la sortie d'erreur standard,
+dans une zone de texte d'une \textsc{ihm}, par requête auprès d'un
+serveur de journal de bord, ...), qui ne peut être faite qu'à très
+haut niveau, par le programme principal qui utilise la bibliothèque.
+
+La solution consiste à formater la chaîne à la construction de
+l'objet, sans rien faire de plus. Si des systèmes de diffusion des
+erreurs existent dans l'appelant, celui-ci peut récupérer cette chaîne
+et signaler à l'instance qu'il se charge de tout (en appelant la
+fonction membre \texttt{correction}), il peut également demander son
+affichage sur un \texttt{ostream} particulier. Si, à la destruction de
+l'instance, l'erreur n'a pas été corrigée, alors le destructeur
+affiche le message sur la sortie d'erreur standard. Toute copie ou
+affectation d'une erreur est une copie d'instance dont le message et
+le code d'erreur sont
+partagés avec l'erreur d'origine. Ainsi, seule la destruction de la dernière
+des copies peut donner lieu à un affichage, ce qui évite un affichage
+multiple des messages d'erreur résultant de la destruction d'objets
+temporaires créés implicitement par le compilateur, par exemple lors
+du lancement d'une exception. D'autre part, si l'original ou une des
+copies est corrigé, toutes les instances partageant le même message et
+le même code d'erreur, seront également corrigées. Ceci permet
+d'éviter l'affichage d'un message d'erreur dû à la destruction d'une
+instance d'erreur temporaire alors que l'erreur originale a été rattrapée.
+
+
+Ce système présente l'avantage de fonctionner que l'appelant se
+contente d'une gestion minimaliste des erreurs (s'il appelle
+\texttt{exit}, le destructeur de la classe réalisera seul l'affichage)
+ou qu'il utilise un système très sophistiqué de journal de bord (il
+peut demander l'affichage sur un \texttt{ostream} encapsulant une
+\texttt{socket} connectée à une machine distante, ou écrire le message
+dans une zone de texte de l'IHM de contrôle de son programme, ...). La
+séparation du formatage et de la diffusion de l'erreur autorise un
+découplage entre le programme appelant et la bibliothèque, le
+programme pouvant complètement ignorer les types d'erreurs générés par
+la bibliothèque (il peut ne voir que des pointeurs sur la classe de
+base s'il le désire). Si au contraire des sytèmes de récupération sur
+erreur existent (c'est le cas dans la bibliothèque \bibliotheque{cantor}
+batie au dessus de \bibliotheque{club}), alors il peut tester les codes
+d'erreur qui sont disponibles et réagir à bon escient.
+
+\subsubsection*{interface publique}\label{sec:BaseErreurs-int}
+\begin{verbatim}
+#include "club/BaseErreurs.h"
+\end{verbatim}
+
+\begin{tableFonctionsFixe}{BaseErreurs : méthodes publiques}
+{\label{tab:BaseErreurs-met-pub}}{affiche le message formaté en
+passant par le fonction d'affichage}
+\signature{\fonc{BaseErreurs} ()}
+          {}&
+
+construit une instance ne décrivant aucune erreur \\
+
+\signature{\fonc{BaseErreurs} (int \argument{code} ...)}
+          {}&
+
+construit une instance avec le \argument{code} d'erreur fourni, en
+utilisant la langue courante, le format lié au \argument{code} et les
+arguments variables suivants pour formater le message \\
+
+\signature{\fonc{BaseErreurs} (const char *\argument{format} ...)}
+          {}&
+
+construit une instance avec un code d'erreur inconnu, en utilisant la
+langue courante, le \argument{format} du langage \langage{c} et les
+arguments variables suivants pour formater le message\\
+
+\signature{\fonc{BaseErreurs} (const BaseErreurs\& \argument{b})}
+          {}&
+
+constructeur par copie, par création d'une instance partagée avec
+l'erreur d'origine b\\
+
+\signature{BaseErreur\& \fonc{operator =}}
+          {(const BaseErreurs\& \argument{b})}&
+
+affectation, avec partage de l'erreur b \\
+
+\hline
+
+\signature{\fonc{\~{}BaseErreurs} ()}
+          {}&
+
+destructeur, affiche le message par la méthode \fonc{affiche} s'il n'a
+pas été corrigé depuis sa création, ne fait rien dans le cas
+contraire. Cette fonction peut être redéfinie dans les classes
+dérivées, mais ce n'est pas obligatoire, la fonction de la classe de
+base pouvant généralement suffire. \\
+
+\hline
+\signature{void \fonc{miseAJour} (int \argument{code} ...)}
+          {}&
+
+met à jour une instance comme si elle était construite pour la
+première fois \\
+
+\signature{void \fonc{miseAJour} (const char *\argument{format} ...)}
+          {}&
+
+met à jour une instance comme si elle était construite pour la
+première fois \\
+
+\signature{inline void \fonc{correction} ()}
+          {}&
+
+remet à \texttt{AucuneErreur} le code d'erreur de l'instance, ce qui
+permet d'éviter son affichage lors de la destruction de l'instance \\
+
+\hline
+
+\signature{inline ostream\& \fonc{affiche}}
+          {(ostream\& \argument{s}) const}&
+
+affiche le message formaté sur le flot de sortie \argument{s} \\
+
+\signature{inline void \fonc{affiche} () const}
+          {}&
+
+affiche le message formaté en passant par le fonction d'affichage de
+l'utilisateur s'il en a défini une, en écrivant sur \texttt{cerr} dans
+le cas contraire\\
+
+\hline
+
+\signature{const char *\fonc{why} () const}
+          {}&
+
+retourne le message d'erreur (le nom anglais de cette méthode était
+destiné à se conformer au standard ... qui a changé)\\
+
+\signature{int \fonc{code} () const}
+          {}&
+
+retourne le code de l'erreur \\
+
+\signature{virtual const char *\fonc{domaine} () const}
+          {}&
+
+retourne le domaine d'erreur ("\texttt{base}" pour la classe de
+base). Cette fonction est destinée à autoriser une certaine forme de
+typage dynamique, l'appelant pouvant par cette fonction virtuelle
+savoir si l'instance est du type de base \texttt{BaseErreurs} ou d'un
+type dérivé. Il est \emph{impératif} que cette fonction soit redéfinie
+dans les classes dérivées. \\
+
+\signature{int \fonc{correspond}}
+          {(int \argument{code}, const char *\argument{domaine}) const}&
+
+cette méthode permet de savoir si une erreur correspond à un code
+attendu dans un domaine précisé. Il est primordial d'utiliser cette
+fonction pour faire les tests plutôt que \fonc{code} (), car les codes
+du type de base et des types dérivés peuvent se recouper (ce sont des
+énumérés), tout test sur le code doit donc être associé à un test sur
+le domaine \\
+
+\signature{inline int \fonc{existe} () const}
+          {}&
+
+indique si une erreur existe, c'est à dire si le code est différent de
+AucuneErreur \\
+
+\hline
+\end{tableFonctionsFixe}
+
+\begin{tableFonctionsFixe}{BaseErreurs : méthodes protégées}
+{\label{tab:BaseErreurs-met-prot}}{stocke le message donné en argument
+dans l'instance.}
+\signature{void \fonc{stockeMessage}}
+          {(const char *\argument{message})}&
+
+stocke le message donné en argument dans l'instance. Cette méthode est
+utilisée par le constructeur de la classe et les constructeurs des
+classes dérivées \\
+
+\signature{void \fonc{stockeMessage}}
+          {(const string\& \argument{message})}&
+
+stocke le message donné en argument dans l'instance. Cette méthode est
+utilisée par le constructeur de la classe et les constructeurs des
+classes dérivées mais aussi par toutes les fonctions qui doivent
+modifier la valeur du code d'erreur\\
+
+\signature{void \fonc{stockeCode}}
+          {(int \argument{code})}&
+
+stocke le code donné en argument dans l'instance. Cette méthode est
+utilisée par le constructeur de la classe et les constructeurs des
+classes dérivées \\
+
+\hline
+
+\signature{virtual const string\& \fonc{formate}}
+          {(int \argument{code}, va\_list \argument{ap})}&
+
+traduit et formate le message en fonction du \argument{code}. La
+sélection en fonction du \argument{code} implique que cette méthode
+doit \emph{impérativement} être redéfinie dans les classes dérivées \\
+
+\signature{const string\& \fonc{formate}}
+          {(const char *\argument{format}, va\_list \argument{ap})}&
+
+traduit et formate le message à partir du \argument{format} du langage
+\langage{c} \\
+
+\end{tableFonctionsFixe}
+
+\begin{tableFonctionsFixe}{BaseErreurs : méthodes de classe}
+{\label{tab:BaseErreurs-met-classe}}
+{initialise la gestion \emph{globale} des erreurs, en enregistrant une
+fonction}
+
+\signature{void \fonc{initErreurs}}
+          {(void (*f) (const char*, void*),\\
+            void* arg, int exceptions = 0,\\
+            int avertissements = 0)
+          }&
+
+initialise la gestion \emph{globale} des erreurs, en enregistrant une
+fonction d'affichage (dont les arguments sont le message et un
+pointeur anonyme), en décidant si la méthode \fonc{avertissements}
+doit ou non être active (pour instrumenter du code), et s'il faut
+générer des exceptions ou créer et détruire des objets locaux lorsque
+l'utilisateur n'a pas donné d'instance lors d'un appel aux méthodes
+\fonc{erreur}\\
+
+\hline
+
+\signature{inline int \fonc{okavt} ()}
+          {}&
+
+indique si les appels à la méthode \fonc{avertissement} sont ou non
+actifs \\
+
+\signature{inline int \fonc{exceptions} ()}
+          {}&
+
+indique si des exceptions doivent être générées lors des appels à
+\fonc{erreur}\\
+
+\signature{inline void (* \fonc{fonAffiche} ())}
+          {(const char*, void*)}&
+
+retourne un pointeur sur la fonction d'affichage utilisateur
+initialisée par un appel préalable à \fonc{initErreurs} \\
+
+\signature{inline void * \fonc{argAffiche} ()}
+          {}&
+
+retourne un pointeur sur les arguments anonymes de la fonction
+d'affichage utilisateur initialisée par un appel préalable à
+\fonc{initErreurs} \\
+
+\hline
+
+\signature{void \fonc{avertissement}}
+          {(const char *\argument{format} ...)}&
+
+génère immédiatement un avertissement sur le système courant
+d'affichage (si les avertissements sont actifs) \\
+
+\signature{void \fonc{erreur}}
+          {(BaseErreurs *\argument{ptr}, int \argument{code} ...)}&
+
+génère une erreur et la stocke dans l'instance pointée par
+\argument{ptr}, s'il est non nul.\\
+
+\signature{void \fonc{erreur}}
+          {(BaseErreurs *\argument{ptr},\\
+            const char *\argument{format} ...)
+          }&
+
+génère une erreur et la stocke dans l'instance pointée par
+\argument{ptr}, s'il est non nul \\
+
+\end{tableFonctionsFixe}
+
+\subsubsection*{exemple d'utilisation}\label{sec:BaseErreurs-expl}
+
+\begin{verbatim}
+#include "club/BaseErreurs.h"
+...
+class NouvelleErreur : public BaseErreurs
+{ 
+protected :
+    virtual const string& formate (int code, va_list ap) const;
+
+public :
+  // liste des codes d'erreurs
+  enum { premiere_erreur = 1, deuxieme_erreur, troiseme_erreur };
+
+  // constructeurs
+  NouvelleErreurs     () : BaseErreurs () {}
+  NouvelleErreurs     (int code ...);
+  NouvelleErreurs     (const char* format ...);
+  NouvelleErreurs     (const NouvelleErreurs& e) : BaseErreurs (e) {}
+  // destructeur
+  virtual ~NouvelleErreurs () {}
+
+  // affectation
+  NouvelleErreurs& operator =        (const NouvelleErreurs& e);
+
+  // fonctions d'acces aux elements canoniques
+  virtual const char* domaine    () const { return "nouvelle"; }
+  // declenchement general d'une erreur
+  static int erreur (NouvelleErreurs* ptr, int code ...);
+  static int erreur (NouvelleErreurs* ptr, const char* format ...);
+};
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation spécifiques}
+\label{sec:BaseErreurs-conseils}
+Cette classe de base permet de construire simplement des classes
+d'erreurs assez souples. Les classes dérivées doivent implanter
+elles-mêmes un certain nombre de méthodes (par exemple pour le
+formatage, qui ne peut qu'être spécifique). Il se trouve cependant que
+des portions de code absolument similaires d'une classe à l'autre
+doivent être recopiées : les méthodes de classe, qui ne peuvent pas
+être héritées.
+
+La façon la plus simple de créer une classe dérivée de BaseErreurs est
+donc de recopier directement une classe dérivée existante (par exemple
+ClubErreurs), puis de faire un remplacement exhaustif des chaînes
+ClubErreurs par XxxxErreurs, et enfin de changer la liste des codes
+d'erreurs et la chaîne retournée par \texttt{domaine} dans le fichier
+d'en-tête et le corps de la méthode \texttt{formate} dans le fichier
+\texttt{.cc}.
+
+Le principe de copie d'instance (partage du message d'erreur par un
+TamponPartage) lors de l'appel au constructeur par copie ou à
+l'opérateur d'affectation est à conserver.
+
+Les versions supérieures ou égales à 7.0 de BaseErreurs utilisent les
+\texttt{strings} de la \bibliotheque{stl} pour l'implémentation de la
+classe. L'interface publique n'a pas été modifiée, en revanche, la
+méthode protégée \texttt{formate} a changé de signature. Il en résulte
+que les classes dérivées de BaseErreurs doivent impérativement évoluer
+pour être conforme avec la version 7.0 de \bibliotheque{club}.
+
+Cette transition se résume à modifier la signature de la fonction
+formate et à changer le type de la variable \texttt{tampon} et les
+éventuels appels du type :
+\begin{verbatim}
+     tampon->formate (trad ("indice \"%s\" = %d, hors bornes [%d; %d]"),
+                      TraduitVersExterne (chaine_1),
+                      entier_1, entier_2, entier_3);
+\end{verbatim}
+en
+\begin{verbatim}
+     appliqueFormat (trad ("indice \"%s\" = %d, hors bornes [%d; %d]"),
+                     tampon,
+                     TraduitVersExterne (chaine_1),
+                     entier_1, entier_2, entier_3);
+\end{verbatim}
+où appliqueFormat est du type :
+\begin{verbatim}
+      static void appliqueFormat (const string& format, string *ptrDst ...)
+      {
+        va_list ap;
+        va_start(ap, ptrDst);
+        FormatC f (format);
+        ap = f.applique (ap, ptrDst);
+        va_end(ap);
+      }
+\end{verbatim}
+
+\subsubsection*{implantation}\label{sec:BaseErreurs-impl}
+Les attributs sont décrits sommairement dans la
+table~\ref{tab:BaseErreurs-att}, les attributs statiques dans la
+table~\ref{tab:BaseErreurs-att-classe}
+\begin{tableAttributsFixe}{attributs de la classe
+BaseErreurs}{\label{tab:BaseErreurs-att}}
+{code de l'erreur (attribut protégé pouvant être}
+donneesPartagees\_ & TamponPartage & instance de classe contenant le code
+d'erreur et le message d'erreur traduit et formaté \\
+\end{tableAttributsFixe}
+
+\begin{tableAttributsFixe}{attributs statiques de la classe BaseErreurs}
+{\label{tab:BaseErreurs-att-classe}}
+{indicateur d'activité de la méthode
+\fonc{avertissements}}
+exceptions\_ & int & indicateur de génération d'exceptions par les
+méthodes \fonc{erreur}\\
+avertissements\_ & int & indicateur d'activité de la méthode
+\fonc{avertissements} \\
+argAffiche\_ & void * & pointeur anonyme sur les données de la
+fonction d'affichage utilisateur \\
+fonAffiche\_ &
+\raisebox{1.5ex}{\begin{tabular}[t]{c}void (*fonAffiche\_)\\(const char *, void *)\end{tabular}} & pointeur sur la fonction d'affichage utilisateur \\
+\end{tableAttributsFixe}

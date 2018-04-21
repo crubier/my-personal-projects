@@ -1,0 +1,50 @@
+(define (problem BRpb1)
+(:domain BallRobot)
+	(:objects
+			r1 						- robot
+			A B C D E H 			- room
+			b1 b2 b3 b4 b5 b6 b7 	- ball
+	)
+
+	(:init
+		(adjacent A H)
+		
+		(adjacent B H)
+		(adjacent B C)
+
+		(adjacent C B)
+		(adjacent C D)
+
+		(adjacent D C)
+
+		(adjacent E H)
+
+		(adjacent H A)
+		(adjacent H B)
+		(adjacent H E)
+
+		(belong b1 D)
+		(belong b2 E)
+		(belong b3 E)
+		(belong b4 E)
+		(belong b5 C)
+		(belong b6 C)
+		(belong b7 B)
+
+		(located r1 A)
+	
+	)
+
+;; the task is to move all balls to room A
+	(:goal
+	(and
+		(belong b1 A)
+		(belong b2 A)
+		(belong b3 A)
+		(belong b4 A)
+		(belong b5 A)
+		(belong b6 A)
+		(belong b7 A)
+	)
+	)
+)

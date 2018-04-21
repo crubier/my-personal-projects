@@ -1,0 +1,165 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+% $Id: TamponPartage.tex,v 1.11 2005/03/03 16:37:26 chope Exp $
+\subsection{classe TamponPartage}\label{sec:TamponPartage}
+
+\subsubsection*{description}\label{sec:TamponPartage-desc}
+La classe TamponPartagé permet de partager des zones de mémoire
+allouées dynamiquement entre plusieurs instances de plusieurs classes
+de telle sorte que la mémoire ne soit désallouée qu'à la destruction
+de la dernière instance, même si ce n'est pas elle qui avait alloué la
+zone à l'origine.
+
+La classe gère un compteur du nombre de références portant sur la zone
+mémoire, ce compteur étant incrémenté à chaque copie et décrémenté à
+chaque destruction. Les classes utilisatrices peuvent donc se
+contenter de déclarer un attribut de type TamponPartagé et le copier
+directement dans leurs opérateurs d'affectation, elles n'ont même pas
+besoin de gérer cet attribut dans leur destructeur. En fait la seule
+gestion qu'elles doivent faire concerne la première allocation.
+
+\subsubsection*{interface publique}\label{sec:TamponPartage-int}
+\begin{verbatim}
+#include "club/TamponPartage.h"
+\end{verbatim}
+
+\begin{tableFonctionsFixe}{TamponPartage : méthodes publiques}
+{\label{tab:TamponPartage-met-pub}}
+{destructeur, décrémente le compteur de référence, et libère}
+\signature{\fonc{TamponPartage} ()}
+          {}&
+
+constructeur par défaut\\
+
+\signature{\fonc{TamponPartage}}
+          {(void *\argument{memoire},\\
+            void (*\argument{f}) (void *, void *), void *\argument{arg}~=~0)
+          }&
+
+construit une instance gérant la zone \argument{memoire} allouée, qui
+sera à terme libérée par l'appel
+\argument{f}~(\argument{memoire},~\argument{arg})\\
+
+\hline
+
+\signature{\fonc{TamponPartage} (const TamponPartage\& \argument{t})}
+          {}&
+
+constructeur par copie \\
+
+\signature{TamponPartage\& \fonc{operator =}}
+          {(const TamponPartage\& \argument{t})}&
+
+affectation \\
+
+\hline
+
+\signature{\fonc{\~{}TamponPartage} ()}
+          {}&
+
+destructeur, décrémente le compteur de référence, et libère la mémoire
+lorsque le compteur arrive à zéro, par appel à la fonction enregistrée
+par l'utilisateur si le pointeur fourni est non nul\\
+
+\hline
+\signature{int \fonc{references} () const}
+          {}&
+
+retourne le nombre de références à la zone allouée \\
+
+\signature{void *\fonc{memoire} () const}
+          {}&
+
+retourne un pointeur anonyme sur la mémoire allouée \\
+
+\end{tableFonctionsFixe}
+
+\subsubsection*{exemple d'utilisation}\label{sec:TamponPartage-expl}
+
+\begin{verbatim}
+#include "club/TamponPartage.h"
+...
+class FichierStructure
+{ ...
+  
+  TamponPartage  total_;
+  public :
+  ...
+  
+  // constructeur par copie
+  FichierStructure (const FichierStructure& f)
+    : nomBloc_ (f.nomBloc_), nomFichier_ (f.nomFichier_),
+      total_ (f.total_), debut_ (f.debut_), fin_ (f.fin_) {}
+
+  // pas de destructeur, la mémoire est libérée par TamponPartage
+};
+
+static char* AlloueChaine (int longueur)
+{ return new char [longueur + 1]; }
+
+static void  LibereChaine (void *memoire, void *)
+{ delete [] ((char *) memoire); }
+
+static char* SepareDelimiteurs (const string& nomFichier,
+                                const char* brut)
+{ ...
+  char* memoire = AlloueChaine (s - brut + 2 * nombre);
+  ...
+  return memoire;
+}
+
+void FichierStructure::lit (TamponTexte *ptrFic)
+{ ...
+
+  // séparation des '{' et des '}'
+  char* tampon = SepareDelimiteurs (ptrFic->nom (), ptrFic->total ());
+  ...
+
+  // mémorisation du fichier
+  total_ = TamponPartage (tampon, LibereChaine, 0);
+  ...
+}
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation spécifiques}
+\label{sec:TamponPartage-conseils}
+La mémoire est libérée par TamponPartage par l'appel à une fonction
+utilisateur. Il est indispensable que l'allocation soit symétrique de
+la libération (\texttt{new []}/\texttt{delete []},
+\texttt{new}/\texttt{delete}, \texttt{malloc}/\texttt{free}). Il est
+de plus recommandé de convertir le pointeur \texttt{void *} vu par la
+classe TamponPartage en un pointeur typé dans la fonction de
+libération, pour éviter des problèmes d'implémentation dépendant du
+compilateur. La libération par défaut utilisant \texttt{delete []} a
+été supprimée à partir de la version 6.2.1 de \bibliotheque{club}.
+
+\subsubsection*{implantation}\label{sec:TamponPartage-impl}
+Les attributs de la classe sont décrits sommairement dans la
+table~\ref{tab:TamponPartage-att}, l'attribut \texttt{acces\_} est un
+pointeur sur une classe contenant le pointeur alloué, cette structure
+Acces est partagée par toutes les copies de l'instance, ses
+composantes sont décrites sommairement dans la
+table~\ref{tab:TamponPartage-Acces-att}, il n'y a pas de méthode
+privée.
+
+\begin{tableAttributsFixe}{attributs de la classe TamponPartage}
+{\label{tab:TamponPartage-att}}
+{pointeur sur la fonction utilisateur de libération de la}
+acces\_  & Acces * & pointeur vers l'instance d'accès à la mémoire\\
+
+fonctionLiberation\_  &
+\raisebox{1.5ex}{\begin{tabular}[t]{c}
+void (*fonctionLiberation\_)\\
+(void *\argument{memoire}, void *\argument{arg})
+\end{tabular}} &
+pointeur sur la fonction utilisateur de libération de la mémoire \\
+
+arg\_ & void  * & pointeur anonyme sur les données de la
+fonction utilisateur \\
+\end{tableAttributsFixe}
+
+\begin{tableAttributsFixe}{attributs de la classe TamponPartage\char58\char58Acces}
+{\label{tab:TamponPartage-Acces-att}}
+{compteur des références à la mémoire}
+compteur\_ & int & compteur des références à la mémoire \\
+memoire\_  & void * & pointeur sur la zone mémoire allouée \\
+\end{tableAttributsFixe}

@@ -1,0 +1,285 @@
+% -*- mode: latex; tex-main-file: "marmottes-mathematique.tex" -*-
+% $Id: capteurs.tex,v 1.4 2001/01/26 17:17:54 luc Exp $
+\section{Capteurs}\label{sec:capteurs}
+La description d'orientation présentée plus haut a besoin d'une
+description statique des caractéristiques de tous les capteurs
+utilisés.
+
+De nombreux capteurs différents sont utilisés sur les satellites. Il
+s'avère cependant que l'on peut identifier deux grandes catégories,
+les capteurs géométriques et les capteurs cinématiques. Nous allons
+voir qu'il est possible d'établir un modèle général des mesures pour
+chacune de ces catégories, et qu'il sera possible de déterminer
+l'orientation en se contentant de l'information disponible dans ces
+modèles généraux.
+
+\subsection{capteurs géométriques}\label{sec:capteurs-geometriques}
+On appelle ici capteur géométrique tout capteur qui mesure la
+direction d'une cible définie en repère inertiel (Terre, Soleil, ...)
+par rapport à un repère du capteur fixe par rapport au satellite, ou
+au contraire qui mesure une direction de référence liée au satellite
+par rapport à un repère inertiel (ascension droite ou déclinaison d'un
+axe satellite par exemple).
+\begin{figure}[htbp]
+\begin{center}\begin{minipage}{70.00mm}
+\caption{\label{fig:diedre}capteur solaire d'angle dièdre}
+\setlength{\unitlength}{0.0250mm}\begin{picture}(2800,2300)
+
+  % courbe 1
+  \qbezier[0](300,1100)(299,1047)(348,990)
+  \qbezier[0](348,990)(384,950)(443,914)
+  \qbezier[0](443,914)(496,883)(562,856)
+  \qbezier[0](562,856)(619,833)(684,814)
+  \qbezier[0](685,812)(1398,634)(2113,811)
+  \qbezier[0](2113,813)(2178,832)(2235,855)
+  \qbezier[0](2235,855)(2302,882)(2355,913)
+  \qbezier[0](2355,913)(2423,953)(2461,1000)
+  \qbezier[0](2461,1000)(2501,1051)(2500,1100)
+
+  % courbe 2
+  \qbezier[0](2031,791)(2449,768)(2474,862)
+
+  % courbe 3
+  \qbezier[0](326,1338)(321,1319)(338,1293)
+  \qbezier[0](338,1293)(355,1268)(388,1243)
+  \qbezier[0](388,1243)(424,1216)(474,1188)
+  \qbezier[0](474,1185)(1087,889)(2030,789)
+
+  % courbe 4
+  \qbezier[0](1695,831)(1685,783)(1685,737)
+
+  % courbe 5
+  \qbezier[0](451,1202)(456,1246)(438,1250)
+  \qbezier[0](438,1250)(435,1250)(432,1249)
+  \qbezier[0](430,1247)(405,1215)(422,1178)
+  \qbezier[0](424,1176)(427,1174)(429,1173)
+  \qbezier[0](430,1173)(443,1173)(450,1201)
+
+  % courbe 6
+  \qbezier[0](525,1243)(469,1251)(486,1149)
+
+  % courbe 7
+  \qbezier[0](348,1108)(387,1111)(375,1247)
+
+  % courbe 8
+  \qbezier[0](446,1334)(444,1266)(480,1289)
+
+  % courbe 9
+  \qbezier[0](444,1034)(453,1139)(407,1145)
+  \qbezier[0](406,1144)(378,1128)(379,1068)
+
+  % courbe 10
+  \qbezier[0](1400,1100)(1716,946)(2031,792)
+
+  % courbe 11
+  \qbezier[0](2031,792)(1968,848)(1905,905)
+
+  % courbe 12
+  \qbezier[0](1905,905)(1905,879)(1905,853)
+
+  % courbe 13
+  \qbezier[0](1905,853)(1927,859)(1950,864)
+
+  % courbe 14
+  \qbezier[0](1950,864)(1990,828)(2031,792)
+
+  % courbe 15
+  \qbezier[0](2031,792)(1716,946)(1400,1100)
+
+  % courbe 16
+  \qbezier[0](1400,1100)(1851,1208)(2301,1316)
+
+  % courbe 17
+  \qbezier[0](2301,1316)(2227,1287)(2152,1257)
+
+  % courbe 18
+  \qbezier[0](2152,1257)(2137,1265)(2121,1273)
+
+  % courbe 19
+  \qbezier[0](2121,1273)(2121,1298)(2121,1324)
+
+  % courbe 20
+  \qbezier[0](2121,1324)(2211,1320)(2301,1316)
+
+  % courbe 21
+  \qbezier[0](2301,1316)(1851,1208)(1400,1100)
+
+  % courbe 22
+  \qbezier[0](1400,1100)(1400,1617)(1400,2134)
+
+  % courbe 23
+  \qbezier[0](1400,2134)(1423,2036)(1445,1938)
+
+  % courbe 24
+  \qbezier[0](1445,1938)(1423,1932)(1400,1927)
+
+  % courbe 25
+  \qbezier[0](1400,1927)(1416,1919)(1432,1912)
+
+  % courbe 26
+  \qbezier[0](1432,1912)(1416,2023)(1400,2134)
+
+  % courbe 27
+  \qbezier[0](2470,1356)(2384,1702)(2115,1936)
+  \qbezier[0](2115,1936)(1812,2190)(1418,2200)
+  \qbezier[0](1417,2202)(801,2191)(461,1677)
+  \qbezier[0](462,1675)(426,1616)(398,1553)
+  \qbezier[0](397,1553)(224,1156)(359,744)
+  \qbezier[0](359,744)(457,460)(685,264)
+  \qbezier[0](685,264)(988,10)(1382,0)
+  \qbezier[0](1383,-2)(1999,9)(2339,523)
+  \qbezier[0](2338,524)(2569,914)(2470,1356)
+
+  \put(2300,1200){\mbox{$\vec{\imath}$}}
+  \put(1300,2000){\mbox{$\vec{\jmath}$}}
+  \put(2000,900){\mbox{$\vec{k}$}}
+  \put(1700,600){\mbox{$\alpha$}}
+\end{picture}\end{minipage}
+\hfil
+\begin{minipage}{70.00mm}
+\caption{\label{fig:vecteur}capteur d'aspect solaire}
+\setlength{\unitlength}{0.0250mm}\begin{picture}(2800,2300)
+
+  % courbe 1
+  \qbezier[0](2470,844)(2569,1286)(2338,1676)
+  \qbezier[0](2339,1677)(1999,2191)(1383,2202)
+  \qbezier[0](1382,2200)(988,2190)(685,1936)
+  \qbezier[0](684,1937)(287,1581)(300,1048)
+  \qbezier[0](301,1048)(311,838)(398,647)
+  \qbezier[0](398,647)(426,584)(462,525)
+  \qbezier[0](461,523)(801,9)(1417,-2)
+  \qbezier[0](1418,0)(1812,10)(2115,264)
+  \qbezier[0](2115,264)(2384,498)(2470,844)
+
+  % courbe 2
+  \qbezier[0](1400,1100)(1268,1421)(1136,1742)
+
+  % courbe 3
+  \qbezier[0](1400,1100)(1056,1147)(712,1193)
+
+  % courbe 4
+  \qbezier[0](980,1870)(949,1876)(915,1874)
+  \qbezier[0](915,1874)(886,1872)(856,1864)
+  \qbezier[0](853,1865)(581,1765)(524,1471)
+  \qbezier[0](526,1469)(523,1442)(524,1417)
+  \qbezier[0](524,1417)(525,1387)(532,1359)
+  \qbezier[0](532,1359)(541,1322)(560,1291)
+  \qbezier[0](560,1291)(579,1261)(605,1239)
+  \qbezier[0](605,1239)(636,1214)(674,1202)
+  \qbezier[0](674,1202)(708,1191)(746,1191)
+  \qbezier[0](746,1191)(775,1191)(804,1197)
+  \qbezier[0](808,1196)(1100,1288)(1157,1604)
+  \qbezier[0](1155,1608)(1157,1634)(1155,1659)
+  \qbezier[0](1155,1659)(1153,1689)(1145,1716)
+  \qbezier[0](1145,1716)(1136,1748)(1120,1775)
+  \qbezier[0](1120,1775)(1072,1852)(980,1870)
+
+  % courbe 5
+  %\qbezier[0](1400,1100)(1102,1330)(804,1561)
+  \qbezier[0](1400,1100)(1251,1215)(1102,1330)      
+  \qbezier[0](995,1413)(899.5,1486.5)(804,1560)      
+
+  % courbe 6
+  \qbezier[0](1162,1284)(1135,1214)(1125,1137)
+
+  % courbe 7
+  \qbezier[0](584,1286)(589,1322)(569,1329)
+  \qbezier[0](569,1329)(565,1329)(562,1328)
+  \qbezier[0](562,1328)(559,1328)(556,1326)
+  \qbezier[0](553,1325)(523,1291)(543,1259)
+  \qbezier[0](545,1257)(548,1255)(552,1254)
+  \qbezier[0](552,1254)(573,1251)(584,1285)
+
+  \put(1100,1000){\mbox{$\alpha$}}
+\end{picture}\end{minipage}\end{center}
+\end{figure}
+La mesure est généralement un angle dièdre (c'est-à-dire un angle
+entre plans comme indiqué sur la figure~\ref{fig:diedre}) mais peut
+également être un angle par rapport à un axe (voir
+figure~\ref{fig:vecteur}).
+
+Les rotations de \textsc{Cardan} à partir d'un repère de référence
+(par exemple un repère orbital local) entrent également dans la
+catégorie des capteurs géométriques, et l'on peut démontrer qu'ils
+correspondent soit à des angles dièdres soit à des angles par rapport
+à un axe (cf annexe~\ref{sec:cardan}, page~\pageref{sec:cardan}).
+
+Si un capteur mesure un angle dièdre défini en partie par une cible
+inertielle (cas de la figure~\ref{fig:diedre}, où la cible est le
+Soleil), imposer une consigne consiste à obliger la cible inertielle
+observée à rester confinée dans un plan défini en repère satellite.
+
+Si un capteur mesure un angle dièdre défini en partie par une
+direction de référence satellite (par exemple l'axe $\vec{X}$
+satellite, dont on cherche à calculer l'ascension droite à l'aide d'un
+pseudo-capteur d'ascension droite), imposer une consigne consiste à
+obliger un vecteur satellite à rester confiné dans un plan
+inertiel. Cette contrainte peut être retournée en remarquant qu'elle
+est équivalente à obliger le vecteur inertiel normal au plan inertiel
+à rester confiner dans le plan satellite normal à la direction de
+référence satellite.
+
+Si un capteur mesure un angle entre un vecteur inertiel et un vecteur
+satellite, imposer la consigne consiste à obliger le vecteur inertiel
+à rester confiné sur un cône.
+
+Tous ces cas peuvent être réunis en un seul si on remarque qu'un plan
+est un cône particulier, de demi-angle au sommet
+$\frac{\pi}{2}$. D'une façon générale, on modélisera une consigne de
+capteur géométrique par le cône de confinement d'un vecteur inertiel,
+cône d'axe $\vec{a}$ défini en repère satellite et de demi-angle au
+sommet $\mu$.
+
+La modélisation adoptée suppose implicitement que chaque point du cône
+de confinement respecte la consigne. Dans la pratique, certains points
+de ce cône peuvent tomber hors du champ de vue du capteur, et devront
+donc être éliminés \emph{a posteriori} (ainsi sur la
+figure~\ref{fig:diedre} le cône de confinement du Soleil passe par
+$\pm\vec{k}$ et légèrement au dessous de $+\vec{\imath}$, alors que le
+champ de vue peut être limité aux alentours de $-\vec{\imath}$).
+
+Si toutes les solutions sont rejetées au cours de ce post-traitement,
+cela signifie que l'orientation désirée n'était pas pilotable. \emph{A
+contrario} il peut subsister plusieurs solutions après ce filtrage
+dans les cas d'utilisation de pseudo-capteurs n'ayant pas de notion de
+champ de vue (par exemple une mesure de l'ascension droite de la
+direction de poussée du moteur d'apogée). La détermination
+d'orientation sélectionne alors la solution \emph{la plus proche} de
+l'état que l'on peut déduire d'une évolution
+naturelle\footnote{l'évolution est calculée par extrapolation de la
+vitesse de rotation précédente en partant de l'orientation précédente,
+toutes ces informations étant fournies à chaque résolution} de l'état
+précédent.
+
+\subsection{capteurs cinématiques}\label{sec:capteurs-cinematiques}
+On appelle ici capteur cinématique tout capteur qui mesure le
+\emph{mouvement} du satellite autour de son centre de gravité. Ces
+capteurs mesurent soit une vitesse instantanée autour d'un axe, soit
+l'intégrale au cours du temps d'une vitesse instantanée.
+
+Il faut ici prendre garde à une subtilité : cette intégrale, même si
+elle est homogène à un angle, ne correspond pas forcément à un angle
+géométrique\footnote{on entend par angle géométrique un angle
+mesurable à un instant donné entre deux objets, vecteurs ou plans, à
+l'aide d'un compas par exemple, et indépendamment de toute référence à
+un état précédent}. En effet, si l'axe autour duquel on mesure les
+rotations se déplace, l'intégrale correspond à une sommation d'angles
+non coplanaires. Ceci montre que les gyromètres intégrateurs ne
+peuvent pas être assimilés à des capteurs géométriques qui
+mesureraient un écart entre une direction de référence mémorisée et le
+satellite : il s'agit bien de capteurs cinématiques.
+
+Une consigne d'orientation pour ce type de capteur consiste à imposer
+soit la vitesse mesurée, soit l'angle intégré. En fait, imposer
+l'angle revient à imposer l'intégrale de la vitesse depuis le moment
+de l'initialisation du zéro du gyromètre intégrateur, réalisée après
+l'étalonnage. Imposer l'intégrale revient à imposer la vitesse
+instantanée sur toute une plage de temps. Ces deux types de consigne
+sont donc équivalents puisque de toute façon dans ce type de capteur,
+on est obligé de suivre pas à pas l'évolution de l'orientation qui dépend
+à chaque instant de la loi, mais également de l'orientation à l'instant
+précédent. On modélisera donc ces capteurs par l'axe (en repère
+satellite) autour duquel ils réalisent leurs mesures, et la consigne à
+chaque pas sera la vitesse instantanée projetée sur cet axe. Il s'agit
+souvent d'une consigne de vitesse constante, la constante étant non
+nulle en mode stabilisé par rotation, nulle en mode trois axes.

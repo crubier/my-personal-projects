@@ -1,0 +1,642 @@
+2005-03-01  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* macros-bibliotheques.tes: ajout de l'environnement exemple
+
+	* Makefile.am: ajout des fichiers environnement.tex et formats.tex
+
+	* environnement.tex, formats.tex: nouveaux fichiers
+
+	* club.tex: déplacement de la section environnement dans un
+	fichier spécifique, ajout de la section décrivant les formats de
+	fichiers
+
+	* references.tex: évolution des éditions des documents en référence
+
+2005-02-23  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* Makefile.am: ajout du fichier Unit.tex
+
+2005-02-16  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* ClubErreurs.tex, messages-erreurs.tex: ajout des erreurs
+	missing_attribute, redefined_unit, incompatible_units,
+	entity_syntax_error, unknown_general_entity et unit_syntax_error
+	(DM-ID 242)
+
+2005-02-04  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* hierarchie.eps, hierarchie.png: remplacement de XMLFile par
+	XMLData
+
+2005-01-31  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* pages-liminaires.tex: mise à jour des numéros de révision à
+	l'occasion de la diffusion de la version 10.0 (DM-ID 242)
+
+	* DataFile.tex, UniqDataFile.tex: élimination de la méthode
+	loadUnitFile (DM-ID 242)
+
+	* messages-erreurs.tex, ClubErreurs.tex: ajout de l'erreur
+	variable_environnement (DM-ID 242)
+
+	* XMLFile.tex: reprise complète de la description de la classe
+	(DM-ID 242)
+
+	* installation.tex: description de la configuration de la variable
+	d'environnement CLUB_XMLPATH (DM-ID 242)
+
+	* club.tex: passage de la bibliothèque en version 10.0,
+	annonce de la modification de la DTD des fichiers XML (DM-ID 242),
+	description de la nouvelle variable d'environnement CLUB_XMLPATH
+	(DM-ID 242)
+
+2005-01-12  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* maintenance.tex: la version minimale requise pour autoconf est
+	en fait la 2.59 (un bug sur l'expansion de @abs_builddir@ dans les
+	versions antérieures d'autoconf conduisant à un échec du test
+	text_XMLFile) (DM-ID 241)
+
+	* club.tex: annonce de la suppression des classes proxy (DM-ID 241)
+
+	* DataFile.tex, UniqDataFile.tex: élimination des références aux
+	classes proxy (DM-ID 241)
+
+2004-06-10  projet CHOPE G. Prat/L. Maisonobe  <Guylaine.Prat@c-s.fr>
+
+	* Difference.tex: amélioration de la documentation de l'utilitaire
+	difference (DM-ID 34)
+
+	* messages-erreurs.tex: corrections mineures de formats d'écriture
+	de réels (FA-ID 33)
+
+	* club.tex: passage de la bibliothèque en version 9.5
+
+	* macros-bibliotheques.tex: modification de la marge pour les changebars
+
+	* pages-liminaires.tex: passage de la doc en version 6.8
+	
+2003-12-05  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* installation.tex: correction du nom de l'option de configuration
+	--with-xerces -> --with-xerces-c (DM-ID 32)
+
+	* club.tex: annonce de la nécessité d'avoir Xerces 2.x pour le
+	support des fichiers XML. (DM-ID 32)
+
+	* Club-Config.tex: correction du nom de la bibliothèque xerces en
+	xerces-c (DM-ID 32)
+
+	* XMLFile.tex: simplification de l'interface publique à l'occasion
+	du passage en Xerces 2.x (DM-ID 32)
+	
+	* pages-liminaires.tex: passage de la doc en version 6.7
+
+2003-12-02  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* DataFile.tex, club.tex, ClubErreurs.tex , messages-erreurs.tex :
+	  suppression de la contrainte de fourniture du type de fichier
+	  pour l'instanciation de la classe DataFile (DM-ID 31)
+
+2003-11-24  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* club.tex : Amelioration de la documentation (DM-ID 30) 
+
+
+2003-10-22  projet CHOPE O. Queyrut/L. Maisonobe/F. Auguie/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* club.tex (subsection{évolutions entre la version 9.3 et la version 9.4}),
+	  TamponTexte.tex (subsubsection*{interface publique}\label{sec:TamponTexte-int}):
+	  creation d'un accesseur au tampon pour eviter que la fonction inline 
+	  operator << ne retourne directement celui-ci (membre protege) (DM-ID 29)
+
+2003-07-28  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* pages-liminaires.tex: passage de la documentation en version 6.6
+
+	* club.tex : passage de la bibliothèque en version 9.3
+
+2003-07-17  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* hierarchie.eps : réduction drastique de la taille du fichier
+
+2003-07-09  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* Makefile.am: ajout de hierarchie.eps dans les sources
+
+2003-07-02  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* club.tex: FA-ID 26 annonce de la correction d'une erreur de
+	syntaxe dans MadonaFile.cpp, FA-ID 27 annonce de la correction
+	d'erreurs d'initialisations
+
+2003-06-24  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* club.tex: DM-ID 24 annonce de la mise à niveau des scripts de configuration
+
+	* AnalyseurLexical.tex, CallTrace.tex, club.tex, conventions.tex,
+	FichierStructure.tex, IterateurCaractere.tex,
+	IterateurChampLigne.tex, IterateurChamp.tex, IterateurLigne.tex,
+	MadonaFile.tex, OptionBase.tex, OptionsAppli.tex,
+	StructureFile.tex, XMLFile.tex: suppression des marques de
+	révision de la version 6.5 de la documentation 
+
+	* maintenance.tex: DM-ID 24 mise à jour des numéros de version des
+	outils de développement, suppression de la référence au fichier
+	acconfig.h, remplacement de la commande AM_INIT_AUTOMAKE par
+	AC_INIT, renommage de configure.in en configure.ac
+
+2003-03-26  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* pages-liminaires.tex: modification de la référence CS.
+
+2003-03-21  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* MadonaFile.tex: ajout de la description de la méthode reposition créée pour
+	traiter la DM-ID 21
+
+2003-03-19  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* club.tex, pages-liminaires.tex: mise à jour du numéro de
+	révision de la documentation.
+
+2003-01-14  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* AnalyseurLexical.tex, CallTrace.tex, FichierStructure.tex, IterateurCaractere.tex,
+	IterateurChamp.tex, IterateurChampLigne.tex, IterateurLigne.tex, OptionBase.tex,
+	OptionAppli.tex, StructureFile.tex, XMLFile.tex: mise à jour de la documentation
+	conformément aux modifications apportées par le processus
+	d'homogénéisation des classes (processus qualité).
+
+2002-09-09  projet CHOPE O. Queyrut/L.Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* macros-bibliotheques.tex: introduction du paquetage changebar
+	pour utilisation des barres de modifications (uniquement dans
+	les documents PS).
+
+	* Makefile.am: modification de la commande sed pour supprimer
+	l'inhibition des barres de modifications dans les documents PS.
+
+	* club.tex: utilisation de la commande nochangebars (inhibition
+	des barres de modification) pour générer les documents PDF.
+
+2002-06-27  projet CHOPE O. Queyrut/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* FichierStructure.tex: documentation de la méthode
+	listeSousBlocs, utilisation du type bool pour les retours des
+	méthodes terminal et contientSousBloc
+
+	* club.tex: annonce des corrections des FA 14 et 9, prise en
+	compte des DM 5 et 6.
+
+2001-09-04  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* macros-bibliotheques.tex: correction d'une variable emacs
+
+	* club.tex: annonce de l'utilisation des nouvelles versions des
+	outils GNU
+
+	* maintenance.tex: élimination de la nécessité d'avoir GNU-make
+
+	* references.tex: mise à jour des références des outils GNU
+
+2001-06-22  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* club.tex: annonce des corrections liés à la compatibilité avec gcc 3.0
+
+	* pages-liminaires.tex: passage en version 6.4 à l'occasion de la
+	sortie de la version 9.1 de la bibliothèque
+
+	* conventions.tex, IterateurChamp.tex, IterateurChampLigne.tex,
+	TamponAscii.tex, TamponTexte.tex, IterateurCaractere.tex:
+	changement des signatures de directives catch
+
+2001-06-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* catalogue.tex: ajout de CallTrace
+
+	* club.tex: annonce du transfert de CallTrace depuis la
+	bibliothèque marmottes
+
+	* macros-bibliotheques.tex: ajout de la macro \throw
+
+	* Makefile.am: ajout de CallTrace.tex
+
+	* CallTrace.tex: nouveau fichier (en provenance de la bibliothèque marmottes)
+
+	* messages-erreurs.tex: ajout des erreurs calltrace_not_activated,
+	file_open et internal_error
+
+2001-05-03  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: ajout du formatage en double face et en PostScript
+
+	* club.tex: élimination de références inutiles, mention de la
+	version 9.1 de la bibliothèque
+
+	* references.tex: élimination de références inutiles
+
+	* maintenance.tex: élimination de références inutiles
+
+	* club.tex: annonce de la correction d'un bug mémoire dans
+	l'utilitaire différence.
+
+2001-04-04  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* pages-liminaires.tex: correction de la date de sortie de la
+	documentation
+
+	* club.tex: annonce de la reconnaissance des réels du langage
+	fortran dans AnalyseurLexical et dans l'utilitaire difference,
+	correction du numéro de version de la bibliothèque en 9.0
+
+	* AnalyseurLexical.tex: ajout du paramétrage de la reconnaissance
+	des réels du langage fortran.
+
+2001-03-14  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* club.tex: annonce des corrections après passage de purify
+
+2001-02-16  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Adressage.tex: élimination du fichier
+
+	* Makefile.am: suppression de Adressage.tex
+
+	* conventions.tex: description du remplacement de hash_map par map
+
+	* catalogue.tex: suppression de l'entrée concernant Adressage
+
+	* club.tex: description du remplacement de hash_map par map et de
+	ses conséquences (suppression de Adressage et de ClubHashFun)
+
+	* pages-liminaires.tex: passage de la documentation en version 6.3
+	cohérente avec la version 8.3 de la bibliothèque
+
+2000-12-11  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* club.tex: ajout d'une mise en garde sur la stabilité des
+	interface XML et Madona.
+
+2000-12-04  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Club-Config.tex: nouveau fichier
+
+	* Makefile.am: ajout de Club-Config.tex et de hierarchie.png
+
+	* maintenance.tex: correction de la présentation typographique
+
+	* club.tex: ajout des évolutions entre la version 8.1 et la
+	version 8.2 de la bibliothèque, inclusion de Club-Config
+
+	* pages-liminaires.tex: révision 6.2 du document cohérente avec
+	la version 8.2 de la bibliothèque
+
+2000-11-21  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* installation.tex: ajout de la possibilité d'avoir les .h dans un
+	sous-répertoire de include
+
+	* club.tex: ajout des évolutions entre la version 8.0 et la
+	version 8.1 de la bibliothèque
+
+	* pages-liminaires.tex: révision 6.1 du document, cohérente avec
+	la version 8.1 de la bibliothèque
+
+2000-11-07  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* Makefile.am: nettoyage de club.out
+
+	* installation.tex: documentation des options --with-xerces et
+	--with-madona, description des nouveaux fichiers installés.
+
+2000-10-18  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* Makefile.am: ajout des nouveaux fichiers
+
+	* ClubErreurs.tex: ajout des erreurs de XMLFile, MadonaFile et 
+	StructureFile
+
+2000-10-17  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* *File.tex: nouveaux fichiers décrivant les classes de gestion
+	des fichiers au format XML, Madona et FichierStructuré
+
+	* installation.tex: ajout d'un commentaire sur la nécessité 
+	d'installer Madona et Xerces pour pouvoir utiliser les classes 
+	MadonaFile et XMLFile.
+
+	* messages-erreurs.tex: ajout des messages d'erreur de XMLFile, 
+	MadonaFile, StructureFile, DataFile et UniqDataFile.
+
+2000-10-16  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* FormatC.tex: suppression des subsubsection de la table des matières
+	en ajoutant * après \subsubsection
+
+	* pages-liminaires.tex: ajout de F. Deshaies dans les auteurs et 
+	description des évolutions sur la version 6.0 de la documentation.
+	
+	* references.tex: ajout d'une référence au manuel utilisateur Madona,
+	au site http://www.w3.org/XML et au site de téléchargement de Xerces
+
+	* catalogue.tex: ajout des classes UniqDataFile, MadonaFile, XMLFile,
+	StructureFile et DataFile dans le catalogue des classes disponibles.
+
+	* club.tex: ajout des classes UniqDataFile, MadonaFile, XMLFile,
+	StructureFile et DataFile dans la section descriptive des classes
+	de club.
+	(section{tests}): ajout des tests sur ces classes
+	(subsection{évolutions entre la version 7.1 et la version 8.0}): 
+	description de la version 8.0
+
+	* references.tex: ajout de XML, DTD et MADONA dans le glossaire.
+
+2000-09-20  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* maintenance.tex: modification de l'ordre d'appel des commandes 
+	aclocal et libtoolize.
+
+	* club.tex: description de la version 7.1 de club.
+
+	* pages-liminaires.tex: passage en version 5.1 de la documentation.
+
+	* references.tex: ajout de la référence à la documentation libtool.
+
+	* maintenance.tex (subsection{environnement de maintenance}): ajout
+	de l'outil libtool.
+	(subsection{compilation}): présentation de l'option --disable-shared
+	permettant de générer la bibliothèque club en statique.
+
+	* installation.tex: modification du nom de l'archive installée du 
+	fait de la génération de club sous forme partagée.
+
+2000-09-14  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* pages-liminaires.tex: ajout de l'utilisation de la STL dans le 
+	tableau des modifications.
+
+	* BaseErreurs.tex: ajout d'un conseil pour le passage à string des 
+	classes qui dérivent de BaseErreurs.
+
+	* conventions.tex: amélioration des commentaires concernant 
+	l'utilisation de la STL et ajout d'un complément d'information sur 
+	la méthode de dérivation de BaseErreurs.
+
+2000-09-07  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* club.tex: complément sur la description des évolutions entre la
+	version 6.3 et 7.0 : utilisation de la STL dans l'implémentation
+	des classes.
+
+	* Traducteur.tex: 
+	* TamponTexte.tex: 
+	* TamponPartage.tex: 
+	* TamponAscii.tex: 
+	* OptionsAppli.tex: 
+	* OptionXXX.tex: 
+	* OptionBase.tex: 
+	* FormatFortran.tex: 
+	* FormatC.tex:
+	* FichierStructure.tex: 
+	* ClubErreurs.tex: 
+	* BaseErreurs.tex: 
+	* AnalyseurLexical.tex: 
+	* Adressage.tex: remplacement de ChaineSimple par string suite
+	à l'utilisation de la STL dans l'implémentation de CLUB.
+
+	* conventions.tex: modification des commentaires sur la gestion des
+	erreurs par exception suite à la suppression des classes _OBSOLETE.
+	amélioration des explications sur l'utilisation de la STL dans club.
+
+	* Makefile.am: suppression des fichiers _OBSOLETE.
+
+	* club.tex: suppression des classes _OBSOLETE de la documentation
+	suite à leur suppression de la distribution.
+
+2000-09-04  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* club.tex: suppression des commandes \glossary
+
+	* references.tex: ajout d'un glossaire
+
+	* ClubAllocHandler.tex, IterateurLigne.tex, IterateurChampLigne.tex,
+	* IterateurChamp.tex, IterateurCaractere.tex, TamponTexte_OBSOLETE.tex,
+	* messages-erreurs.tex: modification de certaines phrases pour éviter 
+	qu'elles ne débordent hors de la page.
+
+2000-09-01  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* Makefile.am (club_TEX): ajout du fichier reference.tex. Génération
+	de la doc au format pdf à l'aide de l'outil pdflatex.
+
+	* macros-bibliotheques.tex: ajout de l'environnement tableSubstitution
+	uilisé dans la partie descriptive de la substitution de ChaineSimple
+	en string.
+
+	* references.tex: nouveau fichier fournissant les références utiles
+	à la documentation de club (documents de référence, applicables, 
+	glossaire ...)
+
+	* pages-liminaires.tex: modification du fichier suite à l'utilisation
+	du paquetage notechope au lieu de la classe notecs.
+
+	* conventions.tex: ajout d'une section sur l'utilisation de la stl
+	avec descriptions des substitutions de ChaineSimple en string et
+	de Adressage en hash_map.
+
+	* club.tex: ajout de la description des évolutions entre la version 
+	6.3 et 6.4. Utilisation de la classe article au lieu de notecs et 
+	utilisation du paquetage notechope.
+
+	* Adressage.tex: Ajout du conseil d'utilisation de hash_map plutôt que
+	Adressage.
+
+	* ChaineSimple.tex: ajout du constructeur à partir d'un string et
+	de l'opérateur de conversion implicite d'une ChaineSimple en string.
+	Ajout du conseil d'utilisation de string plutôt que ChaineSimple.
+
+	* OptionsAppli.tex: l'attribut tableOptions_ est un hash_map 
+	au lieu d'une instance d'Adressage
+
+	* Traducteur.tex: l'attribut tableCorrespondance_ est un hash_map 
+	au lieu d'une instance d'Adressage
+
+2000-08-25  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* FormatFortran_OBSOLETE.tex: correction d'une faute de frappe 
+
+2000-08-24  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* conventions.tex:  amélioration de l'affichage des 
+	noms des méthodes (suppression des espaces entre les 2 ':')
+
+	* TamponTexte*.tex: amélioration de l'affichage des 
+	noms des méthodes (suppression des espaces entre les 2 ':')
+
+	* catalogue.tex: ajout de la description de FormatC.
+	correction de la description de la routine tradform qui traduit 
+	un format du langage Fortran et non C.
+
+	* Makefile.am (club_TEX): ajout de FormatC.tex
+
+	* FormatC.tex: nouveau fichier décrivant la classe FormatC
+
+	* FormatFortran.tex: correction d'une faute de frappe
+
+2000-08-03  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* Difference.tex: accentuation des majuscules et utilisation
+	des guillemets francais au lieu de " ".
+
+2000-07-28  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* Makefile.am (club_TEX): ajout de Difference.tex dans la valeur
+	de la variable club_TEX
+
+	* Difference.tex: nouveau fichier qui contient la description
+	de l'utilitaire difference (principes géneraux, ligne de
+	commande, sorties, conseils d'utilisation).
+
+	* macros-bibliotheques.tex: création d'une macro pour les tableaux
+	décrivant les options des lignes de commande des utilitaires de
+	club.
+
+2000-07-26  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* club.tex: ajout d'une section dédiée à la description des
+	utilitaires.
+
+	* installation.tex: mention de l'installation de difference.
+
+	* catalogue.tex: ajout d'un paragraphe cataloguant les utilitaires
+	disponibles et brève description de difference. 
+
+2000-04-03  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* club.tex: annonce de la version 6.2.2 de la bibliothèque.
+
+2000-03-30  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* club.tex: annonce de la version 6.2.2 de la bibliothèque.
+
+	* TamponPartage.tex: suppression de la valeur nulle par défaut du
+	pointeur de fonction de libération, annonce de la suppression de
+	la libération par delete[].
+
+	* OptionXXX.tex: utilisation d'une notation UML dans le schéma
+	d'héritage des classes.
+
+	* pages-liminaires.tex: passage en doc version 3 révision 3.
+
+1999-10-15  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* club.tex: ajout d'un paragraphe traitant de l'impossibilité 
+	d'utiliser un compilateur fortran pour l'édition de liens.
+
+	* pages-liminaires.tex: passage en doc version 3 révision 2.
+
+1999-08-12  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* BaseErreurs.tex : les copies partagées d'erreur partagent désormais
+	le message d'erreur et également le code d'erreur (évite que des 
+	erreurs rattrapées aient des copies qui lorqu'elles sont détruites 
+	affichent le message d'erreur)
+
+1999-08-09  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* Adressage.tex à Traducteur.tex : modifications des tailles de
+	tableaux
+
+	* club.tex : modification du tableau de spécifications pour
+	l'édition de liens.
+
+1999-06-28  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* club.tex et l'ensemble des fichiers: Version 3.0 de la doc
+	Introduction du mecanisme des exceptions, presentation des
+	classes suffixees par _OBSOLETE, documentation des Iterateurs et
+	de TamponAscii. Passage en norme CS-SI.
+
+1999-04-11  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* TamponTexte.tex: correction d'un Overfull \hbox
+
+	* TamponPartage.tex: description de la fonction utilisateur de
+	libération de la mémoire
+
+	* Makefile.am: ajout du fichier maintenance.tex
+
+	* BaseErreurs.tex: éclaircissement du principe de copies
+	partagées, correction du type de l'attribut msg_
+
+1999-04-09  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* maintenance.tex: suppression des problèmes dus à l'option -Ox 
+	du compilateur gcc
+
+	* installation.tex: suppression des problèmes dus à l'option -Ox 
+	du compilateur gcc
+
+1999-03-26  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* pages-liminaires.tex: correction des intitulés des services CNES
+	et ajout du numéro de référence du document
+
+1999-03-25  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* macros-bibliotheques.tex: ajout d'une macro \outil
+
+	* maintenance.tex: utilisation de la macro \outil
+	homogénéisation de certains styles
+
+	* pages-liminaires.tex: rétrogadation du numéro 3.0 en 2.0
+	modification de la liste de diffusion
+	remplacement de la commande \ModificationSousTraitant par \Commentaire
+
+1999-03-24  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* club.tex (évolutions possibles): ajout des évolutions 
+	prévues sur la généralisation du traitement d'erreur par
+	les exceptions
+	(présentation): modification de la version de référence
+	de la bibliothèque
+	(maintenance): ajout d'un fichier tex décrivant la 
+	maintenance de la bibliothèque
+	(tests): correction de la cible exécutant les tests et
+	ajout du test de la classe TamponCaractere
+	
+	* pages-liminaires.tex: ajout des documents de référence, 
+	pages modifiées pour la version 5.0 de la bibliothèque
+
+	* messages-erreurs.tex: ajout des messages d'erreur de la
+	hiérarchie d'objets gérant un tampon ASCII
+
+	* installation.tex: ajout des problèmes dus à l'option -Ox 
+	du compilateur gcc
+
+	* conventions.tex: modification du principe de gestion des 
+	erreurs avec l'introduction des exceptions
+
+	* TamponTexte.tex: modification totale du fonctionnement
+	interne de TamponTexte, qui s'appuie sur la hiérarchie 
+	d'objets gérant un TamponAscii et sur les itérateurs
+	associés
+
+	* BaseErreurs.tex: modification du principe de copie et 
+	d'affectation, qui crée une copie partagée de l'erreur
+	au moyen d'un TamponPartage sur le message d'erreur
+	(évite les messages multiples lors de la destruction)
+
+1998-07-25  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am: nouveau fichier
+
+	* Makefile: élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+1998-07-24  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile: élimination des commandes rcs
+
+	* ChangeLog: nouveau fichier

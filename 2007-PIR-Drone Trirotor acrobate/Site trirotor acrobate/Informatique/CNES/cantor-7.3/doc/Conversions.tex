@@ -1,0 +1,116 @@
+% -*- mode: latex; tex-main-file: "cantor.tex" -*-
+% $Id: Conversions.tex,v 1.2 2000/09/04 13:57:12 cantor Exp $
+\subsection{paquetages de conversion d'opérandes}
+\label{sec:Conversions}
+
+L'utilisation des mécanismes de \texttt{template}, si elle offre une
+grande généralité pour la définition des classes Vecteur3 , Rotation
+et Polynome, tend à rendre délicate la pleine maîtrise d'un code.
+
+En effet, il est \emph{a priori} possible de définir des Vecteur3 des
+Rotation et des Polynome dont les éléments sont quelconques. Par
+exemple, on pourrait fort bien définir des vecteurs de chaînes de
+caractères !
+
+Bien qu'elles ne soient jamais explicitées dans le code, il existe
+cependant des restrictions à l'extension des classes Vecteur3,
+Rotation et Polynome~: en effet, le code des classes \texttt{template}
+utilise les opérateurs arithmétiques de base, qui doivent absolument
+exister pour le type T\footnote{l'absence d'un opérateur engendrerait
+une erreur de compilation}. Cette restriction est formalisée par la
+règle suivante~:
+
+\begin{quote}
+tout type ou classe T dont on souhaite pouvoir manipuler des Vecteur3,
+des Rotation, ou des Polynome doit être doté des opérateurs
+arithmétiques et logiques de base du type réel~: \fonc{+}, \fonc{-},
+\fonc{*}, \fonc{/}, \fonc{+=}, \fonc{-=}, \fonc{*=}, \fonc{/=},
+\fonc{<}, \fonc{<=}, \fonc{>}, \fonc{>=} et \fonc{==}
+\end{quote}
+
+A côté de cela, étant donnée la nature scalaire des éléments de base
+des Vecteur3, Rotation, et Polynome, il est nécessaire d'offrir un
+large éventail de possibilités permettant une manipulation conjointe
+non seulement de ces éléments de base, mais aussi de vecteurs de
+rotations et de polynômes construits à partir de ces éléments de
+base. C'est le rôle des paquetages de conversion et des paquetages de
+combinaison d'opérandes. La définition d'un paquetage de conversion
+est formalisée ainsi~:
+
+\begin{quote}
+on appelle paquetage de conversion des types T et T', un fichier
+contentant les six opérations suivantes~: opération de conversion d'un
+objet de type T en un objet de type T' (et opération inverse),
+opération de conversion d'un objet de type \template{Vecteur3}{T} en
+un objet de type \template{Vecteur3}{T'} (et opération inverse),
+opération de conversion d'un objet de type \template{Rotation}{T} en
+un objet de type \template{Rotation}{T'} (et opération inverse),
+opération de conversion d'un objet de type \template{Polynome}{T} en
+un objet de type \template{Polynome}{T'} (et opération inverse)
+\end{quote}
+
+L'existence de ces opérations de conversion garantit que l'on ne sera
+jamais limité, au cours d'une utilisation de la bibliothèque
+\bibliotheque{cantor} par l'incompatibilité d'opérandes de types
+différents au cours de manipulations d'objets, que ceux-ci
+appartiennent aux types de base, ou soient des vecteurs, des rotations
+ou des polynômes dérivés pour ces types de base.Si les paquetages de
+conversion existent, on pourra en effet toujours effectuer les
+conversions.
+
+Les conversions multiples peuvent être coûteuses en temps de calcul,
+alors que dans certains cas, des calculs directs avec des types
+hétérogènes sont possibles. Pour ces cas simples, l'utilisation des
+paquetages de combinaisons d'opérandes (décrits plus loin) permettra
+de se dispenser d'invoquer les opérateurs des paquetages de
+conversion.
+
+Si l'utilisateur de la bibliothèque \bibliotheque{cantor} a besoin
+d'introduire un nouveau type de scalaire, il devra, après s'être
+assuré que ce type dispose des opérateurs base nécessaires, écrire
+autant de paquetages de conversion qu'il existe préalablement de
+types de scalaires dans la bibliothèque.
+
+La version 3.13 de la bibliothèque \bibliotheque{cantor} comprend
+ainsi trois types de paquetages de conversion~: DBLVD1 (conversions
+entre double et ValeurDerivee1), DBLVD2 (conversions entre double et
+ValeurDerivee2) et VD1VD2 (conversions entre ValeurDerivee1 et
+ValeurDerivee2).
+
+Si un utilisateur désire introduire une nouvelle classe ayant une
+sémantique de scalaire, par exemple une valeur associée à une
+incertitude (appelons là ici ValeurIncertaine), il devra écrire trois
+paquetages de conversion~: DBLVIN (conversions entre double et
+ValeurIncertaine), VD1VIN (conversions entre ValeurDerivee1 et
+ValeurIncertaine) et VD2VIN (conversions entre ValeurDerivee2 et
+ValeurIncertaine). Cette action est formalisée par la procédure
+suivante~:
+
+\begin{quote}
+pour introduire un nouveau type de scalaire T dans la bibliothèque
+\bibliotheque{cantor}, l'utilisateur doit définir des paquetages de
+conversion entre le type T (après s'être assuré qu'il dispose des
+opérateurs de base cités plus haut) et chacun des types scalaires déjà
+présents dans \bibliotheque{cantor}
+\end{quote}
+
+La définition d'un paquetage de conversion peut se faire de facon
+assez systématique, par exemple en copiant un paquetage de conversion
+déjà existant, en y remplacant toutes les occurrences d'un type par un
+autre, en rajoutant celles qui manquent, puis en écrivant le corps des
+fonctions du paquetage (qui sont en général limitées à quelques
+lignes).
+
+L'intérêt de cette procédure est que l'on n'est pas obligé de toucher aux
+paquetages de conversion existant lorsque l'on introduit un nouveau
+type de scalaire.
+
+Si en revanche, l'utilisateur souhaite introduire un nouveau type de
+classe \texttt{template} (par exemple, \template{Nappe}{T}), il faudra
+modifier tous les paquetages de conversion pour y inclure les
+conversions de nappes. Ces modifications seront de même nature pour
+tous les paquetages.
+
+De par leur nature orthogonale au reste du code, tous les paquetages
+de conversion sont regroupés dans le sous-répertoire
+\texttt{cantor/conversions} des fichiers d'en-tête.

@@ -1,0 +1,42 @@
+#! /bin/sh
+
+# identificateur RCS : "$Id: test_Etat.in,v 1.7 2003/02/18 14:19:19 marmottes Exp $"
+
+# environnement anglais pour vérifier les messages
+@ma_cv_var_lang@=en              ; export @ma_cv_var_lang@
+@ma_cv_var_tradpath@=@srcdir@/.. ; export @ma_cv_var_tradpath@
+
+# exécution du programme de test
+echo "" > test_Etat.res
+echo "prgm_Etat -i 1 0 0 -j 0 1 0 -k 0 0 1 -spin 0 0 0 -pas 1 -sisjsksqss" \
+     >> test_Etat.res
+./prgm_Etat -i 1 0 0 -j 0 1 0 -k 0 0 1 -spin 0 0 0  -pas 1 -sisjsksqss \
+     >> test_Etat.res 2>&1
+
+echo "" >> test_Etat.res
+echo "prgm_Etat -i 1 0 0 -j 0 1 0 -k 0 0 1 -spin 0.01 0 0 -pas 1 -sisjsksqss" \
+     >> test_Etat.res
+./prgm_Etat -i 1 0 0 -j 0 1 0 -k 0 0 1 -spin 0.01 0 0  -pas 1 -sisjsksqss \
+     >> test_Etat.res 2>&1
+
+echo "" >> test_Etat.res
+echo "prgm_Etat -i 1 0 0 -j 0 1 0 -k 0 0 1 -spin 0 0.01 0 -pas 1 -sisjsksqss" \
+     >> test_Etat.res
+./prgm_Etat -i 1 0 0 -j 0 1 0 -k 0 0 1 -spin 0 0.01 0  -pas 1 -sisjsksqss \
+     >> test_Etat.res 2>&1
+
+echo "" >> test_Etat.res
+echo "prgm_Etat -i 1 0 0 -j 0 1 0 -k 0 0 1 -spin 0 0 0.01 -pas 1 -sisjsksqss" \
+     >> test_Etat.res
+./prgm_Etat -i 1 0 0 -j 0 1 0 -k 0 0 1 -spin 0 0 0.01  -pas 1 -sisjsksqss \
+     >> test_Etat.res 2>&1
+
+
+# comparaison des fichiers
+echo "difference -p 1.0e-4 -ee 1 10 -res test_Etat.res -ref @srcdir@/test_Etat.ref"
+difference -p 1.0e-4 -ee 1 10 -res test_Etat.res -ref @srcdir@/test_Etat.ref
+r=$?
+
+# nettoyage
+rm -f test_Etat.res
+exit $r

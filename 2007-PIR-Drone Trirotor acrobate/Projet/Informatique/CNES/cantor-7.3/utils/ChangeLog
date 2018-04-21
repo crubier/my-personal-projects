@@ -1,0 +1,13 @@
+2001-02-16  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* cantor-config.in: corrected an error in the usage message
+
+2000-12-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* cantor-config.in: nouveau fichier
+
+	* .cvsignore: nouveau fichier
+
+	* ChangeLog: nouveau fichier
+
+	* Makefile.am: nouveau fichier

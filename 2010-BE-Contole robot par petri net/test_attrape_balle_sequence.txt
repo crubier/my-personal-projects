@@ -1,0 +1,9 @@
+tr {capt_son/ouvre} [0,w[ attente -> ouvre_pince
+tr {capt_noir/vitesse0} [0,w[ recule -> attente
+tr {capt_ultrason_inf10/ferme} [0,w[ arret -> ferme
+tr {capt_contact/vitesse0} [0,w[ avance -> arret
+tr {capt_son/vitesse+} [0,w[ ouvre_pince -> avance
+tr {capt_son/vitesse-} [0,w[ ferme -> recule
+pl attente (1)
+net petri_test_attrape_balle
+

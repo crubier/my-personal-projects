@@ -1,0 +1,12 @@
+tr {capt_pince_ferme/vitesse-} [0,w[ Arret2 ferme_pince*2 -> {Demi-tour} recule
+tr {capt_contact/vitesse0} [0,w[ avance -> 1
+tr {capt_ultra_son/ouvre} [0,w[ Attente -> ouvre_pince
+tr {capt_pince_ouvert/vitesse+} [0,w[ ouvre_pince -> avance
+tr {capt_noir/vitesse0} [0,w[ Avance -> Attente
+tr {capt_son/ferme} [0,w[ 1 -> ferme_pince
+tr {vitesse0/demi_tour} [0,w[ Arret2 -> {Demi-tour}
+tr {180_degre/vitesse+} [0,w[ {Demi-tour} -> Avance
+tr {capt_son/vitesse0} [0,w[ recule -> Arret2
+pl Attente (1)
+pl recule (3)
+net buffer

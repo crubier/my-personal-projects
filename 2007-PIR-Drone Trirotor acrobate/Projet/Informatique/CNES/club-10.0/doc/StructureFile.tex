@@ -1,0 +1,151 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+% $Id: StructureFile.tex,v 1.6 2005/03/03 16:38:24 chope Exp $
+\subsection{classe StructureFile}\label{sec:StructureFile}
+
+\subsubsection*{description}\label{sec:StructureFile-desc}
+
+Cette classe fournit une interface d'accès aux données contenues dans
+un fichier au format «FichierStructuré». Elle encapsule
+ainsi dans une interface simple et générique les appels aux services
+de \texttt{FichierStructure} (cf. section~\ref{sec:FichierStructure}
+page~\pageref{sec:FichierStructure}).
+
+Cette classe dérivant de UniqDataFile, elle hérite de toutes les
+méthodes publiques et protégées de UniqDataFile et implémente
+les méthodes virtuelles pures de UniqDataFile. Les méthodes de lecture
+sont implémentés tandis que l'ensemble des services d'écriture lèvent
+l'exception nommée \texttt{not\_implemented}.
+
+
+\subsubsection*{interface publique}\label{sec:StructureFile-int}
+
+\begin{verbatim}
+#include "club/StructureFile.h"
+\end{verbatim}
+
+La majorité des méthodes publiques de la classe StructureFile sont décrites
+dans le tableau~\ref{tab:UniqDataFile-met-pub}
+page~\pageref{tab:UniqDataFile-met-pub}.
+
+Le tableau~\ref{tab:StructureFile-met-pub} présente les méthodes
+publiques propres à la classe StructureFile.
+
+
+\begin{tableFonctionsFixe}{StructureFile : méthodes publiques}
+{\label{tab:StructureFile-met-pub}}
+{constructeur avec ou sans argument~: fileName est le nom X}
+
+\signature{\fonc{StructureFile} ()}{}
+&
+construit une instance.
+\\
+
+\signature{\fonc{\~{}StructureFile} ()}{}
+&
+détruit l'instance.
+\\
+
+\end{tableFonctionsFixe}
+
+
+\subsubsection*{exemple d'utilisation}
+
+Un exemple d'utilisation des services généraux de gestion des formats
+de fichiers (Madona, XML ou FichierStructure) est fourni à la
+page~\pageref{sec:UniqDataFile-exemple-Utilisation}.
+
+
+\subsubsection*{conseils d'utilisation
+spécifiques}\label{sec:StructureFile-conseils}
+
+Seuls les services suivants de l'abstraction commune sont implémentés
+par StructureFile~:
+
+\begin{itemize}
+\item chargement d'un FichierStructuré en mémoire,
+\item navigation dans la structure de données,
+\item lecture des données.
+\end{itemize}
+
+La gestion des commentaires associés à une donnée, l'écriture de la
+structure dans un fichier, la création, la mise à jour et la
+suppression des données et la gestion des unités physiques ne sont pas
+actuellement fournies par cette classe. 
+
+L'utilisateur peut néanmoins appeler ces services mais au risque de
+lever l'exception \texttt{not\_implemented} qu'il faut rattraper sous
+peine que le programme se termine avec un \texttt{abort}.
+
+
+
+\subsubsection*{implantation}\label{sec:StructureFile-impl}
+
+Les attributs protégés sont décrits sommairement dans la
+table~\ref{tab:StructureFile-att-prot}, il n'y a pas d'attribut privé.
+
+\begin{tableAttributsFixe}{attributs protégés de la classe StructureFile}
+{\label{tab:StructureFile-att-prot}}
+{pointeur sur la donnée courante }
+
+rootElement\_    & FichierStructure  & pointeur sur la donnée racine \\
+currentElement\_ & FichierStructure  & pointeur sur la donnée courante \\
+
+\end{tableAttributsFixe}
+
+Les méthodes protégées sont décrites dans la table~\ref{tab:StructureFile-met-prot}.
+\begin{tableFonctionsFixe}{StructureFile : méthodes protégées}
+{\label{tab:StructureFile-met-prot}}
+{teste s'il est possible de remonter d'un niveau dans la}
+
+\signature{FichierStructure\& \fonc{getRootElement} ()}{} 
+& 
+retourne le pointeur sur l'élément racine \\
+
+\signature{void  \fonc{setRootElement}}
+          {(const FichierStructure\& \argument{rootElement})} 
+& 
+met à jour le pointeur sur l'élément racine \\
+
+\signature{FichierStructure\& \fonc{getCurrentElement} ()}{} 
+& 
+retourne le pointeur sur l'élément courant \\
+
+\signature{void \fonc{setCurrentElement}}
+          {(const FichierStructure\& \argument{currentElement})} 
+& 
+met à jour le pointeur sur l'élément courant \\
+
+\hline
+
+\signature{static UniqDataFile\char58\char58DataType \fonc{getFichierStructureType}}
+          {(const FichierStructure\& \argument{fs})} 
+& 
+retourne le type de l'élément \argument{fs} \\
+
+\hline
+
+\signature{bool \fonc{canMoveUp} ()}{} 
+& 
+teste s'il est possible de remonter d'un niveau dans la structure de
+données \\
+
+\end{tableFonctionsFixe}
+
+Les méthodes privées sont décrites dans la
+table~\ref{tab:StructureFile-met-priv}.
+
+\begin{tableFonctionsFixe}{StructureFile : méthodes privées}
+{\label{tab:StructureFile-met-priv}}
+{teste s'il est possible de remonter d'un niveau dans la un deux trois}
+
+\signature{\fonc{StructureFile}}{(const StructureFile \&
+\argument{other})} &
+constructeur par copie.
+\\
+
+\signature{StructureFile \& \fonc{operator =}}{(const StructureFile \&
+\argument{other})} &
+affectation.
+\\
+
+\end{tableFonctionsFixe}

@@ -1,0 +1,288 @@
+% -*- mode: latex; tex-main-file: "cantor.tex" -*-
+% $Id: FonctionApprochee.tex,v 1.7 2001/06/05 16:15:58 cantor Exp $
+\subsection{classe FonctionApprochee}\label{sec:FonctionApprochee}
+
+\subsubsection*{description}\label{sec:FonctionApprochee-desc}
+
+La classe FonctionApprochee implante la notion d'approximation sur un
+espace vectoriel de fonctions, c'est à dire la modélisation d'une
+fonction exacte $f (x)$ par une combinaison linéaire de fonctions de
+base $\varphi_i(x)$.Les $\varphi_i$ sont les fonctions de bases
+définissant l'espace vectoriel fonctionnel.
+\begin{displaymath}
+\tilde{f} (x)= \sum_{i=1}^n \alpha_i\varphi_i(x)
+\end{displaymath}
+
+L'approximation est faite à partir d'un échantillon de points $x_1,
+\ldots, x_p$, des valeurs exactes $y_k=f(x_k)$ et des poids $w_k$ que
+l'on attribue à chacun de ces points. Les coefficients $\alpha_i$ sont
+choisis tels qu'ils minimisent l'erreur quadratique $\varepsilon$~:
+\begin{displaymath}
+\varepsilon = \sum_{k=1}^p w_k\left(y_k-\tilde{f} (x_k)\right)^2
+\end{displaymath}
+
+La démarche de calcul consiste à créer une instance de la classe en
+lui donnant les $\varphi_i$ sous forme d'un pointeur de fonction
+\langage{c}, puis à constituer l'échantillon en accumulant dans
+l'instance les triplets $(x_k, y_k, w_k)$, et enfin à faire
+l'ajustement (calcul des $\alpha_i$) minimisant l'erreur quadratique.
+
+Une fois l'ajustement réalisé on peut l'utiliser soit en demandant le
+tableau des coefficients $\alpha_i$ soit en chargeant l'instance
+elle-même de calculer la valeur de la fonction ajustée $\tilde{f}$ en
+n'importe quel point.
+
+Il est possible d'ajouter ou de retrancher des points de l'échantillon
+(triplets $(x_k, y_k, w_k)$) à tout moment, même après ajustement, il
+faut bien sûr refaire l'ajustement après ces modifications.
+
+Si l'on considère que les résidus $f(x_k) - \tilde{f}(x_k)$ sont dûs
+uniquement à un bruit aléatoire et si tous les poids sont identiques
+($\forall_{k,l} w_k = w_l$), alors on peut convertir l'erreur
+quadratique en écart type de ce bruit par la formule~:
+\begin{displaymath}
+\sigma = \sqrt{\frac{\sum_{k=1}^p\left(y_k-\tilde{f}
+(x_k)\right)^2}{p-1}}
+\end{displaymath}
+
+La classe ne se sert jamais directement des $x_k$, elle se contente de
+prendre ceux que l'appelant lui donne pour les fournir à la fonction
+\langage{c} de génération de l'espace vectoriel fonctionnel. La classe
+ne voit cet argument que sous forme d'un pointeur anonyme
+(\texttt{void *}).
+
+La fonction \langage{c} générant l'espace vectoriel fontionnel doit
+respecter le type TypeFonctionsBase, qui est défini dans le fichier
+\texttt{cantor/FonctionApprochee} par~:
+\begin{verbatim}
+typedef int (*TypeFonctionsBase) (void *x, void *argsBase, double *ptrY);
+\end{verbatim}
+Cette fonction sera appelée par la classe à chaque ajout de point
+(méthode \fonc{ajoutePointReference}), à chaque élimination de point
+(méthode \fonc{otePointReference}), et à chaque évaluation de la
+fonction approchée (opérateur \fonc{()}). Les pointeurs anonymes
+\argument{x} et \argument{argsBase} sont les pointeurs fournis par
+l'utilisateur de la classe, \argument{x} étant fourni à chaque appel
+et \argument{argsbase} étant fourni au moment de la construction de la
+classe. La fonction doit retourner les valeurs de chaque fonction de
+base dans le table pointée par \argument{ptrY} (la dimension du
+tableau correspond à ce qui a été défini au moment de la construction
+de l'instance).
+
+\subsubsection*{interface publique}\label{sec:FonctionApprochee-int}
+\begin{verbatim}
+#include "cantor/FonctionApprochee.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{FonctionApprochee : méthodes publiques}
+{\label{tab:FonctionApprochee-met-pub}}
+{réalise l'ajustement de la fonction au sens des moindres carrés}
+
+\signature{\fonc{FonctionApprochee} ()}
+          {}&
+
+prépare une instance non initialisée (nécessaire pour construire des
+tableaux de FonctionApprochee, ces instance ne sont pas utilisables
+directement, elles doivent être initialisées par affectation)\\
+
+\signature{\fonc{FonctionApprochee}}
+          {(int \argument{dimension},\\
+             TypeFonctionsBase \argument{fonctionsBase},\\
+            void *\argument{argsBase} = 0)
+          }&
+
+construit une instance permettant de modéliser une fonction dans
+l'espace vectoriel de dimension \argument{dimension} engendré par les
+fonctions de bases calculées par \argument{fonctionsBase}\\
+
+\hline
+
+\signature{\fonc{FonctionApprochee}}
+          {(const FonctionApprochee\& \argument{f})}&
+
+constructeur par copie\\
+
+\signature{FonctionApprochee\& \fonc{operator =}}
+          {(const FonctionApprochee\& \argument{f})}&
+
+affectation\\
+
+\signature{\fonc{\~{}FonctionApprochee} ()}
+          {}&
+
+destructeur, libère la mémoire allouée\\
+
+\hline
+
+\signature{void \fonc{ajoutePointReference}}
+          {(void *\argument{xk}, double \argument{yk},\\
+            double \argument{wk} = 1.0)\\
+           \throw{CantorErreurs}
+          }&
+
+ajoute le triplet $(x_k, y_k, w_k)$ à l'échantillon courant\\
+
+\signature{void \fonc{otePointReference}}
+          {(void *\argument{xk}, double \argument{yk},\\
+            double \argument{wk} = 1.0)\\
+           \throw{CantorErreurs}
+          }&
+
+élimine le triplet $(x_k, y_k, w_k)$ de l'échantillon courant\\
+
+\signature{void \fonc{oteTousPointsReferences} ()}
+          {}&
+
+élimine tous les points de références de l'échantillon\\
+
+\signature{int \fonc{nbPointsReferences} () const}
+          {}&
+
+retourne le nombre de points de références de l'échantillon\\
+
+\hline
+
+\signature{void \fonc{ajuste}}
+          {(double \argument{seuil} = 1.0e-10)\\
+           \throw{CantorErreurs}
+          }&
+
+réalise l'ajustement de la fonction au sens des moindres carrés sur
+l'échantillon (le seuil est utilisé pour tester les termes diagonaux
+lors de l'inversion de la matrice des moindres carrés, il doit être
+positif)\\
+
+\signature{bool \fonc{estAjustee} () const}
+          {}&
+
+indique si la fonction a été ajustée\\
+
+\signature{void \fonc{coefficients}}
+          {(double \argument{coeffs} []) const\\
+           \throw {CantorErreurs}
+          }&
+
+mets les $\alpha_i$ résultant de l'ajustement dans le tableau
+\argument{coeffs}, lance une exception si la fonction n'avait pas été
+ajustée au préalable\\
+
+\signature{void \fonc{erreurQuadratique} () const}
+          {\throw{CantorErreurs}}&
+
+met l'erreur d'ajustement $\varepsilon$ dans la variable pointée par
+\argument{ptrErrQuad}, lance une exception si la fonction n'avait pas
+été ajustée au préalable\\
+
+\signature{void \fonc{operator ()}}
+          {(void *\argument{xk}, double *\argument{ptrY}) const\\
+           \throw{CantorErreurs}
+          }&
+
+évalue la fonction approchée $\tilde{f}$ au point \argument{x} et met
+le résultat dans la variable pointée par \argument{ptrY}, lance une
+exception si la fonction n'avait pas été ajustée au préalable\\
+
+\hline
+
+\signature{int \fonc{dimension} () const}
+          {}&
+
+retourne la dimension de l'espace d'ajustement\\
+
+\signature{TypeFonctionsBase \fonc{fonctionsBase} () const}
+          {}&
+
+retourne le pointeur sur la fonction de génération de l'espace
+vectoriel fonctionnel\\
+
+\signature{void *\fonc{argsBase} () const}
+          {}&
+
+retourne le pointeur anonyme passé en deuxième argument de la fonction
+de génération de l'espace vectoriel fonctionnel\\
+
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+
+\begin{verbatim}
+#include "cantor/FonctionApprochee.h"
+
+int fonctionsBase (void *x, void *argsBase, double *ptrY)
+{ // fonctions de base d'un espace vectoriel
+  // f1 : constante, f2 : linéaire, f3 : sinus, f4 : cosinus
+  double t = *((double *) x);
+
+  ptrY [0] = 1.0;
+  ptrY [1] = t;
+  ptrY [2] = sin (t);
+  ptrY [3] = cos (t);
+
+  return 0;
+}
+  ...
+
+  FonctionApprochee approx (4, fonctionsBase);
+
+  for (double x = 0.0; x < 4.0; x += 0.01)
+    approx.ajoutePointReference ((void *) &x, fonctionReelle (x));
+
+  approx.ajuste ();
+
+  // récupération des éléments de l'ajustement
+  double coeffs [4];
+  approx.coefficients (coeffs);
+  (void) printf ("modèle ajusté : a + b x + c sin (x) + d cos (x)\n");
+  (void) printf ("a = %f\n", coeffs [0]);
+  (void) printf ("b = %f\n", coeffs [1]);
+  (void) printf ("c = %f\n", coeffs [2]);
+  (void) printf ("d = %f\n", coeffs [3]);
+
+  double errQuad = approx.erreurQuadratique ();
+  (void) printf ("écart type de l'ajustement : %f\n",
+                 sqrt (errQuad / (1.0 + approx.nbPointsReferences ())));
+  ...
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation spécifiques}
+\label{sec:FonctionApprochee-conseils}
+Il est important pour réaliser un ajustement correct de bien répartir
+les points de l'échantillon pour que la matrice soit bien inversible,
+se contenter de tester que le nombre de points est supérieur à la
+dimension du problème peut être insuffisant si certains points sont
+trop proches et donc n'apportent pas d'information distincte.
+
+\subsubsection*{implantation}\label{sec:FonctionApprochee-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:FonctionApprochee-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe FonctionApprochee}
+{\label{tab:FonctionApprochee-att-priv}}
+{pointeur vers la fonction générant l'espace}
+
+moindresCarres\_ & MoindreCarreLineaire  &  modèle linéaire
+sous-jacent\\
+
+fonctionsBase\_ & TypeFonctionsBase & pointeur vers la fonction
+générant l'espace vectoriel fonctionnel d'approximation\\
+
+argsBase\_ & void * & pointeur anonyme servant d'argument à
+fonctionsBase\_\\
+
+YXk\_ & double * & table de travail stockant les $\varphi_i (x_k)$\\
+
+\end{tableAttributsFixe}
+Les méthodes privées sont décrites dans la table~\ref{tab:FonctionApprochee-met-priv}.
+\begin{tableFonctionsFixe}{FonctionApprochee : méthodes privées}
+{\label{tab:FonctionApprochee-met-priv}}
+{alloue le tableau de travail adapté à la \argument{dimension} de }
+
+\signature{void \fonc{alloueTableau} (int \argument{dimension})}
+          {}&
+
+alloue le tableau de travail adapté à la \argument{dimension} de
+l'espace vectoriel dans une instance vide\\
+
+\signature{void \fonc{libereTableau} ()}
+          {}&
+
+libère la mémoire allouée pour le tableau interne\\
+
+\end{tableFonctionsFixe}

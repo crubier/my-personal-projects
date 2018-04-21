@@ -1,0 +1,92 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: Famille.tex,v 1.2 1999/09/17 15:29:35 luc Exp $
+\subsection{classe Famille}\label{sec:Famille}
+
+\subsubsection*{description}\label{sec:Famille-desc}
+
+Cette classe ne sert que d'interface à la classe FamilleAbstraite. Le
+langage \langage{c++} ne permettant de gérer des instances dérivant
+d'une classe abstraite qu'à l'aide de pointeurs, cette classe
+encapsule de tels pointeurs et s'occupe de la gestion des copies et
+des désallocations mémoires de façon à présenter ces instances comme
+s'il s'agissait d'objets simples.
+
+Elle est utilisée directement par la classe ModeleGeom qui résoud le
+modèle à un degré de liberté respectant deux consignes dans le cas de
+deux senseurs géométriques.
+\subsubsection*{interface publique}\label{sec:Famille-int}
+\begin{verbatim}
+#include "marmottes/Famille.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{Famille : méthodes publiques}
+{\label{tab:Famille-met-pub}}
+{initialise une instance par défaut inutilisable}
+
+\signature{\fonc{Famille} ()} 
+          {}&
+initialise une instance par défaut inutilisable sans réaffectation (pointeur nul)\\
+
+\hline
+
+\signature{\fonc{Famille} (const FamilleAbstraite* \argument{f})} 
+          {}&
+méthode qui permet de construire une Famille à partir d'un pointeur de
+FamilleAbstraite (copie profonde de l'objet pointé)\\
+
+\hline
+
+\signature{\fonc{Famille} (const Famille\& \argument{f})} 
+          {}&
+constructeur par copie \\
+
+\signature{Famille\&  \fonc{operator =} (const Famille\& \argument{f})} 
+          {}& 
+affectation \\
+
+\signature{\fonc{\~{}Famille} ()} 
+          {}& 
+destructeur, détruit le pointeur\\
+
+\hline
+
+\signature{RotVD1  \fonc{inertielCanonique}}{(const ValeurDerivee1\&
+\argument{t}) const} & méthode qui retourne le quaternion de passage
+du repère inertiel au repère canonique de travail défini dans ModeleGeom \\
+
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+L'exemple suivant, directement extrait du code de la bibliothèque
+montre comment on a créé un vecteur (au sens de la \bibliotheque{stl}~\ref{ref:stl})
+de Famille.
+
+\begin{verbatim}
+#include "marmottes/Famille.h"
+
+{
+  Intervalle i = Intervalle (-M_PI , M_PI);
+  // création d'une Famille
+  Famille f (new FamilleFixe (i, u1, u2, 
+                             (-canSat_) (VecDBLVD1 (v1a)),
+                             (-canSat_) (VecDBLVD1 (v1a))));
+  // table_ est de type vector 
+  table_.push_back (f);
+  nombreFamilles_++;
+}
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation
+spécifiques}\label{sec:Famille-conseils}
+Cette classe n'a été implémentée que pour des raisons
+informatiques. En effet, elle permet de gérer élégamment la notion de
+pointeur de FamilleAbstraite (copie, destruction ...).
+
+\subsubsection*{implantation}\label{sec:Famille-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:Famille-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe Famille}
+{\label{tab:Famille-att-priv}}
+{pointeur sur un objet de type FamilleAbstraite}
+
+ptrFamille\_ & FamilleAbstraite *  & pointeur sur un objet de type FamilleAbstraite \\
+
+\end{tableAttributsFixe}

@@ -1,0 +1,396 @@
+Ce fichier regroupe les changements visibles par l'utilisateur, pour
+les modifications de plus bas niveau (développement) et en particulier
+pour chercher à quels moments certains bugs ont été introduits, il
+faut plutôt consulter le fichier ChangeLog.
+
+
+* version 7.3
+
+  - correction d'une erreur dans l'utilisation des champs de vue
+    Lors de la réduction de l'arc test pour les calculs de présence
+    d'un point dans un champ, l'arc pouvait changer de direction et
+    passer par les points qui avaient été interdits au préalable
+    (BIBMS-FA-2811-199-CN).
+
+* version 7.2
+
+  - correction d'une erreur lors de la construction des champs de vue
+    L'erreur se produisait lors du calcul de l'étendue d'un arc vu
+    d'un point quelconque de la sphère, et conduisait à prendre de
+    mauvaises directions de test lors des constructions de champs de
+    vue ou lors des tests d'appartenance d'un point à un champ de vue
+    (FA 22).
+
+  - correction d'une erreur dans un test de configuration
+    Ce test estimait que g++ 3.x ne respectait pas la spécification de
+    complexité de list::splice alors qu'il la respecte tout à fait (FA 25)
+
+  - prise en compte de nouvelles versions des outils de développement
+    Cette modification est sans impact sur les utilisateurs (DM 24)
+
+* version 7.1
+
+  - homogénéisation des classes
+    Des méthodes ont été ajoutés dans différentes classes afin que
+    toutes aient des constructeurs par défaut, par copie,
+    par affectation et des destructeurs.
+    Les accès (public/protected/private) à ces méthodes sont tels
+    qu'ils respectent les accès antérieurs. De fait, ces accès sont
+    restreints et ne modifient aucument le comportement des classes.
+
+  - Modification des extensions des fichiers sources
+    Les fichiers sources précédemment suffixés .cc sont désormais suffixés
+    en .cpp dans le but de faciliter un portage ultérieur de la bibliothèque
+    sous Windows.
+
+* version 7.0 :
+
+  - une erreur du compilateur Sun est désormais détectée et contournée
+    Cette erreur est liée à un non-respect par le compilateur Sun CC
+    (au moins en versions Workshop 6.0 et 6.1) du standard ANSI. Ce
+    problème peut entrainer des violations d'accès mémoire car des
+    objets sur lesquels des pointeurs sont conservés par ailleurs sont
+    copiés ou libérés en mémoire par une mauvaise implémentation de ls
+    STL. Ce problème est détecté par les scripts de configuration, et
+    du code de remplacement est mis en place (FA 0017).
+
+  - amélioration du traitement des champs sur la sphère unité
+    Cette amélioration corrige des erreurs de tests d'appartenance
+    dans des cas limites (FA 0015). Les arcs frontière sont désormais
+    orientés (l'intérieur est à gauche de la frontière, l'extérieur à
+    droite) et les tests d'appartenance sont basés sur le sens de la
+    première traversée d'une trajectoire quelconque partant du point
+    test et franchissant la frontière. Cette nouvelle méthode réduit
+    la complexité des classes, permet de détecter de façon naturelle
+    des cas considérés comme litigieux par la méthode précédente et
+    devrait être plus robuste dans les cas limites.
+
+  - mise à jour des droits de copie
+    Les outils GNU utilisés dans le cadre de ce projet sont la propriété
+    de leur auteurs. Le fichier COPYING a été mis à jour en conséquence 
+    (FA 0011).
+
+  - modification du générateur pseudo-aléatoire de nombre dans un test
+    Modifications du générateur pseudo-aléatoire de nombre permettant
+    ainsi aux résultats d'être moins sensibles aux différences
+    numériques sur les différentes plateformes (FA 0010).
+
+* version 6.3 :
+
+  - correction d'erreurs d'intersections d'arcs dans des cas limites
+    Lorsque des intersections d'arcs faisaient intervenir des points
+    très proches des extrémités de l'arc, le fait de déclarer le point
+    d'intersection dans ou hors de l'arc dépendait de la taille de
+    l'arc, ce qui introduisait des incohérences lors du traitement de
+    trois arcs de rayons très différents dans des calculs deux à
+    deux. Ceci pouvait en particulier se produire avec l'introduction
+    de petits arcs de contournement de sommets dans les tests de
+    champs de vue (FA 0002).
+
+  - correction d'une erreur d'échelle dans la classe Secteurs
+    Cette erreur conduisait les vecteurs debut et fin calculés par la
+    méthode vecteurs à ne pas être normés lorsque le demi angle
+    d'ouverture du cône n'était pas PI/2
+
+  - ajout d'une protection contre les singularités dans le calcul des
+    angles de rotation de Cardan et d'Euler
+    Les angles de Cardan ou d'Euler ne peuvent pas être extrait de
+    façon fiable dans tous les cas de figures. Il faut gérer ces cas
+    et une erreur est maintenant générée si un tel cas se produit.
+ 
+  - amélioration de la robustesse
+    Le contexte dans lequel l'erreur révélée par la FA 0002 se
+    produisait résultait entre autres d'algorithmes de calculs de
+    rapprochements et d'évitements de sommets trop grossiers. Ces
+    algorithmes ont été améliorés. Désormais, moins d'évitement sont
+    nécessaires lors d'un test de présence d'un point dans un
+    champ. De plus, ces évitements ne nécessitent plus de passer par
+    des arcs microscopiques qui poussent les algorithmes à leurs
+    limites.
+
+  - amélioration de la modélisation des arcs complets
+    La correction des cas limites dans les intersections d'arcs et la
+    refonte des champs de vue permet désormais de modéliser des arcs
+    complets comme ayant réellement un angle de balayage de 2 PI et
+    des extrémités confondues et pas comme des arcs de balayage 2 PI -
+    epsilon et ayant des extrémités proches. On construit donc les
+    arcs complets de façon plus exacte, ce qui évite d'introduire
+    artificiellement des arcs frontières dégénérés mais non nuls dans
+    la construction des champs de vue.
+
+  - amélioration du calcul des cônes de rejet
+    Le calcul des cônes de rejet (dispositif permettant d'accélérer
+    les tests de présence d'un point dans un champ) conduisait à
+    sélectionner un cône au sein d'un ensemble et à ne tester sa
+    validité qu'après coup et à désactiver cette accélération dans ce
+    cas. Désormais, seuls des cônes valides peuvent être construits,
+    l'accélération est donc active dès lors que l'on peut trouver au
+    moins un tel cône.
+
+  - modification du fichier acinclude.m4
+    correction d'un oubli de protection des caractères spéciaux
+    entrainant à l'usage une mauvaise récupération de variables
+    de positionnement de la langue dans Club.
+
+  - modification de fichiers Makefile.am
+    src/cantor/Makefile.am suppression du fichier CantorConfig.h
+    de la distribution.
+    Makefile.am ajout du fichier BUGS  
+
+* version 6.2 :
+
+  - ajout d'un test grossier pour les appartenances à des champs
+    Les tests d'appartenance d'un point ou d'un secteur à un champ sur la
+    sphère (classe Field) utilisent désormais un premier test grossier
+    basé sur un cône unique englobant complètement le champ pour accélérer
+    les traitements. Les calculs fins ne sont déclenchés que si ce premier
+    test grossier ne permet pas de trancher. Cette modification est une
+    optimisation, elle ne change pas les fonctionnalités de la
+    bibliothèque.
+
+  - correction d'une erreur mémoire détectée par purify
+    Un itérateur était incrémenté en fin d'une boucle alors qu'il
+    avait été effacé lors de la dernière itération
+
+  - prise en compte de versions récentes des outils de développement GNU
+    Les outils de développement de la suite GNU ont été mis à jour
+    (autoconf 2.52, automake 1.5 et libtool 1.4.1). Ceci ne devrait
+    avoir aucun impact sur les utilisateurs (qui se contentent de
+    compiler la bibliothèque à partir des fichiers générés par ces
+    outils et inclus dans la distribution). Seuls les développeurs de
+    la bibliothèque qui sont amenés à y apporter des modification sont
+    concernés.
+
+* version 6.1 :
+
+ - support de la construction d'arcs avec un balayage négatif
+   Dans ce cas, l'arc débute bien au niveau du vecteur de début
+   spécifié, mais l'axe spécifié est inversé, l'angle d'ouverture est
+   remplacé par son complémentaire et l'angle de balayage est
+   inversé. L'arc construit correspond donc aux points de la sphère
+   spécifiés et parcourus dans le même sens, mais les éléments
+   internes sont rendus plus conformes à une repésentation canonique.
+
+ - support de l'étalement de champs avec un balayage négatif
+
+ - correction d'un problème d'étalement de champs
+   La construction de champs sur la sphère unité par balayage a été
+   corrigée de façon à gérer correctement le cas où l'axe de la
+   rotation est aligné avec l'axe de l'un des arcs de la frontière du
+   champ qui sert de base au balayage.
+
+* version 6.0 :
+
+  - support des angles de Cardan et d'Euler dans les rotations
+    les rotations en dimension 3 peuvent désormais être construite à
+    partir de trois angles correspondant à des rotations élémentaires
+    autour d'axes canoniques. Toutes les ordres possibles pour les
+    angles de Cardan et d'Euler sont supportées. Il est également
+    possible d'extraire ces angles à partir d'une rotation déjà
+    construite.
+
+  - réorganisation de classes entre club, cantor et marmottes
+    les classes AnnotatedArc, Braid, Field, Node et Secteurs ont été
+    transférées depuis la bibliothèque marmottes.
+
+  - refonte de l'opération de traînage d'un arc sur la sphère unité
+    L'opération de traînage d'un arc sur la sphère pour construire des
+    champs de vue a été complètement revue. L'ancienne méthode n'étais
+    pas considérée comme suffisamment robuste dans les cas dégénérés
+    (rotation nulle, tour complet, axe de la rotation passant par la
+    frontière, ...). De plus cette méthode engendrait en cours de
+    traitement des arcs exactement superposés les uns aux autres,
+    qu'il était parfois difficile d'identifier avec les heuristiques
+    existantes. La nouvelle méthode préserve plus d'information sur
+    l'opération en cours et devrait se comporter correctement dans les
+    cas dégénérés.
+
+  - correction d'une erreur dans la classe Field
+    cette erreur se produisait lors du filtrage de secteurs par un
+    champ, qui pouvait conduire à des résultats complètement faux
+
+  - correction d'une erreur dans la classe Arc
+    lors de l'inversion d'un arc de longueur nulle, on obtenait un arc
+    faisant un tour complet au lieu d'un autre arc de longueur nulle
+
+  - utilisation du mécanisme des exceptions
+    la bibliothèque cantor était la seule de la trilogie
+    club/cantor/marmottes à ne pas encore utiliser le mécanisme des
+    exceptions pour la gestion de ses erreurs. C'est désormais chose
+    faite. Cette évolution conduit à des changements de signatures de
+    plusieurs méthodes et fonctions globales (toutes les fonctions qui
+    prenaient un pointeur sur un objet de type CantorErreurs en
+    dernier argument optionnel n'ont plus cet argument et lancent
+    désormais une exception. Parmis ces fonctions, celles qui
+    retournaient un entier pour indiquer un status d'erreur sont
+    désormais de type void.
+
+  - changement de signature de MoindreCarreLineaire::erreurQuadratique
+    le passage aux exceptions a conduit à éliminer la valeur entière
+    de retour et le pointeur d'erreur optionnel, il ne restait alors
+    plus que le pointeur sur la valeur réelle à mettre à jour, ce qui
+    correspondait à une signature un peu étrange. Pour cette méthode,
+    il a donc été décidé de lui faire retourner la valeur réelle de
+    l'erreur directement, sans passer par un argument.
+
+  - changement de signature de FonctionApprochee::erreurQuadratique
+    le passage aux exceptions a conduit à éliminer la valeur entière
+    de retour et le pointeur d'erreur optionnel, il ne restait alors
+    plus que le pointeur sur la valeur réelle à mettre à jour, ce qui
+    correspondait à une signature un peu étrange. Pour cette méthode,
+    il a donc été décidé de lui faire retourner la valeur réelle de
+    l'erreur directement, sans passer par un argument.
+
+  - utilisation du type bool pour les prédicats
+    un certain nombre de méthodes de la bibliothèque sont des
+    prédicats. Ces méthodes retournaient jusqu'à présent un entier, ce
+    qui était supporté par tous les compilateurs. Depuis quelques
+    versions, la bibliothèque sous-jacente club nécessite
+    l'utilisation d'un compilateur respectant le standard ANSI, lequel
+    spécifie le type bool, qui représente de façon plus explicite ces
+    résultats. L'opportunité des changements de signatures liés aux
+    exceptions a donc été saisie pour changer également les signatures
+    des prédicats. Ce changement ne devrait pas trop affecter les
+    utilisateurs grâce aux conversions implicites du langage.
+
+  - correction des signatures de l'interface C
+    Les signatures des fonctions de l'interface C de la bibliothèque
+    (qui est limitée aux rotations) pouvait poser des problèmes de
+    violation mémoire si l'appelant n'allouait pas une chaîne de
+    caractères de taille suffisante pour contenir les messages
+    d'erreurs. Désormais, et en conformité avec l'interface C de la
+    bibliothèque associée marmottes, l'interface C prend en dernier
+    argument après le pointeur sur le message d'erreur un entier
+    indiquant la taille disponible pour écrire ce message. Si le
+    message est plus long que la chaîne fournie par l'appelant, le
+    message est tronqué.
+
+* version 5.6 :
+
+  - suppression de fuites de mémoire dans les programmes de test
+
+  - amélioration du support des compilateurs SUN
+
+  - correction d'une coquille dans l'utilitaire cantor-config
+
+* version 5.5
+
+  - ajout d'un script cantor-config pour faciliter l'utilisation
+    les options de compilation -I, -L et -l pour les utilisateurs
+    de la bibliothèque varient suivant la façon dont cantor a été
+    configurée lors de l'installation. Le script cantor-config qui est
+    installé en même temps que cantor permet de retrouver les valeurs
+    nécessaires pour ces options. On peut ainsi mettre dans un Makefile
+    des règles du style :
+
+    client.o : client.cc
+        $(CXX) `cantor-config --cflags` $(CPPFLAGS) $(CFLAGS) -c client.cc
+
+    et
+
+    client : client.o
+        $(CXX) -o $@ client.o \
+                  `cantor-config --ldflags` $(LDFLAGS) \
+                  `cantor-config --libs`    $(LIBS)
+
+* version 5.4
+
+  - amélioration des macros m4 de configuration de bibliothèques
+
+  - changement de la valeur par défaut sous solaris
+    on ne construit les bibliothèques partagées que sur demande car
+    elles semblent poser des problèmes aux programmes appelants
+    lorsqu'elles génèrent des exceptions et qu'il y a de nombreuses
+    bibliothèques partagées intermédiaires
+
+* version 5.3
+
+  - utilisation de la classe string de la STL au lieu de ChaineSimple dans
+    la classe CantorErreurs. La signature de la méthode formate est modifiée et
+    elle est donc incompatible avec les versions précédentes. 
+
+  - génération de la documentation au format PDF.
+
+* version 5.2.2
+
+  - modification du traitement des partages dégénérés d'arcs
+    lorsqu'un arc doit être partagé en deux de part et d'autre d'un
+    point proche d'une extrémité, un des sous-arcs résultants est de
+    taille nulle. Cet arc est désormais le premier si le point est proche
+    du début et le second si ce n'est pas le cas. Dans les versions
+    précédentes de la bibliothèque, le premier arc était systématiquement
+    complet et seul le second arc pouvait être dégénéré. Le changement de
+    comportement est lié à des modifications dans la bibliothèque Marmottes.
+
+* version 5.2.1
+
+  - première version en diffusion publique
+
+  - ajout de la licence publique et des copyright CNES
+
+  - correction de déclarations dans des programmes de tests
+
+* version 5.2
+
+  - version compatible avec les versions de club 6.1 et supérieures
+
+* version 5.1 :
+
+  - cette version est compatible avec la version 6.0 de CLUB.
+    La version 5.1 de CANTOR n'est pas compatible avec les versions de CLUB
+    antérieures à la 6.0 car un test sur CANTOR utilise une fonction de CLUB
+    pouvant lever une exception, les exceptions étant apparues dans CLUB
+    au moment de la version 6.0.
+    
+  - ajout d'une possibilité de décaler globalement intervalles et créneaux
+
+  - amélioration des algorithmes de recherches de zéros
+    la recherche d'extrémum connaissant la dérivée est désormais la
+    méthode de Brent (méthode hybride bissection/sécante, avec
+    approximation quadratique inverse lorsque c'est possible dans la
+    sécante)
+    la recherche de zéros connaissant la dérivée est désormais un
+    Newton en deux points avec une approximation cubique inverse
+
+  - élimination d'évaluations inutiles lors de recherche de zéros
+    ces évaluations avaient lieu dans les tests de convergence sur les
+    extrémums lors de la phase de séparation des zéros
+
+  - la classe Cone gère désormais également le sinus du demi-angle
+
+  - renommage des fonctions abs en fabs pour ValeurDerivee1 et ValeurDerivee2
+
+  - élimination de la fonction en ligne abs dans cantor/Util.h
+    la fonction de la bibliothèque mathématique standard fabs est
+    largement suffisante
+
+* version 5.0 :
+
+  - modifications d'installation et de documentation uniquement
+
+* version 4.4 :
+
+  - correction de signatures de fonctions templates (const)
+
+  - correction d'un bug de code d'erreur dans la classe CantorErreurs
+
+  - correction d'un bug d'initialisation dans la classe FonctionApprochee
+
+  - utilisation de configure pour l'installation :
+    il faut désormais faire quelque chose du genre :
+
+       ./configure
+       make
+       make install
+
+    le fichier INSTALL et la documentation papier donnent des
+    informations complémentaires
+
+* version 4.3 :
+
+  - descente des sources dans un sous-répertoire src
+
+Local variables:
+mode: outline
+outline-regexp: " *[*-]+"
+end:

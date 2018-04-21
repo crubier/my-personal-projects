@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+
+<!DOCTYPE club-units PUBLIC "-//CNES// DTD club-units XML V1.0//EN"
+                            "http://logiciels.cnes.fr/CLUB/club-units.dtd" >
+<club-units>
+
+  <!-- the seven SI base units -->
+  <reference-unit description="length" symbol="m" name="meter" dim-length="1" >
+    <alternate-unit symbol="km"  name="kilometer"   factor="1000"     />
+    <alternate-unit symbol="dm"  name="decimeter"   factor="1.0e-1"   />
+    <alternate-unit symbol="cm"  name="centimeter"  factor="1.0e-2"   />
+    <alternate-unit symbol="mm"  name="millimeter"  factor="1.0e-3"   />
+    <alternate-unit symbol="in"  name="inch"        factor="0.0254"   />
+    <alternate-unit symbol="ft"  name="foot"        factor="0.3048"   />
+    <alternate-unit symbol="yd"  name="yard"        factor="0.9144"   />
+    <alternate-unit symbol="nmi" name="nautic mile" factor="1852"     />
+    <alternate-unit symbol="mi"  name="mile"        factor="1609.344" />
+  </reference-unit>
+
+  <reference-unit description="mass" symbol="kg" name="kilogram" dim-mass="1" >
+    <alternate-unit symbol="g"   name="gram"        factor="1.0e-3"         />
+    <alternate-unit symbol="mg"  name="milligram"   factor="1.0e-6"         />
+    <alternate-unit symbol="t"   name="ton"         factor="1000"           />
+    <alternate-unit symbol="lb"  name="pound"       factor="0.45359237"     />
+    <alternate-unit symbol="oz"  name="ounce"       factor="0.028349523125" />
+  </reference-unit>
+
+  <reference-unit description="time" symbol="s" name="second" dim-time="1" >
+    <alternate-unit symbol="mn"       name="minute"      factor="60"     />
+    <alternate-unit symbol="h"        name="hour"        factor="3600"   />
+    <alternate-unit symbol="d"        name="day"         factor="86400"  />
+    <alternate-unit symbol="j"        name="jour"        factor="86400"  />
+    <alternate-unit symbol="ms"       name="millisecond" factor="1.0e-3" />
+    <alternate-unit symbol="us"       name="microsecond" factor="1.0e-6" />
+    <alternate-unit symbol="&micro;s" name="microsecond" factor="1.0e-6" />
+    <alternate-unit symbol="ns"       name="nanosecond"  factor="1.0e-9" />
+  </reference-unit>
+
+  <reference-unit description="electric current" symbol="A" name="ampere"
+                  dim-electric-current="1" >
+    <alternate-unit symbol="mA"       name="milliampere" factor="1.0e-3" />
+    <alternate-unit symbol="&micro;A" name="microampere" factor="1.0e-6" />
+    <alternate-unit symbol="uA"       name="microampere" factor="1.0e-6" />
+  </reference-unit>
+
+  <reference-unit description="thermodynamic temperature" symbol="K" name="kelvin"
+                  dim-temperature="1" >
+    <alternate-unit symbol="&deg;C" name="celsius degree" offset="273.16"/>
+    <alternate-unit symbol="&deg;F" name="fahrenheit"
+           factor="0.55555555555555555556" offset="255.38222222222222222" />
+  </reference-unit>
+
+  <reference-unit description="amount of substance" symbol="mol" name="mole"
+                  dim-amount-of-substance="1" >
+  </reference-unit>
+
+  <reference-unit description="luminous intensity" symbol="cd" name="candela"
+                  dim-luminous-intensity="1" >
+  </reference-unit>
+
+  <!-- the two SI additional units -->
+  <reference-unit description="planar angle" symbol="rad" name="radian"
+                  dim-planar-angle="1" >
+    <alternate-unit symbol="deg" name="degree" factor="0.017453292519943295" />
+    <alternate-unit symbol="gra" name="grade"  factor="0.015707963267948966" />
+  </reference-unit>
+
+  <reference-unit description="solid angle" symbol="sr" name="steradian"
+                  dim-solid-angle="1" >
+    <alternate-unit symbol="sp" name="spat" factor="12.566370614359172954" />
+  </reference-unit>
+
+  <!-- derived units with special names or symbols -->
+  <reference-unit description="frequency" symbol="Hz" name="hertz" dim-time="-1" >
+    <alternate-unit symbol="kHz" name="kilohertz" factor="1.0e3" />
+    <alternate-unit symbol="MHz" name="megahertz" factor="1.0e6" />
+    <alternate-unit symbol="GHz" name="gigahertz" factor="1.0e9" />
+  </reference-unit>
+
+  <reference-unit description="force" symbol="N" name="newton"
+                  dim-length="1" dim-mass="1" dim-time="-2" >
+    <alternate-unit symbol="mN"  name="millinewton"    factor="1.0e-3"  />
+    <alternate-unit symbol="kgf" name="kilogram-force" factor="9.80665" />
+  </reference-unit>
+
+  <reference-unit description="pressure, stress" symbol="Pa" name="pascal"
+                  dim-mass="1" dim-length="-1" dim-time="-2" >
+    <alternate-unit symbol="hPa" name="hectopascal" factor="100"    />
+    <alternate-unit symbol="kPa" name="kilopascal"  factor="1000"   />
+    <alternate-unit symbol="atm" name="atmosphere"  factor="101325" />
+    <alternate-unit symbol="b"   name="bar"         factor="100000" />
+    <alternate-unit symbol="mb"  name="millibar"    factor="100"    />
+    <alternate-unit symbol="psi" name="pounds per square inch" factor="6894.757293" />
+  </reference-unit>
+
+  <reference-unit description="energy, work, quantity of heat"
+                  symbol="J" name="joule"
+                  dim-length="2" dim-mass="1" dim-time="-2" >
+    <alternate-unit symbol="kJ" name="kilojoule"  factor="1000"    />
+    <alternate-unit symbol="MJ" name="megajoule"  factor="1000000" />
+  </reference-unit>
+
+  <reference-unit description="power, radiant flux" symbol="W" name="watt"
+                  dim-length="2" dim-mass="1" dim-time="-3" >
+    <alternate-unit symbol="mW" name="milliwatt"  factor="1.0e-3"   />
+    <alternate-unit symbol="kW" name="kilowatt"   factor="1000"     />
+    <alternate-unit symbol="MW" name="megawatt"   factor="1000000"  />
+    <alternate-unit symbol="Hp" name="horsepower" factor="735.4988" />
+  </reference-unit>
+
+  <reference-unit description="electric charge, quantity of electricity"
+                  symbol="C" name="coulomb"
+                  dim-time="1" dim-electric-current="1" >
+  </reference-unit>
+
+  <reference-unit description="electric potential difference, electromotive force"
+                  symbol="V" name="volt"
+                  dim-length="2" dim-mass="1"
+                  dim-time="-3" dim-electric-current="-1" >
+    <alternate-unit symbol="kV"       name="kilovolt"   factor="1000"   />
+    <alternate-unit symbol="mV"       name="millivolt"  factor="1.0e-3" />
+    <alternate-unit symbol="uV"       name="microvolt"  factor="1.0e-6" />
+    <alternate-unit symbol="&micro;V" name="microvolt"  factor="1.0e-6" />
+  </reference-unit>
+
+  <reference-unit description="capacitance" symbol="F" name="farad"
+                  dim-length="-2" dim-mass="-1"
+                  dim-time="4" dim-electric-current="2" >
+    <alternate-unit symbol="uF"       name="microfarad" factor="1.0e-6"  />
+    <alternate-unit symbol="&micro;F" name="microfarad" factor="1.0e-6"  />
+    <alternate-unit symbol="nF"       name="nanofarad"  factor="1.0e-9"  />
+    <alternate-unit symbol="pF"       name="picofarad"  factor="1.0e-12" />
+  </reference-unit>
+
+  <reference-unit description="electric resistance" symbol="&ohm;" name="ohm"
+                  dim-length="2" dim-mass="1"
+                  dim-time="-3" dim-electric-current="-2" >
+    <alternate-unit symbol="k&ohm;"  name="kiloohm"   factor="1000"  />
+    <alternate-unit symbol="M&ohm;"  name="megaohm"   factor="1.0e6" />
+  </reference-unit>
+
+  <reference-unit description="electric conductance" symbol="S" name="siemens"
+                  dim-length="-2" dim-mass="-1"
+                  dim-time="3" dim-electric-current="2" >
+  </reference-unit>
+
+  <reference-unit description="magnetic flux" symbol="Wb" name="weber"
+                  dim-length="2" dim-mass="1"
+                  dim-time="-2" dim-electric-current="-1" >
+  </reference-unit>
+
+  <reference-unit description="magnetic flux density" symbol="T" name="tesla"
+                  dim-mass="1" dim-time="-2" dim-electric-current="-1" >
+    <alternate-unit symbol="G" name="gauss" factor="1.0e-4" />
+  </reference-unit>
+
+  <reference-unit description="inductance" symbol="H" name="henry"
+                  dim-length="2" dim-mass="1"
+                  dim-time="-2" dim-electric-current="-2" >
+  </reference-unit>
+
+  <reference-unit description="luminous flux" symbol="lm" name="lumen"
+                  dim-luminous-intensity="1" dim-solid-angle="1" >
+  </reference-unit>
+
+  <reference-unit description="illuminance" symbol="lx" name="lux"
+                  dim-luminous-intensity="1" dim-solid-angle="1"
+                  dim-length="-2" >
+  </reference-unit>
+
+  <reference-unit description="activity of a radionuclide" name="becquerel"
+                  symbol="Bq" dim-time="-1" >
+  </reference-unit>
+
+  <reference-unit description="absorbed dose, specific energy imparted,"
+                  symbol="Gy" name="gray"
+                  dim-length="2" dim-time="-2" >
+  </reference-unit>
+
+  <reference-unit description="dose equivalent" symbol="Sv" name="sievert"
+                  dim-length="2" dim-time="-2" >
+  </reference-unit>
+
+  <reference-unit description="catalytic activity" symbol="kat" name="katal"
+                  dim-amount-of-substance="1" dim-time="-1" >
+  </reference-unit>
+
+</club-units>

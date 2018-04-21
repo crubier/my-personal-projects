@@ -1,0 +1,379 @@
+% -*- mode: latex; tex-main-file: "cantor.tex" -*-
+% $Id: Rotation.tex,v 1.6 2003/07/09 08:55:11 cantor Exp $
+\subsection{classe Rotation}\label{sec:Rotation}
+
+\subsubsection*{description}\label{sec:Rotation-desc}
+
+La classe \template{Rotation}{T} implante les rotations dans un espace
+de dimension 3 et propose toutes les opérations mathématiques
+permettant de les manipuler (construction à partir d'éléments variés,
+application à des vecteurs, compositions...).
+
+\subsubsection*{interface publique}\label{sec:Rotation-int}
+Il est recommandé de ne pas inclure directement le fichier de
+déclaration de la classe (voir la
+section~\ref{sec:Rotation-conseils}), mais de passer plutôt par l'une
+des directives :
+\begin{verbatim}
+#include "cantor/DeclDBL.h"
+#include "cantor/DeclVD1.h"
+#include "cantor/DeclVD2.h"
+\end{verbatim}
+
+Ces fichiers réalisent l'inclusion du fichier de déclaration et
+définissent les types RotDBL en tant qu'alias de
+\template{Rotation}{double}, RotVD1 en tant qu'alias de
+\template{RotVD1}{ValeurDerivee1}, et RotVD2 en tant qu'alias de
+\template{RotVD2}{ValeurDerivee2}.
+
+\begin{verbatim}
+#include "cantor/Rotation.h"
+\end{verbatim}
+La classe Rotation définit un type énuméré AxesRotation qui permet de
+spécifier quelle convention l'utilisateur désire utiliser pour
+spécifier la succession des trois rotations élémentaires permettant
+définir des rotations à l'aides d'angles de \textsc{Cardan} ou
+d'\textsc{Euler}. On rappelle que les angles de \textsc{Cardan}
+correspondent à trois rotations autour d'axes tous différents alors
+que les angles d'\textsc{Euler} correspondent à trois rotation autour
+de deux axes différents (le même axe étant utilisé pour la première et
+la dernière rotation). Une confusion courante, en particulier dans les
+domaines de l'aéronautique et du contrôle d'attitude, est d'utiliser
+le terme angle d'\textsc{Euler} pour parler des angles de roulis,
+tangage et lacet alors qu'il s'agit d'angles de
+\textsc{Cardan}. L'expérience montre qu'en ce qui concerne les angles
+de \textsc{Cardan} de nombreuses conventions différentes sont
+utilisées parmi les six possibles\footnote{on a même rencontré
+l'utilisation simultanée de trois conventions différentes pour un
+même projet}, alors que pour les angles
+d'\textsc{Euler}, la convention ZXZ est pratiquement la seule qui soit
+utilisée parmi les six possibles.
+
+Le type énuméré défini dans la classe Rotation est utilisé en
+argument du constructeur par trois angles élémentaires et dans la
+méthode \fonc{initAngles} d'extraction des angles élémentaires d'une
+rotation existante.
+
+Les constantes de ce type énuméré sont conformes à la déclaration
+suivante, les six premières constantes correspondant à des angles de
+\textsc{Cardan} et les six autres correspondant à des angles
+d'\textsc{Euler}.
+
+\begin{verbatim}
+enum AxesRotation { XYZ, XZY, YXZ, YZX, ZXY, ZYX,
+                    XYX, XZX, YXY, YZY, ZXZ, ZYZ };
+\end{verbatim}
+
+\begin{tableFonctionsFixe}{Rotation : méthodes publiques}
+{\label{tab:Rotation-met-pub}}
+{construit une rotation à partir des composantes d'un quaternion.}
+
+\signature{\fonc{Rotation} ()}
+          {}&
+
+construit la rotation identité \\
+
+\signature{\fonc{Rotation}}
+          {(const Vecteur3<T>\& \argument{axe},\\
+            const T\& \argument{angle},\\
+            T \argument{norme} = T (-1.0))\\
+           \throw{CantorErreurs}}&
+
+construit une rotation d'\argument{axe} et d'\argument{angle} donnés,
+c'est à dire que si l'on construit $r$ à partir de l'axe $\vec{z}$ et
+de l'angle $\pi/2$, alors l'image de $\vec{x}$ est $\vec{y}$, l'image
+de $\vec{y}$ est $\vec{-x}$ et l'image de $\vec{z}$ est $\vec{z}$
+lui-même. Si la \argument{norme} n'est pas passée en argument (c'est à
+dire si la valeur reçue est négative), le constructeur la recalcule
+lui-même\\
+
+\signature{\fonc{Rotation}}
+          {(AxesRotation \argument{ordre},\\
+            const T\& \argument{alpha1},\\
+            const T\& \argument{alpha2},\\
+            const T\& \argument{alpha3})\\
+           \throw{CantorErreurs}}&
+
+construit une rotation en appliquant successivement trois rotations
+élémentaires d'angles \argument{alpha1}, \argument{alpha2} et
+\argument{alpha3} autour des axes spécifiés par l'\argument{ordre}.
+\emph{Attention}, les rotations finales sont réalisées en tenant
+compte de celles qui précèdent et qui ont modifié les axes. À titre
+d'exemple, si on tourne d'abord de 45 degrés autour de $\vec{x}$ puis
+de 15 degrés autour de $\vec{z}$, la seconde rotation est faite autour
+d'un axe qui n'est pas l'axe $\vec{z}$ original mais un axe situé à
+mi-chemin entre les axes $\vec{z}$ et $-\vec{y}$ originaux.\\
+
+\signature{\fonc{Rotation}}
+          {(T matrice [3][3],\\
+            T \argument{convergence} = T (1.0e-6))\\
+           \throw{CantorErreurs}}&
+
+construit une rotation à partir de sa \argument{matrice} (c'est à dire
+construit la rotation qui transforme $\vec{u}$ en $\vec{v}$ si
+$(\vec{v})=M\times(\vec{u})$). La \argument{matrice} peut ne pas être
+unitaire, le constructeur se chargeant de trouver la matrice unitaire
+la plus proche au sens de la norme de \textsc{Frobenius} de la
+\argument{matrice} passées en argument. Une erreur est générée si la
+correction dépasse le seuil de \argument{convergence} toléré.\\
+
+\signature{\fonc{Rotation}}
+          {(Vecteur3<T> \argument{u1}, Vecteur3<T> \argument{u2},\\
+            Vecteur3<T> \argument{v1}, Vecteur3<T> \argument{v2})\\
+          \throw{CantorErreurs}}&
+
+construit une rotation transformant le couple de vecteurs $(\vec{u}_1,
+\vec{u}_2)$ en $(\vec{v}_1, \vec{v}_2)$. La copie du vecteur
+$\vec{v}_2$ utilisée dans le constructeur peut être corrigée si les
+deux couples n'ont pas le même écartement\\
+
+\signature{\fonc{Rotation}}
+          {(Vecteur3<T> \argument{u}, Vecteur3<T> \argument{v})\\
+           \throw{CantorErreurs}}&
+
+construit une rotation transformant $\vec{u}$ en $\vec{v}$. Il y a une
+infinité de telles rotations, l'algorithme de choix utilisé par le
+constructeur consiste à prendre l'axe orthogonal au plan $(\vec{u},
+\vec{v})$, ce qui revient à choisir la rotation d'angle minimal\\
+
+\signature{\fonc{Rotation}}
+          {(const T\& \argument{q0},\\
+            const T\& \argument{q1},\\
+            const T\& \argument{q2},\\
+            const T\& \argument{q3})
+          }&
+
+construit une rotation à partir des composantes d'un quaternion. Cette
+fonction en ligne a été simplifiée au maximum pour améliorer sa
+rapidité (elle est utilisée pour l'interface
+\langage{C}/\langage{C++}) et n'effectue aucune vérification sur ses
+arguments, c'est l'appelant qui doit garantir que les quatre
+composantes forment bien un quaternion normé
+($q_0^2+q_1^2+q_2^2+q_3^2=1$)\\
+
+\hline
+
+\signature{\fonc{Rotation}}
+          {(const Rotation<T>\& \argument{r})}&
+
+constructeur par copie \\
+
+\signature{Rotation<T>\& \fonc{operator =}}
+          {(const Rotation<T>\& \argument{r})}&
+
+affectation \\
+
+\hline
+
+\signature{const T\& \fonc{q0} () const}
+          {}&
+
+retourne une copie de la première composante (partie scalaire) du
+quaternion\\
+
+\signature{const T\& \fonc{q1} () const}
+          {}&
+
+retourne une copie de la seconde composante (abscisse de la partie
+vectorielle) du quaternion\\
+
+\signature{const T\& \fonc{q2} () const}
+          {}&
+
+retourne une copie de la troisième composante (ordonnée de la partie
+vectorielle) du quaternion\\
+
+\signature{const T\& \fonc{q3} () const}
+          {}&
+
+retourne une copie de la quatrième composante (cote de la partie
+vectorielle) du quaternion\\
+
+\hline
+
+\signature{Vecteur3<T> \fonc{axe} () const}
+          {}&
+
+retourne une copie de l'axe normé de la rotation (le sens est tel que
+l'angle associé soit compris entre $0$ et $\pi$) \\
+
+\signature{T \fonc{angle} () const}
+          {}&
+
+retourne l'angle entre $0$ et $\pi$ de la rotation \\
+
+\hline
+
+\signature{void \fonc{initMatrice} (T \argument{m} [3][3]) const}
+          {}&
+
+initialise la matrice \argument{m} à partir de l'instance. Cette
+méthode peut être considérée comme l'inverse du constructeur par
+matrice.\\
+
+\hline
+
+\signature{void \fonc{initAngles}}
+          {(AxesRotation \argument{ordre},\\
+            T *\argument{ptrAlpha1},\\
+            T *\argument{ptrAlpha2},\\
+            T *\argument{ptrAlpha3}) const\\
+           \throw{CantorErreurs}}&
+
+retourne une copie des angles de rotation successifs
+correspondant à la succession de rotations élémentaires
+spécifiée par \argument{ordre}. Cette méthode peut être considérée
+comme l'inverse du constructeur par trois angles.\\
+
+\hline
+
+\signature{Rotation<T> \fonc{operator ()}}
+          {(const Rotation<T>\& \argument{r}) const}&
+
+construit la rotation composée de \argument{r} suivie de l'instance \\
+
+\signature{Vecteur3<T> \fonc{operator ()}}
+          {(const Vecteur3<T>\& \argument{u}) const}&
+
+retourne l'image de $\vec{u}$ par l'instance \\
+
+\signature{\fonc{~Rotation} ()} {} &
+destructeur.
+\\
+
+\end{tableFonctionsFixe}
+
+\begin{tableFonctionsFixe}{Rotation : fonctions non membres}
+{\label{tab:Rotation-non-membres}}
+{construit une rotation d'\argument{axe} et d'\argument{angle}
+donnés.}
+
+\signature{\template{Rotation}{T} \fonc{operator -} (const \template{Rotation}{T}\& \argument{r})}
+          {}&
+
+construit la rotation réciproque de \argument{r}\\
+
+\signature{void \fonc{corrigeOrthog}}
+          {(const T \argument{m} [3][3],\\
+            T \argument{orth} [3][3], T \argument{convergence})\\
+           \throw{CantorErreurs}
+          }&
+
+recherche la matrice orthogonale \argument{orth} la plus proche de
+\argument{m} au sens de la norme de \textsc{Frobenius} \\
+
+\end{tableFonctionsFixe}
+
+\subsubsection*{exemple d'utilisation}
+
+\begin{verbatim}
+#include "cantor/DeclDBL.h"
+#include "cantor/Util.h"
+...
+VecDBL i (1.0, 0.0, 0.0);
+VecDBL j (0.0, 1.0, 0.0);
+VecDBL k = i ^ j;
+
+RotDBL r (i, j, j, k);
+cout << axe: << r.axe ()
+     << , angle: << degres (r.angle ())
+     << endl;
+cout << r (i)= << r (i) << endl;
+
+RotDBL q (VecDBL (3.0, 2.0, 1.0), radians (56.0));
+RotDBL rPuisQ q (r);
+cout << q (r (i))= << q (r (i)) << endl;
+cout << qOr (i)= << rpuisQ (i) << endl;
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation spécifiques}
+\label{sec:Rotation-conseils}
+
+Les rotations sont implantées dans \bibliotheque{cantor} sous forme de
+quaternions, mais il s'agit là d'un détail d'implémentation dont
+l'utilisateur ne devrait pas se soucier. La classe a été implantée de
+façon à garder une vision de haut niveau, les rotations étant de
+simples opérateurs pouvant agir soit sur d'autres rotations soit sur
+des vecteurs. Les constructeurs définissent implicitement les
+rotations par leurs effets sur des vecteurs et des couples de
+vecteurs, ou par analogie avec des opérateurs linéaires (matrices). Le
+constructeur par composantes de quaternion est une exception dont
+l'utilisation devrait être limitée à des cas bien précis où
+l'utilisateur sait ce qu'il fait (par exemple lorsqu'il connaissait
+déjà les composantes \emph{au sens de} \bibliotheque{cantor} par un
+appel préalable.
+
+C'est ce point de vue d'opérateur qui a conduit à ne pas implanter la
+notion de multiplication. La multiplication est une opération liée aux
+matrices, et c'est dans le cadre de l'isomorphisme entre l'espace des
+rotations et un sous-espace des matrices $3\times3$ que cette notion
+se ramène à la composition des rotations, il ne s'agit pas d'une
+notion canonique. Cette notion peut par ailleurs conduire à des
+erreurs puisque la multiplication des matrices et la multiplication
+des quaternions se font en sens inverse lorsqu'on les rapportent à la
+notion canonique de composition des rotations. La composition quant à
+elle à l'avantage d'une notation qui conserve la dissymétrie et
+indique clairement quelle rotation est appliquée en premier et quelle
+rotation est appliquée en second : on utilise directement la règle de
+composition $(r_2(r_1))(\vec{u})=r_2(r_1(\vec{u}))$.
+
+Lorsque l'on parle d'angle et d'axe de la rotation, on adopte la
+convention qu'ils sont orientés selon le produit vectoriel
+$\vec{v}^{}\vec{v}$', où $\vec{v}'$ est l'image de $\vec{v}$ par la
+rotation. L'orientation naturelle est donc celle de rotation de
+vecteurs dans un repère fixe, si on veut modéliser une rotation de
+repère dans un champ de vecteurs fixes, il faut inverser l'angle (ou
+l'axe). Cette convention peut différer des conventions d'autres
+ouvrages ou bibliothèques, il est donc prudent de ne pas chercher à
+utiliser directement les composantes des quaternions et de rester à
+l'interface de haut niveau où une rotation est un opérateur.
+
+Les constructeurs de \template{Rotation}{T} sont très variés car la
+méthode la plus naturelle pour définir une rotation dépend beaucoup du
+problème à résoudre. Ces constructeurs sont robustes, ils acceptent
+des vecteurs non normés, des couples de vecteurs non isomorphes, des
+matrices non unitaires. Ce choix permet de les utiliser naturellement
+y compris lorsque les arguments sont peu précis comme par exmple
+lorsqu'ils sont lus dans des fichiers d'entrée.
+
+Dans le constructeur de rotation à partir d'un axe et d'un angle, la
+norme n'est calculée par le constructeur que si la valeur passée en
+argument est négative (c'est le cas de la valeur par défaut). Si
+l'appelant connait à l'avance cette norme (par exemple quand l'axe est
+une constante), alors il est recommandé de la passer, ce qui économise
+des calculs. Dans le constructeur par matrice,
+
+La classe \template{Rotation}{T} s'appuie sur le mécanisme de
+\texttt{template} pour s'abstraire du type T des données qui
+caractérisent les rotations. Ainsi, peuvent être utilisées des
+rotations dont les coordonnées sont des doubles, des ValeurDerivee1 ou
+des ValeurDerivee2. Le mécanisme de \texttt{template}, s'il offre des
+avantages indéniables, est parfois trop souple et peut engendrer des
+erreurs (que penser d'un \template{Rotation}{char *} ?). Il est donc
+recommandé aux utilisateurs d'utiliser les types prédéfinis RotDBL,
+RotVD1, et RotVD2 définis dans les fichiers \texttt{cantor/DeclDBL.h},
+\texttt{cantor/DeclVD1.h} et \texttt{cantor/DeclVD2.h}, et de ne pas
+instancier lui-même les \texttt{templates}. Si l'utilisateur doit
+utiliser simultanément des double et des ValeurDerivee1, il lui faudra
+inclure le fichier \texttt{cantor/DeclDBLVD1.h}, qui outre inclure les
+fichiers précédents, définit un certain nombre d'opérateurs de
+conversions permettant par example de tester l'égalité d'un RotDBL et
+d'un RotVD1. Les fichiers d'en-tête \texttt{cantor/DeclDBLVD2.h} et
+\texttt{cantor/DeclVD1VD2.h} existent aussi avec des rôles
+symétriques.
+
+\subsubsection*{implantation}\label{sec:Rotation-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:Rotation-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe Rotation}
+{\label{tab:Rotation-att-priv}}
+{partie vectorielle du quaternion (elle correspond à l'axe}
+
+q\_ & Vecteur3<T> & partie vectorielle du quaternion (elle correspond
+à l'axe de la rotation multiplié par le sinus du demi-angle de la
+rotation)\\
+
+q0\_ & T  & partie scalaire du quaternion (elle correspond au cosinus du
+demi-angle de la rotation\\
+
+\end{tableAttributsFixe}

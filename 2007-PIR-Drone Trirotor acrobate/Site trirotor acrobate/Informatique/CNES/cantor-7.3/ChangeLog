@@ -1,0 +1,473 @@
+2005-03-08  projet CHOPE G. Prat/L. Maisonobe  <Guylaine.Prat@c-s.fr>
+
+	* ddc-cantor.txt:  mise à jour pour la version 7.3 (FA-ID 198)
+
+2005-03-04  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* acinclude.m4: élimination de la macro AC_CXX_TEMPLATE_OBJS
+
+	* configure.ac: désactivation par défaut des bibliothèques
+	statiques sur toutes les plate-formes (madona n'étant jamais
+	disponible en statique), élimination de la macro
+	AC_CXX_TEMPLATE_OBJS
+
+ 	* COPYING: mise à jour des copyrights des produits GNU
+
+ 	* INSTALL, config.guess, config.sub, depcomp, install-sh, missing,
+	mkinstalldirs: mise à jour des fichiers à partir de la
+	distribution automake 1.9.5
+ 
+	* ltmain.sh: mise à jour du fichier à partir de la
+ 	distribution libtool 1.5.14
+
+2004-10-05  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* NEWS: annonce de la correction de BIBMS-FA-2811-199-CN
+
+	* configure.ac: ajout du test Field4 (BIBMS-FA-2811-199-CN)
+
+2003-10-08  projet CHOPE O. Queyrut/L. Maisonobe/F. Auguie/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* ddc-cantor.txt: mise à jour du fichier DDC pour la nouvelle version de la
+	bibliothèque
+
+2003-08-19  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* ddc-cantor.txt: mise à jour du ddc pour la version 7.2 de la bibliothèque
+
+2003-07-28  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* NEWS: passage de la bibliothèque en version 7.2
+
+	* configure.ac: passage de la bibliothèque en version 7.2, ajout
+	d'un test (test_Field3)
+
+2003-06-24  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* NEWS: annonce de la correction du test de g++ 3.x concernant
+	list::splice (FA 25), annonce de la correction d'un problème sur
+	les champs de la sphère unité (FA 22)
+
+	* acinclude.m4: correction de la macro
+	AC_CHECK_SPLICE_MOVES_OBJECTS qui échouait avec g++ 3.x alors
+	qu'il aurait dû réussir (FA 25)
+
+	* ddc-cantor.txt: ajout d'une ligne pour le suffixe .ac (DM 24)
+
+	* configure.ac: renommage de configure.in en configure.ac (DM 24)
+
+	* configure.in: mise en conformité avec autoconf 2.57 et automake
+	1.7.5 (utilisation des arguments de AC_INIT, ajout de
+	AC_CONFIG_SRCDIR, changement des arguments de AM_INIT_AUTOMAKE,
+	remplacement de AM_CONFIG_HEADER par AC_CONFIG_HEADERS,
+	remplacement de AM_PROG_LIBTOOL par AC_PROG_LIBTOOL) (DM 24)
+
+	* acconfig.h: élimination du fichier rendu obsolète avec autoconf
+	2.57 (DM 24)
+
+	* Makefile.am: suppression de la référence à acconfig.h (DM 24)
+
+	* COPYING: mise à jour des copyrights des scripts de configuration
+	extraits des distributions automake et libtool (DM 24)
+
+	* INSTALL, config.guess, config.sub, depcomp, install-sh, missing,
+	mkinstalldirs: mise à jour des fichiers à partir de la
+	distribution automake 1.7.5 (DM 24)
+
+	* ltmain.sh: mise à jour des fichiers à partir de la distribution
+	libtool 1.5 (DM 24)
+
+2003-03-20  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* Makefile.am (EXTRA_DIST): Ajout du dossier descriptif de configuration dans la
+	distribution
+
+	* ddc-cantor.txt: nouveau fichier contenant le DDC de cantor
+
+	* NEWS: description de la version 7.1 de Cantor
+
+2003-01-21  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* NEWS: annonce de la prise en compte des normes qualitées du
+	projet ATV.
+
+2002-09-13  projet CHOPE O. Queyrut/L. Maisonobe/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* Makefile.am: suppression du fichier BUGS
+
+2002-09-02  projet CHOPE O. Queyrut/S. Vresk/G. Prat  <Olivier.Queyrut@c-s.fr>
+
+	* acinclude.m4: correction d'un probleme de configuration si
+	--prefix n'etait pas utilise (FA14)
+
+	* configure.in: elimination d'initialisation de variables
+	devenues inutiles depuis la creation des scritps config-xxx
+
+2002-08-29  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* NEWS: annonce de l'amélioration du traitement des
+	champs de vue (FA 0015)
+
+2002-02-08  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* NEWS: annonce du contournement d'un problème du compilateur Sun
+
+2001-11-20  Luc Maisonobe  <Luc.Maisonobe@c-s.fr>
+
+	* configure.in: finalisation de la version 6.3
+
+	* NEWS: annonce de la correction de Secteurs::vecteurs
+
+	* aclocale.m4: correction d'une macro entrainant une mauvaise
+	récupération de la langue dans Club
+
+2001-09-18  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: finalisation de la version 6.2
+
+	* NEWS: annonce de l'optimisation des tests d'appartenance à des
+	champs
+
+2001-09-12  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* NEWS: annonce d'une correction d'erreur mémoire
+
+2001-09-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* NEWS: annonce de l'utilisation de nouvelles versions des outils
+	de développement GNU
+
+	* acinclude.m4: simplification à l'aide des macros de la version
+	2.52 d'autoconf
+
+	* configure.in: remplacement d'une variable suite à la mise à jour
+	de acinclude.m4
+
+	* ltmain.sh: importation du script distribué avec libtool 1.4.1
+
+	* depcomp: nouveau fichier, importé depuis la distribution
+	automake 1.5
+
+	* install-sh, missing, mkinstalldirs, config.sub, config.guess:
+	importation des scripts distribués avec automake 1.5
+
+2001-08-23  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: passage en version 6.1
+
+	* NEWS: annonce des corrections apportées en version 6.1
+
+2001-07-17  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: finalisation de la version 6.0
+
+2001-06-22  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* NEWS: annonce de la correction de l'erreur dans la classe Arc,
+	annonce de la refonte du traînage d'arcs sur la sphère unité
+
+	* configure.in: configuration des scripts de test des champs,
+	passage de la bibliothèque en version 6.0beta
+
+2001-06-06  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: configuration des tests CardanEuler et Field
+
+	* NEWS: annonce des évolutions entres les version 5.6 et 6.0
+
+2001-04-04  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: finalisation de la version 5.6
+
+2001-03-23  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: passage en version 5.6beta2
+
+	* NEWS: annonce de la suppression de fuites de mémoire dans les
+	programmes de test
+
+2001-02-16  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: version intermédiaire avant la version 5.6 (5.6beta)
+
+	* acinclude.m4: amélioration du support des compilateurs SUN
+	lorsque libtool est utilisé pour produire des bibliothèques
+	STATIQUES, ajout de la macro AC_CXX_STREAMS_IN_NAMESPACE_STD
+
+	* NEWS: annonce de l'amélioration du support des compilateurs SUN
+
+2000-12-12  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: ajout explicite des options -I et -L correspondant
+	à l'installation pour éviter des erreurs dans le script
+	cantor-config
+
+2000-12-11  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* LICENSE, LICENCE: mise à jour du numéro d'enregistrement à l'APP
+
+2000-12-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* acinclude.m4: prise en compte des scripts du type xxx-config
+	dans les tests de bibliothèques
+
+	* configure.in: ajout de cantor-config, passage en version 5.5
+
+	* LICENSE: nouveau fichier (version anglaise de LICENCE)
+
+	* Makefile.am: ajout du sous-répertoire utils, ajout de LICENSE
+
+	* NEWS: annonce de l'ajout de cantor-config
+
+2000-11-24  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* acinclude.m4: correction d'une variable en cas d'utilisation de
+	--with-xxx=no
+
+2000-11-21  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* NEWS: description des modifications entre la version 5.3 et la
+	version 5.4
+
+	* acinclude.m4: élimination des macros d'extraction de numéros de
+	version, ajout d'une macro de test de bibliothèque supportant les
+	dépendances
+
+	* configure.in: simplification de la numérotation des bibliothèques,
+	changement de la valeur par défaut sous solaris : on ne construit
+	les bibliothèques partagées que sur demande car elles semblent
+	poser des problèmes au programme appelants lorsqu'elles génèrent
+	des exceptions,
+	passage en version 5.4
+
+2000-11-07  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* configure.in: utilisation de CNES_CHECK_OPTIONAL_LIBRARY pour
+	rechercher club, utilisation de CNES_DEFINES pour rechercher les
+	variables d'environnement de traduction configurées lors de
+	l'installation de club
+
+	* acinclude.m4: ajout des macros CNES_DEFINES et
+	CNES_CHECK_OPTIONAL_LIBRARY
+
+2000-10-26  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* configure.in: affectation d'une valeur à STRIPPED_VERSION, 
+	STRIPPED_RELEASE et STRIPPED_PATCH et suppression des appels aux
+	macros CNES_EXTRACT_VERSION, CNES_EXTRACT_RELEASE et CNES_EXTRACT_PATCH
+
+	* configure.in: appel aux macros CNES_EXTRACT_VERSION, 
+	CNES_EXTRACT_RELEASE et CNES_EXTRACT_PATCH
+
+	* acinclude.m4: ajout des macros permettant de définir les numéros de
+	version, de release et de patch utiles pour libtool
+
+2000-10-24  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* configure.in: ajout de CantorConfig.h dans AC_OUTPUT et modification 
+	du nom du fichier d'entête : désormais CantorConfigNoInstall.h
+	définition de la variable ca_cv_namespaces utile pour la génération de
+	CantorConfig.h
+
+2000-10-18  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* INSTALL: présentation de l'option --disable-shared de configure :
+        cette option permet de supprimer la compilation de cantor sous forme
+        de bibliothèque partagée.
+
+	* README.dev: ajout de libtool comme outil nécessaire au développement
+        Ajout de la commande libtoolize pour initialiser l'espace de 
+        développement.
+
+	* configure.in: remplacement de l'appel AC_PROG_RANLIB par 
+	AM_PROG_LIBTOOL permettant de faire les vérifications de configuration
+	de l'outil libtool (permet de générer les bibliothèques sous forme
+	partagée).
+
+2000-09-11  projet CHOPE O.Queyrut/F.Deshaies  <Olivier.Queyrut@cisi.cnes.fr>
+
+	* NEWS: description de la version 5.3
+
+	* AUTHORS: ajout de l'auteur de la version 5.3
+
+	* configure.in: passage en version 5.3
+
+2000-08-09  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* configure.in: utilisation des macros m4 de l'archive publique
+	autoconf (au lieu des macros internes au CNES) : 
+	AC_CXX_EXCEPTIONS, AC_CXX_EXPLICIT_INSTANTIATIONS, 
+	AC_CXX_TEMPLATE_OBJS, AC_CXX_HAVE_STL.
+
+	* acinclude.m4: remplacement des macros m4 de configuration
+	internes au CNES par celles de l'archive publique autoconf (si
+	un équivalent existe). 
+	Dans les macros CNES_CHECK_INCLUDE_DIR et CNES_CHECK_LIBRARY_DIR, 
+	suppression de la recherche de la bibliothèque sans aucun 
+	drapeau (on privilégie les arguments).
+
+2000-07-31  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* NEWS: description du changement de traitement des cas dégénérés
+	dans les intersections d'arcs
+
+	* configure.in: passage en version 5.2.2
+
+2000-03-30  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* NEWS: première version en diffusion publique
+
+	* Makefile.am: ajout du fichier LICENCE dans la distribution
+
+	* LICENCE: nouveau fichier
+
+	* COPYING: modification des droits pour la diffusion publique
+
+1999-08-14  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* configure.in: passage en version 5.2
+	
+	* NEWS: la version 5.2 est compatible avec les versions de club
+	ultérieures à la 6.1
+
+1999-08-13  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* NEWS: description de la compatibilité de cantor 5.1 avec club 6.0
+
+1999-08-04  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* configure.in: passage en version 5.1
+
+1999-06-28  projet BIBAM Martine Julien  <Martine.Julien@cisi.cnes.fr>
+
+	* configure.in: transfert des tests du compilateur C++ sous forme
+	de macros m4 dans le fichier acinclude.m4. Passage en version 5.0.1
+
+	* acinclude.m4: ajout des macros CNES_CXX_NAMESPACES et CNES_CXX_HAVE_STL
+	pour vérifier l'utilisation de la Standard Template Library
+
+	* acconfig.h: ajout des variables d'environnement HAVE_NAMESPACES,
+	HAVE_STL, CL_VAR_LANG, CL_VAR_TRADPATH
+
+1999-04-25  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* NEWS: ajout des évolutions liées aux recherches de zéros
+
+1999-04-24  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile.am (EXTRA_DIST): ajout de acconfig.h
+
+	* NEWS: ajout des évolutions liées à abs/fabs,
+	ajout des évolutions liées au sinus du demi-angle des cônes
+
+	* configure.in: génération d'une erreur fatale si le compilateur
+	ne supporte pas les exceptions
+
+1999-04-16  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* README: indications sur les personnalisations d'installation
+	courantes
+
+	* configure.in: passage en version 5.0
+
+1999-04-09  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: élimination de l'option -O2 pour les versions de
+	gcc jusqu'à 2.8, remplacement de AM_PROG_INSTALL par
+	AC_PROG_INSTALL
+
+1998-10-19  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* README.dev: description des outils nécessaires aux développeurs,
+	prise en compte de l'évolution de configure (qui trouve désormais
+	seul les fichiers de club)
+
+	* acinclude.m4: ajout des macros CNES_CHECK_INCLUDE_DIR et
+	CNES_CHECK_LIBRARY_DIR pour gérer les options -I et -L des
+	bibliothèques sous-jacentes
+
+	* configure.in: utilisation de CNES_CHECK_INCLUDE_DIR et
+	CNES_CHECK_LIBRARY_DIR pour trouver la bibliothèque club y compris
+	en cas de compilation à distance (par exemple dans le cas du make
+	distcheck), protection de certaines variables shell par des "",
+	ajout de l'option -Wall en cas de compilation par g++
+
+1998-10-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: transfert des tests du compilateur C++ sous forme
+	de macros m4 dans le fichier acinclude.m4
+
+	* acinclude.m4: nouveau fichier
+
+1998-09-17  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* NEWS: mention d'une correction de bug de CantorErreurs
+
+1998-09-14  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: génération des Makefiles des sous-répertoires en
+	et fr, test de l'existence du fichier checkvar.res avant
+	sa destruction (le fichier n'est pas généré par le test si le
+	cache contient déjà le résultat)
+
+1998-08-13  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: utilisation des fonctions de la bibliothèque CLUB
+	pour trouver les noms des variables d'environnement
+
+1998-08-05  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: ajout d'un test pour le support des instanciations
+	explicites
+
+	* acconfig.h: ajout de la macro-définition HAVE_INSTANTIATIONS
+
+1998-07-30  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* configure.in: renommage de variables pour éviter des
+	conflits avec club
+
+1998-07-27  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* updateVersion.sh: élimination du fichier devenu inutile
+	avec la gestion par CVS
+
+	* Make.spec.SG: élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+	* Make.spec.DEV: élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+	* Make.spec.ODS: élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+	* Make.spec.AM: élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+	* Makefile: élimination du fichier au profit des
+	fichiers générés par autoconf/automake
+
+1998-07-24  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* Makefile: réorganisation des sources dans un sous-répertoire src,
+	élimination des commandes rcs (passage sous cvs)
+
+	* Make.spec.SG: ajout de l'option -Isrc suite à la réorganisation
+	des sources
+
+	* Make.spec.DEV: ajout de l'option -Isrc suite à la réorganisation
+	des sources
+
+	* Make.spec.ODS: ajout de l'option -Isrc suite à la réorganisation
+	des sources
+
+	* Make.spec.AM: ajout de l'option -Isrc suite à la réorganisation
+	des sources
+
+1998-07-20  Luc Maisonobe  <Luc.Maisonobe@cnes.fr>
+
+	* cantor.en: ajout de l'erreur repere_indirect
+
+	* cantor.fr: ajout de l'erreur repere_indirect
+
+	* ChangeLog: nouveau fichier

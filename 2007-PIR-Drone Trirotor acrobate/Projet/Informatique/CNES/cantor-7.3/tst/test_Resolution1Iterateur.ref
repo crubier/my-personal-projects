@@ -1,0 +1,78 @@
+prgm_Resolution1Iterateur -ab -100 100
+resolution avec des derivees d'ordre 1:
+solution 1: -10.9041
+solution 2: -10.9041
+solution 3: -5.7322
+solution 4: -3.4634
+solution 5: -0.0000
+solution 6: 3.4634
+solution 7: 5.7322
+solution 8: 10.9041
+solution 9: 10.9041
+nombre d'appels a la fonction f: 347
+
+prgm_Resolution1Iterateur -ab -20 20
+resolution avec des derivees d'ordre 1:
+solution 1: -10.9042
+solution 2: -10.9041
+solution 3: -5.7322
+solution 4: -3.4634
+solution 5: 0.0000
+solution 6: 3.4634
+solution 7: 5.7322
+solution 8: 10.9030
+solution 9: 10.9042
+nombre d'appels a la fonction f: 225
+
+prgm_Resolution1Iterateur-ab -20 20 -n 50
+resolution avec des derivees d'ordre 1:
+solution 1: -10.9041
+solution 2: -10.9041
+solution 3: -5.7322
+solution 4: -3.4634
+solution 5: -0.0000
+solution 6: 3.4634
+solution 7: 5.7322
+solution 8: 10.9041
+solution 9: 10.9041
+nombre d'appels a la fonction f: 88
+
+prgm_Resolution1Iterateur -ab -20 20 -s 1.1e-13
+resolution avec des derivees d'ordre 1:
+solution 1: -10.906229347794
+solution 2: -10.902014242636
+solution 3: -5.732235839127
+solution 4: -3.463415585289
+solution 5: -0.000000000000
+solution 6: 3.463415585289
+solution 7: 5.732235839127
+solution 8: 10.902014242636
+solution 9: 10.906229347787
+nombre d'appels a la fonction f: 383
+
+prgm_Resolution1Iterateur -ab 0 6 -n 2
+resolution avec des derivees d'ordre 1:
+solution 1: 0.0000
+solution 2: 3.4634
+solution 3: 5.7322
+nombre d'appels a la fonction f: 20
+
+prgm_Resolution1Iterateur -ab 0 6 -n 3
+resolution avec des derivees d'ordre 1:
+solution 1: 0.0000
+solution 2: 3.4634
+solution 3: 5.7322
+nombre d'appels a la fonction f: 15
+
+prgm_Resolution1Iterateur -ab -12 12 -n 8
+resolution avec des derivees d'ordre 1:
+solution 1: -10.9041
+solution 2: -10.9041
+solution 3: -5.7322
+solution 4: -3.4634
+solution 5: -0.0000
+solution 6: 3.4634
+solution 7: 5.7322
+solution 8: 10.9041
+solution 9: 10.9041
+nombre d'appels a la fonction f: 58

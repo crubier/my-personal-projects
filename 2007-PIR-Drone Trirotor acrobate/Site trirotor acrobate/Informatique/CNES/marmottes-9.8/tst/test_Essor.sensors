@@ -1,0 +1,65 @@
+# $Id: test_Essor.sensors,v 1.1 2001/01/25 16:58:10 luc Exp $
+
+ROLL
+{
+  precision    { 0.0001 }
+
+  repere       {
+                 i { 0 0 -1 }
+                 j { 0 1  0 }
+                 k { 1 0  0 }
+               }
+
+  type         { cardan }
+  genre        { RLT-roulis }
+  reference    { geocentrique }
+
+}
+
+PITCH { => { ROLL } genre { RLT-tangage } }
+
+YAW   { => { ROLL } genre { RLT-lacet } }
+
+ANTENNA
+{
+  precision    { 0.0001 }
+
+  repere       {
+                 i { 1 0 0 }
+                 j { 0 1 0 }
+                 k { 0 0 1 }
+               }
+
+  type         { cartesien }
+  reference    { 1 0 0 }
+  champ_de_vue { cone { axe { 1 0 0 } angle { 90 } } }
+
+  cible        { station }
+
+  station      { longitude    { 1.49939883  }
+                 latitude     { 43.42869186 }
+                 altitude     { 261.58      }
+
+                 pression     { 1000 }
+                 temperature  { 15   }
+                 hygrometrie  { 80   }
+
+                 masque       { 0 10 }
+
+               }
+
+}
+
+EARTH
+{
+  precision    { 1.0e-4 }
+  repere       {
+                 i { 1 0 0 }
+                 j { 0 1 0 }
+                 k { 0 0 1 }
+               }
+  type         { vecteur }
+  reference    {  1 0 0  }
+  cible        {  terre  }
+  champ_de_vue { cone { axe { 1 0 0 } angle { 90 } } }
+}

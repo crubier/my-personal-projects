@@ -1,0 +1,40 @@
+*******************************
+*                             *
+*      TRADUCTEUR STANLEY     *
+*    	    Instructions        * 
+*                             *
+*******************************
+
+
+1/ S'assurer de la disponibilité préalable d'un fichier texte constituant
+   l'export d'un réseau de Pétri réalisé avec Tina.
+
+2/ Lancer l'Interface Traducteur
+
+3/ Importer le fichier texte exporté depuis Tina via le menu "Fichier".
+   Les transitions détectées s'affichent alors dans l'onglet "Transitions".
+   ( Le travail sur les onglets "Action" et "Condition" ne peut se faire qu'une fois
+   ce fichier importé )
+
+4/ Editer les Onglets "Action" et "Condition" pour définir les actions et conditions
+   associées aux transitions du réseau de Pétri.
+
+5/ Associer les actions et conditions précédentes, ainsi que les priorités,
+   aux transitions en travaillant dans l'onglet "Transitions". Il suffit pour cela de
+   sélectionner un item dans les cadres du milieu, et de les faire passer
+   dans les cadres de droite via les boutons -> . Les boutons <- servent à 
+   désassocier un item sélectionné de la transition à laquelle il appartient.
+   ( Dans l'onglet "Transitions", en sélectionnant une transition à gauche, les 
+     actions/transitions associées s'affichent dans les cadres de droite. Une figure 
+     avec places d'entrée et de sortie s'affiche également sur la droite de la fenêtre ).
+   ( Dans cet onglet, le cadre du bas affiche les données chiffrées associées 
+     à la transition sélectionnée ).
+
+6/ Exporter le fichier via le menu Fichier.
+
+7/ L'ensemble des actions et transitions définies peut être sauvegardé de 
+   manière à minimiser le travail futur sur le même réseau de pétri via le
+   menu Fichier, puis enregistrer. Il suffit alors de l'ouvrir de la même
+   manière lors d'une utilisation ultérieure.
+
+

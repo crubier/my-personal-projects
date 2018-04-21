@@ -1,0 +1,19 @@
+#! /bin/sh
+
+# identificateur RCS : "$Id: test_Traducteur.in,v 3.9 2000/07/31 08:35:35 club Exp $"
+
+# mise en place d'un environnement anglais pour vérifier les messages
+@cl_cv_var_lang@=en              ; export @cl_cv_var_lang@
+@cl_cv_var_tradpath@=@srcdir@/.. ; export @cl_cv_var_tradpath@
+
+# exécution du programme de test
+./prgm_Traducteur @srcdir@ > ./test_Traducteur.res 2>&1
+
+# comparaison des fichiers
+echo "difference ./test_Traducteur.res @srcdir@/test_Traducteur.ref"
+./../utils/difference -rsynth -p 0.00001 -res ./test_Traducteur.res -ref @srcdir@/test_Traducteur.ref
+r=$?
+
+# nettoyage
+rm ./test_Traducteur.res
+exit $r

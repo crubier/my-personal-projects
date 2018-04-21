@@ -1,0 +1,147 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: SenseurGeometrique.tex,v 1.11 2004/06/21 14:43:20 marmottes Exp $
+\subsection{classe SenseurGeometrique}\label{sec:SenseurGeometrique}
+
+\subsubsection*{description}\label{sec:SenseurGeometrique-desc}
+
+Cette classe abstraite est l'interface d'accès aux senseurs
+géométriques. Elle est utilisée par le modèle analytique spécifique
+aux senseurs géométriques.
+
+Cette classe implante la fonction \fonc{methode}, elle implante une
+version générale de la fonction de calcul d'écart à la consigne
+(certaines classes dérivées s'en contentent, d'autres la spécialisent),
+et introduit de nouvelles méthodes spécifiques aux senseurs
+géométriques (\fonc{secteursConsigne}, \fonc{cible},
+\fonc{typeGeometrique}, \fonc{nouvelleReferenceSecteurs}).
+\subsubsection*{interface publique}\label{sec:SenseurGeometrique-int}
+\begin{verbatim}
+#include "marmottes/SenseurGeometrique.h"
+\end{verbatim}
+
+\begin{verbatim}
+enum typeGeom { optique, pseudoSenseur };
+\end{verbatim}
+
+\begin{tableFonctionsFixe}{SenseurGeometrique : méthodes publiques}
+{\label{tab:SenseurGeometrique-met-pub}}
+{construit une instance à partir des données technologiques}
+
+\signature{\fonc{SenseurGeometrique}}
+          {(const string\& \argument{nom},\\
+            const RotDBL\& \argument{repere},\\
+            const VecDBL\& \argument{axeCalage},\\
+            double \argument{precision})
+          }&
+
+construit une instance à partir des données technologiques\\
+
+\hline
+
+\signature{\fonc{SenseurGeometrique}}
+          {(const SenseurGeometrique\& \argument{s})}&
+
+constructeur par copie\\
+
+\signature{SenseurGeometrique\& \fonc{operator =}}
+          {(const SenseurGeometrique\& \argument{s})}&
+
+affectation\\
+
+\hline
+
+\signature{\fonc{\~{}SenseurGeometrique} ()}
+          {}&
+
+destructeur, ne fait rien dans cette classe\\
+
+\hline
+
+\signature{void \fonc{nouveauRepere}}
+          {(const RotDBL\& \argument{nouveau})}&
+
+remplace le repère du senseur par le \argument{nouveau}\\
+
+\signature{void \fonc{nouvelleReferenceSecteurs}}
+          {(const VecDBL\& \argument{u})}&
+
+remplace la référence des secteurs de consigne par \argument{u}\\
+
+\hline
+
+\signature{const Secteurs\& \fonc{secteursConsigne} () const}
+          {}&
+
+retourne le secteur de consigne (pour le modèle analytique)\\
+
+\signature{const VecDBL\& \fonc{cible} () const}
+          {}&
+
+retourne le vecteur cible en repère inertiel\\
+
+\hline
+
+\signature{typeGeom \fonc{typeGeometrique} () const = 0}
+          {}&
+
+retourne le type de senseur géométrique (méthode virtuelle pure devant
+être implantée par les classes dérivées)\\
+
+\signature{int \fonc{methode} () const}
+          {}&
+
+retourne la méthode à utiliser pour constituer le modèle analytique à
+un degré de liberté avec le senseur courant (intersectionCones)\\
+
+\hline
+
+\signature{ValeurDerivee1 \fonc{foncEcart}}
+          {(const Etat\& \argument{etatPrecedent},\\
+            const Etat\& \argument{etatResolution},\\
+            const RotVD1\& \argument{attitude},\\
+            const VecVD1\& \argument{spin} )
+          }&
+retourne l'écart entre la consigne et la mesure que produirait le
+senseur dans l'\argument{attitude} et le \argument{spin} fournis,
+connaissant l'\argument{etatPrecedent} du satellite\\
+
+\end{tableFonctionsFixe}
+\subsubsection*{implantation}\label{sec:SenseurGeometrique-impl}
+Les attributs protégés sont décrits sommairement dans la
+table~\ref{tab:SenseurGeometrique-att-prot}, il n'y a pas d'attribut privé.
+\begin{tableAttributsFixe}{attributs protégés de la classe SenseurGeometrique}
+{\label{tab:SenseurGeometrique-att-prot}}
+{secteur de consigne pour la consigne courante}
+
+secteursConsigne\_ & Secteurs & secteur de consigne pour la consigne
+courante\\
+
+axeVD1\_ & VecVD1 & axe du cône de consigne convertit en VecVD1\\
+
+cible\_ & VecDBL & vecteur cible en repère inertiel\\
+
+cibleVD1\_ & VecVD1 & conversion de cible\_ en VecVD1\\
+
+\end{tableAttributsFixe}
+Les méthodes protégées sont décrites dans la
+table~\ref{tab:SenseurGeometrique-met-prot}.
+\begin{tableFonctionsFixe}{SenseurGeometrique : méthodes protégées}
+{\label{tab:SenseurGeometrique-met-prot}}
+{vérifie si le cône de consigne n'est pas dégénéré ;}
+
+\signature{void \fonc{verifieConsigne} () const}
+          {\throw{MarmottesErreurs}}&
+
+vérifie si le cône de consigne n'est pas dégénéré ; cette méthode doit
+être appelée par toutes les classes dérivées générant des cônes de
+demi-angle d'ouverture variable à la fin de la prise en compte de la
+consigne\\
+
+\signature{\fonc{SenseurGeometrique} ()}
+          {}&
+
+constructeur par défaut. Il est défini explicitement uniquement pour
+prévenir celui créé automatiquement par le compilateur et ne doit pas être
+utilisé.\\
+
+\end{tableFonctionsFixe}

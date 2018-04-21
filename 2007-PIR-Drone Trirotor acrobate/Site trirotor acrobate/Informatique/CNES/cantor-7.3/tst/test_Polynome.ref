@@ -1,0 +1,53 @@
+2 zeros:
+ 1.99999 d'ordre 1 (P (1.99999) = 7.10543e-15)
+ 2.00001 d'ordre 1 (P (2.00001) = 7.10543e-15)
+P2 (2.00001) = 7.10543e-15
+P2 (1.99999) = 0
+
+3 zeros:
+ -1 d'ordre 1 (P (-1) = 0)
+ 1.99999 d'ordre 1 (P (1.99999) = -1.42109e-14)
+ 2.00001 d'ordre 1 (P (2.00001) = 0)
+P3 (2.00001) = 1.42109e-14
+P3 (1.99999) = 7.10543e-15
+P3 (-1) = 0
+
+2 zeros:
+ 2 d'ordre 2 (P (2) = 2.84217e-14)
+ 2.00004 d'ordre 1 (P (2.00004) = -1.13687e-13)
+
+integrale de T2:
+  polynome d'ecart au modele de degre 0 et de coefficient maximal 0
+integrale de T3:
+  polynome d'ecart au modele de degre 0 et de coefficient maximal 0
+integrale de T4:
+  polynome d'ecart au modele de degre 0 et de coefficient maximal 0
+integrale de T5:
+  polynome d'ecart au modele de degre 0 et de coefficient maximal 2.77556e-17
+integrale de T6:
+  polynome d'ecart au modele de degre 0 et de coefficient maximal 0
+integrale de T7:
+  polynome d'ecart au modele de degre 0 et de coefficient maximal 2.77556e-17
+integrale de T8:
+  polynome d'ecart au modele de degre 3 et de coefficient maximal 1.77636e-15
+
+derivee de l'integrale de T0 moins T0:
+  polynome de degre 0 et de coefficient maximal 0
+derivee de l'integrale de T1 moins T1:
+  polynome de degre 0 et de coefficient maximal 0
+derivee de l'integrale de T2 moins T2:
+  polynome de degre 0 et de coefficient maximal 0
+derivee de l'integrale de T3 moins T3:
+  polynome de degre 0 et de coefficient maximal 0
+derivee de l'integrale de T4 moins T4:
+  polynome de degre 0 et de coefficient maximal 0
+derivee de l'integrale de T5 moins T5:
+  polynome de degre 0 et de coefficient maximal 0
+derivee de l'integrale de T6 moins T6:
+  polynome de degre 0 et de coefficient maximal 0
+derivee de l'integrale de T7 moins T7:
+  polynome de degre 0 et de coefficient maximal 0
+derivee de l'integrale de T8 moins T8:
+  polynome de degre 0 et de coefficient maximal 0
+derivee de l'integrale de T9 moins T9:
+  polynome de degre 0 et de coefficient maximal 0

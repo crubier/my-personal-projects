@@ -1,0 +1,10 @@
+# commentaire sur une ligne complete
+# identificateur RCS : "$Id: test_FichierStructure.don,v 3.2 1997/04/08 09:51:39 luc Exp $"
+nom_1 {  nom_11 { 1.1 } # commentaire apres une ligne
+
+
+         <   /tmp/test_FichierStructure.don1  >
+
+# test de l'indirection vers un bloc local (avec des noms vides)
+nom_2 { nom_21 { 2.1 } => {.a.hhh} }
+<test_FichierStructure.don2>

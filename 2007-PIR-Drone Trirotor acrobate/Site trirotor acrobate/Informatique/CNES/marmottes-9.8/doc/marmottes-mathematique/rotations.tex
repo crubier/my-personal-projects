@@ -1,0 +1,735 @@
+% -*- mode: latex; tex-main-file: "marmottes-mathematique.tex" -*-
+% $Id: rotations.tex,v 1.6 2001/01/29 15:49:43 luc Exp $
+\cleardoublepage\centerline{\LARGE Annexes}
+\section{Quaternions}\label{sec:quaternions}
+L'orientation d'un satellite est déterminée par le changement de repère
+qui permet d'exprimer un vecteur fixe en repère satellite connaissant
+ses coordonnées inertielles ou inversement. Dans
+$\mathrm{I\hspace{-0.23em}R}^3$, il existe toujours une rotation
+autour d'un axe qui permet de transformer un repère en un autre, on
+représente donc une orientation par une rotation.  Numériquement, la
+rotation est stockée sous forme de tableaux de nombres qui peuvent
+être :
+\begin{itemize}
+\item la matrice de rotation (tableau de 9 nombres vérifiant 6
+relations) ;
+\item les angles d'Euler (3 nombres) ;
+\item l'axe et l'angle de rotation (4 nombres vérifiant une relation) ;
+\item un quaternion (4 nombres vérifiant une relation).
+\end{itemize}
+
+Dans tous les cas, l'objet mathématique créé a trois degrés de
+liberté, mais ils sont plus ou moins dilués dans tous les nombres qui
+composent l'objet. Le choix d'un formalisme ou d'un autre se fait en
+regardant le nombre de composants, la simplicité des opérations
+(composition de rotations, application d'une rotation à un vecteur,
+extraction de l'axe et de l'angle de rotation), l'existence de
+singularités.
+
+Nous avons opté pour une représentation par quaternions
+principalement pour la simplicité des opérations (surtout quand on
+considère que nous traitons simultanément et de façon analytique les
+quaternions et leurs dérivées première et seconde par rapport à une
+variable) et la facilité d'extraction de l'axe et de l'angle de
+rotation. Le quaternion est ainsi à mi-chemin entre un formalisme tout
+linéaire (les matrices) où les éléments canoniques (axe et angle) sont
+cachés, et un formalisme canonique (angles d'Euler ou axe et angle de
+rotations) qui réclame des opérations trigonométriques directes et
+inverses. Un quaternion est équivalent à un axe et un angle de
+rotation où les calculs trigonométriques sont déjà faits.
+
+Soit une rotation d'axe $\vec{u}$ et d'angle $\theta$. Si l'on
+considère que la rotation fait tourner des vecteurs de l'angle
+$+\theta$ dans un repère fixe, le quaternion associé $Q$ est :
+\begin{displaymath}
+Q\left\{\begin{array}{ccl}
+q_0 & = & \cos (-\frac{\theta}{2})     \\
+q_1 & = & \sin (-\frac{\theta}{2}) u_x \\
+q_2 & = & \sin (-\frac{\theta}{2}) u_y \\
+q_3 & = & \sin (-\frac{\theta}{2}) u_z
+\end{array}\right.
+\end{displaymath}
+
+Nous définissons l'orientation par la rotation qui appliquée aux
+coordonnées inertielles d'un vecteur produit les coordonnées en repère
+satellite du même vecteur. Avec cette convention, l'angle $\theta$
+utilisé dans les formules précédentes est \emph{l'opposé} de l'angle
+dont tourne le satellite lorsqu'il passe d'une orientation alignée avec
+le repère inertiel à son orientation finale.
+
+On trouve souvent dans la littérature une formulation sans le signe
+<<$-$>>. Ceci est dû au fait que d'emblée les auteurs considèrent que
+c'est le \emph{repère} qui tourne de $\theta$. Les vecteurs vus dans
+ce repère semblent donc tourner de $-\theta$, d'où notre
+notation\footnote{nous présentons le quaternion d'une façon générale
+par les rotations et non pas seulement pour le traitement de
+l'orientation}.
+
+L'axe $\vec{u}$ étant invariant par la rotation, les coordonnées
+($u_x$,~$u_y$,~$u_z$) peuvent indifféremment être exprimées dans le
+repère inertiel ou dans le repère satellite.
+
+On remarque que le signe de $Q$ est indifférent ; pour inverser la
+rotation, il faut soit changer le signe de $q_0$, soit changer les
+signes de $q_1$, $q_2$, $q_3$.
+
+La relation vérifiée par les composantes du quaternion est :
+\begin{displaymath}
+q_0^2 + q_1^2 + q_2^2 + q_3^2 = 1
+\end{displaymath}
+
+On notera $\vec{q}$ le vecteur de coordonnées : $(q_1, q_2,
+q_3)^\top$.
+
+Si la rotation $R''$ est obtenue par deux rotations successives $R$
+puis $R'$ --c'est-à-dire que pour tout vecteur on a $R''(\vec{u}) =
+R'(R(\vec{u}))$--, représentées par les quaternions $Q$ et $Q'$, on
+calcule le quaternion $Q''$ de la rotation composée par :
+\begin{displaymath}
+Q'' = QQ' \left|\begin{array}{ccl}
+q_0'' & = & q_0 q_0' - \vec{q} \cdot \vec{q}' \\
+\vec{q}'' & = & q_0 \vec{q}' + q_0' \vec{q} + \vec{q} \wedge \vec{q}'
+\end{array}\right.
+\end{displaymath}
+On remarque que cette multiplication n'est pas commutative, et que
+l'élément neutre (à droite comme à gauche) est le quaternion $Q_I$ qui
+représente l'identité :
+\begin{displaymath}
+Q_I\left[\begin{array}{c}1\\0\\0\\0\end{array}\right]
+\end{displaymath}
+	 
+\emph{Attention} : La multiplication des quaternions se fait en sens
+inverse de la multiplication des matrices : le quaternion associé à
+$R$ suivie de $R'$ est le quaternion $QQ'$ alors que la matrice est
+$M'M$. C'est pour éviter toute confusion que dans la bibliothèque
+\bibliotheque{cantor} on ne définit pas l'opérateur de multiplication
+(\texttt{operator *}) mais l'opérateur de composition
+(\texttt{operator ()}), qui conserve la dissymétrie intrinsèque de
+l'opération. Un utilisateur de \bibliotheque{cantor} en \langage{c++}
+écrirait donc directement : \texttt{Q\_seconde~=~Q\_prime~(Q)}.
+
+Si $\vec{u}$ est un vecteur dont on connait les coordonnées, que l'on
+veut les coordonnées de son image $\vec{v}$ par la rotation, et si $Q$
+est le quaternion qui représente l'orientation, alors on a :
+\begin{displaymath}
+\left[\begin{array}{c}v_x\\v_y\\v_z\end{array}\right]
+= (2q_0^2-1)
+\left[\begin{array}{c}u_x\\u_y\\u_z\end{array}\right]
+-2q_0
+\left[\begin{array}{c}q_1\\q_2\\q_3\end{array}\right]
+\wedge
+\left[\begin{array}{c}u_x\\u_y\\u_z\end{array}\right]
++2(q_1u_x+q_2u_y+q_3u_z)
+\left[\begin{array}{c}q_1\\q_2\\q_3\end{array}\right]
+\end{displaymath}
+Remarque : Contrairement aux opérations matricielles, il est moins
+coûteux de composer deux rotations que d'appliquer une rotation à un
+vecteur.
+
+On peut calculer la matrice $M$ de rotation (telle que $[v]=M[u]$) à
+partir de $Q$ par la relation :
+\begin{displaymath}
+M=\left[\begin{array}{ccc}
+2(q_0^2+q_1^2)-1 & 2(q_1q_2+q_0q_3) & 2(q_1q_3-q_0q_2) \\
+2(q_1q_2-q_0q_3) & 2(q_0^2+q_2^2)-1 & 2(q_2q_3+q_0q_1) \\
+2(q_1q_3+q_0q_2) & 2(q_2q_3-q_0q_1) & 2(q_0^2+q_3^2)-1
+\end{array}\right]
+\end{displaymath}
+
+Pour calculer $Q$ à partir de $M$, on remarque que des combinaisons
+des éléments diagonaux permettent d'exprimer au choix soit $q_0^2$,
+soit $q_1^2$, soit $q_2^2$, soit $q_3^2$. On calcule donc un des $q_i$
+et on déduit les autres des éléments hors diagonale. Il y a donc
+quatre façons différentes de calculer $Q$ (qui reviennent au même au
+signe près, mais nous avons vu que le signe était indifférent). On
+choisit le $q_i$ que l'on va calculer en premier de façon à avoir
+$q_i^2$ suffisamment grand. En effet, la racine carrée est très
+sensible aux erreurs numériques lorsque son argument est proche de 0,
+et comme $q_0^2 + q_1^2 + q_2^2 + q_3^2 = 1$, on est assuré qu'au
+moins un des $q_i^2$ sera supérieur à $\frac{1}{4}$. On calcule donc
+$Q$ en suivant l'algorithme suivant :
+\begin{flushleft}
+Calculer $s_0 = M_{11} + M_{22} + M_{33}$\\
+Si $s_0 > -0,\!1$\\
+\hspace{10mm}Calculer $q_0 = \frac{\sqrt{1+s_0}}{2}$\\
+\hspace{10mm}En déduire
+$q_1 = \frac{M_{23} - M_{32}}{4q_0}$,
+$q_2 = \frac{M_{31} - M_{13}}{4q_0}$,
+$q_3 = \frac{M_{12} - M_{21}}{4q_0}$\\
+Sinon, calculer $s_1 = M_{11} - M_{22} - M_{33}$\\
+\hspace{10mm}Si $s_1 > -0,\!1$\\
+\hspace{20mm}Calculer $q_1 = \frac{\sqrt{1+s_1}}{2}$\\
+\hspace{20mm}En déduire
+$q_0 = \frac{M_{23} - M_{32}}{4q_1}$,
+$q_2 = \frac{M_{12} + M_{21}}{4q_1}$,
+$q_3 = \frac{M_{13} + M_{31}}{4q_1}$\\
+\hspace{10mm}Sinon, calculer $s_2 = - M_{11} + M_{22} - M_{33}$\\
+\hspace{20mm}Si $s_2 > -0,\!1$\\
+\hspace{30mm}Calculer $q_2 = \frac{\sqrt{1+s_2}}{2}$\\
+\hspace{30mm}En déduire
+$q_0 = \frac{M_{31} - M_{13}}{4q_2}$,
+$q_1 = \frac{M_{12} + M_{21}}{4q_2}$,
+$q_3 = \frac{M_{32} + M_{23}}{4q_2}$\\
+\hspace{20mm}Sinon, calculer $s3 = - M_{11} - M_{22} + M_{33}$
+(on a obligatoirement $s_3 > -0,\!1$)\\
+\hspace{30mm}Calculer $q_3 = \frac{\sqrt{1+s_3}}{2}$\\
+\hspace{30mm}En déduire
+$q_0 = \frac{M_{12} - M_{21}}{4q_3}$,
+$q_1 = \frac{M_{13} + M_{31}}{4q_3}$,
+$q_2 = \frac{M_{32} + M_{23}}{4q_3}$\\
+\hspace{20mm}Fin si\\
+\hspace{10mm}Fin si\\
+Fin si
+\end{flushleft}
+
+Dans la pratique, la matrice $M$ peut être légèrement différente d'une
+matrice orthogonale (par exemple quand la matrice est écrite avec une
+précision limitée). Il faut alors trouver la matrice orthogonale $M'$
+la plus proche de $M$ (par exemple au sens de la norme de Frobenius)
+avant d'en extraire les coefficients du quaternion. On trouve $M'$ par
+la méthode itérative suivante :
+\begin{displaymath}
+A_0 = M
+\end{displaymath}
+\begin{displaymath}
+A_{n+1} = A_n - \frac{A_n M^\top A_n - M}{2}
+\end{displaymath}
+
+Le critère d'arrêt des itérations est $|f_n - f_{n-1}| < \varepsilon$,
+avec $f_n = \|M - A_n\|^2$.
+
+On prend alors $M' = A_n$.
+
+Les formules de passage des quaternions aux angles d'Euler sont :
+\begin{eqnarray*}
+q_0 & = & \cos \left(\frac{\theta}{2}\right)\cos\left(\frac{\psi+\varphi}{2}\right)\\
+q_1 & = & \sin \left(\frac{\theta}{2}\right)\cos\left(\frac{\psi-\varphi}{2}\right)\\
+q_2 & = & \sin \left(\frac{\theta}{2}\right)\sin\left(\frac{\psi-\varphi}{2}\right)\\
+q_3 & = & \cos \left(\frac{\theta}{2}\right)\sin\left(\frac{\psi+\varphi}{2}\right)
+\end{eqnarray*}
+	 
+Si on s'intéresse à la cinématique de l'orientation, on a la relation
+suivante :
+\begin{displaymath}
+\dot{Q}=MQ
+\end{displaymath} 
+\begin{displaymath}
+M=\frac{1}{2}\left[\begin{array}{cccc}
+0 & -p & -q & -r \\
+p &  0 &  r & -q \\
+q & -r &  0 &  p \\
+r &  q & -p &  0
+\end{array}\right]
+\end{displaymath} 
+	 
+où ($p$,~$q$,~$r$) sont les coordonnées en repère satellite
+(c'est-à-dire dans le repère qui tourne) du vecteur rotation
+instantanée\footnote{c'est-à-dire que ($p$,~$q$,~$r$) sont les
+coordonnées de l'axe de rotation instantanée tel qu'il est retourné par
+\texttt{Marmottes}}. Cette relation permet de calculer pas à pas
+l'évolution de $Q$ lorsque ($p$,~$q$,~$r$) varient dans le
+temps. S'ils sont fixes, il est plus pratique de construire le
+quaternion d'évolution $E(t-t_0)$ :
+\begin{displaymath}
+E(t-t_0) = \left[\begin{array}{c}
+\cos(\frac{\omega}{2}(t-t_0))\\
+\frac{1}{\omega}\sin\left(\frac{\omega}{2}(t-t_0)\right)
+\left[\begin{array}{c}p\\q\\r\end{array}\right]
+\end{array}\right]
+\end{displaymath}
+avec $\omega = \sqrt{p^2+q^2+r^2}$
+	 
+On a alors : $Q(t) = Q(t_0)(E(t-t_0))$ par la composition des rotations.
+
+
+\emph{Remarque} : La formule précédente, exprimée sous forme matricielle,
+donne :
+\begin{displaymath}
+Q(t) = G(t-t_0) Q(t_0)
+\end{displaymath}
+
+dans laquelle $G(t-t_0)$ est l'exponentielle matricielle de $M$. On
+retrouve donc ici la simplification d'écriture apportée par les
+quaternions.
+
+\cleardoublepage\section{Méthode des trièdres}\label{sec:triedres}
+\subsection{formalisme matriciel}\label{sec:triedres-matrices}
+On connait deux vecteurs normés $\vec{v}_1$ et $\vec{v}_2$ à la fois en repère
+inertiel et en repère satellite. On veut en déduire la matrice de
+changement de repère.
+
+À partir des vecteurs $\vec{v}_1$ et $\vec{v}_2$ ($\vec{v}_2$
+différent de $\pm\vec{v}_1$), on calcule le trièdre orthonormé
+($\vec{v}_1'$,~$\vec{v}_2'$,~$\vec{v}_3'$) par :
+\begin{eqnarray*}
+\vec{v}_1' & = & \vec{v}_1 \\
+\vec{v}_2' & = & \frac{\vec{v}_1 \wedge \vec{v}_2}
+                      {\sqrt{1 - (\vec{v}_1 \cdot \vec{v}_2)^2}} \\
+\vec{v}_3' & = & \vec{v}_1' \wedge \vec{v}_2'
+\end{eqnarray*}
+	 
+Ces vecteurs ont pour coordonnées les matrices colonnes $r_1$, $r_2$, $r_3$ en
+repère satellite et $s_1$, $s_2$, $s_3$ en repère inertiel.
+\begin{displaymath}
+M = [ r_1 | r_2 | r_3 ] \times
+\left[\begin{array}{c}s_1^\top\\s_2^\top\\s_3^\top\\\end{array}\right]
+\Rightarrow [A]_{sat} = M[A]_{inertiel}
+\end{displaymath}
+
+\subsection{formalisme des quaternions}\label{sec:triedres-quaternions}
+Connaissant $\vec{u}_1$, $\vec{u}_2$, $\vec{v}_1$, $\vec{v}_2$,
+trouver $Q$ tel que $\begin{array}{ccc}
+{} & Q & {} \\
+\vec{u}_1 & \rightarrow & \vec{v}_1 \\
+\vec{u}_2 & \rightarrow & \vec{v}_2
+\end{array}$.
+
+La formule générale de calcul de $\vec{v} = Q (\vec{u})$ s'exprime
+$\vec{v} = 2[(\vec{q} \cdot \vec{u}) \vec{q} + q_0^2\vec{u} - q_0
+(\vec{q} \wedge \vec{u})] - \vec{u}$, d'où :
+\begin{equation}\label{eq:v-u}
+\vec{v}-\vec{u} = 2[(\vec{q}\cdot\vec{u}) \vec{q} -
+\|\vec{q}\|^2\vec{u} - q_0 (\vec{q} \wedge \vec{u})]
+\end{equation}
+on pose $\vec{k} = (\vec{v}_1 - \vec{u}_1) \wedge (\vec{v}_2 -
+\vec{u}_2)$, en appliquant deux fois l'équation~\ref{eq:v-u}, on
+trouve :
+\begin{eqnarray}\label{eq:k/4-1}
+\frac{\vec{k}}{4} & = &
+    \|\vec{q}\|^4 \vec{u}_1\wedge\vec{u}_2
+ + q_0 \|\vec{q}\|^2 \vec{u}_1\wedge(\vec{q}\wedge\vec{u}_2)
+ - \|\vec{q}\|^2 (\vec{q}\cdot\vec{u}_2)\vec{u}_1\wedge\vec{q} \nonumber\\
+ & & + q_0 \|\vec{q}\|^2 (\vec{q}\wedge\vec{u}_1)\wedge\vec{u}_2
+ + q_0^2 (\vec{q}\wedge\vec{u}_1)\wedge(\vec{q}\wedge\vec{u}_2)
+ - q_0 (\vec{q}\cdot\vec{u}_2) (\vec{q}\wedge\vec{u}_1)\wedge\vec{q} \nonumber\\
+ & & - \|\vec{q}\|^2 (\vec{q}\cdot\vec{u}_1) \vec{q}\wedge\vec{u}_2
+ - q_0 (\vec{q}\cdot\vec{u}_1) \vec{q}\wedge(\vec{q}\wedge\vec{u}_2)
+ + (\vec{q}\cdot\vec{u}_1) (\vec{q}\cdot\vec{u}_2) \vec{q}\wedge\vec{q}
+\end{eqnarray}
+les formules du double produit vectoriel donnent :
+\begin{displaymath}
+\left\{\begin{array}{ccl}
+\vec{u}_1 \wedge (\vec{q} \wedge \vec{u}_2) & = &
+    (\vec{u}_1 \cdot \vec{u}_2) \vec{q}
+  - (\vec{u}_1 \cdot \vec{q}) \vec{u}_2 \\
+(\vec{q} \wedge \vec{u}_1) \wedge \vec{u}_2 & = &
+    (\vec{u}_2 \cdot \vec{q}) \vec{u}_1
+  - (\vec{u}_1 \cdot \vec{u}_2) \vec{q} \\
+(\vec{q} \wedge \vec{u}_1) \wedge (\vec{q} \wedge \vec{u}_2) & = &
+    [(\vec{q} \wedge \vec{u}_1) \cdot \vec{u}_2] \vec{q}
+  - [(\vec{q} \wedge \vec{u}_1) \cdot \vec{q}] \vec{u}_2 \\
+{} & = & [\vec{q} \cdot (\vec{u}_1 \wedge \vec{u}_2)] \vec{q} \\
+(\vec{q} \wedge \vec{u}_1) \wedge \vec{q} & = &
+    \|\vec{q}\|^2\vec{u}_1 - (\vec{u}_1 \cdot \vec{q}) \vec{q} \\
+\vec{q} \wedge (\vec{q} \wedge \vec{u}_2) & = &
+    (\vec{u}_2 \cdot \vec{q}) \vec{q} - \|\vec{q}\|^2\vec{u}_2
+\end{array}\right.
+\end{displaymath}
+que l'on introduit dans la relation~\ref{eq:k/4-1}, ce qui donne,
+d'une part, après quelques simplifications :
+\begin{eqnarray}\label{eq:k/4-2}
+\frac{\vec{k}}{4} & = &
+     \|\vec{q}\|^4 \vec{u}_1 \wedge \vec{u}_2
+ + q_0 \|\vec{q}\|^2((\vec{u}_2\cdot\vec{q})\vec{u}_1
+                   - (\vec{u}_1\cdot\vec{q})\vec{u}_2) \nonumber\\
+ & & + \|\vec{q}\|^2((\vec{u}_2\cdot\vec{q}) \vec{q} \wedge \vec{u}_1
+                   - (\vec{u}_1\cdot\vec{q}) \vec{q} \wedge \vec{u}_2
+                    ) \nonumber\\
+ & & + q_0^2 (\vec{q}\cdot(\vec{u}_1\wedge\vec{u}_2))\vec{q}
+     - q_0 \|\vec{q}\|^2((\vec{u}_2\cdot\vec{q})\vec{u}_1
+                       - (\vec{u}_1\cdot\vec{q})\vec{u}_2)
+\end{eqnarray}
+on a d'autre part :
+\begin{eqnarray*}
+(\vec{u}_2\cdot\vec{q})\vec{q} \wedge \vec{u}_1
+ & = & \vec{u}_2 \wedge [(\vec{q}\wedge\vec{u}_1)\wedge\vec{q}]
+     + [\vec{u}_2\cdot(\vec{q}\wedge\vec{u}_1)] \vec{q} \\
+ & = & \vec{u}_2\wedge[\|\vec{q}\|^2\vec{u}_1
+                     - (\vec{u}_1\cdot\vec{q})\vec{q}]
+     + [\vec{u}_2\cdot(\vec{q}\wedge\vec{u}_1)]\vec{q}
+\end{eqnarray*}
+d'où :
+\begin{eqnarray*}
+   (\vec{u}_2\cdot\vec{q})\vec{q}\wedge\vec{u}_1
+  -(\vec{u}_1\cdot\vec{q})\vec{q}\wedge\vec{u}_2
+  & = &
+   \|\vec{q}\|^2\vec{u}_2\wedge\vec{u}_1
+ + (\vec{u}_2\cdot(\vec{q}\wedge\vec{u}_1))\vec{q}\\
+  & = &
+   \|\vec{q}\|^2\vec{u}_2\wedge\vec{u}_1
+ + \vec{q}\cdot(\vec{u}_1\wedge\vec{u}_2)\vec{q}
+\end{eqnarray*}
+on introduit cette expression dans l'équation~\ref{eq:k/4-2} pour
+obtenir :
+\begin{eqnarray*}
+\frac{\vec{k}}{4} & = &
+       \|\vec{q}\|^4 \vec{u}_1\wedge\vec{u}_2
+     + \|\vec{q}\|^4 \vec{u}_2\wedge\vec{u}_1
+     + \|\vec{q}\|^2 (\vec{q}\cdot(\vec{u}_1\wedge\vec{u}_2))\vec{q}
+     + q_0^2         (\vec{q}\cdot(\vec{u}_1\wedge\vec{u}_2))\vec{q} \\
+\vec{k} & = & 4 (\vec{q}\cdot(\vec{u}_1\wedge\vec{u}_2))\vec{q}
+\end{eqnarray*}
+On déduit de cette expression :
+\begin{eqnarray}
+c & = &\vec{k}\cdot(\vec{u}_1\wedge\vec{u}_2) \nonumber \\
+  & = & 4[\vec{q}\cdot(\vec{u}_1\wedge\vec{u}_2)]^2 \nonumber \\
+\Rightarrow \vec{q} & = & \frac{\vec{k}}{2\sqrt{c}}\label{eq:q}
+\end{eqnarray}
+Si $\vec{q}$ n'est pas dans le plan ($\vec{u}_1$,~$\vec{u}_2$), alors
+$c$ est positif et l'expression \ref{eq:q} est bien définie et permet
+de calculer $\vec{q}$. Le signe global du quaternion étant
+indifférent, le choix de $\frac{\vec{k}}{2\sqrt{c}}$ au lieu de
+$\frac{-\vec{k}}{2\sqrt{c}}$ n'a pas d'autre conséquence que de figer
+le signe de $q_0$ qui sera déterminé par la suite.
+
+Pour calculer $q_0$, il suffit de remarquer que :
+\begin{eqnarray}
+  \vec{v}\cdot(\vec{u}\wedge\vec{q})
+  & = &
+  2q_0(\vec{u}\wedge\vec{q})^2 \nonumber\\
+  \Rightarrow q_0
+  & = &
+  \frac{\vec{v}\cdot(\vec{u}\wedge\vec{q})}{2(\vec{u}\wedge\vec{q})^2}
+  \label{eq:q0}
+\end{eqnarray}
+L'expression \ref{eq:q0} est définie lorsque $\vec{u}$ n'est pas
+aligné avec $\vec{q}$. Si on choisit pour couple
+($\vec{u}$,~$\vec{v}$) l'un des couples ayant servi à déterminer
+$\vec{q}$, on sait que $\vec{q}$ n'étant pas dans le plan
+($\vec{u}$,~$\vec{u}'$) ne peut être aligné avec $\vec{u}$ et donc
+$q_0$ est calculable.
+
+Une rotation étant une isométrie, on sait que le vecteur image de
+$\vec{u}_3 = \frac{\vec{u}_1\wedge\vec{u}_2}{\sqrt{1-
+(\vec{u}_1\cdot\vec{u}_2)^2}}$ par la rotation est $\vec{v}_3 =
+\frac{\vec{v}_1\wedge\vec{v}_2}{\sqrt{1-
+(\vec{v}_1\cdot\vec{v}_2)^2}}$. Cette remarque permet de résoudre le
+cas particulier où $\vec{q}$ est dans le plan
+($\vec{u}_1$,~$\vec{u}_2$), en reprenant les calculs à partir des
+couples ($\vec{u}_1$,~$\vec{v}_1$) et ($\vec{u}_3$,~$\vec{v}_3$). Si
+après ce changement, $\vec{q}$ est encore dans le plan
+($\vec{u}_1$,~$\vec{u}_3$), alors $\vec{q}$ était aligné avec
+$\vec{u}_1$ ; là encore on peut changer les couples de vecteurs et
+utiliser ($\vec{u}_2$,~$\vec{u}_3$), et ($\vec{v}_2$,~$\vec{v}_3$)
+pour tenter de résoudre le problème. Si $c$ persiste à être nul, on
+est dans le cas particulier de l'identité, on retourne alors le
+quaternion $Q_I\left[\begin{array}{c}1\\0\\0\\0\end{array}\right]$.
+
+Les formules précédentes supposent que les vecteurs $\vec{u}_1$,
+$\vec{u}_2$, $\vec{v}_1$, $\vec{v}_2$ sont normés. Il faut donc les
+normaliser avant d'exécuter l'algorithme.
+
+La rotation qui amène $\vec{u}_1$ en $\vec{v}_1$ et $\vec{u}_2$ en
+$\vec{v}_2$ n'existe que si $\vec{u}_1 \cdot \vec{u}_2$ = $\vec{v}_1
+\cdot \vec{v}_2$ (une rotation est une isométrie). On peut garantir
+cette égalité en remplaçant : $\vec{v}_2$ par $\vec{v}_2'$.
+\begin{displaymath}
+\vec{v}_2' = \left(\vec{u}_1\cdot\vec{u}_2
+             -\vec{v}_1\cdot\vec{v}_2
+              \sqrt{\frac{1-(\vec{u}_1\cdot\vec{u}_2)^2}
+                         {1-(\vec{v}_1\cdot\vec{v}_2)^2}}
+             \right)\vec{v}_1
+            +\left(\sqrt{\frac{1-(\vec{u}_1\cdot\vec{u}_2)^2}
+                         {1-(\vec{v}_1\cdot\vec{v}_2)^2}}
+             \right)\vec{v}_2
+\end{displaymath}
+ce calcul doit être fait après la normalisation de la remarque
+précédente, et avant l'entrée dans l'algorithme.
+
+L'algorithme ainsi sécurisé permet de calculer la rotation qui
+transforme $\vec{u}_1$ en $\vec{v}_1$ et $\vec{v}_2$ en un vecteur
+situé dans le plan ($\vec{v}_1$,~$\vec{v}_2$) et orienté dans le même
+sens que $\vec{v}_2$.
+
+La résolution complète du quaternion se fait en suivant l'algorithme
+suivant :
+\begin{flushleft}
+$\vec{u}_1 = \frac{\vec{u}_1}{\|\vec{u}_1\|}$\\
+$\vec{u}_2 = \frac{\vec{u}_2}{\|\vec{u}_2\|}$\\
+$\vec{v}_1 = \frac{\vec{v}_1}{\|\vec{v}_1\|}$\\
+$\vec{v}_2 = \frac{\vec{v}_2}{\|\vec{v}_2\|}$\\
+$\mathit{coeff} = \sqrt{\frac{1-(\vec{u}_1\cdot\vec{u}_2)^2}
+                             {1-(\vec{v}_1\cdot\vec{v}_2)^2}}$\\
+$\vec{v}_2 = (\vec{u}_1\cdot\vec{u}_2
+            - \vec{v}_1\cdot\vec{v}_2 \times \mathit{coeff}
+             ) \vec{v}_1 + \mathit{coeff} \vec{v}_2$\\
+$\vec{u}_{ref} = \vec{u}_1$\\
+$\vec{v}_{ref} = \vec{v}_1$\\
+$\vec{k} = (\vec{v}_1 - \vec{u}_1)
+    \wedge (\vec{v}_2 - \vec{u}_2)$\\
+$c = \vec{k}\cdot(\vec{u}_1\wedge\vec{u}_2)$\\
+Si $(c < \varepsilon)$, alors\\
+\hspace{10mm}$\vec{u}_3 = \frac{\vec{u}_1\wedge\vec{u}_2}
+                               {1-(\vec{u}_1\cdot\vec{u}_2)^2}$\\
+\hspace{10mm}$\vec{v}_3 = \frac{\vec{v}_1\wedge\vec{v}_2}
+                               {1-(\vec{v}_1\cdot\vec{v}_2)^2}$\\
+\hspace{10mm}$\vec{k} = (\vec{v}_1 - \vec{u}_1)
+                 \wedge (\vec{v}_3 - \vec{u}_3)$\\
+\hspace{10mm}$c = \vec{k}\cdot(\vec{u}_1\wedge\vec{u}_3)$\\
+\hspace{10mm}Si $(c < \varepsilon)$, alors\\
+\hspace{20mm}$\vec{k} = (\vec{v}_2 - \vec{u}_2)
+                 \wedge (\vec{v}_3 - \vec{u}_3)$\\
+\hspace{20mm}$c = \vec{k}\cdot(\vec{u}_2\wedge\vec{u}_3)$\\
+\hspace{20mm}Si $(c < \varepsilon)$, alors\\
+\hspace{30mm}$\vec{q}=\vec{0}$\\
+\hspace{30mm}$q_0=1$\\
+\hspace{30mm}Retourner ($q_0$,~$\vec{q}$)\\
+\hspace{20mm}Fin si\\
+\hspace{20mm}$\vec{u}_{ref} = \vec{u}_2$\\
+\hspace{20mm}$\vec{v}_{ref} = \vec{v}_2$\\
+\hspace{10mm}Fin si\\
+Fin si\\
+$\vec{q}=\frac{\vec{k}}{2\sqrt{c}}$\\
+$q_0=\frac{\vec{v}_{ref}\cdot(\vec{u}_{ref}\wedge\vec{q})}
+          {2(\vec{u}_{ref}\wedge\vec{q})^2}$\\
+Retourner ($q_0$,~$\vec{q}$)
+\end{flushleft}
+
+\cleardoublepage\section{Recherche de vecteurs orthogonaux}\label{sec:orthogonaux}
+Connaissant un vecteur normé $\vec{a}$, comment trouver un vecteur
+$\vec{b}$ normé orthogonal à $\vec{a}$ ?  Il existe une infinité de
+solutions possibles, ce qui est gênant du point de vue informatique où
+l'on veut une solution quelconque choisie dans cette infinité, même si
+du point de vue mathématique, le fait qu'il en existe au moins une
+soit suffisant.  Les coordonnées de $\vec{a}$ dans la base orthonormée
+($\vec{\imath}$,~$\vec{\jmath}$,~$\vec{k}$) sont :
+\begin{displaymath}
+\vec{a} \left\{\begin{array}{l}a_x\\a_y\\a_z\end{array}\right.
+\end{displaymath}
+
+Comme $\vec{a}$ est normé, on sait qu'au moins une des coordonnées est
+inférieure à $\frac{1}{\sqrt{3}}$ en valeur absolue. On choisit une coordonnée qui
+soit inférieure à $0,\!6$ (supposons par exemple que ce soit $a_z$).  On a
+alors $1-a_z^2 \ge 0,\!64$ donc le vecteur $\vec{b} =
+\frac{\vec{a}\wedge\vec{k}}{\sqrt{1-a_z^2}}$ est calculable.
+Ce vecteur est normé et orthogonal à $\vec{a}$, c'est notre solution. Si
+on choisit de travailler à partir de $a_x$, on utilise $\vec{b} =
+\frac{\vec{a}\wedge\vec{\imath}}{\sqrt{1-a_x^2}}$, et si
+on choisit de travailler à partir de $a_y$, on utilise $\vec{b} =
+\frac{\vec{a}\wedge\vec{\jmath}}{\sqrt{1-a_y^2}}$.
+
+\cleardoublepage\section{Rotation transformant un vecteur en un autre}
+\label{sec:rotation-vecteurs}
+Connaissant deux vecteurs $\vec{a}$ et $\vec{b}$ ($\|\vec{a}\| =
+\|\vec{b}\|$), comment trouver une rotation amenant $\vec{a}$ sur
+$\vec{b}$ ?  Ce problème est similaire à celui des vecteurs
+orthogonaux (annexe~\ref{sec:orthogonaux})) car là encore, il faut
+faire un choix dans un ensemble infini de solutions.  Supposons tout
+d'abord $\vec{a}$ et $\vec{b}$ non alignés. On définit le repère
+orthonormé ($\vec{\imath}$,~$\vec{\jmath}$,~$\vec{k}$) par :
+\begin{eqnarray*}
+\vec{\imath} & = & \frac{\vec{a}}{\|\vec{a}\|} \\
+\vec{\jmath} & = & \frac{\|\vec{a}\|^2\vec{b}-(\vec{a}\cdot\vec{b})\vec{a}}
+                        {\|\vec{a}\|^3\sqrt{1-\frac{(\vec{a}\cdot\vec{b})^2}
+                                                   {\|\vec{a}\|^4}}} \\
+\vec{k}      & = & \frac{\vec{a}\wedge\vec{b}}
+                        {\|\vec{a}\|^2\sqrt{1-\frac{(\vec{a}\cdot\vec{b})^2}
+                                                   {\|\vec{a}\|^4}}}
+\end{eqnarray*}
+Dans ce repère, les vecteurs $\vec{a}$ et $\vec{b}$ ont pour
+coordonnées :
+\begin{displaymath}
+\vec{a}\left\{\begin{array}{l}\|\vec{a}\|\\
+                              0\\
+                              0
+              \end{array}\right.
+\hspace{10mm}
+\vec{b}\left\{\begin{array}{lcl}\frac{\vec{a}\cdot\vec{b}}{\|\vec{a}\|}
+                                   & = & \|\vec{b}\| \cos(\theta)\\
+                              \|\vec{a}\|\sqrt{1-\frac{(\vec{a}\cdot\vec{b})^2}
+                                                      {\|\vec{a}\|^4}}
+                                   & = & \|\vec{b}\| \sin(\theta)\\
+                              0 & &
+              \end{array}\right.
+\end{displaymath}
+Une des rotations amenant $\vec{a}$ sur $\vec{b}$ est la rotation d'axe $\vec{k}$ et d'angle $\theta$.
+
+La matrice de cette rotation en repère
+($\vec{\imath}$,~$\vec{\jmath}$,~$\vec{k}$) est :
+\begin{displaymath}
+\left[\begin{array}{ccc}
+\cos(\theta) & -\sin(\theta) & 0 \\
+\sin(\theta) &  \cos(\theta) & 0 \\
+      0      &       0       & 1
+\end{array}\right]
+\end{displaymath}
+On peut déduire de cette matrice une expression vectorielle traduisant
+la rotation d'un vecteur $\vec{t}$ quelconque :
+\begin{eqnarray*}
+R_{\vec{k},\theta}(\vec{t})
+  & = & (\vec{t}\cdot\vec{k})\vec{k}
+       + \cos(\theta)[\vec{t}-(\vec{t}\cdot\vec{k})\vec{k}]
+       + \sin(\theta)\left[\vec{k}\wedge\left(\vec{t}
+                                             -(\vec{t}\cdot\vec{k})\vec{k}
+                                        \right)\right] \\
+  & = & \cos(\theta)\vec{t}
+       + (1-\cos(\theta))(\vec{t}\cdot\vec{k})\vec{k}
+       + \sin(\theta)\vec{k}\wedge\vec{t}
+\end{eqnarray*}
+d'où en exprimant $\cos(\theta)$, $\sin(\theta)$, et $\vec{k}$ :
+\begin{eqnarray*}
+R_{\vec{a},\vec{b}}(\vec{t})
+  & = & \frac{\vec{a}\cdot\vec{b}}{\|\vec{a}\|^2}\vec{t} \\
+  & + & \frac{\|\vec{a}\|^2-\vec{a}\cdot\vec{b}}{\|\vec{a}\|^2}
+        \frac{\vec{t}\cdot(\vec{a}\wedge\vec{b})}
+             {\|\vec{a}\|^2\sqrt{1-\frac{(\vec{a}\cdot\vec{b})^2}
+                                        {|\vec{a}\|^4}}}
+        \frac{\vec{a}\wedge\vec{b}}
+             {\|\vec{a}\|^2\sqrt{1-\frac{(\vec{a}\cdot\vec{b})^2}
+                                        {|\vec{a}\|^4}}} \\
+  & + & \sqrt{1-\frac{(\vec{a}\cdot\vec{b})^2}{|\vec{a}\|^4}}
+        \frac{\vec{a}\wedge\vec{b}}
+             {\|\vec{a}\|^2\sqrt{1-\frac{(\vec{a}\cdot\vec{b})^2}
+                                        {|\vec{a}\|^4}}}
+        \wedge\vec{t} \\
+  & = & \frac{\vec{a}\cdot\vec{b}}{\|\vec{a}\|^2}\vec{t}
+      + \frac{\vec{t}\cdot(\vec{a}\wedge\vec{b})}
+             {\|\vec{a}\|^2(\|\vec{a}\|^2+\vec{a}\cdot\vec{b})}
+        (\vec{a}\wedge\vec{b})
+      + \frac{\vec{a}\wedge\vec{b}}{\|\vec{a}\|^2}\wedge\vec{t}
+\end{eqnarray*}
+On peut alors retraduire cette expression vectorielle sous forme
+matricielle, mais cette fois dans la base dans laquelle on connait $\vec{a}$
+et $\vec{b}$ :
+\begin{eqnarray*}
+[R(t)] & = & M [\vec{t}] \\
+M & = & \frac{1}{\|\vec{a}\|^2}
+        \left[\begin{array}{ccc}
+   \vec{a}\cdot\vec{b}+\frac{c_x^2}{\|\vec{a}\|^2+\vec{a}\cdot\vec{b}}
+ & \frac{c_xc_y}{\|\vec{a}\|^2+\vec{a}\cdot\vec{b}}-c_z
+ & \frac{c_xc_z}{\|\vec{a}\|^2+\vec{a}\cdot\vec{b}}+c_y \\
+   \frac{c_xc_y}{\|\vec{a}\|^2+\vec{a}\cdot\vec{b}}+c_z
+ & \vec{a}\cdot\vec{b}+\frac{c_y^2}{\|\vec{a}\|^2+\vec{a}\cdot\vec{b}}
+ & \frac{c_yc_z}{\|\vec{a}\|^2+\vec{a}\cdot\vec{b}}-c_x \\
+   \frac{c_xc_z}{\|\vec{a}\|^2+\vec{a}\cdot\vec{b}}-c_y
+ & \frac{c_yc_z}{\|\vec{a}\|^2+\vec{a}\cdot\vec{b}}+c_x
+ & \vec{a}\cdot\vec{b}+\frac{c_z^2}{\|\vec{a}\|^2+\vec{a}\cdot\vec{b}}
+        \end{array}\right]
+\end{eqnarray*}
+où $c_x$, $c_y$ et $c_z$ sont les coordonnées de $\vec{a} \wedge \vec{b}$.
+
+Lors du calcul de la forme vectorielle de $R_{\vec{a},\vec{b}}(\vec{t})$, nous
+avons effectué une simplification par
+$1-\frac{\vec{a}\cdot\vec{b}}{\|\vec{a}\|^2}$. Grâce à cette
+simplification, la matrice $M$ ci-dessus est également valide quand
+$\vec{a} = \vec{b}$, et devient la matrice identité. Le seul cas
+particulier à traiter est donc $\vec{a} = -\vec{b}$.
+
+On cherche pour cela un vecteur $\vec{c}$ orthogonal à $\vec{a}$ (voir
+annexe~\ref{sec:orthogonaux}) et on calcule la matrice de rotation
+d'angle $\pi$ autour de $\vec{c}$ (voir
+annexe~\ref{sec:rotation-axe-angle}).
+
+Remarque : On peut indifféremment considérer dans l'expression de la
+matrice précédente que c'est le vecteur $\vec{a}$ qui tourne pour
+venir en $\vec{b}$, ou que le vecteur est fixe et que le repère tourne
+de sorte que $\vec{a}$ représente les coordonnées avant rotation et
+que $\vec{b}$ représente les coordonnées après rotation. On a donc
+simplement $[\vec{b}] = M [\vec{a}]$, et c'est l'utilisateur qui donne
+la signification physique qu'il veut à cette expression.
+
+Si on veut exprimer la rotation à l'aide du formalisme des
+quaternions, on obtient :
+\begin{displaymath}
+Q\left\{\begin{array}{ccl}
+q_0 & = & \cos (-\frac{\theta}{2})     \\
+q_1 & = & \sin (-\frac{\theta}{2}) k_x \\
+q_2 & = & \sin (-\frac{\theta}{2}) k_y \\
+q_3 & = & \sin (-\frac{\theta}{2}) k_z
+\end{array}\right.
+\end{displaymath}
+D'où, en exprimant $\cos\left(-\frac{\theta}{2}\right)$,
+$\sin\left(-\frac{\theta}{2}\right)$ et $\vec{k}$ :
+\begin{eqnarray*}
+\cos\left(-\frac{\theta}{2}\right)
+ & = & \sqrt{\frac{1+\cos\theta}{2}}
+   =  \sqrt{\frac{\|\vec{a}\|^2+\vec{a}\cdot\vec{b}}{2\|\vec{a}\|^2}} \\
+\sin\left(-\frac{\theta}{2}\right)
+ & = & \sqrt{\frac{1-\cos\theta}{2}}
+   = -\sqrt{\frac{\|\vec{a}\|^2-\vec{a}\cdot\vec{b}}{2\|\vec{a}\|^2}} \\
+\vec{k} & = & \frac{\vec{a}\wedge\vec{b}}
+                   {\|\vec{a}\|^2\sqrt{1-\frac{(\vec{a}\cdot\vec{b})^2}
+                                              {\|\vec{a}\|^4}}}
+\end{eqnarray*}
+On obtient :
+\begin{eqnarray*}
+q_0 & = & \sqrt{\frac{1}{2}\left(1+\frac{\vec{a}\cdot\vec{b}}
+                                        {\|\vec{a}\|^2}\right)} \\
+\left(\begin{array}{c}q_1\\q_2\\q_3\end{array}\right)
+    & = & \frac{-(\vec{a}\wedge\vec{b})}
+               {\|\vec{a}\|^2\sqrt{2\left(1+\frac{\vec{a}\cdot\vec{b}}
+                                                 {\|\vec{a}\|^2}\right)}} \\
+    & = & \frac{-(\vec{a}\wedge\vec{b})}
+               {2q_0\|\vec{a}\|^2}
+\end{eqnarray*}
+Cette expression est singulière si $\vec{b}=-\vec{a}$ ($q_0=0$). Dans
+ce cas, on calcule $\vec{c}$ orthogonal à $\vec{a}$ (voir
+annexe~\ref{sec:orthogonaux}) et on calcule le quaternion :
+\begin{displaymath}
+\left\{\begin{array}{ccl}
+q_0 & = & 0 \\
+\left(\begin{array}{c}q_1\\q_2\\q_3\end{array}\right)
+    & = & (\vec{c})
+\end{array}\right.
+\end{displaymath}
+
+Une application de ces formules est le calcul du quaternion qui
+transforme un repère initial dans lequel les coordonnées d'un vecteur
+sont $(v_x,~v_y,~v_z)^\top$ en un repère canonique où les coordonnées de ce
+même vecteur sont $(1,~0,~0)^\top$. On a alors :
+\begin{flushleft}
+Si $v_x = -1$\\
+\hspace{10mm}$q_0 = 0$\\
+\hspace{10mm}$q_1 = 0$\\
+\hspace{10mm}$q_2 = 1$\\
+\hspace{10mm}$q_3 = 0$\\
+Sinon\\
+\hspace{10mm}$q_0 = \sqrt{\frac{1+v_x}{2}}$\\
+\hspace{10mm}$q_1 = 0$\\
+\hspace{10mm}$q_2 = \frac{-v_z}{\sqrt{2(1+v_x)}}$\\
+\hspace{10mm}$q_3 = \frac{v_y}{\sqrt{2(1+v_x)}}$\\
+Fin si
+\end{flushleft}
+
+\cleardoublepage\section{Rotation d'axe et d'angle donnés}
+\label{sec:rotation-axe-angle}
+Soit $\vec{k}$ ($\|\vec{k}\| = 1$), l'axe de la rotation, et soit
+$\theta$ son angle. On considère que les vecteurs sont fixes et que
+c'est le repère qui tourne. La relation vectorielle suivante a été
+démontrée dans l'annexe~\ref{sec:rotation-vecteurs} :
+\begin{displaymath}
+R_{\vec{k},\theta}(\vec{t}) =
+   \cos(\theta)\vec{t}
+       + (1-\cos(\theta))(\vec{t}\cdot\vec{k})\vec{k}
+       + \sin(-\theta)\vec{k}\wedge\vec{t}
+\end{displaymath}
+Le signe <<$-$>> provient du fait qu'ici on considère que c'est
+le repère qui tourne.
+
+Cette expression se traduit sous forme
+matricielle : $R_{\vec{k},\theta}(\vec{t}) = M [\vec{t}]$ avec :
+\begin{displaymath}
+M=\left[\begin{array}{ccc}
+   \cos\theta+(1-\cos\theta)k_x^2
+ & (1-\cos\theta)k_xk_y+\sin\theta k_z
+ & (1-\cos\theta)k_xk_z-\sin\theta k_y \\
+   (1-\cos\theta)k_xk_y-\sin\theta k_z
+ & \cos\theta+(1-\cos\theta)k_y^2
+ & (1-\cos\theta)k_yk_z+\sin\theta k_x \\
+   (1-\cos\theta)k_xk_z+\sin\theta k_y
+ & (1-\cos\theta)k_yk_z-\sin\theta k_x
+ & \cos\theta+(1-\cos\theta)k_z^2
+\end{array}\right]
+\end{displaymath}
+Si on veut exprimer la rotation à l'aide du formalisme des
+quaternions, on obtient :
+\begin{eqnarray*}
+q_0 & = & \cos\frac{\theta}{2}    \\
+q_1 & = & \sin\frac{\theta}{2}k_x \\
+q_2 & = & \sin\frac{\theta}{2}k_y \\
+q_3 & = & \sin\frac{\theta}{2}k_z
+\end{eqnarray*}
+Remarque : cette expression diffère de l'expression donnée à
+l'annexe~\ref{sec:quaternions} car cette fois $\theta$ représente
+l'angle dont le \emph{repère} tourne (et non pas l'angle dont les
+vecteurs semblent tourner).

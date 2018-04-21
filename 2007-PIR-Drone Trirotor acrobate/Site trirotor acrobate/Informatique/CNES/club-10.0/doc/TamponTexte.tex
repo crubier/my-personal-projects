@@ -1,0 +1,654 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+% $Id: TamponTexte.tex,v 1.16 2005/03/03 16:36:22 chope Exp $
+\subsection{classe TamponTexte}\label{sec:TamponTexte}
+
+\subsubsection*{description}\label{sec:TamponTexte-desc}
+Cette classe gère le modèle logique d'un texte pouvant comporter des
+lignes de commentaires et des champs séparés par des blancs. Un champ
+peut contenir des caractères spéciaux des langages \langage{c} et
+\langage{c++} ('\verb=\n=', '\verb=\t=', '\verb=\0=', '\verb=\324=',
+'\verb=\x1a=', ...), des caractères spéciaux du langage
+\langage{fortran} ('\verb=\'='), ou des séparateurs si ces caractères sont
+\emph{protégés} par des "" ou des '{}'. Le texte est accessible sous
+forme brute comme une chaîne de caractères terminée par un
+'\verb=\0=', sous forme de lignes, sous forme de champs dans des
+lignes, ou sous forme de champs sans tenir compte des lignes. Ces
+différentes vues peuvent être utilisées conjointement, en lecture et
+en écriture. Le texte peut également être transféré depuis ou vers un
+fichier du système.
+
+L'utilisation la plus courante de cette classe est de lire un fichier
+dans un \texttt{TamponTexte}, d'en éliminer les commentaires et les
+lignes vides, puis d'en extraire les éléments intéressants champ par
+champ, selon la syntaxe du fichier. L'appelant n'a ainsi à se
+préoccuper que de la structure logique des données qu'il lit, pas de
+la structure physique ou des commentaires.
+
+Un commentaire est une zone de texte qui débute par un marqueur de
+début de commentaire et s'étend jusqu'à la fin de la ligne. Le
+marqueur peut être situé n'importe où dans la ligne, y compris après
+du texte utile. Par défaut, seul le caractère '\verb=#=' joue le rôle
+de marqueur de commentaire. Les méthodes
+\texttt{TamponTexte}\char58\char58\texttt{initCarCommentaires} et
+\texttt{TamponTexte}\char58\char58\texttt{ajouteCarCommentaires}
+(table~\ref{tab:TamponTexte-met-gen}, page
+\pageref{tab:TamponTexte-met-gen}) permettent de personnaliser la
+liste des caractères marqueurs. La méthode
+\texttt{TamponTexte}\char58\char58\texttt{elimineCommentaires} permet de supprimer les
+commentaires du texte.
+
+Un champ est une zone de texte constituée de toute suite de caractères
+ne faisant pas partie de la liste des séparateurs\footnote{un
+séparateur peut cependant être inclus dans un champ s'il est entre ""
+ou entre '{}'}. Par défaut la liste des séparateurs est
+"\verb=\t\n\v\f\r =" (c'est à dire les caractères reconnus par la
+macro-définition standard du langage \langage{c} \texttt{isspace}). Les
+méthodes \texttt{TamponTexte}\char58\char58\texttt{initSeparateurs} et
+\texttt{TamponTexte}\char58\char58\texttt{ajouteSeparateurs} permettent de personnaliser la
+liste des séparateurs (on ne peut cependant pas enlever '\verb=\n=',
+ni ajouter '\verb=\"=' ou '\verb=\'='). La méthode
+\texttt{TamponTexte}\char58\char58\texttt{elimineBlancs} permet de supprimer les
+séparateurs excédants en début et en fin de lignes (ainsi que les
+lignes entièrement constituées de séparateurs).
+
+Il est possible d'inclure des caractères séparateurs ou des caractères
+spéciaux utilisant la syntaxe du langage \langage{c} ou du langage
+\langage{fortran} dans un champ. Les
+caractères à protéger (ou une partie du champ les contenant, voire le
+champ complet) doivent être mis entre "" (pour les séparateurs et les
+caractères du langage \langage{c}) ou entre '{}' (pour les séparateurs et les
+caractères du langage \langage{fortran}) et le drapeau
+\texttt{interprete\_} (cf \ref{sec:TamponTexte-impl}, page
+\pageref{sec:TamponTexte-impl}) doit être actif. Ce drapeau est
+initialisé par certains constructeurs et par les méthodes de lecture
+du texte depuis un fichier. Les "" et les '{}' peuvent être présents
+dans le fichier lu ou dans les chaînes passées en argument des
+méthodes de modification du texte (\texttt{insere}\textsl{XXX},
+\texttt{ajoute}\textsl{YYY}, \texttt{remplace}\textsl{ZZZ}). Lorsque
+\texttt{interprete\_} est actif, la vérification de l'équilibre des ""
+et des '{}' est effectuée à chaque modification du texte. Les champs
+sont stockés \emph{avec les} '\verb=\"=', \emph{les} '\verb=\'='
+\emph{et les} '\verb=\\=', l'interprétation étant faite uniquement par
+les méthodes qui retournent des copies de champs
+(\texttt{TamponTexte}\char58\char58\texttt{champ}, \texttt{TamponTexte}\char58\char58\texttt{champLigne}).
+
+\subsubsection*{interface publique}\label{sec:TamponTexte-int}
+\begin{verbatim}
+#include "club/TamponTexte.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{TamponTexte : méthodes générales}
+{\label{tab:TamponTexte-met-gen}}
+{\textbf{Exceptions :} manque\_guillemet, iterateur\_invalide.}
+\signature{\fonc{TamponTexte} (int \argument{interprete}~=~1)}
+          {}&
+
+construit une instance vide 
+
+\textbf{Exceptions :} iterateur\_invalide.
+\\
+
+
+\signature{\fonc{TamponTexte}}
+          {(FILE *\argument{ptrFic}, \\
+             int \argument{interprete}~=~1)
+          }&
+
+construit une instance en lisant le fichier \argument{ptrFic} 
+
+\textbf{Exceptions :} iterateur\_invalide.
+ \\
+
+\signature{\fonc{TamponTexte}}
+          {(const char *\argument{nom},\\
+             int \argument{interprete}~=~1)
+          }&
+
+construit une instance en ouvrant puis lisant le fichier
+\argument{nom}  
+
+\textbf{Exceptions :} iterateur\_invalide.
+\\
+
+\hline
+\signature{\fonc{TamponTexte} (const TamponTexte\& \argument{f})}
+          {}&
+
+constructeur par copie 
+
+\textbf{Exceptions :} iterateur\_invalide.
+\\
+
+\signature{TamponTexte\& \fonc{operator =}}
+          {(const TamponTexte\& \argument{f})}&
+
+affectation  
+
+\textbf{Exceptions :} iterateur\_invalide.
+\\
+
+\hline
+
+\signature{\fonc{\~{}TamponTexte} ()}
+          {}&
+
+destructeur, libère la mémoire allouée \\
+
+\hline
+
+\signature{void \fonc{lit}}
+          {(FILE *\argument{ptrFic},\\
+             int \argument{interprete}~=~1)
+          }&
+
+lit le contenu du fichier pointé par \argument{ptrFic} 
+
+\textbf{Exceptions :} ouverture\_fichier, iterateur\_invalide.\\
+
+\signature{void \fonc{lit}}
+          {(const char *\argument{nom},\\
+             int \argument{interprete}~=~1)
+          }&
+
+associe le fichier \argument{nom} à l'instance, l'ouvre et lit son
+contenu 
+
+\textbf{Exceptions :} ouverture\_fichier, iterateur\_invalide.\\
+
+\hline
+
+\signature{void \fonc{ecrit}}
+          {(const char *\argument{nom}~=~0) }&
+
+ouvre le fichier \argument{nom} (ou le nom associé à l'instance si
+\argument{nom} est nul ou vide) et stocke le texte de l'instance
+dedans 
+
+\textbf{Exceptions :} ouverture\_fichier.\\
+
+\hline
+
+\signature{void \fonc{initCarCommentaires} (const char *\argument{chaine})}
+          {}&
+
+initialise la liste des marqueurs de début de commentaires à
+\argument{chaine}, ou à "\verb=#=" si \argument{chaine} est nul ou
+vide\\
+
+\hline
+
+\signature{void \fonc{ajouteCarCommentaires}}
+          {(const char *\argument{chaine})}&
+
+ajoute \argument{chaine} à la liste des marqueurs de début de
+commentaires\\
+
+\hline
+
+\signature{const string\& \fonc{carCommentaires} () const}
+          {}&
+
+retourne la liste des marqueurs de début de commentaires\\
+
+\hline
+
+\signature{void \fonc{elimineCommentaires} ()}
+          {}&
+
+élimine les commentaires du texte 
+
+\textbf{Exceptions :} manque\_guillemet, iterateur\_invalide.\\
+
+\hline
+
+\signature{void \fonc{initSeparateurs} (const char *\argument{chaine})}
+          {}&
+
+initialise la liste des séparateurs de champs à \argument{chaine}, ou
+à "\verb=\t\n\v\f\r =" si \argument{chaine} est nul ou vide\\
+
+\hline
+
+\signature{void \fonc{ajouteSeparateurs} (const char *\argument{chaine})}
+          {}&
+
+ajoute \argument{chaine} à la liste des séparateurs de champs\\
+
+\hline
+
+\signature{const string\& \fonc{separateurs} () const}
+          {}&
+
+retourne la liste des séparateurs de champs\\
+
+\hline
+
+\signature{void \fonc{elimineBlancs} ()}
+          {}&
+
+élimine les blancs de début et de fin de lignes du texte ; si une
+ligne est entièrement blanche, le '\verb=\n=' de fin de ligne est
+également éliminé 
+
+\textbf{Exceptions :} iterateur\_invalide\\
+
+\hline
+
+\signature{const char *\fonc{nom} () const}
+          {}&
+
+retourne le nom du fichier associé à l'instance (ce nom peut être vide
+si l'instance n'a pas été créée par lecture d'un fichier de nom
+connu)\\
+
+\hline
+
+\signature{int \fonc{estVide} () const}
+          {}&
+
+indique si le tampon est vide \\
+
+\hline
+\signature{const TamponAscii* \fonc{getTampon} () const}
+          {}
+&
+
+retourne l'adresse du tampon \\
+
+\end{tableFonctionsFixe}
+
+\begin{tableFonctionsFixe}{TamponTexte : vision du texte sans
+structuration}{\label{tab:TamponTexte-met-brut}}
+{\textbf{Exceptions :} iterateur\_invalide, caractere\_hors\_domaine.}
+\signature{const char *\fonc{total} () const}
+          {}&
+
+retourne un pointeur sur le texte stocké \\
+
+\hline
+
+\signature{int \fonc{longueur} () const}
+          {}&
+
+retourne la longueur du texte (sans compter le '\verb=\0=') \\
+
+\hline
+
+\signature{void \fonc{insereAAdresse}}
+          {(char *\argument{adresse}, const char *\argument{chaîne})
+          }&
+
+insère \argument{chaîne} à l'adresse spécifiée 
+
+\textbf{Exceptions :} iterateur\_invalide, caractere\_hors\_domaine.\\
+
+\hline
+
+\signature{void \fonc{insereAuDebut}}
+          {(const char *\argument{chaîne})}&
+
+insère \argument{chaîne} au début du texte
+
+\textbf{Exceptions :} iterateur\_invalide, caractere\_hors\_domaine. \\
+
+\hline
+
+\signature{void \fonc{ajouteALaFin}}
+          {(const char *\argument{chaîne})}&
+
+ajoute \argument{chaîne} à la fin du texte
+
+\textbf{Exceptions :} iterateur\_invalide, caractere\_hors\_domaine.\\
+
+\hline
+
+\signature{void \fonc{elimineTout} ()}
+          {}&
+
+vide le tampon 
+
+\textbf{Exceptions :} iterateur\_invalide, caractere\_hors\_domaine.\\
+
+\hline
+
+\signature{void \fonc{elimineZone}}
+          {(char *\argument{debut},char *\argument{fin})}&
+
+élimine les caractères situés de \argument{debut} à \argument{fin} 
+
+\textbf{Exceptions :} iterateur\_invalide, caractere\_hors\_domaine.\\
+
+\hline
+
+\signature{void \fonc{remplaceTout}}
+          {(const char *\argument{chaîne})}&
+
+remplace la totalité du texte par \argument{chaîne} 
+
+\textbf{Exceptions :} iterateur\_invalide.\\
+
+\end{tableFonctionsFixe}
+\begin{tableFonctionsFixe}{TamponTexte : vision du texte par
+lignes}{\label{tab:TamponTexte-met-lignes}}
+{\textbf{Exceptions :} ligne\_hors\_domaine, iterateur\_invalide.}
+\signature{int \fonc{nombreLignes} () const}
+          {}&
+
+retourne le nombre de lignes de texte 
+
+\textbf{Exceptions :} iterateur\_invalide.\\
+
+\hline
+
+\signature{const char *\fonc{ligne} (int \argument{l})}
+          {}&
+
+retourne une copie de la ligne \argument{l} 
+
+\textbf{Exceptions :} ligne\_hors\_domaine, iterateur\_invalide.\\
+
+\hline
+
+\signature{void \fonc{insereDebutLigne}}
+          {(int \argument{l}, const char *\argument{chaîne})}&
+
+insère \argument{chaîne} en début de ligne \argument{l} 
+
+\textbf{Exceptions :} ligne\_hors\_domaine, iterateur\_invalide.\\
+
+\hline
+
+\signature{void \fonc{insereFinLigne}}
+          {(int \argument{l}, const char *\argument{chaîne})}&
+
+insère \argument{chaîne} en fin de ligne \argument{l} 
+
+\textbf{Exceptions :} ligne\_hors\_domaine, iterateur\_invalide.\\
+
+\hline
+
+\signature{void \fonc{elimineLigne} (int \argument{l})}
+          {}&
+
+élimine la ligne \argument{l} 
+
+\textbf{Exceptions :} ligne\_hors\_domaine, iterateur\_invalide.\\
+
+\hline
+
+\signature{void \fonc{remplaceLigne}}
+          {(int \argument{l}, const char *\argument{chaîne})}&
+
+remplace la ligne \argument{l} par \argument{chaîne} 
+
+\textbf{Exceptions :} ligne\_hors\_domaine, iterateur\_invalide.\\
+
+\end{tableFonctionsFixe}
+\begin{tableFonctionsFixe}{TamponTexte : vision du texte par champs
+et lignes}{\label{tab:TamponTexte-met-champs-lignes}}
+{\textbf{Exceptions :} ligne\_hors\_domaine, champ\_ligne\_hors\_domaine, }
+
+\signature{int \fonc{nombreChampsLigne}}
+          {(int \argument{l}) const}&
+
+retourne le nombre de champs de la ligne \argument{l} 
+
+\textbf{Exceptions :} ligne\_hors\_domaine, iterateur\_invalide.\\
+
+\hline
+
+\signature{const char *\fonc{champLigne}}
+          {(int \argument{c}, int \argument{l}) const}&
+
+retourne une copie du champ \argument{c} de la ligne \argument{l}
+
+\textbf{Exceptions :} ligne\_hors\_domaine, champ\_ligne\_hors\_domaine,
+        tampon\_vide, champ\_hors\_domaine, iterateur\_invalide.\\
+
+\hline
+
+\signature{void \fonc{insereAvantChampLigne}}
+          {(int \argument{c}, int \argument{l}, const char *\argument{chaîne})
+          }&
+
+insère \argument{chaîne} au début du champ \argument{c} de la ligne
+\argument{l} 
+
+\textbf{Exceptions :} ligne\_hors\_domaine, champ\_ligne\_hors\_domaine,
+        tampon\_vide, champ\_hors\_domaine, iterateur\_invalide.\\
+
+\hline
+
+\signature{void \fonc{ajouteApresChampLigne}}
+          {(int \argument{c}, int \argument{l}, const char
+          *\argument{chaîne})
+          }&
+
+ajoute \argument{chaîne} à la fin du champ \argument{c} de la ligne
+\argument{l} 
+
+\textbf{Exceptions :} ligne\_hors\_domaine, champ\_ligne\_hors\_domaine,
+        tampon\_vide, champ\_hors\_domaine, iterateur\_invalide.\\
+
+\hline
+
+\signature{void \fonc{elimineChampLigne}}
+          {(int \argument{c}, int \argument{l})}&
+
+élimine le champ \argument{c} de la ligne \argument{l} 
+
+\textbf{Exceptions :} ligne\_hors\_domaine, champ\_ligne\_hors\_domaine,
+        tampon\_vide, champ\_hors\_domaine, iterateur\_invalide.\\
+
+\hline
+
+\signature{void \fonc{remplaceChampLigne}}
+          {(int \argument{c}, int \argument{l}, const char *\argument{chaîne})
+          }&
+
+remplace le champ \argument{c} de la ligne \argument{l} par
+\argument{chaîne} 
+
+\textbf{Exceptions :} ligne\_hors\_domaine, champ\_ligne\_hors\_domaine,
+        tampon\_vide, champ\_hors\_domaine, iterateur\_invalide.\\
+
+\end{tableFonctionsFixe}
+\begin{tableFonctionsFixe}{TamponTexte : vision du texte par champs
+simples}{\label{tab:TamponTexte-met-champs}}
+{\textbf{Exceptions :} tampon\_vide, manque\_guillemet, champ\_hors\_domaine, }
+\signature{int \fonc{nombreChamps} () const}
+          {}&
+
+retourne le nombre total de champs\\
+
+\hline
+
+\signature{const char *\fonc{champ}(int \argument{c} )}
+          {}&
+
+retourne le champ \argument{c} du texte 
+
+\textbf{Exceptions :} tampon\_vide, manque\_guillemet,
+champ\_hors\_domaine,  iterateur\_invalide.\\
+
+\hline
+
+\signature{void \fonc{insereAvantChamp}}
+          {(int \argument{c}, const char *\argument{chaîne})}&
+
+insère \argument{chaîne} au début du champ \argument{c} 
+
+\textbf{Exceptions :} tampon\_vide, manque\_guillemet,
+champ\_hors\_domaine,  iterateur\_invalide.\\
+
+\hline
+
+\signature{void \fonc{ajouteApresChamp}}
+          {(int \argument{c}, const char *\argument{chaîne})}&
+
+ajoute \argument{chaîne} à la fin du champ \argument{c} 
+
+\textbf{Exceptions :} tampon\_vide, manque\_guillemet,
+champ\_hors\_domaine,  iterateur\_invalide.\\
+
+\hline
+
+\signature{void \fonc{elimineChamp} (int \argument{c},)}
+          {}&
+
+élimine le champ \argument{c} 
+
+\textbf{Exceptions :} tampon\_vide, manque\_guillemet,
+champ\_hors\_domaine,  iterateur\_invalide.\\
+
+\hline
+
+\signature{void \fonc{remplaceChamp}}
+          {(int \argument{c}, const char *\argument{chaîne})}&
+
+remplace le champ \argument{c} par \argument{chaîne} 
+
+\textbf{Exceptions :} tampon\_vide, manque\_guillemet,
+champ\_hors\_domaine,  iterateur\_invalide.\\
+
+\end{tableFonctionsFixe}
+
+Les méthodes de la classe TamponTexte respectent les principes
+généraux suivants :
+\begin{description}
+
+\item[adressage] : les adresses brutes (de type \texttt{char *}) sont
+des pointeurs dans le tampon interne de stockage, on peut les calculer
+en ajoutant un décalage (compris entre \texttt{0} et \texttt{longueur
+()}) au pointeur de début de texte retourné par \texttt{total ()} ;
+
+\item[numérotation] : les numéros de ligne, de champs, et de champs
+dans les lignes commencent à 1 ;
+
+\item[adressage invalide] : si une adresse brute située avant le début
+du texte est utilisée, elle est ramenée en début de texte avant de
+réaliser l'opération demandée ; aucune erreur n'est générée (le
+traitement des adresses au delà de la fin du texte est symétrique) ;
+
+\item[numérotation invalide] : si un numéro de ligne ou de champ
+invalide est utilisé, une erreur est générée et l'opération demandée
+n'est pas effectuée ;
+
+\item[durée de vie des copies] : les méthodes qui retournent des
+copies d'éléments internes du texte (champs, lignes) utilisent toutes
+la même zone de mémoire pour retourner ces copies, chaque appel de ce
+type écrase donc le résultat de l'appel précédent\footnote{il est même
+possible qu'une fonction libère la zone mémoire allouée par un appel
+précédent pour en réallouer une plus grande} ;
+
+\item[réallocation globale] : les fonctions modifiant le texte (à
+savoir \texttt{lit} et les méthodes dont le nom est de la forme
+\texttt{insere}\textsl{XXX}, \texttt{ajoute}\textsl{YYY},
+\texttt{remplace}\textsl{ZZZ}) peuvent libérer le tampon global pour
+le réallouer selon leur besoin ; un pointeur retourné par
+\texttt{total ()} avant une modification n'est donc plus forcément
+valide après une modification, il vaut mieux réappeler \texttt{total
+()} que conserver son résultat\footnote{de plus la fonction
+\texttt{total ()} est une méthode particulièrement peu coûteuse en
+temps (fonction \emph{inline} dont la définition est \texttt{\{ return
+total\_; \}})}.
+
+\end{description}
+
+\subsubsection*{exemple d'utilisation}
+
+\begin{verbatim}
+#include "club/TamponTexte.h"
+...
+try
+{
+  TamponTexte fichier ("essai");
+
+  fichier.elimineCommentaires ()
+  fichier.elimineBlancs       ()
+
+  if (fichier.estVide ())
+  { cerr << "le fichier:" << fichier.nom () << " est vide\n";
+    exit (1);
+  }
+
+  // écriture des champs du fichier en sens inverse
+  for (int l = fichier.nombreLignes (); l > 0; l--)
+  { 
+    for (int c = fichier.nombreChampsLigne (l); c > 0; c--)
+      cout << fichier.champLigne (c, l) << ' ';
+    cout << endl;
+  }
+}
+catch (ClubErreurs ce)
+{
+  cout << "Fin anormale du programme "<<endl;
+  exit (1);
+}
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation spécifiques}
+\label{sec:TamponTexte-conseils}
+Les méthodes retournant des portions du tampon (des lignes ou des
+champs) utilisent toutes le même attribut de l'instance pour copier
+ces portions (il s'agit de l'attribut \texttt{sortie\_}). Si
+l'utilisateur doit appeler plusieurs de ces méthodes successivement,
+chaque appel écrasera la valeur retournée par l'appel précédent. Il
+est donc très important que l'appelant stocke lui-même ces valeurs
+dans des variables locales s'il doit en traiter plusieurs
+simultanément.
+
+\subsubsection*{implantation}\label{sec:TamponTexte-impl}
+La classe \texttt{TamponTexte} est basée sur une hiérarchie
+d'objets introduite dans la version précédente de la bibliothèque
+\bibliotheque{club}.
+Cette hiérarchie gère un
+tampon de type ascii, avec des mécanismes de déplacement implémentés
+par des itérateurs et une gestion d'erreurs par lancement
+d'exceptions. 
+Les attributs de la classe sont des objets de la hiérarchie de gestion
+de tampon ascii.  
+Ces attributs sont décrits sommairement dans la
+table~\ref{tab:TamponTexte-att} (page~\pageref{tab:TamponTexte-att}),
+les méthodes privées étant décrites dans la
+table~\ref{tab:TamponTexte-met-priv} (page~\pageref{tab:TamponTexte-met-priv}).
+
+\begin{tableAttributsFixe}{attributs de la classe TamponTexte}
+{\label{tab:TamponTexte-att}}
+{itérateur de parcours par
+ligne et par champ}
+tampon\_ & TamponAscii & tampon ascii associé au texte\\
+
+\hline
+
+parcoursCaractere\_ & IterateurCaractere & itérateur de parcours par caractère\\
+
+\hline
+
+parcoursChamp\_ & IterateurChamp & itérateur de parcours par champ\\
+
+\hline
+
+parcoursLigne\_ & IterateurLigne & itérateur de parcours par ligne\\
+
+\hline
+
+parcoursChampLigne\_ & IterateurChampLigne & itérateur de parcours par
+ligne et par champ\\
+
+
+\end{tableAttributsFixe}
+
+\begin{tableFonctionsFixe}{TamponTexte : méthodes
+privées}{\label{tab:TamponTexte-met-priv}}
+{réinitialise les itérateurs sur le tampon ascii (méthode utilisée en cas}
+
+\signature{void \fonc{actualiseIterateurs} ()}
+          {}&
+
+réinitialise les itérateurs sur le tampon ascii (méthode utilisée en cas de
+modification du tampon)
+
+\textbf{Exceptions :} iterateur\_invalide.\\
+
+
+\end{tableFonctionsFixe}

@@ -1,0 +1,150 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: SenseurAlpha.tex,v 1.9 2004/06/21 14:43:04 marmottes Exp $
+\subsection{classe SenseurAlpha}\label{sec:SenseurAlpha}
+
+\subsubsection*{description}\label{sec:SenseurAlpha-desc}
+
+Cette classe implante les pseudo-senseurs d'ascension droite, elle est
+pratique par exemple pour optimiser une direction de poussée
+inertielle (le vecteur interne de référence est alors la direction de
+poussée).
+\subsubsection*{interface publique}\label{sec:SenseurAlpha-int}
+\begin{verbatim}
+#include "marmottes/SenseurAlpha.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{SenseurAlpha : méthodes publiques}
+{\label{tab:SenseurAlpha-met-pub}}
+{construit une instance à partir des données technologiques}
+
+\signature{\fonc{SenseurAlpha}}
+          {(const string\& \argument{nom},\\
+            const RotDBL\& \argument{repere},\\
+            const VecDBL\& \argument{axeCalage},\\
+            double \argument{precision},\\
+            const VecDBL\& \argument{observe})
+          }&
+
+construit une instance à partir des données technologiques\\
+
+\hline
+
+\signature{\fonc{SenseurAlpha} (const SenseurAlpha\& \argument{s})}
+          {}&
+
+constructeur par copie\\
+
+\signature{SenseurAlpha\& \fonc{operator =}}
+          {(const SenseurAlpha\& \argument{s})}&
+
+affectation\\
+
+\hline
+
+\signature{\fonc{\~{}SenseurAlpha} ()}
+          {}&
+
+destructeur, ne fait rien dans cette classe\\
+
+\hline
+
+\signature{void \fonc{respecterMesures} ()}
+          {}&
+
+force le senseur à respecter les unités de mesures dans ses sorties\\
+
+\signature{void \fonc{convertirMesures} ()}
+          {}&
+
+force le senseur à convertir les unités de mesures dans ses sorties\\
+
+\hline
+
+\signature{int \fonc{controlable} (const Etat\& \argument{etat})}
+          {\throw{MarmottesErreurs}}&
+
+indique si le senseur serait capable de contrôler le satellite dans
+l'\argument{etat} fourni (toujours vrai pour un senseur d'ascension
+droite)\\
+
+\hline
+
+\signature{Senseur* \fonc{copie} () const}
+          {}&
+
+opérateur de copie virtuel\\
+
+\signature{typeGeom \fonc{typeGeometrique} () const}
+          {}&
+
+retourne le type de senseur géométrique (pseudoSenseur)\\
+
+\hline
+
+\signature{void \fonc{nouveauRepere}}
+          {(const RotDBL\& \argument{nouveau})}&
+
+remplace le repère du senseur par le \argument{nouveau}\\
+
+\signature{void \fonc{modeliseConsigne}}
+          {(const Etat\& \argument{etat}, double \argument{valeur})\\
+          \throw{CantorErreurs, MarmottesErreurs}}&
+
+modélise la consigne \argument{valeur} dans l'\argument{etat} fourni\\
+
+\signature{double \fonc{mesure} (const Etat\& \argument{etat})}
+          {\throw{MarmottesErreurs}}&
+
+retourne la mesure que produirait le senseur dans l'\argument{etat}
+fourni\\
+
+\signature{ValeurDerivee1 \fonc{foncEcart}}
+          {(const Etat\& \argument{etatPrecedent},\\
+            const Etat\& \argument{etatResolution},\\
+            const RotVD1\& \argument{attitude},\\
+            const VecVD1\& \argument{spin} )
+          }&
+retourne l'écart entre la consigne et la mesure que produirait le
+senseur dans l'\argument{attitude} et le \argument{spin} fournis,
+connaissant l'\argument{etatPrecedent} du satellite
+\\
+
+\end{tableFonctionsFixe}
+\subsubsection*{implantation}\label{sec:SenseurAlpha-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:SenseurAlpha-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe SenseurAlpha}
+{\label{tab:SenseurAlpha-att-priv}}
+{vecteur interne observé (en repère satellite)}
+
+observe\_ & VecDBL & vecteur interne observé (en repère satellite)\\
+
+alphaConsigne\_ & double & sauvegarde de la dernière consigne passée\\
+
+\end{tableAttributsFixe}
+
+Les méthodes protégées sont décrites dans la table~\ref{tab:SenseurAlpha-met-prot}.
+\begin{tableFonctionsFixe}{SenseurAlpha : méthodes protégées}
+{\label{tab:SenseurAlpha-met-prot}}
+{constructeur par défaut. Il est défini explicitement uniquement pour }
+
+\signature{\fonc{SenseurAlpha} ()}
+          {}&
+
+constructeur par défaut. Il est défini explicitement uniquement pour
+prévenir celui créé automatiquement par le compilateur et ne doit pas être
+utilisé.
+\\
+\end{tableFonctionsFixe}
+
+Les méthodes privées sont décrites dans la table~\ref{tab:SenseurAlpha-met-priv}.
+\begin{tableFonctionsFixe}{SenseurAlpha : méthodes privées}
+{\label{tab:SenseurAlpha-met-priv}}
+{initialise la cible en repère inertiel dans le plan}
+
+\signature{void \fonc{initialiseCible}}
+          {(double \argument{alpha})}&
+
+initialise la cible en repère inertiel dans le plan orthogonal à la
+direction $(\alpha, 0)$\\
+
+\end{tableFonctionsFixe}

@@ -1,0 +1,71 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+\subsection{MarmottesReplay}\label{sec:MarmottesReplay}
+
+\subsubsection*{description générale}\label{sec:MarmottesReplay-desc}
+
+L'utilitaire \texttt{marmottesReplay} permet de rejouer de façon
+indépendante des séries d'appels à l'interface publique de la
+bibliothèque \bibliotheque{marmottes}. Cet utilitaire a été créé à
+l'origine pour l'aide à la mise au point de la bibliothèque
+elle-même et pour l'inclusion de cas réels d'utilisation dans la suite
+des tests de non-régression. Il est désormais installé en même temps
+que la bibliothèque car il permet aux utilisateurs expérimentés
+d'étudier de façon rapide le comportement local d'une simulation, en
+changeant les paramètres ou en ajoutant à la main des appels
+supplémentaires avec d'autres capteurs.
+
+\subsubsection*{ligne de commande et options}\label{sec:MarmottesReplay-lignecmde}
+
+La ligne de commande a la forme suivante~:
+
+\begin{verbatim}
+   marmottesReplay [-o output] [-d directory] [-v] input
+\end{verbatim}
+
+Le fichier d'entrée doit être un fichier au format produit par la
+bibliothèque lorsque la fonction \fonc{MarmottesActiveTrace} a été
+appelée (cf~\ref{sec:gestion-traces}).
+
+Par défaut, l'utilitaire se contente de réexécuter tous les appels et
+n'affiche rien. Les développeurs utilisent classiquement ce mode avec
+un debugger.
+
+L'option \texttt{-o} permet d'activer les traces d'exécution, ce qui permet de
+comparer les nouveaux résultats avec ceux du fichier initial. Ce mode
+est classiquement utilisé pour les cas tests.
+
+L'option \texttt{-d} permet de spécifier le répertoire dans lequel les fichiers
+senseurs doivent être recherché, la recherche se fait dans le
+répertoire courant par défaut.
+
+L'option \texttt{-v} affiche sur la sortie standard tous les appels.
+
+\subsubsection*{descriptions des sorties}\label{sec:MarmottesReplay-sorties}
+
+Les seules sorties de l'utilitaire sont activées par les options
+\texttt{-o} et \texttt{-v}.
+
+L'option \texttt{-o} crée un fichier de traces d'exécution au même
+format que l'entrée.
+
+L'option \texttt{-v} affiche juste un message à chaque appel effectué.
+
+\subsubsection*{conseils d'utilisation}\label{sec:MarmottesReplay-conseils}
+
+Cet utilitaire nécessite une certaine connaissance de la
+bibliothèque pour être exploitable.
+
+Pour les développeurs, l'intérêt principal est qu'il permet de rejouer des
+cas envoyés par les utilisateurs de la bibliothèque même s'ils ne
+disposent pas du code appelant. Ce rejeu se fait traditionnellement
+une fois à la main avec l'option \texttt{-o} pour vérifier que le
+problème cité par l'utilisateur est bien reproductible dans
+l'environnement de développement, puis il est refait sous debugger.
+
+Pour les utilisateurs, il est possible d'étudier le comportement local
+d'une simulation en éditant à la main le fichier avant de la faire
+rejouer. On peut alors changer les paramètres d'appel ou ajouter des
+appels (les lignes de résultats des fonctions commençant par
+\texttt{->} étant ignorées par l'utilitaire, il est inutile d'en
+mettre lorsque l'on ajoute un appel à une fonction, la ligne d'appel
+suffit).

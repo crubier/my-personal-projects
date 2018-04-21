@@ -1,0 +1,96 @@
+#! /bin/sh
+
+# $Id: test_BugsIds.in,v 1.2 2003/10/08 09:40:57 marmottes Exp $
+
+# cleaning stuff
+clean()
+{ for locale1 in "$sed" "$res" "$out" "$patched" "$tmp1" "$tmp2" ; do
+    if [ ! -z "$locale1" -a -f "$locale1" ] ; then
+       rm "$locale1"
+    fi
+  done
+}
+
+trap clean 0
+trap 'exit 1' 1 2 3
+
+# temporary files
+sed=test_BugsIds.sed.$$
+res=test_BugsIds.res.$$
+out=test_BugsIds.out.$$
+patched=test_BugsIds.patched.$$
+tmp1=test_BugsIds.tmp1.$$
+tmp2=test_BugsIds.tmp2.$$
+
+global_r=0
+
+# use either the tests specified by the user or an automatically built list
+if [ $# -eq 0 ] ; then
+  key_list=`ls @srcdir@/test_BugsIds.*.log | sed 's,.*\.\([^.]*\)\.log$,\1,'`
+else
+  key_list="$*"
+fi
+
+for key in $key_list ; do
+
+  if [ ! -f @srcdir@/test_BugsIds.$key.log ] ; then
+    echo "file @srcdir@/test_BugsIds.$key.log missing, skipping test" 1>&2
+  else
+    # get the first sensor file
+    f="  *\([^ ][^ ]*\)"
+    sed -n -e "s,Marmottes::reinitialise .*$f$f$f$f"' *$,\1,p' \
+        < @srcdir@/test_BugsIds.$key.log > $tmp1
+    sensor_file=`head -1 $tmp1 | sed -e 's,.*/,,' -e 's,\(.*\),@srcdir@/\1,'`
+
+    # set the language according to the first sensor file
+    if [ `sed -n '/^[^#]* accuracy /p' $sensor_file | wc -l` -gt 0 ] ; then
+      @ma_cv_var_lang@=en ; export @ma_cv_var_lang@
+    else
+      @ma_cv_var_lang@=fr ; export @ma_cv_var_lang@
+    fi
+    @ma_cv_var_tradpath@=@srcdir@/.. ; export @ma_cv_var_tradpath@
+
+    # run the test program
+    ../utils/marmottesReplay -d @srcdir@ @srcdir@/test_BugsIds.$key.log -o $res > $out
+
+    # patch the pointer values before comparison
+    sed -n -e "s,Marmottes::reinitialise *\(0x[^ ]*\) .*$f$f$f$f"' *$,\1 \2,p' \
+           -e "s,Marmottes::copyConstructor *\(0x[^ ]*\) .*"' *$,\1,p' \
+        < @srcdir@/test_BugsIds.$key.log | tr ' ' '\012' > $tmp1
+    sed -n -e "s,Marmottes::reinitialise *\(0x[^ ]*\) .*$f$f$f$f"' *$,\1 \2,p' \
+           -e "s,Marmottes::copyConstructor *\(0x[^ ]*\) .*"' *$,\1,p' \
+        < $res | tr ' ' '\012' > $tmp2
+    if [ `wc -l < $tmp1` -ne `wc -l < $tmp2` ] ; then
+      echo "result file and reference files do not use the same number of instances" 1>&2
+      exit 1
+    fi
+    paste -d ' ' $tmp1 $tmp2 \
+     | sed 's, *\([^ ]*\) *\([^ ]*\),s;\2;\1;,' \
+     | sort \
+     | uniq \
+     > $sed
+    sed -f $sed < $res > $patched
+
+    # compare files
+    if [ -s @srcdir@/test_BugsIds.$key.out -o -s $out ] ; then
+      echo "difference -p 1.0e-4 -ee 1 10 -res $out -ref @srcdir@/test_BugsIds.$key.out -rfref 1"
+      difference -p 1.0e-4 -ee 1 10 -res $out -ref @srcdir@/test_BugsIds.$key.out -rfref 1
+      r=$?
+      
+      if [ $r -ne 0 ] ; then
+        global_r=$r
+      fi
+    fi
+
+    echo "difference -p 1.0e-4 -ee 1 10 -shift 50 -res $patched -rfres 2 -ref @srcdir@/test_BugsIds.$key.log -rfref 3"
+    difference -p 1.0e-4 -ee 1 10 -shift 50 -res $patched -rfres 2 -ref @srcdir@/test_BugsIds.$key.log -rfref 3
+    r=$?
+
+    if [ $r -ne 0 ] ; then
+      global_r=$r
+    fi
+  fi
+
+done
+
+exit $global_r

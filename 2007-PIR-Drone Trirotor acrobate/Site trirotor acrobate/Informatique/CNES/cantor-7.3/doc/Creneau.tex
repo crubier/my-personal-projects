@@ -1,0 +1,292 @@
+% -*- mode: latex; tex-main-file: "cantor.tex" -*-
+% $Id: Creneau.tex,v 1.8 2003/03/20 10:54:58 cantor Exp $
+\subsection{classe Creneau}\label{sec:Creneau}
+
+\subsubsection*{description}\label{sec:Creneau-desc}
+
+La classe Creneau implante la notion d'ensemble d'intervalles
+disjoints ordonnés. Elle généralise ainsi la notion d'intervalle en
+proposant des services similaires mais en autorisant les trous.
+
+\subsubsection*{interface publique}\label{sec:Creneau-int}
+\begin{verbatim}
+#include "cantor/Creneau.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{Creneau : méthodes publiques}
+{\label{tab:Creneau-met-pub}}
+{indique si aucun point de l'intervalle \argument{i} n'est dans l'instance}
+
+\signature{\fonc{Creneau}()}
+          {}&
+
+construit un créneau vide\\
+
+\signature{\fonc{Creneau}(const Intervalle\& \argument{i})}
+          {}&
+
+construit un créneau connexe similaire à l'intervalle \argument{i}\\
+
+\signature{\fonc{Creneau}}
+          {(const Intervalle\& \argument{i1},
+            const Intervalle\& \argument{i2})}&
+
+construit un créneau contenant les intervalles \argument{i1} et
+\argument{i2}
+\\
+
+\signature{\fonc{Creneau}(double \argument{a}, double \argument{b})}
+          {}&
+
+construit le créneau connexe similaire à l'intervalle de bornes
+\argument{a} et \argument{b} (l'ordre des bornes est indifférent)\\
+
+\hline
+
+\signature{\fonc{Creneau} (const Creneau\& \argument{c})}
+          {}&
+
+constructeur par copie\\
+
+\signature{Creneau\& \fonc{operator =} (const Creneau\& \argument{c})}
+          {}&
+
+affectation\\
+
+\signature{\fonc{\~{}Creneau} ()}
+          {}&
+
+destructeur, libère la mémoire allouée\\
+
+\hline
+
+\signature{void \fonc{nettoie} ()}
+          {}&
+
+enlève tous les intervalles contenus dans l'instance\\
+
+\signature{double \fonc{inf} () const}
+          {\throw{CantorErreurs}}&
+
+retourne une copie de la borne inférieure du plus petit intervalle
+(l'erreur est activée si le créneau est vide)\\
+
+\signature{double \fonc{sup} () const}
+          {\throw{CantorErreurs}}&
+
+retourne une copie de la borne supérieure du plus grand intervalle
+(l'erreur est activée si le créneau est vide)\\
+
+\signature{int \fonc{nombre} () const}
+          {}&
+
+retourne une copie du nombre d'intervalles contenus dans l'instance\\
+
+\signature{const Intervalle\& \fonc{operator []} (int \argument{i}) const}
+          {\throw{CantorErreurs}}&
+
+retourne une copie de l'intervalle d'indice \argument{i} de
+l'instance. Une erreur est générée si l' indice n'est pas compris
+entre 0 et \argument{nombre} () - 1)\\
+
+\hline
+
+\signature{bool \fonc{connexe} () const}
+          {}&
+
+indique si l'instance est connexe (c'est à dire si elle contient
+exactement un intervalle)\\
+
+\signature{bool \fonc{vide} () const}
+          {}&
+
+teste si l'instance est vide (la vacuité est considérée avec une
+certaine marge, et correspond au fait que les intervalles contenus
+dans l'instance aient tous une longueur inférieure à la constante
+\texttt{cantorEpsilon} définie dans \texttt{"cantor/Util.h"}\\
+
+\signature{bool \fonc{contient} (double \argument{x}) const}
+          {}&
+
+indique si l'instance contient le réel \argument{x}\\
+
+\signature{bool \fonc{contient} (const Intervalle\& \argument{i}) const}
+          {}&
+
+indique si l'instance contient les points de l'intervalle
+\argument{i}\\
+
+\signature{bool \fonc{rencontre} (const Intervalle\& \argument{i}) const}
+          {}&
+
+indique si l'instance et l'intervalle \argument{i} ont au moins un
+point commun\\
+
+
+\signature{bool \fonc{disjoint} (const Intervalle\& \argument{i}) const}
+          {}&
+
+indique si aucun point de l'intervalle \argument{i} n'est dans
+l'instance\\
+
+\hline
+
+\signature{void \fonc{decale} (double \argument{delta}) const}
+          {}&
+
+décale tous les intervalles de la valeur \argument{delta}\\
+
+\hline
+
+\signature{Creneau\& \fonc{operator +=}}
+          {(const Intervalle\& \argument{i})}&
+
+remplace l'instance par le résultat de sa réunion avec l'intervalle
+\argument{i}\\
+
+\signature{Creneau\& \fonc{operator -=}}
+          {(const Intervalle\& \argument{i})}&
+
+remplace l'instance par le résultat de sa disjonction avec l'intervalle
+\argument{i}
+\\
+
+\signature{Creneau\& \fonc{operator *=}}
+          {(const Intervalle\& \argument{i})}&
+
+remplace l'instance par le résultat de son intersection avec
+l'intervalle \argument{i}\\
+
+\signature{Creneau\& \fonc{operator +=}}
+          {(const Creneau\& \argument{c})}&
+
+remplace l'instance par le résultat de sa réunion avec le créneau
+\argument{c}\\
+
+\signature{Creneau\& \fonc{operator -=}}
+          {(const Creneau\& \argument{c})}&
+
+remplace l'instance par le résultat de sa disjonction avec le créneau
+\argument{c}
+\\
+
+\end{tableFonctionsFixe}
+\begin{tableFonctionsFixe}{Creneau : opérations non membre}
+{\label{tab:Creneau-non-membres}}
+{construit le créneau intersection du créneau \argument{c}}
+
+\signature{Creneau \fonc{operator +}}
+          {(const Creneau\& \argument{c}, const Intervalle\& \argument{i})}&
+
+construit le créneau réunion du créneau \argument{c} et de
+l'intervalle \argument{i}\\
+
+\signature{Creneau \fonc{operator -}}
+          {(const Creneau\& \argument{c}, const Intervalle\& \argument{i})}&
+
+construit le créneau disjonction du créneau \argument{c} et de
+l'intervalle \argument{i}
+\\
+
+\signature{Creneau \fonc{operator +}}
+          {(const Creneau\& \argument{c}, const Creneau\& \argument{c2})}&
+
+construit le créneau réunion des créneaux \argument{c} et
+\argument{c2}\\
+
+\signature{Creneau \fonc{operator -}}
+          {(const Creneau\& \argument{c}, const Creneau\& \argument{c2})}&
+
+construit le créneau disjonction des créneaux \argument{c} et
+\argument{c2}
+\\
+
+\signature{Creneau \fonc{operator *}}
+          {(const Creneau\& \argument{c}, const Intervalle\& \argument{i})}&
+
+construit le créneau intersection du créneau \argument{c} et de
+l'intervalle \argument{i}\\
+
+\signature{Creneau \fonc{operator *}}
+          {(const Creneau\& \argument{c}, const Creneau\& \argument{c2})}&
+
+construit le créneau intersection des créneaux \argument{c} et
+\argument{c2}\\
+
+\hline
+
+\signature{inline ostream\& \fonc{operator <\relax<\relax}}
+          {(ostream\& \argument{s}, const Creneau\& \argument{c})}&
+
+formate une chaîne de caractères représentant le créneau \argument{c}
+sur le flot \argument{s}\\
+
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+
+\begin{verbatim}
+#include "cantor/creneau.h"
+...
+Creneau c1 (-2.0, -1.0);
+        c1 += Intervalle (-0.95, -0.85);
+Intervalle i (-0.9, -0.8);
+Creneau c2 (i);
+        c2 += Intervalle (10.0, 12.0);
+        c2 *= Intervalle (-11.0, 11.0);
+
+cout << c1
+     << (c1.connexe () ?  " ":  " non ") <<  "connexe, "
+     << (c1.vide    () ?  " ":  " non ") <<  "vide "
+     << '(' << c1.nombre () << " intervalle"
+     << ((c1.nombre () > 1) ? "s" : "") << ")\n";
+
+cout << c1
+     << (c1.contient (-1.3) ? " contient " :  " ne contient pas ")
+     << -1.3 << endl;
+
+for (int i = 0; i < c2.nombre (); i++)
+{ cout << c1
+       << (c1.rencontre (c2 [i]) ? " rencontre "
+                                 : " ne rencontre pas ")
+       << c2 [i] << endl;
+}
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation
+spécifiques}\label{sec:Creneau-conseils}
+En règle générale en \langage{c++}, les opérateurs conduisant à une
+modification de l'instance (\fonc{+=}, \fonc{*=}, ...) sont plus
+efficaces que leurs homologues sans affectation car ils évitent la
+création d'une variable temporaire, sa recopie, puis sa
+destruction. La classe Creneau présente une exception : l'opérateur
+\fonc{*=} lorsque l'argument est un autre créneau. Cette opération
+étant très difficile à implanter en place, l'opérateur se contente
+d'appeler l'opérateur \fonc{*} et le compilateur génère une variable
+temporaire et tout ce qui s'ensuit. Cette opération n'apporte donc pas
+de réelle économie par rapport aux opérateurs infixés, elle n'a été
+rajoutée que pour des raisons de symétrie de la classe.
+
+\subsubsection*{implantation}\label{sec:Creneau-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:Creneau-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe Creneau}
+{\label{tab:Creneau-att-priv}}
+{pointeur sur la table des intervalles allouée}
+
+tailleTable\_ & int  & taille de la table des intervalles\\
+
+nbIntervalles\_ & int  & nombre d'intervalles utilisés dans la table\\
+
+table\_ & Intervalle * & pointeur sur la table des intervalles allouée\\
+
+\end{tableAttributsFixe}
+Les méthodes privées sont décrites dans la table~\ref{tab:Creneau-met-priv}.
+\begin{tableFonctionsFixe}{Creneau : méthodes privées}
+{\label{tab:Creneau-met-priv}}
+{réalloue la table des intervalles}
+
+\signature{void \fonc{etendTable} ()}
+          {}&
+
+réalloue la table des intervalles\\
+
+\end{tableFonctionsFixe}

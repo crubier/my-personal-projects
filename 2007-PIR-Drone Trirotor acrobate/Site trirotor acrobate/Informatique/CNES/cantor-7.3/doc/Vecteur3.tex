@@ -1,0 +1,246 @@
+% -*- mode: latex; tex-main-file: "cantor.tex" -*-
+% $Id: Vecteur3.tex,v 1.6 2003/07/09 08:55:11 cantor Exp $
+\subsection{classe Vecteur3}\label{sec:Vecteur3}
+
+\subsubsection*{description}\label{sec:Vecteur3-desc}
+
+La classe \template{Vecteur3}{T} implante les vecteurs dans un espace
+de dimension 3 et propose toutes les opérations mathématiques
+permettant de les manipuler (additions, produits scalaire et
+vectoriel...).
+
+\subsubsection*{interface publique}\label{sec:Vecteur3-int}
+Il est recommandé de ne pas inclure directement le fichier de
+déclaration de la classe (voir la
+section~\ref{sec:Vecteur3-conseils}), mais de passer plutôt par l'une
+des directives :
+\begin{verbatim}
+#include "cantor/DeclDBL.h"
+#include "cantor/DeclVD1.h"
+#include "cantor/DeclVD2.h"
+\end{verbatim}
+
+Ces fichiers réalisent l'inclusion du fichier de déclaration et
+définissent les types VecDBL en tant qu'alias de
+\template{Vecteur3}{double}, VecVD1 en tant qu'alias de
+\template{Vecteur3}{ValeurDerivee1}, et VecVD2 en tant qu'alias de
+\template{Vecteur3}{ValeurDerivee2}.
+
+Outre les méthodes publiques décrites dans la
+table~\ref{tab:Vecteur3-met-pub} et les fonctions décrites dans la
+table~\ref{tab:Vecteur3-non-membres}, tous les opérateurs \fonc{+=},
+\fonc{-=}, \fonc{\^{}=}, \fonc{*=}, \fonc{/=}, \fonc{+}, \fonc{-},
+\fonc{\^{}}, \fonc{|}, \fonc{*}, \fonc{/}, combinant des instances de
+\template{Vecteur3}{T} et des scalaires de type T sont
+définis. L'opérateur \fonc{-} unaire est également défini. Il faut
+noter que pour éviter des erreurs d'interprétation, ni le produit
+scalaire ni le produit vectoriel n'utilisent le symbole \fonc{*},
+celui-ci est réservé à la multiplication d'un vecteur par un
+scalaire. Le produit vectoriel utilise le symbole \fonc{\^{}}, tandis
+que le produit scalaire utilise le symbole \fonc{|} (par homogénéité
+avec la notation $<x|y>$ rencontrée dans certains ouvrages d'algèbre
+linéaire).
+
+\begin{tableFonctionsFixe}{Vecteur3 : méthodes publiques}
+{\label{tab:Vecteur3-met-pub}}
+{construit un vecteur normé à partir de ses coordonnées}
+
+\signature{\fonc{Vecteur3} ()}
+          {}&
+
+construit un vecteur nul \\
+
+\signature{\fonc{Vecteur3} (T \argument{alpha}, T \argument{delta})}
+          {}&
+
+construit un vecteur normé à partir de ses coordonnées sphériques \\
+
+\signature{\fonc{Vecteur3} (T \argument{x}, T \argument{y}, T \argument{z})}
+          {}&
+
+construit un vecteur à partir de ses coordonnées\\
+
+\hline
+
+\signature{\fonc{Vecteur3} (const \template{Vecteur3}{T}\& \argument{u})}
+          {}&
+
+constructeur par copie \\
+
+\signature{\template{Vecteur3}{T}\& \fonc{operator =}}
+          {(const \template{Vecteur3}{T}\& \argument{u})}&
+
+affectation \\
+
+\hline
+
+\signature{const T\& \fonc{x} () const}
+          {}&
+
+retourne une référence constante sur l'abscisse \\
+
+\signature{const T\& \fonc{y} () const}
+          {}&
+
+retourne une référence constante sur l'ordonnéé \\
+
+\signature{const T\& \fonc{z} () const}
+          {}&
+
+retourne une référence constante sur la cote\\
+
+\hline
+
+\signature{T \fonc{norme} () const}
+          {}&
+
+retourne la norme\\
+
+\signature{T \fonc{alpha} () const}
+          {}&
+
+retourne l'azimut entre $-\pi$ et $+\pi$ \\
+
+\signature{T \fonc{delta} () const}
+          {}&
+
+retourne l'élévation entre $-\pi/2$ et $\pi/2$ \\
+
+\hline
+
+\signature{int \fonc{estNorme} () const}
+          {}&
+
+indique si le vecteur est normé (avec une marge de l'ordre de la
+constante symbolique \texttt{cantorEpsilon})\\
+
+\signature{int \fonc{estNul} () const}
+          {}&
+
+indique si le vecteur est nul (avec une marge de l'ordre de la
+constante symbolique \texttt{cantorEpsilon})\\
+
+\hline
+
+\signature{void \fonc{normalise} ()}
+          {\throw{CantorErreurs}}&
+
+normalise l'instance (une erreur est générée si l'instance est nulle)
+\\
+
+\signature{void \fonc{orthonormalise} ()}
+          {\throw{CantorErreurs}}&
+
+remplace l'instance par un vecteur normé qui lui est orthogonal (une
+erreur est générée si l'instance est nulle)\\
+
+\signature{T \fonc{angleAvecVecteur}}
+          {(const \template{Vecteur3}{T}\& \argument{u}) const}&
+
+retourne l'angle entre l'instance et le vecteur $\vec{u}$\\
+
+\signature{\template{Vecteur3}{T} \fonc{orthogonal} () const}
+          {\throw{CantorErreurs}}&
+
+retourne un vecteur orthogonal à l'instance (une erreur est générée si
+l'instance est nulle)\\
+
+\hline
+
+\signature{\fonc{~Vecteur3} ()} {} &
+destructeur
+\\
+
+\end{tableFonctionsFixe}
+
+\begin{tableFonctionsFixe}{Vecteur3 : fonctions non membres}
+{\label{tab:Vecteur3-non-membres}}
+{formate une chaîne de caractères représentant}
+
+\signature{T \fonc{angle}}
+          {(const \template{Vecteur3}{T} \& \argument{u},\\
+            const \template{Vecteur3}{T}\& \argument{v})
+          }&
+
+retourne l'angle entre les vecteurs $\vec{u}$ et $\vec{u}$\\
+
+\signature{\template{Vecteur3}{T} \fonc{vecteurOrthogonalNorme}}
+          {(const \template{Vecteur3}{T}\& \argument{u})\\
+           \throw{CantorErreurs}}&
+
+retourne un vecteur normé orthogonal à $\vec{u}$ \\
+
+\signature{\template{Vecteur3}{T} \fonc{vecteurNorme}}
+          {(const \template{Vecteur3}{T}\& \argument{u})\\
+           \throw{CantorErreurs}}&
+
+retourne un vecteur normé colinéaire à $\vec{u}$ \\
+
+\hline
+
+\signature{inline ostream\& \fonc{operator <\relax{}<\relax{}}}
+          {(ostream\& \argument{s}, const \template{Vecteur3}{T}\& \argument{u})}&
+
+formate une chaîne de caractères représentant le vecteur $\vec{u}$ sur
+le flot \argument{s} \\
+
+\end{tableFonctionsFixe}
+
+\subsubsection*{exemple d'utilisation}
+
+\begin{verbatim}
+#include "cantor/DeclDBL.h"
+#include "cantor/Util.h"
+
+...
+
+VecDBL u (1.0, 0.0, 0.0);
+VecDBL v (radians (90.0), radians (45.0));
+VecDBL w = u ^ v;
+cout << angle (u,v): << degres (angle (u, v)) << endl;
+cout << u << `^' << v << `=' << w;
+cout << "u + v/||v|| - 3 w";
+v.normalise ();
+cout << u + v - 3 * w << endl;
+
+...
+
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation spécifiques}
+\label{sec:Vecteur3-conseils}
+
+La classe \template{Vecteur3}{T} s'appuie sur le mécanisme de
+\texttt{template} pour s'abstraire du type T des coordonnées des
+vecteurs. Ainsi, dans \bibliotheque{marmottes}, sont utilisés des
+Vecteur3 dont les coordonnés sont représentées par des doubles, des
+ValeurDerivee1 ou encore des ValeurDerivee2. Le mécanisme de
+\texttt{template}, s'il offre des avantages indéniables, est parfois
+trop souple et peut engendrer des erreurs (que penser d'un
+\template{Vecteur3}{char *} ?). Il est donc recommandé aux
+utilisateurs d'utiliser les types prédéfinis VecDBL, VecVD1, et VecVD2
+définis dans les fichiers \texttt{cantor/DeclDBL.h},
+\texttt{cantor/DeclVD1.h} et \texttt{cantor/DeclVD2.h}, et de ne pas
+instancier eux-mêmes les \texttt{templates}. Si les utilisateurs
+doivent utiliser simultanément des double et des ValeurDerivee1, il
+leur faudra inclure le fichier \texttt{cantor/DeclDBLVD1.h}, qui outre
+inclure les fichiers précédents, définit également un certain nombre
+d'opérateurs de conversions permettant par example d'ajouter un VecDBL
+à un VecVD1. Les fichiers \texttt{cantor/DeclDBLVD2.h} et
+\texttt{cantor/DeclVD1VD2.h} existent aussi avec des rôles
+symétriques.
+
+\subsubsection*{implantation}\label{sec:Vecteur3-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:Vecteur3-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe Vecteur3}
+{\label{tab:Vecteur3-att-priv}}
+{ordonnée}
+
+x\_ & T  & abscisse\\
+
+y\_ & T  & ordonnée\\
+
+z\_ & T  & cote\\
+
+\end{tableAttributsFixe}

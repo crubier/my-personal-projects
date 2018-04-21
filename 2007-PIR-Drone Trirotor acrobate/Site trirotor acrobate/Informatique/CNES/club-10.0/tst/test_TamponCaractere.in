@@ -1,0 +1,19 @@
+#! /bin/sh
+
+# identificateur RCS : "$Id: test_TamponCaractere.in,v 1.10 2000/07/31 08:35:35 club Exp $"
+
+# mise en place d'un environnement anglais pour vérifier les messages
+@cl_cv_var_lang@=en              ; export @cl_cv_var_lang@
+@cl_cv_var_tradpath@=@srcdir@/.. ; export @cl_cv_var_tradpath@
+
+# exécution du programme de test
+./prgm_TamponCaractere  @srcdir@ > ./test_TamponCaractere.res 2>&1
+cat ./test_TamponCaractere.sortie >> ./test_TamponCaractere.res
+
+# comparaison des fichiers
+echo "difference ./test_TamponCaractere.res ./test_TamponCaractere.ref"
+./../utils/difference -rsynth -p 0.00001 -res ./test_TamponCaractere.res -ref ./test_TamponCaractere.ref
+r=$?
+
+rm -f ./test_TamponCaractere.sortie ./test_TamponCaractere.res
+exit $r

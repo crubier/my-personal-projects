@@ -1,0 +1,111 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: SpinAtt.tex,v 1.5 2003/07/09 09:24:57 marmottes Exp $
+\subsection{classe SpinAtt}\label{sec:SpinAtt}
+
+\subsubsection*{description}\label{sec:SpinAtt-desc}
+
+Cette classe est un conteneur permettant de mémoriser un couple
+attitude et spin. Elle est utilisée par la classe ResolveurAttitude
+pour stocker toutes les solutions trouvées.
+\subsubsection*{interface publique}\label{sec:SpinAtt-int}
+\begin{verbatim}
+#include "marmottes/SpinAtt.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{SpinAtt : méthodes publiques}
+{\label{tab:SpinAtt-met-pub}}
+{construit une instance à partir d'une \argument{attitude}}
+
+\signature{\fonc{SpinAtt} ()}
+          {}&
+
+constructeur par défaut\\
+
+\signature{\fonc{SpinAtt}}
+          {(const RotDBL\& \argument{attitude},\\
+            const VecDBL\& \argument{spin})
+          }&
+
+construit une instance à partir d'une \argument{attitude} et d'un
+\argument{spin}\\
+
+\hline
+
+\signature{\fonc{SpinAtt} (const SpinAtt\& \argument{sa})}
+          {}&
+
+constructeur par copie\\
+
+\signature{SpinAtt\& \fonc{operator =} (const SpinAtt\& \argument{s})}
+          {}&
+
+affectation\\
+
+\signature{\fonc{\~{}SpinAtt()}}{}
+          {}&
+
+destructeur
+\\
+
+\hline
+
+\signature{const RotDBL\& \fonc{attitude} () const}
+          {}&
+
+retourne le spin mémorisé\\
+
+\signature{const VecDBL\& \fonc{spin} () const}
+          {}&
+
+retourne l'attitude mémorisée\\
+
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+
+\begin{verbatim}
+#include "marmottes/SpinAtt.h"
+
+void  Marmottes::attitude (double date,
+                           const VecDBL& position, const VecDBL& vitesse,
+                           double m1, double m2, double m3,
+                           RotDBL *attitude, VecDBL *spin)
+  throw (CantorErreurs, MarmottesErreurs)
+{ // calcul d'une attitude donnée par trois consignes
+  try
+  {
+
+    ...
+
+    // récupération de la "meilleure" solution
+    SpinAtt sol = solveur_.selection ();
+    *attitude   = sol.attitude ();
+    *spin       = sol.spin     ();
+
+    ...
+  }
+
+  catch (...)
+  {
+    etatExtrapole_ = etatResolu_;
+    throw;
+  }
+}
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation spécifiques}
+\label{sec:SpinAtt-conseils}
+Cette classe est un simple conteneur conservant des copies des
+éléments avec lesquels l'instance est construite, elle ne présente
+aucune difficulté particulière d'utilisation.
+
+\subsubsection*{implantation}\label{sec:SpinAtt-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:SpinAtt-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe SpinAtt}
+{\label{tab:SpinAtt-att-priv}}
+{attitude mémorisée}
+
+attitude\_ & RotDBL  & attitude mémorisée\\
+
+spin\_ & VecDBL  & spin mémorisé\\
+
+\end{tableAttributsFixe}

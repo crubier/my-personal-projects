@@ -1,0 +1,166 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: FamilleAlignementPlus.tex,v 1.3 2002/02/27 13:36:02 marmottes Exp $
+\subsection{classe FamilleAlignementPlus}\label{sec:FamilleAlignementPlus}
+
+\subsubsection*{description}\label{sec:FamilleAlignementPlus-desc}
+
+Cette classe implante un cas particulier du modèle analytique
+d'attitude à un degré de liberté respectant deux consignes
+géométriques. C'est le cas où l'alignement $\vec{v}_1=\vec{a}_2$ est
+rencontré avec néanmoins une condition supplémentaire qui dit que
+$\mu_1=\gamma=\frac{\pi}{2}$ n'est \emph{pas} vérifié. On rapelle que
+$\mu_1$ est le demi-angle d'ouverture du cône de consigne du premier
+senseur et que $\gamma$ est l'angle que forment les axes des deux
+cônes de consignes des deux premiers senseurs (tout deux
+géométriques). Les notations utilisées sont décrites en détail dans la
+documentation mathématique de
+\bibliotheque{marmottes}~\ref{ref:marmottes-math}.
+
+La Famille
+correspondante pour laquelle cette égalité sera vérifiée est implantée
+dans la classe FamilleProlongementZero.
+
+\subsubsection*{interface publique}\label{sec:FamilleAlignementPlus-int}
+\begin{verbatim}
+#include "marmottes/FamilleAlignementPlus.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{FamilleAlignementPlus : méthodes publiques}
+{\label{tab:FamilleAlignementPlus-met-pub}}
+{méthode virtuelle pure de la classe FamilleAbstraite, }
+
+\signature{\fonc{FamilleAlignementPlus}()} 
+                {}&
+initialise une instance par défaut inutilisable sans réaffectation\\
+
+\hline
+
+\signature{\fonc{FamilleAlignementPlus}}
+          {(const Intervalle \argument{plages}, const VecVD1 \argument{u1},\\
+            const VecVD1 \argument{u2}, double
+            \argument{signe},\\
+             double \argument{sinMu1}, double
+            \argument{cosMu1},\\
+             double \argument{sinMu2}, double \argument{cosMu2})} & 
+
+construit une FamilleAlignementPlus à partir d'un intervalle plages,
+des vecteurs $\vec{u}_1$ et $\vec{u}_2$ exprimés dans le repère
+inertiel, d'un signe ($\pm1$), et des constantes technologiques
+$\sin\mu_1$, $\cos\mu_1$, $\sin\mu_2$ et $\cos\mu_2$\\
+
+\hline
+
+\signature{\fonc{FamilleAlignementPlus}}{(const
+FamilleAlignementPlus\& \argument{f})} & 
+
+constructeur par copie\\
+
+\signature{FamilleAlignementPlus\&  \fonc{operator =}}{(const
+FamilleAlignementPlus\& \argument{f})} & 
+
+affectation\\
+
+\signature{FamilleAbstraite *  \fonc{copie}() const} 
+          {}& 
+
+opérateur de copie\\
+
+\signature{\fonc{\~{}FamilleAlignementPlus}()} 
+          {}& 
+
+destructeur\\
+
+\hline
+
+\signature{RotVD1  \fonc{inertielCanonique}}{(const ValeurDerivee1\&
+\argument{t}) const} & 
+
+méthode virtuelle pure de la classe FamilleAbstraite, redéfinie ici et
+qui retourne le quaternion de passage du repère inertiel au repère
+canonique de travail défini dans ModeleGeom\\
+
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+L'exemple suivant, directement extrait du code de la bibliothèque
+montre comment, dans la classe ModeleGeom, on a créé un vecteur (au
+sens de la \bibliotheque{stl}~\ref{ref:stl}) de FamilleAlignementPlus.
+
+\begin{verbatim}
+#include "marmottes/FamilleAlignementPlus.h"
+
+{
+  for (int i = 0 ; i < nombreIntervallesSecteur1 ; i++)
+  {
+    if ((creneauInter.rencontre (Intervalle (-sinUneSec, sinUneSec))) 
+         && (fabs (sinMoins) <= sinUneSec))
+    {// Theta = 0 est rencontré
+      for (int j = 0 ; j < nombreIntervallesSecteur2 ;j++)
+      {
+        Famille f (new FamilleFixe (creneauConsigne2 [j], u1, u2, 
+                                   a2Can, a1Can));
+        table_.push_back (f);
+        nombreFamilles_++;
+      }
+      Famille f (new FamilleAlignementPlus (creneauInter [i], u1, u2, 
+                                            -1.0, sinMu_1, cosMu_1, 
+                                            sinMu_2, cosMu_2));
+      table_.push_back (f);
+      nombreFamilles_++;
+      f = new FamilleAlignementPlus (creneauInter [i], u1, u2, 
+                                     1.0, sinMu_1, cosMu_1, 
+                                     sinMu_2, cosMu_2);
+      table_.push_back (f);
+      nombreFamilles_++;
+    }
+  }
+}
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation
+spécifiques}\label{sec:FamilleAlignementPlus-conseils}
+Ce mode de résolution d'attitude permet de prolonger le modèle général
+dans le cas particulier où l'alignement $\vec{v}_1=\vec{a}_2$ est
+rencontré et l'égalité $\mu_1=\gamma=\frac{\pi}{2}$ n'est \emph{pas}
+vérifié. 
+
+Comme montré dans l'exemple précédent, il faut créer deux
+familles de ce type ajoutées à une famille de type fixe qui correspond à
+$\vec{v}_1=\vec{a}_2$.
+
+\subsubsection*{implantation}\label{sec:FamilleAlignementPlus-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:FamilleAlignementPlus-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe FamilleAlignementPlus}
+{\label{tab:FamilleAlignementPlus-att-priv}}
+{sinus du demi-angle d'ouverture du premier cône}
+
+u1\_ & VecVD1 & premier vecteur cible en repère inertiel\\
+
+u2\_ & VecVD1 & second vecteur cible en repère inertiel\\
+
+\hline
+
+signe\_ & double & signe $\pm1$\\
+
+\hline
+
+sinMu\_1\_ & double & sinus du demi-angle d'ouverture du premier cône
+de consigne\\
+
+cosMu\_1\_ & double & cosinus du demi-angle d'ouverture du premier cône
+de consigne\\
+
+sinMu\_2\_ & double & sinus du demi-angle d'ouverture du second cône
+de consigne\\
+
+cosMu\_2\_ & double & cosinus du demi-angle d'ouverture du second cône
+de consigne\\
+
+\hline
+
+deuxSinCos\_ & double  & variable qui vaut $2\times\sin\mu_1\times\cos\mu_1$\\
+
+deuxSinSin\_ & double  & variable qui vaut $2\times\sin\mu_1\times\sin\mu_1$\\
+
+coeff\_ & double  & variable qui vaut $\sin\mu_1\times\cos\mu_2$\\
+
+\end{tableAttributsFixe}

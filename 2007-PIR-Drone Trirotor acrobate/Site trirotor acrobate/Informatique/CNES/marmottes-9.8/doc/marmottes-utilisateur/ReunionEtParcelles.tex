@@ -1,0 +1,179 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: ReunionEtParcelles.tex,v 1.11 2003/07/09 09:24:58 marmottes Exp $
+\subsection{classe ReunionEtParcelles}\label{sec:ReunionEtParcelles}
+
+\subsubsection*{description}\label{sec:ReunionEtParcelles-desc}
+Cette classe implante les parcelles devant voir leur cible dans deux
+sous-parcelles simultanément (notion de \emph{et} logique).
+\subsubsection*{interface publique}\label{sec:ReunionEtParcelles-int}
+\begin{verbatim}
+#include "marmottes/ReunionEtParcelles.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{ReunionEtParcelles : méthodes publiques}
+{\label{tab:ReunionEtParcelles-met-pub}}
+{construit une parcelle à partir de deux sous-parcelles}
+
+\signature{\fonc{ReunionEtParcelles} (Parcelle* \argument{p1}, Parcelle* \argument{p2})}
+          {}&
+
+construit une parcelle à partir de deux sous-parcelles\\
+
+\hline
+
+\signature{Parcelle* \fonc{copie} () const}
+          {}&
+
+opérateur de copie virtuel\\
+
+\signature{\fonc{\~{}ReunionEtParcelles} ()}
+          {}&
+
+destructeur virtuel\\
+
+\hline
+
+\signature{bool \fonc{inclus} (const VecDBL\& \argument{u}) const}
+          {}&
+
+indique si le vecteur $\vec{u}$ est inclus dans la parcelle\\
+
+\signature{double \fonc{ecartFrontiere} (const VecDBL\& \argument{u}) const}
+          {}&
+
+calcule l'écart angulaire signé entre le vecteur $\vec{u}$ et la
+frontière (positif si le point est à l'intérieur de la parcelle,
+négatif sinon)\\
+
+\signature{bool \fonc{visible} (const Cone\& \argument{c}) const}
+          {\throw{CantorErreurs}}&
+
+indique si le cône \argument{c} est visible au moins partiellement\\
+
+\signature{Secteurs \fonc{visible}}
+          {(const Secteurs\& \argument{s}) const\\
+           \throw{CantorErreurs}}&
+
+filtre la partie visible du secteur \argument{s}\\
+
+\hline
+
+\signature{void \fonc{appliqueRotation}}
+          {(const RotDBL\& \argument{r})}&
+
+transforme l'instance en lui appliquant la rotation \argument{r}\\
+
+\signature{void \fonc{integreRotation}}
+          {(const VecDBL\& \argument{axe}, double \argument{angle})\\
+           \textbf{throw (CantorErreurs, MarmottesErreurs)}}&
+
+transforme l'instance en la \emph{trainant} selon la rotation
+définie par l'\argument{axe} et l'\argument{angle}\\
+
+\signature{void \fonc{appliqueMarge} (double \argument{m})}
+          {\textbf{throw (CantorErreurs, MarmottesErreurs)}}&
+
+transforme l'instance en lui appliquant la marge angulaire
+\argument{m}\\
+
+\hline
+
+\signature{void \fonc{applique}}
+          {(TypeFoncConstChamp *\argument{f}, void *\argument{d}) const}&
+
+applique la fonction \argument{f} (qui ne modifie pas ses arguments) à
+tous les champs qui composent la parcelle, l'argument anonyme
+\argument{d} est passé à \argument{f} à chaque appel\\
+
+\signature{void \fonc{applique}}
+          {(TypeFoncChamp *\argument{f}, void *\argument{d})}&
+
+applique la fonction \argument{f} (qui peut modifier ses arguments) à
+tous les champs qui composent la parcelle, l'argument anonyme
+\argument{d} est passé à \argument{f} à chaque appel\\
+
+\hline
+
+\signature{void \fonc{rechercheChamp}}
+          {(Champ **\argument{adressePtr})}&
+
+recherche le champ suivant celui dont l'adresse est donnée en
+argument, et le retourne dans \argument{adressePtr} (cette fonction
+est utilisée en interne par les classes dérivées, elle n'est publique
+qu'en raison de limitations d'accès complexes propres au
+\langage{c++})\\
+
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+
+\begin{verbatim}
+#include "marmottes/ReunionEtParcelles.h"
+
+
+Parcelle *LireParcelle (FichierStructure *blocPere, const string& nom)
+  throw (MarmottesErreurs)
+{
+  Parcelle *p1 = 0;
+  Parcelle *p2 = 0;
+  try
+  {
+    // extraction d'une parcelle depuis un sous-bloc nommé d'un bloc père.
+
+    ...
+
+    string nomEssai (TraduitVersExterne ("et"));
+    if (blocFils.contientSousBloc (nomEssai.c_str ()))
+    { // c'est une réunion "et" de parcelles
+      p1 = LireParcelle (&blocFils, string (""));
+      p2 = LireParcelle (&blocFils, nomEssai);
+
+      return new ReunionEtParcelles (p1, p2);
+    }
+
+    ...
+
+  }
+
+  ...
+
+}
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation spécifiques}
+\label{sec:ReunionEtParcelles-conseils}
+Seules les fonctions de lecture des senseurs ont besoin de connaître les
+types de base, pour construire les parcelles petit à petit. Une fois
+ces parcelles construites toutes les autres fonctions doivent passer
+par la classe de base Parcelle.
+
+\subsubsection*{implantation}\label{sec:ReunionEtParcelles-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:ReunionEtParcelles-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe ReunionEtParcelles}
+{\label{tab:ReunionEtParcelles-att-priv}}
+{pointeur vers la deuxième sous-parcelle}
+
+p1\_ & Parcelle* & pointeur vers la première sous-parcelle\\
+
+p2\_ & Parcelle* & pointeur vers la deuxième sous-parcelle\\
+
+\end{tableAttributsFixe}
+Les méthodes privées sont décrites dans la table~\ref{tab:ReunionEtParcelles-met-priv}.
+\begin{tableFonctionsFixe}{ReunionEtParcelles : méthodes privées}
+{\label{tab:ReunionEtParcelles-met-priv}}
+{constructeur par défaut. Il est défini explicitement uniquement pour}
+
+\signature{\fonc{ReunionEtParcelles} ()} {}&
+constructeur par défaut. Il est défini explicitement uniquement pour
+prévenir celui créé automatiquement par le compilateur et ne doit pas
+être utilisé.
+\\
+
+\signature{\fonc{ReunionEtParcelles}} {(const ReunionEtParcelles\& \argument{p})}&
+constructeur par copie
+\\
+
+\signature{ReunionEtParcelles\& \fonc{operator =}} {(const ReunionEtParcelles\& \argument{p})}&
+affectation
+\\
+
+\end{tableFonctionsFixe}

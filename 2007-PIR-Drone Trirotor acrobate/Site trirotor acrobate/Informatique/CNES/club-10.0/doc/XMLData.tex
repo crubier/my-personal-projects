@@ -1,0 +1,210 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+% $Id: XMLData.tex,v 1.3 2005/03/11 16:27:57 chope Exp $
+\subsection{classe XMLData}\label{sec:XMLData}
+\begin{changebar}
+
+\subsubsection{description}\label{sec:XMLData-desc}
+
+Cette classe fournit une interface d'accès aux données contenues dans
+un fichier au format XML (\emph{eXtended Markup Language}). Elle
+encapsule ainsi dans une interface simple et générique les appels aux
+services de la bibliothèque Xerces.
+
+Cette classe dérivant de UniqDataFile, elle hérite de toutes les
+méthodes publiques et protégées de UniqDataFile et implémente
+les méthodes virtuelles pures de UniqDataFile.
+
+Les fichiers XML qui peuvent être manipulés par les utilisateurs de la
+classe doivent suivre certaines conventions qui, pour XML, s'expriment
+dans des DTD (\emph{Document Type Definition}). La bibliothèque
+\bibliotheque{club} est livrée avec deux DTD et un fichier d'unités.
+Ces trois fichiers, nommés respectivement \texttt{club-data.dtd},
+\texttt{club-units.dtd} et
+\texttt{club-units.xml}, sont installés dans le répertoire
+\texttt{/usr/local/share/club} par défaut (à moins qu'un autre préfixe
+n'ait été choisi à la place de \texttt{/usr/local} lors de la
+configuration de la bibliothèque). Pour retrouver ces fichiers, la
+bibliothèque utilise une variable d'environnement dont le nom peut
+être configuré à la compilation de la bibliothèque (voir la
+section~\ref{sec:environnement}). Le nom par défaut de cette variable
+d'environnement est \texttt{CLUB\_XMLPATH}, la valeur correspondante
+est interprétée comme une liste de répertoires.
+
+Chaque instance de XMLData gère un DOM (\emph{Document Object Model}) qui
+est une représentation hiérarchique en mémoire des données. 
+
+La gestion des unités est réalisée grâce à un fichier fournissant les
+informations concernant les conversions entre unités. Ce fichier est
+au format XML et est livré avec la bibliothèque. Chaque fichier de
+données peut spécifier un autre fichier d'unités qui lui soit propre
+en spécifiant dans son élément principal (\texttt{<club-data>})
+l'attribut \texttt{units-file} qui spécifie le nom du fichier des
+unités, de façon à écraser la valeur spécifiée par défaut dans la DTD.
+Il est également possible de remplacer le fichier d'unités
+\texttt{club-units.xml} installé par défaut ou bien d'utiliser un
+autre fichier d'unités reprenant le nom par défaut mais en configurant
+la liste de répertoires spécifiée par la variable d'environnement
+décrite plus haut (\texttt{CLUB\_XMLPATH} dans la configuration par
+défaut) de façon à ce que ce fichier soit trouvé avant le fichier par
+défaut ; cette façon de procéder étant cependant propice à erreurs (on
+a un fichier de données dépendant d'une série d'unités particulières,
+mais rien ne l'indique dans le fichier), elle n'est pas recommandée.
+
+\subsubsection{interface publique}\label{sec:XMLData-int}
+\begin{verbatim}
+#include "club/XMLData.h"
+\end{verbatim}
+
+La majorité des méthodes publiques de la classe XMLData sont décrites
+dans le tableau~\ref{tab:UniqDataFile-met-pub}
+page~\pageref{tab:UniqDataFile-met-pub}.
+
+Le tableau~\ref{tab:XMLData-met-pub} présente les constructeurs et les
+méthodes publiques propres à la classe XMLData.
+
+\begin{tableFonctionsFixe}{XMLData : méthodes publiques}
+{\label{tab:XMLData-met-pub}}
+{construit une instance vide, dissociée de tout fichier}
+
+\signature{\fonc{XMLData} () \throw{ClubErreurs}}{}
+&
+construit une instance vide, dissociée de tout fichier
+\\
+
+\signature{\fonc{XMLData}(const string\& \argument{fileName}) \throw{ClubErreurs}}
+          {}
+&
+construit une instance en lisant le fichier \argument{fileName}
+\\
+
+\signature{\fonc{\~{}XMLData} ()}{}
+&
+détruit une instance et libère les ressources allouées
+\\
+
+\end{tableFonctionsFixe}
+\subsubsection{exemple d'utilisation}
+
+Un exemple d'utilisation des services généraux de gestion des formats
+de fichiers (Madona, XML ou FichierStructure) est fourni à la
+page~\pageref{sec:UniqDataFile-exemple-Utilisation}.
+
+\subsubsection{conseils d'utilisation
+spécifiques}\label{sec:XMLData-conseils}
+
+La classe XMLFile ne gère pas les cas de bouclage d'inclusions de
+fichiers (par exemple~: un fichier de donnée s'incluant lui-même) et
+de référence (une donnée se référençant elle-même). Il est à la
+charge du programmeur d'assurer l'ordonnancement des inclusions et des
+références.
+
+\subsubsection{implantation}\label{sec:XMLData-impl}
+
+Il n'y a pas d'attribut protégé, les attributs privés sont décrits
+dans la table~\ref{tab:XMLData-att-priv}. Les méthodes protégées sont
+décrites dans la table~\ref{tab:XMLData-met-prot}. Les méthodes
+privées sont décrites dans la table~\ref{tab:XMLData-met-priv}.
+
+\begin{tableAttributsFixe}{attributs privés de la classe XMLData}
+{\label{tab:XMLData-att-priv}}
+{pointeur vers le fichier des unités}
+units\_ & const XMLUnits * & pointeur vers le fichier des unités\\
+currentElement\_ & DOMElement * & élément courant\\
+\end{tableAttributsFixe}
+
+\begin{tableFonctionsFixe}{XMLData : méthodes protégées}
+{\label{tab:XMLData-met-prot}}
+{indique que le n\oe{}ud spécifié doit être ignoré lors de l'écriture}
+\signature{bool \fonc{ignoreNode} (const DOMNode* \argument{node}) const}{}
+&
+indique que le n\oe{}ud spécifié doit être ignoré lors de l'écriture
+de l'arbre DOM dans un fichier
+\end{tableFonctionsFixe}
+
+\begin{tableFonctionsFixe}{XMLData : méthodes privées}
+{\label{tab:XMLData-met-priv}}
+{constructeur par copie, déclaré privé pour éviter tout appel}
+
+\signature{\fonc{XMLData} (const XMLData \& \argument{other})}{}
+&
+constructeur par copie, déclaré privé pour éviter tout appel
+\\
+
+\signature{XMLData \&  \fonc{operator =} (const XMLData \& \argument{other})}{}
+&
+affectation, déclarée privée pour éviter tout appel
+\\
+
+\signature{void \fonc{includeFile} (const string\& \argument{fileName})}
+          {\throw{ClubErreurs}}
+&
+inclut le fichier \argument{fileName} dans le DOM, au niveau de
+l'élément racine
+\\
+
+\signature{void \fonc{deleteIncludedFile} (const string\& \argument{fileName})}
+          {\throw{ClubErreurs}}
+&
+supprime du DOM le fichier inclus nommé \argument{fileName}
+\\
+
+\signature{void \fonc{writeReferencedFiles} (DOMElement* \argument{element})}
+          {\throw{ClubErreurs}}
+&
+écrit tous les fichiers référencés dans le sous-arbre dont la racine
+est l'élément spécifié
+\\
+
+\signature{void \fonc{createNewDOM} ()}
+          {\throw{ClubErreurs}}
+&
+crée un arbre DOM ne contenant aucune donnée (mais contenant l'élément racine)
+\\
+
+\signature{void \fonc{getReference}}
+          {(const string\& \argument{childDataName},\\
+            string* \argument{referencedFileName},\\
+            string* \argument{referencedDataName})\\
+           \throw{ClubErreurs}}
+&
+lit une donnée fille de type référence~: retourne le nom du fichier et
+le nom de la donnée référencée 
+\\
+
+\signature{void \fonc{getReference}}
+          {(int \argument{index},\\
+            string* \argument{referencedFileName},\\
+            string* \argument{referencedDataName})\\
+           \throw{ClubErreurs}}
+&
+lit une donnée fille de type référence~: retourne le nom du fichier et
+le nom de la donnée référencée. La donnée courante doit être une table 
+\\
+
+\signature{UniqDataFile\char58\char58DataType \fonc{getElementType}}
+          { (const DOMElement* \argument{element})}
+&
+retourne le type de l'élément
+\\
+
+\signature{void \fonc{testCurrentDataNotATable} ()}
+          {\throw{ClubErreurs}}
+&
+lève l'exception current\_data\_not\_a\_table si la donnée
+courante n'est pas une table
+\\
+
+\signature{void \fonc{testCurrentDataIsATable} ()}
+          {\throw{ClubErreurs}}
+&
+lève l'exception current\_data\_is\_a\_table si la donnée
+courante est une table
+\\
+
+\signature{bool  \fonc{canMoveUp} ()}{} 
+& 
+retourne \texttt{true} s'il est possible de remonter d'un niveau dans
+la structure de données, \texttt{false} autrement \\
+
+\end{tableFonctionsFixe}
+\end{changebar}

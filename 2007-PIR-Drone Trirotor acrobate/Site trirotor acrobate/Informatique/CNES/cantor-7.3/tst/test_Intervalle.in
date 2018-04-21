@@ -1,0 +1,18 @@
+#! /bin/sh
+
+# identificateur RCS : "$Id: test_Intervalle.in,v 1.8 2001/06/06 07:03:25 cantor Exp $"
+
+# using an english environment for the tests
+@ca_cv_var_lang@=en              ; export @ca_cv_var_lang@
+@ca_cv_var_tradpath@=@srcdir@/.. ; export @ca_cv_var_tradpath@
+
+# run the test program
+./prgm_Intervalle > ./test_Intervalle.res 2>&1
+
+# file comparison
+echo "difference -p 1.0e-4 -ee 1 10 -res ./test_Intervalle.res -ref @srcdir@/test_Intervalle.ref"
+difference -p 1.0e-4 -ee 1 10 -res ./test_Intervalle.res -ref @srcdir@/test_Intervalle.ref
+r=$?
+
+rm -f ./test_Intervalle.res
+exit $r

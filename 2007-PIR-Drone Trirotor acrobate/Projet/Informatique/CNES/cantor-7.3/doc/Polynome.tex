@@ -1,0 +1,312 @@
+% -*- mode: latex; tex-main-file: "cantor.tex" -*-
+% $Id: Polynome.tex,v 1.8 2003/07/09 08:55:11 cantor Exp $
+\subsection{classe Polynome}\label{sec:Polynome}
+
+\subsubsection*{description}\label{sec:Polynome-desc}
+
+La classe \template{Polynome}{T} implante les polynômes à coefficients
+et valeurs de type T.
+
+\subsubsection*{interface publique}\label{sec:Polynome-int}
+Il est recommandé de ne pas inclure directement le fichier de
+déclaration de la classe (voir la
+section~\ref{sec:Polynome-conseils}), mais de passer plutôt par l'une
+des directives :
+\begin{verbatim}
+#include "cantor/DeclDBL.h"
+#include "cantor/DeclVD1.h"
+#include "cantor/DeclVD2.h"
+\end{verbatim}
+
+Ces fichiers réalisent l'inclusion du fichier de déclaration et
+définissent les types PolDBL en tant qu'alias de
+\template{Polynome}{double}, PolVD1 en tant qu'alias de
+\template{Polynome}{ValeurDerivee1}, et PolVD2 en tant qu'alias de
+\template{Polynome}{ValeurDerivee2}.
+
+Outre les méthodes publiques décrites dans la
+table~\ref{tab:Polynome-met-pub} et les fonctions décrites dans la
+table~\ref{tab:Polynome-non-membres}, tous les opérateurs \fonc{+=},
+\fonc{-=}, \fonc{*=}, \fonc{/=}, \fonc{+}, \fonc{-}, \fonc{\^{}},
+\fonc{|}, \fonc{*}, \fonc{/}, combinant des instances de
+\template{Polynome}{T} et des scalaires de type T sont
+définis\footnote{l'opérateur \fonc{/=} n'est défini que pour un
+argument de type T, pas pour un argument de type
+\template{Polynome}{T}}. L'opérateur \fonc{-} unaire est également
+défini.
+
+\begin{tableFonctionsFixe}{Polynome : méthodes publiques}
+{\label{tab:Polynome-met-pub}}
+{construit le polynôme $a_0 + a_1 X + a_2 X^2 + a_3 X^3 + a_4 X^4 +
+a_5 X^5$}
+
+\signature{\fonc{Polynome} ()}
+          {}&
+
+construit un polynôme invalide (de degré -1), un tel polynôme n'est
+utilisable qu'après avoir été écrasé par une affectation d'un polynôme
+valide ; ce constructeur permet cependant de créer des tableaux de
+polynômes, chaque cellule étant correctement initialisée après sa
+construction\\
+
+\signature{\fonc{Polynome}}
+          {(int \argument{degre}, const T coeff [])\\
+           \throw{CantorErreurs}
+          }&
+
+construit un polynôme de \argument{degre} et de
+\argument{coeff}icients donnés. Une exception est lancée si le degré
+est hors des bornes tolérées (de 0 à \texttt{polynome\_max\_degre}).\\
+
+\hline
+
+\signature{\fonc{Polynome}}
+          {(const T\& \argument{a0})}&
+
+construit le polynôme $a_0$ \\
+
+\signature{\fonc{Polynome}}
+          {(const T\& \argument{a0}, const T\& \argument{a1})}&
+
+construit le polynôme $a_0 + a_1 X$ \\
+
+\signature{\fonc{Polynome}}
+          {(const T\& \argument{a0}, const T\& \argument{a1},\\
+            const T\& \argument{a2})
+          }&
+
+construit le polynôme $a_0 + a_1 X + a_2 X^2$ \\
+
+\signature{\fonc{Polynome}}
+          {(const T\& \argument{a0}, const T\& \argument{a1},\\
+            const T\& \argument{a2}, const T\& \argument{a3})
+          }&
+
+construit le polynôme $a_0 + a_1 X + a_2 X^2 + a_3 X^3$ \\
+
+\signature{\fonc{Polynome}}
+          {(const T\& \argument{a0}, const T\& \argument{a1},\\
+            const T\& \argument{a2}, const T\& \argument{a3},\\
+            const T\& \argument{a4})
+          }&
+
+construit le polynôme $a_0 + a_1 X + a_2 X^2 + a_3 X^3 + a_4 X^4$ \\
+
+\signature{\fonc{Polynome}}
+          {(const T\& \argument{a0}, const T\& \argument{a1},\\
+            const T\& \argument{a2}, const T\& \argument{a3},\\
+            const T\& \argument{a4}, const T\& \argument{a5})
+          }&
+
+construit le polynôme $a_0 + a_1 X + a_2 X^2 + a_3 X^3 + a_4 X^4 + a_5
+X^5$ \\
+
+\hline
+
+\signature{\fonc{Polynome}}
+          {(const \template{Polynome}{T}\& \argument{p})}&
+
+constructeur par copie\\
+
+\signature{\template{Polynome}{T}\& \fonc{operator =}}
+          {(const \template{Polynome}{T}\& \argument{p})}&
+
+affectation\\
+
+\hline
+
+\signature{int \fonc{degre} () const}
+          {}&
+
+retourne le degré du polynôme\\
+
+\signature{T \fonc{coeff}}
+          {(int \argument{i}) const\\
+           \throw{CantorErreurs}
+          }&
+
+retourne le coefficient du monôme de degré \argument{i} (une erreur
+est générée si l'index n'est pas entre 0 et \fonc{degre} () - 1) \\
+
+\hline
+
+\signature{T \fonc{operator ()}}
+          {(const T\& \argument{x}) const\\
+           \throw{CantorErreurs}
+          }&
+
+calcule la valeur du polynôme en\argument{x}, une erreur est générée
+si le polynôme est invalide\\
+
+\signature{\template{Polynome}{T} \fonc{operator ()}}
+          {(const \template{Polynome}{T}\& \argument{x}) const\\
+           \throw{CantorErreurs}
+          }&
+
+calcule la composition de \argument{x} par le polynôme, une erreur est
+générée si le polynôme ou si \argument{x} est invalide\\
+
+\hline
+
+\signature{T \fonc{derivee}}
+          {(const T\& \argument{x}) const\\
+           \throw{CantorErreurs}
+          }&
+
+retourne la valeur de la dérivée de l'instance en \argument{x}, une
+erreur est générée si le polynôme est invalide\\
+
+\signature{\template{Polynome}{T} \fonc{derivee} () const}
+          {\throw{CantorErreurs}}&
+
+retourne le polynôme dérivé de l'instance, une erreur est générée si
+le polynôme est invalide\\
+
+\signature{\template{Polynome}{T} \fonc{integrale}}
+          {(const T\& \argument{y} = T (0.0),\\
+            const T\& \argument{x} = T (0.0)) const\\
+           \throw{CantorErreurs}
+          }&
+
+retourne le polynôme résultat de l'intégration de l'instance, en
+positionnant les constantes d'intégration de sorte que ce polynôme
+prenne la valeur \argument{y} en \argument{x}, une erreur est générée
+si le polynôme est invalide\\
+
+\hline
+
+\signature{bool \fonc{zerosCalculables}() const}
+          {}&
+
+indique si les zéros de l'instance sont calculables par une méthode
+directe (c'est vrai quand le degré du polynôme est inférieur à
+cinq).\\
+
+\signature{void \fonc{zeros}}
+          {(int* \argument{n}, T z [], int o []) const\\
+           \throw{CantorErreurs}
+          }&
+
+calcule les zéros réels de l'instance par une méthode directe, et
+stocke dans le tableau \argument{z} la valeur des zéros (dans l'ordre
+croissant) et dans le tableau \argument{o} l'ordre de ces zéros. Au
+cas où tous les zéros seraient séparés, l'appelant doit fournir des
+tableaux pouvant contenir \fonc{degre} () éléments. Le nombre
+d'éléments réellement utilisés est retourné dans l'entier pointé par
+\argument{n}. On assure que la somme des \argument{o}[i] pour i
+variant de 0 à (*\argument{n})-1 est inférieure ou égale au degré du
+polynôme. \\
+
+\signature{\fonc{~Polynome} ()} {} &
+destructeur.
+\\
+
+\end{tableFonctionsFixe}
+
+\begin{tableFonctionsFixe}{Polynome : fonctions non membres}
+{\label{tab:Polynome-non-membres}}
+{formate une chaîne de caractères représentant le polynôme}
+
+\signature{inline ostream\& \fonc{operator <\relax{}<\relax{}}}
+          {(ostream\& \argument{s}, const \template{Polynome}{T}\& \argument{u})}&
+
+formate une chaîne de caractères représentant le polynôme sur le flot
+\argument{s} \\
+
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+
+\begin{verbatim}
+#include "cantor/DeclDBL.h"
+...
+double epsilon = 1.0e-5;
+PolDBL pa (4.0 + 2.0 * epsilon, -2.0);
+PolDBL pb (epsilon - 2.0, 1.0);
+
+// polynôme s'annulant en 2-epsilon et en 2+epsilon
+PolDBL p2 = pa * pb * 5.0;
+
+double zeros [polynome_max_degre];
+int    n, ordre [polynome_max_degre];
+
+p2.zeros (&n, zeros, ordre);
+cout << n <<  " zéros :\n";
+for (int i = 0; i < n; i++)
+{ cout << ` ` << zeros [i] << " d'ordre : " << ordre [i];
+  cout << " (P (" << zeros [i] << ") = " << p2 (zeros [i]) << ")\n";
+}
+
+...
+
+// Calcul des premiers polynômes de Chebyshev
+PolDBL chebyshev [7];
+chebyshev [0] = PolDBL (1.0);
+chebyshev [1] = PolDBL (0.0, 1.0);
+PolDBL deuxX (0.0, 2.0);
+for (i = 2; i < 7; i++)
+  chebyshev [i] = deuxX * chebyshev [i-1] - chebyshev [i-2];
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation spécifiques}
+\label{sec:Polynome-conseils}
+
+La constante entière \texttt{polynome\_max\_degre} est définie par le
+fichier d'en-tête de la classe, elle peut être utilisée par l'appelant
+pour dimensionner ses tableaux. Sa valeur est de 10 pour la version
+5.1 de \bibliotheque{cantor}.
+
+La classe \template{Polynome}{T} s'appuie sur le mécanisme de
+\texttt{template} pour s'abstraire du type T des coordonnées des
+polynômes. Ainsi, peuvent être utilisés des polynômes dont les
+coordonnés sont représentées par des doubles, des ValeurDerivee1 ou
+encore des ValeurDerivee2. Le mécanisme de \texttt{template}, s'il
+offre des avantages indéniables, est parfois trop souple et peut
+engendrer des erreurs (que penser d'un \template{Polynome}{char *}
+?). Il est donc recommandé aux utilisateurs d'utiliser les types
+prédéfinis PolDBL, PolVD1, et PolVD2 définis dans les fichiers
+\texttt{cantor/DeclDBL.h}, \texttt{cantor/DeclVD1.h} et
+\texttt{cantor/DeclVD2.h}, et de ne pas instancier eux-mêmes les
+\texttt{templates}. Si les utilisateurs doivent utiliser simultanément
+des double et des ValeurDerivee1, il leur faudra inclure le fichier
+\texttt{cantor/DeclDBLVD1.h}, qui outre inclure les fichiers
+précédents, définit également un certain nombre d'opérateurs de
+conversions permettant par example d'ajouter un VecDBL à un
+VecVD1. Les fichiers \texttt{cantor/DeclDBLVD2.h} et
+\texttt{cantor/DeclVD1VD2.h} existent aussi avec des rôles
+symétriques.
+
+\subsubsection*{implantation}\label{sec:Polynome-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:Polynome-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe Polynome}
+{\label{tab:Polynome-att-priv}}
+{degré du polynôme (limité par la constante}
+
+degre\_ & int & degré du polynôme (limité par la constante entière
+polynome\_max\_degre)\\
+
+coeff\_ & T [polynome\_max\_degre + 1] & tableau des coefficients du
+polynôme\\
+
+\end{tableAttributsFixe}
+Les méthodes privées sont décrites dans la table~\ref{tab:Polynome-met-priv}.
+\begin{tableFonctionsFixe}{Polynome : méthodes privées}
+{\label{tab:Polynome-met-priv}}
+{copie le polynôme donné en argument dans l'instance. Cette fonction }
+
+\signature{void \fonc{affecter}}
+          {(const \template{Polynome}{T}\& \argument{p})}&
+
+copie le polynôme donné en argument dans l'instance. Cette fonction
+est utilisée par le constructeur par copie et l'affectation\\
+
+\signature{void \fonc{ajusteDegre} ()}
+          {}&
+
+cette fonction diminue le degré de l'instance tant que le terme de
+plus haut degré est supérieur à la constante symbolique
+\texttt{cantorEpsilon} en valeur absolue. Elle est utilisée par
+presque tous les constructeurs et par les fonctions membres qui
+modifient le terme de plus haut degré (operator +=, ...).\\
+
+\end{tableFonctionsFixe}

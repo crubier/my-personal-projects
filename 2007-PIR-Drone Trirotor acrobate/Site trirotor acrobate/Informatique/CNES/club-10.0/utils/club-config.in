@@ -1,0 +1,46 @@
+#! /bin/sh
+
+# $Id: club-config.in,v 1.1 2000/12/04 17:04:38 club Exp $
+
+requested=nothing
+status=0
+output=""
+
+while [ $# -gt 0 ] ; do
+
+  case "$1" in
+
+    --cppflags)
+      output="$output @CPPFLAGS@"
+      requested=cppflags ;;
+
+    --ldflags)
+      output="$output @LDFLAGS@"
+      requested=ldflags ;;
+
+    --libs)
+      output="$output -lclub @LIBS@"
+      requested=libs ;;
+
+    --version)
+      output="$output @VERSION@"
+      requested=version ;;
+
+    *)
+      echo "unknown flag \"$1\"" 1>& 2
+      status=1;;
+
+  esac
+
+  shift
+
+done
+
+if [ $requested = nothing ] ; then
+  echo "club-config [--cppflags | --ldflags | --libs | --version]" 1>&2
+  status=1
+else
+  echo "$output"
+fi
+
+exit $status

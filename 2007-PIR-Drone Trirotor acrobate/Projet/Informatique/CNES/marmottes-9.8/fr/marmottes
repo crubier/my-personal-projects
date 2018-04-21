@@ -1,0 +1,512 @@
+# fichier de traduction du domaine marmottes
+# $Id: marmottes,v 1.21 2004/03/04 15:17:43 marmottes Exp $
+
+# mots clefs du fichier des senseurs
+"type"
+   "type"
+
+"repere"
+   "repere"
+
+"axe_calage"
+   "axe_calage"
+
+"precision"
+   "precision"
+
+"reference"
+   "reference"
+
+"normale_reference"
+   "normale_reference"
+
+"reference_zero"
+   "reference_zero"
+
+"axe_sensible"
+   "axe_sensible"
+
+"observe"
+   "observe"
+
+"cible"
+   "cible"
+
+"champ_de_vue"
+   "champ_de_vue"
+
+"champ_d_inhibition_soleil"
+   "champ_d_inhibition_soleil"
+
+"marge_eclipse_soleil"
+  "marge_eclipse_soleil"
+
+"champ_d_inhibition_lune"
+   "champ_d_inhibition_lune"
+
+"marge_eclipse_lune"
+  "marge_eclipse_lune"
+
+"seuil_phase_lune"
+   "seuil_phase_lune"
+
+"champ_d_inhibition_corps_central"
+   "champ_d_inhibition_corps_central"
+
+"et"
+   "et"
+
+"ou"
+   "ou"
+
+"marge"
+   "marge"
+
+"sur"
+   "sur"
+
+"rotation"
+   "rotation"
+
+"balayage"
+   "balayage"
+
+"de"
+   "de"
+
+"inter"
+   "inter"
+
+"union"
+   "union"
+
+"sauf"
+   "sauf"
+
+"cone"
+   "cone"
+
+"axe"
+   "axe"
+
+"angle"
+   "angle"
+
+"i"
+   "i"
+
+"j"
+   "j"
+
+"k"
+   "k"
+
+"v_base_1"
+   "v_base_1"
+
+"v_base_2"
+   "v_base_2"
+
+"v_base"
+   "v_base"
+
+"v_image_1"
+   "v_image_1"
+
+"v_image_2"
+   "v_image_2"
+
+"v_image"
+   "v_image"
+
+"genre"
+   "genre"
+
+"longitude"
+  "longitude"
+
+"latitude"
+  "latitude"
+
+"altitude"
+  "altitude"
+
+"pression"
+  "pression"
+
+"temperature"
+  "temperature"
+
+"hygrometrie"
+  "hygrometrie"
+
+"masque"
+  "masque"
+
+"origine"
+  "origine"
+
+"maximum"
+  "maximum"
+
+"angle_3dB"
+  "angle_3dB"
+
+"angle_3dB_x"
+  "angle_3dB_x"
+
+"angle_3dB_y"
+  "angle_3dB_y"
+
+"angle_zero"
+  "angle_zero"
+
+"echantillon"
+  "echantillon"
+
+# types de senseurs connus
+"limbe"
+  "limbe"
+
+"terre"
+   "terre"
+
+"cartesien"
+   "cartesien"
+
+"diedre"
+   "diedre"
+
+"derapage"
+   "derapage"
+
+"vecteur"
+   "vecteur"
+
+"plan_vecteur"
+   "plan_vecteur"
+
+"gain_echantillonne_1D"
+   "gain_echantillonne_1D"
+
+"gain_gauss"
+   "gain_gauss"
+
+"gain_sinus_cardinal_2"
+   "gain_sinus_cardinal_2"
+
+"gain_sinus_cardinal_xy"
+   "gain_sinus_cardinal_xy"
+
+"ascension_droite"
+   "ascension_droite"
+
+"declinaison"
+   "declinaison"
+
+"cinematique"
+   "cinematique"
+
+"gyro_integrateur"
+  "gyro_integrateur"
+
+"cardan"
+   "cardan"
+
+
+# genres des senseurs de Cardan
+"LRT-lacet"
+  "LRT-lacet"
+
+"LRT-roulis"
+  "LRT-roulis"
+
+"LRT-tangage"
+  "LRT-tangage"
+
+"LTR-lacet"
+  "LTR-lacet"
+
+"LTR-tangage"
+  "LTR-tangage"
+
+"LTR-roulis"
+  "LTR-roulis"
+
+"RLT-roulis"
+  "RLT-roulis"
+
+"RLT-lacet"
+  "RLT-lacet"
+
+"RLT-tangage"
+  "RLT-tangage"
+
+"RTL-roulis"
+  "RTL-roulis"
+
+"RTL-tangage"
+  "RTL-tangage"
+
+"RTL-lacet"
+  "RTL-lacet"
+
+"TLR-tangage"
+  "TLR-tangage"
+
+"TLR-lacet"
+  "TLR-lacet"
+
+"TLR-roulis"
+  "TLR-roulis"
+
+"TRL-tangage"
+  "TRL-tangage"
+
+"TRL-roulis"
+  "TRL-roulis"
+
+"TRL-lacet"
+  "TRL-lacet"
+
+# repères de référence pour les senseurs de Cardan
+"geocentrique"
+  "geocentrique"
+
+"orbital-TNW"
+  "orbital-TNW"
+
+"orbital-QSW"
+  "orbital-QSW"
+
+"inertiel"
+  "inertiel"
+
+"topocentrique"
+  "topocentrique"
+
+"utilisateur"
+  "utilisateur"
+
+# astres cibles connus
+# on ne met pas terre, car la traduction est deja ci-dessus
+"soleil"
+   "soleil"
+
+"pseudo-soleil"
+   "pseudo-soleil"
+
+"soleil-sans-eclipse"
+   "soleil-sans-eclipse"
+
+"corps-central-soleil"
+   "corps-central-soleil"
+
+"terre-soleil"
+   "terre-soleil"
+
+"nadir"
+   "nadir"
+
+"vitesse-sol-apparente"
+   "vitesse-sol-apparente"
+
+"lune"
+   "lune"
+
+"lune-sans-eclipse"
+   "lune-sans-eclipse"
+
+"corps-central"
+   "corps-central"
+
+"polaris"
+   "polaris"
+
+"canopus"
+   "canopus"
+
+"vitesse"
+   "vitesse"
+
+"moment"
+   "moment"
+
+"devant"
+   "devant"
+
+"position"
+   "position"
+
+"position-sans-eclipse"
+   "position-sans-eclipse"
+
+"direction"
+   "direction"
+
+"direction-sans-eclipse"
+   "direction-sans-eclipse"
+
+"station"
+   "station"
+
+"polaris-sans-eclipse"
+   "polaris-sans-eclipse"
+
+"canopus-sans-eclipse"
+   "canopus-sans-eclipse"
+
+# unités connues
+"km"
+  "km"
+
+"m"
+  "m"
+
+"km/s"
+  "km/s"
+
+"m/s"
+  "m/s"
+
+# messages d'erreur
+"identificateur marmottes non initialise : %d"
+  "identificateur marmottes non initialisé : %d"
+
+"bloc \"%s\" non terminal"
+  "bloc \"%s\" non terminal"
+
+"le bloc \"%s\" a %d champs (%d demandes)"
+  "le bloc \"%s\" a %d champs (%d demandés)"
+
+"norme du vecteur \"%s\" trop petite"
+  "norme du vecteur \"%s\" trop petite"
+
+"norme du quaternion \"%s\" trop petite"
+  "norme du quaternion \"%s\" trop petite"
+
+"liste des senseurs de controle non initialisee"
+  "liste des senseurs de contrôle non initialisée"
+
+"gyrometres coaxiaux"
+   "gyromètres coaxiaux"
+
+"consignes des senseurs \"%s\" et \"%s\" incompatibles avec un omega maximal limite a %f degres par seconde"
+   "consignes des senseurs \"%s\" et \"%s\" incompatibles avec un omega maximal limité à %f degrés par seconde"
+
+"consigne du senseur \"%s\" degeneree"
+  "consigne du senseur \"%s\" dégénérée"
+
+"consignes des senseurs \"%s\" et \"%s\" incompatibles"
+  "consignes des senseurs \"%s\" et \"%s\" incompatibles"
+
+"type d'un senseur inconnu : \"%s\"\ntypes connus :"
+   "type d'un senseur inconnu : \"%s\"\ntypes connus :"
+
+"cible d'un senseur inconnue : \"%s\"\ncibles connues :"
+   "cible d'un senseur inconnue : \"%s\"\ncibles connues :"
+
+"le senseur \"%s\" observe le soleil mais est inhibe par le soleil"
+  "le senseur \"%s\" observe le soleil mais est inhibé par le soleil"
+
+"le senseur \"%s\" observe la lune mais est inhibe par la lune"
+  "le senseur \"%s\" observe la lune mais est inhibé par la lune"
+
+"le senseur \"%s\" observe le corps central mais est inhibe par le corps central"
+  "le senseur \"%s\" observe le corps central mais est inhibé par le corps central"
+
+"vitesse de rotation max negative ou nulle : %f deg/s"
+   "vitesse de rotation max négative ou nulle : %f deg/s"
+
+"seuil de convergence negatif ou nul : %f"
+   "seuil de convergence négatif ou nul : %f"
+
+"nombre de tranches de dichotomie negatif ou nul : %d"
+   "nombre de tranches de dichotomie négatif ou nul : %d"
+
+"pas de solution aux consignes d'attitude"
+   "pas de solution aux consignes d'attitude"
+
+"attitude solution theorique incontrolable (senseur %s)"
+  "attitude solution théorique incontrôlable (senseur %s)"
+
+"pas d'axe de calage de defini pour ce senseur"
+  "pas d'axe de calage de défini pour ce senseur"
+
+"types des senseurs \"%s\" et \"%s\" incompatibles"
+  "types des senseurs \"%s\" et \"%s\" incompatibles"
+
+"les senseurs \"%s\" et \"%s\" ne peuvent pas etre utilises en consigne simultanement"
+  "les senseurs \"%s\" et \"%s\" ne peuvent pas être utilisés en consigne simultanément"
+
+"genre non reconnu pour le senseur d'angle de Cardan \"%s\"\ngenres connus :"
+  "genre non reconnu pour le senseur d'angle de Cardan \"%s\"\ngenres connus :"
+
+"repere non reconnu pour le senseur d'angle de Cardan \"%s\"\nreperes connus :"
+  "repère non reconnu pour le senseur d'angle de Cardan \"%s\"\nrepères connus :"
+
+"nombre de points de masque incorrect (%d points, bloc \"%s\")"
+  "nombre de points de masque incorrect (%d points, bloc \"%s\")"
+
+"unite de position inconnue : \"%s\"\nunites connues :"
+  "unité de position inconnue : \"%s\"\nunités connues :"
+
+"unite de vitesse inconnue : \"%s\"\nunites connues :"
+  "unité de vitesse inconnue : \"%s\"\nunités connues :"
+
+"la norme des vecteurs position/vitesse est temporairement litigieuse et ne doit pas etre utilisee"
+  "la norme des vecteurs position/vitesse est temporairement litigieuse et ne doit pas être utilisée"
+
+"cible du senseur \"%s\" non initialisee"
+  "cible du senseur \"%s\" non initialisée"
+
+"la cible du senseur \"%s\" n'est pas modifiable"
+  "la cible du senseur \"%s\" n'est pas modifiable"
+
+"\"%s\" n'est pas un senseur optique, initialisation de la cible impossible"
+  "\"%s\" n'est pas un senseur optique, initialisation de la cible impossible"
+
+"\"%s\" n'est pas un gyrometre integrateur, initialisation impossible"
+  "\"%s\" n'est pas un gyromètre intégrateur, initialisation impossible"
+
+"repere de reference du senseur \"%s\" non initialise"
+  "repère de référence du senseur \"%s\" non initialisé"
+
+"le repere de reference du senseur \"%s\" n'est pas modifiable"
+  "le repère de référence du senseur \"%s\" n'est pas modifiable"
+
+"\"%s\" n'est pas un senseur de Cardan, initialisation du repere de reference impossible"
+  "\"%s\" n'est pas un senseur de Cardan, initialisation du repère de référence impossible"
+
+"erreur non reconnue"
+  "erreur non reconnue"
+
+"erreur interne de MARMOTTES, veuillez contacter la maintenance (ligne %d, fichier %s)"
+  "erreur interne de MARMOTTES, veuillez contacter la maintenance (ligne %d, fichier %s)"
+
+"axe de rotation nul dans le bloc %s"
+  "axe de rotation nul dans le bloc %s"
+
+"probleme dans la mise a jour du repere de reference du senseur %s"
+  "problème dans la mise à jour du repère de réference du senseur %s"
+
+"le senseur \"%s\" ne peut etre utilise qu'en mesure, pas en consigne"
+  "le senseur \"%s\" ne peut être utilisé qu'en mesure, pas en consigne"
+
+"erreur d'allocation memoire"
+  "erreur d'allocation mémoire"
+
+"nombre de points d'echantillonnage incorrect (%d points, bloc \"%s\")"
+  "nombre de points d'échantillonnage incorrect (%d points, bloc \"%s\")"
+
+"echantillon vide (bloc \"%s\")"
+  "échantillon vide (bloc \"%s\")"
+
+"point d'echantillonnage (%f, %f) hors bornes (bloc \"%s\")"
+  "point d'échantillonnage (%f, %f) hors bornes (bloc \"%s\")"
+
+"reference a un objet inconnu dans le trace"
+  "référence à un objet inconnu dans le tracé"
+
+"\"%s\" n'est pas un senseur cinematique, initialisation de la derive impossible"
+  "\"%s\" n'est pas un senseur cinématique, initialisation de la dérive impossible"

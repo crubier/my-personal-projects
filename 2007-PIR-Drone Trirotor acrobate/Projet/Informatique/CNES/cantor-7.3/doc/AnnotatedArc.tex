@@ -1,0 +1,281 @@
+% -*- mode: latex; tex-main-file: "cantor.tex" -*-
+% $Id: AnnotatedArc.tex,v 1.8 2003/07/09 08:55:10 cantor Exp $
+\subsection{classe AnnotatedArc}\label{sec:AnnotatedArc}
+
+\subsubsection*{description}\label{sec:AnnotatedArc-desc}
+
+Cette classe est une extension de la class Arc utilisée lors de la
+combinaison de champs (classe Field, cf~\ref{sec:Field}) par réunion
+ou intersection.
+
+La combinaison des frontières de deux champs se fait en redécoupant
+tous les arcs frontières aux niveau des points d'intersection entre
+frontières, puis en marquant différemment les arcs qui font partie de
+l'intersection et ceux qui font partie de la réunion. La détermination
+de la marque à apposer sur l'arc provenant d'un champ en fonction de
+sa position par rapport à l'autre champ représente un volume de calcul
+non négligeable et est parfois difficile à calculer précisément. C'est
+typiquement le cas lorsque les deux champs ont une frontière commune,
+tous les points de certains arcs sont alors rigoureusement à cheval
+sur la frontière de l'autre. On peut éviter une partie de ces calculs
+en préservant l'information topologique reliant les arcs les uns aux
+autres.
+
+La classe AnnotatedArc est destinée à mémoriser la marque apposée sur
+les arcs. Avec l'aide de la classe Node (cd~\ref{sec:Node}), elle
+réalise la propagation de ces marques selon la topologie de
+l'entrelacs.
+
+\subsubsection*{interface publique}\label{sec:AnnotatedArc-int}
+\begin{verbatim}
+#include "cantor/AnnotatedArc.h"
+\end{verbatim}
+Les types publics sont décrits sommairement dans la
+table~\ref{tab:AnnotatedArc-typ-pub}.
+\begin{tableAttributsFixe}{types publics de la classe AnnotatedArc}
+{\label{tab:AnnotatedArc-typ-pub}}{énumération des marques possibles, les valeurs
+autorisées sont :}
+
+Annotation & enum & énumération des marques possibles, les valeurs
+autorisées sont : \texttt{notAnnotated}, \texttt{unionAnnotated} et
+\texttt{intersectionAnnotated}\\
+
+\end{tableAttributsFixe}
+\newpage
+\begin{tableFonctionsFixe}{AnnotatedArc : méthodes publiques}
+{\label{tab:AnnotatedArc-met-pub}}
+{teste si l'argument est confiné dans un couloir autour de l'instance,}
+
+\signature{\fonc{AnnotatedArc} ()}
+          {}&
+
+crée un arc par défaut \\
+
+\signature{\fonc{AnnotatedArc}}
+          {
+           (const Arc\& \argument{a}, const void *\argument{origin})
+          }&
+
+crée un arc à partir de l'arc argument et de son champ de provenance \\
+
+\hline
+
+\signature{\fonc{AnnotatedArc}}
+          {(const AnnotatedArc\& \argument{a})}&
+
+constructeur par copie \\
+
+\signature{AnnotatedArc\&  \fonc{operator =}}
+          {(const AnnotatedArc\& \argument{a})}&
+
+affectation \\
+
+\hline
+
+\signature{\fonc{~AnnotatedArc} ()}{} &
+destructeur de la classe.
+\\
+
+\hline
+
+\signature{bool \fonc{confines}}
+          {(const AnnotatedArc\& \argument{a},\\
+            VecDBL *\argument{ptrEscape}) const}&
+
+teste si l'argument est confiné dans un couloir autour de l'instance,
+s'il ne l'est pas, met à jour la variable pointée par
+\argument{ptrEscape} avec le point où l'arc s'échappe\\
+
+\signature{bool \fonc{parallelConnections}}
+          {(const AnnotatedArc\& \argument{a}, Node *\argument{n}) const}&
+
+teste si l'argument et l'instance convergent parallèlement vers le
+n\oe{}ud spécifié \\
+
+\signature{void \fonc{replace}}
+          {(AnnotatedArc *\argument{ptrNew})\\
+           \throw{CantorErreurs}}&
+
+remplace l'instance par un arc équivalent
+ \\
+
+\signature{void \fonc{replace}}
+          {(AnnotatedArc *\argument{ptrUp},\\
+            AnnotatedArc *\argument{ptrDown})\\
+           \throw{CantorErreurs}}&
+
+remplace l'instance par les deux arcs équivalents résultant de sa
+coupure au niveau d'un point intermédiaire \\
+
+\signature{bool \fonc{removeIfPossible} ()}
+          {}&
+
+élimine l'arc de la topologie si c'est possible (c'est à dire si l'arc
+est de longueur nulle et que les n\oe{}uds qui le limitent peuvent
+être reconnectés\\
+
+\hline
+
+\signature{void \fonc{connect} (AnnotatedArc *\argument{ptrDown})}
+          {\throw{CantorErreurs}}&
+
+connecte l'instance avec l'arc spécifié en argument (qui doit démarrer
+au niveau où l'instance s'arrête)\\
+
+\signature{void \fonc{connect}}
+          {(AnnotatedArc *\argument{ptrDown1},\\
+            AnnotatedArc *\argument{ptrUp2},\\
+            AnnotatedArc *\argument{ptrDown2})\\
+           \throw{CantorErreurs}}&
+
+connecte l'instance avec les arcs spécifiés en argument (qui doivent
+selon les cas démarrer ou s'arrêter au niveau où l'instance
+s'arrête)\\
+
+\signature{bool \fonc{isConnected}}
+          {(AnnotatedArc *\argument{ptrA}) const}&
+
+teste si l'instance est connectée à l'arc spécifié\\
+
+\hline
+
+\signature{
+           const void * \fonc{origin} () const
+          }
+          {}&
+
+retourne le champ de provenance de l'arc \\
+
+\signature{Node * \fonc{upstreamNode} ()}
+          {}&
+
+retourne le n\oe{}ud amont \\
+
+\signature{const Node * \fonc{upstreamNode} () const}
+          {}&
+
+retourne le n\oe{}ud constant \\
+
+\signature{Node * \fonc{downstreamNode} ()}
+          {}&
+
+retourne le n\oe{}ud aval \\
+
+\signature{const Node * \fonc{downstreamNode} () const}
+          {}&
+
+retourne le n\oe{}ud constant aval \\
+
+\signature{Node * \fonc{oppositeNode} (const Node *\argument{n}) const}
+          {}&
+
+retourne le n\oe{}ud opposé au n\oe{}ud spécifié \\
+
+\hline
+
+\signature{static Annotation \fonc{oppositeAnnotation}}
+          {(Annotation \argument{a})}&
+
+retourne la marque opposée à la marque spécifiée \\
+
+\hline
+
+\signature{Annotation \fonc{annotation} () const}
+          {}&
+
+retourne la marque courante de l'instance \\
+
+\signature{void  \fonc{annotate} (Annotation \argument{a})}
+          {}&
+
+appose une marque sur l'instance \\
+
+\signature{void  \fonc{propagate} ()}
+          {}&
+
+propage le marquage aussi loin que possible à partir de l'instance\\
+
+\signature{void  \fonc{propagateThroughOppositeNode}}
+          {(const Node *\argument{n})}&
+
+propage le marquage aussi loin que possible à partir de l'instance,
+mais uniquement dans la direction opposée au n\oe{}ud spécifié\\
+
+\hline
+
+\signature{AnnotatedArc *\fonc{ptrUpstreamArc} () const}
+          {}&
+
+retourne un pointeur sur l'arc amont\\
+
+\signature{AnnotatedArc *\fonc{ptrDownstreamArc} () const}
+          {}&
+
+retourne un pointeur sur l'arc aval\\
+
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+
+\begin{verbatim}
+#include "marmottes/AnnotatedArc.h"
+
+void
+Braid::identifyArcs (const Field *ptrF1, const Field *ptrF2)
+{
+  for (iter i = arcs_.begin (); i != arcs_.end (); ++i)
+    if (i->annotation () == AnnotatedArc::notAnnotated)
+    { // look for the arc inclusion according to one test point at the middle
+      bool inter, degenerated;
+      if (i->origin () != ptrF1)
+        inter = ptrF1->isInside (TestPoint (i), &degenerated);
+      else
+        inter = ptrF2->isInside (TestPoint (i), &degenerated);
+  
+      if (! degenerated)
+      {
+        i->annotate (inter
+                     ? AnnotatedArc::intersectionAnnotated
+                     : AnnotatedArc::unionAnnotated);
+        i->propagate ();
+      }
+    }
+}
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation
+spécifiques}\label{sec:AnnotatedArc-conseils}
+La classe AnnotatedArc est utilisée par la classe Braid qui gère
+globalement le découpage des arcs de plusieurs frontières et le
+marquage.
+
+La classe a été conçue uniquement pour assurer les services
+nécessaires à la classe Braid pour déterminer la frontière d'une
+combinaison de deux champs. Les services qu'elle implémente sont donc
+très spécifiques, pour une utilisation plus générique, il est plutôt
+conseiller d'utiliser la classe de base Arc de la bibliothèque
+\bibliotheque{cantor}.
+
+\subsubsection*{implantation}\label{sec:AnnotatedArc-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:AnnotatedArc-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe AnnotatedArc}
+{\label{tab:AnnotatedArc-att-priv}}
+{pointeur vers le champ d'origine de l'arc ce pointeur}
+
+upstreamNode\_ & TamponPartage  & n\oe{}ud amont (partagé avec
+d'autres arcs) \\
+
+downstreamNode\_ & TamponPartage  & n\oe{}ud aval (partagé avec
+d'autres arcs) \\
+
+annotation\_ & Annotation  & marque courante \\
+
+origin\_ & const void * &
+pointeur vers le champ d'origine de l'arc ce pointeur n'est utilisé
+que pour reconnaître si deux arcs ont la même origine ou non, il est
+parfois entièrement fabriqué et ne correspond pas systématiquement à
+un objet de type Field, c'est la raison pour laquelle on utilise le
+type const void *
+\\
+
+\end{tableAttributsFixe}

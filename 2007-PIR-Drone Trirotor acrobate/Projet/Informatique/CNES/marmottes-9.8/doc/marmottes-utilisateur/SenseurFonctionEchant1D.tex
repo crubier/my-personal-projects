@@ -1,0 +1,116 @@
+% -*- mode: latex; tex-main-file: "marmottes-utilisateur.tex" -*-
+% $Id: SenseurFonctionEchant1D.tex,v 1.9 2004/06/21 14:43:13 marmottes Exp $
+\subsection{classe SenseurFonctionEchant1D}\label{sec:SenseurFonctionEchant1D}
+
+\subsubsection*{description}\label{sec:SenseurFonctionEchant1D-desc}
+
+Cette classe implante les pseudo-senseurs mesurant des gains
+d'antennes bord dans une direction particulière définie par la cible
+(typiquement une station sol). Ce type de senseur permet de calculer
+la part liée uniquement à l'attitude dans un bilan de liaison. La
+forme du gain modélisée par ce senseur est un échantillonnage à
+symétrie axiale spécifié par l'utilisateur dans le fichier de
+description du senseur. La valeur retournée est une interpolation
+linéaire entre les points échantillonnés.
+
+Si le plus petit angle de dépointage de l'échantillon est non nul, la
+fonction est considérée comme constante entre $0$ et ce plus petit
+angle. Si le plus grand angle de dépointage de l'échantillon est
+inférieur à $\pi$, la fonction est considérée comme constante entre ce
+plus grand angle et $\pi$. Une conséquence est qu'un échantillon ne
+comportant qu'un seul point conduira à la modélisation (peu utile
+\emph{a priori}) d'une fonction constante entre $0$ et $\pi$.
+
+La fonction n'étant pas inversible pour tous les échantillonnages et
+un souci d'homogénéité avec la classe SenseurFonctionSinCard2 nous ont
+poussés à \emph{interdire l'utilisation de ces senseurs en consigne},
+ils sont destinés à être utilisés en \emph{mesure uniquement}.
+
+\subsubsection*{interface publique}\label{sec:SenseurFonctionEchant1D-int}
+\begin{verbatim}
+#include "marmottes/SenseurFonctionEchant1D.h"
+\end{verbatim}
+
+\begin{tableFonctionsFixe}{SenseurFonctionEchant1D : méthodes publiques}
+{\label{tab:SenseurFonctionEchant1D-met-pub}}
+{construit une instance à partir des données technologiques}
+
+\signature{\fonc{SenseurFonctionEchant1D}}
+          {(const string\& \argument{nom},\\
+            const RotDBL\& \argument{repere},\\
+            const VecDBL\& \argument{axeCalage},\\
+            double \argument{precision},\\
+            codeCible \argument{code},\\
+            const StationCible *\argument{ptrStation},\\
+            const VecDBL\& \argument{observe},\\
+            Parcelle* \argument{ptrChampDeVue},\\
+            Parcelle* \argument{ptrChampInhibitionSoleil},\\
+            Parcelle* \argument{ptrChampInhibitionLune},\\
+            Parcelle* \argument{ptrChampInhibitionCentral},\\
+            double \argument{margeEclipseSoleil},\\
+            double \argument{margeEclipseLune},\\
+            double \argument{seuilPhaseLune},\\
+            const VecDBL\& \argument{axe},\\
+            const VecDBL\& \argument{origine},\\
+            int \argument{nbEchantillons},\\
+            double *\argument{angles},\\
+            double *\argument{valeurs})\\
+            \throw{CantorErreurs, MarmottesErreurs}
+           } &
+
+construit une instance à partir des données technologiques\\
+
+\hline
+
+\signature{\fonc{SenseurFonctionEchant1D}}
+          {(const SenseurFonctionEchant1D\& \argument{s})} &
+
+constructeur par copie\\
+
+\signature{SenseurFonctionEchant1D\& \fonc{operator =}}
+          {(const SenseurFonctionEchant1D\& \argument{s})} &
+
+affectation\\
+
+\hline
+
+\signature{\fonc{\~{}SenseurFonctionEchant1D} ()}{} & destructeur, ne
+fait rien dans cette classe\\
+
+\hline
+
+\signature{Senseur* \fonc{copie} () const}{} & opérateur de copie virtuel\\
+
+\signature{double \fonc{fonction}}
+          {(double \argument{azimut}, double \argument{depointage}) const\\
+           \throw{MarmottesErreurs}
+          } &
+cette méthode évalue la fonction échantillonnée pour la valeur
+$\theta$ de \argument{depointage}\\
+\end{tableFonctionsFixe}
+
+\subsubsection*{implantation}\label{sec:SenseurFonctionEchant1D-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:SenseurFonctionEchant1D-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe SenseurFonctionEchant1D}
+{\label{tab:SenseurFonctionEchant1D-att-priv}}
+{échantillon de points (dépointage, valeur)}
+
+echantillon\_ & map<double, double> & échantillon de points
+(dépointage, valeur)\\
+
+\end{tableAttributsFixe}
+
+Les méthodes protégées sont décrites dans la table~\ref{tab:SenseurFonctionEchant1D-met-prot}.
+\begin{tableFonctionsFixe}{SenseurFonctionEchant1D : méthodes protégées}
+{\label{tab:SenseurFonctionEchant1D-met-prot}}
+{constructeur par défaut. Il est défini explicitement uniquement pour }
+
+\signature{\fonc{SenseurFonctionEchant1D} ()}
+          {}&
+
+constructeur par défaut. Il est défini explicitement uniquement pour
+prévenir celui créé automatiquement par le compilateur et ne doit pas être
+utilisé.
+\\
+\end{tableFonctionsFixe}

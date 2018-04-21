@@ -1,0 +1,76 @@
+# fichier de traduction du domaine cantor
+# identificateur RCS : "$Id: cantor,v 1.5 2002/09/03 14:38:55 cantor Exp $"
+
+# messages d'erreur
+"norme d'un vecteur nulle"
+   "norme d'un vecteur nulle"
+
+"axe d'une rotation nul"
+   "axe d'une rotation nul"
+
+"ordre de rotations elementaires inconnu : %d\nordres connus :"
+   "ordre de rotations élémentaires inconnu : %d\nordres connus :"
+
+"matrice non orthogonalisable"
+   "matrice non orthogonalisable"
+
+"matrice singuliere"
+   "matrice singulière"
+
+"impossible de creer une rotation donnant un repere indirect"
+  "impossible de créer une rotation donnant un repère indirect"
+
+"extremite d'un arc alignee avec l'axe"
+  "extremité d'un arc alignée avec l'axe"
+
+"cones coaxiaux"
+   "cônes coaxiaux"
+
+"cones disjoints"
+   "cônes disjoints"
+
+"ensemble vide d'intervalles"
+   "ensemble vide d'intervalles"
+
+"indice \"%s\" = %d, hors bornes [%d; %d]"
+   "indice \"%s\" = %d, hors bornes [%d; %d]"
+
+"operation sur un polynome invalide"
+  "opération sur un polynôme invalide"
+
+"pas de base de fonctions d'approximation"
+  "pas de base de fonctions d'approximation"
+
+"erreur %d dans les fonctions de base de l'approximation"
+  "erreur %d dans les fonctions de base de l'approximation"
+
+"dimension de l'espace d'approximation nulle"
+  "dimension de l'espace d'approximation nulle"
+
+"ajustement des moindres carres impossible (matrice singuliere)"
+  "ajustement des moindres carrés impossible (matrice singulière)"
+
+"ajustement du filtre des moindres carres non effectue"
+  "ajustement du filtre des moindres carrés non effectué"
+
+"cas non implante\nveuillez contacter la maintenance de CANTOR"
+  "cas non implanté\nveuillez contacter la maintenance de CANTOR"
+
+"frontiere de champ ouverte"
+  "frontière de champ ouverte"
+
+"connexions entrantes et sortantes d'un noeud non equilibrees"
+  "connexions entrantes et sortantes d'un noeud non équilibrées"
+
+"erreur interne de CANTOR, veuillez contacter la maintenance (ligne %d, fichier %s)"
+  "erreur interne de CANTOR, veuillez contacter la maintenance (ligne %d, fichier %s)"
+
+"calcul des angles de rotation de Cardan ou d'Euler impossible dans cette configuration (%s)"
+  "calcul des angles de rotation de Cardan ou d'Euler impossible dans cette configuration (%s)"
+
+# mots clefs
+"indice intervalle"
+  "indice intervalle"
+
+"degre polynome"
+   "degré polynôme"

@@ -1,0 +1,133 @@
+% $Id: BodyEphemF.tex,v 1.1 2002/09/09 12:59:59 marmottes Exp $
+\subsection{classe BodyEphemF}\label{sec:BodyEphemF}
+
+\subsubsection*{description}\label{sec:BodyEphemF-desc}
+
+Cette classe dérivée de la classe BodyEphem implante l'interface
+d'accès, pour l'implémentation en \langage{fortran} par l'utilisateur,
+du calcul du temps sidéral et des éphémérides du Soleil,
+de la Lune et de la Terre, par rapport au corps central.\\
+Elle permet aussi l'accès à des grandeurs physiques du corps central
+(rayon équatorial, aplatissement et vitesse de rotation).
+
+
+\subsubsection*{interface publique}\label{sec:BodyEphemF-int}
+\begin{verbatim}
+#include "marmottes/BodyEphemF.h"
+\end{verbatim}
+\begin{tableFonctionsFixe}{BodyEphemF : méthodes publiques}
+{\label{tab:BodyEphemF-met-pub}}
+{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+
+
+\signature{typedef double  \fonc{TypeFuncTsid}}{(double *, double *)} & 
+défini la signature, pour le \langage{fortran}, de la fonction de calcul du
+temps sidéral \\
+
+\signature{typedef void  \fonc{TypeFuncPos}}{(double *, double [3])} &
+défini la signature pour le \langage{fortran} des fonctions de calcul de
+position des corps (Soleil, Lune et Terre) par rapport au corps central\\
+
+\hline
+
+\signature{\fonc{BodyEphemF} ()}{}  & 
+initialise une instance par défaut \\
+
+\signature{\fonc{BodyEphemF} (const BodyEphemF\& \argument{b})}{} &  
+constructeur par copie\\
+
+\signature{const BodyEphemF\&  \fonc{operator =}}{(const BodyEphemF\& \argument{b})} & affectation \\
+\signature{\fonc{\~{}BodyEphemF} ()}{} & destructeur \\
+
+\signature{BodyEphem * \fonc{clone}}{() const} & permet la duplication \\
+
+\signature{\fonc{BodyEphemF}}{(double \argument{equatorialRadius}, \\
+double \argument{oblateness}, \\
+double \argument{rotationVelocity}, \\
+TypeFuncTsid *\argument{tsidFunc}, \\
+TypeFuncPos *\argument{sunFunc}, \\
+TypeFuncPos *\argument{moonFunc}, \\
+TypeFuncPos *\argument{earthFunc})} & 
+construit une instance à partir des caractéristiques physiques du
+corps central: rayon équatorial \argument{equatorialRadius} (en~km),
+aplatissement \argument{oblateness} et vitesse de
+rotation \argument{rotationVelocity} (en~rad/s); et des fonctions de
+calcul du temps sidéral *\argument{tsidFunc} (en~rad), de calcul de la
+position du Soleil *\argument{sunFunc} (en~km), de la Lune
+*\argument{moonFunc} (en~km) et de la Terre *\argument{earthFunc}) (en~km)
+\\
+\hline
+
+\signature{double  \fonc{siderealTime}}{(double \argument{t}, \\
+double \argument{offset})} & 
+calcule le temps sidéral en \texttt{rad}
+à la date~\argument{t} en \texttt{jour}, avec un écart de datation
+\argument{offset} (généralement en \texttt{s}) entre l'échelle de
+temps utilisé pour la date~\argument{t} et l'échelle de temps utilisé
+par le modèle de calcul du temps sidéral
+\\
+
+\signature{VecDBL  \fonc{sunPosition}}{(double \argument{t})} & 
+calcule la position du Soleil par rapport au corps central en
+\texttt{km} à la date~\argument{t}
+\\
+
+\signature{VecDBL  \fonc{moonPosition}}{(double \argument{t})} & 
+calcule la position de la Lune par rapport au corps central en
+\texttt{km} à la date~\argument{t} 
+\\
+
+\signature{VecDBL  \fonc{earthPosition}}{(double \argument{t})} & 
+calcule la position de la Terre par rapport au corps central en
+\texttt{km} à la date~\argument{t}
+\\
+
+\end{tableFonctionsFixe}
+\subsubsection*{exemple d'utilisation}
+
+L'exemple suivant, directement extrait du code de la bibliothèque
+montre comment, dans la classe Etat, on initialise les données et
+fonctions données par l'utilisateur, dans le cas du langage \langage{fortran}.
+
+
+\begin{verbatim}
+#include "marmottes/BodyEphemF.h"
+
+    if (ptrBodyEphem_ != 0)
+    {
+      delete ptrBodyEphem_;
+    }
+    ptrBodyEphem_ = new BodyEphemF(equatorialRadius, oblateness, rotationVelocity, 
+                                   tsidFunc, sunFunc, moonFunc, earthFunc);
+
+
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation
+spécifiques}\label{sec:BodyEphemF-conseils}
+
+Les unités utilisées, les valeurs par défaut, un rappel sur la notion
+de date utilisée dans \bibliotheque{marmottes} et des indications sur
+la définition des fonctions par l'utilisateur sont donnés au niveau de
+la description de l'interface utilisateur (cf~\ref{sec:mod-ephem}).
+
+\subsubsection*{implantation}\label{sec:BodyEphemF-impl}
+Les attributs privés sont décrits sommairement dans la
+table~\ref{tab:BodyEphemF-att-priv}, il n'y a pas d'attribut protégé.
+\begin{tableAttributsFixe}{attributs privés de la classe BodyEphemF}
+{\label{tab:BodyEphemF-att-priv}}
+{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+
+tsidFuncPtr\_ & TypeFuncTsid * & pointeur sur la fonction de calcul du
+temps sidéral \\
+
+sunFuncPtr\_ & TypeFuncPos * &  pointeur sur la fonction de calcul de
+la position du Soleil \\
+
+moonFuncPtr\_ & TypeFuncPos * &   pointeur sur la fonction de calcul de
+la position de la Lune \\
+
+earthFuncPtr\_ & TypeFuncPos * &  pointeur sur la fonction de calcul de
+la position de la Terre \\
+
+\end{tableAttributsFixe}

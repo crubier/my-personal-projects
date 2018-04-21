@@ -1,0 +1,347 @@
+% -*- mode: latex; tex-main-file: "club.tex" -*-
+% $Id: FichierStructure.tex,v 1.14 2003/07/09 07:59:01 club Exp $
+\subsection{classe FichierStructure}\label{sec:FichierStructure}
+
+\subsubsection*{description}\label{sec:FichierStructure-desc}
+
+Cette classe gère les accès aux informations contenues dans un fichier
+texte (ou plusieurs) structuré sous forme de blocs imbriqués à l'aide
+de caractères '\{' et '\}', chaque bloc pouvant être récupéré par son
+nom (qui peut être une chaîne vide). De plus, si un bloc de nom
+\texttt{xxx} est décrit dans le fichier par:
+\begin{verbatim}
+xxx { => { yyy.zzz } }
+\end{verbatim}
+cela signifie que le contenu du bloc \texttt{xxx} est égal au contenu
+du sous-bloc \texttt{zzz}, dont le bloc père est \texttt{yyy}. Ce
+système d'indirection évite la duplication de blocs complexes
+équivalents, il implante une notion d'héritage de données. On peut
+également lire \texttt{=>\relax} comme : \emph{voir aussi}.
+
+Cette classe est principalement utilisée par la bibliothèque
+\bibliotheque{marmottes} pour lire les fichiers de description de
+senseurs, on trouvera dans~\ref{ref:marmottes-util} des informations
+complémentaires sur ce que l'on peut faire.
+
+\subsubsection*{interface publique}\label{sec:FichierStructure-int}
+\begin{verbatim}
+#include "club/FichierStructure.h"
+\end{verbatim}
+
+\begin{tableFonctionsFixe}{FichierStructure : méthodes publiques}
+{\label{tab:FichierStructure-met-pub}}
+{construit une instance contenant l'ensemble du fichier \argument{ptrFic}}
+\signature{\fonc{FichierStructure} ()}
+          {}& 
+construit une instance vide \\
+
+\signature{\fonc{FichierStructure}}
+          {(FILE *\argument{ptrFic})
+          }&
+
+construit une instance contenant l'ensemble du fichier
+\argument{ptrFic} 
+
+
+\textbf{Exceptions :} accolades\_non\_equilibrees, 
+etat\_fichier, man\-que\_guillemet, manque\_chevron, 
+iterateur\_invalide, caractere\_hors\_domaine, nom\_inclusion. \\
+
+\signature{\fonc{FichierStructure}}
+          {(const char *\argument{nomFichier})
+          }&
+
+construit une instance contenant l'ensemble du fichier
+\argument{nomFichier} 
+
+\textbf{Exceptions :} accolades\_non\_equilibrees, 
+etat\_fichier, man\-que\_guillemet, manque\_chevron, 
+iterateur\_invalide, caractere\_hors\_domaine, nom\_inclusion. \\
+
+\signature{\fonc{FichierStructure}}
+          {(const string\& \argument{nomFichier})
+          }&
+
+construit une instance contenant l'ensemble du fichier
+\argument{nomFichier} 
+
+
+\textbf{Exceptions :} accolades\_non\_equilibrees, 
+etat\_fichier, man\-que\_guillemet, manque\_chevron, 
+iterateur\_invalide, caractere\_hors\_domaine, nom\_inclusion. \\
+
+\signature{\fonc{FichierStructure}}
+          {(TamponTexte *\argument{fichier})
+          }&
+
+construit une instance contenant l'ensemble du fichier
+\argument{fichier} 
+
+\textbf{Exceptions :} accolades\_non\_equilibrees, 
+etat\_fichier, man\-que\_guillemet, manque\_chevron, 
+iterateur\_invalide, caractere\_hors\_domaine, nom\_inclusion. \\
+
+\signature{\fonc{FichierStructure}}
+          {(const char *\argument{clef},\\
+            const FichierStructure *\argument{pere})
+          }&
+
+construit une instance en extrayant le sous bloc \argument{clef} d'une
+instance \argument{pere} 
+
+\textbf{Exceptions :} bloc\_introuvable, manque\_accolade.
+
+\\
+
+\signature{\fonc{FichierStructure}}
+          {(const string\& \argument{clef},\\
+            const FichierStructure *\argument{pere})
+          }&
+
+construit une instance en extrayant le sous bloc \argument{clef} d'une
+instance \argument{pere} 
+
+\textbf{Exceptions :} bloc\_introuvable, manque\_accolade.
+
+\\
+
+\hline
+
+\signature{\fonc{FichierStructure}}
+          {(const FichierStructure\& \argument{f})}&
+
+constructeur par copie \\
+
+\signature{FichierStructure\& \fonc{operator =}}
+          {(const FichierStructure\& \argument{f})}&
+
+affectation \\
+
+\signature{\fonc{FichierStructure} ()}{} &
+destructeur
+\\
+
+\hline
+
+\signature{void \fonc{lit}}
+          {(FILE *\argument{ptrFic})
+          }&
+
+réinitialise l'instance en lisant la totalité du fichier
+\argument{ptrFic} 
+
+\textbf{Exceptions :} accolades\_non\_equilibrees, 
+etat\_fichier, man\-que\_guillemet, manque\_chevron, 
+iterateur\_invalide, caractere\_hors\_domaine, nom\_inclusion. \\
+
+\signature{void \fonc{lit}}
+          {(const char *\argument{nomFichier})
+          }&
+
+réinitialise l'instance en lisant la totalité du fichier
+\argument{nomFichier} 
+
+
+\textbf{Exceptions :} accolades\_non\_equilibrees, 
+etat\_fichier, man\-que\_guillemet, manque\_chevron, 
+iterateur\_invalide, caractere\_hors\_domaine, nom\_inclusion. \\
+
+\signature{int \fonc{lit}}
+          {(const string\& \argument{nomFichier})
+          }&
+
+réinitialise l'instance en lisant la totalité du fichier
+\argument{nomFichier} \\
+
+\signature{void \fonc{lit}}
+          {(TamponTexte *\argument{ptrTampon})
+          }&
+
+réinitialise l'instance en lisant la totalité du fichier
+\argument{ptrTampon} 
+
+\textbf{Exceptions :} accolades\_non\_equilibrees, 
+etat\_fichier, man\-que\_guillemet, manque\_chevron, 
+iterateur\_invalide, caractere\_hors\_domaine, nom\_inclusion. \\
+
+\hline
+
+\signature{bool \fonc{terminal} () const}
+          {}&
+
+indique si l'instance est un bloc terminal (c'est à dire s'il n'a pas
+de sous-bloc) \\
+
+\signature{int \fonc{nombreChamps} () const}
+          {}&
+
+retourne le nombre de champs de l'instance courante (0 s'il ne s'agit
+pas d'un bloc terminal) \\
+
+\signature{void \fonc{champ}}
+          {(int \argument{numero}, char *\argument{tampon},\\
+            const int \argument{max}) const
+          }&
+
+retourne le champ \argument{numero} (la numérotation commence à 1)
+dans le \argument{tampon} pouvant contenir \argument{max}$-1$
+caractères 
+
+
+\textbf{Exceptions :} bloc\_champ\_inexistant, bloc\_non\_terminal.
+
+\\
+
+\signature{bool \fonc{contientSousBloc}}
+          {(const char *\argument{clef}) const 
+          }&
+
+retourne une valeur vraie si l'instance contient le sous-bloc
+\argument{clef} 
+
+
+\textbf{Exceptions :} manque\_accolade.
+\\
+
+\signature{void \fonc{listeSousBlocs}}
+          {(vector<string> *\argument{ptrTable}) const 
+          }&
+
+ajoute dans la table pointée par \argument{ptrTable} la liste des noms
+de sous-blocs contenus dans l'instance
+
+\textbf{Exceptions :} manque\_accolade.
+\\
+
+\signature{const string\& \fonc{nomBloc} () const}
+          {}&
+
+retourne le nom du bloc (y compris le nom de ses blocs englobants) \\
+
+\signature{const string\& \fonc{nomFichier} () const}
+          {}&
+
+retourne le nom du fichier dont est issu l'instance \\
+
+\hline
+
+\signature{const string\& \fonc{date} () const}
+          {}&
+
+retourne la date du plus récent des fichiers lus dans l'instance
+(format \textsc{iso-8601}) \\
+
+\signature{unsigned int \fonc{signature} () const}
+          {}&
+
+retourne une signature résumant les données \\
+
+\end{tableFonctionsFixe}
+
+\subsubsection*{exemple d'utilisation}\label{sec:FichierStructure-expl}
+
+\begin{verbatim}
+#include "club/FichierStructure.h"
+...
+// ouverture du fichier complet
+FichierStructure fichier ("essai");
+
+// extraction du bloc racine de l'arbre
+FichierStructure blocArbre ("arbre", &fichier);
+
+// extraction des sous-blocs recursifs
+ArbreBinaire arbre = LitArbre (blocArbre);
+...
+
+// fonction de lecture d'un arbre
+// depuis un fichier structuré de facon récursive
+ArbreBinaire LitArbre (bloc)
+{ if (bloc.terminal ())
+  { // l'arbre n'a plus de branche
+    if (bloc.nombreChamps () != 1)
+    { // la feuille n'a pas un champ unique!
+      ...
+    }
+
+    // extraction de la valeur de la feuille
+    const int maxTampon = 80;
+    char tampon [maxTampon];
+    (void) f.champ (1, tampon, maxTampon);
+
+    // retour de l'arbre compose d'une feuille unique
+    return ArbreBinaire (tampon);
+  }
+  else
+  { // le bloc contient des branches
+
+    if (! bloc.contientSousBloc ("gauche"))
+    { // le bloc n'a pas de branche gauche!
+      ...
+    }
+    ArbreBinaire gauche = LitArbre (FichierStructure ("gauche", bloc));
+    if (! bloc.contientSousBloc ("droit"))
+    { // le bloc n'a pas de branche droite !
+      ...
+    }
+    ArbreBinaire droit  = LitArbre (FichierStructure ("droit", bloc));
+
+    // retour de l'arbre formé par les deux branches
+    return ArbreBinaire (gauche, droit);
+  }
+}
+\end{verbatim}
+
+\subsubsection*{conseils d'utilisation spécifiques}
+\label{sec:FichierStructure-conseils}
+La démarche d'utilisation classique consiste à créer un bloc général
+contenant la totalité d'un fichier (ou de plusieurs si des directives
+d'inclusion sont présentes), puis à extraire les blocs couche par
+couche.
+
+Le texte est alloué dynamiquement à la lecture du fichier, et tous les
+blocs construits à partir d'un fichier unique se partage cette
+mémoire. Cette zone est gérée à travers une instance de TamponPartage
+(voir table~\ref{tab:FichierStructure-att} et
+section~\ref{sec:TamponPartage}), aussi aucune précaution n'est elle
+nécessaire sur la portée des diverses instances. Il est tout à fait
+possible de détruire un bloc père avant ses blocs inclus, c'est la
+dernière instance détruite qui libèrera la mémoire allouée.
+
+\subsubsection*{implantation}\label{sec:FichierStructure-impl}
+Les attributs sont décrits sommairement dans la
+table~\ref{tab:FichierStructure-att}, les méthodes privées dans la
+table~\ref{tab:FichierStructure-met-priv}
+\begin{tableAttributsFixe}{attributs de la classe FichierStructure}
+{\label{tab:FichierStructure-att}}
+{date du plus récent des fichiers lus
+(format \textsc{iso-8601}) }
+nomBloc\_    & string  & nom du bloc \\
+nomFichier\_ & string  & nom du fichier dont provient le bloc \\
+total\_      & TamponPartage & pointeur sur le texte complet du
+fichier \\
+debut\_      & char *        & pointeur sur le début du bloc (à
+l'intérieur de la zone alouée dans la TamponPartage) \\
+fin\_        & char *        & pointeur sur la fin du bloc (à
+l'intérieur de la zone alouée dans la TamponPartage)  \\
+date\_       & string  & date du plus récent des fichiers lus
+(format \textsc{iso-8601})\\
+signature\_  & unsigned int  & signature des données lues \\
+\end{tableAttributsFixe}
+
+\begin{tableFonctionsFixe}{FichierStructure : méthodes privées}
+{\label{tab:FichierStructure-met-priv}}
+{\textbf{Exceptions :} bloc\_introuvable, manque\_accolade. }
+
+\signature{void \fonc{rechercheSousBloc}}
+          {(const string\& \argument{clef},\\
+            const char **\argument{addrDebut}, const char **\argument{addrFin},\\
+            string *\argument{addrNomBloc}) const
+          }&
+
+recherche le sous-bloc \argument{clef} à l'intérieur des limites
+\argument{addrDebut} et \argument{addrFin} 
+
+\textbf{Exceptions :} bloc\_introuvable, manque\_accolade.
+\\
+
+\end{tableFonctionsFixe}

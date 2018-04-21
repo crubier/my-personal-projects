@@ -1,0 +1,14 @@
+Authors of MARMOTTES library
+
+Luc Maisonobe wrote all versions of the library up to 6.4.
+
+Since version 7.0, Géraldine Filaire added her skills. She began by
+rewriting the geometric models to remove singularities, based on
+equations and design performed by Luc. She also introduced all
+exception based error handling.
+
+Sylvain Vresk is now involved in the maintainance team of the library
+(since version 9.1).
+
+Guylaine Prat is now involved in the maintainance team of the library
+(since version 9.3).

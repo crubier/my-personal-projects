@@ -1,0 +1,48 @@
+Traducteur langue: fr
+test_Traducteur est un domaine de ce traducteur
+xxxxx n'est pas un domaine de ce traducteur
+sens: impair->pair
+traducteur (un) = un
+traducteur (deux) = deux
+traducteur (one) = one
+traducteur (two) = two
+traducteur (xxx) = XAA
+
+
+Traducteur langue: fr
+test_Traducteur est un domaine de ce traducteur
+xxxxx n'est pas un domaine de ce traducteur
+sens: pair->impair
+traducteur (un) = un
+traducteur (deux) = deux
+traducteur (one) = one
+traducteur (two) = two
+traducteur (xxx) = A-Z	{}
+
+Traducteur langue: en
+test_Traducteur est un domaine de ce traducteur
+xxxxx n'est pas un domaine de ce traducteur
+sens: impair->pair
+traducteur (un) = one
+traducteur (deux) = two
+traducteur (one) = one
+traducteur (two) = two
+traducteur (xxx) = XAA
+
+
+Traducteur langue: en
+test_Traducteur est un domaine de ce traducteur
+xxxxx n'est pas un domaine de ce traducteur
+sens: pair->impair
+traducteur (un) = un
+traducteur (deux) = deux
+traducteur (one) = un
+traducteur (two) = deux
+traducteur (xxx) = A-Z	{}
+
+real: 23.500000, string:                      aaabbbccc
+FORMAT TRADUIT INCOMPATIBLE, PAS DE TRADUCTION : chaine: aaabbbccc, reel: 2.35e+01
+(I, ' name: ', E10.2, A, E11.3, A, L)
+('FORMAT TRADUIT INCOMPATIBLE, PAS DE TRADUCTION : ',(2(F6.3, X, A5)))
+('-translated format without arguments-')
+('FORMAT FORTRAN INUTILISABLE (SYNTAXIQUEMENT INCORRECT) : (''X, 3(''FFF'', X))')

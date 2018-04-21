@@ -1,0 +1,18 @@
+#! /bin/sh
+
+# identificateur RCS : "$Id: test_Polynome.in,v 1.8 2001/06/06 07:03:43 cantor Exp $"
+
+# using an english environment for the tests
+@ca_cv_var_lang@=en              ; export @ca_cv_var_lang@
+@ca_cv_var_tradpath@=@srcdir@/.. ; export @ca_cv_var_tradpath@
+
+# run the test program
+./prgm_Polynome > ./test_Polynome.res 2>&1
+
+# file comparison
+echo "difference -p 1.0e-4 -ee 1 10 -res ./test_Polynome.res -ref @srcdir@/test_Polynome.ref"
+difference -p 1.0e-4 -ee 1 10 -res ./test_Polynome.res -ref @srcdir@/test_Polynome.ref
+r=$?
+
+rm -f ./test_Polynome.res
+exit $r
