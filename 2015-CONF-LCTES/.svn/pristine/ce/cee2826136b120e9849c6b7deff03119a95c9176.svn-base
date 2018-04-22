@@ -1,0 +1,430 @@
+
+\subsection{Basic concepts}
+
+
+
+The basic notion is the interactive component named \code{interaction} which produces output and new current internal state flows from input and previous  internal state flows. Each instance of an interaction is associated with an identifier. An interaction is
+
+
+\begin{definition}[Value]
+$\mathbb{V} = \{\bot\}\cup\{\top\}\cup\mathbb{B}\cup\mathbb{R}\cup\mathbb{T}$ is the set of all possible values of the LIDL language, where $\mathbb{B}$ the booleans, $\mathbb{R}$ the set of real numbers, $\mathbb{T}$ the set of all possible texts.
+\end{definition}
+
+\begin{definition}[Identifier]
+$\mathbb{I}$ is the set of all possible identifiers. An identifier $i \in \mathbb{I}$ is noted $i=\codemath{foo}$
+\end{definition}
+
+\begin{definition}[Memory]
+$\mathbb{M} = \mathbb{V}^\mathbb{I}$ is the set of all possible memories of a LIDL system. A memory $m \in \mathbb{M}$ is a function noted $m:\mathbb{I}\rightarrow\mathbb{V}$.
+\end{definition}
+
+\begin{definition}[Execution]
+$\mathbb{E} = \mathbb{M}^\mathbb{N}$ is the set of all possible executions of a LIDL system, where $\mathbb{N}$ is the set of natural numbers. An execution is a function noted $e:\mathbb{N}\rightarrow\mathbb{I}\rightarrow\mathbb{V}$
+\end{definition}
+
+\begin{definition}[Valuation]
+$\codemath{foo}_n$ denotes the value associated to the identifier $\codemath{foo}$, in the $n^{th}$ memory of an execution $e$. 
+\end{definition}
+
+
+\[\forall n < 0 \quad \forall \codemath{x} \in \mathbb{I} \quad \codemath{x}_n = \bot\]
+
+\[\forall n \geq 0 \quad \forall \codemath{x} \in \mathbb{I} \quad \exists f \quad \codemath{x}_n = f()\]
+
+In the following tables, values on the left side of the vertical bar are the ones which have to be computed beforehand, so that values on the right side of the vertical bar can be computed. Values noted as letters such as $x$ are supposed to be different from $\bot$.
+
+Here is an example, where input1 and input2 are input values, and ouput1 and output2 are output values. The example reads like this : on execution step $n$ when input1=a and input2=b, then output1=x and output2=y...
+
+\begin{center}
+\begin{tabular}{cc|cc}
+  $\codemath{(input1)}_n$ & $\codemath{(input2)}_n$ & $\codemath{(output1)}_n$ & $\codemath{(output2)}_n$ \\
+  \hline
+  $a$&$b$&$x$&$y$ 
+\end{tabular}
+\end{center}
+
+
+
+
+Affectation
+
+
+\begin{center}
+\begin{tabular}{cc|c}
+  $\codemath{((a)=(b))}_n$ & $\codemath{(b)}_n$ & $\codemath{(a)}_n$ \\
+  \hline
+  $\bot$&$\bot$ &$\bot$ \\
+  $\bot$& $b$&$\bot$ \\
+  $\top$& $\bot$&$\bot$ \\
+  $\top$& $b$&$b$ \\
+\end{tabular}
+\end{center}
+
+
+
+All
+
+\begin{center}
+\begin{tabular}{c|cc}
+  $\codemath{(all(a)(b))}_n$ & $\codemath{(a)}_n$ & $\codemath{(b)}_n$ \\
+  \hline
+  $\bot$&$\bot$ &$\bot$ \\
+  $\top$& $\top$&$\top$ \\
+\end{tabular}
+\end{center}
+
+
+Either
+
+\begin{center}
+\begin{tabular}{c|cc}
+  $\codemath{(either(a)(b))}_n$ & $\codemath{(a)}_n$ & $\codemath{(b)}_n$ \\
+  \hline
+  $\bot$& $\bot$ &$\bot$ \\
+  $\top$& $\top / \bot$& $\bot / \top$ \\
+\end{tabular}
+\end{center}
+
+Always
+
+\begin{center}
+\begin{tabular}{c|c}
+  $\codemath{(always(a))}_n$ & $\codemath{(a)}_n$ \\
+  \hline
+  $\bot$& $\top$  \\
+  $\top$& $\top$ \\
+\end{tabular}
+\end{center}
+
+Previous
+
+\begin{center}
+\begin{tabular}{c|c}
+  $\codemath{(a)}_{n-1}$ & $\codemath{(previous(a))}_n$ \\
+  \hline
+  $\bot$& $\bot$ \\
+  $a$& $a$ 
+\end{tabular}
+\end{center}
+
+Arithmetic operators
+
+\begin{center}
+\begin{tabular}{cc|c}
+  $\codemath{(a)}_n$ & $\codemath{(b)}_n$ & $\codemath{((a)+(b))}_n$ \\
+  \hline
+  $\bot$& $\bot$ & $\bot$ \\
+  $\bot$& $b$ & $\bot$ \\
+   $a$& $\bot$ & $\bot$ \\
+   $a$& $b$ & $a+b$ 
+\end{tabular}
+\end{center}
+
+
+If then else
+
+\begin{center}
+\begin{tabular}{ccc|c}
+  $\codemath{(a)}_n$ &$\codemath{(b)}_n$ & $\codemath{(c)}_n$  & $\codemath{(if(a)then(b)else(c))}_n$ \\
+  \hline
+$\bot$ &$\bot$ &$\bot$ &$\bot$ \\
+$\bot$ &$\bot$ &$c$ &$\bot$ \\
+$\bot$ &$b$ &$\bot$ &$\bot$ \\
+$\bot$ &$b$ &$c$ &$\bot$ \\
+$true$ &$\bot$ &$\bot$ &$\bot$ \\
+$true$ &$\bot$ &$c$ &$\bot$ \\
+$true$ &$b$ &$\bot$ &$b$ \\
+$true$ &$b$ &$c$ &$b$ \\
+$false$ &$\bot$ &$\bot$ &$\bot$ \\
+$false$ &$\bot$ &$c$ &$c$ \\
+$false$ &$b$ &$\bot$ &$\bot$ \\
+$false$ &$b$ &$c$ &$c$ \\
+ 
+\end{tabular}
+\end{center}
+
+Litterals
+
+\begin{center}
+\begin{tabular}{|c}
+  $\codemath{("a text")}_n$ \\
+  \hline
+  $\mathrm{``a \: text"}$
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{|c}
+  $\codemath{(1234)}_n$ \\
+  \hline
+  $1234$
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{|c}
+  $\codemath{(true)}_n$ \\
+  \hline
+  $\mathrm{true}$
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{|c}
+  $\codemath{(active)}_n$ \\
+  \hline
+  $\top$
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{|c}
+  $\codemath{(inactive)}_n$ \\
+  \hline
+  $\bot$
+\end{tabular}
+\end{center}
+
+
+
+\subsection{Syntax}
+
+LIDL is very general, and so is its syntax. The syntax use lots of parentheses, which is a solution to two contradictory requirements: \textbf{REQ2} and \textbf{REQ3}. Interaction expressions are used to compose interactions in order to form more complex interaction patterns. This grammar is very simple and will be explained here.
+
+Here is the extended Backus Naur form (EBNF) of the interaction grammar of LIDL
+\begin{grammar}
+<interaction> ::= `(' <element>* `)'
+
+<element> ::= <interaction>
+ \alt <word>
+ 
+<word> ::= ? anything except parentheses ?
+	
+\end{grammar}
+
+Said simply, an interaction is a little sentence between parentheses. The interactions it refers to are also between parentheses. LIDL syntax is made in such a way that every parentheses pair \code{(...)} is an interaction, and reciprocally. Here is an example of an interaction expression:
+
+\begin{lstlisting}
+(when (theButton.click): 
+	(say("hello")to(theUser)) 
+)
+\end{lstlisting}
+
+By looking at this expression, we can count 5 parentheses pairs. So this expressions is composed of 5 different interactions:
+
+\begin{itemize}
+	\item \code{(theButton.click)}: A reference to a click on a button somewhere else in the code.
+	\item \code{("hello")}: The constant text ``hello"
+	\item \code{(theUser)}: A reference to a variable called theUser
+	\item \code{(say("hello")to(theUser))}: An interaction defined somewhere in the code, that says something (here \code{"hello"}) to someone (here \code{theUser}) when it is activated.
+	\item \code{(when(theButton.click):(say("hello")to(theUser)))}: An interaction that activates a behavior (here \code{(say("hello")to(theUser))}) when it is activated and an input signal (here \code{theButton.click}) is activated 
+\end{itemize}
+
+
+
+
+\subsubsection{Data types and value sets}
+
+\noindent
+Basic data types
+\[
+  \begin{matrix*}[l]
+  \mathtt{activation} & = & \{ \bot\} \cup \{ \top\}\\
+  \mathtt{boolean} & = & \{ \bot\} \cup \{ true, false\} \\
+  \mathtt{number} & = & \{ \bot\} \cup \mathbb{R}\\
+  \mathtt{text} & = & \{ \bot\} \cup all\_possible\_texts\\
+\end{matrix*}
+\]  
+
+\noindent
+Compound types (examples)
+\[
+  \begin{matrix*}[l]
+  \mathtt{[number]} & = & \{ \bot\} \cup \bigcup_{n \in \mathbb{N}} \mathtt{number}_n \\
+  \mathtt{(number,number)} & = & \{ \bot\} \cup ( \mathtt{number} \times \mathtt{number} ) \\
+  \mathtt{\{x:number,y:number\}} & = & \{ \bot\} \cup ( \mathtt{number} \times \mathtt{number} ) \\
+  \mathtt{|number,boolean|} & = & \mathtt{number} \cup \mathtt{boolean}  \\
+
+\end{matrix*}
+\]  
+
+
+\subsubsection{Lustre examples of some base interactions}
+
+\begin{lstlisting}
+node Affect 
+	(actX:bool, valX:int, actB:bool, valB:int)
+returns 
+	(actA:bool, valA:int);
+let
+	actA = actX and actB;
+	valA = valB;
+tel
+\end{lstlisting}
+
+
+\begin{lstlisting}
+node All
+	(actX:bool, valX:int)
+returns 
+	(actA:bool, valA:int, actB:bool, valB:int);
+let
+	actA = actX;
+	valA = valX;
+	actB = actX;
+	valB = valX;
+tel
+\end{lstlisting}
+
+
+\begin{lstlisting}
+node Always
+	(actX:bool, valX:int)
+returns 
+	(actA:bool, valA:int);
+let
+	actA = true;
+	
+tel
+\end{lstlisting}
+
+
+\subsubsection{Composition}
+
+LIDL offers \textbf{referential transparency}, which means that composition of interactions is very simple and works by simple substitution. 
+
+
+\subsection{Formal semantics}
+We define the actual behaviors of a LIDL interaction system by using a
+semantics of traces that permits to characterize the behaviors of a
+LIDL description in terms of execution traces. Intuitively every
+behavior of a LIDL interaction systems corresponds to the sequences of
+the values each LIDL variable has. These values define a \textit{state} of the
+system and a sequence of states defines a behavior of this system. 
+
+\begin{definition}[Memory]
+Let $I$ a set of identifiers of LIDL. $V$ is a set of values and
+$\bot$ denotes an undefined value. We define $A = \{false,true\}$.
+Every function $\sigma : I \rightarrow A \times (V \cup \{\bot\})$ defines a
+memory of the LIDL interaction system.
+\end{definition}
+Every state of a LIDL interaction system is characterized by a
+memory that gives a  value $\sigma(id)$ to each $id \in I$. This
+value is a pair $(a,v)$ with $ a \in A$ and $v \in (V \cup
+\bot)$ : $a$ indicates if $id$ is \textit{active} or not. If not, $v$ is
+not significant and stays undefined ($v = \bot$). 
+\begin{definition}[Trace]
+An execution trace $\Sigma$ is a non empty, finite or infinite,
+sequence of memories.
+\end{definition} 
+Some  identifiers  play a  particular  role  in the  LIDL  interaction
+systems.  They are used to denote \textit{activation signals} that are
+not valuated.  Their values are in $A \times \{\bot\}$.  By default
+$\forall id  \in I,  \sigma(id) = (false,\bot)$.   In other  words, by
+default, every value is not  active. To become  active and to  get a
+significant data value, a behavior of the LIDL interaction system must be
+activated.
+
+\subsubsection{Semantics of LIDL expressions over finite traces}
+The value (in $A \times (V \cup \{\bot\})$ of a LIDL expression $E$
+over a finite trace $\Sigma = (\sigma_0,\ldots,\sigma_n)$ is defined
+by induction on the structure of $E$. We denote $\Sigma \vdash E |
+(a,v)$ to mean that $E$ has the value $(a,v)$ ($a \in A$ and $v \in  A
+\times (V \cup \{\bot\})$) over $\Sigma$. \\
+\noindent
+\textbf{Constants values.} If k denotes a bool, number or text constant
+then $\Sigma \vdash$ (\mbox{k})$ | (true,k)$. A particular activation
+constant, $active$ is defined in LIDL such that $\Sigma \vdash (active) | (true, \bot)$.\\
+\noindent
+\textbf{Variables values.} $(\sigma_0,\ldots,\sigma_n) \vdash (x) |
+\sigma_n(x)$ if $x$ denotes a variable in the language.\\
+\noindent
+\textbf{Boolean and arithemtic operators.} If $E_1,\ldots,E_m$ denote
+expressions in LIDL and $\star$ is a boolean or arithmetic operator
+then $$\frac{\Sigma \vdash (E_1) | (a_1,v_1),\ldots,\Sigma \vdash (E_m) |
+  (a_m,v_m)}{\Sigma \vdash \star(E_1,\ldots,E_m) |
+  (\bigwedge_{i=1}^{m}a_i, \star(v_1,\ldots,v_m))}$$\\
+\noindent
+\textbf{Operator previous.} If $E$ denotes an expression in LIDL,
+$$\sigma_0 \vdash (\mbox{previous}(E)) | (false,\bot)$$
+$$\frac{\Sigma
+  \vdash (E) | (a,v)}{\Sigma \cdot \sigma \vdash (\mbox{previous}(E)) | (a,v)}$$\\
+\noindent
+\textbf{Operator isactive.} If $E$ denotes an expression in LIDL,
+$$\frac{\Sigma \vdash (E) | (a,v)}{\Sigma \vdash (\mbox{isactive}(E)) | (true, a)}$$\\
+\noindent
+\textbf{Operator if then else.} If $E_1$ is a boolean expression in
+LIDl and if $E_2$ and $E_3$ are expressions in LIDL,
+$$\frac{\Sigma \vdash (E_1)|(a_1,v_1),\Sigma \vdash (E_2)|(a_2,v_2),
+  \Sigma \vdash (E_3)|(a_3,v_3)}{\Sigma \vdash \mbox{if} (E_1)
+  \mbox{then} (E_2) \mbox{else} (E_3) | 
+   \left\{
+     \begin{array}{ll}
+       (false, \bot) & \mbox{if} a_1 = false \\
+       (a_2,v_2) & \mbox{if} (a_1,v_1) = (true,true)\\
+       (a_3,v_3) & \mbox{if} (a_1,v_1) = (true,false)
+     \end{array}
+     \right.
+}
+$$
+\subsubsection{Compatibility  of   an  infinite  trace  with   a  LIDL
+description} 
+
+Behaviors that  are described by LIDL interactions are  infinite. The
+semantics of a LIDL description corresponds to the set of the infinite
+execution traces that  are compatible with it. We  note $\Sigma \vdash
+D$ the  fact that an  infinite trace  $\Sigma$ is compatible  with the
+LIDL description $D$.
+
+An infinite trace denotes a behavior of $D$ if and only if every
+finite prefix of $D$ is compatible with $D$ :
+$$(\sigma_0,\ldots,\sigma_n,\ldots) \vdash D \Longleftrightarrow
+\forall n \geq 0 , (\sigma_0,\ldots,\sigma_n) \vdash D$$
+
+The compatibility of finite traces with $D$ is defined by the
+following rules. A LIDL description is considered as  (and can be
+unfold in) a set of elementary interactions, depicted by equations, regardless of its syntactical
+structure. LIDL is a declarative language so the order of the equations is unimportant. 
+
+A new identifier $\langle (interaction) \rangle
+\in I$ is associated with every elementary interaction $(interaction)$. $\langle (interaction) \rangle$ denotes the activation signals
+that trigger $(interaction)$ : $\sigma(\langle (interaction)
+\rangle) \in A \times \{\bot\}$.\\
+\noindent
+\textbf{Compatibility with an equation.} If x is a LIDL identifier, E
+is a LIDL expression :
+$$\frac{(\sigma_0,\ldots,\sigma_n) \vdash \mbox{(E)} | (a,v),
+  \sigma_n(\mbox{x}) =
+  (a,v), \sigma_n(\langle \mbox{(x=E)} \rangle) = (true, \bot)}
+{(\sigma_0,\ldots,\sigma_n) \vdash \mbox{(x = E)}}
+$$\\
+\noindent
+\textbf{Compatibility with composition.} A set of interactions defines
+a new interaction. If $int_1$ and $int_2$ are two interactions
+$$\frac{\Sigma \vdash (int_1),\Sigma \vdash (int_2) }
+{\Sigma \vdash ((int_1) (int_2))}$$\\
+\noindent
+\textbf{Compatibility with a guarded interaction.} Let G  an activation
+identifier in LIDL ($\sigma(\mbox{I}) \in A \times \{\bot\}$) and $int$ 
+a LIDL interaction :
+%$$\frac{\begin{array}{c}
+%(\sigma_0,\ldots,\sigma_n) \vdash (\mbox{G}) | (true,\bot),
+%\sigma_n(\langle (\mbox{when} (\mbox{G}) \mbox{:} (int) ) \rangle) =
+%(true, \bot),\\
+% (\sigma_0,\ldots,\sigma_n) \vdash \langle (int) \rangle |
+%(true,\bot)
+%\end{array}}
+%{(\sigma_0,\ldots,\sigma_n) \vdash (\mbox{when} (\mbox{G}) \mbox{:}
+%  (int) )} 
+%$$
+$$\frac{
+\begin{array}{c}
+(\sigma_n(\mbox{G}) =(true,\bot),
+\sigma_n(\langle (\mbox{when} (\mbox{G}) \mbox{:} (int) ) \rangle) =
+(true, \bot),\\
+ \sigma_n(\langle (int) \rangle) = (true,\bot)
+\end{array}
+}
+{(\sigma_0,\ldots,\sigma_n) \vdash (\mbox{when} (\mbox{G}) \mbox{:}
+  (int) )} 
+$$

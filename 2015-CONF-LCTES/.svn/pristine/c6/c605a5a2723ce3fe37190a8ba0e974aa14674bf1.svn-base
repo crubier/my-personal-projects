@@ -1,0 +1,439 @@
+
+
+\subsection{Generic}
+
+Some generic interactions are necessary to make the language useful. Listing~\ref{lst:generic} shows the most important ones.
+
+\begin{lstlisting}[caption=Section of the standard LIDL library regarding generic interactions,label={lst:generic}]
+// (if(cond)then(a)else(b)) is similar 
+// to the ternary operator cond?a:b in C
+interaction
+	(if (condition:boolean in)
+	then (a:<type>)
+	else (b:<type>))
+implementing
+	~<type>
+is
+	`native`
+	
+// ((a) is active) projects (a) into the 
+// activation type. It removes the value of 
+// (a), only keeping its activation
+interaction
+	((a:<type> in) is active)
+implementing
+	activation out
+is
+	`native`
+
+// ((a) is true) takes a boolean and returns
+// an activation which is active if and only
+// if (a) is active and true
+interaction
+	((a:boolean in) is true)
+implementing
+	activation out
+is
+	`native`
+
+// (bind(a):(b)) is equivalent to (a), 
+// but it also execute the behavior (b) 
+// in parallel. (b) can have an effect 
+// on (a) by using variables
+interaction
+	(bind (a:<type> data) : (b:activation out))
+implementing
+	<type> data
+is
+	`native`
+
+interaction 
+	((a: <type> in) default (b: <type> in))
+implementing
+	<type> out
+is
+	(if ((a) is active) then (a) else (b))
+\end{lstlisting}
+
+\subsection{Lists}
+
+
+\begin{lstlisting}[caption=Section of the standard LIDL library regarding lists interactions,label={lst:lists}]
+// Get list element
+interaction 
+	( (a:[<type>]in) [ (index:number in) ] )
+implementing
+	<type> out
+is
+	`native`
+	
+// Set list element
+interaction 
+	( (a:[<type>]out) [ (index:number in) ] )
+implementing
+	<type> in
+is
+	`native`
+	
+// Compose list
+interaction
+	([(first:<type>in),(second:<type>in),...,(last:<type>in)])
+implementing
+	<type> out
+is
+	`native`
+	
+	
+// Decompose list
+interaction
+	([(first:<type>out),(second:<type>out),...,(last:<type>out)])
+implementing
+	<type> in
+is
+	`native`
+\end{lstlisting}
+
+
+
+\subsection{Behavior}
+What is a behavior ? Very generally, a behavior is some kind of action that is executed at some points in time. This is why we define the \lstinline{Behavior} interface to be equivalent to the \lstinline{activation in} interface. This means that interactions implementing the \lstinline{Behavior} interface receive a flow of \lstinline{activation}. When they receive the \lstinline{active} value, they are executed, when they receive the \lstinline{inactive} value, they are not executed. 
+
+The LIDL standard library defines some useful basic behaviors, as shown on Listing~\ref{lst:behavior}.
+
+\begin{lstlisting}[caption=Section of the standard LIDL library regarding Behaviors,label={lst:behavior}]
+interface 
+	Behavior 
+is
+	activation in
+
+interaction 
+	((a:<type>out) = (b:<type>in))
+implementing
+	Behavior
+is 
+	`native`
+
+interaction 
+	(all (a:activation out) (b:activation out))
+implementing 
+	Behavior
+is
+	`native`
+	
+interaction 
+	(either (a:activation out) (b:activation out))
+implementing 
+	Behavior
+is
+	`native`
+	
+interaction 
+	(always (a:activation out))
+implementing 
+	Behavior
+is
+	`native`
+	
+interaction
+	(when (condition:activation in) : (effect:activation out) )
+implementing
+	Behavior
+is
+	((effect)=(condition))
+
+interaction 
+	(make (a: <type> data) flow)
+implementing
+	Behavior
+is
+	((a) = ((new(a)) default (previous(a))))
+  
+\end{lstlisting}
+
+
+\subsection{Activation}
+
+
+\begin{lstlisting}
+interaction
+	(active)
+implementing
+	activation out
+is
+	`native`
+\end{lstlisting}
+
+
+
+\subsection{Boolean operators}
+
+What is a boolean operator ? Very generally, it is something that takes some parameters and returns a boolean. This is why we define de \lstinline{Boolean} interface to be equivalent to the \lstinline{boolean out} interface. This means that interactions implementing the \lstinline{Boolean} interface return a flow of \lstinline{boolean} which depends on their parameters.
+
+The LIDL standard library defines some useful basic boolean operators, as shown on Listing~\ref{lst:boolean}.
+
+\begin{lstlisting}[caption=The Number expressions definitions of the standard LIDL library,label={lst:boolean}]
+interface 
+	Boolean 
+is
+	boolean out
+
+interaction 
+	(not (a:boolean in))
+implementing 
+	Boolean
+is
+	`native`
+
+interaction 
+	((a:boolean in) and (b:boolean in))
+implementing 
+	Boolean
+is
+	`native`
+	
+interaction 
+	((a:boolean in) or (b:boolean in))
+implementing 
+	Boolean
+is
+	(not((not(a))and(not(b))))
+	
+interaction 
+	((a:boolean in) xor (b:boolean in))
+implementing 
+	Boolean
+is
+	(((a)or(b))and(not((a)and(b))))
+	
+interaction 
+	((a:boolean in) nand (b:boolean in))
+implementing 
+	Boolean
+is
+	(not((a)and(b))
+	
+interaction	
+	((a:boolean in) nor (b:boolean in))
+implementing 
+	Boolean
+is
+	(not((a)or(b))
+
+interaction 
+	((a:boolean in) implies (b:boolean in))
+implementing 
+	Boolean
+is
+	(not((a)and(not(b))))
+	
+interaction 
+	((a:boolean in) is equivalent to (b:boolean in))
+implementing 
+	Boolean
+is
+	(not((a)xor(b)))
+	
+interaction 
+	((a:boolean in) inhibited by (b:boolean in))
+implementing 
+	Boolean
+is
+	((a)and(not(b)))
+	
+interaction 
+	((a:<type>in) == (b:<type>in))
+implementing
+	Boolean
+is 
+	`native`
+	
+interaction 
+	((a:<type>in) != (b:<type>in))
+implementing
+	Boolean
+is 
+	(not((a)==(b)))
+
+\end{lstlisting}
+
+
+\subsection{Numeric operators}
+
+What is a numeric operator ? Very generally, it is something that takes some parameters and returns a number. This is why we define de \lstinline{Numeric} interface to be equivalent to the \lstinline{number out} interface. This means that interactions implementing the \lstinline{Numeric} interface return a flow of \lstinline{number} which depends on their parameters.
+
+The LIDL standard library defines some useful basic numeric operators, as shown on Listing~\ref{lst:numeric}.
+
+\begin{lstlisting}[caption=The Number expressions definitions of the standard LIDL library,label={lst:numeric}]
+interface 
+	Numeric 
+is
+	number out
+
+// opposite
+interaction 
+	(- (a:number in))
+implementing 
+	Numeric
+is
+	`native`
+
+// sum
+interaction 
+	((a:number in) + (b:number in))
+implementing 
+	Numeric
+is
+	`native`
+	
+// difference
+interaction 
+	((a:number in) - (b:number in))
+implementing 
+	Numeric
+is
+	((a)+(-(b)))
+
+// inverse
+interaction
+	(inverse (a:number in))
+implementing
+	Numeric
+is
+	`native`
+
+// multiplication
+interaction 
+	((a:number in) * (b:number in))
+implementing 
+	Numeric
+is
+	`native`
+
+// division
+interaction 
+	((a:number in) / (b:number in))
+implementing 
+	Numeric
+is
+	((a)*(inverse(b)))
+\end{lstlisting}
+
+
+
+
+
+\subsection{Widgets}
+
+The LIDL standard library defines some widgets, as shown on Listing~\ref{lst:widgets}.
+
+\begin{lstlisting}[caption=A standard widget library,label={lst:widgets}]
+////////////////////////////////////////////////
+interface
+	Label
+is
+	{
+		value : text out
+	}
+
+interaction 
+	(Label (status: activation in)
+	with title (theTitle: text in))
+implementing
+	Label
+is
+	(bind(this) : (when (status) : (all
+			((this.value)=(theTitle)))
+	)))
+
+////////////////////////////////////////////////
+interface 
+	Gauge
+is
+	{
+		value : number out
+	}
+
+interaction 
+	(Gauge (status: activation in)
+ 	with value (theValue: number in))
+implementing 
+	Gauge
+is
+	(bind(this) : (when (status) : (all
+		((this.value)=(theValue))
+	)))
+	
+////////////////////////////////////////////////
+interface 
+	Button
+is
+	{
+		value: text out,
+		click : activation in	
+	}
+
+interaction 
+	(Button (status: activation in) 
+	with title (theTitle: text in) 
+	trigerring (onClick: activation out))
+implementing
+	Button
+is
+	(bind(this) : (when (status) : (all
+			((this.value)=(theTitle))
+			((onClick)=(this.click))
+	)))
+	
+	
+    
+////////////////////////////////////////////////
+interface 	
+	SegmentedSwitch
+is
+	{
+		choices : [text] out,
+		selection : number in
+	}
+
+interaction 
+	(SegmentedSwitch (status: activation in) 
+	with choices (theChoices: [text] in)
+	selecting (theSelection: text out))
+implementing
+	SegmentedSwitch
+is
+	(bind(this) : (when (status) : (all
+			((this.choices)=(theChoices))
+			((theSelection)=
+				((theChoices)[(this.selection)]))
+	)))
+	
+////////////////////////////////////////////////
+interface 
+	Slider
+is
+	{
+		value : number out
+		selection : number in,
+	}
+
+interaction 
+	(Slider (status: activation in)
+	with value (theValue: number in)
+	selecting (theSelection: number out))
+implementing
+	Slider
+is
+	(bind(this) : (when (status) : (all
+			((this.value)=(theValue))
+			((theSelection)=(this.selection))
+	)))
+
+
+////////////////////////////////////////////////
+
+\end{lstlisting}
+
+
+Here we put the LIDL source code of the case study and probably the promela code and Event-B code etc. 
+

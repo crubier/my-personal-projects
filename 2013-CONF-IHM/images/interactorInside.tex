@@ -1,0 +1,60 @@
+\begin{tikzpicture}
+
+\tikzset{stateVariable/.style={draw,rectangle, rounded corners,scale = 2, text width=3.7cm,dashed,text centered,minimum width=4cm,minimum height=0.5cm}}
+\tikzset{composition/.style={thick, <-,>=diamond}}
+\tikzset{component/.style={draw,thick,scale = 2, text width=2.7cm,text centered,minimum width=3cm,minimum height=1cm}}
+\tikzset{event/.style={->,>= latex,ultra thick,color=red}}
+\tikzset{flow/.style={->,>= latex,ultra thick,color=green}}
+
+\only<1->{
+\node[draw, thick, minimum width=30cm, minimum height=11cm] (INT) at (0cm,0cm) { };
+}
+
+\only<2->{
+\node[component] (P1) at (15cm,10cm) {Parent};
+\draw [composition] (P1) -- (INT);
+
+\node[component] (C1) at (-15cm,-10cm) {Child 1};
+\node[component] (C2) at (-5cm,-10cm) {Child 2};
+\node[component] (C3) at (5cm,-10cm) {Child 3};
+\node[component] (C4) at (15cm,-10cm) {Child 4};
+\draw [composition] (INT) -- (C1);
+\draw [composition] (INT) -- (C2);
+\draw [composition] (INT) -- (C3);
+\draw [composition] (INT) -- (C4);
+}
+
+\only<3->{
+\node[stateVariable] (S1) at (-10cm,4cm) {$State Variable 1$};
+\node[stateVariable] (S2) at (-10cm,2cm) {$State Variable 2$};
+\node[stateVariable] (S3) at (-10cm,0cm) {$State Variable 3$};
+\node[stateVariable] (S4) at (-10cm,-2cm) {$State Variable 4$};
+\node[stateVariable] (S5) at (-10cm,-4cm) {$State Variable 5$};
+}
+
+
+\only<4->{
+\node[draw,shape=rectangle,scale=2] (B1) at (2cm,2cm) {Behavior 1}; 
+\draw [event] (C2.0) to [out=0,in=180] (B1);
+\draw [event] (B1) to [out=0,in=180] (P1.170);
+\draw [flow] (S2) to [out=0,in=90] (B1.120);
+\draw [flow] (S1) to [out=0,in=90] (B1.60);
+\draw [flow] (B1.270) to [out=270,in=0] (S3.0);
+}
+
+\only<5->{
+\node[draw,shape=rectangle,scale=2] (B2) at (6cm,-3cm) {Behavior 2}; 
+\draw [flow] (S4) to [out=0,in=90] (B2.60);
+\draw [flow] (S5) to [out=0,in=90] (B2.120);
+\draw [flow] (B2.270) to [out=270,in=90] (C3.90);
+}
+
+\only<6->{
+\node[draw,shape=rectangle,scale=2] (B3) at (10cm,2cm) {Behavior 3}; 
+\draw [flow] (C4) to [out=90,in=90] (B3.90);
+\draw [flow] (S5) to [out=0,in=90] (B2.120);
+\draw [event] (B3) to [out=0,in=180] (P1.190);
+}
+
+
+\end{tikzpicture}

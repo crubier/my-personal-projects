@@ -1,0 +1,43 @@
+%---------------------------------------
+%The interactive part of a system is important since it becomes more and more complex. The introduction of several complex digital interactive (input/output) devices led to 
+%\begin{itemize}
+%\item an important part of code allowed to the development of interface
+%\item complexity due to the growing et of interaction possibilities offered thanks to the availability of different interaction devices that offer several services
+%\end{itemize}
+ %Less effort is payed for the design and development of the interactive part of a system compared to the functional part of the same system. 
+%In this paper, we advocate 
+%--------------------------------------------
+
+In the  last 30 years,  the aerospace domain has  successfully devised
+rigorous  languages, methods  and tools  for the  development of  safe
+functionally-correct software. In the  same time, interactive software
+received  a   very  lower   amount  of  attention.    However,  highly
+interactive  Human  Machine  Interfaces  (HMI) are  now  appearing  in
+critical  embedded  systems  and   particularly  in  aeronautics:  new
+generations of aircraft cockpits  make use of sophisticated electronic
+and  digital devices  that  may be  driven by  more  and more  complex
+software  applications  endowed  with  a   huge  number  of  lines  of
+code. These applications must behave as intended with a high degree of
+assurance because  of their  criticality. An  error in  these software
+components may have catastrophic consequences.
+
+So  there  is  a  real  stake   to  master  the  development  and  the
+implementation of  these critical interactive applications.  The heart
+of the problem  is that the standard processes for  the development of
+safety critical  software in aeronautics  are not really  suitable for
+interactive  software design  for  which more  iterative methods  that
+involve end-users  and that mix  design and tests are  still required.
+Moreover,  the  stakeholders  that   participate  in  the  design  and
+implementation  of these  applications  do not  have  common means  to
+express  properly  and  rigorously  the intended  behaviour  of  these
+interfaces.
+
+In  this paper  we advocate  devising a  well-defined domain  specific
+language  for representing  the behavior  of the  designed interactive
+software in  a way that allows,  on the one hand,  system designers to
+iterate  on  their designs  before  injecting  them in  a  development
+process  and, on  the other  hand,  system developers  to check  their
+software against the chosen design.
+
+Section 2 details some motivations to devise such a new DSL. 
+

@@ -1,0 +1,18 @@
+#absolute {
+	Z-INDEX: 1; LEFT: 0px; POSITION: absolute; TOP: 0px
+}
+BODY {
+	FONT-WEIGHT: normal; FONT-SIZE: 9pt; COLOR: #7498A6; LINE-HEIGHT: normal; FONT-STYLE: normal; FONT-FAMILY: Ariel, Helvetica, Geneva, Swiss, SunSans-Regular
+}
+LI.spaced {
+	LINE-HEIGHT: 1.5em
+}
+A:link {
+	FONT-WEIGHT: bold; FONT-SIZE: 9pt; COLOR: #003A88; TEXT-DECORATION: none
+}
+A:visited {
+	FONT-WEIGHT: bold; FONT-SIZE: 9pt; COLOR: #444444; TEXT-DECORATION: none
+}
+A:hover {
+	BACKGROUND: #003A88; COLOR: #333333; TEXT-DECORATION: none
+}

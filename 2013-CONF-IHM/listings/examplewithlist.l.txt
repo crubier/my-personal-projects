@@ -1,0 +1,80 @@
+Interactor ExampleScreen
+	State 
+		ExampleObject chosenObject
+	Components
+		// System
+		ExampleSystem theSystem
+
+		// List		
+		CollectionChoice list
+		ExampleCell prototypeCell
+
+		// Widgets
+		TextOutput nameLabel
+		TextOutput stateLabel
+		RealOutput valueLabel
+		TriggerInput incrementButton
+		TriggerInput decrementButton
+		TriggerInput commandButton
+	Interface
+		In
+			//Nothing in
+		Out
+			//Nothing either
+	Behavior
+		Init
+			list.cell = prototypeCell
+			list.set = theSystem.set
+		Always
+			chosenObject = list.selected
+			nameLabel.text = chosenObject.name
+			stateLabel.text = chosenObject.state
+			valueLabel.text = chosenObject.value
+
+			// The following could be generated automatically from behavior
+			// With a rule like 
+			// if the state of the interactor is such that no guard is true for an event sent by a sub Interactor
+			// then the subInteractor is disabled
+			commandButton.enabled = (chosenObject.state == "OFF" || chosenObject.state == "ON")
+
+		When (incrementButton.triggered)
+			chosenObject.value = chosenObject.value + 1 
+		When (decrementButton.triggered)
+			chosenObject.value = chosenObject.value - 1 
+		When (commandButton.triggered) and (chosenObject.state == "OFF")
+			theSystem start:chosenObject
+		When (commandButton.triggered) and (chosenObject.state == "ON")
+			theSystem stop:chosenObject
+
+		
+
+
+
+Interactor ExampleCell
+	State
+		ExampleObject objectToShow
+	Components
+		TextOutput nameLabel
+	Interface
+	Behavior
+		Always 
+			nameLabel = objectToShow.name
+			
+
+
+// Following definitions are not part of the language
+// Here for understanding purposes
+
+System ExampleSystem
+	State
+		ExampleObject set[size]
+	Interface
+		In
+			start:ExampleObject
+			stop:ExampleObject
+	
+
+Type ExampleObject
+	Text name
+	Real value in [0,100]
+	Text state in { "OFF" , "STARTING" , "ON" , "FAULT" }

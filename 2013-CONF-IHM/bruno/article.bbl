@@ -1,0 +1,135 @@
+\begin{thebibliography}{10}
+
+\bibitem{DO178C}
+D{O}178{C}. {S}oftware {C}onsideration in {A}irborn {S}ystems and {E}quipment
+  {C}ertification, release c, 2012.
+\newblock RTCA,Inc.
+
+\bibitem{Accot97}
+Accot, J., Chatty, S., Maury, S., and Palanque, P.~A.
+\newblock Formal transducers: Models of devices and building bricks for the
+  design of highly interactive systems.
+\newblock In {\em DSV-IS}, M.~D. Harrison and J.~C. Torres, Eds., Springer
+  (1997), 143--159.
+
+\bibitem{yamine98a}
+Ait-ameur, Y., Girard, P., and Jambon, F.
+\newblock A uniform approach for specification and design of interactive
+  systems: the b method.
+\newblock In {\em in Eurographics Workshop on Design, Specification, and
+  Verification of Interactive Systems (DSVIS'98), Vol. Proceedings (Eds,
+  Markopoulos} (1998), 333--352.
+
+\bibitem{yamine00}
+Ameur, Y.~A.
+\newblock Cooperation of formal methods in an engineering based software
+  development process.
+\newblock In {\em Proceedings of the Second International Conference on
+  Integrated Formal Methods}, IFM '00, Springer-Verlag (London, UK, UK, 2000),
+  136--155.
+
+\bibitem{yamine98b}
+Ameur, Y.~A., Girard, P., and Jambon, F.
+\newblock Using the b formal approach for incremental specification design of
+  interactiv systems.
+\newblock In {\em EHCI} (1998), 91--109.
+
+\bibitem{nousdsvis96}
+Ausbourg~(d'), B., Durrieu, G., and Roch\'e, P.
+\newblock {Deriving a formal model of an interactive system from its UIL
+  description in order to verify and to test its behaviour}.
+\newblock In {\em Proceedings of the Eurographics Workshop DSV-IS'96} (Namur,
+  Belgium, June 1996).
+
+\bibitem{dsvis98}
+Ausbourg(d'), B.
+\newblock Using {M}odel {C}hecking for the {A}utomatic {V}alidation of {U}ser
+  {I}nterfaces {S}ystems.
+\newblock In {\em Design, Specification and Verification of Interactive Systems
+  '98}, P.~Markopoulos and P.~Johnson, Eds., Eurographics, Springer (June
+  1998).
+
+\bibitem{Bastide02}
+Bastide, R., Navarre, D., and Palanque, P.
+\newblock A model-based tool for interactive prototyping of highly interactive
+  applications.
+\newblock In {\em CHI '02 Extended Abstracts on Human Factors in Computing
+  Systems}, CHI EA '02, ACM (New York, NY, USA, 2002), 516--517.
+
+\bibitem{BEA12}
+BEA.
+\newblock Rapport final sur l'accident survenu le 1er juin 2009 à l’{A}irbus
+  {A}330-203 immatriculé {F-GZCP} exploité par {A}ir {F}rance, vol {AF} 447
+  {R}io de {J}aneiro - {P}aris.
+\newblock Tech. rep., Direction Générale de l'Aviation Civile, Juillet 2012.
+\newblock \url{http://www.bea.aero/docspa/2009/f-cp090601/pdf/f-cp090601.pdf}.
+
+\bibitem{Blanch02}
+Blanch, R.
+\newblock Programmer l'interaction avec des machines à états hiérarchiques.
+\newblock In {\em Actes de la 14ème conférence francophone sur l'Interaction
+  Homme-Machine ({IHM} 2002)} (2002), 129--136.
+
+\bibitem{Blanch06}
+Blanch, R., and Beaudouin-Lafon, M.
+\newblock Programming rich interactions using the hierarchical state machine
+  toolkit.
+\newblock In {\em Proceedings of the working conference on Advanced Visual
+  Interfaces ({AVI} 2006)} (2006), 51--58.
+
+\bibitem{ausbourg98}
+d'Ausbourg, B., Seguin, C., Durrieu, G., and Roché, P.
+\newblock Helping the automated validation process of user interfaces systems.
+\newblock In {\em ICSE}, K.~Torii, K.~Futatsugi, and R.~A. Kemmerer, Eds., IEEE
+  Computer Society (1998), 219--228.
+
+\bibitem{york93}
+Duke, D.~J., and Harrison, M.~D.
+\newblock Abstract {I}nteraction {O}bjects.
+\newblock {\em Computer Graphics Forum 12}, 3 (1993), 25--36.
+
+\bibitem{UsiXML}
+{US}er {I}nterface e{X}tended {M}arkup {L}anguage.
+\newblock \url{http://www.usixml.eu/}.
+
+\bibitem{Jacob99}
+Jacob, R. J.~K., Deligiannidis, L., and Morrison, S.
+\newblock A software model and specification language for non-wimp user
+  interfaces.
+\newblock {\em ACM Transactions on Computer-Human Interaction 6\/} (1999),
+  1--46.
+
+\bibitem{Jensen95}
+Jensen, K.
+\newblock {\em Coloured Petri nets: basic concepts, analysis methods and
+  practical use, vol. 2}.
+\newblock Springer-Verlag, London, UK, UK, 1995.
+
+\bibitem{palanque93}
+Palanque, P., and Bastide, R.
+\newblock Interactive cooperative objects : an object-oriented formalism based
+  on petri nets for user interface design.
+\newblock In {\em Proceedings of the IEEE Conference on System Man and
+  Cybernetics}, Elsevier Science Publisher (October 1993).
+
+\bibitem{palanque97}
+Palanque, P., and Bastide, R.
+\newblock Synergistic modelling of tasks, users and systems using formal
+  specification techniques.
+\newblock {\em Interacting with Computers 9}, 2 (1997), 129--153.
+
+\bibitem{Paterno92}
+Paternò, F., and Faconti, G.
+\newblock On the use of {LOTOS} to describe graphical interaction.
+\newblock In {\em Proceedings of the HCI'92 Conference on People and Computers}
+  (1992), 155--173.
+
+\bibitem{Schyn03}
+Schyn, A., Navarre, D., Palanque, P., and Porcher~Nedel, L.
+\newblock {Description Formelle d'une Technique d'Interaction Multimodale dans
+  une Application de Réalité Virtuelle Immersive }.
+\newblock In {\em {IHM'2003: 15th French Speaking conference on human-computer
+  interaction, Caen, France, 24/11/2003-28/11/2003}}, ACM Press (novembre
+  2003), 150--157.
+
+\end{thebibliography}

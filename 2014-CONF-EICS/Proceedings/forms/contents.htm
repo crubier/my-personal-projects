@@ -1,0 +1,738 @@
+<HTML><HEAD><TITLE>EICS 2014 Proceedings</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252"><LINK 
+href="index_files/factemplate.css" type=text/css rel=stylesheet>
+<META content="MSHTML 6.00.2900.3562" name=GENERATOR></HEAD>
+<BODY background="index_files/background-iui.jpg" bgproperties="fixed"><DIV style="TEXT-ALIGN: center" >
+<table width="727" border="0" align="center" cellpadding="0" cellspacing="0" valign="top">
+  <tr bgcolor="#FFFFFF"> 
+    <td align="center" valign="top"><img src="index_files/eics14logo.png" width="144" height="144"></td>
+    <td><p style="text-indent: 0; margin-left: 12; margin-right: 14; margin-top: 4; margin-bottom: 12" align="left"><font color="#000000" size="3" face="Arial, Helvetica, sans-serif"><strong>The 
+        Sixth ACM SIGCHI Symposium on</strong></font></p>
+      <p style="text-indent: 0; margin-left: 12; margin-right: 14; margin-top: 4; margin-bottom: 12" align="left"><font color="#000000" size="3" face="Arial, Helvetica, sans-serif"><strong><font size="5">Engineering 
+        Interactive Computing Systems</font></strong></font></p>
+      <p style="text-indent: 0; margin-left: 12; margin-right: 14; margin-top: 4; margin-bottom: 12" align="left"><font color="#000000" size="3" face="Arial, Helvetica, sans-serif"><strong>CNR 
+        Rome, Italy, June 17-20, 2014</strong> </font></p></td>
+  </tr>
+  <tr bgcolor="#FFFFFF"> 
+    <td width="144" align="center" valign="top" bgcolor="#003A88"><table width="97%" border="0" align="center" cellpadding="2" cellspacing="2" style="margin-top: 2; margin-bottom: 2">
+        <tr> 
+          <td><p style="text-indent: 0; margin-left: 6; margin-right: 6; margin-top: 5; margin-bottom: 4" align="left"><A href="index.htm"><strong><font color="#FFFFFF">Main 
+              Page</font></strong></A></p></td>
+        </tr>
+        <tr> 
+          <td><p style="text-indent: 0; margin-left: 6; margin-right: 6; margin-top: 5; margin-bottom: 4" align="left"><A href="contents.htm"><strong><font color="#FFFFFF">Table 
+              of Contents</font></strong></A></p></td>
+        </tr>
+        <tr> 
+          <td><p style="text-indent: 0; margin-left: 6; margin-right: 6; margin-top: 5; margin-bottom: 4" align="left"><A href="authors.htm"><strong><font color="#FFFFFF">Author 
+              Index</font></strong></A></p></td>
+        </tr>
+        <tr> 
+          <td><p style="text-indent: 0; margin-left: 6; margin-right: 6; margin-top: 5; margin-bottom: 4" align="left"><A href="SIGCHI.pdf"><strong><font color="#FFFFFF">SIGCHI 
+              Membership</font></strong></A></p></td>
+        </tr>
+      </table></td>
+    <td width="583"><p style="text-indent: 0; margin-left: 12; margin-right: 14; margin-top: 4; margin-bottom: 12" align="left"><font color="#333333" size="4" face="Arial, Helvetica, sans-serif"><strong>Table 
+        of Contents</strong></font></p>
+      <p align="left" style="text-indent: 0; margin-left: 12; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/welcome.pdf" style="text-decoration:none">Foreword</a><font color="#555555" size="2" face="Times New Roman"><br>
+        Fabio Paternò<i> (CNR-ISTI)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+        Carmen Santoro<i> (CNR-ISTI)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+        Jürgen Ziegler<i> (University of Duisburg-Essen)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+        Paolo Bottoni<i> (Sapienza University of Rome)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+        Michael Nebeling<i> (ETH-Zurich)</i></font></p>
+      <p align="left" style="text-indent: 0; margin-left: 12; margin-right: 9; margin-top: 12; margin-bottom: 6"><a href="../docs/organization.pdf" style="text-decoration:none">EICS 
+        2014 Symposium Organization</a></p>
+      <p align="left" style="text-indent: 0; margin-left: 12; margin-right: 9; margin-top: 12; margin-bottom: 12"><a href="../docs/sponsors.pdf" style="text-decoration:none">EICS 
+        2014 Sponsor & Supporters</a></p>
+      <table width="92%" height="62" border="1" align="left" cellpadding="2" cellspacing="2">
+        <tr bgcolor="#FFFFFF"> 
+          <td width="33%"> <p style="text-indent: 0; margin-left: 6; margin-right: 6; margin-top: 5; margin-bottom: 4" align="left"><font size="2"><a href="#1" style="text-decoration:none">Keynote 
+              I</a></font></p></td>
+          <td width="33%"> <p style="text-indent: 0; margin-left: 6; margin-right: 6; margin-top: 5; margin-bottom: 4" align="left"><font size="2"><a href="#8" style="text-decoration:none">Touch 
+              and Gesture-based UIs Session</a></font></p></td>
+        </tr>
+        <tr bgcolor="#FFFFFF"> 
+          <td width="33%"> <p style="text-indent: 0; margin-left: 6; margin-right: 6; margin-top: 5; margin-bottom: 4" align="left"><font size="2"><a href="#2" style="text-decoration:none">Adaptation 
+              Session</a></font></p></td>
+          <td width="33%"> <p style="text-indent: 0; margin-left: 6; margin-right: 6; margin-top: 5; margin-bottom: 4" align="left"><font size="2"><a href="#9" style="text-decoration:none">Demo 
+              Session</a></font></p></td>
+        </tr>
+        <tr bgcolor="#FFFFFF"> 
+          <td width="33%"> <p style="text-indent: 0; margin-left: 6; margin-right: 6; margin-top: 5; margin-bottom: 4" align="left"><font size="2"><a href="#3" style="text-decoration:none">Frameworks 
+              for Cross-device Interaction Session</a></font></p></td>
+          <td width="33%"> <p style="text-indent: 0; margin-left: 6; margin-right: 6; margin-top: 5; margin-bottom: 4" align="left"><font size="2"><a href="#10" style="text-decoration:none">Late 
+              Breaking Results Session</a></font></p></td>
+        </tr>
+        <tr bgcolor="#FFFFFF"> 
+          <td width="33%"> <p style="text-indent: 0; margin-left: 6; margin-right: 6; margin-top: 5; margin-bottom: 4" align="left"><font size="2"><a href="#4" style="text-decoration:none">Collaborative 
+              Environments Session</a></font></p></td>
+          <td width="33%"> <p style="text-indent: 0; margin-left: 6; margin-right: 6; margin-top: 5; margin-bottom: 4" align="left"><font size="2"><a href="#11" style="text-decoration:none">Keynote 
+              II</a></font></p></td>
+        </tr>
+        <tr bgcolor="#FFFFFF"> 
+          <td width="33%"> <p style="text-indent: 0; margin-left: 6; margin-right: 6; margin-top: 5; margin-bottom: 4" align="left"><font size="2"><a href="#5" style="text-decoration:none">Doctoral 
+              Consortium Report</a></font></p></td>
+          <td width="33%"> <p style="text-indent: 0; margin-left: 6; margin-right: 6; margin-top: 5; margin-bottom: 4" align="left"><font size="2"><a href="#12" style="text-decoration:none">Analytic 
+              Techniques Session</a></font></p></td>
+        </tr>
+        <tr bgcolor="#FFFFFF"> 
+          <td width="33%"> <p style="text-indent: 0; margin-left: 6; margin-right: 6; margin-top: 5; margin-bottom: 4" align="left"><font size="2"><a href="#6" style="text-decoration:none">Multimodal 
+              and Web Applications Session</a></font></p></td>
+          <td width="33%"> <p style="text-indent: 0; margin-left: 6; margin-right: 6; margin-top: 5; margin-bottom: 4" align="left"><font size="2"><a href="#13" style="text-decoration:none">Prototyping 
+              and Development Frameworks Session</a></font></p></td>
+        </tr>
+        <tr bgcolor="#FFFFFF"> 
+          <td width="33%"> <p style="text-indent: 0; margin-left: 6; margin-right: 6; margin-top: 5; margin-bottom: 4" align="left"><font size="2"><a href="#7" style="text-decoration:none">Model-based 
+              UIs Session</a></font></p></td>
+          <td width="33%"> <p style="text-indent: 0; margin-left: 6; margin-right: 6; margin-top: 5; margin-bottom: 4" align="left"><font size="2"><a href="#14" style="text-decoration:none">Workshop 
+              Summaries</a></font></p></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td colspan="1" align="center" valign="middle" bgcolor="#003A88"
+              ><a href="#Top" style="text-decoration:none"><font color="#FFFFFF" size="1" face="Arial">(Return 
+      to Top)</font></a></td>
+    <td valign="top" bgcolor="#FFFFFF"><p align="left" style="text-indent: 0; margin-left: 12; margin-right: 9; margin-top: 15; margin-bottom: 6"><strong><font size="2" face="Arial" color="#333333"><a name="1" id="1"></a></font><font size="3" face="Arial" color="#666666"> 
+        Keynote I</font></strong></p>
+      <table width="99%" border="0" align="center" cellpadding="1" cellspacing="1">
+        <tr> 
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p1.pdf" style="text-decoration:none">Making 
+              the Web More Inclusive with Adaptive User Interfaces</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              1)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Krzysztof Z. Gajos<i> (Harvard School of Engineering and Applied 
+              Sciences)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+      </table></tr>
+  <tr> 
+    <td colspan="1" align="center" valign="middle" bgcolor="#003A88"
+              ><a href="#Top" style="text-decoration:none"><font color="#FFFFFF" size="1" face="Arial">(Return 
+      to Top)</font></a></td>
+    <td valign="top" bgcolor="#FFFFFF"><p align="left" style="text-indent: 0; margin-left: 12; margin-right: 9; margin-top: 15; margin-bottom: 6"><strong><font size="2" face="Arial" color="#333333"><a name="2" id="2"></a></font><font size="3" face="Arial" color="#666666"> 
+        Adaptation Session</font></strong></p>
+      <table width="99%" border="0" align="center" cellpadding="1" cellspacing="1">
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p3.pdf" style="text-decoration:none">Dynamically 
+              Adapting an AI Game Engine Based on Players' Eye Movements and Strategies</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              3)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Stefanie Wetzel<i> (Bauhaus-Universität Weimar)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Katharina Spiel<i> (Bauhaus-Universität Weimar)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Sven Bertel<i> (Bauhaus-Universität Weimar)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p13.pdf" style="text-decoration:none">What 
+              Should Adaptivity Mean to Interactive Software Programmers?</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              13)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Mathieu Magnaudet<i> (Université de Toulouse - ENAC)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Stéphane Chatty<i> (Université de Toulouse - ENAC)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p23.pdf" style="text-decoration:none">Updating 
+              Database Schemas without Breaking the UI: Modeling Using Cognitive 
+              Semantic Categories</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              23)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Evangelos Kapros<i> (The University of Dublin, Trinity College)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Simon McGinnes<i> (The University of Dublin, Trinity College)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top"><a href="../videos/eicslb112-file3.mp4"><img src="index_files/projector.gif" width="32" height="32" border="0"></a></td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p33.pdf" style="text-decoration:none">Towards 
+              a Multi-Stakehoder Engineering Approach with Adaptive Modelling 
+              Environments</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              33)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Alfonso García Frey<i> (Public Research Center Henri Tudor)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Jean-Sébastien Sottet<i> (Public Research Center Henri Tudor)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Alain Vagner<i> (Public Research Center Henri Tudor)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p39.pdf" style="text-decoration:none">Design 
+              Space for Focus+Context Navigation in Web Forms</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              39)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Johannes Harms<i> (Vienna University of Technology)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Christoph Wimmer<i> (Vienna University of Technology)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Karin Kappel<i> (Vienna University of Technology)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Thomas Grechenig<i> (Vienna University of Technology)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+      </table></tr>
+  <tr> 
+    <td colspan="1" align="center" valign="middle" bgcolor="#003A88"
+              ><a href="#Top" style="text-decoration:none"><font color="#FFFFFF" size="1" face="Arial">(Return 
+      to Top)</font></a></td>
+    <td valign="top" bgcolor="#FFFFFF"><p align="left" style="text-indent: 0; margin-left: 12; margin-right: 9; margin-top: 15; margin-bottom: 6"><strong><font size="2" face="Arial" color="#333333"><a name="3" id="3"></a></font><font size="3" face="Arial" color="#666666"> 
+        Frameworks for Cross-device Interaction Session</font></strong></p>
+      <table width="99%" border="0" align="center" cellpadding="1" cellspacing="1">
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p45.pdf" style="text-decoration:none">A 
+              Framework for the Development of Multi-Display Environment Applications 
+              Supporting Interactive Real-Time Portals</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              45)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Chi Tai Dang<i> (Augsburg University)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Elisabeth André<i> (Augsburg University)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p55.pdf" style="text-decoration:none">User 
+              Interface Distribution in Multi-Device and Multi-User Environments 
+              with Dynamically Migrating Engines</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              55)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Luca Frosini<i> (ISTI-CNR)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Fabio Paternò<i> (ISTI-CNR)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p65.pdf" style="text-decoration:none">XDKinect: 
+              Development Framework for Cross-Device Interaction using Kinect</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              65)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Michael Nebeling<i> (ETH Zurich)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Elena Teunissen<i> (ETH Zurich)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Maria Husmann<i> (ETH Zurich)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Moira C. Norrie<i> (ETH Zurich)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+      </table></tr>
+  <tr> 
+    <td colspan="1" align="center" valign="middle" bgcolor="#003A88"
+              ><a href="#Top" style="text-decoration:none"><font color="#FFFFFF" size="1" face="Arial">(Return 
+      to Top)</font></a></td>
+    <td valign="top" bgcolor="#FFFFFF"><p align="left" style="text-indent: 0; margin-left: 12; margin-right: 9; margin-top: 15; margin-bottom: 6"><strong><font size="2" face="Arial" color="#333333"><a name="4" id="4"></a></font><font size="3" face="Arial" color="#666666"> 
+        Collaborative Environments Session</font></strong></p>
+      <table width="99%" border="0" align="center" cellpadding="1" cellspacing="1">
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p75.pdf" style="text-decoration:none">Interaction 
+              Design Patterns for Coherent and Re-usable Shape Specifications 
+              of Human-Robot Collaboration</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              75)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Tina Mioch<i> (TNO)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Wietse Ledegang<i> (TNO)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Rosie Paulissen<i> (TNO)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Mark A. Neerincx<i> (TNO)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Jurriaan van Diggelen<i> (TNO)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p85.pdf" style="text-decoration:none">Multi-Models-Based 
+              Engineering of Collaborative Systems: Application to Collision Avoidance 
+              Operations for Spacecraft</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              85)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Célia Martinie<i> (University of Toulouse)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Eric Barboni<i> (University of Toulouse)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              David Navarre<i> (University of Toulouse)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Philippe Palanque<i> (University of Toulouse)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Racim Fahssi<i> (University of Toulouse)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Erwann Poupart<i> (CNES)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Eliane Cubero-Castan<i> (CNES)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+      </table></tr>
+  <tr> 
+    <td colspan="1" align="center" valign="middle" bgcolor="#003A88"
+              ><a href="#Top" style="text-decoration:none"><font color="#FFFFFF" size="1" face="Arial">(Return 
+      to Top)</font></a></td>
+    <td valign="top" bgcolor="#FFFFFF"><p align="left" style="text-indent: 0; margin-left: 12; margin-right: 9; margin-top: 15; margin-bottom: 6"><strong><font size="2" face="Arial" color="#333333"><a name="5" id="5"></a></font><font size="3" face="Arial" color="#666666"> 
+        Doctoral Consortium Report</font></strong></p>
+      <table width="99%" border="0" align="center" cellpadding="1" cellspacing="1">
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p95.pdf" style="text-decoration:none">The 
+              EICS 2014 Doctoral Consortium</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              95)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Laurence Nigay<i> (University Grenoble Alpes)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Kris Luyten<i> (Hasselt University)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+      </table></tr>
+  <tr> 
+    <td colspan="1" align="center" valign="middle" bgcolor="#003A88"
+              ><a href="#Top" style="text-decoration:none"><font color="#FFFFFF" size="1" face="Arial">(Return 
+      to Top)</font></a></td>
+    <td valign="top" bgcolor="#FFFFFF"><p align="left" style="text-indent: 0; margin-left: 12; margin-right: 9; margin-top: 15; margin-bottom: 6"><strong><font size="2" face="Arial" color="#333333"><a name="6" id="6"></a></font><font size="3" face="Arial" color="#666666"> 
+        Multimodal and Web Applications Session</font></strong></p>
+      <table width="99%" border="0" align="center" cellpadding="1" cellspacing="1">
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p97.pdf" style="text-decoration:none">A 
+              Domain-Specific Textual Language for Rapid Prototyping of Multimodal 
+              Interactive Systems</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              97)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Fredy Cuenca<i> (Hasselt University)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Jan Van den Bergh<i> (Hasselt University)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Kris Luyten<i> (Hasselt University)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Karin Coninx<i> (Hasselt University)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top"><a href="../videos/eics0147-file3.mp4"><img src="index_files/projector.gif" width="32" height="32" border="0"></a></td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p107.pdf" style="text-decoration:none">Metadata 
+              Type System: Integrate Presentation, Data Models and Extraction 
+              to Enable Exploratory Browsing Interfaces</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              107)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Yin Qu<i> (Texas A&M University)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Andruid Kerne<i> (Texas A&M University)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Nic Lupfer<i> (Texas A&M University)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Rhema Linder<i> (Texas A&M University)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Ajit Jain<i> (Texas A&M University)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p>
+            </td>
+        </tr>
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p117.pdf" style="text-decoration:none">Towards 
+              a Behavior-Oriented Specification and Testing Language for Multimodal 
+              Applications</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              117)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Marc Hesenius<i> (University of Duisburg-Essen)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Tobias Griebe<i> (University of Duisburg-Essen)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Volker Gruhn<i> (University of Duisburg-Essen)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p123.pdf" style="text-decoration:none">WiFi 
+              Proximity Detection in Mobile Web Applications</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              123)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Clemens Nylandsted Klokmose<i> (Aarhus University)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Matthias Korn<i> (Indiana University & Aarhus University)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Henrik Blunck<i> (Aarhus University)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+      </table></tr>
+  <tr> 
+    <td colspan="1" align="center" valign="middle" bgcolor="#003A88"
+              ><a href="#Top" style="text-decoration:none"><font color="#FFFFFF" size="1" face="Arial">(Return 
+      to Top)</font></a></td>
+    <td valign="top" bgcolor="#FFFFFF"><p align="left" style="text-indent: 0; margin-left: 12; margin-right: 9; margin-top: 15; margin-bottom: 6"><strong><font size="2" face="Arial" color="#333333"><a name="7" id="7"></a></font><font size="3" face="Arial" color="#666666"> 
+        Model-based UIs Session</font></strong></p>
+      <table width="99%" border="0" align="center" cellpadding="1" cellspacing="1">
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p129.pdf" style="text-decoration:none">Model-Driven 
+              Tools for Medical Device Selection</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              129)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Judy Bowen<i> (The University of Waikato)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Annika Hinze<i> (The University of Waikato)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Selina Reid<i> (The University of Waikato)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p139.pdf" style="text-decoration:none">Predicting 
+              Task Execution Times by Deriving Enhanced Cognitive Models from 
+              User Interface Development Models</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              139)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Michael Quade<i> (Technische Universität Berlin)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Marc Halbrügge<i> (Technische Universität Berlin)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Klaus-Peter Engelbrecht<i> (Technische Universität Berlin)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Sahin Albayrak<i> (Technische Universität Berlin)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Sebastian Möller<i> (Technische Universität Berlin)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p149.pdf" style="text-decoration:none">Considering 
+              Task Pre-Conditions in Model-based User Interface Design and Generation</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              149)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Marco Manca<i> (CNR-ISTI, HIIS Laboratory)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Fabio Paternò<i> (CNR-ISTI, HIIS Laboratory)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Carmen Santoro<i> (CNR-ISTI, HIIS Laboratory)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Lucio Davide Spano<i> (CNR-ISTI, HIIS Laboratory)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p155.pdf" style="text-decoration:none">Generating 
+              Code Skeletons for Individual Media Elements in Model-driven Development 
+              of Interactive Systems</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              155)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Andreas Pleuss<i> (Lero, University of Limerick)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p161.pdf" style="text-decoration:none">A 
+              Domain-Specific Model-Based Design Approach for End-User Developers</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              161)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Anke Dittmar<i> (University of Rostock)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Mathias Kühn<i> (University of Rostock)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Peter Forbrig<i> (University of Rostock)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p167.pdf" style="text-decoration:none">Consolidating 
+              Diverse User Profiles Based on the Profile Models of Adaptive Systems</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              167)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Effie Karuzaki<i> (FORTH)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Anthony Savidis<i> (FORTH & University of Crete)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+      </table></tr>
+  <tr> 
+    <td colspan="1" align="center" valign="middle" bgcolor="#003A88"
+              ><a href="#Top" style="text-decoration:none"><font color="#FFFFFF" size="1" face="Arial">(Return 
+      to Top)</font></a></td>
+    <td valign="top" bgcolor="#FFFFFF"><p align="left" style="text-indent: 0; margin-left: 12; margin-right: 9; margin-top: 15; margin-bottom: 6"><strong><font size="2" face="Arial" color="#333333"><a name="8" id="8"></a></font><font size="3" face="Arial" color="#666666"> 
+        Touch and Gesture-based UIs Session</font></strong></p>
+      <table width="99%" border="0" align="center" cellpadding="1" cellspacing="1">
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p173.pdf" style="text-decoration:none">Formal 
+              Modelling of Dynamic Instantiation of Input Devices and Interaction 
+              Techniques: Application to Multi-Touch Interactions</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              173)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Arnaud Hamon<i> (AIRBUS Operations & University of Toulouse)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Philippe Palanque<i> (University of Toulouse)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Martin Cronel<i> (University of Toulouse)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Raphaël André<i> (AIRBUS Operations)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Eric Barboni<i> (University of Toulouse)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              David Navarre<i> (University of Toulouse)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p179.pdf" style="text-decoration:none">A 
+              Gestural Concrete User Interface in MARIA</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              179)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Lucio Davide Spano<i> (University of Cagliari)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Fabio Paternò<i> (ISTI-CNR)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Gianni Fenu<i> (University of Cagliari)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+      </table></tr>
+  <tr> 
+    <td colspan="1" align="center" valign="middle" bgcolor="#003A88"
+              ><a href="#Top" style="text-decoration:none"><font color="#FFFFFF" size="1" face="Arial">(Return 
+      to Top)</font></a></td>
+    <td valign="top" bgcolor="#FFFFFF"><p align="left" style="text-indent: 0; margin-left: 12; margin-right: 9; margin-top: 15; margin-bottom: 6"><strong><font size="2" face="Arial" color="#333333"><a name="9" id="9"></a></font><font size="3" face="Arial" color="#666666"> 
+        Demo Session</font></strong></p>
+      <table width="99%" border="0" align="center" cellpadding="1" cellspacing="1">
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p185.pdf" style="text-decoration:none">Location 
+              Based Experience Design for Mobile Augmented Reality</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              185)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Anton Fedosov<i> (Metaio GmbH)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Stefan Misslinger<i> (Metaio GmbH)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top"><a href="../videos/eicsdt103-file3.mp4"><img src="index_files/projector.gif" width="32" height="32" border="0"></a></td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p189.pdf" style="text-decoration:none">AME: 
+              An Adaptive Modelling Environment as a Collaborative Modelling Tool</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              189)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Alfonso García Frey<i> (Public Research Center Henri Tudor)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Jean-Sébastien Sottet<i> (Public Research Center Henri Tudor)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Alain Vagner<i> (Public Research Center Henri Tudor)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p193.pdf" style="text-decoration:none">Metadata 
+              Enriched Visualization of Keywords in Context</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              193)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Daniel Fischl<i> (MODUL University Vienna)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Arno Scharl<i> (MODUL University Vienna)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p197.pdf" style="text-decoration:none">IceTT: 
+              A Responsive Visualization for Task Models</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              197)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Lucio Davide Spano<i> (University of Cagliari)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Gianni Fenu<i> (University of Cagliari)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p201.pdf" style="text-decoration:none">ESSAVis++: 
+              An Interactive 2Dplus3D Visual Environment to Help Engineers in 
+              Understanding the Safety Aspects of Embedded Systems</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              201)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Ragaad AlTarawneh<i> (University of Kaiserslautern)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Jens Bauer<i> (University of Kaiserslautern)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Shah Rukh Humayoun<i> (University of Kaiserslautern)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Achim Ebert<i> (University of Kaiserslautern)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Peter Liggesmeyer<i> (University of Kaiserslautern)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+      </table></tr>
+  <tr> 
+    <td colspan="1" align="center" valign="middle" bgcolor="#003A88"
+              ><a href="#Top" style="text-decoration:none"><font color="#FFFFFF" size="1" face="Arial">(Return 
+      to Top)</font></a></td>
+    <td valign="top" bgcolor="#FFFFFF"><p align="left" style="text-indent: 0; margin-left: 12; margin-right: 9; margin-top: 15; margin-bottom: 6"><strong><font size="2" face="Arial" color="#333333"><a name="10" id="10"></a></font><font size="3" face="Arial" color="#666666"> 
+        Late Breaking Results Session</font></strong></p>
+      <table width="99%" border="0" align="center" cellpadding="1" cellspacing="1">
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p205.pdf" style="text-decoration:none">Implementing 
+              Widgets Using Sifteo Cubes for Visual Modelling on Tangible User 
+              Interfaces</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              205)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Yves Rangoni<i> (Public Research Center Henri Tudor)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Valérie Maquil<i> (Public Research Center Henri Tudor)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Eric Tobias<i> (Public Research Centre Henri Tudor)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Eric Ras<i> (Public Research Center Henri Tudor)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p211.pdf" style="text-decoration:none">LoMAK: 
+              A Framework for Generating Locative Media Apps from KML Files</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              211)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Trien V. Do<i> (Lancaster University)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Keith Cheverst<i> (Lancaster University)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Ian Gregory<i> (Lancaster University)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p217.pdf" style="text-decoration:none">The 
+              FrameSoC Software Architecture for Multiple-View Trace Data Analysis</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              217)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Generoso Pagano<i> (INRIA)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Vania Marangozova-Martin<i> (Université Joseph Fourier)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p223.pdf" style="text-decoration:none">PLACID: 
+              A Planner for Dynamically Composing User Interfaces Services</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              223)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Yoann Gabillon<i> (Gabriel Lippmann)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Gaelle Calvary<i> (University Grenoble Alpes)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Humbert Fiorino<i> (University Grenoble Alpes)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p229.pdf" style="text-decoration:none">Phone 
+              Proxies: Effortless Content Sharing between Smartphones and Interactive 
+              Surfaces</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              229)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Alexander Bazo<i> (University of Regensburg)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Florian Echtler<i> (University of Regensburg)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p235.pdf" style="text-decoration:none">Formal 
+              Verification of UI Using the Power of a Recent Tool Suite</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              235)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Raquel Oliveira<i> (University Grenoble Alpes, CNRS & INRIA)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Sophie Dupuy-Chessa<i> (University Grenoble Alpes & CNRS)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Gaëlle Calvary<i> (University Grenoble Alpes & CNRS)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+      </table></tr>
+  <tr> 
+    <td colspan="1" align="center" valign="middle" bgcolor="#003A88"
+              ><a href="#Top" style="text-decoration:none"><font color="#FFFFFF" size="1" face="Arial">(Return 
+      to Top)</font></a></td>
+    <td valign="top" bgcolor="#FFFFFF"><p align="left" style="text-indent: 0; margin-left: 12; margin-right: 9; margin-top: 15; margin-bottom: 6"><strong><font size="2" face="Arial" color="#333333"><a name="11" id="11"></a></font><font size="3" face="Arial" color="#666666"> 
+        Keynote II</font></strong></p>
+      <table width="99%" border="0" align="center" cellpadding="1" cellspacing="1">
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p241.pdf" style="text-decoration:none">Mindless 
+              or Mindful Technology?</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              241)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Yvonne Rogers<i> (University College London)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+      </table></tr>
+  <tr> 
+    <td colspan="1" align="center" valign="middle" bgcolor="#003A88"
+              ><a href="#Top" style="text-decoration:none"><font color="#FFFFFF" size="1" face="Arial">(Return 
+      to Top)</font></a></td>
+    <td valign="top" bgcolor="#FFFFFF"><p align="left" style="text-indent: 0; margin-left: 12; margin-right: 9; margin-top: 15; margin-bottom: 6"><strong><font size="2" face="Arial" color="#333333"><a name="12" id="12"></a></font><font size="3" face="Arial" color="#666666"> 
+        Analytic Techniques Session</font></strong></p>
+      <table width="99%" border="0" align="center" cellpadding="1" cellspacing="1">
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p243.pdf" style="text-decoration:none">Triangulating 
+              Empirical and Analytic Techniques for Improving Number Entry User 
+              Interfaces</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              243)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Abigail Cauchi<i> (Swansea University)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Patrick Oladimeji<i> (Swansea University)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Gerrit Niezen<i> (Swansea University)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Harold Thimbleby<i> (Swansea University)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+      </table></tr>
+  <tr> 
+    <td colspan="1" align="center" valign="middle" bgcolor="#003A88"
+              ><a href="#Top" style="text-decoration:none"><font color="#FFFFFF" size="1" face="Arial">(Return 
+      to Top)</font></a></td>
+    <td valign="top" bgcolor="#FFFFFF"><p align="left" style="text-indent: 0; margin-left: 12; margin-right: 9; margin-top: 15; margin-bottom: 6"><strong><font size="2" face="Arial" color="#333333"><a name="13" id="13"></a></font><font size="3" face="Arial" color="#666666"> 
+        Prototyping and Development Frameworks Session</font></strong></p>
+      <table width="99%" border="0" align="center" cellpadding="1" cellspacing="1">
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p253.pdf" style="text-decoration:none">Extracting 
+              Behavioral Information from Electronic Storyboards</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              253)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Jason Forsyth<i> (Virginia Tech)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Tom Martin<i> (Virginia Tech)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p263.pdf" style="text-decoration:none">Supporting 
+              Design, Prototyping, and Evaluation of Public Display Systems</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              263)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Morin Ostkamp<i> (Münster University of Applied Sciences)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Christian Kray<i> (University of Münster)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p273.pdf" style="text-decoration:none">SecSpace: 
+              Prototyping Usable Privacy and Security for Mixed Reality Collaborative 
+              Environments</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              273)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Derek Reilly<i> (Dalhousie University)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Mohamad Salimian<i> (Dalhousie University)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Bonnie MacKay<i> (Dalhousie University)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Niels Mathiasen<i> (Trifork)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              W. Keith Edwards<i> (Georgia Institute of Technology)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Juliano Franz<i> (Dalhousie University)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p283.pdf" style="text-decoration:none">Towards 
+              a Measurement Framework for Tools' Ceiling and Threshold</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              283)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Rui Alves<i> (University of Madeira)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Claudio Teixeira<i> (University of Madeira)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Mónica Nascimento<i> (University of Madeira)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Amanda Marinho<i> (University of Madeira)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Nuno Jardim Nunes<i> (University of Madeira)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p289.pdf" style="text-decoration:none">Presenting 
+              EveWorks, a Framework for Daily Life Event Detection</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              289)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Bruno Cardoso<i> (Universidade Nova de Lisboa)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Teresa Romão<i> (Universidade Nova de Lisboa)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+      </table></tr>
+  <tr> 
+    <td colspan="1" align="center" valign="middle" bgcolor="#003A88"
+              ><a href="#Top" style="text-decoration:none"><font color="#FFFFFF" size="1" face="Arial">(Return 
+      to Top)</font></a></td>
+    <td valign="top" bgcolor="#FFFFFF"><p align="left" style="text-indent: 0; margin-left: 12; margin-right: 9; margin-top: 15; margin-bottom: 6"><strong><font size="2" face="Arial" color="#333333"><a name="14" id="14"></a></font><font size="3" face="Arial" color="#666666"> 
+        Workshop Summaries</font></strong></p>
+      <table width="99%" border="0" align="center" cellpadding="1" cellspacing="1">
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p295.pdf" style="text-decoration:none">Engineering 
+              Interactive Systems with SCXML</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              295)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Dirk Schnelle-Walka<i> (TU Darmstadt)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Stefan Radomski<i> (TU Darmstadt)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Torbjörn Lager<i> (University of Gothenburg)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Jim Barnett<i> (Genesys)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Deborah Dahl<i> (Conversational Technologies)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Max Mühlhäuser<i> (TU Darmstadt)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p297.pdf" style="text-decoration:none">Engineering 
+              Gestures for Multimodal User Interfaces</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              297)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Florian Echtler<i> (University of Regensburg)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Dietrich Kammer<i> (TU Dresden)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Davy Vanacken<i> (Hasselt University)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Lode Hoste<i> (Vrije Universiteit Brussel)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Beat Signer<i> (Vrije Universiteit Brussel)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+        <tr> 
+          <td width="7%" align=
+              "center" valign="top">&nbsp;</td>
+          <td width="92%"> <p align="left" style="text-indent: 0; margin-left: 4; margin-right: 9; margin-top: 0; margin-bottom: 6"><a href="../docs/p299.pdf" style="text-decoration:none">HCI 
+              Engineering: Charting the Way towards Methods and Tools for Advanced 
+              Interactive Systems</a>&nbsp;<font color="#333333" face="Arial" size="1">(Page 
+              299)</font><font color="#555555" size="2" face="Times New Roman"><br>
+              Jürgen Ziegler<i> (University of Duisburg-Essen)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              José Creissac Campos<i> (Universidade do Minho)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              Laurence Nigay<i> (University Grenoble Alpes)</i></font><font color="#555555" size="2" face="Times New Roman"><br>
+              </font></p></td>
+        </tr>
+      </table></tr></tbody>
+  <tr> 
+    <td bgcolor="#003A88">&nbsp; </td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+</table>
+  <p>&nbsp;</p>
+
+
+</body></html>

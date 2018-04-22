@@ -1,0 +1,54 @@
+\tikzstyle{processstep}=[draw,text width=3.5cm,text centered,minimum width=4cm,minimum height=1cm]
+\tikzstyle{orientedarc}=[->,>=latex]
+\tikzstyle{arc}=[<->,>=latex]
+\tikzstyle{arclabel}=[midway,scale=0.7]
+\tikzstyle{arclabelred}=[midway,darkred,scale=0.7]
+\tikzstyle{arclabelgreen}=[midway,darkgreen,scale=0.7]
+
+\tikzstyle{justleft}=[shift={(-0.5cm,0cm)}]
+\tikzstyle{justright}=[shift={(0.5cm,0cm)}]
+\tikzstyle{justtop}=[shift={(0cm,0.5cm)}]
+\tikzstyle{justdown}=[shift={(0cm,-0.5cm)}]
+
+\tikzstyle{architectureelement}=[draw,text width=1.7cm,text centered,minimum width=1.8cm,minimum height=2cm]
+\tikzstyle{architecturelabel}=[text centered,text width=3cm]
+
+\tikzstyle{breakline}=[snake=snake,segment length=1.8cm,segment amplitude=0.2cm]
+
+\begin{tikzpicture}
+
+\node[processstep] (S1) at (0cm,8cm) {UI Concept};
+\node[processstep] (S2) at (0cm,6cm) {UI Specification};
+\node[processstep] (S3) at (0cm,3cm) {Implemented UI};
+\node[processstep] (S4) at (0cm,0cm) {Validated UI \\ Implementation};
+\node[processstep] (S5) at (5cm,4.5cm) {UI Formal \\ Specification};
+\node[processstep] (S6) at (5cm,1.5cm) {UI Model};
+
+\coordinate[justleft] (S2NORTHEAST1) at (S2.north west);
+\coordinate[justleft] (S2SOUTHEAST1) at (S2.south west);
+\coordinate[justright] (S2NORTHEAST2) at (S2.north west);
+\coordinate[justright] (S2SOUTHEAST2) at (S2.south west);
+
+\coordinate[justleft] (S3NORTHEAST1) at (S3.north west);
+\coordinate[justleft] (S3SOUTHEAST1) at (S3.south west);
+\coordinate[justright] (S3NORTHEAST2) at (S3.north west);
+\coordinate[justright] (S3SOUTHEAST2) at (S3.south west);
+
+\coordinate[justright] (S5NORTHEAST1) at (S5.north east);
+\coordinate[justright] (S5SOUTHEAST1) at (S5.south east);
+\coordinate[justleft] (S5NORTHEAST2) at (S5.north east);
+\coordinate[justleft] (S5SOUTHEAST2) at (S5.south east);
+
+\draw[orientedarc] (S1) -- (S2) node[arclabelred, left]{\textit{Specification}};
+\draw[orientedarc] (S2) -- (S3) node[arclabelred, left]{\textit{Manual implementation}};
+\draw[orientedarc] (S3) -- (S4) node[arclabelred, left]{\textit{Manual testing}};
+\draw[orientedarc] (S2SOUTHEAST2) to[bend left=90] (S2SOUTHEAST1) -- (S2NORTHEAST1) node[arclabelred, left]{\textit{Refinement}} to[bend left=90] (S2NORTHEAST2);
+\draw[orientedarc] (S3SOUTHEAST2) to[bend left=90] (S3SOUTHEAST1) -- (S3NORTHEAST1) node[arclabelred, left]{\textit{Testing}} to[bend left=90] (S3NORTHEAST2);
+\draw[orientedarc] (S2) -- (S5) node[arclabelred, right]{\textit{Formalization}};
+\draw[orientedarc] (S5) -- (S3) node[arclabelgreen, right]{\textit{Automatic code generation}};
+\draw[orientedarc] (S5SOUTHEAST2) to[bend right=90] (S5SOUTHEAST1) -- (S5NORTHEAST1) node[arclabelred, right]{\textit{Refinement}} to[bend right=90] (S5NORTHEAST2);
+
+\draw[orientedarc] (S3) -- (S6) node[arclabelgreen, right]{\textit{Automatic model extraction}};
+\draw[orientedarc] (S6) -- (S4) node[arclabelgreen, right]{\textit{Formal validation}};
+
+\end{tikzpicture}

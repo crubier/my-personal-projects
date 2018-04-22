@@ -1,0 +1,66 @@
+This is BibTeX, Version 0.99d (TeX Live 2014)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: /Users/vincent/Documents/These/SLE/SLE15/.texpadtmp/SLE15.aux
+The style file: abbrvnat.bst
+I found no \bibdata command---while reading file /Users/vincent/Documents/These/SLE/SLE15/.texpadtmp/SLE15.aux
+Warning--I didn't find a database entry for "DO178C"
+Warning--I didn't find a database entry for "BEA12"
+Warning--I didn't find a database entry for "ARINC661"
+Warning--I didn't find a database entry for "scade-display"
+Warning--I didn't find a database entry for "jsonstandard"
+Warning--I didn't find a database entry for "halbwachs91"
+Warning--I didn't find a database entry for "abowd22integrating"
+Warning--I didn't find a database entry for "dix1991formal"
+Warning--I didn't find a database entry for "Dix85"
+Warning--I didn't find a database entry for "Duke-Harrison93a"
+Warning--I didn't find a database entry for "Harel97"
+Warning--I didn't find a database entry for "actors86"
+Warning--I didn't find a database entry for "Paterno92"
+Warning--I didn't find a database entry for "Navarre:2009:IMU:1614390.1614393"
+Warning--I didn't find a database entry for "cytron91efficiently"
+Warning--I didn't find a database entry for "Elliott:2009:PFR:1596638.1596643"
+Warning--I didn't find a database entry for "Paterno:2009:MUD:1614390.1614394"
+Warning--I didn't find a database entry for "facebook-react"
+Warning--I didn't find a database entry for "Zave:2012:GVN:2405178.2405179"
+You've used 0 entries,
+            2773 wiz_defined-function locations,
+            621 strings with 5112 characters,
+and the built_in function-call counts, 33 in all, are:
+= -- 0
+> -- 0
+< -- 0
++ -- 0
+- -- 0
+* -- 2
+:= -- 10
+add.period$ -- 0
+call.type$ -- 0
+change.case$ -- 0
+chr.to.int$ -- 0
+cite$ -- 0
+duplicate$ -- 0
+empty$ -- 1
+format.name$ -- 0
+if$ -- 1
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 0
+newline$ -- 8
+num.names$ -- 0
+pop$ -- 0
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 1
+stack$ -- 0
+substring$ -- 0
+swap$ -- 0
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 0
+while$ -- 0
+width$ -- 0
+write$ -- 7
+(There was 1 error message)

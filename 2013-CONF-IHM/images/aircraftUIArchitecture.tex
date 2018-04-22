@@ -1,0 +1,67 @@
+\tikzstyle{processstep}=[draw,text width=3.5cm,text centered,minimum width=4cm,minimum height=1cm]
+\tikzstyle{orientedarc}=[->,>=latex]
+\tikzstyle{arc}=[<->,>=latex]
+\tikzstyle{arclabel}=[midway,scale=0.7]
+\tikzstyle{arclabelred}=[midway,darkred,scale=0.7]
+\tikzstyle{arclabelgreen}=[midway,darkgreen,scale=0.7]
+
+\tikzstyle{justleft}=[shift={(-0.5cm,0cm)}]
+\tikzstyle{justright}=[shift={(0.5cm,0cm)}]
+\tikzstyle{justtop}=[shift={(0cm,0.5cm)}]
+\tikzstyle{justdown}=[shift={(0cm,-0.5cm)}]
+
+\tikzstyle{architectureelement}=[draw,text width=1.7cm,text centered,minimum width=1.8cm,minimum height=2cm]
+\tikzstyle{architecturelabel}=[text centered,text width=3cm]
+
+\tikzstyle{breakline}=[snake=snake,segment length=1.8cm,segment amplitude=0.2cm]
+
+\begin{tikzpicture}
+
+\node[draw,text width=3cm,text centered,minimum width=3cm, minimum height=3.5cm,dashed,rounded corners = 0.5cm]
+ (SARINCFRAME) at (6cm,0.25cm) {};
+\node[text width=3cm,text centered,minimum width=3cm,minimum height=1cm]
+ (SARINC) at ([shift=({0cm,-0.5cm})]SARINCFRAME.north) {\textit{ARINC 661}};
+
+
+\node[architectureelement] (S1) at (0cm,0cm) {Human \\ User};
+\node[architectureelement] (S2) at (4cm,0cm) {Display \\ System};
+\node[architectureelement] (S3) at (8cm,0cm) {User \\ Application};
+\node[architectureelement] (S4) at (12cm,0cm) {Control \\ Application};
+\node[architectureelement] (S5) at (16cm,0cm) {Physical \\ System};
+
+\node[architecturelabel,below] (L1) at (2cm,-2cm) {\textit{User interaction}};
+\node[architecturelabel,below] (L2) at (6cm,-2cm) {\textit{Display system \\ interface}};
+\node[architecturelabel,below] (L3) at (10cm,-2cm) {\textit{Communication network}};
+\node[architecturelabel,below] (L4) at (14cm,-2cm) {\textit{Control}};
+
+\coordinate[justright] (S3E1) at (S3.30);
+\coordinate[justright] (S3E2) at (S3.-30);
+\coordinate[shift={(0.3cm,0cm)}] (S3E2b) at (S3.-30);
+\coordinate[justtop] (S3E3) at (S3E1);
+\coordinate[justdown] (S3E4) at (S3E2);
+\coordinate[justleft] (S4W1) at (S4.150);
+\coordinate[shift={(-0.3cm,0cm)}] (S4W1b) at (S4.150);
+\coordinate[justleft] (S4W2) at (S4.-150);
+\coordinate[justtop] (S4W3) at (S4W1);
+\coordinate[justdown] (S4W4) at (S4W2);
+
+\draw[orientedarc] (S1.30) -- (S2.150) node[arclabel, above]{\textit{Actions}};
+\draw[orientedarc] (S2.-150) -- (S1.-30) node[arclabel, above]{\textit{Visual information}};
+
+\draw[orientedarc] (S2.30) -- (S3.150) node[arclabel, above]{\textit{Widget events}};
+\draw[orientedarc] (S3.-150) -- (S2.-30) node[arclabel, above]{\textit{Parameter change}};
+
+\draw[] (S3.30) -- (S3E1) node[arclabel, above]{\textit{}};
+\draw[orientedarc] (S4W1b) -- (S4.150) node[arclabel, above]{\textit{}};
+
+\draw[]  (S4.-150) -- (S4W2) node[arclabel, above]{\textit{}};
+\draw[orientedarc] (S3E2b) -- (S3.-30) node[arclabel, above]{\textit{}};
+
+\draw[breakline] (S3E3) -- (S3E4) node[arclabel, above]{\textit{}};
+\draw[breakline] (S4W3) -- (S4W4) node[arclabel, above]{\textit{}};
+
+\draw[orientedarc] (S4.30) -- (S5.150) node[arclabel, above]{\textit{Command}};
+\draw[orientedarc] (S5.-150) -- (S4.-30) node[arclabel, above]{\textit{Sensor Information}};
+
+
+\end{tikzpicture}

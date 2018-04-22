@@ -1,0 +1,18 @@
+Interactor EngineControl : 
+	State Variables :		Text status in {"OFF","STARTING","NORMAL","FAULT"}
+		Real command in [20,80]		Real rpm in [0,100]	Components :		System engineToControl 
+		RealOutput rpmOutput 
+		TextOutput statusOutput 
+		Trigger incrementRpm 
+		Trigger decrementRpm 
+		Trigger startStop	Interactions :
+		In :
+		Out :
+	Behavior :		Init :			command = 20		Always :			status = engineToControl.status			rpm = engineToControl.rpm 
+			engineToControl.command = command 
+			statusOutput.text = status			rpmOutput.text = rpm			decrementRpm.enabled = (status="NORMAL") 
+			incrementRpm.enabled = (status="NORMAL")		On incrementRpm.triggered() When command < 80 : 
+			command = command + 5		On decrementRpm.triggered() When command > 20 : 
+			command = command - 5		On startStop.triggered() When status="OFF" : 
+			status = "STARTING"			command = 20			engineToControl.start()		On startStop.triggered() When status="NORMAL" or status="FAULT" :			status = "OFF"
+			engineToControl.stop()

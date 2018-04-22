@@ -1,0 +1,142 @@
+%-----------------------------Description du contenu--------------------------- 
+
+%Crash  analyses  reveal  1)  a  lack of  security  in  human  machine
+%interaction (e.g.  AF  447) 2) the interactive systems  do not behave
+%as intended  %\textcolor{blue}{ Nowadays, compared to  other critical
+%domains   (command/control   in  aeronautics,   nuclear,   automotive
+%industries ...  )   there is no tool, technique,  method nor language
+%to describe properly what is intended with respect to interaction.  {\bf A DEVELOPPER } 
+
+%Dire que l'on ne  peut pas faire d'analyse sur les  800 000 lignes de
+%codes d'ihm  car les techniques  développées sur les  autres systèmes
+%are not relevant for interactive systems.  
+
+%1- Une  description abstraite du comportement  en termes d'interation
+%(entrée  usager,  état  et  reponse  système) de  ce  qui  doit  être
+%embarquer dans ces 800 000  lignes est nécessaire.  Cette description
+%peut me servir à vérifier que le code implante bien les comportements
+%abstraits attendus et  mieux si je peux faire  cette vérification, on
+%peut produire un code sûr qui comportera ces comportements.  
+
+%There is a need of a language which 1) abstract the main interactive concepts and } 
+
+%So, describing intended behaviors is central for ensuring security of interactive systems.  
+
+%Need of resources for that on interactive systems.  .
+%-----------------------------------------------------------------------------
+A lot  of research  work have  focused on how  to design,  program and
+verify functional concerns for  critical systems and more particularly
+aeronautical  systems.  HMI   systems  did   not   benefit  from   the
+same  attention   and efforts. 
+
+\subsection{Context}
+%------------------------------------------------
+%\begin{itemize}
+%\item Critical embedded systems 
+%\item ARINC 661 and development practices A380 cockpits. Client server with its design constraints.
+%\item static description of screen displays, of interactive devices, layout, graphical representations etc. 
+%\item Traditional approaches in industry are based on a posteriori  blind testing. examples are A380
+%\item Diversity of stakeholders and of involved disciplines and communities (human factors, system designers, ergonomists, software developers, graphical designers) 
+%\end{itemize}
+
+%In fact, the  safety concern, while being acknowledged  as specific in
+%the design  stages of  the development  processes of  aeronautical HMI
+%systems, is not really dealt with  specific methods and tools. In this
+%context, the  validation process of these  interactive applications is
+%very restricted and  poor because it resides practically  only in test
+%and evaluation phases at the end of the development process.  Moreover
+%there is no actual formal reference  to check the implementation is in
+%conformance with.
+%------------------------------------------------
+
+A significant  amount of work has  focused on devising models  for the
+development  process of  software  systems in  the  field of  software
+engineering.
+
+The system development  process in critical domains  as, for instance,
+in aeronautics  inherited these  models.  This  process is  now widely
+based on  the use of standards  that take into account  the safety and
+security  requirements   of  the   systems  under   construction.   In
+particular the DO178C  standard~\cite{DO178C}, in aeronautics, defines
+very strict  rules and instructions  that must be followed  to produce
+software  products,  embedded  systems   and  their  equipments.   The
+objective is to ensure that the  software performs its function with a
+safety level in accordance with the safety requirements.
+
+The HMI development does not  follow the same processes. Nevertheless,
+in aeronautics, HMI  systems are now made up by  multiple hardware and
+software components embedded in  aircraft cockpits.  These systems are
+large and complex artifacts that  also face tough constraints in terms
+of  usability,   security  and   safety.   They   support  interactive
+applications  that must  behave  as  intended with  a  high degree  of
+assurance  because  of their  criticity.   An  error in  the  software
+components that implement interactions  in these applications may lead
+to a human or system fault that may have catastrophic effects.  
+
+For example, the BEA report \cite{bea} about the crash of Rio-Paris AF
+447 A330 Airbus establishes that,  during the flight, interface system
+displayed some actions to be performed by the pilot in order to change
+the pitch  of the aircraft  and to nose it  up while it  was stalling.
+These indications should clearly not  have been displayed.  Indeed, by
+following those  erroneous displayed instructions the  pilot increased
+the stalling of the aircraft.
+
+In  fact,  in  the  industrial context,  the  development  process  of
+critical interactive  embedded applications stays very  primitive. The
+usual  notations  are  essentially  textual and  coding  is  generally
+performed  from  scratch or  by  reusing  previous developments  based
+themselves  on textual  specifications. In  aeronautics, the  produced
+code must be in  conformance with the ARINC~661 standard~\cite{ARINC}.
+It may  be noticed that  some tools  recently appeared to  enhance the
+design and  coding stages of these  systems.  But these tools,  as for
+instance   Scade   Display~\cite{scade-display},  deal   mainly   with
+presentation layers of the systems and  do not deal with their complex
+functional behaviour. In  this context, the validation  process of the
+interactive  applications  is  very  restricted and  poor  because  it
+resides practically  only in  a massive test  effort and  in expensive
+evaluation phases  at the  end of  the development  process.  Moreover
+there is no actual formal reference  to check the implementation is in
+conformance with. So new approaches and new paradigms are today needed
+to help  in the development  process of critical  interactive embedded
+applications.
+
+\subsection{Requirements}
+
+We  believe that  part  of these  issues  are  due to  the  lack of  a
+well-defined language for representing  interactive software design in
+a way  that allows, on  the one hand,  system designers to  iterate on
+their designs before  injecting them in a development  process and, on
+the other hand, system developers  to check their software against the
+chosen  design. Such  a hub  language  (similar to  VHDL for  hardware
+description and Scade for safety-critical control and command software
+development)  would bring  increased  flexibility  in the  development
+process leading not  only to easier iterations within  and between its
+different phases but  also to the automation of parts  of the process.
+Some requirements can be expressed concerning such a language.
+
+\begin{itemize}
+\item \textbf{REQ1.}  The language is  a domain specific  language for
+HMI systems of embedded systems. It  permits to use and manipulate the
+HMI  design  concepts and  so  to  describe properly  the  interactive
+behaviors the software will implement. In particular the language must
+permit  to  describe  and  to  handle  both  continuous  and  discrete
+interactions.
+\item  \textbf{REQ2.}The language  is a  pivot language  that must  be
+read,  understood and  written by  different stakeholders  coming from
+different scientific disciplines
+\item \textbf{REQ3.}  The language is  formal. Its semantics  is clear
+and unambiguous.
+\item  \textbf{REQ4.} Descriptions  in this  language may  be used  to
+generate a safe code for an  interactive application and this code may
+be compatible with the ARINC 661 Standard \cite{ARINC}.
+\item \textbf{REQ5.}  The language permits  to design in the  same way
+any  interactive  component  of  an  interactive  system  through  the
+desciption of its input, output, and internal states.
+\item \textbf{REQ6.}  The language permits  to devise and  to describe
+complex interactive  systems by giving some  syntactical constructions
+to assemble and compose interactive components.
+\end{itemize}
+
+We devised such a language  (the LIDL Interaction Definition Language)
+to  help  the definition  of  critical  interactive applications.  The
+following section presents the LIDL language.

@@ -1,0 +1,192 @@
+%-----------------------------------------------------------------------------
+%
+%               Template for sigplanconf LaTeX Class
+%
+% Name:         sigplanconf-template.tex
+%
+% Purpose:      A template for sigplanconf.cls, which is a LaTeX 2e class
+%               file for SIGPLAN conference proceedings.
+%
+% Guide:        Refer to "Author's Guide to the ACM SIGPLAN Class,"
+%               sigplanconf-guide.pdf
+%
+% Author:       Paul C. Anagnostopoulos
+%               Windfall Software
+%               978 371-2316
+%               paul@windfall.com
+%
+% Created:      15 February 2005
+%
+%-----------------------------------------------------------------------------
+\documentclass{sigplanconf}
+
+% The following \documentclass options may be useful:
+
+% preprint      Remove this option only once the paper is in final form.
+% 10pt          To set in 10-point type instead of 9-point.
+% 11pt          To set in 11-point type instead of 9-point.
+% authoryear    To obtain author/year citation style instead of numeric.
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{color}
+\usepackage[utf8]{inputenc}
+\usepackage{ulem}
+
+%--------------------Langage LIDL----------------------------------------------
+\definecolor{codebackground}{rgb}{0.95,0.95,0.95}
+\definecolor{keywordcolor}{rgb}{0.1,0.1,0.5}
+
+\lstdefinelanguage{lidl}
+{
+ keywords={activation, boolean, number, text, in, out, interface, interaction, implementing, is  },
+ sensitive=false,
+ morecomment=[l]{//},
+ morecomment=[s]{/*}{*/},
+ morestring=[b]",
+}
+
+\lstset{
+ language=lidl,
+ basicstyle=\ttfamily,            % print whole listing small
+ keywordstyle=\color{keywordcolor}\bf\ttfamily,% underlined bold black keywords
+ tabsize=2,                    % sets default tabsize to 2 spaces
+ captionpos =b                 % sets the caption-position to bottom
+ keepspaces = true,             % keeps spaces in text
+ % identifierstyle=,           % nothing happens
+ commentstyle=\textit,         % white comments
+ stringstyle=\ttfamily,        % typewriter type for strings
+ showstringspaces=false,       % no special string spaces
+ %columns=flexible,             % colonnes "flexibles"
+ basewidth={0.5em},           % dimension des colonnes
+ fontadjust=true,              % pour ajuster les polices
+ breaklines=true ,             % pour le retour Ã  la ligne dans les colonnes
+% backgroundcolor=\color[rgb]{0.95,0.95,0.95}
+  backgroundcolor=\color{codebackground}
+}
+%---------------------------------------------------------------------------------
+
+\newtheorem{definition}{Definition}
+
+\begin{document}
+
+\special{papersize=8.5in,11in}
+\setlength{\pdfpageheight}{\paperheight}
+\setlength{\pdfpagewidth}{\paperwidth}
+
+\conferenceinfo{CONF 'yy}{Month d--d, 20yy, City, ST, Country} 
+\copyrightyear{20yy} 
+\copyrightdata{978-1-nnnn-nnnn-n/yy/mm} 
+\doi{nnnnnnn.nnnnnnn}
+
+% Uncomment one of the following two, if you are not going for the 
+% traditional copyright transfer agreement.
+
+%\exclusivelicense                % ACM gets exclusive license to publish, 
+                                  % you retain copyright
+
+%\permissiontopublish             % ACM gets nonexclusive license to publish
+                                  % (paid open-access papers, 
+                                  % short abstracts)
+
+\titlebanner{banner above paper title}        % These are ignored unless
+\preprintfooter{short description of paper}   % 'preprint' option specified.
+
+\title{NOTRE TITRE}
+\subtitle{Subtitle Text, if any}
+
+\authorinfo{Vincent Lecrubier \and Bruno d'Ausbourg}
+           {ONERA DTIM/LAPS \\
+             Toulouse, France}
+           {\{lecrubier,ausbourg\}@onera.fr}
+\authorinfo{Yamine A\"it-Ameur}
+           {ENSEEIHT \\
+           Toulouse, France}
+           {yamine@enseeiht.fr}
+
+\maketitle
+
+\begin{abstract}
+This is the text of the abstract.
+\end{abstract}
+
+\category{CR-number}{subcategory}{third-level}
+
+% general terms are not compulsory anymore, 
+% you may leave them out
+\terms
+term1, term2
+
+\keywords
+keyword1, keyword2
+
+\section{Introduction}
+\input{intro}
+
+\section{Motivation      for      a       language      for      ....}
+\input{motivation}
+
+\section{Our proposition}
+\input{proposition}
+
+\section{An illustrative LIDL description}
+\input{illustration}
+
+\section{Assessment}
+\input{assessment}
+
+\section{Harnessing  LIDL }
+\input{harness}
+
+\section{Related work}
+\input{related}
+
+\section{Conclusion and future work}
+\input{conclusion}
+
+\appendix
+
+\section{Appendix}
+
+\input{appendix}
+
+\acks
+
+Acknowledgments, if needed.
+
+% We recommend abbrvnat bibliography style.
+
+\bibliographystyle{abbrvnat}
+
+% The bibliography should be embedded for final submission.
+
+\begin{thebibliography}{}
+\softraggedright
+\bibitem{bea} 
+  Bureau d'Enqu\^etes et d'Analyses pour la s\'ecurit\'e de l'Aviation Civile. 
+  Rapport du Vol AF 447 du 1$^{er}$ Juin 2009.
+  http://www.bea.aero/fr/enquetes/vol.af.447/rapport.final.fr.php.
+\bibitem{DO178C}
+  DO178C. 
+  Software Considerations in Airborn Systems and Equipment
+  Certification, release C.
+  2012.
+  RTCA,Inc.
+
+%\bibitem[Smith et~al.(2009)Smith, Jones]{smith02}
+%P. Q. Smith, and X. Y. Jones. ...reference text...
+
+\end{thebibliography}
+
+
+\end{document}
+
+%                       Revision History
+%                       -------- -------
+%  Date         Person  Ver.    Change
+%  ----         ------  ----    ------
+
+%  2013.06.29   TU      0.1--4  comments on permission/copyright notices
+

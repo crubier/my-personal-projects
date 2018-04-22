@@ -1,0 +1,274 @@
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
+
+\begin{thebibliography}{00}
+
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{}, \showDOI{}, and \showURL{}.  The latter two
+%%% do not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showDOI}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showDOI #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
+
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showDOI      \undefined \def \showDOI       #1{{\tt DOI:}\penalty0{#1}\ }
+  \fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       #1{#1}          \fi
+
+\bibitem{DO178C}
+ 2012.
+\newblock D{O}178{C}. {S}oftware {C}onsideration in {A}irborn {S}ystems and
+  {E}quipment {C}ertification, release C.
+\newblock   (2012).
+\newblock
+\newblock
+\shownote{RTCA,Inc.}
+
+
+\bibitem{abowd22integrating}
+{Gregory~D Abowd} {and} {Alan~J Dix}. 1994.
+\newblock \showarticletitle{Integrating status and event phenomena in formal
+  specifications of interactive systems}.
+\newblock {\em Proceedings of the ACM SIGSOFT Symposium on Foundations of
+  Software Engineering\/}  {22} (December 1994), 23.
+\newblock
+
+
+\bibitem{actors86}
+{G.~A. Agha}. 1986.
+\newblock \showarticletitle{Actors: a model of concurrent computations in
+  distributed systems}.
+\newblock {\em MIT Press\/} (1986).
+\newblock
+
+
+\bibitem{ARINC661}
+ARINC 2012.
+\newblock {\em Specification 661\/} (supplement 5, draft 1 ed.).
+\newblock ARINC.
+\newblock
+\showURL{%
+\url{http://www.aviation-ia.com/aeec/projects/cds/index.html}}
+
+
+\bibitem{Barboni:2010:BMI:1822018.1822043}
+{Eric Barboni}, {Jean-Fran\c{c}ois Ladry}, {David Navarre}, {Philippe
+  Palanque}, {and} {Marco Winckler}. 2010.
+\newblock \showarticletitle{Beyond Modelling: An Integrated Environment
+  Supporting Co-execution of Tasks and Systems Models}. In {\em Proceedings of
+  the 2Nd ACM SIGCHI Symposium on Engineering Interactive Computing Systems}
+  {\em (EICS '10)}. ACM, New York, NY, USA, 165--174.
+\newblock
+\showISBNx{978-1-4503-0083-4}
+\showDOI{%
+\url{http://dx.doi.org/10.1145/1822018.1822043}}
+
+
+\bibitem{BEA12}
+{BEA}. 2012.
+\newblock {\em Rapport final sur l'accident survenu le 1er juin 2009 {\`a}
+  l'{A}irbus {A}330-203 immatricul{\'e} {F-GZCP} exploit{\'e} par {A}ir
+  {F}rance, vol {AF} 447 {R}io de {J}aneiro - {P}aris}.
+\newblock {T}echnical {R}eport. Direction G{\'e}n{\'e}rale de l'Aviation
+  Civile.
+\newblock
+\newblock
+\shownote{\url{http://www.bea.aero/docspa/2009/f-cp090601/pdf/f-cp090601.pdf}.}
+
+
+\bibitem{bolton2011}
+{M.L. Bolton} {and} {E.J. Bass}. 2011.
+\newblock \showarticletitle{Evaluating human-automation interaction using task
+  analytic behavior models, strategic knowledge-based erroneous human behavior
+  generation, and model checking}. In {\em Systems, Man, and Cybernetics (SMC),
+  2011 IEEE International Conference on}. 1788 --1794.
+\newblock
+\showISSN{1062-922X}
+\showDOI{%
+\url{http://dx.doi.org/10.1109/ICSMC.2011.6083931}}
+
+
+\bibitem{Bowen:2012:MUM:2305484.2305505}
+{Judy Bowen} {and} {Steve Reeves}. 2012.
+\newblock \showarticletitle{Modelling User Manuals of Modal Medical Devices and
+  Learning from the Experience}. In {\em Proceedings of the 4th ACM SIGCHI
+  Symposium on Engineering Interactive Computing Systems} {\em (EICS '12)}.
+  ACM, New York, NY, USA, 121--130.
+\newblock
+\showISBNx{978-1-4503-1168-7}
+\showDOI{%
+\url{http://dx.doi.org/10.1145/2305484.2305505}}
+
+
+\bibitem{cytron91efficiently}
+{Ron Cytron}, {Jeanne Ferrante}, {Barry~K. Rosen}, {Mark~N. Wegman}, {and}
+  {F.~Kenneth Zadeck}. 1991.
+\newblock \showarticletitle{Efficiently Computing Static Single Assignment Form
+  and the Control Dependence Graph}.
+\newblock {\em ACM Transactions on Programming Languages and Systems\/} {13}, 4
+  (Oct 1991), 451--490.
+\newblock
+\showURL{%
+\url{http://doi.acm.org/10.1145/115372.115320}}
+
+
+\bibitem{czaplicki2012elm}
+{Evan Czaplicki}. 2012.
+\newblock \showarticletitle{Elm: Concurrent FRP for Functional GUIs}.
+\newblock  (2012).
+\newblock
+
+
+\bibitem{Dix85}
+{A. Dix} {and} {C. Runciman}. 1985.
+\newblock \showarticletitle{Abstract models of interactive systems}. In {\em
+  Proceedings of the HCI'85 Conference on People and Computers: Designing the
+  Interface}. 13--22.
+\newblock
+
+
+\bibitem{dix1991formal}
+{Alan~John Dix}. 1991.
+\newblock {\em Formal methods for interactive systems}.
+\newblock Academic Press.
+\newblock
+
+
+\bibitem{Duke-Harrison93a}
+{D.J. Duke} {and} {M.D. Harrison}. 1993.
+\newblock \showarticletitle{Abstract Interaction Objects}.
+\newblock {\em Computer Graphics Forum\/} {12}, 3 (1993), 25--36.
+\newblock
+\showISSN{1467-8659}
+\showDOI{%
+\url{http://dx.doi.org/10.1111/1467-8659.1230025}}
+
+
+\bibitem{jsonstandard}
+{ECMA}. 2013.
+\newblock \showarticletitle{The JSON Data Interchange Format}.
+\newblock  (October 2013).
+\newblock
+\showURL{%
+\url{http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf}}
+
+
+\bibitem{Elliott:2009:PFR:1596638.1596643}
+{Conal~M. Elliott}. 2009.
+\newblock \showarticletitle{Push-pull Functional Reactive Programming}. In {\em
+  Proceedings of the 2Nd ACM SIGPLAN Symposium on Haskell} {\em (Haskell '09)}.
+  ACM, New York, NY, USA, 25--36.
+\newblock
+\showISBNx{978-1-60558-508-6}
+\showDOI{%
+\url{http://dx.doi.org/10.1145/1596638.1596643}}
+
+
+\bibitem{facebook-react}
+{Facebook}. 2013.
+\newblock React - a JavaScript library for building user interfaces.
+\newblock   (2013).
+\newblock
+\showURL{%
+\url{http://facebook.github.io/react/}}
+
+
+\bibitem{halbwachs91}
+{Nicolas Halbwachs}, {Paul Caspi}, {Pascal Raymond}, {and} {Daniel Pilaud}.
+  1991.
+\newblock \showarticletitle{{The synchronous dataflow programming language
+  Lustre}}. In {\em Proceedings of IEEE} {\em (79)}. 1305--1320.
+\newblock
+
+
+\bibitem{Harel97}
+{D. Harel}. 1987.
+\newblock \showarticletitle{Statecharts: {A} visual formalism for complex
+  systems}.
+\newblock {\em Science of Computer Programming\/} {8}, 3 (1987), 231--274.
+\newblock
+
+
+\bibitem{martinie2014fine}
+{C{\'e}lia Martinie} {and} {Philipe Palanque}. 2014.
+\newblock \showarticletitle{Fine Grain Modeling of Task Deviations for
+  Assessing Qualitatively the Impact of Both System Failures and Human Error on
+  Operator Performance}. In {\em 2014 AAAI Spring Symposium Series}.
+\newblock
+
+
+\bibitem{Navarre:2009:IMU:1614390.1614393}
+{David Navarre}, {Philippe Palanque}, {Jean-Francois Ladry}, {and} {Eric
+  Barboni}. 2009.
+\newblock \showarticletitle{ICOs: A model-based user interface description
+  technique dedicated to interactive systems addressing usability, reliability
+  and scalability}.
+\newblock {\em ACM Trans. Comput.-Hum. Interact.\/}  {16}, Article 18 (November
+  2009), 56 pages.
+\newblock
+Issue 4.
+\showISSN{1073-0516}
+\showDOI{%
+\url{http://dx.doi.org/10.1145/1614390.1614393}}
+
+
+\bibitem{Paterno92}
+{F. Patern{\`o}} {and} {G. Faconti}. 1992.
+\newblock \showarticletitle{On the use of {LOTOS} to describe graphical
+  interaction}. In {\em Proceedings of the HCI'92 Conference on People and
+  Computers}. 155--173.
+\newblock
+
+
+\bibitem{Paterno:2009:MUD:1614390.1614394}
+{Fabio Paterno}, {Carmen Santoro}, {and} {Lucio~Davide Spano}. 2009.
+\newblock \showarticletitle{MARIA: A Universal, Declarative, Multiple
+  Abstraction-level Language for Service-oriented Applications in Ubiquitous
+  Environments}.
+\newblock {\em ACM Trans. Comput.-Hum. Interact.\/} {16}, 4, Article 19 (Nov.
+  2009), 30 pages.
+\newblock
+\showISSN{1073-0516}
+\showDOI{%
+\url{http://dx.doi.org/10.1145/1614390.1614394}}
+
+
+\bibitem{scade-display}
+{Esterel Technologies}. 2011.
+\newblock Scade Display.
+\newblock   (2011).
+\newblock
+\showURL{%
+\url{http://www.esterel-technologies.com/products/scade-display}}
+
+
+\bibitem{Zave:2012:GVN:2405178.2405179}
+{Pamela Zave} {and} {Jennifer Rexford}. 2012.
+\newblock \showarticletitle{The Geomorphic View of Networking: A Network Model
+  and Its Uses}. In {\em Proceedings of the 7th Workshop on Middleware for Next
+  Generation Internet Computing} {\em (MW4NG '12)}. ACM, New York, NY, USA,
+  Article 1, 6 pages.
+\newblock
+\showISBNx{978-1-4503-1607-1}
+\showDOI{%
+\url{http://dx.doi.org/10.1145/2405178.2405179}}
+
+
+\end{thebibliography}

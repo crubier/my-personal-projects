@@ -1,0 +1,84 @@
+This is BibTeX, Version 0.99d (TeX Live 2014)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: /Users/vincent/Documents/These/FOMCHI15/FOMCHI15/FOMCHI15.aux
+The style file: SIGCHI-Reference-Format.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Database file #1: bibliography.bib.bib
+Warning--entry type for "scade-display" isn't style-file defined
+--line 358 of file bibliography.bib.bib
+Warning--entry type for "facebook-react" isn't style-file defined
+--line 380 of file bibliography.bib.bib
+Warning--no key, author in DO178C
+Warning--no author, editor, organization, or key in DO178C
+Warning--to sort, need author or key in DO178C
+Warning--no key, author in ARINC661
+Warning--no key, author in ARINC661
+Warning--no key, author in DO178C
+Warning--no key, author in DO178C
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Warning--no number and no volume in actors86
+Warning--page numbers missing in both pages and numpages fields in actors86
+Warning--require articleno with numpages field in Barboni:2010:BMI:1822018.1822043
+Warning--empty publisher in bolton2011
+Warning--empty address in bolton2011
+Warning--require articleno with numpages field in Bowen:2012:MUM:2305484.2305505
+Warning--no journal in czaplicki2012elm
+Warning--no number and no volume in czaplicki2012elm
+Warning--page numbers missing in both pages and numpages fields in czaplicki2012elm
+Warning--empty publisher in Dix85
+Warning--empty address in Dix85
+Warning--empty address in dix1991formal
+Warning--no journal in jsonstandard
+Warning--no number and no volume in jsonstandard
+Warning--page numbers missing in both pages and numpages fields in jsonstandard
+Warning--require articleno with numpages field in Elliott:2009:PFR:1596638.1596643
+Warning--empty publisher in halbwachs91
+Warning--empty address in halbwachs91
+Warning--empty publisher in martinie2014fine
+Warning--empty address in martinie2014fine
+Warning--page numbers missing in both pages and numpages fields in martinie2014fine
+Warning--empty publisher in Paterno92
+Warning--empty address in Paterno92
+You've used 24 entries,
+            5283 wiz_defined-function locations,
+            1403 strings with 19566 characters,
+and the built_in function-call counts, 22812 in all, are:
+= -- 2980
+> -- 557
+< -- 3
++ -- 166
+- -- 484
+* -- 1415
+:= -- 2319
+add.period$ -- 121
+call.type$ -- 24
+change.case$ -- 145
+chr.to.int$ -- 24
+cite$ -- 59
+duplicate$ -- 1805
+empty$ -- 1290
+format.name$ -- 252
+if$ -- 5304
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 80
+newline$ -- 232
+num.names$ -- 132
+pop$ -- 736
+preamble$ -- 1
+purify$ -- 239
+quote$ -- 0
+skip$ -- 444
+stack$ -- 0
+substring$ -- 2538
+swap$ -- 137
+text.length$ -- 550
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 212
+warning$ -- 30
+while$ -- 149
+width$ -- 0
+write$ -- 383
+(There were 32 warnings)

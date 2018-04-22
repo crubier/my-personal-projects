@@ -1,0 +1,101 @@
+\begin{thebibliography}{10}
+
+\bibitem{ARINC661}
+ARINC.
+\newblock {\em Specification 661}, supplement 5, draft 1~ed., March 2012.
+
+\bibitem{yamine04}
+Aït-Ameur, Y., Bréholée, B., Girard, P., Guittet, L., and Jambon, F.
+\newblock Formal verification and validation of interactive systems
+  specifications. from informal specitications to formal validation.
+\newblock In {\em Conference of Human Error, Safety and Systems Development,
+  HESSD} (Toulouse, 2004).
+
+\bibitem{yamine98}
+Aït-Ameur, Y., Girard, P., and Jambon, F.
+\newblock Using the {B} formal approach for incremental specification design of
+  interactive systems.
+\newblock In {\em Engineering for Human-Computer Interaction}, S.~Chatty and
+  P.Dewan, Eds., vol.~22, Kluwer Academic Publishers (1998), 91--108.
+
+\bibitem{Bass91}
+Bass, L., Little, R., Pellegrino, R., Reed, S., Seacord, R., Shepard, S., and
+  Szezur, M.
+\newblock The arch model: Seeheim revisited.
+\newblock In {\em Proceedings of the 1991 User Interface Developers’
+  Workshop}, ACM (Seeheim, 1991).
+
+\bibitem{Navarre03}
+Bastide, R., Navarre, D., and Palanque, P.
+\newblock {A tool-supported design framework for safety critical interactive
+  systems}.
+\newblock {\em Interacting with Computers 15}, 3 (juin 2003), 309--328.
+
+\bibitem{6083931}
+Bolton, M., and Bass, E.
+\newblock Evaluating human-automation interaction using task analytic behavior
+  models, strategic knowledge-based erroneous human behavior generation, and
+  model checking.
+\newblock In {\em Systems, Man, and Cybernetics (SMC), 2011 IEEE International
+  Conference on} (oct. 2011), 1788 --1794.
+
+\bibitem{Bumbulis96}
+Bumbulis, P., Alencar, P., Cowan, D., and Lucena, C.
+\newblock Validating {P}roperties of {C}omponent-{B}ased {G}raphical {U}ser
+  {I}nterfaces.
+\newblock In {\em Eurographics Workshop on Design, Specification, and
+  Verification of Interactive Systems (DSV-IS’96)}, S.~Verlag, Ed. (1996),
+  347--365.
+
+\bibitem{Campos97}
+Campos, J.~C., and Harrison, M.~D.
+\newblock Formally verifying interactive systems: A review.
+\newblock In {\em Eurographics Workshop on Design, Specification, and
+  Verification of Interactive Systems (DSV-IS’97)}, M.~D. Harrison and J.~C.
+  Torres, Eds., Springer (1997), 109--124.
+
+\bibitem{Cortier2008}
+Cortier, A.
+\newblock {\em Contribution \`a la validation formelle de syst\`emes
+  interactifs Java}.
+\newblock PhD thesis, Universite Paul Sabatier - Institut Sup\'erieur de
+  l'A\'eronautique et de l'Espace (ISAE-Supaero), 2008.
+
+\bibitem{ausbourg98}
+d'Ausbourg, B., Seguin, C., and Roch{\'e}, P.
+\newblock Assisting the automated validation process of user itnerfaces.
+\newblock In {\em The 20th International Conference on Software Engineering}
+  (Kyoto, Japan, 1998).
+
+\bibitem{Duke-Harrison93a}
+Duke, D., and Harrison, M.
+\newblock Abstract {I}nteraction {O}bjects.
+\newblock In {\em Proceedings of Eurographics conference and computer graphics
+  forum}, vol.~12 (1993), 25–36.
+
+\bibitem{Duke-Harrison93b}
+Duke, D., and Harrison, M.
+\newblock Towards a {T}heory of {I}nteractors.
+\newblock Tech. Rep. 7040, Amodeus {E}sprit {B}asic {R}esearch {P}roject, 1993.
+\newblock System {M}odelling/WP6.
+
+\bibitem{madani2007}
+Madani, L.
+\newblock {\em Utilisation de la programmation synchrone pour la
+  sp\'ecification et la validation de services interactifs}.
+\newblock PhD thesis, Universit\'e Joseph Fourier - Grenoble 1, 2007.
+
+\bibitem{Palanque95}
+Palanque, P.~A., Bastide, R., and Seng\`{e}s, V.
+\newblock Validating interactive system design through the verification of
+  formal task and system models.
+\newblock In {\em Proceedings of the IFIP TC2/WG2.7 Working Conference on
+  Engineering for Human-Computer Interaction}, Chapman \& Hall, Ltd. (London,
+  UK, UK, 1996), 189--212.
+
+\bibitem{Rushby01}
+Rushby, J.~M.
+\newblock Analyzing cockpit interfaces using formal methods.
+\newblock {\em Electr. Notes Theor. Comput. Sci. 43\/} (2001), 1--14.
+
+\end{thebibliography}

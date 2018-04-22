@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99d (TeX Live 2012)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: article.aux
+The style file: acm-sigchi.bst
+Database file #1: bruno.bib
+Warning--to sort, need author or key in DO178C
+You've used 19 entries,
+            2243 wiz_defined-function locations,
+            657 strings with 8073 characters,
+and the built_in function-call counts, 7034 in all, are:
+= -- 677
+> -- 274
+< -- 0
++ -- 113
+- -- 91
+* -- 455
+:= -- 1060
+add.period$ -- 57
+call.type$ -- 19
+change.case$ -- 99
+chr.to.int$ -- 0
+cite$ -- 20
+duplicate$ -- 335
+empty$ -- 636
+format.name$ -- 91
+if$ -- 1580
+int.to.chr$ -- 0
+int.to.str$ -- 19
+missing$ -- 18
+newline$ -- 98
+num.names$ -- 42
+pop$ -- 140
+preamble$ -- 1
+purify$ -- 80
+quote$ -- 0
+skip$ -- 235
+stack$ -- 0
+substring$ -- 433
+swap$ -- 94
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 74
+warning$ -- 1
+while$ -- 67
+width$ -- 21
+write$ -- 204
+(There was 1 warning)

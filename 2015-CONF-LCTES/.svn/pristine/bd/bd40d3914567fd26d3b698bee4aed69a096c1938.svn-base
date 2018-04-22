@@ -1,0 +1,12 @@
+
+We provide an assessment of the description capabilities of the defined language. 
+
+\begin{itemize}
+\item Flows : continuous
+\item Events : discrete
+\item composition of flows and events to build behaviors
+\end{itemize}
+These notions are embedded in a reusable component implementing the notion of interactor. 
+
+
+Give a positionning with respect to the requirements

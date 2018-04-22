@@ -1,0 +1,78 @@
+
+
+
+interaction between user and car in application layer :
+	desiredSpeed speed 	flow 	from user 	to car
+	desiredMode  {mode:mode,enabled:boolean} 	flow 	from user 	to car
+	actualSpeed  speed 	flow 	from car 	to user
+	actualMode   {mode:mode,enabled:boolean} 	flow 	from car 	to user
+
+
+interaction between user and car in presentation layer :
+	increment 	void 	event 	from user 	to car
+	decrement 	void 	event 	from user 	to car
+	switch 		void 	event 	from user 	to car
+	desiredMode mode 	flow	from user 	to car
+
+	actualSpeed	speed 	flow 	from car 	to user
+	enabled		boolean flow 	from car 	to user
+	actualMode	mode 	flow 	from car	to user
+
+
+
+
+interactor car
+
+	step 		number	constant
+	mini 		number	constant
+	maxi 		number	constant
+
+	rawDesiredSpeed number flow 
+
+	on (increment from user in presentation layer) activated :
+		rawDesiredSpeed = pre(desiredSpeed to car in application layer) + step
+
+	on (decrement from user in presentation layer) activated :
+		rawDesiredSpeed = pre(desiredSpeed to car in application layer) - step
+
+	(desiredSpeed to car in application layer) = clipInRange(rawDesiredSpeed,mini,maxi)
+
+
+
+
+
+
+
+
+
+
+
+interactor incrementdecrement:
+	machine : current actor
+	human : other actor
+
+	value : number flow from human to machine in application layer
+
+	displayedValue : number flow from machine to human in presentation layer 
+	increment : void event from human to machine in presentation layer
+	decrement : void event from human to machine in presentation layer
+	reset : void event from human to machine in presentation layer
+
+	step : number constant
+	mini : number constant
+	maxi : number constant
+
+	nextValue : number flow 
+
+	and(
+		affect(displayedValue,value),
+		on(active(increment),affect(displayedValue+step,nextValue)),
+		on(active(decrement),affect(displayedValue-step,nextValue)),
+		affect(ensureRange(mini,maxi,nextValue),displayedValue)
+	)
+
+
+
+
+
+

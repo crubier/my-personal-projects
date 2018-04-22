@@ -1,0 +1,63 @@
+This is BibTeX, Version 0.99d (TeX Live 2014)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: /Users/vincent/Documents/These/SLE/SLE15/SLE15.aux
+The style file: abbrvnat.bst
+Database file #1: bibliography.bib.bib
+Warning--entry type for "ifttt" isn't style-file defined
+--line 16 of file bibliography.bib.bib
+Warning--entry type for "scade-display" isn't style-file defined
+--line 526 of file bibliography.bib.bib
+Warning--entry type for "facebook-react" isn't style-file defined
+--line 548 of file bibliography.bib.bib
+Warning--to sort, need author or key in DO178C
+Warning--to sort, need author or key in todomvc
+Warning--to sort, need author or key in ifttt
+Warning--empty year in ifttt
+Warning--empty author in todomvc
+Warning--empty journal in todomvc
+Warning--empty year in todomvc
+Warning--empty year in todomvc
+Warning--empty journal in czaplicki2012elm
+Warning--empty journal in jsonstandard
+You've used 29 entries,
+            2773 wiz_defined-function locations,
+            815 strings with 11016 characters,
+and the built_in function-call counts, 13215 in all, are:
+= -- 1275
+> -- 550
+< -- 31
++ -- 193
+- -- 164
+* -- 982
+:= -- 1917
+add.period$ -- 121
+call.type$ -- 29
+change.case$ -- 141
+chr.to.int$ -- 29
+cite$ -- 71
+duplicate$ -- 670
+empty$ -- 1176
+format.name$ -- 207
+if$ -- 2909
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 24
+newline$ -- 182
+num.names$ -- 104
+pop$ -- 299
+preamble$ -- 1
+purify$ -- 112
+quote$ -- 0
+skip$ -- 522
+stack$ -- 0
+substring$ -- 488
+swap$ -- 126
+text.length$ -- 12
+text.prefix$ -- 1
+top$ -- 0
+type$ -- 314
+warning$ -- 10
+while$ -- 110
+width$ -- 0
+write$ -- 443
+(There were 13 warnings)

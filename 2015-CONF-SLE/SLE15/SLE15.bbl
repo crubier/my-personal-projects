@@ -1,0 +1,224 @@
+\begin{thebibliography}{29}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[ift()]{ifttt}
+Ifttt.
+\newblock URL \url{www.ifttt.com}.
+
+\bibitem[tod()]{todomvc}
+Todomvc.com.
+\newblock URL \url{www.todomvc.com}.
+
+\bibitem[DO1(2012)]{DO178C}
+D{O}178{C}. {S}oftware {C}onsideration in {A}irborn {S}ystems and {E}quipment
+  {C}ertification, release c, 2012.
+\newblock RTCA,Inc.
+
+\bibitem[Abowd and Dix(1994)]{abowd22integrating}
+G.~D. Abowd and A.~J. Dix.
+\newblock Integrating status and event phenomena in formal specifications of
+  interactive systems.
+\newblock \emph{Proceedings of the ACM SIGSOFT Symposium on Foundations of
+  Software Engineering}, 22:\penalty0 23, December 1994.
+
+\bibitem[Agha(1986)]{actors86}
+G.~A. Agha.
+\newblock Actors: a model of concurrent computations in distributed systems.
+\newblock \emph{MIT Press}, 1986.
+
+\bibitem[ARI(2012)]{ARINC661}
+\emph{Specification 661}.
+\newblock ARINC, supplement 5, draft 1 edition, March 2012.
+\newblock URL \url{http://www.aviation-ia.com/aeec/projects/cds/index.html}.
+
+\bibitem[Barboni et~al.(2010)Barboni, Ladry, Navarre, Palanque, and
+  Winckler]{Barboni:2010:BMI:1822018.1822043}
+E.~Barboni, J.-F. Ladry, D.~Navarre, P.~Palanque, and M.~Winckler.
+\newblock Beyond modelling: An integrated environment supporting co-execution
+  of tasks and systems models.
+\newblock In \emph{Proceedings of the 2Nd ACM SIGCHI Symposium on Engineering
+  Interactive Computing Systems}, EICS '10, pages 165--174, New York, NY, USA,
+  2010. ACM.
+\newblock ISBN 978-1-4503-0083-4.
+\newblock \doi{10.1145/1822018.1822043}.
+\newblock URL \url{http://doi.acm.org/10.1145/1822018.1822043}.
+
+\bibitem[BEA(2012)]{BEA12}
+BEA.
+\newblock Rapport final sur l'accident survenu le 1er juin 2009 {\`a}
+  l'{A}irbus {A}330-203 immatricul{\'e} {F-GZCP} exploit{\'e} par {A}ir
+  {F}rance, vol {AF} 447 {R}io de {J}aneiro - {P}aris.
+\newblock Technical report, Direction G{\'e}n{\'e}rale de l'Aviation Civile,
+  Juillet 2012.
+\newblock \url{http://www.bea.aero/docspa/2009/f-cp090601/pdf/f-cp090601.pdf}.
+
+\bibitem[Bolton and Bass(2011)]{bolton2011}
+M.~Bolton and E.~Bass.
+\newblock Evaluating human-automation interaction using task analytic behavior
+  models, strategic knowledge-based erroneous human behavior generation, and
+  model checking.
+\newblock In \emph{Systems, Man, and Cybernetics (SMC), 2011 IEEE International
+  Conference on}, pages 1788 --1794, oct. 2011.
+\newblock \doi{10.1109/ICSMC.2011.6083931}.
+
+\bibitem[Bowen and Reeves(2012)]{Bowen:2012:MUM:2305484.2305505}
+J.~Bowen and S.~Reeves.
+\newblock Modelling user manuals of modal medical devices and learning from the
+  experience.
+\newblock In \emph{Proceedings of the 4th ACM SIGCHI Symposium on Engineering
+  Interactive Computing Systems}, EICS '12, pages 121--130, New York, NY, USA,
+  2012. ACM.
+\newblock ISBN 978-1-4503-1168-7.
+\newblock \doi{10.1145/2305484.2305505}.
+\newblock URL \url{http://doi.acm.org/10.1145/2305484.2305505}.
+
+\bibitem[Chatty(2007)]{chatty2007}
+S.~Chatty.
+\newblock Programs = data + algorithms + architecture, and consequences for
+  interactive software.
+\newblock In S.~Verlag, editor, \emph{Proceedings of the IFIP conference on
+  Engineering Interactive Systems (EIS 2007)}, volume Lecture Notes in Computer
+  Science volume 4940, 2007.
+\newblock URL \url{http://lii-enac.fr/articles/chatty-eis-2007.pdf}.
+
+\bibitem[Cytron et~al.(1991)Cytron, Ferrante, Rosen, Wegman, and
+  Zadeck]{cytron91efficiently}
+R.~Cytron, J.~Ferrante, B.~K. Rosen, M.~N. Wegman, and F.~K. Zadeck.
+\newblock Efficiently computing static single assignment form and the control
+  dependence graph.
+\newblock \emph{ACM Transactions on Programming Languages and Systems},
+  13\penalty0 (4):\penalty0 451--490, Oct 1991.
+\newblock URL \url{http://doi.acm.org/10.1145/115372.115320}.
+
+\bibitem[Czaplicki(2012)]{czaplicki2012elm}
+E.~Czaplicki.
+\newblock Elm: Concurrent frp for functional guis.
+\newblock 2012.
+
+\bibitem[Dix and Runciman(1985)]{Dix85}
+A.~Dix and C.~Runciman.
+\newblock Abstract models of interactive systems.
+\newblock In \emph{Proceedings of the HCI'85 Conference on People and
+  Computers: Designing the Interface}, pages 13--22, 1985.
+
+\bibitem[Dix(1991)]{dix1991formal}
+A.~J. Dix.
+\newblock \emph{Formal methods for interactive systems}.
+\newblock Academic Press, 1991.
+
+\bibitem[Duke and Harrison(1993)]{Duke-Harrison93a}
+D.~Duke and M.~Harrison.
+\newblock Abstract interaction objects.
+\newblock \emph{Computer Graphics Forum}, 12\penalty0 (3):\penalty0 25--36,
+  1993.
+\newblock ISSN 1467-8659.
+\newblock \doi{10.1111/1467-8659.1230025}.
+\newblock URL \url{http://dx.doi.org/10.1111/1467-8659.1230025}.
+
+\bibitem[ECMA(2013)]{jsonstandard}
+ECMA.
+\newblock The json data interchange format.
+\newblock October 2013.
+\newblock URL
+  \url{http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf}.
+
+\bibitem[Elliott(2009)]{Elliott:2009:PFR:1596638.1596643}
+C.~M. Elliott.
+\newblock Push-pull functional reactive programming.
+\newblock In \emph{Proceedings of the 2Nd ACM SIGPLAN Symposium on Haskell},
+  Haskell '09, pages 25--36, New York, NY, USA, 2009. ACM.
+\newblock ISBN 978-1-60558-508-6.
+\newblock \doi{10.1145/1596638.1596643}.
+\newblock URL \url{http://doi.acm.org/10.1145/1596638.1596643}.
+
+\bibitem[Facebook(2013)]{facebook-react}
+Facebook.
+\newblock React - a javascript library for building user interfaces, 2013.
+\newblock URL \url{http://facebook.github.io/react/}.
+
+\bibitem[Halbwachs et~al.(1991)Halbwachs, Caspi, Raymond, and
+  Pilaud]{halbwachs91}
+N.~Halbwachs, P.~Caspi, P.~Raymond, and D.~Pilaud.
+\newblock {The synchronous dataflow programming language Lustre}.
+\newblock In \emph{Proceedings of IEEE}, number~9 in 79, pages 1305--1320,
+  September 1991.
+
+\bibitem[Harel(1987)]{Harel97}
+D.~Harel.
+\newblock Statecharts: {A} visual formalism for complex systems.
+\newblock \emph{Science of Computer Programming}, 8\penalty0 (3):\penalty0
+  231--274, 1987.
+
+\bibitem[Martinie and Palanque(2014)]{martinie2014fine}
+C.~Martinie and P.~Palanque.
+\newblock Fine grain modeling of task deviations for assessing qualitatively
+  the impact of both system failures and human error on operator performance.
+\newblock In \emph{2014 AAAI Spring Symposium Series}, 2014.
+
+\bibitem[Navarre et~al.(2009)Navarre, Palanque, Ladry, and
+  Barboni]{Navarre:2009:IMU:1614390.1614393}
+D.~Navarre, P.~Palanque, J.-F. Ladry, and E.~Barboni.
+\newblock Icos: A model-based user interface description technique dedicated to
+  interactive systems addressing usability, reliability and scalability.
+\newblock \emph{ACM Trans. Comput.-Hum. Interact.}, 16:\penalty0 18:1--18:56,
+  November 2009.
+\newblock ISSN 1073-0516.
+\newblock \doi{http://doi.acm.org/10.1145/1614390.1614393}.
+\newblock URL \url{http://doi.acm.org/10.1145/1614390.1614393}.
+
+\bibitem[Patern{\`o} and Faconti(1992)]{Paterno92}
+F.~Patern{\`o} and G.~Faconti.
+\newblock On the use of {LOTOS} to describe graphical interaction.
+\newblock In \emph{Proceedings of the HCI'92 Conference on People and
+  Computers}, pages 155--173, 1992.
+
+\bibitem[Paterno et~al.(2009)Paterno, Santoro, and
+  Spano]{Paterno:2009:MUD:1614390.1614394}
+F.~Paterno, C.~Santoro, and L.~D. Spano.
+\newblock Maria: A universal, declarative, multiple abstraction-level language
+  for service-oriented applications in ubiquitous environments.
+\newblock \emph{ACM Trans. Comput.-Hum. Interact.}, 16\penalty0 (4):\penalty0
+  19:1--19:30, Nov. 2009.
+\newblock ISSN 1073-0516.
+\newblock \doi{10.1145/1614390.1614394}.
+\newblock URL \url{http://doi.acm.org/10.1145/1614390.1614394}.
+
+\bibitem[S{\o}ndergaard and Sestoft(1990)]{Sondergaard:1990aa}
+H.~S{\o}ndergaard and P.~Sestoft.
+\newblock Referential transparency, definiteness and unfoldability.
+\newblock \emph{Acta Informatica}, 27\penalty0 (6):\penalty0 505--517, 1990.
+\newblock ISSN 0001-5903.
+\newblock \doi{10.1007/BF00277387}.
+\newblock URL \url{http://dx.doi.org/10.1007/BF00277387}.
+
+\bibitem[Technologies(2011)]{scade-display}
+E.~Technologies.
+\newblock Scade display, 2011.
+\newblock URL \url{http://www.esterel-technologies.com/products/scade-display}.
+
+\bibitem[Voelter et~al.(2014)Voelter, Siegmund, Berger, and
+  Kolb]{Voelter:2014aa}
+M.~Voelter, J.~Siegmund, T.~Berger, and B.~Kolb.
+\newblock Towards user-friendly projectional editors.
+\newblock In B.~Combemale, D.~Pearce, O.~Barais, and J.~Vinju, editors,
+  \emph{Software Language Engineering}, volume 8706 of \emph{Lecture Notes in
+  Computer Science}, pages 41--61. Springer International Publishing, 2014.
+\newblock ISBN 978-3-319-11244-2.
+\newblock \doi{10.1007/978-3-319-11245-9_3}.
+\newblock URL \url{http://dx.doi.org/10.1007/978-3-319-11245-9_3}.
+
+\bibitem[Zave and Rexford(2012)]{Zave:2012:GVN:2405178.2405179}
+P.~Zave and J.~Rexford.
+\newblock The geomorphic view of networking: A network model and its uses.
+\newblock In \emph{Proceedings of the 7th Workshop on Middleware for Next
+  Generation Internet Computing}, MW4NG '12, pages 1:1--1:6, New York, NY, USA,
+  2012. ACM.
+\newblock ISBN 978-1-4503-1607-1.
+\newblock \doi{10.1145/2405178.2405179}.
+\newblock URL \url{http://doi.acm.org/10.1145/2405178.2405179}.
+
+\end{thebibliography}

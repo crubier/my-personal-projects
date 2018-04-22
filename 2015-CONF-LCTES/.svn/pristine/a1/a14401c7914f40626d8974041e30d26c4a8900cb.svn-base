@@ -1,0 +1,98 @@
+%-----------------------------Description du contenu--------------------------- 
+
+%Crash  analyses  reveal  1)  a  lack of  security  in  human  machine
+%interaction (e.g.  AF  447) 2) the interactive systems  do not behave
+%as intended  %\textcolor{blue}{ Nowadays, compared to  other critical
+%domains   (command/control   in  aeronautics,   nuclear,   automotive
+%industries ...  )   there is no tool, technique,  method nor language
+%to describe properly what is intended with respect to interaction.  {\bf A DEVELOPPER } 
+
+%Dire que l'on ne  peut pas faire d'analyse sur les  800 000 lignes de
+%codes d'ihm  car les techniques  développées sur les  autres systèmes
+%are not relevant for interactive systems.  
+
+%1- Une  description abstraite du comportement  en termes d'interation
+%(entrée  usager,  état  et  reponse  système) de  ce  qui  doit  être
+%embarquer dans ces 800 000  lignes est nécessaire.  Cette description
+%peut me servir à vérifier que le code implante bien les comportements
+%abstraits attendus et  mieux si je peux faire  cette vérification, on
+%peut produire un code sûr qui comportera ces comportements.  
+
+%There is a need of a language which 1) abstract the main interactive concepts and } 
+
+%So, describing intended behaviors is central for ensuring security of interactive systems.  
+
+%Need of resources for that on interactive systems.  .
+%-----------------------------------------------------------------------------
+A lot  of research  work have  focused on how  to design,  program and
+verify functional concerns for  critical systems and more particularly
+aeronautical  systems.  One  may  cite synchronous  languages such  as
+Scade as  examples of research  work that successfully  contributed to
+the  industrial  critical  software development  processes.   Moreover
+these systems and their development processes are subject to mandatory
+certification stages that formally establish  that the product and its
+development   are  strictly   in   accordance   with  standard   rules
+(DO178C~\cite{DO178C} for the software used in airborne systems).
+
+HMI   systems  did   not   benefit  from   the   same  attention   and
+efforts. Nevertheless, in aeronautics, HMI  systems are now made up by
+multiple  hardware  and  software   components  embedded  in  aircraft
+cockpits.  These  systems are  large and  complex artifacts  that also
+face tough  constraints in  terms of  usability, security  and safety.
+They  support interactive  applications that  must behave  as intended
+with a high degree of assurance  because of their criticity.  An error
+in  the  software  components  that implement  interactions  in  these
+applications  may lead  to  a  human or  system  fault  that may  have
+catastrophic  effects.   For  example,   the  BEA   report  \cite{bea}
+establishes that during  the AF 447 flight  interface system displayed
+some actions to be performed by the pilot in order to change the pitch
+of  the aircraft  and to  nose  it up  while it  was stalling.   These
+indications  should  clearly  not  have been  displayed.   Indeed,  by
+following those  erroneous displayed instructions the  pilot increased
+the stalling of the aircraft.
+
+\subsection{Context}
+
+\begin{itemize}
+
+
+\item Critical embedded systems 
+
+\item ARINC 661 and development practices A380 cockpits. Client server with its design constraints.
+
+\item static description of screen displays, of interactive devices, layout, graphical representations etc. 
+
+\item Traditional approaches in industry are based on a posteriori  blind testing. examples are A380
+
+
+\item Diversity of stakeholders and of involved disciplines and communities (human factors, system designers, ergonomists, software developers, graphical designers) 
+
+\end{itemize}
+
+In fact, the  safety concern, while being acknowledged  as specific in
+the design  stages of  the development  processes of  aeronautical HMI
+systems, is not really dealt with  specific methods and tools. In this
+context, the  validation process of these  interactive applications is
+very restricted and  poor because it resides practically  only in test
+and evaluation phases at the end of the development process.  Moreover
+there is no actual formal reference  to check the implementation is in
+conformance with.
+
+\subsection{Requirements}
+\begin{itemize}
+
+\item[REQ] Need of a domain specific language for Human interfaces of embedded systems 
+
+\item[REQ] This language shall be a  Pivot to be handled by different disciplines
+
+\item[REQ] Generation of a {\bf secure code} of an interface compatible with the ARINC661 Standard
+
+\item[REQ] Handling both continuous and discrete interactions
+
+\item[REQ] Capability of describing an interactive component of an interactive system through the desciption of its input,  output, and  internal states
+
+\item[REQ]  Capability of describing complex interactive systems by assembling  these interactive components 
+
+\item[REQ]  
+
+\end{itemize}

@@ -1,0 +1,49 @@
+
+\subsection{Basic constructs}
+The basic notion is the interactive component named \lstinline{interaction} which produces output and new current internal state flows from input and previous  internal state flows.
+
+
+\subsubsection{Flows}
+They encode state variables, input and output of 
+
+Notion of activation/deactivation for continuous/discrete
+
+Example
+
+Basic types are : \lstinline{text}, \lstinline{boolean}, \lstinline{number} and \lstinline{activation} combined with \lstinline{in} and \lstinline{out}
+
+
+\subsubsection{Interface}
+
+\colorbox{codebackground}{
+\lstinline{interface} $\mathit{name}$ \lstinline{is} $\mathit{definition}$
+}
+
+
+
+\subsubsection{Interaction Operators}
+Corresponding to equations
+
+Donner celles utilisées dans l'étude de cas. 
+
+\subsubsection{Interaction components}
+
+\colorbox{codebackground}{
+\lstinline{interaction} $\mathit{pattern}$ 
+\lstinline{is a} $\mathit{interface}$ 
+\lstinline{defined by} $\mathit{expression}$
+}
+
+The basic interactors component
+
+\subsubsection{Assembling interaction components}
+Here we show how interaction components are assembled and reused to build a new interaction component
+
+\subsection{Formal semantics}
+\subsubsection{Basic interaction operators}
+
+Tout est comilé dans ces opératers de base et leur composition.
+
+Trace based semantics
+
+Compositionality

@@ -1,0 +1,113 @@
+
+To illustrate LIDL capabilities, we will use it to describe a simple graphical user interface (GUI). The example is a typical speed controller. Three modes are available: 
+
+\begin{itemize}
+\item \mono{Off}: Manual control of the speed
+\item \mono{Lim}: Limiter, the speed should stay under a certain value
+\item \mono{Ctrl}: Controller, the speed should stay around a certain value
+\end{itemize}
+
+Three buttons are available to control the target speed:
+\begin{itemize}
+\item \mono{+} to increment the target speed
+\item \mono{-} to decrement the target speed
+\item \mono{Cur} to set the target speed to the current actual speed
+\end{itemize}
+
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\columnwidth]{speedcontroller-ui.pdf}
+\end{center}
+\caption{A mockup of the example GUI}
+\label{fig-gui-example}
+\end{figure}
+
+
+\begin{lstlisting}[caption=Interface of the speed controller]
+interface SpeedController:
+{
+	system: {
+		desiredMode:	text out,
+		desiredSpeed:	number out,
+		actualMode:		text in,
+		actualSpeed:	number in
+	},
+	user: {
+		mode:	Label,
+		status:	Label,
+		actual:	Gauge,
+		desired:	Slider,
+		increment:	Button,
+		decrement:	Button,
+		current:	Button,
+		toggle:	Button,
+		switch:	SegmentedSwitch
+	}
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption=The speed controller interaction]
+interaction (SpeedController):SpeedController:
+  (bind (this) in (all
+    
+      (flow (desiredSpeed))
+      
+      (flow (desiredMode))
+      
+      ((this) = ({
+        user:{
+        
+          mode: (Label (active) 
+            with value (actualMode)),
+            
+          status: (Label (active) 
+            with value (
+              if ((actualMode) != (desiredMode))
+              then ("Wrong mode")
+              else if (((desiredMode) != ("Off")) 
+                and((actualSpeed)>(desiredSpeed)))
+              then ("Over speed")
+              else ("Ok")
+            )),
+            
+          actual: (Gauge (active) 
+            displaying (actualSpeed)),
+            
+          desired: (Slider (active) 
+            min (0) max (100) 
+            selected (desiredSpeed)),
+            
+          increment: (Button (active) 
+            triggering ( (new(desiredSpeed)) = 
+              ((previous(desiredSpeed))+(5)))),
+              
+          decrement: (Button (active) 
+            triggering ( (new(desiredSpeed)) = 
+              ((previous(desiredSpeed))-(5)))),
+              
+          current: (Button (active) 
+            triggering ( (new(desiredSpeed)) = 
+              (round (actualSpeed) to (5)))),
+              
+          toggle: (Button (active) triggering (
+            (new(desiredMode))=(
+              if((previous(desiredMode))==("Off"))
+              then(selectedMode)
+              else("Off")
+            ))),
+            
+          switch: (SegmentedSwitch (active) 
+            with choices (["Off","Lim","Ctrl"]) 
+            selected (selectedMode))
+        },
+        system:{
+          desiredMode: (desiredMode),
+          desiredSpeed: (desiredSpeed),
+          actualMode: (actualMode),
+          actualSpeed: (actualSpeed)          
+        }
+      }))
+  ))
+\end{lstlisting}
+

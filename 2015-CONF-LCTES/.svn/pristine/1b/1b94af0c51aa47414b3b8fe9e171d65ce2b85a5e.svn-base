@@ -1,0 +1,26 @@
+
+\subsection{Basic constructs}
+The basic notion is the interactive component named {\sf Interaction} which produces output and new current internal state flows from input and previous  internal state flows.
+
+\subsubsection{Flows}
+They encode state variables, input and output of 
+
+Notion of activation/deactivation for continuous/discrete
+
+Example
+\subsubsection{Interaction Operators}
+Corresponding to equations
+
+Donner celles utilisées dans l'étude de cas. 
+
+\subsubsection{Interaction components}
+
+The basic interactors component
+
+\subsubsection{Assembling interaction components}
+Here we show how inteaction components are assembled and reused to build a new interaction component
+
+\subsection{Formal semantics}
+Trace based semantics
+
+Compositionality

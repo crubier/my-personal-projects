@@ -1,0 +1,96 @@
+BODY {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 12px; PADDING-BOTTOM: 0px; MARGIN: 0px; COLOR: #666666; PADDING-TOP: 0px; FONT-FAMILY: arial, verdana, sans-serif
+}
+TD {
+	FONT-SIZE: 12px; COLOR: #666666; LINE-HEIGHT: 20px; FONT-FAMILY: arial, verdana, sans-serif
+}
+DIV {
+	FONT-SIZE: 12px; COLOR: #666666; LINE-HEIGHT: 20px; FONT-FAMILY: arial, verdana, sans-serif
+}
+P {
+	PADDING-RIGHT: 20px; PADDING-LEFT: 10px; MARGIN: 10px
+}
+A {
+	COLOR: #269794; TEXT-DECORATION: none
+}
+A:hover {
+	TEXT-DECORATION: underline
+}
+IMG {
+	BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px
+}
+LI {
+	LIST-STYLE-POSITION: outside; FONT-SIZE: 12px; LIST-STYLE-IMAGE: url(images/bullet.gif); COLOR: #666666; LINE-HEIGHT: 18px; FONT-FAMILY: arial, verdana, sans-serif
+}
+HR {
+	BORDER-TOP: #dadada 1px solid; WIDTH: 95%; COLOR: white; BORDER-BOTTOM: #dadada 1px solid; HEIGHT: 3px
+}
+#head {
+	BACKGROUND-IMAGE: url(images/head.jpg); WIDTH: 900px; HEIGHT: 88px
+}
+#logo {
+	BORDER-RIGHT: 0px; BORDER-TOP: 0px; MARGIN-TOP: 22px; FLOAT: left; MARGIN-LEFT: 133px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px
+}
+#navigation {
+	LEFT: 0px; BACKGROUND-IMAGE: url(images/bg_sidenav.gif); WIDTH: 196px; POSITION: absolute; HEIGHT: 100%
+}
+#content {
+	MARGIN-LEFT: 196px; WIDTH: 704px; HEIGHT: 100%; BACKGROUND-COLOR: white
+}
+#statsContent {
+	MARGIN-LEFT: 0px; WIDTH: 1100px; BACKGROUND-COLOR: white
+}
+#sidenav {
+	WIDTH: 195px; HEIGHT: 31px
+}
+#highlights {
+	BORDER-RIGHT: 0px; BORDER-TOP: 0px; MARGIN-TOP: 0px; FLOAT: right; BORDER-LEFT: 0px; WIDTH: 300px; BORDER-BOTTOM: 0px; HEIGHT: 550px; BACKGROUND-COLOR: #e7ffff
+}
+.gray {
+	BACKGROUND-COLOR: #f5f5f5
+}
+.padleft {
+	PADDING-LEFT: 25px
+}
+.copyright {
+	FONT-SIZE: 10px; COLOR: #cfcfcf; FONT-FAMILY: arial, verdana, sans-serif; POSITION: absolute
+}
+.menu {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 10px; FONT-WEIGHT: bold; FONT-SIZE: 10pt; PADDING-BOTTOM: 0px; WIDTH: 195px; COLOR: #666666; PADDING-TOP: 5px; BORDER-BOTTOM: #dadada 1px solid; FONT-FAMILY: arial, verdana, sans-serif; HEIGHT: 31px; BACKGROUND-COLOR: white; TEXT-DECORATION: none
+}
+.menu:hover {
+	BACKGROUND-IMAGE: url(images/menu_hover.gif); COLOR: #349e9b; TEXT-DECORATION: none
+}
+.menuon {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 10px; FONT-WEIGHT: bold; FONT-SIZE: 10pt; BACKGROUND-IMAGE: url(images/menu_hover.gif); PADDING-BOTTOM: 0px; WIDTH: 195px; COLOR: #349e9b; PADDING-TOP: 5px; BORDER-BOTTOM: #dadada 1px solid; FONT-FAMILY: arial, verdana, sans-serif; HEIGHT: 31px; TEXT-DECORATION: none
+}
+.title_highlights {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 20px; FONT-SIZE: 24px; PADDING-BOTTOM: 0px; COLOR: #083b54; LINE-HEIGHT: 20px; PADDING-TOP: 0px; FONT-FAMILY: times roman, arial
+}
+.title {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 10px; FONT-SIZE: 24px; PADDING-BOTTOM: 0px; COLOR: #083b54; LINE-HEIGHT: 0px; PADDING-TOP: 25px; FONT-FAMILY: times roman, arial
+}
+.subtitle {
+	PADDING-LEFT: 8px; FONT-WEIGHT: bold; FONT-SIZE: 13px; COLOR: #083b54; LINE-HEIGHT: 18px; FONT-FAMILY: arial, verdana, sans-serif
+}
+.subtitle1 {
+	FONT-WEIGHT: bold; FONT-SIZE: 13px; COLOR: #083b54; LINE-HEIGHT: 17px; FONT-FAMILY: arial, verdana, sans-serif
+}
+.subtitle2 {
+	PADDING-LEFT: 20px; FONT-WEIGHT: bold; FONT-SIZE: 13px; COLOR: #333333; LINE-HEIGHT: 10px; FONT-FAMILY: arial, verdana, sans-serif
+}
+.pastIUItitle {
+	PADDING-LEFT: 8px; FONT-WEIGHT: bold; FONT-SIZE: 12px; BACKGROUND-IMAGE: url(images/bg_pastiui.gif); COLOR: #083b54; LINE-HEIGHT: 20px; FONT-FAMILY: arial, verdana, sans-serif
+}
+.pastIUIblock {
+	BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid
+}
+.tablestyle {
+	BACKGROUND-COLOR: #dadada
+}
+.tableheader {
+	FONT-WEIGHT: bold; FONT-SIZE: 13px; FONT-FAMILY: arial, verdana, sans-serif; BACKGROUND-COLOR: #eef6ff
+}
+.whitebg {
+	BACKGROUND-COLOR: #ffffff
+}

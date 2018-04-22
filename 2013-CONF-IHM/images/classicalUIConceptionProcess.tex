@@ -1,0 +1,41 @@
+\tikzstyle{processstep}=[draw,text width=3.5cm,text centered,minimum width=4cm,minimum height=1cm]
+\tikzstyle{orientedarc}=[->,>=latex]
+\tikzstyle{arc}=[<->,>=latex]
+\tikzstyle{arclabel}=[midway,scale=0.7]
+\tikzstyle{arclabelred}=[midway,darkred,scale=0.7]
+\tikzstyle{arclabelgreen}=[midway,darkgreen,scale=0.7]
+
+\tikzstyle{justleft}=[shift={(-0.5cm,0cm)}]
+\tikzstyle{justright}=[shift={(0.5cm,0cm)}]
+\tikzstyle{justtop}=[shift={(0cm,0.5cm)}]
+\tikzstyle{justdown}=[shift={(0cm,-0.5cm)}]
+
+\tikzstyle{architectureelement}=[draw,text width=1.7cm,text centered,minimum width=1.8cm,minimum height=2cm]
+\tikzstyle{architecturelabel}=[text centered,text width=3cm]
+
+\tikzstyle{breakline}=[snake=snake,segment length=1.8cm,segment amplitude=0.2cm]
+
+\begin{tikzpicture}
+
+\node[processstep] (S1) at (0cm,6cm) {UI Concept};
+\node[processstep] (S2) at (0cm,4cm) {Textual \\ UI Specification};
+\node[processstep] (S3) at (0cm,2cm) {Implemented UI};
+\node[processstep] (S4) at (0cm,0cm) {Validated UI \\ Implementation};
+
+\coordinate[justright] (S2NORTHEAST1) at (S2.north east);
+\coordinate[justright] (S2SOUTHEAST1) at (S2.south east);
+\coordinate[justleft] (S2NORTHEAST2) at (S2.north east);
+\coordinate[justleft] (S2SOUTHEAST2) at (S2.south east);
+
+\coordinate[justright] (S3NORTHEAST1) at (S3.north east);
+\coordinate[justright] (S3SOUTHEAST1) at (S3.south east);
+\coordinate[justleft] (S3NORTHEAST2) at (S3.north east);
+\coordinate[justleft] (S3SOUTHEAST2) at (S3.south east);
+
+\draw[orientedarc] (S1) -- (S2) node[arclabelred, left]{\textit{Specification}};
+\draw[orientedarc] (S2) -- (S3) node[arclabelred, left]{\textit{Manual implementation}};
+\draw[orientedarc] (S3) -- (S4) node[arclabelred, left]{\textit{Manual testing}};
+\draw[orientedarc] (S2SOUTHEAST2) to[bend right=90] (S2SOUTHEAST1) -- (S2NORTHEAST1) node[arclabelred, right]{\textit{Specification refinement}} to[bend right=90] (S2NORTHEAST2);
+\draw[orientedarc] (S3SOUTHEAST2) to[bend right=90] (S3SOUTHEAST1) -- (S3NORTHEAST1) node[arclabelred, right]{\textit{Testing}} to[bend right=90] (S3NORTHEAST2);
+
+\end{tikzpicture}

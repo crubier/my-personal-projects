@@ -1,0 +1,91 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+\begin{document}
+
+\indent\textbf{Interactor} EngineControl :
+
+    \indent\indent\textbf{State Variables} :
+
+        \indent\indent\indent\textbf{Text} status in \{"OFF","STARTING","NORMAL","FAULT"\}
+
+        \indent\indent\indent\textbf{Real} command in [20,80]
+
+        \indent\indent\indent\textbf{Real} rpm in [0,100]
+
+    \indent\indent\textbf{Components} :
+
+        \indent\indent\indent\textbf{System} engineToControl
+
+        \indent\indent\indent\textbf{RealOutput} rpmOutput
+
+        \indent\indent\indent\textbf{TextOutput} statusOutput
+
+        \indent\indent\indent\textbf{Trigger} incrementRpm
+
+        \indent\indent\indent\textbf{Trigger} decrementRpm
+
+        \indent\indent\indent\textbf{Trigger} startStop
+
+    \indent\indent\textbf{Interactions} :
+
+    \indent\indent\indent\textbf{In} :
+
+    \indent\indent\indent\textbf{Out} :
+
+       % \indent\indent\indent\indent fault
+
+    \indent\indent\textbf{Behavior} :
+
+        \indent\indent\indent\textbf{Init} :
+
+            \indent\indent\indent\indent command = 20
+
+        \indent\indent\indent\textbf{Always} : 
+
+            \indent\indent\indent\indent status = engineToControl.status
+
+            \indent\indent\indent\indent rpm = engineToControl.rpm
+
+	    \indent\indent\indent\indent engineToControl.command = command 
+
+            \indent\indent\indent\indent statusOutput.text = status
+
+            \indent\indent\indent\indent rpmOutput.text = rpm
+
+            \indent\indent\indent\indent decrementRpm.enabled = (status="NORMAL")
+
+            \indent\indent\indent\indent incrementRpm.enabled = (status="NORMAL")
+
+\indent\indent\indent\textbf{On} incrementRpm.triggered() \textbf{When} command < 80 :
+
+    \indent\indent\indent\indent command = command + 5
+
+\indent\indent\indent\textbf{On} decrementRpm.triggered() \textbf{When} command > 20 :
+
+    \indent\indent\indent\indent command = command - 5
+
+\indent\indent\indent\textbf{On} startStop.triggered() \textbf{When} status="OFF" :
+
+    \indent\indent\indent\indent status = "STARTING"
+
+    \indent\indent\indent\indent command = 20
+
+    \indent\indent\indent\indent engineToControl.start()
+
+\indent\indent\indent \textbf{On} startStop.triggered() 
+
+\indent\indent\indent \indent\indent\indent \textbf{When}  status="NORMAL" \textbf{or} status="FAULT"  :
+
+    \indent\indent\indent\indent status = "OFF"
+
+    \indent\indent\indent\indent engineToControl.stop()
+
+\end{document}

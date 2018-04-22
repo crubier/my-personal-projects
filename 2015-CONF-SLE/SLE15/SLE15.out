@@ -1,0 +1,19 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Aeronautical background}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Generalization}{section.1}% 3
+\BOOKMARK [1][-]{section.2}{The LIDL language}{}% 4
+\BOOKMARK [2][-]{subsection.2.1}{Interaction-oriented approach}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.2}{Synchronous execution}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.3}{Interfaces}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.4}{Data activation}{section.2}% 8
+\BOOKMARK [2][-]{subsection.2.5}{Interactions}{section.2}% 9
+\BOOKMARK [2][-]{subsection.2.6}{LIDL programs structure}{section.2}% 10
+\BOOKMARK [1][-]{section.3}{Use of LIDL programs}{}% 11
+\BOOKMARK [2][-]{subsection.3.1}{Optimisation}{section.3}% 12
+\BOOKMARK [2][-]{subsection.3.2}{Verification}{section.3}% 13
+\BOOKMARK [2][-]{subsection.3.3}{Code generation}{section.3}% 14
+\BOOKMARK [2][-]{subsection.3.4}{Human models and automatic testing}{section.3}% 15
+\BOOKMARK [1][-]{section.4}{Use case}{}% 16
+\BOOKMARK [2][-]{subsection.4.1}{LIDL implementation of a basic component}{section.4}% 17
+\BOOKMARK [2][-]{subsection.4.2}{LIDL implementation of a compound component}{section.4}% 18
+\BOOKMARK [1][-]{section.5}{Conclusion}{}% 19

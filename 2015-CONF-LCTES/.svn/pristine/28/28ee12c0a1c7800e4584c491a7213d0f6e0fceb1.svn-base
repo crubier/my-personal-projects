@@ -1,0 +1,320 @@
+
+\subsection{Basic concepts}
+
+
+
+The basic notion is the interactive component named \lstinline{interaction} which produces output and new current internal state flows from input and previous  internal state flows.
+
+
+\subsubsection{Flows}
+They encode state variables, input and output of 
+
+Notion of activation/deactivation for continuous/discrete
+
+Basic types are : \lstinline{text}, \lstinline{boolean}, \lstinline{number} and \lstinline{activation} combined with \lstinline{in} and \lstinline{out}
+
+\Colorbox{red}{TODO:vincent}
+
+\subsubsection{Interaction Operators}
+Corresponding to equations
+
+\Colorbox{red}{TODO:vincent}
+
+\subsubsection{Interaction components}
+
+\Colorbox{red}{TODO:vincent}
+
+\subsubsection{Assembling interaction components}
+Here we show how interaction components are assembled and reused to build a new interaction component
+
+
+\Colorbox{red}{TODO:vincent}
+
+
+
+
+
+\subsection{Syntax}
+
+LIDL is very general, and so is its syntax. The syntax use lots of parentheses, which is a solution to two contradictory requirements: \textbf{REQ2} and \textbf{REQ3}. The syntax of LIDL can be decomposed into different parts: 
+
+\Colorbox{green}{On peut enlever une grande partie de ce qui va de là...}
+
+
+\subsubsection{Data type definition}
+
+Data type definitions are used to define data types. This is similar to traditional approaches. Here is the extended Backus-Naur form (EBNF) of the data type definition grammar of LIDL:
+
+
+\begin{grammar}
+<type> ::= <type id>
+\alt `[' <type> `]' 
+\alt `(' <type> \{ `,' <type>\} `)' 
+\alt `{' <type field> \{ `,' <type field> \}`}' 
+\alt `|' <type> \{ `,' <type>\} `|' 
+
+<type definition> ::= `type' <type id> `is' <type>
+
+<type field> ::= <field id> `:' <type>
+
+<type id> ::= ? CamelCasedIdentifier ?
+
+<field id> ::= ? CamelCasedIdentifier ?
+\end{grammar}
+
+Example of some simple data type definitions:
+
+\begin{lstlisting}
+type Point2D is {x:number,y:number} //Structure
+type Path2D is [Point2D] //Array of points
+type Geom2D is |Path2D,Point2D| //Union
+\end{lstlisting}
+
+
+
+
+\subsubsection{Interface definition}
+
+Said simply, interfaces are ``data types with a data flow direction", or compositions of these. The user can define custom interfaces, by writing interface definitions. Here is the extended Backus-Naur form (EBNF) of the interface definition grammar of LIDL:
+
+\begin{grammar}
+
+<interface> ::= <type> <direction>
+\alt <interface id>
+\alt `(' <interface> \{ `,' <interface>\} `)' 
+\alt `{' <interface field> \{ `,' <interface field> \}`}' 
+
+<interface definition> ::= `interface' <interface id> `is' <interface>
+
+<interface field> ::= <field id> `:' <interface>
+
+<direction> ::= `in' \alt `out'
+
+<interface id> ::= ? CamelCasedIdentifier ?
+\end{grammar}
+
+Example of some simple interface definitions:
+
+\begin{lstlisting}
+interface TextInput is text in //Text input
+
+interface Joystick is { // A pilot stick 
+	position: Point2D in, 
+	shaker: activation out // with a stick-shaker !
+}
+\end{lstlisting}
+
+
+
+\subsubsection{Interaction definition}
+Interaction definitions are used to define custom interactions. This is similar to the way functions are defined in a functional programming language. The example case should be enough to understand this grammar. Here is the extended Backus Naur form (EBNF) of the interaction definition grammar of LIDL
+
+\begin{grammar}
+
+<interaction definition> ::= `interaction' <interaction signature> `implementing' <interface> `is' <interaction> 
+
+<interaction signature> ::= `(' \{<signature element>\} `)'
+
+<signature element> ::= <word>
+\alt <argument>
+
+<argument> ::= `(' <argument id> `:' <interface>  `)'
+
+<argument id> ::= ? CamelCasedIdentifier ?
+
+<word> ::= ? anything except parentheses ?
+
+\end{grammar}
+
+
+\Colorbox{green}{... jusque là}
+\subsubsection{Interaction expression}
+
+Interaction expressions are used to compose interactions in order to form more complex interaction patterns. This grammar is very simple and will be explained here.
+
+Here is the extended Backus Naur form (EBNF) of the interaction grammar of LIDL
+\begin{grammar}
+<interaction> ::= `(' \{<element>\} `)'
+
+<element> ::= <interaction>
+ \alt <word>
+ 
+<word> ::= ? anything except parentheses ?
+	
+\end{grammar}
+
+Said simply, an interaction is a little sentence between parentheses. The interactions it refers to are also between parentheses. LIDL syntax is made in such a way that every parentheses pair \code{(...)} is an interaction, and reciprocally. Here is an example of an interaction expression:
+
+\begin{lstlisting}
+(when (theButton.click): 
+	(say("hello")to(theUser)) 
+)
+\end{lstlisting}
+
+By looking at this expression, we can count 5 parentheses pairs. So this expressions is composed of 5 different interactions:
+
+\begin{itemize}
+	\item \code{(theButton.click)}: A reference to a click on a button somewhere else in the code.
+	\item \code{("hello")}: The constant text ``hello"
+	\item \code{(theUser)}: A reference to a variable called theUser
+	\item \code{(say("hello")to(theUser))}: An interaction defined somewhere in the code, that says something (here \code{"hello"}) to someone (here \code{theUser}) when it is activated.
+	\item \code{(when(theButton.click):(say("hello")to(theUser)))}: An interaction that activates a behavior (here \code{(say("hello")to(theUser))}) when it is activated and an input signal (here \code{theButton.click}) is activated 
+\end{itemize}
+
+
+
+
+
+
+\subsection{Formal semantics à la Vincent}
+
+\Colorbox{green}{C'est une section fictive ou je (Vincent) vais essayer} 
+
+
+\Colorbox{green}{d'exprimer une sémantique de trace}
+
+
+\Colorbox{green}{(N'essayez pas de comprendre pour le moment)}
+
+
+%%$$\frac{\Sigma \vdash (E) | (a,v)}{\Sigma \vdash (\mbox{isactive}(E)) | (true, a)}$$
+
+
+
+
+
+
+\subsection{Formal semantics}
+We define the actual behaviors of a LIDL interaction system by using a
+semantics of traces that permits to characterize the behaviors of a
+LIDL description in terms of execution traces. Intuitively every
+behavior of a LIDL interaction systems corresponds to the sequences of
+the values each LIDL variable has. These values define a \textit{state} of the
+system and a sequence of states defines a behavior of this system. 
+
+\begin{definition}[Memory]
+Let $I$ a set of identifiers of LIDL. $V$ is a set of values and
+$\bot$ denotes an undefined value. We define $A = \{false,true\}$.
+Every function $\sigma : I \rightarrow A \times (V \cup \{\bot\})$ defines a
+memory of the LIDL interaction system.
+\end{definition}
+Every state of a LIDL interaction system is characterized by a
+memory that gives a  value $\sigma(id)$ to each $id \in I$. This
+value is a pair $(a,v)$ with $ a \in A$ and $v \in (V \cup
+\bot)$ : $a$ indicates if $id$ is \textit{active} or not. If not, $v$ is
+not significant and stays undefined ($v = \bot$). 
+\begin{definition}[Trace]
+An execution trace $\Sigma$ is a non empty, finite or infinite,
+sequence of memories.
+\end{definition} 
+Some  identifiers  play a  particular  role  in the  LIDL  interaction
+systems.  They are used to denote \textit{activation signals} that are
+not valuated.  Their values are in $A \times \{\bot\}$.  By default
+$\forall id  \in I,  \sigma(id) = (false,\bot)$.   In other  words, by
+default, every value is not  active. To become  active and to  get a
+significant data value, a behavior of the LIDL interaction system must be
+activated.
+
+\subsubsection{Semantics of LIDL expressions over finite traces}
+The value (in $A \times (V \cup \{\bot\})$ of a LIDL expression $E$
+over a finite trace $\Sigma = (\sigma_0,\ldots,\sigma_n)$ is defined
+by induction on the structure of $E$. We denote $\Sigma \vdash E |
+(a,v)$ to mean that $E$ has the value $(a,v)$ ($a \in A$ and $v \in  A
+\times (V \cup \{\bot\})$) over $\Sigma$. \\
+\noindent
+\textbf{Constants values.} If k denotes a bool, number or text constant
+then $\Sigma \vdash$ (\mbox{k})$ | (true,k)$. A particular activation
+constant, $active$ is defined in LIDL such that $\Sigma \vdash (active) | (true, \bot)$.\\
+\noindent
+\textbf{Variables values.} $(\sigma_0,\ldots,\sigma_n) \vdash (x) |
+\sigma_n(x)$ if $x$ denotes a variable in the language.\\
+\noindent
+\textbf{Boolean and arithemtic operators.} If $E_1,\ldots,E_m$ denote
+expressions in LIDL and $\star$ is a boolean or arithmetic operator
+then $$\frac{\Sigma \vdash (E_1) | (a_1,v_1),\ldots,\Sigma \vdash (E_m) |
+  (a_m,v_m)}{\Sigma \vdash \star(E_1,\ldots,E_m) |
+  (\bigwedge_{i=1}^{m}a_i, \star(v_1,\ldots,v_m))}$$\\
+\noindent
+\textbf{Operator previous.} If $E$ denotes an expression in LIDL,
+$$\sigma_0 \vdash (\mbox{previous}(E)) | (false,\bot)$$
+$$\frac{\Sigma
+  \vdash (E) | (a,v)}{\Sigma \cdot \sigma \vdash (\mbox{previous}(E)) | (a,v)}$$\\
+\noindent
+\textbf{Operator isactive.} If $E$ denotes an expression in LIDL,
+$$\frac{\Sigma \vdash (E) | (a,v)}{\Sigma \vdash (\mbox{isactive}(E)) | (true, a)}$$\\
+\noindent
+\textbf{Operator if then else.} If $E_1$ is a boolean expression in
+LIDl and if $E_2$ and $E_3$ are expressions in LIDL,
+$$\frac{\Sigma \vdash (E_1)|(a_1,v_1),\Sigma \vdash (E_2)|(a_2,v_2),
+  \Sigma \vdash (E_3)|(a_3,v_3)}{\Sigma \vdash \mbox{if} (E_1)
+  \mbox{then} (E_2) \mbox{else} (E_3) | 
+   \left\{
+     \begin{array}{ll}
+       (false, \bot) & \mbox{if} a_1 = false \\
+       (a_2,v_2) & \mbox{if} (a_1,v_1) = (true,true)\\
+       (a_3,v_3) & \mbox{if} (a_1,v_1) = (true,false)
+     \end{array}
+     \right.
+}
+$$
+\subsubsection{Compatibility  of   an  infinite  trace  with   a  LIDL
+description} 
+
+Behaviors that  are described by LIDL interactions are  infinite. The
+semantics of a LIDL description corresponds to the set of the infinite
+execution traces that  are compatible with it. We  note $\Sigma \vdash
+D$ the  fact that an  infinite trace  $\Sigma$ is compatible  with the
+LIDL description $D$.
+
+An infinite trace denotes a behavior of $D$ if and only if every
+finite prefix of $D$ is compatible with $D$ :
+$$(\sigma_0,\ldots,\sigma_n,\ldots) \vdash D \Longleftrightarrow
+\forall n \geq 0 , (\sigma_0,\ldots,\sigma_n) \vdash D$$
+
+The compatibility of finite traces with $D$ is defined by the
+following rules. A LIDL description is considered as  (and can be
+unfold in) a set of elementary interactions, depicted by equations, regardless of its syntactical
+structure. LIDL is a declarative language so the order of the equations is unimportant. 
+
+A new identifier $\langle (interaction) \rangle
+\in I$ is associated with every elementary interaction $(interaction)$. $\langle (interaction) \rangle$ denotes the activation signals
+that trigger $(interaction)$ : $\sigma(\langle (interaction)
+\rangle) \in A \times \{\bot\}$.\\
+\noindent
+\textbf{Compatibility with an equation.} If x is a LIDL identifier, E
+is a LIDL expression :
+$$\frac{(\sigma_0,\ldots,\sigma_n) \vdash \mbox{(E)} | (a,v),
+  \sigma_n(\mbox{x}) =
+  (a,v), \sigma_n(\langle \mbox{(x=E)} \rangle) = (true, \bot)}
+{(\sigma_0,\ldots,\sigma_n) \vdash \mbox{(x = E)}}
+$$\\
+\noindent
+\textbf{Compatibility with composition.} A set of interactions defines
+a new interaction. If $int_1$ and $int_2$ are two interactions
+$$\frac{\Sigma \vdash (int_1),\Sigma \vdash (int_2) }
+{\Sigma \vdash ((int_1) (int_2))}$$\\
+\noindent
+\textbf{Compatibility with a guarded interaction.} Let G  an activation
+identifier in LIDL ($\sigma(\mbox{I}) \in A \times \{\bot\}$) and $int$ 
+a LIDL interaction :
+%$$\frac{\begin{array}{c}
+%(\sigma_0,\ldots,\sigma_n) \vdash (\mbox{G}) | (true,\bot),
+%\sigma_n(\langle (\mbox{when} (\mbox{G}) \mbox{:} (int) ) \rangle) =
+%(true, \bot),\\
+% (\sigma_0,\ldots,\sigma_n) \vdash \langle (int) \rangle |
+%(true,\bot)
+%\end{array}}
+%{(\sigma_0,\ldots,\sigma_n) \vdash (\mbox{when} (\mbox{G}) \mbox{:}
+%  (int) )} 
+%$$
+$$\frac{
+\begin{array}{c}
+(\sigma_n(\mbox{G}) =(true,\bot),
+\sigma_n(\langle (\mbox{when} (\mbox{G}) \mbox{:} (int) ) \rangle) =
+(true, \bot),\\
+ \sigma_n(\langle (int) \rangle) = (true,\bot)
+\end{array}
+}
+{(\sigma_0,\ldots,\sigma_n) \vdash (\mbox{when} (\mbox{G}) \mbox{:}
+  (int) )} 
+$$

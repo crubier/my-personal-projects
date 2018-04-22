@@ -1,0 +1,21 @@
+\tikzstyle{processstep}=[draw,text width=3cm,text centered,minimum width=3cm,minimum height=1cm]
+\tikzstyle{orientedarc}=[->,>=latex]
+
+\begin{tikzpicture}
+
+\node[processstep] (S1) at (-6cm,6cm) {Concept};
+\node[processstep] (S2) at (-4cm,4cm) {Requirements};
+\node[processstep] (S3) at (-2cm,2cm) {Design};
+\node[processstep] (S4) at (0cm,0cm) {Implementation};
+\node[processstep] (S5) at (2cm,2cm) {Verification};
+\node[processstep] (S6) at (4cm,4cm) {Validation};
+\node[processstep] (S7) at (6cm,6cm) {Operation};
+
+\draw[orientedarc] (S1) -- (S2) ;
+\draw[orientedarc] (S2) -- (S3) ;
+\draw[orientedarc] (S3) -- (S4) ;
+\draw[orientedarc] (S4) -- (S5) ;
+\draw[orientedarc] (S5) -- (S6) ;
+\draw[orientedarc] (S6) -- (S7) ;
+
+\end{tikzpicture}

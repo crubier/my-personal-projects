@@ -1,0 +1,306 @@
+\documentclass{sigchi}
+
+% Use this command to override the default ACM copyright statement
+% (e.g. for preprints).  Consult the conference website for the
+% camera-ready copyright statement.
+
+%% EXAMPLE BEGIN -- HOW TO OVERRIDE THE DEFAULT COPYRIGHT STRIP -- (July 22, 2013 - Paul Baumann)
+% \toappear{Permission to make digital or hard copies of all or part of this work for personal or classroom use is      granted without fee provided that copies are not made or distributed for profit or commercial advantage and that copies bear this notice and the full citation on the first page. Copyrights for components of this work owned by others than ACM must be honored. Abstracting with credit is permitted. To copy otherwise, or republish, to post on servers or to redistribute to lists, requires prior specific permission and/or a fee. Request permissions from permissions@acm.org. \\
+% {\emph{CHI'14}}, April 26--May 1, 2014, Toronto, Canada. \\
+% Copyright \copyright~2014 ACM ISBN/14/04...\$15.00. \\
+% DOI string from ACM form confirmation}
+%% EXAMPLE END -- HOW TO OVERRIDE THE DEFAULT COPYRIGHT STRIP -- (July 22, 2013 - Paul Baumann)
+
+% Arabic page numbers for submission.  Remove this line to eliminate
+% page numbers for the camera ready copy 
+% \pagenumbering{arabic}
+
+% Load basic packages
+\usepackage{balance}  % to better equalize the last page
+\usepackage{graphics} % for EPS, load graphicx instead 
+%\usepackage[T1]{fontenc}
+\usepackage{txfonts}
+\usepackage{times}    % comment if you want LaTeX's default font
+\usepackage[pdftex]{hyperref}
+% \usepackage{url}      % llt: nicely formatted URLs
+\usepackage{color}
+\usepackage{textcomp}
+\usepackage{booktabs}
+\usepackage{ccicons}
+\usepackage{todonotes}
+\usepackage{tabularx}
+\usepackage[utf8]{inputenc}
+
+% llt: Define a global style for URLs, rather that the default one
+\makeatletter
+\def\url@leostyle{%
+  \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\small\bf\ttfamily}}}
+\makeatother
+\urlstyle{leo}
+
+% To make various LaTeX processors do the right thing with page size.
+\def\pprw{8.5in}
+\def\pprh{11in}
+\special{papersize=\pprw,\pprh}
+\setlength{\paperwidth}{\pprw}
+\setlength{\paperheight}{\pprh}
+\setlength{\pdfpagewidth}{\pprw}
+\setlength{\pdfpageheight}{\pprh}
+
+% Make sure hyperref comes last of your loaded packages, to give it a
+% fighting chance of not being over-written, since its job is to
+% redefine many LaTeX commands.
+\definecolor{linkColor}{RGB}{6,125,233}
+\hypersetup{%
+  pdftitle={SIGCHI Conference Proceedings Format},
+  pdfauthor={LaTeX},
+  pdfkeywords={SIGCHI, proceedings, archival format},
+  bookmarksnumbered,
+  pdfstartview={FitH},
+  colorlinks,
+  citecolor=black,
+  filecolor=black,
+  linkcolor=black,
+  urlcolor=linkColor,
+  breaklinks=true,
+}
+
+% create a shortcut to typeset table headings
+% \newcommand\tabhead[1]{\small\textbf{#1}}
+
+% End of preamble. Here it comes the document.
+\begin{document}
+
+\title{The LIDL Interaction Description Language}
+
+\numberofauthors{3}
+\author{%
+  \alignauthor{1st Author Name\\
+    \affaddr{Affiliation}\\
+    \affaddr{City, Country}\\
+    \email{e-mail address}}\\
+  \alignauthor{2nd Author Name\\
+    \affaddr{Affiliation}\\
+    \affaddr{City, Country}\\
+    \email{e-mail address}}\\
+  \alignauthor{3rd Author Name\\
+    \affaddr{Affiliation}\\
+    \affaddr{City, Country}\\
+    \email{e-mail address}}\\
+}
+
+\maketitle
+
+\begin{abstract}
+  UPDATED---\today. This sample paper describes the formatting
+  requirements for SIGCHI conference proceedings, and offers
+  recommendations on writing for the worldwide SIGCHI
+  readership. Please review this document even if you have submitted
+  to SIGCHI conferences before, as some format details have changed
+  relative to previous years. Abstracts should be about 150 words and
+  are required.
+\end{abstract}
+
+\category{H.5.m.}{Information Interfaces and Presentation
+  (e.g. HCI)}{Miscellaneous} \category{See
+  \url{http://acm.org/about/class/1998/} for the full list of ACM
+  classifiers. This section is required.}{}{}
+
+\keywords{Authors' choice; of terms; separated; by semi\-colons;
+  commas, within terms only; this section is required.}
+
+\section{Proposition de plan}
+
+\begin{enumerate}
+\item Introduction
+\item Motivation pour un langage formel spécifique à l'interaction critique
+\item Présentation du langage LIDL
+  \begin{enumerate}
+  \item Présentation informelle
+  \item Flots et activations
+  \item Variables, expressions et équations (affectations)
+  \item Structure de programmes LIDL
+  \item Utilisation du langage LIDL
+    \begin{enumerate}
+    \item Compilation en graphe de calcul et de simulation
+    \item Vérification, preuve
+    \item Génration de code
+    \end{enumerate}
+  \end{enumerate}
+\item Exemple de modèle LIDL : cas d'étude
+\item Conclusion
+\end{enumerate}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The need for a formal language dedicated to critical interactive systems}
+
+
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth,height=\linewidth,keepaspectratio]{figures/twoClashingDomains.pdf}
+\caption{Critial UIs development is as the intersection of two clashing domains.} 
+\label{fig:twoClashingDomains}
+\end{figure}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The LIDL language}
+
+It seems to us that the current state of the art provides no complete solution to the need described in the previous section. The aim of LIDL is to provide a language and tools to deal with this set of problems.
+
+\subsection{Informal presentation}
+
+While most programming languages focus on the description of \emph{computations}, the main idea behind LIDL is to describe \emph{interactions}. This is quite a paradigm shift in the sense that many experienced programmers will at first be surprised by the language semantics. However, we argue that LIDL provides an easier way to specify interactive systems, since its main concepts (interfaces and interactions) are more relevant to the field of interactive systems than other programming languages concepts (objects, functions, algorithms...)
+
+LIDL programs are defined in a declarative manner, and represent interactive systems whose execution is synchronous.
+
+
+
+
+\subsection{Data types and activation}
+
+The first important thing to know about LIDL is the data activation feature. This means that without exception, every piece of data in a LIDL program integrates a notion of activation. The implementation is really simple: \emph{all} LIDL data types are extended with the \emph{inactive} value noted $\bot$. For example, a numeric variable can have different values such as $0$, $1$, $2$, ... and $\bot$.
+
+In the context of interactive systems, the notion of activation makes a lot of sense. Indeed, it is a very natural way to unify many constructions known in the field of interactive systems. Depending on the language or paradigm, these constructions are called the $null$ value, the $maybe$ monad, callback functions, listeners, observers, signal slots...
+
+All these constructions boil down to one unique concept: identify the presence of a piece of data, most of the time a message that has to be received or sent. This is exactly what the data activation feature of LIDL does.
+
+This feature allows to unify and mix two different paradigms for interactive systems: flow-based representations and event-based representations. Flow-based representations maps well to systems whose data is defined on continuous time intervals, such as the pressure inside a reactor. Examples of flow-based representations include Lustre, Scade... On the other hand, event-based systems maps well to systems whose data is defined on discrete time sets, such as clicks on a button. Examples of event-based representations include Java Swing...
+
+Several approaches tried to bridge the gap between flow and event representations \cite{abowd22integrating}. LIDL's data activation is an elegant way to do so. Very simplistically, a flow is represented in LIDL by a piece of data which is almost always active. For example, through an execution, the reactor pressure would have the following trace: $\{ 451, 453, 452, 450, 454, ...\}$. On the other hand an event is represented by a piece of data which is almost always inactive. For example, through an execution, the user click on a button would have the following trace: $\{ \bot, \bot, \bot, click, \bot, ...  \}$
+
+Base data types:
+
+\begin{tabular}{l|l}
+  Type & Example values \\
+  \hline
+  \texttt{Activation}& $\bot$, $\top$ \\
+  \texttt{Boolean}&  $\bot$, $true$, $false$ \\
+  \texttt{Number}&  $\bot$, $0$, $1$, $3.14159$ \\
+  \texttt{Text}&  $\bot$, $"Foo"$, $"Bar"$, $"Baz"$ \\
+\end{tabular}
+
+The notion of activation does not break composability. Here is a compound data type expressed in LIDL : \texttt{\{x:Number,y:Number\}}. This data type is a labelled product data type, similar to a \texttt{struct} of the C language. Here are a few example of values of this type: \texttt{\{x:3,y:2\}}, \texttt{\{x:$\bot$,y:3\}}, \texttt{$\bot$}.
+
+
+
+
+\subsection{Interfaces}
+
+Typed programming languages rely on data types to check the composability of functions and operations. This is convenient when the goal is to describe \emph{computations}. But this is not enough when we try to describe \emph{interactions}.  When composing interactions, another very important aspect which is almost never explicitely stated is the \emph{direction} data goes in. 
+
+As an answer to that matter, an important feature of LIDL is that it is based on the notion of \emph{interface} instead of the notion of data type. An interface is the combination of two orthogonal informations: the data type and the data direction.
+
+The notion of data type is well known to most programmers. The notion of data direction is also quite easy to understand: the data can either go \emph{in} or go \emph{out}. The notion of interface is hence quite easy to catch, here are a few example of interfaces: \texttt{Number in}, \texttt{Boolean out}, \texttt{Text in}...
+
+The same way compound data types exist, one can express compound interfaces. Here is the compound interface that represent an abstract button: \texttt{\{Label: Text out, Click: Activation in\}}. More complex interfaces can be specified this way.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth,height=\linewidth,keepaspectratio]{figures/example1.pdf}
+\caption{The structure of the example expression. Arrows represent the data flow direction} 
+\label{fig:example1}
+\end{figure}
+
+
+\subsection{Interactions}
+
+LIDL is a language to describe interactions. The interaction language has a simple syntax, which uses a lot of parentheses. An interaction is a phrase between parentheses, and it composes trivially. Here is our example interaction:
+
+\texttt{(when(not(powered))then(turn(light)red))} 
+
+This interaction is composed of several expressions, as shown in Figure \ref{fig:example1}.
+
+The semantics of interactions is the most challenging part of LIDL for newcomers, because it is the most disruptive part of the language, since it leverages interfaces and the notion of activation. 
+
+Each interaction (i.e. each pair of parentheses) is attributed a value at each execution step.  Depending of the interface of the interface of the interaction, this value can be defined by the interaction itself (\texttt{out}) or by an external interaction (\texttt{in}). 
+
+Interactions that comply to the \texttt{out} interface behave like functions. They output a value, based on their arguments. For example \texttt{(not(powered))} receives a boolean \texttt{(powered)} and outputs a boolean that is the negation of \texttt{(powered)}.
+
+\begin{tabular}{c|c}
+  \texttt{(powered)}& \texttt{(not(powered))} \\
+  \hline
+  $true$& $false$ \\
+  $false$&  $true$\\
+  $\bot$ & $\bot$
+\end{tabular}
+
+
+On the other hand, interactions that comply to the \texttt{in} interface behave the opposite way, which is completely foreign to programmers. Imagine a function that does not \emph{return} a value based on the arguments it receives, but that \emph{receive} a value, and returns values to its arguments. For example \texttt{(turn(light)red)} receives an activation, and outputs a colour \texttt{light} which is red when the interaction is active, or $\bot$ the rest of the time.
+
+
+
+
+\begin{tabular}{c|c}
+  \texttt{(turn(light)red)} &\texttt{(light)} \\
+  \hline
+  $\top$&  $red$ \\
+  $\bot$ & $\bot$
+\end{tabular}
+
+
+\subsection{LIDL programs structure}
+
+LIDL programs structure is very similar to functional programs structure. A LIDL program is nothing more than a LIDL expression. 
+
+The same way that functions signatures are useful to define functions, Interactions have signatures. As an example, here is the signature of our example interaction:
+
+\texttt{(when (condition:Boolean in) then (effect:Activation out)):Activation in}
+
+A LIDL programmer composes simple interactions in order to make more complex interactions, ending with the final interaction: the LIDL program itself. 
+
+
+\subsection{Use of LIDL programs}
+
+Compilation into a directed acyclic graph structure.
+
+The compiler first expands interactions into base interactions, using definitions. This results in a directed acyclic graph. As an example, Figure \ref{fig:example1comp} shows the graph associated with our example expression.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth,height=\linewidth,keepaspectratio]{figures/example1comp.pdf}
+\caption{The example expression compiled into a directed acyclic graph} 
+\label{fig:example1comp}
+\end{figure}
+
+This graph representation is in fact Single Static Assignement form \cite{cytron91efficiently} of the executable implementing the specified interaction. This form allows different uses such as optimisations, verification, proofs and code generation.
+
+Optimisation can be performed by analysing the graph representation, and generate different execution schemes depending on the requested inputs and outputs, using techniques such as push (data driven evaluation) and pull (demand driven evaluation) as applied to functional reactive programming  in \cite{Elliott:2009:PFR:1596638.1596643}.
+
+Verification and proof can be performed by transforming intermediate representation into state machines. The graph representation exactly describes the transition function of such a system, while the state vector is easily derived. Indeed the only way for data to persist from one execution step to the next is to be part of a \texttt{previous} interaction. Hence, the state vector is \emph{exactly} the set of interactions which are included in a \texttt{previous} interaction.
+
+Code generation has two main objectives: prototype code generation, and production code generation. Both are similar in nature, and are made relatively easy thanks to the intermediate representation.  The target languages only have to provide a few features: compound data types, functions, and data types corresponding to LIDL basic data types.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Use case}
+
+\subsection{Interfaces}
+
+\subsection{Interactions}
+
+
+
+
+% REFERENCES FORMAT
+% References must be the same font size as other body text.
+\bibliographystyle{SIGCHI-Reference-Format}
+\bibliography{bibliography.bib}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
